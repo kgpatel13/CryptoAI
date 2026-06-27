@@ -1,0 +1,9 @@
+web3
+requests
+pandas
+python-dotenv
+tabulate
+rich
+fastapi
+uvicorn
+pydantic
