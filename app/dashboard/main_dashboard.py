@@ -8,6 +8,7 @@ from app.registry.dexes import get_dexes_for_chain
 from app.registry.pairs import get_pairs_for_chain
 from app.marketdata.market_service import MarketDataService
 from app.quotes.quote_service import QuoteService
+from app.scanner.opportunity_scanner import OpportunityScanner
 
 
 st.set_page_config(
@@ -24,27 +25,30 @@ st.caption(
 
 @st.cache_data(ttl=30)
 def load_chain_health():
-    service = ChainHealthService()
-    return service.check_all_chains()
+    return ChainHealthService().check_all_chains()
 
 
 @st.cache_data(ttl=60)
 def load_market_prices():
-    service = MarketDataService()
-    return service.get_registered_asset_prices()
+    return MarketDataService().get_registered_asset_prices()
 
 
 @st.cache_data(ttl=20)
 def load_dex_quotes():
-    service = QuoteService()
-    return service.get_base_quotes()
+    return QuoteService().get_base_quotes()
 
 
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+@st.cache_data(ttl=20)
+def load_opportunities():
+    return OpportunityScanner().scan_base_gross_opportunities()
+
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
         "🔁 DEX Quotes",
+        "🚨 Opportunities",
         "🪙 Assets",
         "🏦 DEX Registry",
         "📈 Roadmap",
@@ -55,10 +59,8 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
 with tab1:
     st.subheader("Multi-Chain RPC Health")
 
-    results = load_chain_health()
-
     rows = []
-    for result in results:
+    for result in load_chain_health():
         rows.append(
             {
                 "Chain": result.chain_name,
@@ -73,17 +75,16 @@ with tab1:
         )
 
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info("This confirms our platform can read live blockchain data from multiple networks.")
+    st.info("This confirms CryptoAI can read live blockchain data from multiple networks.")
 
 
 with tab2:
     st.subheader("Live Market Prices")
 
     try:
-        prices = load_market_prices()
-
         price_rows = []
-        for price in prices:
+
+        for price in load_market_prices():
             price_rows.append(
                 {
                     "Asset": price.name,
@@ -115,10 +116,9 @@ with tab3:
     st.subheader("Live DEX Quotes")
 
     try:
-        quotes = load_dex_quotes()
-
         quote_rows = []
-        for quote in quotes:
+
+        for quote in load_dex_quotes():
             quote_rows.append(
                 {
                     "Chain": quote.chain,
@@ -135,13 +135,41 @@ with tab3:
             )
 
         st.dataframe(pd.DataFrame(quote_rows), use_container_width=True)
-        st.info("These are live on-chain DEX quotes from Base Aerodrome.")
+        st.info("These are live on-chain DEX quotes from Base Aerodrome and Uniswap.")
 
     except Exception as exc:
         st.error(f"Failed to load DEX quotes: {exc}")
 
 
 with tab4:
+    st.subheader("Gross Opportunity Scanner")
+
+    try:
+        rows = []
+
+        for opp in load_opportunities():
+            rows.append(
+                {
+                    "Chain": opp.chain,
+                    "Pair": opp.pair,
+                    "Buy DEX": opp.best_buy_dex,
+                    "Sell DEX": opp.best_sell_dex,
+                    "Buy Price": float(opp.buy_price),
+                    "Sell Price": float(opp.sell_price),
+                    "Gross Spread %": float(opp.gross_spread_pct),
+                }
+            )
+
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.warning(
+            "Gross spread only. This does NOT include gas, slippage, MEV, DEX fees, or execution risk yet."
+        )
+
+    except Exception as exc:
+        st.error(f"Failed to scan opportunities: {exc}")
+
+
+with tab5:
     st.subheader("Token Registry")
 
     token_rows = []
@@ -176,10 +204,11 @@ with tab4:
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 
-with tab5:
+with tab6:
     st.subheader("DEX Registry")
 
     dex_rows = []
+
     for chain_key, chain in SUPPORTED_CHAINS.items():
         for dex in get_dexes_for_chain(chain_key):
             dex_rows.append(
@@ -195,7 +224,7 @@ with tab5:
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
 
 
-with tab6:
+with tab7:
     st.subheader("CryptoAI Roadmap")
 
     st.markdown(
@@ -205,12 +234,13 @@ with tab6:
         ✅ M2 — Token, DEX, and pair registry  
         ✅ M3 — Streamlit dashboard foundation  
         ✅ M4 — Live market data engine  
-        🔄 M5 — Live DEX quote engine  
-        🔜 M6 — Opportunity scanner  
-        🔜 M7 — AI ranking engine  
-        🔜 M8 — Paper trading  
-        🔜 M9 — Backtesting  
-        🔜 M10 — Live trading controls  
+        ✅ M5 — Live DEX quote engine  
+        🔄 M6 — Gross opportunity scanner  
+        🔜 M7 — Net opportunity scanner  
+        🔜 M8 — AI ranking engine  
+        🔜 M9 — Paper trading  
+        🔜 M10 — Backtesting  
+        🔜 M11 — Live trading controls  
         """
     )
 
