@@ -11,10 +11,12 @@ class PaperReportService:
         self.data_dir = Path("data")
         self.report_dir = Path("reports")
         self.paper_orders_file = self.data_dir / "paper_orders.jsonl"
+        self.opportunity_file = self.data_dir / "opportunity_decisions.jsonl"
         self.report_dir.mkdir(exist_ok=True)
 
     def generate(self) -> dict:
         orders = self._read_jsonl(self.paper_orders_file)
+        opportunities = self._read_jsonl(self.opportunity_file)
 
         filled = [o for o in orders if str(o.get("status", "")).upper() == "FILLED"]
         skipped = [o for o in orders if str(o.get("status", "")).upper() == "SKIPPED"]
@@ -22,26 +24,34 @@ class PaperReportService:
 
         total_notional = sum(self._decimal(o.get("notional_usd", "0")) for o in filled)
 
-        by_pair: dict[str, int] = {}
-        for order in orders:
-            pair = str(order.get("pair", "-"))
-            by_pair[pair] = by_pair.get(pair, 0) + 1
+        decision_counts = {}
+        for row in opportunities:
+            decision = str(row.get("decision", "UNKNOWN"))
+            decision_counts[decision] = decision_counts.get(decision, 0) + 1
+
+        skip_reasons = {}
+        for order in skipped:
+            reason = str(order.get("reason", "UNKNOWN"))
+            skip_reasons[reason] = skip_reasons.get(reason, 0) + 1
 
         report = {
             "generated_at": self._utc_now(),
             "mode": "paper",
             "live_trading": "disabled",
+            "total_opportunity_decisions": len(opportunities),
+            "opportunity_decision_counts": decision_counts,
             "total_orders": len(orders),
             "filled_orders": len(filled),
             "skipped_orders": len(skipped),
             "rejected_orders": len(rejected),
             "total_filled_notional_usd": str(total_notional),
-            "pairs_seen": by_pair,
+            "skip_reasons": skip_reasons,
+            "latest_opportunities": opportunities[-20:],
             "latest_orders": orders[-20:],
             "notes": [
                 "This is simulated paper-trading output only.",
                 "No real wallet or exchange order was used.",
-                "P/L is not final until the next ledger/mark-to-market module is added.",
+                "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
             ],
         }
 
@@ -64,33 +74,55 @@ class PaperReportService:
             "",
             f"- Mode: `{report['mode']}`",
             f"- Live trading: `{report['live_trading']}`",
+            f"- Opportunity decisions: `{report['total_opportunity_decisions']}`",
             f"- Total orders: `{report['total_orders']}`",
             f"- Filled orders: `{report['filled_orders']}`",
             f"- Skipped orders: `{report['skipped_orders']}`",
             f"- Rejected orders: `{report['rejected_orders']}`",
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
             "",
-            "## Pairs Seen",
+            "## Opportunity Decision Counts",
             "",
         ]
 
-        if report["pairs_seen"]:
-            for pair, count in report["pairs_seen"].items():
-                lines.append(f"- `{pair}`: {count}")
+        if report["opportunity_decision_counts"]:
+            for decision, count in report["opportunity_decision_counts"].items():
+                lines.append(f"- `{decision}`: {count}")
         else:
-            lines.append("- No pairs seen yet.")
+            lines.append("- No opportunity decisions found.")
+
+        lines += ["", "## Skip Reasons", ""]
+        if report["skip_reasons"]:
+            for reason, count in report["skip_reasons"].items():
+                lines.append(f"- `{reason}`: {count}")
+        else:
+            lines.append("- No skipped orders.")
+
+        lines += ["", "## Latest Opportunities", ""]
+        opps = report["latest_opportunities"]
+        if opps:
+            lines.append("| Pair | Net % | Score | Decision | Reason |")
+            lines.append("|---|---:|---:|---|---|")
+            for opp in opps:
+                reason = str(opp.get("reason", "-")).replace("|", "/")
+                lines.append(
+                    f"| {opp.get('pair', '-')} | {opp.get('estimated_net_edge_pct', '-')} | "
+                    f"{opp.get('readiness_score', '-')} | {opp.get('decision', '-')} | {reason} |"
+                )
+        else:
+            lines.append("No opportunity rows found.")
 
         lines += ["", "## Latest Orders", ""]
-
-        latest = report["latest_orders"]
-        if latest:
-            lines.append("| Time | Pair | Status | Notional | Reason |")
-            lines.append("|---|---|---|---:|---|")
-            for order in latest:
+        orders = report["latest_orders"]
+        if orders:
+            lines.append("| Time | Pair | Status | Notional | Edge % | Reason |")
+            lines.append("|---|---|---|---:|---:|---|")
+            for order in orders:
                 reason = str(order.get("reason", "-")).replace("|", "/")
                 lines.append(
                     f"| {order.get('timestamp', '-')} | {order.get('pair', '-')} | "
-                    f"{order.get('status', '-')} | {order.get('notional_usd', '-')} | {reason} |"
+                    f"{order.get('status', '-')} | {order.get('notional_usd', '-')} | "
+                    f"{order.get('estimated_edge_pct', '-')} | {reason} |"
                 )
         else:
             lines.append("No paper orders saved yet.")
@@ -106,7 +138,7 @@ class PaperReportService:
         if not path.exists():
             return []
         rows = []
-        for line in path.read_text(encoding="utf-8").splitlines():
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
             if not line.strip():
                 continue
             try:

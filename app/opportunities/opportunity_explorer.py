@@ -16,11 +16,7 @@ except Exception:
 
 
 class OpportunityExplorerService:
-    """Strategy-debugging layer.
-
-    This service explains why an opportunity is BUY, WATCH, or SKIP.
-    It is intentionally conservative and paper-only.
-    """
+    """Explains why opportunities are BUY / WATCH / SKIP."""
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -29,7 +25,6 @@ class OpportunityExplorerService:
         self.report_dir.mkdir(exist_ok=True)
         self.decision_file = self.data_dir / "opportunity_decisions.jsonl"
 
-        # Conservative defaults. We can tune these after seeing reports.
         self.gas_buffer_pct = Decimal("0.08")
         self.fee_slippage_buffer_pct = Decimal("0.22")
         self.min_buy_net_edge_pct = Decimal("0.30")
@@ -46,7 +41,7 @@ class OpportunityExplorerService:
         if not self.decision_file.exists():
             return []
         rows = []
-        for line in self.decision_file.read_text(encoding="utf-8").splitlines():
+        for line in self.decision_file.read_text(encoding="utf-8", errors="replace").splitlines():
             if not line.strip():
                 continue
             try:
@@ -65,14 +60,16 @@ class OpportunityExplorerService:
 
     def _build_decisions_from_quotes(self, quotes: list) -> list[OpportunityDecision]:
         valid_quotes = []
+        rejected_count = 0
+
         for q in quotes:
             price = self._to_decimal(getattr(q, "price", None))
             error = getattr(q, "error", None)
             if price is None or price <= 0 or error:
+                rejected_count += 1
                 continue
             valid_quotes.append(q)
 
-        # Group quotes by token pair.
         groups: dict[tuple[str, str, str], list] = {}
         for q in valid_quotes:
             chain = str(getattr(q, "chain", "base"))
@@ -99,21 +96,21 @@ class OpportunityExplorerService:
             buy = sorted_quotes[0]
             sell = sorted_quotes[-1]
 
-            buy_price = self._to_decimal(getattr(buy, "price", None))
-            sell_price = self._to_decimal(getattr(sell, "price", None))
-
             decisions.append(
                 self._compare_sources(
                     chain=chain,
                     pair=f"{token_in}/{token_out}",
                     buy_source=str(getattr(buy, "dex", "-")),
                     sell_source=str(getattr(sell, "dex", "-")),
-                    buy_price=buy_price,
-                    sell_price=sell_price,
+                    buy_price=self._to_decimal(getattr(buy, "price", None)),
+                    sell_price=self._to_decimal(getattr(sell, "price", None)),
                 )
             )
 
         if not decisions:
+            reason = "No comparable valid DEX quotes were available."
+            if rejected_count:
+                reason += f" Rejected invalid/error quotes: {rejected_count}."
             decisions.append(
                 OpportunityDecision(
                     opportunity_id=str(uuid4())[:10],
@@ -130,19 +127,13 @@ class OpportunityExplorerService:
                     estimated_net_edge_pct=None,
                     readiness_score=0,
                     decision=TradeDecision.SKIP,
-                    reason="No comparable valid DEX quotes were available.",
+                    reason=reason,
                 )
             )
 
         return decisions
 
-    def _single_source_decision(
-        self,
-        chain: str,
-        pair: str,
-        source: str,
-        price: Decimal | None,
-    ) -> OpportunityDecision:
+    def _single_source_decision(self, chain: str, pair: str, source: str, price: Decimal | None) -> OpportunityDecision:
         return OpportunityDecision(
             opportunity_id=str(uuid4())[:10],
             chain=chain,
@@ -161,15 +152,7 @@ class OpportunityExplorerService:
             reason="Only one valid quote source was available. Need at least two sources to compare.",
         )
 
-    def _compare_sources(
-        self,
-        chain: str,
-        pair: str,
-        buy_source: str,
-        sell_source: str,
-        buy_price: Decimal | None,
-        sell_price: Decimal | None,
-    ) -> OpportunityDecision:
+    def _compare_sources(self, chain: str, pair: str, buy_source: str, sell_source: str, buy_price: Decimal | None, sell_price: Decimal | None) -> OpportunityDecision:
         total_cost = self.gas_buffer_pct + self.fee_slippage_buffer_pct
 
         if buy_price is None or sell_price is None or buy_price <= 0:
@@ -197,22 +180,13 @@ class OpportunityExplorerService:
 
         if net >= self.min_buy_net_edge_pct:
             decision = TradeDecision.BUY
-            reason = (
-                f"Estimated net edge {net:.4f}% is above BUY threshold "
-                f"{self.min_buy_net_edge_pct}%."
-            )
+            reason = f"Estimated net edge {net:.4f}% is above BUY threshold {self.min_buy_net_edge_pct}%."
         elif net >= self.watch_net_edge_pct:
             decision = TradeDecision.WATCH
-            reason = (
-                f"Estimated net edge {net:.4f}% is positive but below BUY threshold "
-                f"{self.min_buy_net_edge_pct}%."
-            )
+            reason = f"Estimated net edge {net:.4f}% is positive but below BUY threshold {self.min_buy_net_edge_pct}%."
         else:
             decision = TradeDecision.SKIP
-            reason = (
-                f"Estimated net edge {net:.4f}% is too low after cost buffer "
-                f"{total_cost}%."
-            )
+            reason = f"Estimated net edge {net:.4f}% is too low after cost buffer {total_cost}%."
 
         return OpportunityDecision(
             opportunity_id=str(uuid4())[:10],
@@ -252,8 +226,7 @@ class OpportunityExplorerService:
     def _persist(self, decisions: list[OpportunityDecision]) -> None:
         with self.decision_file.open("a", encoding="utf-8") as fh:
             for d in decisions:
-                payload = self._serialize(d)
-                fh.write(json.dumps(payload) + "\n")
+                fh.write(json.dumps(self._serialize(d)) + "\n")
 
     def _write_markdown(self, decisions: list[OpportunityDecision]) -> None:
         path = self.report_dir / "opportunity_explorer.md"
