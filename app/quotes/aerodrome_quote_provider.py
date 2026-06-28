@@ -6,6 +6,7 @@ from app.blockchain.chains import SUPPORTED_CHAINS
 from app.blockchain.rpc_client import RpcClient
 from app.quotes.abis import AERODROME_ROUTER_ABI
 from app.quotes.models import DexQuote
+from app.quotes.provider import QuoteProvider
 from app.registry.tokens import get_token
 
 
@@ -13,7 +14,10 @@ AERODROME_ROUTER = "0xcF77a3Ba9A5CA399B7c97c74d54e5bB28Aac43B9"
 AERODROME_FACTORY = "0x420dd381b31aef6683db6b902084cb0ffece40da"
 
 
-class AerodromeQuoteProvider:
+class AerodromeQuoteProvider(QuoteProvider):
+    chain = "base"
+    dex_name = "Aerodrome"
+
     def __init__(self) -> None:
         chain_config = SUPPORTED_CHAINS["base"]
         self.client = RpcClient(chain_config)
@@ -28,6 +32,19 @@ class AerodromeQuoteProvider:
         token_in_symbol: str,
         token_out_symbol: str,
         amount_in: Decimal,
+    ) -> DexQuote:
+        return self._get_quote(
+            token_in_symbol=token_in_symbol,
+            token_out_symbol=token_out_symbol,
+            amount_in=amount_in,
+            stable=False,
+        )
+
+    def _get_quote(
+        self,
+        token_in_symbol: str,
+        token_out_symbol: str,
+        amount_in: Decimal,
         stable: bool = False,
     ) -> DexQuote:
         token_in = get_token("base", token_in_symbol)
@@ -35,8 +52,8 @@ class AerodromeQuoteProvider:
 
         if token_in is None or token_out is None:
             return DexQuote(
-                chain="base",
-                dex="Aerodrome",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in_symbol,
                 token_out=token_out_symbol,
                 amount_in=amount_in,
@@ -57,18 +74,15 @@ class AerodromeQuoteProvider:
                 )
             ]
 
-            amounts = self.router.functions.getAmountsOut(
-                amount_in_units,
-                routes,
-            ).call()
+            amounts = self.router.functions.getAmountsOut(amount_in_units, routes).call()
 
             amount_out_units = amounts[-1]
             amount_out = Decimal(amount_out_units) / Decimal(10 ** token_out.decimals)
             price = amount_out / amount_in if amount_in > 0 else None
 
             return DexQuote(
-                chain="base",
-                dex="Aerodrome",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in.symbol,
                 token_out=token_out.symbol,
                 amount_in=amount_in,
@@ -78,8 +92,8 @@ class AerodromeQuoteProvider:
 
         except Exception as exc:
             return DexQuote(
-                chain="base",
-                dex="Aerodrome",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in_symbol,
                 token_out=token_out_symbol,
                 amount_in=amount_in,

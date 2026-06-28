@@ -5,6 +5,7 @@ from web3 import Web3
 from app.blockchain.chains import SUPPORTED_CHAINS
 from app.blockchain.rpc_client import RpcClient
 from app.quotes.models import DexQuote
+from app.quotes.provider import QuoteProvider
 from app.registry.tokens import get_token
 
 
@@ -24,7 +25,10 @@ UNISWAP_V2_ROUTER_ABI = [
 ]
 
 
-class UniswapV2QuoteProvider:
+class UniswapV2QuoteProvider(QuoteProvider):
+    chain = "base"
+    dex_name = "Uniswap V2"
+
     def __init__(self) -> None:
         chain_config = SUPPORTED_CHAINS["base"]
         self.client = RpcClient(chain_config)
@@ -45,8 +49,8 @@ class UniswapV2QuoteProvider:
 
         if token_in is None or token_out is None:
             return DexQuote(
-                chain="base",
-                dex="Uniswap V2",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in_symbol,
                 token_out=token_out_symbol,
                 amount_in=amount_in,
@@ -63,18 +67,15 @@ class UniswapV2QuoteProvider:
                 Web3.to_checksum_address(token_out.address),
             ]
 
-            amounts = self.router.functions.getAmountsOut(
-                amount_in_units,
-                path,
-            ).call()
+            amounts = self.router.functions.getAmountsOut(amount_in_units, path).call()
 
             amount_out_units = amounts[-1]
             amount_out = Decimal(amount_out_units) / Decimal(10 ** token_out.decimals)
             price = amount_out / amount_in if amount_in > 0 else None
 
             return DexQuote(
-                chain="base",
-                dex="Uniswap V2",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in.symbol,
                 token_out=token_out.symbol,
                 amount_in=amount_in,
@@ -84,8 +85,8 @@ class UniswapV2QuoteProvider:
 
         except Exception as exc:
             return DexQuote(
-                chain="base",
-                dex="Uniswap V2",
+                chain=self.chain,
+                dex=self.dex_name,
                 token_in=token_in_symbol,
                 token_out=token_out_symbol,
                 amount_in=amount_in,

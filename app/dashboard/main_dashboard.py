@@ -39,16 +39,22 @@ def load_dex_quotes():
 
 
 @st.cache_data(ttl=20)
-def load_opportunities():
+def load_gross_opportunities():
     return OpportunityScanner().scan_base_gross_opportunities()
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
+@st.cache_data(ttl=20)
+def load_net_opportunities():
+    return OpportunityScanner().scan_base_net_estimates()
+
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
         "🔁 DEX Quotes",
-        "🚨 Opportunities",
+        "🚨 Gross Opportunities",
+        "🧮 Net Estimates",
         "🪙 Assets",
         "🏦 DEX Registry",
         "📈 Roadmap",
@@ -135,7 +141,7 @@ with tab3:
             )
 
         st.dataframe(pd.DataFrame(quote_rows), use_container_width=True)
-        st.info("These are live on-chain DEX quotes from Base Aerodrome and Uniswap.")
+        st.info("These are live on-chain quotes through the new Quote Manager framework.")
 
     except Exception as exc:
         st.error(f"Failed to load DEX quotes: {exc}")
@@ -147,7 +153,7 @@ with tab4:
     try:
         rows = []
 
-        for opp in load_opportunities():
+        for opp in load_gross_opportunities():
             rows.append(
                 {
                     "Chain": opp.chain,
@@ -166,10 +172,43 @@ with tab4:
         )
 
     except Exception as exc:
-        st.error(f"Failed to scan opportunities: {exc}")
+        st.error(f"Failed to scan gross opportunities: {exc}")
 
 
 with tab5:
+    st.subheader("Estimated Net Opportunity Scanner")
+
+    try:
+        rows = []
+
+        for opp in load_net_opportunities():
+            rows.append(
+                {
+                    "Chain": opp.chain,
+                    "Pair": opp.pair,
+                    "Buy DEX": opp.buy_dex,
+                    "Sell DEX": opp.sell_dex,
+                    "Notional USD": float(opp.notional_usd),
+                    "Gross Spread %": float(opp.gross_spread_pct),
+                    "Gross Profit USD": float(opp.estimated_gross_profit_usd),
+                    "Estimated Costs USD": float(opp.estimated_total_cost_usd),
+                    "Estimated Net USD": float(opp.estimated_net_profit_usd),
+                    "Estimated Net %": float(opp.estimated_net_profit_pct),
+                    "Decision": opp.decision,
+                    "Reason": opp.reason,
+                }
+            )
+
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.warning(
+            "Research estimate only. Costs use conservative placeholders; no live execution signal yet."
+        )
+
+    except Exception as exc:
+        st.error(f"Failed to scan net opportunities: {exc}")
+
+
+with tab6:
     st.subheader("Token Registry")
 
     token_rows = []
@@ -204,7 +243,7 @@ with tab5:
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 
-with tab6:
+with tab7:
     st.subheader("DEX Registry")
 
     dex_rows = []
@@ -224,7 +263,7 @@ with tab6:
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
 
 
-with tab7:
+with tab8:
     st.subheader("CryptoAI Roadmap")
 
     st.markdown(
@@ -235,12 +274,13 @@ with tab7:
         ✅ M3 — Streamlit dashboard foundation  
         ✅ M4 — Live market data engine  
         ✅ M5 — Live DEX quote engine  
-        🔄 M6 — Gross opportunity scanner  
-        🔜 M7 — Net opportunity scanner  
-        🔜 M8 — AI ranking engine  
-        🔜 M9 — Paper trading  
-        🔜 M10 — Backtesting  
-        🔜 M11 — Live trading controls  
+        ✅ M6 — Gross opportunity scanner  
+        🔄 v0.5 — Connector framework + estimated net opportunity scanner  
+        🔜 v0.6 — Real gas/slippage/risk engine  
+        🔜 v0.7 — AI ranking engine  
+        🔜 v0.8 — Paper trading  
+        🔜 v0.9 — Backtesting  
+        🔜 v1.0 — Live trading controls  
         """
     )
 
