@@ -16,6 +16,9 @@ class StateService:
                 "scheduler_runs": self._count(conn, "scheduler_runs"),
                 "scheduler_steps": self._count(conn, "scheduler_steps"),
                 "paper_orders": self._count(conn, "paper_orders"),
+                "portfolio_snapshots": self._count(conn, "portfolio_snapshots"),
+                "portfolio_holdings": self._count(conn, "portfolio_holdings"),
+                "portfolio_positions": self._count(conn, "portfolio_positions"),
             }
 
     def recent_scheduler_runs(self, limit: int = 25) -> list[dict]:
@@ -40,6 +43,21 @@ class StateService:
                        notional_usd, estimated_edge_pct, simulated_fill_price_usd,
                        simulated_quantity, status, reason
                 FROM paper_orders
+                ORDER BY id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    def recent_portfolio_snapshots(self, limit: int = 25) -> list[dict]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                """
+                SELECT created_at, portfolio_name, cash_usd, holdings_value_usd,
+                       open_positions_value_usd, total_value_usd, realized_pnl_usd,
+                       unrealized_pnl_usd, total_pnl_usd, open_positions, closed_positions
+                FROM portfolio_snapshots
                 ORDER BY id DESC
                 LIMIT ?
                 """,

@@ -76,4 +76,63 @@ def initialize_database() -> None:
             """
         )
 
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS portfolio_snapshots (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                created_at TEXT NOT NULL,
+                portfolio_name TEXT NOT NULL,
+                cash_usd TEXT NOT NULL,
+                holdings_value_usd TEXT NOT NULL,
+                open_positions_value_usd TEXT NOT NULL,
+                total_value_usd TEXT NOT NULL,
+                realized_pnl_usd TEXT NOT NULL,
+                unrealized_pnl_usd TEXT NOT NULL,
+                total_pnl_usd TEXT NOT NULL,
+                open_positions INTEGER NOT NULL,
+                closed_positions INTEGER NOT NULL
+            )
+            """
+        )
+
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS portfolio_holdings (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                snapshot_id INTEGER NOT NULL,
+                chain TEXT NOT NULL,
+                symbol TEXT NOT NULL,
+                quantity TEXT NOT NULL,
+                avg_cost_usd TEXT NOT NULL,
+                current_price_usd TEXT NOT NULL,
+                market_value_usd TEXT NOT NULL,
+                unrealized_pnl_usd TEXT NOT NULL,
+                unrealized_pnl_pct TEXT NOT NULL
+            )
+            """
+        )
+
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS portfolio_positions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                snapshot_id INTEGER NOT NULL,
+                position_id TEXT NOT NULL,
+                strategy_name TEXT NOT NULL,
+                chain TEXT NOT NULL,
+                pair TEXT NOT NULL,
+                base_symbol TEXT NOT NULL,
+                quote_symbol TEXT NOT NULL,
+                quantity TEXT NOT NULL,
+                entry_price_usd TEXT NOT NULL,
+                current_price_usd TEXT NOT NULL,
+                notional_usd TEXT NOT NULL,
+                unrealized_pnl_usd TEXT NOT NULL,
+                unrealized_pnl_pct TEXT NOT NULL,
+                status TEXT NOT NULL,
+                opened_at TEXT NOT NULL
+            )
+            """
+        )
+
         conn.commit()

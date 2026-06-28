@@ -16,19 +16,20 @@ try:
 except Exception:
     RiskService = None
 
+try:
+    from app.portfolio.persistence_service import PortfolioPersistenceService
+except Exception:
+    PortfolioPersistenceService = None
+
 
 class PortfolioService:
-    """First simulated portfolio engine.
-
-    This is a read-only/simulated portfolio. It does not connect to any real
-    wallet, exchange, or brokerage account.
-    """
+    """Simulated portfolio engine with optional SQLite persistence."""
 
     def __init__(self) -> None:
         self.initial_cash_usd = Decimal("10000")
         self.realized_pnl_usd = Decimal("0")
 
-    def get_snapshot(self) -> PortfolioSnapshot:
+    def get_snapshot(self, persist: bool = True) -> PortfolioSnapshot:
         prices = self._load_prices()
         holdings = self._build_default_holdings(prices)
         positions = self._build_simulated_positions(prices)
@@ -43,7 +44,7 @@ class PortfolioService:
         total_value = self.initial_cash_usd + holdings_value + unrealized_pnl
         total_pnl = self.realized_pnl_usd + unrealized_pnl
 
-        return PortfolioSnapshot(
+        snapshot = PortfolioSnapshot(
             portfolio_name="CryptoAI Simulated Portfolio",
             cash_usd=self.initial_cash_usd,
             holdings_value_usd=holdings_value,
@@ -57,6 +58,14 @@ class PortfolioService:
             holdings=holdings,
             positions=positions,
         )
+
+        if persist and PortfolioPersistenceService is not None:
+            try:
+                PortfolioPersistenceService().save_snapshot(snapshot)
+            except Exception:
+                pass
+
+        return snapshot
 
     def _load_prices(self) -> dict[str, Decimal]:
         fallback = {
@@ -81,7 +90,6 @@ class PortfolioService:
             if not symbol or price is None:
                 continue
 
-            # CoinGecko returns WETH symbol as ETH. Normalize both.
             prices[symbol] = Decimal(str(price))
             if symbol == "ETH":
                 prices["WETH"] = Decimal(str(price))
@@ -92,7 +100,6 @@ class PortfolioService:
         return prices
 
     def _build_default_holdings(self, prices: dict[str, Decimal]) -> list[Holding]:
-        # Small simulated long-term research portfolio.
         raw = [
             ("base", "USDC", Decimal("2500"), Decimal("1")),
             ("base", "WETH", Decimal("0.50"), Decimal("3200")),
@@ -125,7 +132,6 @@ class PortfolioService:
     def _build_simulated_positions(self, prices: dict[str, Decimal]) -> list[Position]:
         positions: list[Position] = []
 
-        # Use risk-approved signals to create hypothetical open paper positions.
         if RiskService is not None:
             try:
                 assessments = RiskService().assess_ranked_signals()
@@ -175,7 +181,6 @@ class PortfolioService:
         aliases = {
             "WETH": "ETH",
             "WBTC": "BTC",
-            "CBBTC": "BTC",
             "CBBTC": "BTC",
         }
 
