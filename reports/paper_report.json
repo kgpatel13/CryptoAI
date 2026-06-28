@@ -1,30 +1,16 @@
 {
-  "generated_at": "2026-06-28T14:26:01Z",
+  "generated_at": "2026-06-28T14:49:55Z",
   "mode": "paper",
   "live_trading": "disabled",
-  "total_orders": 20,
+  "total_orders": 21,
   "filled_orders": 0,
-  "skipped_orders": 20,
+  "skipped_orders": 21,
   "rejected_orders": 0,
   "total_filled_notional_usd": "0",
   "pairs_seen": {
-    "-": 20
+    "-": 21
   },
   "latest_orders": [
-    {
-      "order_id": "4236965b",
-      "timestamp": "2026-06-28T01:31:51Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "-",
-      "side": "BUY",
-      "notional_usd": "0",
-      "estimated_edge_pct": null,
-      "simulated_fill_price_usd": null,
-      "simulated_quantity": null,
-      "status": "SKIPPED",
-      "reason": "Risk decision is WATCHLIST; paper order not created."
-    },
     {
       "order_id": "ca7a907e",
       "timestamp": "2026-06-28T01:32:03Z",
@@ -280,6 +266,20 @@
     {
       "order_id": "03e8491c",
       "timestamp": "2026-06-28T14:25:50Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "-",
+      "side": "BUY",
+      "notional_usd": "0",
+      "estimated_edge_pct": null,
+      "simulated_fill_price_usd": null,
+      "simulated_quantity": null,
+      "status": "SKIPPED",
+      "reason": "Risk decision is WATCHLIST; paper order not created."
+    },
+    {
+      "order_id": "3120f9d2",
+      "timestamp": "2026-06-28T14:49:54Z",
       "strategy_name": "DEX Arbitrage Strategy",
       "chain": "base",
       "pair": "-",
