@@ -1,22 +1,22 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-28T16:59:38Z`
+Generated: `2026-06-28T17:02:22Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `66`
-- Total orders: `33`
-- Filled orders: `8`
+- Opportunity decisions: `76`
+- Total orders: `35`
+- Filled orders: `10`
 - Skipped orders: `25`
 - Rejected orders: `0`
-- Total filled notional USD: `$840.0000`
+- Total filled notional USD: `$1050.0000`
 
 ## Opportunity Decision Counts
 
 - `SKIP`: 21
-- `BUY`: 45
+- `BUY`: 55
 
 ## Skip Reasons
 
@@ -51,8 +51,6 @@ Generated: `2026-06-28T16:59:38Z`
 
 | Time | Pair | Status | Notional | Edge % | Reason |
 |---|---|---|---:|---:|---|
-| 2026-06-28T02:24:32Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
-| 2026-06-28T02:25:26Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T02:30:29Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T02:45:04Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T02:46:41Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
@@ -71,6 +69,8 @@ Generated: `2026-06-28T16:59:38Z`
 | 2026-06-28T16:59:13Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:35Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:35Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | Simulated paper fill created from risk-approved candidate. |
+| 2026-06-28T17:02:19Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | Simulated paper fill created from risk-approved candidate. |
+| 2026-06-28T17:02:19Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | Simulated paper fill created from risk-approved candidate. |
 
 ## Notes
 
