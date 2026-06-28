@@ -11,6 +11,11 @@ from app.quotes.quote_service import QuoteService
 from app.services.system_health_service import SystemHealthService
 
 try:
+    from app.strategy.strategy_service import StrategyService
+except Exception:
+    StrategyService = None
+
+try:
     from app.scanner.opportunity_scanner import OpportunityScanner
 except Exception:
     OpportunityScanner = None
@@ -73,6 +78,13 @@ def load_net_estimates():
     return []
 
 
+@st.cache_data(ttl=15)
+def load_strategy_signals():
+    if StrategyService is None:
+        return []
+    return StrategyService().get_all_signals()
+
+
 def dataframe_or_info(rows, message: str):
     if rows:
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
@@ -80,13 +92,14 @@ def dataframe_or_info(rows, message: str):
         st.info(message)
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
         "🔁 DEX Quotes",
         "🚨 Gross Opps",
         "🧮 Net Estimates",
+        "🧠 Strategies",
         "⚡ Performance",
         "💉 System Health",
         "🧪 Paper Trading",
@@ -151,7 +164,6 @@ with tab3:
             }
         )
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info("v0.9.2 keeps quote caching and provider compatibility.")
 
 with tab4:
     st.subheader("Gross Opportunity Scanner")
@@ -180,13 +192,34 @@ with tab5:
     st.warning("Still read-only. These estimates are not trade instructions.")
 
 with tab6:
+    st.subheader("Strategy Engine")
+    st.caption("v1.0 adds standardized strategy signals. No live execution.")
+
+    rows = []
+    for signal in load_strategy_signals():
+        rows.append(
+            {
+                "Strategy": signal.strategy_name,
+                "Chain": signal.chain,
+                "Pair": signal.pair,
+                "Action": signal.action.value if hasattr(signal.action, "value") else str(signal.action),
+                "Confidence": signal.confidence_score,
+                "Expected Edge %": str(signal.expected_edge_pct) if signal.expected_edge_pct is not None else "-",
+                "Reason": signal.reason,
+            }
+        )
+
+    dataframe_or_info(rows, "No strategy signals available right now.")
+    st.warning("READY_FOR_PAPER means simulation only. It does not mean execute real trades.")
+
+with tab7:
     st.subheader("Performance Metrics")
     service = SystemHealthService()
     dataframe_or_info(service.get_metric_rows(), "Metrics will populate after quote/chain calls complete.")
     st.markdown("### Cache Stats")
     st.json(service.get_cache_stats())
 
-with tab7:
+with tab8:
     st.subheader("System Health & Latency Budget")
     service = SystemHealthService()
     budget_rows = []
@@ -202,7 +235,7 @@ with tab7:
     st.dataframe(pd.DataFrame(budget_rows), use_container_width=True)
     st.info("For future autopilot trading, signal → decision → execution must stay inside a strict latency budget.")
 
-with tab8:
+with tab9:
     st.subheader("Paper Trading")
     if PaperTradingService is None:
         st.info("Paper trading module not found in this install.")
@@ -214,7 +247,7 @@ with tab8:
         except Exception as exc:
             st.error(f"Paper trading failed: {exc}")
 
-with tab9:
+with tab10:
     st.subheader("Analytics")
 
     if AnalyticsService is None:
@@ -248,7 +281,7 @@ with tab9:
         except Exception as exc:
             st.error(f"Analytics failed: {exc}")
 
-with tab10:
+with tab11:
     st.subheader("Assets, DEXs, and Pairs")
     token_rows = []
     dex_rows = []
@@ -294,7 +327,7 @@ with tab10:
     st.markdown("### Pairs")
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
-with tab11:
+with tab12:
     st.subheader("CryptoAI Roadmap")
     st.markdown(
         """
@@ -308,8 +341,8 @@ with tab11:
         ✅ v0.8 — RPC failover, quote cache, and system health  
         ✅ v0.9 — Fast data layer and latency metrics  
         ✅ v0.9.1 — Analytics and provider compatibility hotfix  
-        🔧 v0.9.2 — Analytics dashboard UI restore  
-        🔜 v1.0 — Strategy engine  
+        ✅ v0.9.2 — Analytics dashboard UI restore  
+        🔄 v1.0 — Strategy engine framework  
         🔜 v1.1 — Backtesting engine  
         🔜 v1.2 — AI ranking engine  
         🔜 v2.0 — Live trading controls with strict risk limits  
