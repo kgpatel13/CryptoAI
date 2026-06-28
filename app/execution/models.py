@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import Enum
 
@@ -11,7 +11,16 @@ class PaperOrderSide(str, Enum):
 
 
 class PaperOrderStatus(str, Enum):
+    NEW = "NEW"
+    VALIDATED = "VALIDATED"
+    SUBMITTED = "SUBMITTED"
+    PENDING = "PENDING"
+    PARTIAL_FILL = "PARTIAL_FILL"
     FILLED = "FILLED"
+    EXIT_REQUESTED = "EXIT_REQUESTED"
+    CLOSED = "CLOSED"
+    CANCELLED = "CANCELLED"
+    EXPIRED = "EXPIRED"
     REJECTED = "REJECTED"
     SKIPPED = "SKIPPED"
     RISK_REJECTED = "RISK_REJECTED"
@@ -31,6 +40,12 @@ class PaperOrder:
     simulated_quantity: Decimal | None
     status: PaperOrderStatus
     reason: str
+    requested_notional_usd: Decimal | None = None
+    filled_notional_usd: Decimal | None = None
+    slippage_bps: Decimal | None = None
+    latency_ms: int | None = None
+    execution_quality: str | None = None
+    lifecycle_events: list[dict] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -42,3 +57,5 @@ class PaperExecutionBatch:
     skipped_orders: int
     total_notional_usd: Decimal
     orders: list[PaperOrder]
+    monitored_positions: int = 0
+    closed_positions: int = 0

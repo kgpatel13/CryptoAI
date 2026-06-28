@@ -7,6 +7,7 @@ from decimal import Decimal
 from pathlib import Path
 from uuid import uuid4
 
+from app.execution.execution_simulator import ExecutionSimulator
 from app.execution.models import PaperExecutionBatch, PaperOrder, PaperOrderSide, PaperOrderStatus
 
 try:
@@ -32,7 +33,11 @@ except Exception:
 
 
 class PaperExecutionService:
-    """Simulated execution engine with JSONL + SQLite persistence."""
+    """Professional paper execution engine with lifecycle simulation.
+
+    v3.4 keeps live trading disabled and routes every approved candidate through a
+    deterministic broker-like simulator before recording a paper position.
+    """
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -40,52 +45,70 @@ class PaperExecutionService:
         self.order_file = self.data_dir / "paper_orders.jsonl"
         self.multi_dex_file = self.data_dir / "multi_dex_opportunities.jsonl"
         self.portfolio_risk = PortfolioRiskService() if PortfolioRiskService is not None else None
+        self.execution_simulator = ExecutionSimulator()
 
     def run_once(self) -> PaperExecutionBatch:
         timestamp = self._utc_now()
         assessments = self._load_risk_assessments()
         prices = self._load_prices()
-        orders: list[PaperOrder] = []
+        monitored_positions = 0
+        closed_positions = 0
+        if self.portfolio_risk is not None:
+            monitor = self.portfolio_risk.monitor_positions(prices=prices, now=timestamp)
+            monitored_positions = monitor.monitored_positions
+            closed_positions = monitor.closed_positions
 
+        orders: list[PaperOrder] = []
         for assessment in assessments:
             decision = getattr(assessment, "decision", "")
             decision_value = decision.value if hasattr(decision, "value") else str(decision)
             pair = str(getattr(assessment, "pair", "-"))
             expected_edge = self._to_decimal(getattr(assessment, "expected_edge_pct", None))
-
-            if decision_value != "APPROVED_FOR_PAPER":
-                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=str(getattr(assessment, "strategy_name", "Strategy")), chain=str(getattr(assessment, "chain", "-")), pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.SKIPPED, reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}"))
-                continue
-
-            fill_price = self._fill_price_for(pair, prices)
-            notional = self._to_decimal(getattr(assessment, "max_allowed_notional_usd", "0")) or Decimal("0")
-
-            if fill_price <= 0 or notional <= 0:
-                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=str(getattr(assessment, "strategy_name", "Strategy")), chain=str(getattr(assessment, "chain", "-")), pair=pair, side=PaperOrderSide.BUY, notional_usd=notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.REJECTED, reason="Missing fill price or notional for simulated fill."))
-                continue
-
             chain = str(getattr(assessment, "chain", "-"))
             strategy_name = str(getattr(assessment, "strategy_name", "Strategy"))
 
+            if decision_value != "APPROVED_FOR_PAPER":
+                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.SKIPPED, reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}"))
+                continue
+
+            reference_price = self._fill_price_for(pair, prices)
+            requested_notional = self._to_decimal(getattr(assessment, "max_allowed_notional_usd", "0")) or Decimal("0")
+
+            if reference_price <= 0 or requested_notional <= 0:
+                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=requested_notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.REJECTED, reason="Missing fill price or notional for simulated fill."))
+                continue
+
             if self.portfolio_risk is not None:
-                portfolio_decision = self.portfolio_risk.assess(
-                    chain=chain,
-                    pair=pair,
-                    side=PaperOrderSide.BUY.value,
-                    requested_notional_usd=notional,
-                    expected_edge_pct=expected_edge,
-                    now=timestamp,
-                )
+                portfolio_decision = self.portfolio_risk.assess(chain=chain, pair=pair, side=PaperOrderSide.BUY.value, requested_notional_usd=requested_notional, expected_edge_pct=expected_edge, now=timestamp)
                 if not portfolio_decision.approved:
                     orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.RISK_REJECTED, reason=portfolio_decision.reason))
                     continue
-                notional = portfolio_decision.notional_usd
+                requested_notional = portfolio_decision.notional_usd
 
-            quantity = notional / fill_price
-            order = PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=fill_price, simulated_quantity=quantity, status=PaperOrderStatus.FILLED, reason="Simulated paper fill created from risk-approved candidate after portfolio risk checks.")
+            execution = self.execution_simulator.simulate_entry_order(timestamp=timestamp, pair=pair, side=PaperOrderSide.BUY.value, requested_notional_usd=requested_notional, reference_price_usd=reference_price, expected_edge_pct=expected_edge)
+            order = PaperOrder(
+                order_id=execution.order_id,
+                timestamp=timestamp,
+                strategy_name=strategy_name,
+                chain=chain,
+                pair=pair,
+                side=PaperOrderSide.BUY,
+                notional_usd=execution.filled_notional_usd,
+                requested_notional_usd=execution.requested_notional_usd,
+                filled_notional_usd=execution.filled_notional_usd,
+                estimated_edge_pct=expected_edge,
+                simulated_fill_price_usd=execution.fill_price_usd,
+                simulated_quantity=execution.quantity,
+                status=execution.status,
+                reason=execution.reason,
+                slippage_bps=execution.slippage_bps,
+                latency_ms=execution.latency_ms,
+                execution_quality=execution.execution_quality,
+                lifecycle_events=execution.lifecycle_events,
+            )
             orders.append(order)
 
-            if self.portfolio_risk is not None:
+            if self.portfolio_risk is not None and order.status in {PaperOrderStatus.FILLED, PaperOrderStatus.PARTIAL_FILL} and order.simulated_fill_price_usd is not None and order.simulated_quantity is not None and order.notional_usd > 0:
                 self.portfolio_risk.record_filled_order(
                     order_id=order.order_id,
                     timestamp=timestamp,
@@ -93,14 +116,27 @@ class PaperExecutionService:
                     chain=chain,
                     pair=pair,
                     side=PaperOrderSide.BUY.value,
-                    notional_usd=notional,
-                    fill_price_usd=fill_price,
-                    quantity=quantity,
+                    notional_usd=order.notional_usd,
+                    fill_price_usd=order.simulated_fill_price_usd,
+                    quantity=order.simulated_quantity,
                     estimated_edge_pct=expected_edge,
+                    slippage_bps=order.slippage_bps,
+                    latency_ms=order.latency_ms,
+                    execution_quality=order.execution_quality,
                 )
 
-        batch = PaperExecutionBatch(timestamp=timestamp, total_candidates=len(assessments), filled_orders=sum(1 for o in orders if o.status == PaperOrderStatus.FILLED), rejected_orders=sum(1 for o in orders if o.status == PaperOrderStatus.REJECTED), skipped_orders=sum(1 for o in orders if o.status in {PaperOrderStatus.SKIPPED, PaperOrderStatus.RISK_REJECTED}), total_notional_usd=sum((o.notional_usd for o in orders if o.status == PaperOrderStatus.FILLED), Decimal("0")), orders=orders)
-
+        filled_statuses = {PaperOrderStatus.FILLED, PaperOrderStatus.PARTIAL_FILL}
+        batch = PaperExecutionBatch(
+            timestamp=timestamp,
+            total_candidates=len(assessments),
+            filled_orders=sum(1 for o in orders if o.status in filled_statuses),
+            rejected_orders=sum(1 for o in orders if o.status in {PaperOrderStatus.REJECTED, PaperOrderStatus.CANCELLED, PaperOrderStatus.EXPIRED}),
+            skipped_orders=sum(1 for o in orders if o.status in {PaperOrderStatus.SKIPPED, PaperOrderStatus.RISK_REJECTED}),
+            total_notional_usd=sum((o.notional_usd for o in orders if o.status in filled_statuses), Decimal("0")),
+            orders=orders,
+            monitored_positions=monitored_positions,
+            closed_positions=closed_positions,
+        )
         self._persist_orders_jsonl(orders)
         self._persist_orders_db(orders)
         return batch

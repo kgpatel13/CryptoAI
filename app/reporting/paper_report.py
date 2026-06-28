@@ -19,9 +19,9 @@ class PaperReportService:
         orders = self._read_jsonl(self.paper_orders_file)
         opportunities = self._read_jsonl(self.opportunity_file)
 
-        filled = [o for o in orders if str(o.get("status", "")).upper() == "FILLED"]
+        filled = [o for o in orders if str(o.get("status", "")).upper() in {"FILLED", "PARTIAL_FILL"}]
         skipped = [o for o in orders if str(o.get("status", "")).upper() == "SKIPPED"]
-        rejected = [o for o in orders if str(o.get("status", "")).upper() == "REJECTED"]
+        rejected = [o for o in orders if str(o.get("status", "")).upper() in {"REJECTED", "CANCELLED", "EXPIRED"}]
         risk_rejected = [o for o in orders if str(o.get("status", "")).upper() == "RISK_REJECTED"]
 
         total_notional = sum(self._decimal(o.get("notional_usd", "0")) for o in filled)
@@ -52,6 +52,9 @@ class PaperReportService:
             "total_filled_notional_usd": str(total_notional),
             "skip_reasons": skip_reasons,
             "risk_rejection_reasons": self._reason_counts(risk_rejected),
+            "execution_quality_counts": self._value_counts(filled, "execution_quality"),
+            "avg_slippage_bps": self._avg_decimal(filled, "slippage_bps"),
+            "avg_latency_ms": self._avg_decimal(filled, "latency_ms"),
             "portfolio": portfolio_summary,
             "latest_opportunities": opportunities[-20:],
             "latest_orders": orders[-20:],
@@ -90,6 +93,9 @@ class PaperReportService:
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
             f"- Paper portfolio cash USD: `${report['portfolio'].get('cash_usd', '-')}`",
             f"- Open paper positions: `{report['portfolio'].get('open_positions', 0)}`",
+            f"- Closed paper positions: `{report['portfolio'].get('closed_positions', 0)}`",
+            f"- Avg execution slippage bps: `{report.get('avg_slippage_bps', "-")}`",
+            f"- Avg execution latency ms: `{report.get('avg_latency_ms', "-")}`",
             "",
             "## Opportunity Decision Counts",
             "",
@@ -116,11 +122,21 @@ class PaperReportService:
         else:
             lines.append("- No portfolio risk rejections.")
 
+        lines += ["", "## Execution Quality", ""]
+        if report.get("execution_quality_counts"):
+            for quality, count in report["execution_quality_counts"].items():
+                lines.append(f"- `{quality}`: {count}")
+        else:
+            lines.append("- No filled execution-quality records yet.")
+
         lines += ["", "## Paper Portfolio", ""]
         portfolio = report.get("portfolio", {})
         lines.append(f"- Cash USD: `${portfolio.get('cash_usd', '-')}`")
         lines.append(f"- Initial cash USD: `${portfolio.get('initial_cash_usd', '-')}`")
         lines.append(f"- Open positions: `{portfolio.get('open_positions', 0)}`")
+        lines.append(f"- Closed positions: `{portfolio.get('closed_positions', 0)}`")
+        lines.append(f"- Daily realized PnL USD: `${portfolio.get('daily_realized_pnl_usd', 0)}`")
+        lines.append(f"- Unrealized PnL USD: `${portfolio.get('unrealized_pnl_usd', 0)}`")
         lines.append(f"- Daily filled trades: `{portfolio.get('daily_filled_trades', 0)}`")
         lines.append(f"- Exposure by chain: `{portfolio.get('exposure_by_chain', {})}`")
         lines.append(f"- Exposure by token: `{portfolio.get('exposure_by_token', {})}`")
@@ -142,14 +158,15 @@ class PaperReportService:
         lines += ["", "## Latest Orders", ""]
         orders = report["latest_orders"]
         if orders:
-            lines.append("| Time | Pair | Status | Notional | Edge % | Reason |")
-            lines.append("|---|---|---|---:|---:|---|")
+            lines.append("| Time | Pair | Status | Notional | Edge % | Slip bps | Quality | Reason |")
+            lines.append("|---|---|---|---:|---:|---:|---|---|")
             for order in orders:
                 reason = str(order.get("reason", "-")).replace("|", "/")
                 lines.append(
                     f"| {order.get('timestamp', '-')} | {order.get('pair', '-')} | "
                     f"{order.get('status', '-')} | {order.get('notional_usd', '-')} | "
-                    f"{order.get('estimated_edge_pct', '-')} | {reason} |"
+                    f"{order.get('estimated_edge_pct', '-')} | {order.get('slippage_bps', '-')} | "
+                    f"{order.get('execution_quality', '-')} | {reason} |"
                 )
         else:
             lines.append("No paper orders saved yet.")
@@ -194,6 +211,21 @@ class PaperReportService:
         return counts
 
     @staticmethod
+    def _value_counts(rows: list[dict], key: str) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for row in rows:
+            value = str(row.get(key) or "UNKNOWN")
+            counts[value] = counts.get(value, 0) + 1
+        return counts
+
+    @staticmethod
+    def _avg_decimal(rows: list[dict], key: str) -> str:
+        values = [PaperReportService._decimal(row.get(key)) for row in rows if row.get(key) is not None]
+        if not values:
+            return "-"
+        return str((sum(values, Decimal("0")) / Decimal(len(values))).quantize(Decimal("0.0001")))
+
+    @staticmethod
     def _portfolio_summary(state: dict) -> dict:
         if not state:
             return {"cash_usd": "-", "initial_cash_usd": "-", "open_positions": 0, "daily_filled_trades": 0, "exposure_by_chain": {}, "exposure_by_token": {}}
@@ -206,12 +238,22 @@ class PaperReportService:
             token = str(pos.get("base_symbol", "-"))
             exposure_by_chain[chain] = str(PaperReportService._decimal(exposure_by_chain.get(chain, "0")) + notional)
             exposure_by_token[token] = str(PaperReportService._decimal(exposure_by_token.get(token, "0")) + notional)
+        closed_positions = [p for p in state.get("positions", []) if str(p.get("status", "")).upper() == "CLOSED"]
+        unrealized = Decimal("0")
+        for pos in positions:
+            qty = PaperReportService._decimal(pos.get("quantity", "0"))
+            cur = PaperReportService._decimal(pos.get("current_price_usd", pos.get("entry_price_usd", "0")))
+            notional = PaperReportService._decimal(pos.get("notional_usd", "0"))
+            unrealized += (qty * cur) - notional
         return {
             "cash_usd": state.get("cash_usd", "-"),
             "initial_cash_usd": state.get("initial_cash_usd", "-"),
             "open_positions": len(positions),
+            "closed_positions": len(closed_positions),
             "daily_filled_trades": state.get("daily_filled_trades", 0),
             "daily_realized_pnl_usd": state.get("daily_realized_pnl_usd", "0"),
+            "realized_pnl_usd": state.get("realized_pnl_usd", "0"),
+            "unrealized_pnl_usd": str(unrealized.quantize(Decimal("0.0001"))),
             "exposure_by_chain": exposure_by_chain,
             "exposure_by_token": exposure_by_token,
             "updated_at": state.get("updated_at"),

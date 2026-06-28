@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 import os
-from dataclasses import dataclass, asdict
-from datetime import UTC, datetime, timedelta
+from dataclasses import dataclass
+from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -16,20 +16,19 @@ class PortfolioRiskDecision:
     reason: str
 
 
+@dataclass(frozen=True)
+class PositionMonitorResult:
+    monitored_positions: int
+    closed_positions: int
+    realized_pnl_usd: Decimal
+    events: list[dict[str, Any]]
+
+
 class PortfolioRiskService:
-    """Stateful paper-portfolio risk controls.
+    """Stateful paper-portfolio risk controls and v3.4 position lifecycle.
 
-    This service is intentionally file-backed and deterministic so it can run in
-    GitHub Actions, Streamlit, and local paper tests without extra services.
-
-    It protects the paper pipeline from unrealistic repeated fills by enforcing:
-    - duplicate signal suppression
-    - per-pair/direction cooldowns
-    - cash and dynamic sizing
-    - max open positions
-    - max daily trades
-    - chain/token exposure caps
-    - daily realized-loss guard (foundation for v3.5 PnL)
+    The service remains file-backed and deterministic so it works in GitHub Actions,
+    Streamlit Cloud, and local paper trading without external infrastructure.
     """
 
     def __init__(self, state_path: str | Path | None = None) -> None:
@@ -48,7 +47,12 @@ class PortfolioRiskService:
         self.max_daily_trades = self._env_int("CRYPTOAI_MAX_DAILY_PAPER_TRADES", 8)
         self.cooldown_seconds = self._env_int("CRYPTOAI_TRADE_COOLDOWN_SECONDS", 900)
         self.duplicate_window_seconds = self._env_int("CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS", 900)
+        self.block_same_pair_open_position = self._env_bool("CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION", True)
         self.max_daily_loss_usd = self._env_decimal("CRYPTOAI_MAX_DAILY_LOSS_USD", "0")
+
+        self.take_profit_pct = self._env_decimal("CRYPTOAI_PAPER_TAKE_PROFIT_PCT", "0.50")
+        self.stop_loss_pct = self._env_decimal("CRYPTOAI_PAPER_STOP_LOSS_PCT", "0.35")
+        self.max_hold_seconds = self._env_int("CRYPTOAI_PAPER_MAX_HOLD_SECONDS", 3600)
 
     def assess(self, *, chain: str, pair: str, side: str, requested_notional_usd: Decimal, expected_edge_pct: Decimal | None = None, now: str | None = None) -> PortfolioRiskDecision:
         timestamp = now or self._utc_now()
@@ -70,6 +74,11 @@ class PortfolioRiskService:
 
         normalized_pair = self._normalize_pair(pair)
         normalized_side = side.upper()
+
+        existing = self._same_open_position(open_positions, normalized_pair, normalized_side)
+        if existing is not None and self.block_same_pair_open_position:
+            return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: existing open {normalized_side} position for {normalized_pair}; reuse/monitor the open position instead of adding duplicate exposure.")
+
         duplicate = self._recent_duplicate(open_positions, normalized_pair, normalized_side, timestamp)
         if duplicate is not None:
             age = self._age_seconds(duplicate.get("opened_at"), timestamp)
@@ -107,7 +116,7 @@ class PortfolioRiskService:
 
         return PortfolioRiskDecision(True, notional, f"Portfolio risk approved: notional ${notional}, cash ${cash}, open positions {len(open_positions)}/{self.max_open_positions}.")
 
-    def record_filled_order(self, *, order_id: str, timestamp: str, strategy_name: str, chain: str, pair: str, side: str, notional_usd: Decimal, fill_price_usd: Decimal, quantity: Decimal, estimated_edge_pct: Decimal | None = None) -> dict[str, Any]:
+    def record_filled_order(self, *, order_id: str, timestamp: str, strategy_name: str, chain: str, pair: str, side: str, notional_usd: Decimal, fill_price_usd: Decimal, quantity: Decimal, estimated_edge_pct: Decimal | None = None, slippage_bps: Decimal | None = None, latency_ms: int | None = None, execution_quality: str | None = None) -> dict[str, Any]:
         state = self.load_state()
         self._reset_daily_counters_if_needed(state, timestamp)
 
@@ -131,7 +140,14 @@ class PortfolioRiskService:
             "current_price_usd": str(fill_price_usd),
             "notional_usd": str(notional_usd),
             "estimated_edge_pct": str(estimated_edge_pct) if estimated_edge_pct is not None else None,
+            "slippage_bps": str(slippage_bps) if slippage_bps is not None else None,
+            "latency_ms": latency_ms,
+            "execution_quality": execution_quality,
+            "take_profit_price_usd": str(self._exit_price(fill_price_usd, side, self.take_profit_pct, True)),
+            "stop_loss_price_usd": str(self._exit_price(fill_price_usd, side, self.stop_loss_pct, False)),
+            "max_hold_seconds": self.max_hold_seconds,
             "status": "OPEN",
+            "lifecycle_status": "MONITORING",
             "opened_at": timestamp,
             "updated_at": timestamp,
         })
@@ -146,6 +162,87 @@ class PortfolioRiskService:
         state["signal_history"] = state["signal_history"][-500:]
         self.save_state(state)
         return state
+
+    def monitor_positions(self, *, prices: dict[str, Decimal] | None = None, now: str | None = None) -> PositionMonitorResult:
+        timestamp = now or self._utc_now()
+        prices = prices or {}
+        state = self.load_state()
+        self._reset_daily_counters_if_needed(state, timestamp)
+        events: list[dict[str, Any]] = []
+        closed = 0
+        realized = Decimal("0")
+
+        for pos in state.get("positions", []):
+            if str(pos.get("status", "OPEN")).upper() != "OPEN":
+                continue
+            pair = str(pos.get("pair", "-/USDC"))
+            base_symbol, _quote_symbol = self._split_pair(pair)
+            current_price = self._decimal(prices.get(pair) or prices.get(base_symbol) or pos.get("current_price_usd") or pos.get("entry_price_usd"))
+            if current_price <= 0:
+                continue
+            pos["current_price_usd"] = str(current_price)
+            pos["updated_at"] = timestamp
+            pos["lifecycle_status"] = "MONITORING"
+
+            exit_reason = self._exit_reason(pos, current_price, timestamp)
+            if exit_reason is None:
+                continue
+
+            pnl = self._close_position(state, pos, current_price, timestamp, exit_reason)
+            realized += pnl
+            closed += 1
+            events.append({"timestamp": timestamp, "position_id": pos.get("position_id"), "pair": pair, "exit_reason": exit_reason, "realized_pnl_usd": str(pnl)})
+
+        if closed:
+            state["daily_realized_pnl_usd"] = str(self._decimal(state.get("daily_realized_pnl_usd", "0")) + realized)
+            state["realized_pnl_usd"] = str(self._decimal(state.get("realized_pnl_usd", "0")) + realized)
+            state["updated_at"] = timestamp
+            self.save_state(state)
+        else:
+            self.save_state(state)
+        return PositionMonitorResult(len(self._open_positions(state)) + closed, closed, realized, events)
+
+    def summary(self) -> dict[str, Any]:
+        state = self.load_state()
+        open_positions = self._open_positions(state)
+        closed_positions = [p for p in state.get("positions", []) if str(p.get("status", "")).upper() == "CLOSED"]
+        exposure_by_chain: dict[str, str] = {}
+        exposure_by_token: dict[str, str] = {}
+        unrealized = Decimal("0")
+        for pos in open_positions:
+            notional = self._decimal(pos.get("notional_usd", "0"))
+            chain = str(pos.get("chain", "-"))
+            token = str(pos.get("base_symbol") or self._split_pair(str(pos.get("pair", "-/USDC")))[0])
+            exposure_by_chain[chain] = str(self._decimal(exposure_by_chain.get(chain, "0")) + notional)
+            exposure_by_token[token] = str(self._decimal(exposure_by_token.get(token, "0")) + notional)
+            unrealized += self._unrealized_pnl(pos)
+        return {
+            "cash_usd": state.get("cash_usd", str(self.initial_cash_usd)),
+            "initial_cash_usd": state.get("initial_cash_usd", str(self.initial_cash_usd)),
+            "open_positions": len(open_positions),
+            "closed_positions": len(closed_positions),
+            "daily_filled_trades": state.get("daily_filled_trades", 0),
+            "daily_realized_pnl_usd": state.get("daily_realized_pnl_usd", "0"),
+            "realized_pnl_usd": state.get("realized_pnl_usd", "0"),
+            "unrealized_pnl_usd": str(self._quantize_usd(unrealized)),
+            "exposure_by_chain": exposure_by_chain,
+            "exposure_by_token": exposure_by_token,
+            "limits": {
+                "max_open_positions": self.max_open_positions,
+                "max_daily_trades": self.max_daily_trades,
+                "trade_cooldown_seconds": self.cooldown_seconds,
+                "duplicate_signal_window_seconds": self.duplicate_window_seconds,
+                "block_same_pair_open_position": self.block_same_pair_open_position,
+                "max_trade_notional_usd": str(self.max_trade_notional_usd),
+                "risk_per_trade_pct": str(self.risk_per_trade_pct),
+                "max_cash_usage_pct": str(self.max_cash_usage_pct),
+                "take_profit_pct": str(self.take_profit_pct),
+                "stop_loss_pct": str(self.stop_loss_pct),
+                "max_hold_seconds": self.max_hold_seconds,
+            },
+            "state_path": str(self.state_path),
+            "updated_at": state.get("updated_at"),
+        }
 
     def load_state(self) -> dict[str, Any]:
         if not self.state_path.exists():
@@ -166,50 +263,17 @@ class PortfolioRiskService:
         self.state_path.parent.mkdir(exist_ok=True)
         self.state_path.write_text(json.dumps(state, indent=2, sort_keys=True), encoding="utf-8")
 
-    def summary(self) -> dict[str, Any]:
-        state = self.load_state()
-        open_positions = self._open_positions(state)
-        exposure_by_chain: dict[str, str] = {}
-        exposure_by_token: dict[str, str] = {}
-        for pos in open_positions:
-            notional = self._decimal(pos.get("notional_usd", "0"))
-            chain = str(pos.get("chain", "-"))
-            token = str(pos.get("base_symbol") or self._split_pair(str(pos.get("pair", "-/USDC")))[0])
-            exposure_by_chain[chain] = str(self._decimal(exposure_by_chain.get(chain, "0")) + notional)
-            exposure_by_token[token] = str(self._decimal(exposure_by_token.get(token, "0")) + notional)
-        return {
-            "cash_usd": state.get("cash_usd", str(self.initial_cash_usd)),
-            "initial_cash_usd": state.get("initial_cash_usd", str(self.initial_cash_usd)),
-            "open_positions": len(open_positions),
-            "daily_filled_trades": state.get("daily_filled_trades", 0),
-            "daily_realized_pnl_usd": state.get("daily_realized_pnl_usd", "0"),
-            "exposure_by_chain": exposure_by_chain,
-            "exposure_by_token": exposure_by_token,
-            "limits": {
-                "max_open_positions": self.max_open_positions,
-                "max_daily_trades": self.max_daily_trades,
-                "trade_cooldown_seconds": self.cooldown_seconds,
-                "duplicate_signal_window_seconds": self.duplicate_window_seconds,
-                "max_trade_notional_usd": str(self.max_trade_notional_usd),
-                "risk_per_trade_pct": str(self.risk_per_trade_pct),
-                "max_cash_usage_pct": str(self.max_cash_usage_pct),
-                "max_token_exposure_pct": str(self.max_token_exposure_pct),
-                "max_chain_exposure_pct": str(self.max_chain_exposure_pct),
-            },
-            "state_path": str(self.state_path),
-            "updated_at": state.get("updated_at"),
-        }
-
     def _initial_state(self) -> dict[str, Any]:
         now = self._utc_now()
         return {
-            "version": "3.3",
+            "version": "3.4",
             "portfolio_name": "CryptoAI Paper Portfolio",
             "initial_cash_usd": str(self.initial_cash_usd),
             "cash_usd": str(self.initial_cash_usd),
             "daily_date": now[:10],
             "daily_filled_trades": 0,
             "daily_realized_pnl_usd": "0",
+            "realized_pnl_usd": "0",
             "positions": [],
             "signal_history": [],
             "created_at": now,
@@ -217,17 +281,26 @@ class PortfolioRiskService:
         }
 
     def _upgrade_state(self, state: dict[str, Any]) -> dict[str, Any]:
-        state.setdefault("version", "3.3")
+        state["version"] = "3.4"
         state.setdefault("portfolio_name", "CryptoAI Paper Portfolio")
         state.setdefault("initial_cash_usd", str(self.initial_cash_usd))
         state.setdefault("cash_usd", str(self.initial_cash_usd))
         state.setdefault("daily_date", self._utc_now()[:10])
         state.setdefault("daily_filled_trades", 0)
         state.setdefault("daily_realized_pnl_usd", "0")
+        state.setdefault("realized_pnl_usd", "0")
         state.setdefault("positions", [])
         state.setdefault("signal_history", [])
         state.setdefault("created_at", self._utc_now())
         state.setdefault("updated_at", state.get("created_at"))
+        for pos in state.get("positions", []):
+            if str(pos.get("status", "OPEN")).upper() == "OPEN":
+                pos.setdefault("lifecycle_status", "MONITORING")
+                entry = self._decimal(pos.get("entry_price_usd", "0"))
+                side = str(pos.get("side", "BUY"))
+                pos.setdefault("take_profit_price_usd", str(self._exit_price(entry, side, self.take_profit_pct, True)))
+                pos.setdefault("stop_loss_price_usd", str(self._exit_price(entry, side, self.stop_loss_pct, False)))
+                pos.setdefault("max_hold_seconds", self.max_hold_seconds)
         return state
 
     def _reset_daily_counters_if_needed(self, state: dict[str, Any], timestamp: str) -> None:
@@ -238,6 +311,42 @@ class PortfolioRiskService:
             state["daily_realized_pnl_usd"] = "0"
             state["updated_at"] = timestamp
 
+    def _close_position(self, state: dict[str, Any], pos: dict[str, Any], exit_price: Decimal, timestamp: str, reason: str) -> Decimal:
+        qty = self._decimal(pos.get("quantity", "0"))
+        notional = self._decimal(pos.get("notional_usd", "0"))
+        exit_value = self._quantize_usd(qty * exit_price)
+        pnl = self._quantize_usd(exit_value - notional)
+        state["cash_usd"] = str(self._quantize_usd(self._decimal(state.get("cash_usd", "0")) + exit_value))
+        pos["status"] = "CLOSED"
+        pos["lifecycle_status"] = "CLOSED"
+        pos["exit_price_usd"] = str(exit_price)
+        pos["exit_value_usd"] = str(exit_value)
+        pos["realized_pnl_usd"] = str(pnl)
+        pos["closed_at"] = timestamp
+        pos["exit_reason"] = reason
+        pos["updated_at"] = timestamp
+        return pnl
+
+    def _exit_reason(self, pos: dict[str, Any], current_price: Decimal, timestamp: str) -> str | None:
+        side = str(pos.get("side", "BUY")).upper()
+        take_profit = self._decimal(pos.get("take_profit_price_usd", "0"))
+        stop_loss = self._decimal(pos.get("stop_loss_price_usd", "0"))
+        if side == "BUY":
+            if take_profit > 0 and current_price >= take_profit:
+                return "TAKE_PROFIT"
+            if stop_loss > 0 and current_price <= stop_loss:
+                return "STOP_LOSS"
+        age = self._age_seconds(pos.get("opened_at"), timestamp)
+        if age >= int(pos.get("max_hold_seconds", self.max_hold_seconds)):
+            return "MAX_HOLD_TIME"
+        return None
+
+    def _unrealized_pnl(self, pos: dict[str, Any]) -> Decimal:
+        qty = self._decimal(pos.get("quantity", "0"))
+        current = self._decimal(pos.get("current_price_usd", pos.get("entry_price_usd", "0")))
+        notional = self._decimal(pos.get("notional_usd", "0"))
+        return self._quantize_usd((qty * current) - notional)
+
     def _portfolio_value(self, state: dict[str, Any]) -> Decimal:
         cash = self._decimal(state.get("cash_usd", self.initial_cash_usd))
         open_notional = sum((self._decimal(pos.get("notional_usd", "0")) for pos in self._open_positions(state)), Decimal("0"))
@@ -246,6 +355,13 @@ class PortfolioRiskService:
     @staticmethod
     def _open_positions(state: dict[str, Any]) -> list[dict[str, Any]]:
         return [p for p in state.get("positions", []) if str(p.get("status", "OPEN")).upper() == "OPEN"]
+
+    @staticmethod
+    def _same_open_position(open_positions: list[dict[str, Any]], pair: str, side: str) -> dict[str, Any] | None:
+        for pos in reversed(open_positions):
+            if str(pos.get("pair")) == pair and str(pos.get("side", "BUY")).upper() == side:
+                return pos
+        return None
 
     def _recent_duplicate(self, open_positions: list[dict[str, Any]], pair: str, side: str, now: str) -> dict[str, Any] | None:
         for pos in reversed(open_positions):
@@ -274,6 +390,15 @@ class PortfolioRiskService:
                 continue
             total += self._decimal(pos.get("notional_usd", "0"))
         return total
+
+    @staticmethod
+    def _exit_price(entry: Decimal, side: str, pct: Decimal, favorable: bool) -> Decimal:
+        if entry <= 0:
+            return Decimal("0")
+        delta = pct / Decimal("100")
+        if side.upper() == "BUY":
+            return (entry * (Decimal("1") + delta if favorable else Decimal("1") - delta)).quantize(Decimal("0.000000000000000001"))
+        return (entry * (Decimal("1") - delta if favorable else Decimal("1") + delta)).quantize(Decimal("0.000000000000000001"))
 
     @staticmethod
     def _normalize_pair(pair: str) -> str:
@@ -323,3 +448,10 @@ class PortfolioRiskService:
             return int(os.getenv(name, str(default)))
         except Exception:
             return default
+
+    @staticmethod
+    def _env_bool(name: str, default: bool) -> bool:
+        value = os.getenv(name)
+        if value is None:
+            return default
+        return value.strip().lower() in {"1", "true", "yes", "y", "on"}

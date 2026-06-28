@@ -63,6 +63,15 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         self.assertFalse(decision.approved)
         self.assertIn("max daily", decision.reason.lower())
 
+    def test_monitor_positions_closes_take_profit(self) -> None:
+        svc = self.service()
+        svc.record_filled_order(order_id="tp1", timestamp="2026-06-28T00:00:00Z", strategy_name="test", chain="base", pair="WETH/USDC", side="BUY", notional_usd=Decimal("100"), fill_price_usd=Decimal("2000"), quantity=Decimal("0.05"))
+        result = svc.monitor_positions(prices={"WETH/USDC": Decimal("2100")}, now="2026-06-28T00:01:00Z")
+        self.assertEqual(result.closed_positions, 1)
+        state = svc.load_state()
+        self.assertEqual(state["positions"][0]["status"], "CLOSED")
+        self.assertEqual(state["positions"][0]["exit_reason"], "TAKE_PROFIT")
+
 
 if __name__ == "__main__":
     unittest.main()
