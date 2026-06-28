@@ -1,24 +1,23 @@
 # CryptoAI Quote Diagnostics
 
-Generated: `2026-06-28T15:59:57Z`
+Generated: `2026-06-28T16:09:38Z`
 
 ## Summary
 
 - Total quote diagnostics: `4`
-- OK: `0`
-- Error: `4`
+- OK: `2`
+- Error: `2`
 - Invalid: `0`
 
 ## Quote Rows
 
 | Chain | DEX | Pair | Status | Price | Amount Out | Latency ms | Error |
 |---|---|---|---|---:|---:|---:|---|
-| base | UniswapV2 | WETH/USDC | ERROR | - | - | 0.65 | UniswapV2QuoteProvider.get_quote() missing 1 required positional argument: 'request' |
-| base | Aerodrome | WETH/USDC | ERROR | - | - | 0.65 | AerodromeQuoteProvider.get_quote() missing 1 required positional argument: 'request' |
-| base | Aerodrome | USDC/WETH | ERROR | - | - | 0.65 | AerodromeQuoteProvider.get_quote() missing 1 required positional argument: 'request' |
-| base | UniswapV2 | USDC/WETH | ERROR | - | - | 0.65 | UniswapV2QuoteProvider.get_quote() missing 1 required positional argument: 'request' |
+| base | Uniswap V2 | USDC/WETH | OK | 0.000629644594857841211 | 0.629644594857841211 | 642.25 |  |
+| base | Uniswap V2 | WETH/USDC | OK | 1571.249171 | 1571.249171 | 642.25 |  |
+| base | Aerodrome | USDC/WETH | ERROR | - | - | 642.25 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| base | Aerodrome | WETH/USDC | ERROR | - | - | 642.25 | RPC rate limit while reading Aerodrome quote. Add a private Base RPC or wait for cache refresh. |
 
 ## Interpretation
 
-- Not enough valid comparable quotes. Opportunity engine cannot create real arbitrage candidates.
-- Inspect the `Error` column first. Fix quote collection before tuning strategy thresholds.
+- Quote layer has at least two valid quotes. Opportunity Explorer should be able to compare prices.

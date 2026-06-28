@@ -18,7 +18,7 @@ REPORT_DIR = Path("reports")
 
 def render_header() -> None:
     st.title("📊 CryptoAI Paper Trading Control Center")
-    st.caption("Focus: quote diagnostics → opportunity decisions → paper trading reports.")
+    st.caption("Focus: quote diagnostics → multi-DEX opportunities → paper trading reports.")
 
 
 def read_jsonl(path: Path, limit: int = 100) -> list[dict]:
@@ -91,7 +91,6 @@ def render_paper_autopilot() -> None:
 
 def render_quote_diagnostics() -> None:
     st.subheader("Quote Diagnostics")
-    st.caption("This is now the most important page. It tells us why quote collection is failing.")
 
     if st.button("Run Quote Diagnostics"):
         def task():
@@ -111,6 +110,29 @@ def render_quote_diagnostics() -> None:
         st.markdown(txt)
     else:
         st.info("No quote_diagnostics.md found yet.")
+
+
+def render_multi_dex_opportunities() -> None:
+    st.subheader("Multi-DEX Opportunities")
+
+    if st.button("Run Multi-DEX Opportunity Scan"):
+        def task():
+            Engine = import_object("app.opportunities.multi_dex_opportunity_engine", "MultiDexOpportunityEngine")
+            return Engine().scan()
+
+        result = safe_run("Running multi-DEX opportunity scan...", task)
+        if result is not None:
+            st.success(f"Multi-DEX scan completed. Rows: {len(result)}")
+
+    st.markdown("### Recent Multi-DEX Opportunities")
+    dataframe_or_info(read_jsonl(DATA_DIR / "multi_dex_opportunities.jsonl", limit=100), "No multi-DEX opportunities saved yet.")
+
+    st.markdown("### Multi-DEX Report")
+    txt = read_text(REPORT_DIR / "multi_dex_opportunities.md")
+    if txt:
+        st.markdown(txt)
+    else:
+        st.info("No multi_dex_opportunities.md found yet.")
 
 
 def render_opportunity_explorer() -> None:
@@ -150,6 +172,7 @@ def render_reports() -> None:
 
     for title, path in [
         ("Quote Diagnostics", REPORT_DIR / "quote_diagnostics.md"),
+        ("Multi-DEX Opportunities", REPORT_DIR / "multi_dex_opportunities.md"),
         ("Opportunity Explorer", REPORT_DIR / "opportunity_explorer.md"),
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
     ]:
@@ -200,9 +223,11 @@ def render_system_health() -> None:
         DATA_DIR,
         REPORT_DIR,
         DATA_DIR / "quote_diagnostics.jsonl",
+        DATA_DIR / "multi_dex_opportunities.jsonl",
         DATA_DIR / "opportunity_decisions.jsonl",
         DATA_DIR / "paper_orders.jsonl",
         REPORT_DIR / "quote_diagnostics.md",
+        REPORT_DIR / "multi_dex_opportunities.md",
         REPORT_DIR / "opportunity_explorer.md",
         REPORT_DIR / "paper_report.md",
     ]:
@@ -223,15 +248,17 @@ def render_setup() -> None:
         """
         ### Current debugging order
 
-        1. Quote Diagnostics — fix quote errors first.
-        2. Opportunity Explorer — compare valid quotes.
-        3. Paper Autopilot — execute simulated trades only when opportunities exist.
-        4. Reports — review results.
+        1. Quote Diagnostics — quote provider health.
+        2. Multi-DEX Opportunities — real or simulated paper comparison.
+        3. Opportunity Explorer — BUY/WATCH/SKIP decision.
+        4. Paper Autopilot — simulated execution.
+        5. Reports — review results.
 
         ### Commands
 
         ```bash
         python -m app.diagnostics.quote_diagnostics
+        python -m app.opportunities.multi_dex_opportunity_engine
         python -m app.opportunities.opportunity_explorer
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
@@ -243,12 +270,13 @@ def render_setup() -> None:
 PAGES = {
     "1 Paper Autopilot": render_paper_autopilot,
     "2 Quote Diagnostics": render_quote_diagnostics,
-    "3 Opportunity Explorer": render_opportunity_explorer,
-    "4 Reports": render_reports,
-    "5 Paper Orders": render_paper_orders,
-    "6 Risk & Controls": render_risk_controls,
-    "7 System Health": render_system_health,
-    "8 Setup / Roadmap": render_setup,
+    "3 Multi-DEX Opportunities": render_multi_dex_opportunities,
+    "4 Opportunity Explorer": render_opportunity_explorer,
+    "5 Reports": render_reports,
+    "6 Paper Orders": render_paper_orders,
+    "7 Risk & Controls": render_risk_controls,
+    "8 System Health": render_system_health,
+    "9 Setup / Roadmap": render_setup,
 }
 
 

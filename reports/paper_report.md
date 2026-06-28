@@ -1,25 +1,25 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-28T16:00:07Z`
+Generated: `2026-06-28T16:09:52Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `10`
-- Total orders: `23`
+- Opportunity decisions: `17`
+- Total orders: `24`
 - Filled orders: `0`
-- Skipped orders: `23`
+- Skipped orders: `24`
 - Rejected orders: `0`
 - Total filled notional USD: `$0`
 
 ## Opportunity Decision Counts
 
-- `SKIP`: 10
+- `SKIP`: 17
 
 ## Skip Reasons
 
-- `Risk decision is WATCHLIST; paper order not created.`: 23
+- `Risk decision is WATCHLIST; paper order not created.`: 24
 
 ## Latest Opportunities
 
@@ -35,12 +35,18 @@ Generated: `2026-06-28T16:00:07Z`
 | - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
 | - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
 | - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
+| WETH/USDC | None | 10 | SKIP | Only one valid quote source was available. Need at least two sources to compare. |
+| USDC/WETH | None | 10 | SKIP | Only one valid quote source was available. Need at least two sources to compare. |
+| - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
+| - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
+| - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
+| - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
+| - | None | 0 | SKIP | No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4. |
 
 ## Latest Orders
 
 | Time | Pair | Status | Notional | Edge % | Reason |
 |---|---|---|---:|---:|---|
-| 2026-06-28T01:32:27Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:32:44Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:37:25Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:37:35Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
@@ -60,6 +66,7 @@ Generated: `2026-06-28T16:00:07Z`
 | 2026-06-28T14:49:54Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T15:29:27Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T16:00:04Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
+| 2026-06-28T16:09:49Z | - | SKIPPED | 0 | None | Risk decision is WATCHLIST; paper order not created. |
 
 ## Notes
 

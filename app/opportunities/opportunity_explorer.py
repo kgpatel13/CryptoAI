@@ -16,7 +16,11 @@ except Exception:
 
 
 class OpportunityExplorerService:
-    """Explains why opportunities are BUY / WATCH / SKIP."""
+    """Explains why opportunities are BUY / WATCH / SKIP.
+
+    v3.0 first uses MultiDexOpportunityEngine output. If that is unavailable,
+    it falls back to direct quote comparison.
+    """
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -31,8 +35,11 @@ class OpportunityExplorerService:
         self.watch_net_edge_pct = Decimal("0.05")
 
     def scan(self) -> list[OpportunityDecision]:
-        quotes = self._load_quotes()
-        decisions = self._build_decisions_from_quotes(quotes)
+        decisions = self._from_multi_dex_engine()
+        if not decisions:
+            quotes = self._load_quotes()
+            decisions = self._build_decisions_from_quotes(quotes)
+
         self._persist(decisions)
         self._write_markdown(decisions)
         return decisions
@@ -49,6 +56,51 @@ class OpportunityExplorerService:
             except json.JSONDecodeError:
                 continue
         return rows[-limit:]
+
+    def _from_multi_dex_engine(self) -> list[OpportunityDecision]:
+        try:
+            from app.opportunities.multi_dex_opportunity_engine import MultiDexOpportunityEngine
+            opportunities = MultiDexOpportunityEngine().scan()
+        except Exception:
+            return []
+
+        decisions: list[OpportunityDecision] = []
+
+        for opp in opportunities:
+            mode = getattr(getattr(opp, "mode", ""), "value", str(getattr(opp, "mode", "")))
+            decision_value = getattr(getattr(opp, "decision", ""), "value", str(getattr(opp, "decision", "")))
+            net = self._to_decimal(getattr(opp, "net_edge_pct", None))
+
+            if decision_value == "BUY":
+                decision = TradeDecision.BUY
+            elif decision_value == "WATCH":
+                decision = TradeDecision.WATCH
+            else:
+                decision = TradeDecision.SKIP
+
+            score = self._score(net)
+
+            decisions.append(
+                OpportunityDecision(
+                    opportunity_id=str(getattr(opp, "opportunity_id", str(uuid4())[:10])),
+                    chain=str(getattr(opp, "chain", "base")),
+                    pair=str(getattr(opp, "pair", "-")),
+                    buy_source=str(getattr(opp, "buy_dex", "-")),
+                    sell_source=str(getattr(opp, "sell_dex", "-")),
+                    buy_price=self._to_decimal(getattr(opp, "buy_price", None)),
+                    sell_price=self._to_decimal(getattr(opp, "sell_price", None)),
+                    gross_spread_pct=self._to_decimal(getattr(opp, "gross_edge_pct", None)),
+                    gas_buffer_pct=self.gas_buffer_pct,
+                    fee_slippage_buffer_pct=self.fee_slippage_buffer_pct,
+                    total_cost_buffer_pct=self.gas_buffer_pct + self.fee_slippage_buffer_pct,
+                    estimated_net_edge_pct=net,
+                    readiness_score=score,
+                    decision=decision,
+                    reason=f"{mode}: {getattr(opp, 'reason', '')}",
+                )
+            )
+
+        return decisions
 
     def _load_quotes(self) -> list:
         if QuoteService is None:
@@ -183,7 +235,7 @@ class OpportunityExplorerService:
             reason = f"Estimated net edge {net:.4f}% is above BUY threshold {self.min_buy_net_edge_pct}%."
         elif net >= self.watch_net_edge_pct:
             decision = TradeDecision.WATCH
-            reason = f"Estimated net edge {net:.4f}% is positive but below BUY threshold {self.min_buy_net_edge_pct}%."
+            reason = f"Estimated net edge {net:.4f}% is positive but below BUY threshold."
         else:
             decision = TradeDecision.SKIP
             reason = f"Estimated net edge {net:.4f}% is too low after cost buffer {total_cost}%."
