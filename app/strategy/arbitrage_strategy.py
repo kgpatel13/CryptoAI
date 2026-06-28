@@ -7,12 +7,10 @@ from app.strategy.models import StrategyAction, StrategySignal
 
 
 class ArbitrageStrategy(BaseStrategy):
-    """First read-only arbitrage strategy plugin.
+    """Read-only arbitrage strategy plugin.
 
-    This strategy consumes the existing scanner layer and converts raw
-    opportunities into standardized strategy signals.
-
-    Live execution is intentionally disabled.
+    v2.2 first tries the normalized OpportunityService, then falls back to
+    the legacy gross scanner.
     """
 
     name = "DEX Arbitrage Strategy"
@@ -26,7 +24,66 @@ class ArbitrageStrategy(BaseStrategy):
         self.min_confidence_score = min_confidence_score
 
     def generate_signals(self) -> list[StrategySignal]:
-        opportunities = self._load_opportunities()
+        opportunities = self._load_normalized_opportunities()
+
+        if opportunities:
+            return self._signals_from_candidates(opportunities)
+
+        return self._signals_from_legacy_scanner()
+
+    def _signals_from_candidates(self, candidates: list) -> list[StrategySignal]:
+        signals: list[StrategySignal] = []
+
+        for candidate in candidates:
+            edge = getattr(candidate, "estimated_net_edge_pct", None)
+            pair = str(getattr(candidate, "pair", "-"))
+            chain = str(getattr(candidate, "chain", "base"))
+            status = getattr(candidate, "status", "")
+            status_value = status.value if hasattr(status, "value") else str(status)
+
+            if edge is None:
+                signals.append(
+                    StrategySignal(
+                        strategy_name=self.name,
+                        chain=chain,
+                        pair=pair,
+                        action=StrategyAction.SKIP,
+                        confidence_score=0,
+                        expected_edge_pct=None,
+                        reason="Opportunity candidate is missing estimated net edge.",
+                    )
+                )
+                continue
+
+            edge = Decimal(str(edge))
+            confidence = self._score_spread(edge)
+
+            if status_value == "CANDIDATE" and confidence >= self.min_confidence_score:
+                action = StrategyAction.READY_FOR_PAPER
+                reason = "Normalized opportunity candidate is suitable for paper-trading review."
+            elif status_value == "WATCH":
+                action = StrategyAction.WATCH
+                reason = "Opportunity is on watchlist after estimated cost buffer."
+            else:
+                action = StrategyAction.SKIP
+                reason = "Opportunity rejected by normalized opportunity engine."
+
+            signals.append(
+                StrategySignal(
+                    strategy_name=self.name,
+                    chain=chain,
+                    pair=pair,
+                    action=action,
+                    confidence_score=confidence,
+                    expected_edge_pct=edge,
+                    reason=reason,
+                )
+            )
+
+        return signals
+
+    def _signals_from_legacy_scanner(self) -> list[StrategySignal]:
+        opportunities = self._load_legacy_opportunities()
         signals: list[StrategySignal] = []
 
         if not opportunities:
@@ -93,7 +150,17 @@ class ArbitrageStrategy(BaseStrategy):
 
         return signals
 
-    def _load_opportunities(self) -> list:
+    @staticmethod
+    def _load_normalized_opportunities() -> list:
+        try:
+            from app.opportunities.opportunity_service import OpportunityService
+
+            return OpportunityService().scan()
+        except Exception:
+            return []
+
+    @staticmethod
+    def _load_legacy_opportunities() -> list:
         try:
             from app.scanner.opportunity_scanner import OpportunityScanner
 
@@ -113,7 +180,5 @@ class ArbitrageStrategy(BaseStrategy):
     def _score_spread(spread_pct: Decimal) -> int:
         if spread_pct <= 0:
             return 0
-
-        # Simple v1 scoring. Later AI/risk engines will replace this.
         score = int(min(95, max(1, spread_pct * Decimal("250"))))
         return score
