@@ -9,6 +9,7 @@ from app.registry.pairs import get_pairs_for_chain
 from app.marketdata.market_service import MarketDataService
 from app.quotes.quote_service import QuoteService
 from app.scanner.opportunity_scanner import OpportunityScanner
+from app.papertrading.paper_service import PaperTradingService
 
 
 st.set_page_config(
@@ -45,16 +46,22 @@ def load_gross_opportunities():
 
 @st.cache_data(ttl=20)
 def load_net_opportunities():
-    return OpportunityScanner().scan_base_net_estimates()
+    return OpportunityScanner().scan_base_net_opportunities()
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
+@st.cache_data(ttl=20)
+def load_paper_trades():
+    return PaperTradingService().run_once(persist=False)
+
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
         "🔁 DEX Quotes",
-        "🚨 Gross Opportunities",
+        "🚨 Gross Opps",
         "🧮 Net Estimates",
+        "🧪 Paper Trading",
         "🪙 Assets",
         "🏦 DEX Registry",
         "📈 Roadmap",
@@ -89,31 +96,23 @@ with tab2:
 
     try:
         price_rows = []
-
         for price in load_market_prices():
             price_rows.append(
                 {
                     "Asset": price.name,
                     "Symbol": price.symbol,
                     "CoinGecko ID": price.coingecko_id,
-                    "USD Price": float(price.usd_price)
-                    if price.usd_price
-                    else None,
+                    "USD Price": float(price.usd_price) if price.usd_price else None,
                     "24h Change %": float(price.change_24h_pct)
                     if price.change_24h_pct
                     else None,
-                    "24h Volume": float(price.volume_24h)
-                    if price.volume_24h
-                    else None,
-                    "Market Cap": float(price.market_cap)
-                    if price.market_cap
-                    else None,
+                    "24h Volume": float(price.volume_24h) if price.volume_24h else None,
+                    "Market Cap": float(price.market_cap) if price.market_cap else None,
                 }
             )
 
         st.dataframe(pd.DataFrame(price_rows), use_container_width=True)
         st.success("Live market data loaded successfully.")
-
     except Exception as exc:
         st.error(f"Failed to load market prices: {exc}")
 
@@ -123,7 +122,6 @@ with tab3:
 
     try:
         quote_rows = []
-
         for quote in load_dex_quotes():
             quote_rows.append(
                 {
@@ -132,17 +130,14 @@ with tab3:
                     "Token In": quote.token_in,
                     "Token Out": quote.token_out,
                     "Amount In": float(quote.amount_in),
-                    "Amount Out": float(quote.amount_out)
-                    if quote.amount_out
-                    else None,
+                    "Amount Out": float(quote.amount_out) if quote.amount_out else None,
                     "Price": float(quote.price) if quote.price else None,
                     "Error": quote.error or "",
                 }
             )
 
         st.dataframe(pd.DataFrame(quote_rows), use_container_width=True)
-        st.info("These are live on-chain quotes through the new Quote Manager framework.")
-
+        st.info("These are live on-chain DEX quotes from Base providers.")
     except Exception as exc:
         st.error(f"Failed to load DEX quotes: {exc}")
 
@@ -152,7 +147,6 @@ with tab4:
 
     try:
         rows = []
-
         for opp in load_gross_opportunities():
             rows.append(
                 {
@@ -168,9 +162,8 @@ with tab4:
 
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
         st.warning(
-            "Gross spread only. This does NOT include gas, slippage, MEV, DEX fees, or execution risk yet."
+            "Gross spread only. This does NOT include gas, slippage, MEV, DEX fees, or execution risk."
         )
-
     except Exception as exc:
         st.error(f"Failed to scan gross opportunities: {exc}")
 
@@ -180,35 +173,68 @@ with tab5:
 
     try:
         rows = []
-
         for opp in load_net_opportunities():
             rows.append(
                 {
                     "Chain": opp.chain,
                     "Pair": opp.pair,
-                    "Buy DEX": opp.buy_dex,
-                    "Sell DEX": opp.sell_dex,
-                    "Notional USD": float(opp.notional_usd),
+                    "Buy DEX": opp.best_buy_dex,
+                    "Sell DEX": opp.best_sell_dex,
+                    "Trade Size USD": float(opp.trade_size_usd),
                     "Gross Spread %": float(opp.gross_spread_pct),
                     "Gross Profit USD": float(opp.estimated_gross_profit_usd),
-                    "Estimated Costs USD": float(opp.estimated_total_cost_usd),
-                    "Estimated Net USD": float(opp.estimated_net_profit_usd),
-                    "Estimated Net %": float(opp.estimated_net_profit_pct),
+                    "Estimated Cost USD": float(opp.estimated_cost_usd),
+                    "Estimated Net Profit USD": float(opp.estimated_net_profit_usd),
+                    "Estimated Net Profit %": float(opp.estimated_net_profit_pct),
                     "Decision": opp.decision,
                     "Reason": opp.reason,
                 }
             )
 
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
-        st.warning(
-            "Research estimate only. Costs use conservative placeholders; no live execution signal yet."
+        st.info(
+            "Net estimate uses conservative placeholder costs. Later versions will use real gas, liquidity, and slippage simulation."
         )
-
     except Exception as exc:
-        st.error(f"Failed to scan net opportunities: {exc}")
+        st.error(f"Failed to estimate net opportunities: {exc}")
 
 
 with tab6:
+    st.subheader("Paper Trading Simulation")
+
+    try:
+        paper_trades = load_paper_trades()
+        rows = []
+        for trade in paper_trades:
+            rows.append(
+                {
+                    "Timestamp UTC": trade.timestamp_utc,
+                    "Chain": trade.chain,
+                    "Pair": trade.pair,
+                    "Buy DEX": trade.buy_dex,
+                    "Sell DEX": trade.sell_dex,
+                    "Trade Size USD": float(trade.trade_size_usd),
+                    "Est. Net Profit USD": float(trade.estimated_net_profit_usd),
+                    "Est. Net Profit %": float(trade.estimated_net_profit_pct),
+                    "Status": trade.status,
+                    "Reason": trade.reason,
+                }
+            )
+
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.warning(
+            "Paper trading is simulation only. No wallet, no private key, no live execution."
+        )
+
+        if st.button("Record current paper scan to CSV"):
+            saved = PaperTradingService().run_once(persist=True)
+            st.success(f"Saved {len(saved)} paper-trade rows to data/paper_trades.csv")
+            st.cache_data.clear()
+    except Exception as exc:
+        st.error(f"Failed to run paper trading simulation: {exc}")
+
+
+with tab7:
     st.subheader("Token Registry")
 
     token_rows = []
@@ -243,11 +269,10 @@ with tab6:
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 
-with tab7:
+with tab8:
     st.subheader("DEX Registry")
 
     dex_rows = []
-
     for chain_key, chain in SUPPORTED_CHAINS.items():
         for dex in get_dexes_for_chain(chain_key):
             dex_rows.append(
@@ -263,7 +288,7 @@ with tab7:
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
 
 
-with tab8:
+with tab9:
     st.subheader("CryptoAI Roadmap")
 
     st.markdown(
@@ -274,13 +299,12 @@ with tab8:
         ✅ M3 — Streamlit dashboard foundation  
         ✅ M4 — Live market data engine  
         ✅ M5 — Live DEX quote engine  
-        ✅ M6 — Gross opportunity scanner  
-        🔄 v0.5 — Connector framework + estimated net opportunity scanner  
-        🔜 v0.6 — Real gas/slippage/risk engine  
-        🔜 v0.7 — AI ranking engine  
-        🔜 v0.8 — Paper trading  
-        🔜 v0.9 — Backtesting  
-        🔜 v1.0 — Live trading controls  
+        ✅ v0.5 — Connector framework and net opportunity estimates  
+        🔄 v0.6 — Paper trading simulation  
+        🔜 v0.7 — Historical storage and analytics  
+        🔜 v0.8 — AI ranking engine  
+        🔜 v0.9 — Backtesting engine  
+        🔜 v1.0 — Stable paper-trading release  
         """
     )
 
