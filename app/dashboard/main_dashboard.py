@@ -10,6 +10,7 @@ from app.marketdata.market_service import MarketDataService
 from app.quotes.quote_service import QuoteService
 from app.scanner.opportunity_scanner import OpportunityScanner
 from app.papertrading.paper_service import PaperTradingService
+from app.analytics.paper_analytics_service import PaperAnalyticsService
 
 
 st.set_page_config(
@@ -54,7 +55,25 @@ def load_paper_trades():
     return PaperTradingService().run_once(persist=False)
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
+@st.cache_data(ttl=10)
+def load_paper_summary():
+    service = PaperAnalyticsService()
+    return service.summary()
+
+
+@st.cache_data(ttl=10)
+def load_recent_paper_trades():
+    service = PaperAnalyticsService()
+    return service.recent_trades(limit=100)
+
+
+@st.cache_data(ttl=10)
+def load_profit_by_pair():
+    service = PaperAnalyticsService()
+    return service.profit_by_pair()
+
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
@@ -62,6 +81,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(
         "🚨 Gross Opps",
         "🧮 Net Estimates",
         "🧪 Paper Trading",
+        "📊 Analytics",
         "🪙 Assets",
         "🏦 DEX Registry",
         "📈 Roadmap",
@@ -226,15 +246,65 @@ with tab6:
             "Paper trading is simulation only. No wallet, no private key, no live execution."
         )
 
-        if st.button("Record current paper scan to CSV"):
+        if st.button("Record current paper scan to database + CSV"):
             saved = PaperTradingService().run_once(persist=True)
-            st.success(f"Saved {len(saved)} paper-trade rows to data/paper_trades.csv")
+            st.success(
+                f"Saved {len(saved)} paper-trade rows to data/cryptoai.db and data/paper_trades.csv"
+            )
             st.cache_data.clear()
     except Exception as exc:
         st.error(f"Failed to run paper trading simulation: {exc}")
 
 
 with tab7:
+    st.subheader("Historical Paper Trading Analytics")
+
+    try:
+        summary = load_paper_summary()
+
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Total Stored Rows", int(summary.get("total_scans") or 0))
+        col2.metric("Paper Executed", int(summary.get("paper_executed") or 0))
+        col3.metric("Paper Skipped", int(summary.get("paper_skipped") or 0))
+        col4.metric(
+            "Total Est. Net P/L",
+            f"${float(summary.get('total_estimated_net_profit_usd') or 0):,.2f}",
+        )
+
+        col5, col6, col7 = st.columns(3)
+        col5.metric(
+            "Avg Est. Net P/L",
+            f"${float(summary.get('avg_estimated_net_profit_usd') or 0):,.4f}",
+        )
+        col6.metric(
+            "Best Est. Net P/L",
+            f"${float(summary.get('best_estimated_net_profit_usd') or 0):,.4f}",
+        )
+        col7.metric(
+            "Worst Est. Net P/L",
+            f"${float(summary.get('worst_estimated_net_profit_usd') or 0):,.4f}",
+        )
+
+        st.markdown("### Estimated P/L by Pair")
+        pair_df = pd.DataFrame(load_profit_by_pair())
+        st.dataframe(pair_df, use_container_width=True)
+
+        if not pair_df.empty:
+            chart_df = pair_df.set_index("pair")[["total_estimated_net_profit_usd"]]
+            st.bar_chart(chart_df)
+
+        st.markdown("### Recent Stored Paper Trades")
+        recent_df = pd.DataFrame(load_recent_paper_trades())
+        st.dataframe(recent_df, use_container_width=True)
+
+        st.info(
+            "This tab reads from SQLite. Use the Paper Trading tab button to store new snapshots over time."
+        )
+    except Exception as exc:
+        st.error(f"Failed to load historical analytics: {exc}")
+
+
+with tab8:
     st.subheader("Token Registry")
 
     token_rows = []
@@ -269,7 +339,7 @@ with tab7:
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 
-with tab8:
+with tab9:
     st.subheader("DEX Registry")
 
     dex_rows = []
@@ -288,7 +358,7 @@ with tab8:
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
 
 
-with tab9:
+with tab10:
     st.subheader("CryptoAI Roadmap")
 
     st.markdown(
@@ -300,8 +370,8 @@ with tab9:
         ✅ M4 — Live market data engine  
         ✅ M5 — Live DEX quote engine  
         ✅ v0.5 — Connector framework and net opportunity estimates  
-        🔄 v0.6 — Paper trading simulation  
-        🔜 v0.7 — Historical storage and analytics  
+        ✅ v0.6 — Paper trading simulation  
+        🔄 v0.7 — Historical storage and analytics  
         🔜 v0.8 — AI ranking engine  
         🔜 v0.9 — Backtesting engine  
         🔜 v1.0 — Stable paper-trading release  
