@@ -1,28 +1,28 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-28T17:36:51Z`
+Generated: `2026-06-28T17:52:19Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `100`
-- Total orders: `39`
-- Filled orders: `12`
+- Opportunity decisions: `112`
+- Total orders: `41`
+- Filled orders: `13`
 - Skipped orders: `25`
 - Rejected orders: `0`
-- Portfolio risk rejections: `2`
-- Total filled notional USD: `$1250.0000`
-- Paper portfolio cash USD: `$167573.8665`
-- Open paper positions: `1`
+- Portfolio risk rejections: `3`
+- Total filled notional USD: `$1350.0035`
+- Paper portfolio cash USD: `$9800.3465`
+- Open paper positions: `2`
 - Closed paper positions: `1`
-- Avg execution slippage bps: `-`
-- Avg execution latency ms: `-`
+- Avg execution slippage bps: `5.0000`
+- Avg execution latency ms: `250.0000`
 
 ## Opportunity Decision Counts
 
 - `SKIP`: 21
-- `BUY`: 79
+- `BUY`: 91
 
 ## Skip Reasons
 
@@ -30,24 +30,25 @@ Generated: `2026-06-28T17:36:51Z`
 
 ## Portfolio Risk Rejection Reasons
 
-- `Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure.`: 1
+- `Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure.`: 2
 - `Portfolio risk rejected: cooldown active for USDC/WETH BUY (827s/900s).`: 1
 
 ## Execution Quality
 
 - `UNKNOWN`: 12
+- `GOOD`: 1
 
 ## Paper Portfolio
 
-- Cash USD: `$167573.8665`
+- Cash USD: `$9800.3465`
 - Initial cash USD: `$10000`
-- Open positions: `1`
+- Open positions: `2`
 - Closed positions: `1`
-- Daily realized PnL USD: `$157673.8665`
-- Unrealized PnL USD: `$0.2035`
-- Daily filled trades: `2`
-- Exposure by chain: `{'base': '100.0000'}`
-- Exposure by token: `{'WETH': '100.0000'}`
+- Daily realized PnL USD: `$0.3500`
+- Unrealized PnL USD: `$0.4104`
+- Daily filled trades: `3`
+- Exposure by chain: `{'base': '200.0035'}`
+- Exposure by token: `{'WETH': '100.0000', 'USDC': '100.0035'}`
 
 ## Latest Opportunities
 
@@ -78,8 +79,6 @@ Generated: `2026-06-28T17:36:51Z`
 
 | Time | Pair | Status | Notional | Edge % | Slip bps | Quality | Reason |
 |---|---|---|---:|---:|---:|---|---|
-| 2026-06-28T14:25:50Z | - | SKIPPED | 0 | None | - | - | Risk decision is WATCHLIST; paper order not created. |
-| 2026-06-28T14:49:54Z | - | SKIPPED | 0 | None | - | - | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T15:29:27Z | - | SKIPPED | 0 | None | - | - | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T16:00:04Z | - | SKIPPED | 0 | None | - | - | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T16:09:49Z | - | SKIPPED | 0 | None | - | - | Risk decision is WATCHLIST; paper order not created. |
@@ -98,6 +97,8 @@ Generated: `2026-06-28T17:36:51Z`
 | 2026-06-28T17:22:57Z | USDC/WETH | FILLED | 100.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate after portfolio risk checks. |
 | 2026-06-28T17:36:44Z | WETH/USDC | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure. |
 | 2026-06-28T17:36:44Z | USDC/WETH | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: cooldown active for USDC/WETH BUY (827s/900s). |
+| 2026-06-28T17:52:15Z | WETH/USDC | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure. |
+| 2026-06-28T17:52:15Z | USDC/WETH | FILLED | 100.0035 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 
 ## Notes
 

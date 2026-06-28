@@ -72,6 +72,63 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         self.assertEqual(state["positions"][0]["status"], "CLOSED")
         self.assertEqual(state["positions"][0]["exit_reason"], "TAKE_PROFIT")
 
+    def test_inverse_pair_accounting_does_not_create_huge_quantity(self) -> None:
+        svc = self.service()
+        svc.record_filled_order(
+            order_id="inv1",
+            timestamp="2026-06-28T00:00:00Z",
+            strategy_name="test",
+            chain="base",
+            pair="USDC/WETH",
+            side="BUY",
+            notional_usd=Decimal("100"),
+            fill_price_usd=Decimal("0.0005"),
+            quantity=Decimal("200000"),
+            estimated_edge_pct=Decimal("0.35"),
+        )
+        state = svc.load_state()
+        pos = state["positions"][0]
+        self.assertEqual(Decimal(pos["entry_price_usd"]), Decimal("1"))
+        self.assertEqual(Decimal(pos["quantity"]), Decimal("100"))
+        result = svc.monitor_positions(prices={"USDC": Decimal("1")}, now="2026-06-28T00:01:00Z")
+        self.assertEqual(result.closed_positions, 0)
+        self.assertLess(Decimal(svc.load_state()["cash_usd"]), Decimal("1000"))
+
+    def test_legacy_inverse_pair_state_is_repaired(self) -> None:
+        svc = self.service()
+        bad_state = svc._initial_state()
+        bad_state["version"] = "3.4"
+        bad_state["cash_usd"] = "157573.8665"
+        bad_state["realized_pnl_usd"] = "157473.8665"
+        bad_state["daily_realized_pnl_usd"] = "157473.8665"
+        bad_state["positions"] = [
+            {
+                "position_id": "bad",
+                "order_id": "bad",
+                "strategy_name": "test",
+                "chain": "base",
+                "pair": "USDC/WETH",
+                "side": "BUY",
+                "base_symbol": "USDC",
+                "quote_symbol": "WETH",
+                "quantity": "157823.8966300458592473904105",
+                "entry_price_usd": "0.000633617608836572183",
+                "current_price_usd": "0.000633617608836572183",
+                "notional_usd": "100",
+                "estimated_edge_pct": "0.35",
+                "status": "CLOSED",
+                "realized_pnl_usd": "157473.8665",
+                "exit_value_usd": "157573.8665",
+                "closed_at": "2026-06-28T00:10:00Z",
+            }
+        ]
+        svc.save_state(bad_state)
+        repaired = svc.load_state()
+        self.assertEqual(repaired["version"], "3.4.1")
+        self.assertEqual(Decimal(repaired["cash_usd"]), Decimal("1000.3500"))
+        self.assertEqual(Decimal(repaired["realized_pnl_usd"]), Decimal("0.3500"))
+        self.assertEqual(Decimal(repaired["positions"][0]["quantity"]), Decimal("100"))
+
 
 if __name__ == "__main__":
     unittest.main()

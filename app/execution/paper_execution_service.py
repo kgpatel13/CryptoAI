@@ -9,6 +9,7 @@ from uuid import uuid4
 
 from app.execution.execution_simulator import ExecutionSimulator
 from app.execution.models import PaperExecutionBatch, PaperOrder, PaperOrderSide, PaperOrderStatus
+from app.portfolio.accounting import PaperAccounting
 
 try:
     from app.database.db import get_connection, initialize_database
@@ -71,8 +72,9 @@ class PaperExecutionService:
                 orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.SKIPPED, reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}"))
                 continue
 
-            reference_price = self._fill_price_for(pair, prices)
+            raw_reference_price = self._fill_price_for(pair, prices)
             requested_notional = self._to_decimal(getattr(assessment, "max_allowed_notional_usd", "0")) or Decimal("0")
+            reference_price = PaperAccounting.raw_pair_price_to_base_usd(pair=pair, raw_price=raw_reference_price, prices=prices)
 
             if reference_price <= 0 or requested_notional <= 0:
                 orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=requested_notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.REJECTED, reason="Missing fill price or notional for simulated fill."))

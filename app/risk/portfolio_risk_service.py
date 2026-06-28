@@ -8,6 +8,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+from app.portfolio.accounting import PaperAccounting
+
 
 @dataclass(frozen=True)
 class PortfolioRiskDecision:
@@ -123,7 +125,10 @@ class PortfolioRiskService:
         normalized_pair = self._normalize_pair(pair)
         base_symbol, quote_symbol = self._split_pair(normalized_pair)
         cash = self._decimal(state.get("cash_usd", self.initial_cash_usd))
-        state["cash_usd"] = str(self._quantize_usd(max(Decimal("0"), cash - notional_usd)))
+        canonical = PaperAccounting.canonical_entry(pair=normalized_pair, raw_price=fill_price_usd, notional_usd=notional_usd)
+        fill_price_usd = canonical.price_usd
+        quantity = canonical.quantity
+        state["cash_usd"] = str(self._quantize_usd(max(Decimal("0"), cash - canonical.notional_usd)))
         state["daily_filled_trades"] = int(state.get("daily_filled_trades", 0)) + 1
         state["updated_at"] = timestamp
         state.setdefault("positions", []).append({
@@ -133,12 +138,12 @@ class PortfolioRiskService:
             "chain": chain,
             "pair": normalized_pair,
             "side": side.upper(),
-            "base_symbol": base_symbol,
-            "quote_symbol": quote_symbol,
-            "quantity": str(quantity),
-            "entry_price_usd": str(fill_price_usd),
-            "current_price_usd": str(fill_price_usd),
-            "notional_usd": str(notional_usd),
+            "base_symbol": canonical.base_symbol,
+            "quote_symbol": canonical.quote_symbol,
+            "quantity": str(canonical.quantity),
+            "entry_price_usd": str(canonical.price_usd),
+            "current_price_usd": str(canonical.price_usd),
+            "notional_usd": str(canonical.notional_usd),
             "estimated_edge_pct": str(estimated_edge_pct) if estimated_edge_pct is not None else None,
             "slippage_bps": str(slippage_bps) if slippage_bps is not None else None,
             "latency_ms": latency_ms,
@@ -177,7 +182,7 @@ class PortfolioRiskService:
                 continue
             pair = str(pos.get("pair", "-/USDC"))
             base_symbol, _quote_symbol = self._split_pair(pair)
-            current_price = self._decimal(prices.get(pair) or prices.get(base_symbol) or pos.get("current_price_usd") or pos.get("entry_price_usd"))
+            current_price = PaperAccounting.mark_price_usd(pair=pair, prices=prices, fallback=pos.get("current_price_usd") or pos.get("entry_price_usd"))
             if current_price <= 0:
                 continue
             pos["current_price_usd"] = str(current_price)
@@ -253,7 +258,10 @@ class PortfolioRiskService:
             raw = json.loads(self.state_path.read_text(encoding="utf-8", errors="replace"))
             if not isinstance(raw, dict):
                 raise ValueError("state is not an object")
-            return self._upgrade_state(raw)
+            upgraded = self._upgrade_state(raw)
+            if upgraded != raw or str(upgraded.get("version")) == "3.4.1":
+                self.save_state(upgraded)
+            return upgraded
         except Exception:
             state = self._initial_state()
             self.save_state(state)
@@ -266,7 +274,7 @@ class PortfolioRiskService:
     def _initial_state(self) -> dict[str, Any]:
         now = self._utc_now()
         return {
-            "version": "3.4",
+            "version": "3.4.1",
             "portfolio_name": "CryptoAI Paper Portfolio",
             "initial_cash_usd": str(self.initial_cash_usd),
             "cash_usd": str(self.initial_cash_usd),
@@ -281,7 +289,8 @@ class PortfolioRiskService:
         }
 
     def _upgrade_state(self, state: dict[str, Any]) -> dict[str, Any]:
-        state["version"] = "3.4"
+        original_version = str(state.get("version", ""))
+        state["version"] = "3.4.1"
         state.setdefault("portfolio_name", "CryptoAI Paper Portfolio")
         state.setdefault("initial_cash_usd", str(self.initial_cash_usd))
         state.setdefault("cash_usd", str(self.initial_cash_usd))
@@ -294,6 +303,7 @@ class PortfolioRiskService:
         state.setdefault("created_at", self._utc_now())
         state.setdefault("updated_at", state.get("created_at"))
         for pos in state.get("positions", []):
+            self._normalize_position_accounting(pos)
             if str(pos.get("status", "OPEN")).upper() == "OPEN":
                 pos.setdefault("lifecycle_status", "MONITORING")
                 entry = self._decimal(pos.get("entry_price_usd", "0"))
@@ -301,6 +311,8 @@ class PortfolioRiskService:
                 pos.setdefault("take_profit_price_usd", str(self._exit_price(entry, side, self.take_profit_pct, True)))
                 pos.setdefault("stop_loss_price_usd", str(self._exit_price(entry, side, self.stop_loss_pct, False)))
                 pos.setdefault("max_hold_seconds", self.max_hold_seconds)
+        if original_version != "3.4.1" or self._state_has_accounting_anomaly(state):
+            self._rebuild_cash_from_positions(state)
         return state
 
     def _reset_daily_counters_if_needed(self, state: dict[str, Any], timestamp: str) -> None:
@@ -312,10 +324,11 @@ class PortfolioRiskService:
             state["updated_at"] = timestamp
 
     def _close_position(self, state: dict[str, Any], pos: dict[str, Any], exit_price: Decimal, timestamp: str, reason: str) -> Decimal:
+        self._normalize_position_accounting(pos)
         qty = self._decimal(pos.get("quantity", "0"))
         notional = self._decimal(pos.get("notional_usd", "0"))
-        exit_value = self._quantize_usd(qty * exit_price)
-        pnl = self._quantize_usd(exit_value - notional)
+        exit_value = PaperAccounting.market_value_usd(quantity=qty, price_usd=exit_price)
+        pnl = PaperAccounting.realized_pnl_usd(notional_usd=notional, exit_value_usd=exit_value)
         state["cash_usd"] = str(self._quantize_usd(self._decimal(state.get("cash_usd", "0")) + exit_value))
         pos["status"] = "CLOSED"
         pos["lifecycle_status"] = "CLOSED"
@@ -345,12 +358,76 @@ class PortfolioRiskService:
         qty = self._decimal(pos.get("quantity", "0"))
         current = self._decimal(pos.get("current_price_usd", pos.get("entry_price_usd", "0")))
         notional = self._decimal(pos.get("notional_usd", "0"))
-        return self._quantize_usd((qty * current) - notional)
+        return PaperAccounting.realized_pnl_usd(notional_usd=notional, exit_value_usd=PaperAccounting.market_value_usd(quantity=qty, price_usd=current))
 
     def _portfolio_value(self, state: dict[str, Any]) -> Decimal:
         cash = self._decimal(state.get("cash_usd", self.initial_cash_usd))
         open_notional = sum((self._decimal(pos.get("notional_usd", "0")) for pos in self._open_positions(state)), Decimal("0"))
         return max(self.initial_cash_usd, cash + open_notional)
+
+    def _normalize_position_accounting(self, pos: dict[str, Any]) -> None:
+        pair = self._normalize_pair(str(pos.get("pair", "-/USDC")))
+        base_symbol, quote_symbol = self._split_pair(pair)
+        notional = self._decimal(pos.get("notional_usd", "0"))
+        entry = self._decimal(pos.get("entry_price_usd", "0"))
+        quantity = self._decimal(pos.get("quantity", "0"))
+
+        # Legacy v3.4 inverse-pair positions could store quote-token price
+        # and enormous quantity (for example USDC/WETH at 0.00063). Convert
+        # all positions to USD price per base token and quantity = notional / USD price.
+        if not PaperAccounting.is_stable(quote_symbol):
+            canonical_price = PaperAccounting.price_for_symbol(base_symbol, {})
+            if canonical_price <= 0 and PaperAccounting.is_stable(base_symbol):
+                canonical_price = Decimal("1")
+            if canonical_price > 0 and (entry <= Decimal("0.01") or quantity * canonical_price > notional * Decimal("5")):
+                entry = canonical_price
+                quantity = PaperAccounting.quantity_from_notional(notional_usd=notional, price_usd=entry)
+                pos["entry_price_usd"] = str(entry)
+                pos["current_price_usd"] = str(entry)
+                pos["quantity"] = str(quantity)
+
+        pos["pair"] = pair
+        pos["base_symbol"] = base_symbol
+        pos["quote_symbol"] = quote_symbol
+
+    def _state_has_accounting_anomaly(self, state: dict[str, Any]) -> bool:
+        initial = self._decimal(state.get("initial_cash_usd", self.initial_cash_usd))
+        cash = self._decimal(state.get("cash_usd", self.initial_cash_usd))
+        realized = self._decimal(state.get("realized_pnl_usd", "0"))
+        if initial > 0 and (cash > initial * Decimal("5") or cash < Decimal("0")):
+            return True
+        total_traded = sum((self._decimal(p.get("notional_usd", "0")) for p in state.get("positions", [])), Decimal("0"))
+        if total_traded > 0 and abs(realized) > total_traded:
+            return True
+        return False
+
+    def _rebuild_cash_from_positions(self, state: dict[str, Any]) -> None:
+        initial = self._decimal(state.get("initial_cash_usd", self.initial_cash_usd))
+        cash = initial
+        realized_total = Decimal("0")
+        daily_realized = Decimal("0")
+        daily_date = str(state.get("daily_date", self._utc_now()[:10]))
+        for pos in state.get("positions", []):
+            self._normalize_position_accounting(pos)
+            notional = self._decimal(pos.get("notional_usd", "0"))
+            status = str(pos.get("status", "OPEN")).upper()
+            cash -= notional
+            if status == "OPEN":
+                continue
+            stored_pnl = self._decimal(pos.get("realized_pnl_usd", "0"))
+            edge = self._decimal(pos.get("estimated_edge_pct", "0"))
+            pnl = PaperAccounting.reasonable_closed_pnl(notional_usd=notional, stored_pnl=stored_pnl, estimated_edge_pct=edge)
+            exit_value = self._quantize_usd(notional + pnl)
+            pos["realized_pnl_usd"] = str(pnl)
+            pos["exit_value_usd"] = str(exit_value)
+            cash += exit_value
+            realized_total += pnl
+            if str(pos.get("closed_at", ""))[:10] == daily_date:
+                daily_realized += pnl
+        state["cash_usd"] = str(self._quantize_usd(max(Decimal("0"), cash)))
+        state["realized_pnl_usd"] = str(self._quantize_usd(realized_total))
+        state["daily_realized_pnl_usd"] = str(self._quantize_usd(daily_realized))
+        state["updated_at"] = self._utc_now()
 
     @staticmethod
     def _open_positions(state: dict[str, Any]) -> list[dict[str, Any]]:

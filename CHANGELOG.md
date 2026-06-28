@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v3.4.1 — Paper Accounting & Execution Integrity Hotfix
+
+- Added canonical USD accounting for paper positions.
+- Fixed inverse-pair accounting for routes such as USDC/WETH.
+- Prevented raw quote-unit quantity explosions from corrupting cash/PnL.
+- Added automatic legacy paper portfolio state repair.
+- Added `python -m app.portfolio.repair_portfolio` repair/reset utility.
+- Added accounting regression tests; unit test count increased to 17.
+
 ## v3.4 — Professional Execution Engine
 
 - Added broker-like paper execution simulator.
