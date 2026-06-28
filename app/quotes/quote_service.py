@@ -38,6 +38,7 @@ class QuoteService:
 
         self.fresh_cache_seconds = int(os.getenv("CRYPTOAI_QUOTE_CACHE_SECONDS", "120"))
         self.stale_quote_seconds = int(os.getenv("CRYPTOAI_STALE_QUOTE_SECONDS", "900"))
+        self.live_trading_enabled = os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false").lower() in {"1", "true", "yes", "on"}
 
         if UniswapV2QuoteProvider is not None:
             self._try_add_provider(UniswapV2QuoteProvider)
@@ -67,9 +68,12 @@ class QuoteService:
             return quotes
 
         stale = self._load_snapshot(max_age_seconds=self.stale_quote_seconds)
-        if stale:
+        if stale and not self.live_trading_enabled:
             quote_cache.set(cache_key, stale, ttl_seconds=min(60, self.fresh_cache_seconds))
             return stale
+
+        if stale and self.live_trading_enabled:
+            return [self._live_blocked_quote("Live mode blocked stale/degraded quote snapshot. Fresh quotes are required for real trading.")]
 
         quote_cache.set(cache_key, quotes, ttl_seconds=30)
         return quotes
@@ -174,7 +178,11 @@ class QuoteService:
             saved_at = float(payload.get("saved_at", 0))
             if time.time() - saved_at > max_age_seconds:
                 return []
-            return [self._quote_from_dict(row) for row in payload.get("quotes", [])]
+            rows = payload.get("quotes", [])
+            for row in rows:
+                if isinstance(row, dict):
+                    row["saved_at"] = saved_at
+            return [self._quote_from_dict(row) for row in rows]
         except Exception:
             return []
 
@@ -189,6 +197,10 @@ class QuoteService:
             "amount_out": str(q.amount_out) if q.amount_out is not None else None,
             "price": str(q.price) if q.price is not None else None,
             "error": q.error,
+            "source": q.source,
+            "age_seconds": q.age_seconds,
+            "is_stale": q.is_stale,
+            "rpc_provider": q.rpc_provider,
         }
 
     @staticmethod
@@ -202,6 +214,25 @@ class QuoteService:
             amount_out=Decimal(str(row["amount_out"])) if row.get("amount_out") is not None else None,
             price=Decimal(str(row["price"])) if row.get("price") is not None else None,
             error=row.get("error"),
+            source=str(row.get("source", "snapshot")),
+            age_seconds=max(0.0, time.time() - float(row.get("saved_at", 0))) if row.get("saved_at") else float(row.get("age_seconds", 0.0)),
+            is_stale=True,
+            rpc_provider=row.get("rpc_provider"),
+        )
+
+    @staticmethod
+    def _live_blocked_quote(error: str) -> DexQuote:
+        return DexQuote(
+            chain="base",
+            dex="SafetyGate",
+            token_in="-",
+            token_out="-",
+            amount_in=Decimal("0"),
+            amount_out=None,
+            price=None,
+            error=error,
+            source="safety_gate",
+            is_stale=True,
         )
 
     @staticmethod

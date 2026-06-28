@@ -12,6 +12,10 @@ class DexQuote:
     amount_out: Decimal | None
     price: Decimal | None
     error: str | None = None
+    source: str = "live"
+    age_seconds: float = 0.0
+    is_stale: bool = False
+    rpc_provider: str | None = None
 
 
 @dataclass(frozen=True)

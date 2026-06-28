@@ -1,6 +1,6 @@
 # CryptoAI Quote Diagnostics
 
-Generated: `2026-06-28T16:33:47Z`
+Generated: `2026-06-28T16:59:30Z`
 
 ## Summary
 
@@ -13,10 +13,10 @@ Generated: `2026-06-28T16:33:47Z`
 
 | Chain | DEX | Pair | Status | Price | Amount Out | Latency ms | Error |
 |---|---|---|---|---:|---:|---:|---|
-| base | Uniswap V2 | WETH/USDC | OK | 1564.819862 | 1564.819862 | 3743.35 |  |
-| base | Uniswap V2 | USDC/WETH | OK | 0.000632232965178056877 | 0.632232965178056877 | 3743.35 |  |
-| base | Aerodrome | WETH/USDC | ERROR | - | - | 3743.35 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
-| base | Aerodrome | USDC/WETH | ERROR | - | - | 3743.35 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| base | Uniswap V2 | WETH/USDC | OK | 1560.4464 | 1560.4464 | 0.13 |  |
+| base | Uniswap V2 | USDC/WETH | OK | 0.000634005859521992706 | 0.634005859521992706 | 0.13 |  |
+| base | Aerodrome | WETH/USDC | ERROR | - | - | 0.13 | ConnectionError: HTTPSConnectionPool(host='your-private-base-rpc', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='your-private-base-rpc', port=443): Failed to resolve 'your-private-base-rpc' ([Errno 11001] getaddrinfo failed)")) |
+| base | Aerodrome | USDC/WETH | ERROR | - | - | 0.13 | ConnectionError: HTTPSConnectionPool(host='your-private-base-rpc', port=443): Max retries exceeded with url: / (Caused by NameResolutionError("HTTPSConnection(host='your-private-base-rpc', port=443): Failed to resolve 'your-private-base-rpc' ([Errno 11001] getaddrinfo failed)")) |
 
 ## Interpretation
 

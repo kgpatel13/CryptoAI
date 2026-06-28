@@ -218,10 +218,14 @@ def render_risk_controls() -> None:
 
 def render_system_health() -> None:
     st.subheader("System Health")
+
+    st.markdown("### Runtime Files")
     rows = []
     for path in [
         DATA_DIR,
         REPORT_DIR,
+        DATA_DIR / "provider_health.json",
+        DATA_DIR / "quote_snapshot.json",
         DATA_DIR / "quote_diagnostics.jsonl",
         DATA_DIR / "multi_dex_opportunities.jsonl",
         DATA_DIR / "opportunity_decisions.jsonl",
@@ -240,6 +244,33 @@ def render_system_health() -> None:
             }
         )
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
+
+    st.markdown("### Provider Health")
+    provider_health_path = DATA_DIR / "provider_health.json"
+    if provider_health_path.exists():
+        try:
+            payload = json.loads(provider_health_path.read_text(encoding="utf-8", errors="replace"))
+            providers = payload.get("providers", [])
+            if providers:
+                st.dataframe(pd.DataFrame(providers), use_container_width=True)
+            else:
+                st.info("Provider health file exists but has no provider rows yet.")
+        except Exception as exc:
+            st.error(f"Could not read provider health: {exc}")
+    else:
+        st.info("No provider_health.json yet. Run quote diagnostics or paper autopilot once.")
+
+    st.markdown("### Quote Snapshot")
+    snapshot_path = DATA_DIR / "quote_snapshot.json"
+    if snapshot_path.exists():
+        try:
+            payload = json.loads(snapshot_path.read_text(encoding="utf-8", errors="replace"))
+            saved_at = payload.get("saved_at")
+            st.json({"saved_at_epoch": saved_at, "quote_count": len(payload.get("quotes", []))})
+        except Exception as exc:
+            st.error(f"Could not read quote snapshot: {exc}")
+    else:
+        st.info("No quote snapshot yet.")
 
 
 def render_setup() -> None:

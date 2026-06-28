@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import os
+import time
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Iterator
 
 from dotenv import load_dotenv
 from web3 import Web3
 
 from app.blockchain.chains import ChainConfig
+from app.resilience.rpc_provider_pool import RpcEndpoint, RpcProviderPool
 
 load_dotenv()
 
@@ -44,13 +47,14 @@ class ChainHealth:
 
 
 class RpcClient:
-    """Web3 client with simple RPC fallback support.
+    """Web3 client with provider pool, failover, circuit breakers, and health scoring.
 
     Environment variables may contain one RPC URL or a comma-separated list:
 
         BASE_RPC=https://mainnet.base.org,https://base-rpc.publicnode.com
 
-    The client tries each URL until one connects.
+    Private RPC URLs should be listed first. Public fallbacks are appended unless
+    already present.
     """
 
     def __init__(self, chain: ChainConfig):
@@ -59,6 +63,16 @@ class RpcClient:
         if not self.rpc_urls:
             raise ValueError(f"Missing RPC URL for {chain.name}: {chain.rpc_env_key}")
 
+        timeout = int(os.getenv("CRYPTOAI_RPC_TIMEOUT_SECONDS", "10"))
+        failure_threshold = int(os.getenv("CRYPTOAI_RPC_CIRCUIT_FAILURE_THRESHOLD", "2"))
+        cooldown = int(os.getenv("CRYPTOAI_RPC_CIRCUIT_COOLDOWN_SECONDS", "60"))
+        self.provider_pool = RpcProviderPool(
+            chain=chain.name,
+            urls=self.rpc_urls,
+            timeout_seconds=timeout,
+            failure_threshold=failure_threshold,
+            cooldown_seconds=cooldown,
+        )
         self.web3, self.rpc_url_used = self._connect_first_available(self.rpc_urls)
 
     def _load_rpc_urls(self, env_key: str) -> list[str]:
@@ -72,56 +86,75 @@ class RpcClient:
         return urls
 
     def _connect_first_available(self, urls: list[str]) -> tuple[Web3, str]:
-        last_web3 = Web3(Web3.HTTPProvider(urls[0], request_kwargs={"timeout": 20}))
+        last_web3 = Web3(Web3.HTTPProvider(urls[0], request_kwargs={"timeout": 10}))
         last_url = urls[0]
 
-        for url in urls:
-            candidate = Web3(Web3.HTTPProvider(url, request_kwargs={"timeout": 20}))
+        for endpoint, candidate in self.provider_pool.candidates():
+            start = time.perf_counter()
             try:
                 if candidate.is_connected():
-                    return candidate, url
-            except Exception:
-                pass
+                    latency_ms = (time.perf_counter() - start) * 1000
+                    self.provider_pool.record_success(endpoint, latency_ms)
+                    return candidate, endpoint.url
+                latency_ms = (time.perf_counter() - start) * 1000
+                self.provider_pool.record_failure(endpoint, "RPC is_connected returned false", latency_ms)
+            except Exception as exc:
+                latency_ms = (time.perf_counter() - start) * 1000
+                self.provider_pool.record_failure(endpoint, f"{type(exc).__name__}: {exc}", latency_ms)
             last_web3 = candidate
-            last_url = url
+            last_url = endpoint.url
 
         return last_web3, last_url
 
+    def iter_web3_candidates(self) -> Iterator[tuple[RpcEndpoint, Web3]]:
+        yield from self.provider_pool.candidates()
+
+    def record_rpc_success(self, endpoint: RpcEndpoint, latency_ms: float) -> None:
+        self.rpc_url_used = endpoint.url
+        self.provider_pool.record_success(endpoint, latency_ms)
+
+    def record_rpc_failure(self, endpoint: RpcEndpoint, error: str, latency_ms: float | None = None) -> None:
+        self.provider_pool.record_failure(endpoint, error, latency_ms)
+
     def health_check(self) -> ChainHealth:
-        try:
-            connected = self.web3.is_connected()
-            if not connected:
+        last_error = "No RPC candidates available; all circuits may be open."
+        for endpoint, web3 in self.iter_web3_candidates():
+            start = time.perf_counter()
+            try:
+                connected = web3.is_connected()
+                if not connected:
+                    latency_ms = (time.perf_counter() - start) * 1000
+                    self.record_rpc_failure(endpoint, "RPC connection failed", latency_ms)
+                    last_error = "RPC connection failed"
+                    continue
+
+                latest_block = web3.eth.block_number
+                chain_id = web3.eth.chain_id
+                gas_price_wei = web3.eth.gas_price
+                gas_price_gwei = Decimal(gas_price_wei) / Decimal(10**9)
+                latency_ms = (time.perf_counter() - start) * 1000
+                self.record_rpc_success(endpoint, latency_ms)
+
                 return ChainHealth(
                     chain_name=self.chain.name,
-                    connected=False,
-                    latest_block=None,
-                    chain_id=None,
-                    gas_price_gwei=None,
-                    error="RPC connection failed",
-                    rpc_url_used=self.rpc_url_used,
+                    connected=True,
+                    latest_block=latest_block,
+                    chain_id=chain_id,
+                    gas_price_gwei=gas_price_gwei,
+                    rpc_url_used=endpoint.url,
                 )
 
-            latest_block = self.web3.eth.block_number
-            chain_id = self.web3.eth.chain_id
-            gas_price_wei = self.web3.eth.gas_price
-            gas_price_gwei = Decimal(gas_price_wei) / Decimal(10**9)
+            except Exception as exc:
+                latency_ms = (time.perf_counter() - start) * 1000
+                last_error = f"{type(exc).__name__}: {exc}"
+                self.record_rpc_failure(endpoint, last_error, latency_ms)
 
-            return ChainHealth(
-                chain_name=self.chain.name,
-                connected=True,
-                latest_block=latest_block,
-                chain_id=chain_id,
-                gas_price_gwei=gas_price_gwei,
-                rpc_url_used=self.rpc_url_used,
-            )
-
-        except Exception as exc:
-            return ChainHealth(
-                chain_name=self.chain.name,
-                connected=False,
-                latest_block=None,
-                chain_id=None,
-                gas_price_gwei=None,
-                error=str(exc),
-                rpc_url_used=self.rpc_url_used,
-            )
+        return ChainHealth(
+            chain_name=self.chain.name,
+            connected=False,
+            latest_block=None,
+            chain_id=None,
+            gas_price_gwei=None,
+            error=last_error,
+            rpc_url_used=self.rpc_url_used,
+        )

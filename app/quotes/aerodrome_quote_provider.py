@@ -11,6 +11,8 @@ from app.quotes.abis import AERODROME_ROUTER_ABI
 from app.quotes.models import DexQuote, QuoteRequest
 from app.quotes.provider_interface import QuoteProvider
 from app.registry.tokens import get_token
+from app.resilience.provider_health import provider_health_registry
+from app.resilience.retry_policy import RetryPolicy
 
 
 AERODROME_ROUTER = "0xcF77a3Ba9A5CA399B7c97c74d54e5bB28Aac43B9"
@@ -30,6 +32,7 @@ class AerodromeQuoteProvider(QuoteProvider):
         chain_config = SUPPORTED_CHAINS["base"]
         self.client = RpcClient(chain_config)
         self.rpc_urls = self.client.rpc_urls
+        self.retry_policy = RetryPolicy(max_attempts=2, base_delay_seconds=0.15, max_delay_seconds=1.0)
 
     def supports(self, request: QuoteRequest) -> bool:
         return request.chain.lower() == self.chain and request.dex.lower() == self.dex.lower()
@@ -47,18 +50,25 @@ class AerodromeQuoteProvider(QuoteProvider):
             [(Web3.to_checksum_address(token_in.address), Web3.to_checksum_address(token_out.address), True, Web3.to_checksum_address(AERODROME_FACTORY))],
         ]
 
-        last_error = ""
-        for attempt, rpc_url in enumerate(self.rpc_urls, start=1):
+        last_error = "No RPC candidates available."
+        for endpoint, web3 in self.client.iter_web3_candidates():
+            start = time.perf_counter()
             for routes in routes_by_pool_type:
                 try:
-                    web3 = Web3(Web3.HTTPProvider(rpc_url, request_kwargs={"timeout": 12}))
                     router = web3.eth.contract(
                         address=Web3.to_checksum_address(AERODROME_ROUTER),
                         abi=AERODROME_ROUTER_ABI,
                     )
-                    amounts = router.functions.getAmountsOut(amount_in_units, routes).call()
+
+                    def call_router():
+                        return router.functions.getAmountsOut(amount_in_units, routes).call()
+
+                    amounts = self.retry_policy.run(call_router)
                     amount_out = Decimal(amounts[-1]) / Decimal(10**token_out.decimals)
                     price = amount_out / request.amount_in if request.amount_in > 0 else None
+                    latency_ms = (time.perf_counter() - start) * 1000
+                    self.client.record_rpc_success(endpoint, latency_ms)
+                    provider_health_registry.record_success(self.dex, "dex", latency_ms, chain=self.chain, rpc=endpoint.name)
 
                     return DexQuote(
                         chain=request.chain,
@@ -72,7 +82,9 @@ class AerodromeQuoteProvider(QuoteProvider):
                 except Exception as exc:
                     last_error = f"{type(exc).__name__}: {exc}"
 
-            time.sleep(min(2.0, 0.35 * attempt))
+            latency_ms = (time.perf_counter() - start) * 1000
+            self.client.record_rpc_failure(endpoint, last_error, latency_ms)
+            provider_health_registry.record_failure(self.dex, "dex", self._friendly_error(last_error), latency_ms, chain=self.chain, rpc=endpoint.name)
 
         return self._error_quote(request, self._friendly_error(last_error))
 
