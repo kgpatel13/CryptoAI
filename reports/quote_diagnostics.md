@@ -1,6 +1,6 @@
 # CryptoAI Quote Diagnostics
 
-Generated: `2026-06-28T17:02:14Z`
+Generated: `2026-06-28T17:22:50Z`
 
 ## Summary
 
@@ -13,10 +13,10 @@ Generated: `2026-06-28T17:02:14Z`
 
 | Chain | DEX | Pair | Status | Price | Amount Out | Latency ms | Error |
 |---|---|---|---|---:|---:|---:|---|
-| base | Uniswap V2 | WETH/USDC | OK | 1560.446524 | 1560.446524 | 2751.97 |  |
-| base | Uniswap V2 | USDC/WETH | OK | 0.000634005809130152783 | 0.634005809130152783 | 2751.97 |  |
-| base | Aerodrome | WETH/USDC | ERROR | - | - | 2751.97 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
-| base | Aerodrome | USDC/WETH | ERROR | - | - | 2751.97 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| base | Uniswap V2 | WETH/USDC | OK | 1561.402082 | 1561.402082 | 1703.70 |  |
+| base | Uniswap V2 | USDC/WETH | OK | 0.000633617608836572183 | 0.633617608836572183 | 1703.70 |  |
+| base | Aerodrome | WETH/USDC | ERROR | - | - | 1703.70 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| base | Aerodrome | USDC/WETH | ERROR | - | - | 1703.70 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
 
 ## Interpretation
 

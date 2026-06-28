@@ -14,6 +14,7 @@ class PaperOrderStatus(str, Enum):
     FILLED = "FILLED"
     REJECTED = "REJECTED"
     SKIPPED = "SKIPPED"
+    RISK_REJECTED = "RISK_REJECTED"
 
 
 @dataclass(frozen=True)

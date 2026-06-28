@@ -12,6 +12,7 @@ class PaperReportService:
         self.report_dir = Path("reports")
         self.paper_orders_file = self.data_dir / "paper_orders.jsonl"
         self.opportunity_file = self.data_dir / "opportunity_decisions.jsonl"
+        self.portfolio_state_file = self.data_dir / "paper_portfolio_state.json"
         self.report_dir.mkdir(exist_ok=True)
 
     def generate(self) -> dict:
@@ -21,8 +22,11 @@ class PaperReportService:
         filled = [o for o in orders if str(o.get("status", "")).upper() == "FILLED"]
         skipped = [o for o in orders if str(o.get("status", "")).upper() == "SKIPPED"]
         rejected = [o for o in orders if str(o.get("status", "")).upper() == "REJECTED"]
+        risk_rejected = [o for o in orders if str(o.get("status", "")).upper() == "RISK_REJECTED"]
 
         total_notional = sum(self._decimal(o.get("notional_usd", "0")) for o in filled)
+        portfolio_state = self._read_json(self.portfolio_state_file)
+        portfolio_summary = self._portfolio_summary(portfolio_state)
 
         decision_counts = {}
         for row in opportunities:
@@ -44,8 +48,11 @@ class PaperReportService:
             "filled_orders": len(filled),
             "skipped_orders": len(skipped),
             "rejected_orders": len(rejected),
+            "risk_rejected_orders": len(risk_rejected),
             "total_filled_notional_usd": str(total_notional),
             "skip_reasons": skip_reasons,
+            "risk_rejection_reasons": self._reason_counts(risk_rejected),
+            "portfolio": portfolio_summary,
             "latest_opportunities": opportunities[-20:],
             "latest_orders": orders[-20:],
             "notes": [
@@ -79,7 +86,10 @@ class PaperReportService:
             f"- Filled orders: `{report['filled_orders']}`",
             f"- Skipped orders: `{report['skipped_orders']}`",
             f"- Rejected orders: `{report['rejected_orders']}`",
+            f"- Portfolio risk rejections: `{report['risk_rejected_orders']}`",
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
+            f"- Paper portfolio cash USD: `${report['portfolio'].get('cash_usd', '-')}`",
+            f"- Open paper positions: `{report['portfolio'].get('open_positions', 0)}`",
             "",
             "## Opportunity Decision Counts",
             "",
@@ -97,6 +107,23 @@ class PaperReportService:
                 lines.append(f"- `{reason}`: {count}")
         else:
             lines.append("- No skipped orders.")
+
+
+        lines += ["", "## Portfolio Risk Rejection Reasons", ""]
+        if report["risk_rejection_reasons"]:
+            for reason, count in report["risk_rejection_reasons"].items():
+                lines.append(f"- `{reason}`: {count}")
+        else:
+            lines.append("- No portfolio risk rejections.")
+
+        lines += ["", "## Paper Portfolio", ""]
+        portfolio = report.get("portfolio", {})
+        lines.append(f"- Cash USD: `${portfolio.get('cash_usd', '-')}`")
+        lines.append(f"- Initial cash USD: `${portfolio.get('initial_cash_usd', '-')}`")
+        lines.append(f"- Open positions: `{portfolio.get('open_positions', 0)}`")
+        lines.append(f"- Daily filled trades: `{portfolio.get('daily_filled_trades', 0)}`")
+        lines.append(f"- Exposure by chain: `{portfolio.get('exposure_by_chain', {})}`")
+        lines.append(f"- Exposure by token: `{portfolio.get('exposure_by_token', {})}`")
 
         lines += ["", "## Latest Opportunities", ""]
         opps = report["latest_opportunities"]
@@ -146,6 +173,49 @@ class PaperReportService:
             except json.JSONDecodeError:
                 continue
         return rows
+
+
+    @staticmethod
+    def _read_json(path: Path) -> dict:
+        if not path.exists():
+            return {}
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+            return payload if isinstance(payload, dict) else {}
+        except Exception:
+            return {}
+
+    @staticmethod
+    def _reason_counts(rows: list[dict]) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for row in rows:
+            reason = str(row.get("reason", "UNKNOWN"))
+            counts[reason] = counts.get(reason, 0) + 1
+        return counts
+
+    @staticmethod
+    def _portfolio_summary(state: dict) -> dict:
+        if not state:
+            return {"cash_usd": "-", "initial_cash_usd": "-", "open_positions": 0, "daily_filled_trades": 0, "exposure_by_chain": {}, "exposure_by_token": {}}
+        positions = [p for p in state.get("positions", []) if str(p.get("status", "OPEN")).upper() == "OPEN"]
+        exposure_by_chain: dict[str, str] = {}
+        exposure_by_token: dict[str, str] = {}
+        for pos in positions:
+            notional = PaperReportService._decimal(pos.get("notional_usd", "0"))
+            chain = str(pos.get("chain", "-"))
+            token = str(pos.get("base_symbol", "-"))
+            exposure_by_chain[chain] = str(PaperReportService._decimal(exposure_by_chain.get(chain, "0")) + notional)
+            exposure_by_token[token] = str(PaperReportService._decimal(exposure_by_token.get(token, "0")) + notional)
+        return {
+            "cash_usd": state.get("cash_usd", "-"),
+            "initial_cash_usd": state.get("initial_cash_usd", "-"),
+            "open_positions": len(positions),
+            "daily_filled_trades": state.get("daily_filled_trades", 0),
+            "daily_realized_pnl_usd": state.get("daily_realized_pnl_usd", "0"),
+            "exposure_by_chain": exposure_by_chain,
+            "exposure_by_token": exposure_by_token,
+            "updated_at": state.get("updated_at"),
+        }
 
     @staticmethod
     def _decimal(value) -> Decimal:

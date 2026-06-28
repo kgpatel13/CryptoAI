@@ -198,6 +198,36 @@ def render_paper_orders() -> None:
         st.json(status_counts)
 
 
+def render_paper_portfolio() -> None:
+    st.subheader("Paper Portfolio")
+    state_path = DATA_DIR / "paper_portfolio_state.json"
+    if not state_path.exists():
+        st.info("No paper portfolio state yet. Run Paper Autopilot once.")
+        return
+
+    try:
+        state = json.loads(state_path.read_text(encoding="utf-8", errors="replace"))
+    except Exception as exc:
+        st.error(f"Could not read paper portfolio state: {exc}")
+        return
+
+    positions = [p for p in state.get("positions", []) if str(p.get("status", "OPEN")).upper() == "OPEN"]
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Cash USD", state.get("cash_usd", "-"))
+    c2.metric("Open Positions", len(positions))
+    c3.metric("Daily Fills", state.get("daily_filled_trades", 0))
+    c4.metric("Daily PnL", state.get("daily_realized_pnl_usd", "0"))
+
+    st.markdown("### Open Positions")
+    dataframe_or_info(positions, "No open paper positions.")
+
+    st.markdown("### Risk State")
+    safe_state = dict(state)
+    safe_state["positions"] = f"{len(state.get('positions', []))} row(s)"
+    safe_state["signal_history"] = f"{len(state.get('signal_history', []))} row(s)"
+    st.json(safe_state)
+
+
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
     flags = {
@@ -207,6 +237,12 @@ def render_risk_controls() -> None:
         "CRYPTOAI_MAX_LIVE_TRADE_USD": os.getenv("CRYPTOAI_MAX_LIVE_TRADE_USD", "0"),
         "CRYPTOAI_MAX_DAILY_LOSS_USD": os.getenv("CRYPTOAI_MAX_DAILY_LOSS_USD", "0"),
         "CRYPTOAI_PRIVATE_KEY": "PRESENT" if os.getenv("CRYPTOAI_PRIVATE_KEY") else "ABSENT",
+        "CRYPTOAI_PAPER_INITIAL_CASH_USD": os.getenv("CRYPTOAI_PAPER_INITIAL_CASH_USD", "10000"),
+        "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": os.getenv("CRYPTOAI_PAPER_RISK_PER_TRADE_PCT", "1.00"),
+        "CRYPTOAI_MAX_DAILY_PAPER_TRADES": os.getenv("CRYPTOAI_MAX_DAILY_PAPER_TRADES", "8"),
+        "CRYPTOAI_TRADE_COOLDOWN_SECONDS": os.getenv("CRYPTOAI_TRADE_COOLDOWN_SECONDS", "900"),
+        "CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS": os.getenv("CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS", "900"),
+        "CRYPTOAI_MAX_OPEN_POSITIONS": os.getenv("CRYPTOAI_MAX_OPEN_POSITIONS", "8"),
     }
     st.json(flags)
 
@@ -230,6 +266,7 @@ def render_system_health() -> None:
         DATA_DIR / "multi_dex_opportunities.jsonl",
         DATA_DIR / "opportunity_decisions.jsonl",
         DATA_DIR / "paper_orders.jsonl",
+        DATA_DIR / "paper_portfolio_state.json",
         REPORT_DIR / "quote_diagnostics.md",
         REPORT_DIR / "multi_dex_opportunities.md",
         REPORT_DIR / "opportunity_explorer.md",
@@ -305,9 +342,10 @@ PAGES = {
     "4 Opportunity Explorer": render_opportunity_explorer,
     "5 Reports": render_reports,
     "6 Paper Orders": render_paper_orders,
-    "7 Risk & Controls": render_risk_controls,
-    "8 System Health": render_system_health,
-    "9 Setup / Roadmap": render_setup,
+    "7 Paper Portfolio": render_paper_portfolio,
+    "8 Risk & Controls": render_risk_controls,
+    "9 System Health": render_system_health,
+    "10 Setup / Roadmap": render_setup,
 }
 
 
