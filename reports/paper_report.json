@@ -1,15 +1,93 @@
 {
-  "generated_at": "2026-06-28T15:29:58Z",
+  "generated_at": "2026-06-28T15:45:43Z",
   "mode": "paper",
   "live_trading": "disabled",
+  "total_opportunity_decisions": 4,
+  "opportunity_decision_counts": {
+    "SKIP": 4
+  },
   "total_orders": 22,
   "filled_orders": 0,
   "skipped_orders": 22,
   "rejected_orders": 0,
   "total_filled_notional_usd": "0",
-  "pairs_seen": {
-    "-": 22
+  "skip_reasons": {
+    "Risk decision is WATCHLIST; paper order not created.": 22
   },
+  "latest_opportunities": [
+    {
+      "opportunity_id": "2c29f2ba-5",
+      "chain": "base",
+      "pair": "-",
+      "buy_source": "-",
+      "sell_source": "-",
+      "buy_price": null,
+      "sell_price": null,
+      "gross_spread_pct": null,
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": null,
+      "readiness_score": 0,
+      "decision": "SKIP",
+      "reason": "No comparable valid DEX quotes were available.",
+      "timestamp": "2026-06-28T14:49:51Z"
+    },
+    {
+      "opportunity_id": "59403098-7",
+      "chain": "base",
+      "pair": "-",
+      "buy_source": "-",
+      "sell_source": "-",
+      "buy_price": null,
+      "sell_price": null,
+      "gross_spread_pct": null,
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": null,
+      "readiness_score": 0,
+      "decision": "SKIP",
+      "reason": "No comparable valid DEX quotes were available.",
+      "timestamp": "2026-06-28T14:49:53Z"
+    },
+    {
+      "opportunity_id": "e8aed10e-2",
+      "chain": "base",
+      "pair": "-",
+      "buy_source": "-",
+      "sell_source": "-",
+      "buy_price": null,
+      "sell_price": null,
+      "gross_spread_pct": null,
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": null,
+      "readiness_score": 0,
+      "decision": "SKIP",
+      "reason": "No comparable valid DEX quotes were available.",
+      "timestamp": "2026-06-28T15:29:25Z"
+    },
+    {
+      "opportunity_id": "4f17752d-0",
+      "chain": "base",
+      "pair": "-",
+      "buy_source": "-",
+      "sell_source": "-",
+      "buy_price": null,
+      "sell_price": null,
+      "gross_spread_pct": null,
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": null,
+      "readiness_score": 0,
+      "decision": "SKIP",
+      "reason": "No comparable valid DEX quotes were available. Rejected invalid/error quotes: 4.",
+      "timestamp": "2026-06-28T15:45:41Z"
+    }
+  ],
   "latest_orders": [
     {
       "order_id": "70f4353d",
@@ -295,6 +373,6 @@
   "notes": [
     "This is simulated paper-trading output only.",
     "No real wallet or exchange order was used.",
-    "P/L is not final until the next ledger/mark-to-market module is added."
+    "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons."
   ]
 }
