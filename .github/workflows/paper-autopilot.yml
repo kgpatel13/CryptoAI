@@ -36,10 +36,17 @@ jobs:
         run: |
           python -m app.automation.paper_autopilot --once
 
-      - name: Upload runtime data artifact
+      - name: Generate paper report
+        if: always()
+        run: |
+          python -m app.reporting.paper_report
+
+      - name: Upload runtime data and reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cryptoai-runtime-data
-          path: data/
+          name: cryptoai-paper-report
+          path: |
+            data/
+            reports/
           if-no-files-found: ignore
