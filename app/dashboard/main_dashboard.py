@@ -1,20 +1,18 @@
-import streamlit as st
-import pandas as pd
+from __future__ import annotations
+
 from decimal import Decimal
 
+import pandas as pd
+import streamlit as st
+
 from app.blockchain.chains import SUPPORTED_CHAINS
-from app.services.chain_health_service import ChainHealthService
-from app.registry.tokens import get_tokens_for_chain
-from app.registry.dexes import get_dexes_for_chain
-from app.registry.pairs import get_pairs_for_chain
 from app.marketdata.market_service import MarketDataService
 from app.quotes.quote_service import QuoteService
+from app.registry.dexes import get_dexes_for_chain
+from app.registry.pairs import get_pairs_for_chain
+from app.registry.tokens import get_tokens_for_chain
+from app.services.chain_health_service import ChainHealthService
 from app.services.system_health_service import SystemHealthService
-
-try:
-    from app.strategy.strategy_service import StrategyService
-except Exception:
-    StrategyService = None
 
 try:
     from app.ai.ranking_service import AiRankingService
@@ -22,9 +20,43 @@ except Exception:
     AiRankingService = None
 
 try:
-    from app.risk.risk_service import RiskService
+    from app.analytics.analytics_service import AnalyticsService
 except Exception:
-    RiskService = None
+    AnalyticsService = None
+
+try:
+    from app.automation.paper_autopilot import PaperAutopilot
+except Exception:
+    PaperAutopilot = None
+
+try:
+    from app.backtesting.backtest_service import BacktestService
+except Exception:
+    BacktestService = None
+
+try:
+    from app.database.state_service import StateService
+    from app.database.event_store import EventStore
+except Exception:
+    StateService = None
+    EventStore = None
+
+try:
+    from app.events.event_service import EventBusService
+except Exception:
+    EventBusService = None
+
+try:
+    from app.execution.paper_execution_service import PaperExecutionService
+    from app.execution.trading_controls_service import TradingControlsService
+except Exception:
+    PaperExecutionService = None
+    TradingControlsService = None
+
+try:
+    from app.opportunities.opportunity_service import OpportunityService
+except Exception:
+    OpportunityService = None
 
 try:
     from app.portfolio.portfolio_service import PortfolioService
@@ -32,29 +64,19 @@ except Exception:
     PortfolioService = None
 
 try:
-    from app.execution.paper_execution_service import PaperExecutionService
+    from app.realtime.market_data_service import RealtimeMarketDataService
 except Exception:
-    PaperExecutionService = None
+    RealtimeMarketDataService = None
+
+try:
+    from app.risk.risk_service import RiskService
+except Exception:
+    RiskService = None
 
 try:
     from app.scheduler.scheduler_service import SchedulerService
 except Exception:
     SchedulerService = None
-
-try:
-    from app.database.state_service import StateService
-except Exception:
-    StateService = None
-
-try:
-    from app.database.event_store import EventStore
-except Exception:
-    EventStore = None
-
-try:
-    from app.backtesting.backtest_service import BacktestService
-except Exception:
-    BacktestService = None
 
 try:
     from app.scanner.opportunity_scanner import OpportunityScanner
@@ -67,14 +89,9 @@ except Exception:
     NetOpportunityScanner = None
 
 try:
-    from app.paper.paper_trading_service import PaperTradingService
+    from app.strategy.strategy_service import StrategyService
 except Exception:
-    PaperTradingService = None
-
-try:
-    from app.analytics.analytics_service import AnalyticsService
-except Exception:
-    AnalyticsService = None
+    StrategyService = None
 
 
 st.set_page_config(
@@ -83,8 +100,12 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("📊 CryptoAI Quant Trading Dashboard")
-st.caption("Multi-chain crypto research platform — scanner first, no wallet, no live trading yet.")
+
+def dataframe_or_info(rows, message: str) -> None:
+    if rows:
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    else:
+        st.info(message)
 
 
 @st.cache_data(ttl=30)
@@ -154,38 +175,12 @@ def run_backtest(notional: float):
     return BacktestService().run_default_backtest(Decimal(str(notional)))
 
 
-def dataframe_or_info(rows, message: str):
-    if rows:
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    else:
-        st.info(message)
+def render_header() -> None:
+    st.title("📊 CryptoAI Quant Trading Dashboard")
+    st.caption("Multi-chain crypto research platform — paper trading only, no wallet, no live trading.")
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14, tab15, tab16, tab17, tab18, tab19 = st.tabs(
-    [
-        "🌐 Chain Health",
-        "💵 Live Prices",
-        "🔁 DEX Quotes",
-        "🚨 Gross Opps",
-        "🧮 Net Estimates",
-        "🧠 Strategies",
-        "🤖 AI Ranking",
-        "🛡️ Risk",
-        "💼 Portfolio",
-        "🧾 Paper Execution",
-        "⏱️ Scheduler",
-        "🗄️ Database",
-        "🧪 Backtesting",
-        "⚡ Performance",
-        "💉 System Health",
-        "🧾 Paper Trading",
-        "📊 Analytics",
-        "🪙 Assets",
-        "📈 Roadmap",
-    ]
-)
-
-with tab1:
+def render_chain_health() -> None:
     st.subheader("Multi-Chain RPC Health")
     rows = []
     for result in load_chain_health():
@@ -201,27 +196,47 @@ with tab1:
         )
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
 
-with tab2:
-    st.subheader("Live Market Prices")
-    try:
-        rows = []
-        for price in load_market_prices():
-            rows.append(
-                {
-                    "Asset": price.name,
-                    "Symbol": price.symbol,
-                    "CoinGecko ID": price.coingecko_id,
-                    "USD Price": float(price.usd_price) if price.usd_price else None,
-                    "24h Change %": float(price.change_24h_pct) if price.change_24h_pct else None,
-                    "24h Volume": float(price.volume_24h) if price.volume_24h else None,
-                    "Market Cap": float(price.market_cap) if price.market_cap else None,
-                }
-            )
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    except Exception as exc:
-        st.error(f"Failed to load market prices: {exc}")
 
-with tab3:
+def render_live_prices() -> None:
+    st.subheader("Live Market Prices")
+    rows = []
+    for price in load_market_prices():
+        rows.append(
+            {
+                "Asset": price.name,
+                "Symbol": price.symbol,
+                "CoinGecko ID": price.coingecko_id,
+                "USD Price": float(price.usd_price) if price.usd_price else None,
+                "24h Change %": float(price.change_24h_pct) if price.change_24h_pct else None,
+                "24h Volume": float(price.volume_24h) if price.volume_24h else None,
+                "Market Cap": float(price.market_cap) if price.market_cap else None,
+            }
+        )
+    dataframe_or_info(rows, "No live market prices available.")
+
+
+def render_realtime() -> None:
+    st.subheader("Real-Time Market Data")
+    if RealtimeMarketDataService is None:
+        st.info("Real-time market data module not installed.")
+        return
+
+    service = RealtimeMarketDataService()
+    symbol = st.selectbox("Symbol", ["ethusdt", "btcusdt", "solusdt", "bnbusdt"], index=0)
+
+    if st.button("Fetch One Live Tick"):
+        snap = service.snapshot(symbol=symbol)
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Connected", "Yes" if snap["connected"] else "No")
+        c2.metric("Symbol", snap["symbol"])
+        c3.metric("Price USD", snap["price_usd"] or "-")
+        st.write(snap["message"])
+
+    st.markdown("### Recent Ticks")
+    dataframe_or_info(service.recent_ticks(), "No stored real-time ticks yet.")
+
+
+def render_dex_quotes() -> None:
     st.subheader("Live DEX Quotes")
     rows = []
     for quote in load_dex_quotes():
@@ -239,9 +254,40 @@ with tab3:
                 "Error": quote.error or "",
             }
         )
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    dataframe_or_info(rows, "No DEX quotes available.")
 
-with tab4:
+
+def render_opportunity_engine() -> None:
+    st.subheader("Advanced Opportunity Engine")
+    if OpportunityService is None:
+        st.info("Opportunity engine module not installed.")
+        return
+
+    if st.button("Run Advanced Opportunity Scan"):
+        candidates = OpportunityService().scan()
+        rows = []
+        for c in candidates:
+            rows.append(
+                {
+                    "ID": c.opportunity_id,
+                    "Type": c.opportunity_type.value,
+                    "Chain": c.chain,
+                    "Pair": c.pair,
+                    "Buy": c.source_buy,
+                    "Sell": c.source_sell,
+                    "Gross Spread %": str(c.gross_spread_pct) if c.gross_spread_pct is not None else "-",
+                    "Cost Buffer %": str(c.estimated_cost_pct),
+                    "Net Edge %": str(c.estimated_net_edge_pct) if c.estimated_net_edge_pct is not None else "-",
+                    "Status": c.status.value,
+                    "Reason": c.reason,
+                }
+            )
+        dataframe_or_info(rows, "No opportunity candidates found.")
+
+    st.warning("Read-only; no real execution.")
+
+
+def render_gross_opps() -> None:
     st.subheader("Gross Opportunity Scanner")
     rows = []
     for opp in load_gross_opportunities():
@@ -256,18 +302,20 @@ with tab4:
                 "Gross Spread %": float(getattr(opp, "gross_spread_pct", 0)),
             }
         )
-    dataframe_or_info(rows, "No gross opportunities detected right now.")
+    dataframe_or_info(rows, "No gross opportunities detected.")
 
-with tab5:
+
+def render_net_estimates() -> None:
     st.subheader("Net Opportunity Estimates")
     rows = []
     for opp in load_net_estimates():
         d = opp.__dict__ if hasattr(opp, "__dict__") else {}
         rows.append({k: str(v) for k, v in d.items()})
-    dataframe_or_info(rows, "Net opportunity engine is available when v0.5+ scanner classes are present.")
-    st.warning("Still read-only. These estimates are not trade instructions.")
+    dataframe_or_info(rows, "No net estimates available.")
+    st.warning("Estimates are not trade instructions.")
 
-with tab6:
+
+def render_strategies() -> None:
     st.subheader("Strategy Engine")
     rows = []
     for signal in load_strategy_signals():
@@ -282,11 +330,11 @@ with tab6:
                 "Reason": signal.reason,
             }
         )
+    dataframe_or_info(rows, "No strategy signals available.")
+    st.warning("READY_FOR_PAPER means simulation only.")
 
-    dataframe_or_info(rows, "No strategy signals available right now.")
-    st.warning("READY_FOR_PAPER means simulation only. It does not mean execute real trades.")
 
-with tab7:
+def render_ai_ranking() -> None:
     st.subheader("AI Ranking Engine")
     rows = []
     for ranked in load_ai_rankings():
@@ -303,11 +351,10 @@ with tab7:
                 "Reasoning": ranked.reasoning,
             }
         )
+    dataframe_or_info(rows, "No AI-ranked signals available.")
 
-    dataframe_or_info(rows, "No AI-ranked signals available right now.")
-    st.warning("AI ranking is advisory only. It is not permission to execute live trades.")
 
-with tab8:
+def render_risk() -> None:
     st.subheader("Risk Engine")
     rows = []
     for assessment in load_risk_assessments():
@@ -318,288 +365,289 @@ with tab8:
                 "Pair": assessment.pair,
                 "AI Score": assessment.ai_score,
                 "Expected Edge %": str(assessment.expected_edge_pct) if assessment.expected_edge_pct is not None else "-",
-                "AI Recommendation": assessment.recommendation,
                 "Risk Decision": assessment.decision.value if hasattr(assessment.decision, "value") else str(assessment.decision),
                 "Max Paper Notional USD": str(assessment.max_allowed_notional_usd),
                 "Reason": assessment.reason,
             }
         )
+    dataframe_or_info(rows, "No risk assessments available.")
 
-    dataframe_or_info(rows, "No risk assessments available right now.")
-    st.warning("Risk approval is for paper trading only. Live execution controls are not enabled.")
 
-with tab9:
+def render_portfolio() -> None:
     st.subheader("Portfolio Engine")
     snapshot = load_portfolio_snapshot()
 
     if snapshot is None:
-        st.info("Portfolio module not found in this install.")
-    else:
-        c1, c2, c3, c4, c5, c6 = st.columns(6)
-        c1.metric("Total Value", f"${snapshot.total_value_usd:.2f}")
-        c2.metric("Cash", f"${snapshot.cash_usd:.2f}")
-        c3.metric("Holdings Value", f"${snapshot.holdings_value_usd:.2f}")
-        c4.metric("Unrealized P/L", f"${snapshot.unrealized_pnl_usd:.2f}")
-        c5.metric("Total P/L", f"${snapshot.total_pnl_usd:.2f}")
-        c6.metric("Open Positions", snapshot.open_positions)
+        st.info("Portfolio module not installed.")
+        return
 
-        st.markdown("### Holdings")
-        holding_rows = []
-        for h in snapshot.holdings:
-            holding_rows.append(
-                {
-                    "Chain": h.chain,
-                    "Symbol": h.symbol,
-                    "Quantity": str(h.quantity),
-                    "Avg Cost USD": str(h.avg_cost_usd),
-                    "Current Price USD": str(h.current_price_usd),
-                    "Market Value USD": str(h.market_value_usd),
-                    "Unrealized P/L USD": str(h.unrealized_pnl_usd),
-                    "Unrealized P/L %": str(h.unrealized_pnl_pct),
-                }
-            )
-        dataframe_or_info(holding_rows, "No holdings available.")
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1.metric("Total Value", f"${snapshot.total_value_usd:.2f}")
+    c2.metric("Cash", f"${snapshot.cash_usd:.2f}")
+    c3.metric("Holdings", f"${snapshot.holdings_value_usd:.2f}")
+    c4.metric("Unrealized P/L", f"${snapshot.unrealized_pnl_usd:.2f}")
+    c5.metric("Total P/L", f"${snapshot.total_pnl_usd:.2f}")
+    c6.metric("Open Positions", snapshot.open_positions)
 
-        st.markdown("### Open Positions")
-        position_rows = []
-        for p in snapshot.positions:
-            position_rows.append(
-                {
-                    "ID": p.position_id,
-                    "Strategy": p.strategy_name,
-                    "Chain": p.chain,
-                    "Pair": p.pair,
-                    "Quantity": str(p.quantity),
-                    "Entry Price": str(p.entry_price_usd),
-                    "Current Price": str(p.current_price_usd),
-                    "Notional USD": str(p.notional_usd),
-                    "Unrealized P/L USD": str(p.unrealized_pnl_usd),
-                    "Unrealized P/L %": str(p.unrealized_pnl_pct),
-                    "Status": p.status.value if hasattr(p.status, "value") else str(p.status),
-                    "Opened At": p.opened_at,
-                }
-            )
-        dataframe_or_info(position_rows, "No open simulated positions yet.")
+    st.markdown("### Holdings")
+    dataframe_or_info(
+        [
+            {
+                "Chain": h.chain,
+                "Symbol": h.symbol,
+                "Quantity": str(h.quantity),
+                "Avg Cost": str(h.avg_cost_usd),
+                "Current Price": str(h.current_price_usd),
+                "Market Value": str(h.market_value_usd),
+                "Unrealized P/L": str(h.unrealized_pnl_usd),
+            }
+            for h in snapshot.holdings
+        ],
+        "No holdings.",
+    )
 
-with tab10:
+    st.markdown("### Positions")
+    dataframe_or_info(
+        [
+            {
+                "ID": p.position_id,
+                "Strategy": p.strategy_name,
+                "Chain": p.chain,
+                "Pair": p.pair,
+                "Quantity": str(p.quantity),
+                "Entry": str(p.entry_price_usd),
+                "Current": str(p.current_price_usd),
+                "P/L": str(p.unrealized_pnl_usd),
+                "Status": p.status.value if hasattr(p.status, "value") else str(p.status),
+            }
+            for p in snapshot.positions
+        ],
+        "No open simulated positions.",
+    )
+
+
+def render_paper_execution() -> None:
     st.subheader("Paper Execution Engine")
-    st.caption("Simulated orders only. No wallet connection.")
-
     if PaperExecutionService is None:
-        st.info("Paper execution module not found in this install.")
-    else:
-        service = PaperExecutionService()
+        st.info("Paper execution module not installed.")
+        return
 
-        if st.button("Run Paper Execution Once"):
-            st.cache_data.clear()
-            batch = service.run_once()
+    service = PaperExecutionService()
+    if st.button("Run Paper Execution Once"):
+        st.cache_data.clear()
+        batch = service.run_once()
 
-            c1, c2, c3, c4, c5 = st.columns(5)
-            c1.metric("Candidates", batch.total_candidates)
-            c2.metric("Filled", batch.filled_orders)
-            c3.metric("Rejected", batch.rejected_orders)
-            c4.metric("Skipped", batch.skipped_orders)
-            c5.metric("Total Notional", f"${batch.total_notional_usd:.2f}")
+        c1, c2, c3, c4, c5 = st.columns(5)
+        c1.metric("Candidates", batch.total_candidates)
+        c2.metric("Filled", batch.filled_orders)
+        c3.metric("Rejected", batch.rejected_orders)
+        c4.metric("Skipped", batch.skipped_orders)
+        c5.metric("Notional", f"${batch.total_notional_usd:.2f}")
 
-            order_rows = []
-            for order in batch.orders:
-                order_rows.append(
-                    {
-                        "Order ID": order.order_id,
-                        "Timestamp": order.timestamp,
-                        "Strategy": order.strategy_name,
-                        "Chain": order.chain,
-                        "Pair": order.pair,
-                        "Side": order.side.value if hasattr(order.side, "value") else str(order.side),
-                        "Notional USD": str(order.notional_usd),
-                        "Fill Price": str(order.simulated_fill_price_usd) if order.simulated_fill_price_usd else "-",
-                        "Quantity": str(order.simulated_quantity) if order.simulated_quantity else "-",
-                        "Status": order.status.value if hasattr(order.status, "value") else str(order.status),
-                        "Reason": order.reason,
-                    }
-                )
-            dataframe_or_info(order_rows, "No paper orders generated.")
+    st.markdown("### Recent Paper Orders")
+    dataframe_or_info(service.recent_orders(), "No paper orders saved yet.")
 
-        st.markdown("### Recent Paper Orders")
-        dataframe_or_info(service.recent_orders(), "No paper orders saved yet.")
 
-with tab11:
-    st.subheader("Scheduler and Automation Loop")
-    st.caption("Runs one safe automation cycle at a time. No live trading.")
+def render_autopilot() -> None:
+    st.subheader("Paper Autopilot")
+    if PaperAutopilot is None:
+        st.info("Autopilot module not installed.")
+        return
 
+    enable_paper = st.checkbox("Enable paper execution", value=True)
+    if st.button("Run Paper Autopilot Once"):
+        result = PaperAutopilot(enable_paper_execution=enable_paper).run_once()
+        st.json(result)
+
+    st.code("python -m app.automation.paper_autopilot --loop --interval-seconds 300", language="powershell")
+    st.warning("Use this for paper mode only. Live trading remains blocked.")
+
+
+def render_scheduler() -> None:
+    st.subheader("Scheduler")
     if SchedulerService is None:
-        st.info("Scheduler module not found in this install.")
-    else:
-        enable_paper = st.checkbox("Enable paper execution for this scheduler run", value=False)
+        st.info("Scheduler module not installed.")
+        return
 
-        if st.button("Run Scheduler Once"):
-            st.cache_data.clear()
-            result = SchedulerService().run_once(enable_paper_execution=enable_paper)
-
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Run ID", result.run_id)
-            c2.metric("Status", result.status.value if hasattr(result.status, "value") else str(result.status))
-            c3.metric("Paper Exec", "ON" if result.paper_execution_enabled else "OFF")
-            c4.metric("Total Latency ms", result.total_latency_ms)
-
-            rows = []
-            for step in result.steps:
-                rows.append(
-                    {
-                        "Step": step.step_name,
-                        "Status": step.status.value if hasattr(step.status, "value") else str(step.status),
-                        "Items": step.items_processed,
-                        "Latency ms": step.latency_ms,
-                        "Message": step.message,
-                    }
-                )
-            st.dataframe(pd.DataFrame(rows), use_container_width=True)
-
-        st.warning("This is a manual one-cycle scheduler. Continuous unattended execution is not enabled.")
-
-with tab12:
-    st.subheader("Database State")
-
-    if StateService is None:
-        st.info("Database state module not found in this install.")
-    else:
-        service = StateService()
-        summary = service.summary()
+    enable_paper = st.checkbox("Enable paper execution for scheduler run", value=False)
+    if st.button("Run Scheduler Once"):
+        st.cache_data.clear()
+        result = SchedulerService().run_once(enable_paper_execution=enable_paper)
 
         c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Events", summary.get("events", 0))
-        c2.metric("Scheduler Runs", summary.get("scheduler_runs", 0))
-        c3.metric("Scheduler Steps", summary.get("scheduler_steps", 0))
-        c4.metric("Paper Orders", summary.get("paper_orders", 0))
+        c1.metric("Run ID", result.run_id)
+        c2.metric("Status", result.status.value if hasattr(result.status, "value") else str(result.status))
+        c3.metric("Paper Exec", "ON" if result.paper_execution_enabled else "OFF")
+        c4.metric("Latency ms", result.total_latency_ms)
 
-        st.markdown("### Recent Scheduler Runs")
-        dataframe_or_info(service.recent_scheduler_runs(), "No scheduler runs saved yet.")
-
-        st.markdown("### Recent Paper Orders")
-        dataframe_or_info(service.recent_paper_orders(), "No paper orders saved in SQLite yet.")
-
-        if EventStore is not None:
-            st.markdown("### Recent Events")
-            dataframe_or_info(EventStore().recent_events(), "No events saved yet.")
-
-with tab13:
-    st.subheader("Backtesting Engine")
-    if BacktestService is None:
-        st.info("Backtesting module not found in this install.")
-    else:
-        notional = st.number_input(
-            "Simulated trade notional USD",
-            min_value=10.0,
-            max_value=100000.0,
-            value=1000.0,
-            step=100.0,
+        dataframe_or_info(
+            [
+                {
+                    "Step": step.step_name,
+                    "Status": step.status.value if hasattr(step.status, "value") else str(step.status),
+                    "Items": step.items_processed,
+                    "Latency ms": step.latency_ms,
+                    "Message": step.message,
+                }
+                for step in result.steps
+            ],
+            "No scheduler steps.",
         )
 
-        result = run_backtest(notional)
 
-        if result is None:
-            st.info("No backtest result available.")
-        else:
-            c1, c2, c3, c4, c5 = st.columns(5)
-            c1.metric("Total Signals", result.total_signals)
-            c2.metric("Simulated Trades", result.simulated_trades)
-            c3.metric("Winning Trades", result.winning_trades)
-            c4.metric("Win Rate", f"{result.win_rate_pct:.2f}%")
-            c5.metric("Simulated P/L", f"${result.total_simulated_profit_usd:.4f}")
+def render_event_bus() -> None:
+    st.subheader("Event Bus")
+    if EventBusService is None:
+        st.info("Event bus module not installed.")
+        return
 
-            st.info(result.notes)
+    service = EventBusService()
+    if st.button("Publish Test Event"):
+        service.publish_system_event("dashboard", "Manual test event from dashboard.")
 
-            trade_rows = []
-            for trade in result.trades:
-                trade_rows.append(
-                    {
-                        "Timestamp": trade.timestamp,
-                        "Strategy": trade.strategy_name,
-                        "Chain": trade.chain,
-                        "Pair": trade.pair,
-                        "Action": trade.action,
-                        "Estimated Edge %": str(trade.estimated_edge_pct),
-                        "Simulated Profit USD": str(trade.simulated_profit_usd),
-                        "Reason": trade.reason,
-                    }
-                )
+    dataframe_or_info(service.recent_events(), "No in-memory events yet. Run scheduler once.")
 
-            dataframe_or_info(trade_rows, "No simulated trades generated by this backtest.")
 
-with tab14:
+def render_database() -> None:
+    st.subheader("Database State")
+    if StateService is None:
+        st.info("Database module not installed.")
+        return
+
+    service = StateService()
+    summary = service.summary()
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Events", summary.get("events", 0))
+    c2.metric("Scheduler Runs", summary.get("scheduler_runs", 0))
+    c3.metric("Paper Orders", summary.get("paper_orders", 0))
+    c4.metric("Portfolio Snapshots", summary.get("portfolio_snapshots", 0))
+
+    st.markdown("### Recent Scheduler Runs")
+    dataframe_or_info(service.recent_scheduler_runs(), "No scheduler runs saved yet.")
+
+    st.markdown("### Recent Paper Orders")
+    dataframe_or_info(service.recent_paper_orders(), "No paper orders saved yet.")
+
+    if hasattr(service, "recent_portfolio_snapshots"):
+        st.markdown("### Recent Portfolio Snapshots")
+        dataframe_or_info(service.recent_portfolio_snapshots(), "No portfolio snapshots saved yet.")
+
+    if EventStore is not None:
+        st.markdown("### Recent Events")
+        dataframe_or_info(EventStore().recent_events(), "No events saved yet.")
+
+
+def render_backtesting() -> None:
+    st.subheader("Backtesting")
+    if BacktestService is None:
+        st.info("Backtesting module not installed.")
+        return
+
+    notional = st.number_input("Simulated trade notional USD", min_value=10.0, max_value=100000.0, value=1000.0, step=100.0)
+    result = run_backtest(notional)
+    if result is None:
+        st.info("No backtest result.")
+        return
+
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Signals", result.total_signals)
+    c2.metric("Trades", result.simulated_trades)
+    c3.metric("Winners", result.winning_trades)
+    c4.metric("Win Rate", f"{result.win_rate_pct:.2f}%")
+    c5.metric("P/L", f"${result.total_simulated_profit_usd:.4f}")
+    st.info(result.notes)
+
+    dataframe_or_info(
+        [
+            {
+                "Timestamp": t.timestamp,
+                "Strategy": t.strategy_name,
+                "Chain": t.chain,
+                "Pair": t.pair,
+                "Edge %": str(t.estimated_edge_pct),
+                "Profit USD": str(t.simulated_profit_usd),
+                "Reason": t.reason,
+            }
+            for t in result.trades
+        ],
+        "No simulated trades.",
+    )
+
+
+def render_performance() -> None:
     st.subheader("Performance Metrics")
     service = SystemHealthService()
-    dataframe_or_info(service.get_metric_rows(), "Metrics will populate after quote/chain calls complete.")
+    dataframe_or_info(service.get_metric_rows(), "Metrics will populate after calls complete.")
     st.markdown("### Cache Stats")
     st.json(service.get_cache_stats())
 
-with tab15:
+
+def render_system_health() -> None:
     st.subheader("System Health & Latency Budget")
     service = SystemHealthService()
-    budget_rows = []
-    for item in service.get_latency_budget():
-        budget_rows.append(
+    dataframe_or_info(
+        [
             {
                 "Stage": item.stage,
                 "Target ms": item.target_ms,
                 "Current ms": item.current_ms,
                 "Status": item.status,
             }
-        )
-    st.dataframe(pd.DataFrame(budget_rows), use_container_width=True)
-    st.info("For future autopilot trading, signal → decision → execution must stay inside a strict latency budget.")
+            for item in service.get_latency_budget()
+        ],
+        "No latency budget data.",
+    )
 
-with tab16:
-    st.subheader("Paper Trading")
-    if PaperTradingService is None:
-        st.info("Paper trading module not found in this install.")
-    else:
-        try:
-            service = PaperTradingService()
-            result = service.run_once() if hasattr(service, "run_once") else None
-            st.write(result)
-        except Exception as exc:
-            st.error(f"Paper trading failed: {exc}")
 
-with tab17:
+def render_trading_controls() -> None:
+    st.subheader("Trading Controls")
+    if TradingControlsService is None:
+        st.info("Trading controls module not installed.")
+        return
+
+    service = TradingControlsService()
+    status = service.get_status()
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Live Trading", "ON" if status["live_trading_enabled"] else "OFF")
+    c2.metric("Paper Trading", "ON" if status["paper_trading_enabled"] else "OFF")
+    c3.metric("Private Key", "Present" if status["private_key_configured"] else "Absent")
+    c4.metric("Live Guard", "Allowed" if status["live_guard_allowed"] else "Blocked")
+
+    st.markdown("### Safety Checklist")
+    dataframe_or_info(service.checklist(), "No checklist available.")
+    st.markdown("### Runtime Flags")
+    st.json(status)
+
+
+def render_analytics() -> None:
     st.subheader("Analytics")
-
     if AnalyticsService is None:
-        st.info("Analytics module not found in this install.")
-    else:
-        try:
-            service = AnalyticsService()
-            summary = service.summary() if hasattr(service, "summary") else {}
+        st.info("Analytics module not installed.")
+        return
 
-            c1, c2, c3, c4, c5 = st.columns(5)
-            c1.metric("Total Scans", summary.get("Total Scans", 0))
-            c2.metric("Paper Trades", summary.get("Paper Trades", 0))
-            c3.metric("Profitable Trades", summary.get("Profitable Trades", 0))
-            c4.metric("Win Rate", f'{summary.get("Win Rate %", 0)}%')
-            c5.metric("Est. P/L", f'${summary.get("Estimated P/L USD", 0)}')
+    service = AnalyticsService()
+    summary = service.summary() if hasattr(service, "summary") else {}
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Total Scans", summary.get("Total Scans", 0))
+    c2.metric("Paper Trades", summary.get("Paper Trades", 0))
+    c3.metric("Profitable Trades", summary.get("Profitable Trades", 0))
+    c4.metric("Win Rate", f'{summary.get("Win Rate %", 0)}%')
+    c5.metric("Est. P/L", f'${summary.get("Estimated P/L USD", 0)}')
 
-            st.caption(f'Last updated: {summary.get("Last Updated", "-")}')
+    if hasattr(service, "recent_paper_trades"):
+        st.markdown("### Recent Paper Trades")
+        dataframe_or_info(service.recent_paper_trades(), "No paper trades saved.")
 
-            st.markdown("### Recent Paper Trades")
-            paper_rows = service.recent_paper_trades() if hasattr(service, "recent_paper_trades") else []
-            dataframe_or_info(paper_rows, "No paper trades saved yet.")
+    if hasattr(service, "recent_scans"):
+        st.markdown("### Recent Scans")
+        dataframe_or_info(service.recent_scans(), "No scan history saved.")
 
-            st.markdown("### Recent Scans")
-            scan_rows = service.recent_scans() if hasattr(service, "recent_scans") else []
-            dataframe_or_info(scan_rows, "No scan history saved yet.")
 
-            st.markdown("### Live Scanner Snapshot")
-            live_rows = service.live_scanner_snapshot() if hasattr(service, "live_scanner_snapshot") else []
-            dataframe_or_info(live_rows, "No live scanner opportunities detected right now.")
-
-        except Exception as exc:
-            st.error(f"Analytics failed: {exc}")
-
-with tab18:
-    st.subheader("Assets, DEXs, and Pairs")
-    token_rows = []
-    dex_rows = []
-    pair_rows = []
+def render_registry() -> None:
+    st.subheader("Registry")
+    token_rows, dex_rows, pair_rows = [], [], []
 
     for chain_key, chain in SUPPORTED_CHAINS.items():
         for token in get_tokens_for_chain(chain_key):
@@ -613,7 +661,6 @@ with tab18:
                     "CoinGecko ID": token.coingecko_id,
                 }
             )
-
         for dex in get_dexes_for_chain(chain_key):
             dex_rows.append(
                 {
@@ -624,7 +671,6 @@ with tab18:
                     "Notes": dex.notes,
                 }
             )
-
         for pair in get_pairs_for_chain(chain_key):
             pair_rows.append(
                 {
@@ -635,37 +681,93 @@ with tab18:
             )
 
     st.markdown("### Tokens")
-    st.dataframe(pd.DataFrame(token_rows), use_container_width=True)
+    dataframe_or_info(token_rows, "No tokens registered.")
     st.markdown("### DEXs")
-    st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
+    dataframe_or_info(dex_rows, "No DEXs registered.")
     st.markdown("### Pairs")
-    st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
+    dataframe_or_info(pair_rows, "No pairs registered.")
 
-with tab19:
+
+def render_roadmap() -> None:
     st.subheader("CryptoAI Roadmap")
-    st.markdown(
-        """
-        ✅ v0.1 — Project setup  
-        ✅ v0.2 — Multi-chain RPC  
-        ✅ v0.3 — Dashboard foundation  
-        ✅ v0.4 — Market data  
-        ✅ v0.5 — Connector framework and net estimates  
-        ✅ v0.6 — Paper trading simulation  
-        ✅ v0.7 — Historical storage and analytics  
-        ✅ v0.8 — RPC failover, quote cache, and system health  
-        ✅ v0.9 — Fast data layer and latency metrics  
-        ✅ v0.9.1 — Analytics and provider compatibility hotfix  
-        ✅ v0.9.2 — Analytics dashboard UI restore  
-        ✅ v1.0 — Strategy engine framework  
-        ✅ v1.1 — Backtesting engine framework  
-        ✅ v1.2 — AI ranking engine framework  
-        ✅ v1.3 — Risk engine framework  
-        ✅ v1.4 — Portfolio engine framework  
-        ✅ v1.5 — Paper execution engine  
-        ✅ v1.6 — Scheduler and automation loop  
-        🔄 v1.7 — Database-backed state  
-        🔜 v1.8 — Portfolio persistence  
-        🔜 v2.0 — Live trading controls with strict risk limits  
-        """
-    )
-    st.warning("Live trading remains disabled until scanner, backtesting, and paper trading prove an edge.")
+    done = [
+        "v0.1 — Project setup",
+        "v0.2 — Multi-chain RPC",
+        "v0.3 — Dashboard foundation",
+        "v0.4 — Market data",
+        "v0.5 — Connector framework and net estimates",
+        "v0.6 — Paper trading simulation",
+        "v0.7 — Historical storage and analytics",
+        "v0.8 — RPC failover, quote cache, and system health",
+        "v0.9 — Fast data layer and latency metrics",
+        "v1.0 — Strategy engine",
+        "v1.1 — Backtesting engine",
+        "v1.2 — AI ranking engine",
+        "v1.3 — Risk engine",
+        "v1.4 — Portfolio engine",
+        "v1.5 — Paper execution",
+        "v1.6 — Scheduler",
+        "v1.7 — Database-backed state",
+        "v1.8 — Portfolio persistence",
+        "v1.9 — Trading controls guard",
+        "v2.0 — Event bus",
+        "v2.1 — Real-time market data foundation",
+        "v2.2 — Advanced opportunity engine",
+        "v2.3 — Cloud paper autopilot",
+        "v2.4 — Cleanup and deploy-ready dashboard",
+    ]
+    for item in done:
+        st.write(f"✅ {item}")
+
+    st.markdown("### Remaining before live trading")
+    for item in [
+        "v2.5 — Paper ledger with real balances across assets",
+        "v2.6 — Slippage/gas/liquidity simulator",
+        "v2.7 — Alerts and reports",
+        "v2.8 — Month-long paper performance dashboard",
+        "v3.0 — Manual-approved live trading prototype only after paper results prove an edge",
+    ]:
+        st.write(f"🔜 {item}")
+
+    st.warning("Do not connect real funds until paper results are proven over time.")
+
+
+PAGES = {
+    "01 Chain Health": render_chain_health,
+    "02 Live Prices": render_live_prices,
+    "03 Real-Time Market Data": render_realtime,
+    "04 DEX Quotes": render_dex_quotes,
+    "05 Opportunity Engine": render_opportunity_engine,
+    "06 Gross Opportunities": render_gross_opps,
+    "07 Net Estimates": render_net_estimates,
+    "08 Strategies": render_strategies,
+    "09 AI Ranking": render_ai_ranking,
+    "10 Risk": render_risk,
+    "11 Portfolio": render_portfolio,
+    "12 Paper Execution": render_paper_execution,
+    "13 Paper Autopilot": render_autopilot,
+    "14 Scheduler": render_scheduler,
+    "15 Event Bus": render_event_bus,
+    "16 Database": render_database,
+    "17 Backtesting": render_backtesting,
+    "18 Performance": render_performance,
+    "19 System Health": render_system_health,
+    "20 Trading Controls": render_trading_controls,
+    "21 Analytics": render_analytics,
+    "22 Registry": render_registry,
+    "23 Roadmap": render_roadmap,
+}
+
+
+render_header()
+
+with st.sidebar:
+    st.header("CryptoAI")
+    page = st.radio("Navigate", list(PAGES.keys()), index=0)
+    st.divider()
+    st.caption("Mode: paper trading only")
+    if st.button("Clear Streamlit Cache"):
+        st.cache_data.clear()
+        st.rerun()
+
+PAGES[page]()

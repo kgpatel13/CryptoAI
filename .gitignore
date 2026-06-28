@@ -1,8 +1,34 @@
-venv/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets
 .env
-logs/
+.env.local
+*.key
+*.pem
+
+# Runtime data
 data/
+logs/
+*.db
+*.sqlite
+*.sqlite3
+*.jsonl
+
+# IDE
 .vscode/
 .idea/
+
+# OS
+.DS_Store
+Thumbs.db

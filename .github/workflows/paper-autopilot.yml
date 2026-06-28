@@ -1,0 +1,45 @@
+name: CryptoAI Paper Autopilot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  paper-autopilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      CRYPTOAI_LIVE_TRADING_ENABLED: "false"
+      CRYPTOAI_PAPER_TRADING_ENABLED: "true"
+      CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION: "true"
+      CRYPTOAI_MAX_LIVE_TRADE_USD: "0"
+      CRYPTOAI_MAX_DAILY_LOSS_USD: "0"
+      CRYPTOAI_AUTOPILOT_ENABLE_PAPER_EXECUTION: "true"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run one paper autopilot cycle
+        run: |
+          python -m app.automation.paper_autopilot --once
+
+      - name: Upload runtime data artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cryptoai-runtime-data
+          path: data/
+          if-no-files-found: ignore
