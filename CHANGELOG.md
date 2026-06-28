@@ -45,3 +45,11 @@
 ## v3.1 — Resilient Quotes + Risk Approval
 
 - Added resilient quote handling and paper risk approval improvements.
+
+## v3.6 - Strategy Framework & Research Platform Foundation
+
+- Added strategy registry and configuration.
+- Added ranked strategy signals and signal persistence.
+- Added strategy-level performance report and Strategy Center dashboard page.
+- Added research placeholders for momentum, mean reversion, breakout, and AI-ranked strategies.
+- Added docs for roadmap, architecture, strategy framework, and live readiness.

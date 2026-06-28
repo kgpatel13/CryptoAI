@@ -1,17 +1,17 @@
 # CryptoAI Portfolio Analytics Report
 
-Generated: `2026-06-28T18:14:36Z`
+Generated: `2026-06-28T18:39:53Z`
 
 ## Summary
 
 - Mode: `paper`
 - Initial cash USD: `$10000.0000`
 - Cash USD: `$9800.9883`
-- Equity USD: `$10001.0018`
+- Equity USD: `$10001.4613`
 - Realized PnL USD: `$1.0018`
-- Unrealized PnL USD: `$0.0000`
-- Total PnL USD: `$1.0018`
-- Total return %: `0.0100`
+- Unrealized PnL USD: `$0.4595`
+- Total PnL USD: `$1.4613`
+- Total return %: `0.0146`
 - Trade count: `14`
 - Closed/PnL trade count: `2`
 - Win rate %: `100.0000`

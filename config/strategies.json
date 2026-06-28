@@ -1,0 +1,49 @@
+{
+  "strategies": {
+    "arbitrage": {
+      "name": "DEX Arbitrage Strategy",
+      "enabled": true,
+      "weight": "1.00",
+      "min_confidence": 50,
+      "max_signals_per_cycle": 10,
+      "mode": "paper",
+      "notes": "Primary strategy. Uses Opportunity Explorer and multi-DEX scanner output."
+    },
+    "momentum": {
+      "name": "Momentum Strategy",
+      "enabled": false,
+      "weight": "0.70",
+      "min_confidence": 65,
+      "max_signals_per_cycle": 5,
+      "mode": "research",
+      "notes": "Disabled until historical candles and trend features are implemented."
+    },
+    "mean_reversion": {
+      "name": "Mean Reversion Strategy",
+      "enabled": false,
+      "weight": "0.70",
+      "min_confidence": 65,
+      "max_signals_per_cycle": 5,
+      "mode": "research",
+      "notes": "Disabled until volatility bands and fair-value features are implemented."
+    },
+    "breakout": {
+      "name": "Breakout Strategy",
+      "enabled": false,
+      "weight": "0.70",
+      "min_confidence": 65,
+      "max_signals_per_cycle": 5,
+      "mode": "research",
+      "notes": "Disabled until range, volume, and volatility expansion features are implemented."
+    },
+    "ai_ranked": {
+      "name": "AI Ranked Strategy",
+      "enabled": false,
+      "weight": "0.80",
+      "min_confidence": 70,
+      "max_signals_per_cycle": 5,
+      "mode": "research",
+      "notes": "Disabled until v4 AI feature vectors and validation gates are ready."
+    }
+  }
+}

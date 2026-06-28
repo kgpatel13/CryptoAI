@@ -18,7 +18,7 @@ REPORT_DIR = Path("reports")
 
 def render_header() -> None:
     st.title("📊 CryptoAI Paper Trading Control Center")
-    st.caption("Focus: quote diagnostics → multi-DEX opportunities → paper trading reports.")
+    st.caption("Focus: resilient quotes → strategy framework → risk-gated paper execution → analytics.")
 
 
 def read_jsonl(path: Path, limit: int = 100) -> list[dict]:
@@ -175,6 +175,8 @@ def render_reports() -> None:
         ("Multi-DEX Opportunities", REPORT_DIR / "multi_dex_opportunities.md"),
         ("Opportunity Explorer", REPORT_DIR / "opportunity_explorer.md"),
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
+        ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
+        ("Strategy Center", REPORT_DIR / "strategy_center.md"),
     ]:
         st.markdown(f"### {title}")
         txt = read_text(path)
@@ -290,6 +292,48 @@ def render_portfolio_analytics() -> None:
         st.markdown(txt)
 
 
+
+def render_strategy_center() -> None:
+    st.subheader("Strategy Center")
+
+    if st.button("Generate Strategy Center"):
+        def task():
+            StrategyCenterService = import_object("app.strategy.strategy_center", "StrategyCenterService")
+            return StrategyCenterService().generate()
+
+        result = safe_run("Generating strategy center...", task)
+        if result is not None:
+            st.success("Strategy Center generated.")
+            st.json(result)
+
+    strategy_json = REPORT_DIR / "strategy_center.json"
+    if strategy_json.exists():
+        try:
+            payload = json.loads(strategy_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read strategy center JSON: {exc}")
+            payload = {}
+
+        if payload:
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Strategies", payload.get("strategy_count", 0))
+            c2.metric("Active", payload.get("active_strategy_count", 0))
+            c3.metric("Disabled", payload.get("disabled_strategy_count", 0))
+
+            st.markdown("### Strategy Registry & Performance")
+            dataframe_or_info(payload.get("strategies", []), "No strategy rows yet.")
+
+            st.markdown("### Ranked Signals")
+            dataframe_or_info(payload.get("ranked_signals", []), "No ranked strategy signals yet.")
+    else:
+        st.info("No strategy_center.json found yet. Generate Strategy Center or run paper autopilot.")
+
+    st.markdown("### Strategy Center Report")
+    txt = read_text(REPORT_DIR / "strategy_center.md")
+    if txt:
+        st.markdown(txt)
+
+
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
     flags = {
@@ -335,6 +379,10 @@ def render_system_health() -> None:
         REPORT_DIR / "paper_report.md",
         REPORT_DIR / "portfolio_analytics.json",
         REPORT_DIR / "portfolio_analytics.md",
+        DATA_DIR / "strategy_signals.jsonl",
+        DATA_DIR / "strategy_ranked_signals.jsonl",
+        REPORT_DIR / "strategy_center.json",
+        REPORT_DIR / "strategy_center.md",
     ]:
         rows.append(
             {
@@ -408,9 +456,10 @@ PAGES = {
     "6 Paper Orders": render_paper_orders,
     "7 Paper Portfolio": render_paper_portfolio,
     "8 Portfolio Analytics": render_portfolio_analytics,
-    "9 Risk & Controls": render_risk_controls,
-    "10 System Health": render_system_health,
-    "11 Setup / Roadmap": render_setup,
+    "9 Strategy Center": render_strategy_center,
+    "10 Risk & Controls": render_risk_controls,
+    "11 System Health": render_system_health,
+    "12 Setup / Roadmap": render_setup,
 }
 
 
