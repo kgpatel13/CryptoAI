@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import importlib
+import json
+import os
 import traceback
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -9,231 +13,323 @@ import streamlit as st
 
 st.set_page_config(page_title="CryptoAI", page_icon="📊", layout="wide")
 
+DATA_DIR = Path("data")
+REPORT_DIR = Path("reports")
 
-def safe_import(module_path: str, class_name: str):
+
+def render_header() -> None:
+    st.title("📊 CryptoAI Paper Trading Control Center")
+    st.caption("Stable dashboard: reads reports/files by default; runs heavy services only when you click a button.")
+
+
+def read_jsonl(path: Path, limit: int = 100) -> list[dict]:
+    if not path.exists():
+        return []
+    rows: list[dict] = []
     try:
-        module = __import__(module_path, fromlist=[class_name])
-        return getattr(module, class_name), None
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                rows.append({"raw": line})
     except Exception as exc:
-        return None, exc
+        return [{"error": str(exc), "path": str(path)}]
+    return rows[-limit:]
 
 
-PaperAutopilot, PaperAutopilotErr = safe_import("app.automation.paper_autopilot", "PaperAutopilot")
-OpportunityExplorerService, OpportunityExplorerErr = safe_import("app.opportunities.opportunity_explorer", "OpportunityExplorerService")
-PaperExecutionService, PaperExecutionErr = safe_import("app.execution.paper_execution_service", "PaperExecutionService")
-TradingControlsService, TradingControlsErr = safe_import("app.execution.trading_controls_service", "TradingControlsService")
-PortfolioService, PortfolioErr = safe_import("app.portfolio.portfolio_service", "PortfolioService")
-SystemHealthService, SystemHealthErr = safe_import("app.services.system_health_service", "SystemHealthService")
+def read_json(path: Path) -> dict | list | None:
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except Exception as exc:
+        return {"error": str(exc), "path": str(path)}
 
 
-def dataframe_or_info(rows, message: str) -> None:
+def read_text(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except Exception as exc:
+        return f"Failed reading {path}: {exc}"
+
+
+def dataframe_or_info(rows: list[dict], message: str) -> None:
     if rows:
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
     else:
         st.info(message)
 
 
-def show_module_error(name: str, err: Exception | None) -> None:
-    if err is None:
-        return
-    st.error(f"{name} failed to import.")
-    st.code("".join(traceback.format_exception(type(err), err, err.__traceback__)), language="text")
+def show_exception(exc: BaseException) -> None:
+    st.error(f"{type(exc).__name__}: {exc}")
+    st.code("".join(traceback.format_exception(type(exc), exc, exc.__traceback__)), language="text")
 
 
-def render_header() -> None:
-    st.title("📊 CryptoAI Paper Trading Control Center")
-    st.caption("Focused dashboard: paper autopilot, opportunity decisions, reports, risk, and health.")
+def import_object(module_path: str, object_name: str):
+    module = importlib.import_module(module_path)
+    return getattr(module, object_name)
 
 
-def render_autopilot() -> None:
+def safe_run(label: str, fn):
+    with st.spinner(label):
+        try:
+            return fn()
+        except Exception as exc:
+            show_exception(exc)
+            return None
+
+
+def render_paper_autopilot() -> None:
     st.subheader("Paper Autopilot")
-    show_module_error("PaperAutopilot", PaperAutopilotErr)
-
-    if PaperAutopilot is None:
-        return
+    st.write("This runs one local paper cycle only when you click the button.")
 
     enable_paper = st.checkbox("Enable paper execution", value=True)
 
     if st.button("Run Paper Autopilot Once"):
-        result = PaperAutopilot(enable_paper_execution=enable_paper).run_once()
-        st.json(result)
+        def task():
+            PaperAutopilot = import_object("app.automation.paper_autopilot", "PaperAutopilot")
+            return PaperAutopilot(enable_paper_execution=enable_paper).run_once()
+
+        result = safe_run("Running paper autopilot...", task)
+        if result is not None:
+            st.success("Paper autopilot completed.")
+            st.json(result)
 
     st.markdown("### GitHub Actions")
-    st.write("Use GitHub Actions for scheduled paper runs. Each run is one cycle and uploads reports.")
+    st.write("For scheduled runs, use GitHub Actions. Each run executes once and uploads reports.")
     st.code("python -m app.automation.paper_autopilot --once", language="bash")
 
 
 def render_opportunity_explorer() -> None:
     st.subheader("Opportunity Explorer")
-    st.caption("This explains why trades are BUY / WATCH / SKIP.")
-    show_module_error("OpportunityExplorerService", OpportunityExplorerErr)
+    st.caption("Explains why candidates are BUY / WATCH / SKIP.")
 
-    if OpportunityExplorerService is None:
-        return
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Run Opportunity Scan"):
+            def task():
+                OpportunityExplorerService = import_object(
+                    "app.opportunities.opportunity_explorer",
+                    "OpportunityExplorerService",
+                )
+                return OpportunityExplorerService().scan()
 
-    service = OpportunityExplorerService()
+            decisions = safe_run("Running opportunity scan...", task)
+            if decisions is not None:
+                st.success(f"Scan completed. Decisions: {len(decisions)}")
 
-    if st.button("Run Opportunity Scan"):
-        decisions = service.scan()
+    with c2:
+        if st.button("Refresh File View"):
+            st.rerun()
+
+    st.markdown("### Recent Opportunity Decisions")
+    rows = read_jsonl(DATA_DIR / "opportunity_decisions.jsonl", limit=100)
+    dataframe_or_info(rows, "No opportunity decisions saved yet. Run Opportunity Scan.")
+
+    st.markdown("### Opportunity Report")
+    txt = read_text(REPORT_DIR / "opportunity_explorer.md")
+    if txt:
+        st.markdown(txt)
     else:
-        decisions = []
-
-    rows = []
-    source = decisions if decisions else service.recent_decisions(limit=50)
-
-    for d in source:
-        if isinstance(d, dict):
-            rows.append(d)
-        else:
-            rows.append(
-                {
-                    "timestamp": "",
-                    "pair": d.pair,
-                    "buy_source": d.buy_source,
-                    "sell_source": d.sell_source,
-                    "gross_spread_pct": str(d.gross_spread_pct) if d.gross_spread_pct is not None else "-",
-                    "total_cost_buffer_pct": str(d.total_cost_buffer_pct),
-                    "estimated_net_edge_pct": str(d.estimated_net_edge_pct) if d.estimated_net_edge_pct is not None else "-",
-                    "readiness_score": d.readiness_score,
-                    "decision": d.decision.value,
-                    "reason": d.reason,
-                }
-            )
-
-    dataframe_or_info(rows, "No opportunity decisions yet. Run Opportunity Scan or Paper Autopilot.")
+        st.info("No opportunity_explorer.md found yet.")
 
 
 def render_reports() -> None:
     st.subheader("Reports")
 
-    for label, path in [
-        ("Paper Report", Path("reports/paper_report.md")),
-        ("Opportunity Explorer Report", Path("reports/opportunity_explorer.md")),
+    for title, path in [
+        ("Paper Trading Report", REPORT_DIR / "paper_report.md"),
+        ("Opportunity Explorer Report", REPORT_DIR / "opportunity_explorer.md"),
     ]:
-        st.markdown(f"### {label}")
-        if path.exists():
-            st.markdown(path.read_text(encoding="utf-8"))
+        st.markdown(f"### {title}")
+        txt = read_text(path)
+        if txt:
+            st.markdown(txt)
         else:
-            st.info(f"{path} not found yet. Run the related scanner/report command first.")
+            st.info(f"{path} not found yet.")
+
+    st.markdown("### Generate Paper Report")
+    if st.button("Generate / Refresh Paper Report"):
+        def task():
+            PaperReportService = import_object("app.reporting.paper_report", "PaperReportService")
+            return PaperReportService().generate()
+
+        result = safe_run("Generating paper report...", task)
+        if result is not None:
+            st.success("Paper report generated.")
+            st.json(result)
 
 
 def render_paper_orders() -> None:
     st.subheader("Paper Orders")
-    show_module_error("PaperExecutionService", PaperExecutionErr)
+    st.caption("This reads `data/paper_orders.jsonl` directly, without invoking trading services.")
 
-    if PaperExecutionService is None:
-        return
+    rows = read_jsonl(DATA_DIR / "paper_orders.jsonl", limit=200)
+    dataframe_or_info(rows, "No paper orders saved yet.")
 
-    service = PaperExecutionService()
-    dataframe_or_info(service.recent_orders(), "No paper orders saved yet.")
+    if rows:
+        status_counts: dict[str, int] = {}
+        for row in rows:
+            status = str(row.get("status", "UNKNOWN"))
+            status_counts[status] = status_counts.get(status, 0) + 1
+        st.markdown("### Status Counts")
+        st.json(status_counts)
 
 
 def render_portfolio() -> None:
     st.subheader("Portfolio")
-    show_module_error("PortfolioService", PortfolioErr)
+    st.caption("File-first view. Live snapshot only runs if you click the button.")
 
-    if PortfolioService is None:
-        return
+    st.markdown("### Latest Saved Portfolio Snapshots")
+    db_path = DATA_DIR / "cryptoai.db"
+    if db_path.exists():
+        st.info("SQLite database exists. For now this stable dashboard does not query SQLite directly.")
+    else:
+        st.info("No local SQLite database found yet.")
 
-    snapshot = PortfolioService().get_snapshot()
+    if st.button("Load Live Simulated Portfolio Snapshot"):
+        def task():
+            PortfolioService = import_object("app.portfolio.portfolio_service", "PortfolioService")
+            return PortfolioService().get_snapshot()
 
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Total Value", f"${snapshot.total_value_usd:.2f}")
-    c2.metric("Cash", f"${snapshot.cash_usd:.2f}")
-    c3.metric("Holdings", f"${snapshot.holdings_value_usd:.2f}")
-    c4.metric("Unrealized P/L", f"${snapshot.unrealized_pnl_usd:.2f}")
+        snapshot = safe_run("Loading portfolio snapshot...", task)
+        if snapshot is not None:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Total Value", f"${snapshot.total_value_usd:.2f}")
+            c2.metric("Cash", f"${snapshot.cash_usd:.2f}")
+            c3.metric("Holdings", f"${snapshot.holdings_value_usd:.2f}")
+            c4.metric("Unrealized P/L", f"${snapshot.unrealized_pnl_usd:.2f}")
 
-    st.markdown("### Holdings")
-    dataframe_or_info(
-        [
-            {
-                "chain": h.chain,
-                "symbol": h.symbol,
-                "quantity": str(h.quantity),
-                "market_value_usd": str(h.market_value_usd),
-                "unrealized_pnl_usd": str(h.unrealized_pnl_usd),
-            }
-            for h in snapshot.holdings
-        ],
-        "No holdings.",
-    )
+            rows = [
+                {
+                    "chain": h.chain,
+                    "symbol": h.symbol,
+                    "quantity": str(h.quantity),
+                    "market_value_usd": str(h.market_value_usd),
+                    "unrealized_pnl_usd": str(h.unrealized_pnl_usd),
+                }
+                for h in snapshot.holdings
+            ]
+            dataframe_or_info(rows, "No holdings.")
 
 
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
-    show_module_error("TradingControlsService", TradingControlsErr)
 
-    if TradingControlsService is None:
-        return
+    st.markdown("### Environment Safety Flags")
+    flags = {
+        "CRYPTOAI_LIVE_TRADING_ENABLED": os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false"),
+        "CRYPTOAI_PAPER_TRADING_ENABLED": os.getenv("CRYPTOAI_PAPER_TRADING_ENABLED", "true"),
+        "CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION": os.getenv("CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION", "true"),
+        "CRYPTOAI_MAX_LIVE_TRADE_USD": os.getenv("CRYPTOAI_MAX_LIVE_TRADE_USD", "0"),
+        "CRYPTOAI_MAX_DAILY_LOSS_USD": os.getenv("CRYPTOAI_MAX_DAILY_LOSS_USD", "0"),
+        "CRYPTOAI_PRIVATE_KEY": "PRESENT" if os.getenv("CRYPTOAI_PRIVATE_KEY") else "ABSENT",
+    }
+    st.json(flags)
 
-    service = TradingControlsService()
-    status = service.get_status()
+    if flags["CRYPTOAI_LIVE_TRADING_ENABLED"].lower() in {"1", "true", "yes", "on"}:
+        st.error("Live trading flag is ON. Turn it OFF during paper testing.")
+    else:
+        st.success("Live trading is disabled.")
 
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Live Trading", "ON" if status["live_trading_enabled"] else "OFF")
-    c2.metric("Paper Trading", "ON" if status["paper_trading_enabled"] else "OFF")
-    c3.metric("Private Key", "Present" if status["private_key_configured"] else "Absent")
-    c4.metric("Live Guard", "Allowed" if status["live_guard_allowed"] else "Blocked")
+    if st.button("Run Trading Controls Service"):
+        def task():
+            TradingControlsService = import_object(
+                "app.execution.trading_controls_service",
+                "TradingControlsService",
+            )
+            service = TradingControlsService()
+            return {"status": service.get_status(), "checklist": service.checklist()}
 
-    dataframe_or_info(service.checklist(), "No checklist available.")
-    st.json(status)
+        result = safe_run("Checking trading controls...", task)
+        if result is not None:
+            st.markdown("### Status")
+            st.json(result["status"])
+            st.markdown("### Checklist")
+            dataframe_or_info(result["checklist"], "No checklist.")
 
 
 def render_system_health() -> None:
     st.subheader("System Health")
-    show_module_error("SystemHealthService", SystemHealthErr)
 
-    if SystemHealthService is None:
-        return
+    st.markdown("### Runtime Files")
+    rows = []
+    for path in [
+        DATA_DIR,
+        REPORT_DIR,
+        DATA_DIR / "paper_orders.jsonl",
+        DATA_DIR / "opportunity_decisions.jsonl",
+        DATA_DIR / "cryptoai.db",
+        REPORT_DIR / "paper_report.md",
+        REPORT_DIR / "paper_report.json",
+        REPORT_DIR / "opportunity_explorer.md",
+    ]:
+        rows.append(
+            {
+                "path": str(path),
+                "exists": path.exists(),
+                "type": "dir" if path.is_dir() else "file" if path.exists() else "-",
+                "size_bytes": path.stat().st_size if path.exists() and path.is_file() else None,
+            }
+        )
+    st.dataframe(pd.DataFrame(rows), use_container_width=True)
 
-    service = SystemHealthService()
-    dataframe_or_info(service.get_metric_rows(), "No metrics yet.")
+    if st.button("Run System Health Service"):
+        def task():
+            SystemHealthService = import_object("app.services.system_health_service", "SystemHealthService")
+            service = SystemHealthService()
+            return {"metrics": service.get_metric_rows(), "cache": service.get_cache_stats()}
 
-    st.markdown("### Cache")
-    st.json(service.get_cache_stats())
+        result = safe_run("Loading system health...", task)
+        if result is not None:
+            st.markdown("### Metrics")
+            dataframe_or_info(result["metrics"], "No metrics.")
+            st.markdown("### Cache")
+            st.json(result["cache"])
 
 
 def render_diagnostics() -> None:
     st.subheader("Diagnostics")
-    st.write("This page helps identify why a dashboard module is blank.")
+    st.write("This checks imports without running heavy scans.")
 
-    rows = [
-        {"Module": "PaperAutopilot", "Status": "OK" if PaperAutopilotErr is None else "FAILED", "Error": str(PaperAutopilotErr or "")},
-        {"Module": "OpportunityExplorerService", "Status": "OK" if OpportunityExplorerErr is None else "FAILED", "Error": str(OpportunityExplorerErr or "")},
-        {"Module": "PaperExecutionService", "Status": "OK" if PaperExecutionErr is None else "FAILED", "Error": str(PaperExecutionErr or "")},
-        {"Module": "TradingControlsService", "Status": "OK" if TradingControlsErr is None else "FAILED", "Error": str(TradingControlsErr or "")},
-        {"Module": "PortfolioService", "Status": "OK" if PortfolioErr is None else "FAILED", "Error": str(PortfolioErr or "")},
-        {"Module": "SystemHealthService", "Status": "OK" if SystemHealthErr is None else "FAILED", "Error": str(SystemHealthErr or "")},
+    checks = [
+        ("PaperAutopilot", "app.automation.paper_autopilot", "PaperAutopilot"),
+        ("OpportunityExplorerService", "app.opportunities.opportunity_explorer", "OpportunityExplorerService"),
+        ("PaperReportService", "app.reporting.paper_report", "PaperReportService"),
+        ("PaperExecutionService", "app.execution.paper_execution_service", "PaperExecutionService"),
+        ("TradingControlsService", "app.execution.trading_controls_service", "TradingControlsService"),
+        ("PortfolioService", "app.portfolio.portfolio_service", "PortfolioService"),
+        ("SystemHealthService", "app.services.system_health_service", "SystemHealthService"),
     ]
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
 
-    st.markdown("### Runtime files")
-    runtime_rows = []
-    for path in ["data", "reports", "data/paper_orders.jsonl", "reports/paper_report.md", "reports/opportunity_explorer.md"]:
-        p = Path(path)
-        runtime_rows.append(
-            {
-                "Path": path,
-                "Exists": p.exists(),
-                "Type": "dir" if p.is_dir() else "file" if p.exists() else "-",
-            }
-        )
-    st.dataframe(pd.DataFrame(runtime_rows), use_container_width=True)
+    rows = []
+    for name, module_path, object_name in checks:
+        try:
+            import_object(module_path, object_name)
+            rows.append({"module": name, "status": "OK", "error": ""})
+        except Exception as exc:
+            rows.append({"module": name, "status": "FAILED", "error": f"{type(exc).__name__}: {exc}"})
+
+    st.dataframe(pd.DataFrame(rows), use_container_width=True)
 
 
 def render_setup() -> None:
     st.subheader("Setup / Roadmap")
     st.markdown(
         """
-        ### Current focus
+        ### Practical next steps
 
-        1. Explain why opportunities are skipped.
-        2. Get paper trades to execute only when net edge is positive.
-        3. Collect reports from GitHub Actions.
-        4. Improve strategy thresholds and quote quality.
-        5. Only later consider VPS and live trading.
+        1. Keep GitHub Actions running every 15 minutes for paper validation.
+        2. Use Opportunity Explorer to understand each SKIP/WATCH reason.
+        3. Tune thresholds only after reviewing several reports.
+        4. Do not connect a wallet or private key yet.
 
-        ### Useful commands
+        ### Commands
 
         ```bash
         python -m app.opportunities.opportunity_explorer
@@ -246,7 +342,7 @@ def render_setup() -> None:
 
 
 PAGES = {
-    "1 Paper Autopilot": render_autopilot,
+    "1 Paper Autopilot": render_paper_autopilot,
     "2 Opportunity Explorer": render_opportunity_explorer,
     "3 Reports": render_reports,
     "4 Paper Orders": render_paper_orders,
@@ -258,12 +354,12 @@ PAGES = {
 }
 
 
-def safe_render_page(page_name: str) -> None:
+def render_page(page_name: str) -> None:
     try:
         PAGES[page_name]()
     except Exception as exc:
         st.error(f"Page failed: {page_name}")
-        st.code("".join(traceback.format_exception(type(exc), exc, exc.__traceback__)), language="text")
+        show_exception(exc)
 
 
 render_header()
@@ -271,8 +367,10 @@ render_header()
 with st.sidebar:
     st.header("CryptoAI")
     page = st.radio("Navigate", list(PAGES.keys()), index=0)
-    if st.button("Clear Cache"):
+    st.divider()
+    st.caption("Mode: Paper trading only")
+    if st.button("Clear cache"):
         st.cache_data.clear()
         st.rerun()
 
-safe_render_page(page)
+render_page(page)
