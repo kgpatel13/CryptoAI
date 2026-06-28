@@ -7,6 +7,13 @@ from uuid import uuid4
 from app.scheduler.models import SchedulerRunResult, SchedulerStepResult, SchedulerStepStatus
 
 try:
+    from app.events.event_service import EventBusService
+    from app.events.models import EventType
+except Exception:
+    EventBusService = None
+    EventType = None
+
+try:
     from app.database.db import get_connection, initialize_database
     from app.database.event_store import EventStore
 except Exception:
@@ -41,7 +48,10 @@ except Exception:
 
 
 class SchedulerService:
-    """Safe automation loop foundation with database persistence."""
+    """Safe automation loop foundation with event publishing and database persistence."""
+
+    def __init__(self) -> None:
+        self.events = EventBusService() if EventBusService is not None else None
 
     def run_once(self, enable_paper_execution: bool = False) -> SchedulerRunResult:
         run_id = str(uuid4())[:8]
@@ -49,13 +59,21 @@ class SchedulerService:
         start_perf = time.perf_counter()
         steps: list[SchedulerStepResult] = []
 
-        steps.append(self._run_step("Quote Refresh", self._refresh_quotes))
-        steps.append(self._run_step("Strategy Signals", self._strategy_signals))
-        steps.append(self._run_step("AI Ranking", self._ai_ranking))
-        steps.append(self._run_step("Risk Assessment", self._risk_assessment))
+        self._publish(
+            EventType.SCHEDULER_RUN_STARTED if EventType else None,
+            {
+                "run_id": run_id,
+                "paper_execution_enabled": enable_paper_execution,
+            },
+        )
+
+        steps.append(self._run_step("Quote Refresh", self._refresh_quotes, EventType.QUOTE_REFRESH_COMPLETED if EventType else None))
+        steps.append(self._run_step("Strategy Signals", self._strategy_signals, EventType.STRATEGY_SIGNALS_GENERATED if EventType else None))
+        steps.append(self._run_step("AI Ranking", self._ai_ranking, EventType.AI_RANKING_COMPLETED if EventType else None))
+        steps.append(self._run_step("Risk Assessment", self._risk_assessment, EventType.RISK_ASSESSMENT_COMPLETED if EventType else None))
 
         if enable_paper_execution:
-            steps.append(self._run_step("Paper Execution", self._paper_execution))
+            steps.append(self._run_step("Paper Execution", self._paper_execution, EventType.PAPER_EXECUTION_COMPLETED if EventType else None))
         else:
             steps.append(
                 SchedulerStepResult(
@@ -85,9 +103,20 @@ class SchedulerService:
         )
 
         self._persist_run(result)
+
+        self._publish(
+            EventType.SCHEDULER_RUN_COMPLETED if EventType else None,
+            {
+                "run_id": result.run_id,
+                "status": result.status.value if hasattr(result.status, "value") else str(result.status),
+                "total_latency_ms": result.total_latency_ms,
+                "steps": len(result.steps),
+            },
+        )
+
         return result
 
-    def _run_step(self, name: str, fn) -> SchedulerStepResult:
+    def _run_step(self, name: str, fn, completed_event_type) -> SchedulerStepResult:
         start = time.perf_counter()
         try:
             count, message = fn()
@@ -96,15 +125,32 @@ class SchedulerService:
             count = 0
             message = str(exc)
             status = SchedulerStepStatus.FAILED
+            self._publish(
+                EventType.ERROR if EventType else None,
+                {"step": name, "error": str(exc)},
+            )
 
         latency_ms = (time.perf_counter() - start) * 1000
-        return SchedulerStepResult(
+        step = SchedulerStepResult(
             step_name=name,
             status=status,
             items_processed=count,
             latency_ms=round(latency_ms, 2),
             message=message,
         )
+
+        self._publish(
+            completed_event_type,
+            {
+                "step_name": step.step_name,
+                "status": step.status.value if hasattr(step.status, "value") else str(step.status),
+                "items_processed": step.items_processed,
+                "latency_ms": step.latency_ms,
+                "message": step.message,
+            },
+        )
+
+        return step
 
     @staticmethod
     def _refresh_quotes() -> tuple[int, str]:
@@ -144,6 +190,14 @@ class SchedulerService:
     @staticmethod
     def _utc_now() -> str:
         return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+
+    def _publish(self, event_type, payload: dict) -> None:
+        if self.events is None or event_type is None:
+            return
+        try:
+            self.events.publish(event_type=event_type, source="scheduler", payload=payload)
+        except Exception:
+            return
 
     @staticmethod
     def _persist_run(result: SchedulerRunResult) -> None:
