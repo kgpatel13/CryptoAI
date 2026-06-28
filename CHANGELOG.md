@@ -1,3 +1,14 @@
+
+## v3.5 - Portfolio Analytics & PnL Engine
+
+- Added portfolio analytics and PnL service.
+- Added daily PnL, equity curve, return %, max drawdown, win rate, profit factor, and expectancy.
+- Added trade journal and performance-by-pair analytics.
+- Added `portfolio_analytics.json` and `portfolio_analytics.md`.
+- Integrated analytics into paper report.
+- Added Portfolio Analytics dashboard page.
+- Added analytics regression tests.
+
 # CryptoAI Changelog
 
 ## v3.4.1 — Paper Accounting & Execution Integrity Hotfix

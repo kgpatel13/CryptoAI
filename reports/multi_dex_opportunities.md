@@ -1,6 +1,6 @@
 # CryptoAI Multi-DEX Opportunity Report
 
-Generated: `2026-06-28T17:52:15Z`
+Generated: `2026-06-28T18:14:25Z`
 
 ## Quote Health
 
@@ -12,8 +12,8 @@ Generated: `2026-06-28T17:52:15Z`
 
 | Mode | Pair | Buy DEX | Sell DEX | Buy Price | Sell Price | Gross % | Cost % | Net % | Decision | Reason |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| PAPER_SIMULATED | WETH/USDC | Uniswap V2 | SyntheticPaperVenue | 1557.43059000 | 1567.55388884 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| PAPER_SIMULATED | USDC/WETH | Uniswap V2 | SyntheticPaperVenue | 0.00063523 | 0.00063936 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| PAPER_SIMULATED | WETH/USDC | Uniswap V2 | SyntheticPaperVenue | 1559.42234500 | 1569.55859024 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| PAPER_SIMULATED | USDC/WETH | Uniswap V2 | SyntheticPaperVenue | 0.00063442 | 0.00063855 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 
 ## Failed / Invalid Quotes
 

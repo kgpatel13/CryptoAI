@@ -228,6 +228,68 @@ def render_paper_portfolio() -> None:
     st.json(safe_state)
 
 
+def render_portfolio_analytics() -> None:
+    st.subheader("Portfolio Analytics & PnL")
+
+    if st.button("Generate Portfolio Analytics"):
+        def task():
+            PnLAnalyticsService = import_object("app.analytics.pnl_analytics_service", "PnLAnalyticsService")
+            return PnLAnalyticsService().generate()
+
+        result = safe_run("Generating portfolio analytics...", task)
+        if result is not None:
+            st.success("Portfolio analytics generated.")
+            st.json(result)
+
+    analytics_path = REPORT_DIR / "portfolio_analytics.json"
+    if analytics_path.exists():
+        try:
+            analytics = json.loads(analytics_path.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read portfolio analytics: {exc}")
+            analytics = {}
+
+        if analytics:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Equity USD", analytics.get("equity_usd", "-"))
+            c2.metric("Total PnL USD", analytics.get("total_pnl_usd", "-"))
+            c3.metric("Return %", analytics.get("total_return_pct", "-"))
+            c4.metric("Win Rate %", analytics.get("win_rate_pct", "-"))
+
+            c5, c6, c7, c8 = st.columns(4)
+            c5.metric("Profit Factor", analytics.get("profit_factor", "-"))
+            c6.metric("Max Drawdown %", analytics.get("max_drawdown_pct", "-"))
+            c7.metric("Avg Slip bps", analytics.get("avg_slippage_bps", "-"))
+            c8.metric("Avg Latency ms", analytics.get("avg_latency_ms", "-"))
+
+            st.markdown("### Daily PnL")
+            dataframe_or_info(analytics.get("daily_pnl", []), "No daily PnL rows yet.")
+
+            st.markdown("### Equity Curve")
+            equity_curve = analytics.get("equity_curve", [])
+            dataframe_or_info(equity_curve, "No equity curve rows yet.")
+            if equity_curve:
+                try:
+                    chart_df = pd.DataFrame(equity_curve)
+                    chart_df["equity_usd"] = pd.to_numeric(chart_df["equity_usd"], errors="coerce")
+                    st.line_chart(chart_df.set_index("date")[["equity_usd"]])
+                except Exception:
+                    pass
+
+            st.markdown("### Performance by Pair")
+            dataframe_or_info(analytics.get("performance_by_pair", []), "No pair-level performance yet.")
+
+            st.markdown("### Trade Journal")
+            dataframe_or_info(analytics.get("trade_journal", []), "No trade journal rows yet.")
+    else:
+        st.info("No portfolio_analytics.json found yet. Generate analytics or paper report first.")
+
+    st.markdown("### Portfolio Analytics Report")
+    txt = read_text(REPORT_DIR / "portfolio_analytics.md")
+    if txt:
+        st.markdown(txt)
+
+
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
     flags = {
@@ -271,6 +333,8 @@ def render_system_health() -> None:
         REPORT_DIR / "multi_dex_opportunities.md",
         REPORT_DIR / "opportunity_explorer.md",
         REPORT_DIR / "paper_report.md",
+        REPORT_DIR / "portfolio_analytics.json",
+        REPORT_DIR / "portfolio_analytics.md",
     ]:
         rows.append(
             {
@@ -343,9 +407,10 @@ PAGES = {
     "5 Reports": render_reports,
     "6 Paper Orders": render_paper_orders,
     "7 Paper Portfolio": render_paper_portfolio,
-    "8 Risk & Controls": render_risk_controls,
-    "9 System Health": render_system_health,
-    "10 Setup / Roadmap": render_setup,
+    "8 Portfolio Analytics": render_portfolio_analytics,
+    "9 Risk & Controls": render_risk_controls,
+    "10 System Health": render_system_health,
+    "11 Setup / Roadmap": render_setup,
 }
 
 

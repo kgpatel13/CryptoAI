@@ -5,6 +5,11 @@ from datetime import UTC, datetime
 from pathlib import Path
 from decimal import Decimal
 
+try:
+    from app.analytics.pnl_analytics_service import PnLAnalyticsService
+except Exception:
+    PnLAnalyticsService = None
+
 
 class PaperReportService:
     def __init__(self) -> None:
@@ -27,6 +32,7 @@ class PaperReportService:
         total_notional = sum(self._decimal(o.get("notional_usd", "0")) for o in filled)
         portfolio_state = self._read_json(self.portfolio_state_file)
         portfolio_summary = self._portfolio_summary(portfolio_state)
+        portfolio_analytics = self._portfolio_analytics()
 
         decision_counts = {}
         for row in opportunities:
@@ -56,6 +62,7 @@ class PaperReportService:
             "avg_slippage_bps": self._avg_decimal(filled, "slippage_bps"),
             "avg_latency_ms": self._avg_decimal(filled, "latency_ms"),
             "portfolio": portfolio_summary,
+            "portfolio_analytics": portfolio_analytics,
             "latest_opportunities": opportunities[-20:],
             "latest_orders": orders[-20:],
             "notes": [
@@ -94,8 +101,13 @@ class PaperReportService:
             f"- Paper portfolio cash USD: `${report['portfolio'].get('cash_usd', '-')}`",
             f"- Open paper positions: `{report['portfolio'].get('open_positions', 0)}`",
             f"- Closed paper positions: `{report['portfolio'].get('closed_positions', 0)}`",
-            f"- Avg execution slippage bps: `{report.get('avg_slippage_bps', "-")}`",
-            f"- Avg execution latency ms: `{report.get('avg_latency_ms', "-")}`",
+            f"- Avg execution slippage bps: `{report.get('avg_slippage_bps', '-')}`",
+            f"- Avg execution latency ms: `{report.get('avg_latency_ms', '-')}`",
+            f"- Equity USD: `${report.get('portfolio_analytics', {}).get('equity_usd', '-')}`",
+            f"- Total PnL USD: `${report.get('portfolio_analytics', {}).get('total_pnl_usd', '-')}`",
+            f"- Total return %: `{report.get('portfolio_analytics', {}).get('total_return_pct', '-')}`",
+            f"- Win rate %: `{report.get('portfolio_analytics', {}).get('win_rate_pct', '-')}`",
+            f"- Max drawdown %: `{report.get('portfolio_analytics', {}).get('max_drawdown_pct', '-')}`",
             "",
             "## Opportunity Decision Counts",
             "",
@@ -140,6 +152,44 @@ class PaperReportService:
         lines.append(f"- Daily filled trades: `{portfolio.get('daily_filled_trades', 0)}`")
         lines.append(f"- Exposure by chain: `{portfolio.get('exposure_by_chain', {})}`")
         lines.append(f"- Exposure by token: `{portfolio.get('exposure_by_token', {})}`")
+
+        lines += ["", "## Portfolio Analytics", ""]
+        analytics = report.get("portfolio_analytics", {})
+        if analytics:
+            lines.append(f"- Equity USD: `${analytics.get('equity_usd', '-')}`")
+            lines.append(f"- Total PnL USD: `${analytics.get('total_pnl_usd', '-')}`")
+            lines.append(f"- Total return %: `{analytics.get('total_return_pct', '-')}`")
+            lines.append(f"- Win rate %: `{analytics.get('win_rate_pct', '-')}`")
+            lines.append(f"- Profit factor: `{analytics.get('profit_factor', '-')}`")
+            lines.append(f"- Expectancy USD: `${analytics.get('expectancy_usd', '-')}`")
+            lines.append(f"- Max drawdown USD: `${analytics.get('max_drawdown_usd', '-')}`")
+            lines.append(f"- Max drawdown %: `{analytics.get('max_drawdown_pct', '-')}`")
+
+            daily = analytics.get("daily_pnl", [])
+            if daily:
+                lines += ["", "### Daily PnL", ""]
+                lines.append("| Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |")
+                lines.append("|---|---:|---:|---:|---:|---:|")
+                for row in daily[-10:]:
+                    lines.append(
+                        f"| {row.get('date', '-')} | {row.get('trades', '-')} | "
+                        f"{row.get('filled_notional_usd', '-')} | {row.get('realized_pnl_usd', '-')} | "
+                        f"{row.get('cumulative_realized_pnl_usd', '-')} | {row.get('daily_return_pct', '-')} |"
+                    )
+
+            by_pair = analytics.get("performance_by_pair", [])
+            if by_pair:
+                lines += ["", "### Performance by Pair", ""]
+                lines.append("| Pair | Trades | Filled Notional | Realized PnL | Win Rate % |")
+                lines.append("|---|---:|---:|---:|---:|")
+                for row in by_pair:
+                    lines.append(
+                        f"| {row.get('pair', '-')} | {row.get('trades', '-')} | "
+                        f"{row.get('filled_notional_usd', '-')} | {row.get('realized_pnl_usd', '-')} | "
+                        f"{row.get('win_rate_pct', '-')} |"
+                    )
+        else:
+            lines.append("- Portfolio analytics unavailable.")
 
         lines += ["", "## Latest Opportunities", ""]
         opps = report["latest_opportunities"]
@@ -224,6 +274,14 @@ class PaperReportService:
         if not values:
             return "-"
         return str((sum(values, Decimal("0")) / Decimal(len(values))).quantize(Decimal("0.0001")))
+
+    def _portfolio_analytics(self) -> dict:
+        if PnLAnalyticsService is None:
+            return {}
+        try:
+            return PnLAnalyticsService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+        except Exception as exc:
+            return {"error": f"Portfolio analytics unavailable: {type(exc).__name__}: {exc}"}
 
     @staticmethod
     def _portfolio_summary(state: dict) -> dict:
