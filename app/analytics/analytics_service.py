@@ -1,26 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 import json
 from datetime import datetime
 
 
-@dataclass(frozen=True)
-class AnalyticsSummary:
-    total_scans: int
-    total_paper_trades: int
-    profitable_paper_trades: int
-    estimated_total_profit_usd: float
-    last_updated: str
-
-
 class AnalyticsService:
-    """Lightweight analytics service.
-
-    This version is intentionally file-based so the dashboard works without a
-    database server. Later we will replace or supplement this with SQLite/Postgres.
-    """
+    """Analytics service for saved and live research data."""
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -28,10 +14,11 @@ class AnalyticsService:
         self.scan_file = self.data_dir / "scan_history.jsonl"
 
     def summary(self) -> dict:
-        paper_rows = self._read_jsonl(self.paper_file)
-        scan_rows = self._read_jsonl(self.scan_file)
+        paper_rows = self.recent_paper_trades(limit=5000)
+        scan_rows = self.recent_scans(limit=5000)
 
         total_paper_trades = len(paper_rows)
+        total_scans = len(scan_rows)
 
         estimated_total_profit = 0.0
         profitable = 0
@@ -41,19 +28,22 @@ class AnalyticsService:
                 row.get("estimated_profit_usd")
                 or row.get("net_profit_usd")
                 or row.get("profit_usd")
+                or row.get("estimated_net_profit_usd")
                 or 0
             )
             estimated_total_profit += profit
             if profit > 0:
                 profitable += 1
 
+        win_rate = (profitable / total_paper_trades * 100) if total_paper_trades else 0.0
+
         return {
-            "total_scans": len(scan_rows),
-            "total_paper_trades": total_paper_trades,
-            "profitable_paper_trades": profitable,
-            "estimated_total_profit_usd": round(estimated_total_profit, 6),
-            "last_updated": datetime.utcnow().isoformat(timespec="seconds") + "Z",
-            "storage": "file-based JSONL",
+            "Total Scans": total_scans,
+            "Paper Trades": total_paper_trades,
+            "Profitable Trades": profitable,
+            "Win Rate %": round(win_rate, 2),
+            "Estimated P/L USD": round(estimated_total_profit, 6),
+            "Last Updated": datetime.utcnow().isoformat(timespec="seconds") + "Z",
         }
 
     def recent_paper_trades(self, limit: int = 25) -> list[dict]:
@@ -61,6 +51,28 @@ class AnalyticsService:
 
     def recent_scans(self, limit: int = 25) -> list[dict]:
         return self._read_jsonl(self.scan_file)[-limit:]
+
+    def live_scanner_snapshot(self) -> list[dict]:
+        """Fallback live snapshot when saved scan history is still empty."""
+        try:
+            from app.scanner.opportunity_scanner import OpportunityScanner
+
+            rows = []
+            for opp in OpportunityScanner().scan_base_gross_opportunities():
+                rows.append(
+                    {
+                        "Chain": getattr(opp, "chain", "-"),
+                        "Pair": getattr(opp, "pair", "-"),
+                        "Buy DEX": getattr(opp, "best_buy_dex", "-"),
+                        "Sell DEX": getattr(opp, "best_sell_dex", "-"),
+                        "Buy Price": str(getattr(opp, "buy_price", "")),
+                        "Sell Price": str(getattr(opp, "sell_price", "")),
+                        "Gross Spread %": str(getattr(opp, "gross_spread_pct", "")),
+                    }
+                )
+            return rows
+        except Exception:
+            return []
 
     @staticmethod
     def _read_jsonl(path: Path) -> list[dict]:

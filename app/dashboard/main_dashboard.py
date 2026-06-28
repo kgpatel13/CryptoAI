@@ -151,7 +151,7 @@ with tab3:
             }
         )
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info("v0.9.1 supports old and new provider interfaces while keeping quote caching.")
+    st.info("v0.9.2 keeps quote caching and provider compatibility.")
 
 with tab4:
     st.subheader("Gross Opportunity Scanner")
@@ -216,22 +216,34 @@ with tab8:
 
 with tab9:
     st.subheader("Analytics")
+
     if AnalyticsService is None:
         st.info("Analytics module not found in this install.")
     else:
         try:
             service = AnalyticsService()
             summary = service.summary() if hasattr(service, "summary") else {}
-            st.markdown("### Summary")
-            st.json(summary)
 
-            if hasattr(service, "recent_paper_trades"):
-                st.markdown("### Recent Paper Trades")
-                dataframe_or_info(service.recent_paper_trades(), "No paper trades saved yet.")
+            c1, c2, c3, c4, c5 = st.columns(5)
+            c1.metric("Total Scans", summary.get("Total Scans", 0))
+            c2.metric("Paper Trades", summary.get("Paper Trades", 0))
+            c3.metric("Profitable Trades", summary.get("Profitable Trades", 0))
+            c4.metric("Win Rate", f'{summary.get("Win Rate %", 0)}%')
+            c5.metric("Est. P/L", f'${summary.get("Estimated P/L USD", 0)}')
 
-            if hasattr(service, "recent_scans"):
-                st.markdown("### Recent Scans")
-                dataframe_or_info(service.recent_scans(), "No scan history saved yet.")
+            st.caption(f'Last updated: {summary.get("Last Updated", "-")}')
+
+            st.markdown("### Recent Paper Trades")
+            paper_rows = service.recent_paper_trades() if hasattr(service, "recent_paper_trades") else []
+            dataframe_or_info(paper_rows, "No paper trades saved yet.")
+
+            st.markdown("### Recent Scans")
+            scan_rows = service.recent_scans() if hasattr(service, "recent_scans") else []
+            dataframe_or_info(scan_rows, "No scan history saved yet.")
+
+            st.markdown("### Live Scanner Snapshot")
+            live_rows = service.live_scanner_snapshot() if hasattr(service, "live_scanner_snapshot") else []
+            dataframe_or_info(live_rows, "No live scanner opportunities detected right now.")
 
         except Exception as exc:
             st.error(f"Analytics failed: {exc}")
@@ -295,7 +307,8 @@ with tab11:
         ✅ v0.7 — Historical storage and analytics  
         ✅ v0.8 — RPC failover, quote cache, and system health  
         ✅ v0.9 — Fast data layer and latency metrics  
-        🔧 v0.9.1 — Analytics and provider compatibility hotfix  
+        ✅ v0.9.1 — Analytics and provider compatibility hotfix  
+        🔧 v0.9.2 — Analytics dashboard UI restore  
         🔜 v1.0 — Strategy engine  
         🔜 v1.1 — Backtesting engine  
         🔜 v1.2 — AI ranking engine  
