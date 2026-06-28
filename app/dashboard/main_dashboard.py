@@ -11,6 +11,7 @@ from app.quotes.quote_service import QuoteService
 from app.scanner.opportunity_scanner import OpportunityScanner
 from app.papertrading.paper_service import PaperTradingService
 from app.analytics.paper_analytics_service import PaperAnalyticsService
+from app.services.system_health_service import SystemHealthService
 
 
 st.set_page_config(
@@ -37,7 +38,7 @@ def load_market_prices():
 
 @st.cache_data(ttl=20)
 def load_dex_quotes():
-    return QuoteService().get_base_quotes()
+    return QuoteService().get_base_quotes(include_experimental_pairs=False)
 
 
 @st.cache_data(ttl=20)
@@ -73,7 +74,13 @@ def load_profit_by_pair():
     return service.profit_by_pair()
 
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
+@st.cache_data(ttl=20)
+def load_system_health():
+    service = SystemHealthService()
+    return service.quote_provider_status(), service.quote_error_summary()
+
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(
     [
         "🌐 Chain Health",
         "💵 Live Prices",
@@ -82,6 +89,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(
         "🧮 Net Estimates",
         "🧪 Paper Trading",
         "📊 Analytics",
+        "🩺 System Health",
         "🪙 Assets",
         "🏦 DEX Registry",
         "📈 Roadmap",
@@ -103,12 +111,15 @@ with tab1:
                 "Gas Gwei": float(result.gas_price_gwei)
                 if result.gas_price_gwei
                 else None,
+                "RPC Used": getattr(result, "rpc_url_used", ""),
                 "Error": result.error or "",
             }
         )
 
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info("This confirms CryptoAI can read live blockchain data from multiple networks.")
+    st.info(
+        "v0.8 adds RPC fallback support. You can put multiple RPC URLs in .env separated by commas."
+    )
 
 
 with tab2:
@@ -152,12 +163,15 @@ with tab3:
                     "Amount In": float(quote.amount_in),
                     "Amount Out": float(quote.amount_out) if quote.amount_out else None,
                     "Price": float(quote.price) if quote.price else None,
+                    "Status": "✅ OK" if not quote.error else "⚠️ Skipped",
                     "Error": quote.error or "",
                 }
             )
 
         st.dataframe(pd.DataFrame(quote_rows), use_container_width=True)
-        st.info("These are live on-chain DEX quotes from Base providers.")
+        st.info(
+            "v0.8 reduces public RPC pressure with quote caching and a smaller default request set."
+        )
     except Exception as exc:
         st.error(f"Failed to load DEX quotes: {exc}")
 
@@ -213,7 +227,7 @@ with tab5:
 
         st.dataframe(pd.DataFrame(rows), use_container_width=True)
         st.info(
-            "Net estimate uses conservative placeholder costs. Later versions will use real gas, liquidity, and slippage simulation."
+            "Net estimate uses conservative placeholder costs. Future versions will use live gas, liquidity, and slippage simulation."
         )
     except Exception as exc:
         st.error(f"Failed to estimate net opportunities: {exc}")
@@ -305,6 +319,37 @@ with tab7:
 
 
 with tab8:
+    st.subheader("System Health")
+
+    try:
+        provider_status, quote_summary = load_system_health()
+
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Quote Requests", int(quote_summary.get("total_quotes") or 0))
+        col2.metric("Successful", int(quote_summary.get("successful_quotes") or 0))
+        col3.metric("Failed", int(quote_summary.get("failed_quotes") or 0))
+        col4.metric("Success Rate", f"{float(quote_summary.get('success_rate_pct') or 0):.1f}%")
+
+        st.markdown("### Registered Quote Providers")
+        st.dataframe(pd.DataFrame(provider_status), use_container_width=True)
+
+        st.markdown("### Quote Error Categories")
+        error_categories = quote_summary.get("error_categories") or {}
+        st.dataframe(
+            pd.DataFrame(
+                [{"Category": key, "Count": value} for key, value in error_categories.items()]
+            ),
+            use_container_width=True,
+        )
+
+        st.info(
+            "Use this tab to distinguish real data issues from normal public RPC limits or unsupported routes."
+        )
+    except Exception as exc:
+        st.error(f"Failed to load system health: {exc}")
+
+
+with tab9:
     st.subheader("Token Registry")
 
     token_rows = []
@@ -339,7 +384,7 @@ with tab8:
     st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 
-with tab9:
+with tab10:
     st.subheader("DEX Registry")
 
     dex_rows = []
@@ -358,7 +403,7 @@ with tab9:
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
 
 
-with tab10:
+with tab11:
     st.subheader("CryptoAI Roadmap")
 
     st.markdown(
@@ -371,8 +416,8 @@ with tab10:
         ✅ M5 — Live DEX quote engine  
         ✅ v0.5 — Connector framework and net opportunity estimates  
         ✅ v0.6 — Paper trading simulation  
-        🔄 v0.7 — Historical storage and analytics  
-        🔜 v0.8 — AI ranking engine  
+        ✅ v0.7 — Historical storage and analytics  
+        🔄 v0.8 — Professional data engine: RPC failover, quote cache, system health  
         🔜 v0.9 — Backtesting engine  
         🔜 v1.0 — Stable paper-trading release  
         """

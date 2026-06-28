@@ -40,47 +40,63 @@ class AerodromeQuoteProvider(QuoteProvider):
         token_out = get_token("base", request.token_out)
 
         if token_in is None or token_out is None:
-            return DexQuote(
-                chain=request.chain,
-                dex=self.dex,
-                token_in=request.token_in,
-                token_out=request.token_out,
-                amount_in=request.amount_in,
-                amount_out=None,
-                price=None,
-                error="Token not found in registry",
-            )
+            return self._error_quote(request, "Token not found in registry")
 
         try:
             amount_in_units = int(request.amount_in * Decimal(10**token_in.decimals))
-            routes = [
-                (
-                    Web3.to_checksum_address(token_in.address),
-                    Web3.to_checksum_address(token_out.address),
-                    False,
-                    Web3.to_checksum_address(AERODROME_FACTORY),
-                )
-            ]
-            amounts = self.router.functions.getAmountsOut(amount_in_units, routes).call()
-            amount_out = Decimal(amounts[-1]) / Decimal(10**token_out.decimals)
-            price = amount_out / request.amount_in if request.amount_in > 0 else None
-            return DexQuote(
-                chain=request.chain,
-                dex=self.dex,
-                token_in=token_in.symbol,
-                token_out=token_out.symbol,
-                amount_in=request.amount_in,
-                amount_out=amount_out,
-                price=price,
+
+            # Aerodrome has volatile and stable pools. Try volatile first, then stable.
+            last_error: Exception | None = None
+            for stable_pool in (False, True):
+                try:
+                    routes = [
+                        (
+                            Web3.to_checksum_address(token_in.address),
+                            Web3.to_checksum_address(token_out.address),
+                            stable_pool,
+                            Web3.to_checksum_address(AERODROME_FACTORY),
+                        )
+                    ]
+                    amounts = self.router.functions.getAmountsOut(amount_in_units, routes).call()
+                    amount_out = Decimal(amounts[-1]) / Decimal(10**token_out.decimals)
+                    price = amount_out / request.amount_in if request.amount_in > 0 else None
+                    return DexQuote(
+                        chain=request.chain,
+                        dex=self.dex,
+                        token_in=token_in.symbol,
+                        token_out=token_out.symbol,
+                        amount_in=request.amount_in,
+                        amount_out=amount_out,
+                        price=price,
+                    )
+                except Exception as exc:
+                    last_error = exc
+
+            return self._error_quote(
+                request,
+                self._friendly_error(str(last_error) if last_error else "Aerodrome quote failed"),
             )
+
         except Exception as exc:
-            return DexQuote(
-                chain=request.chain,
-                dex=self.dex,
-                token_in=request.token_in,
-                token_out=request.token_out,
-                amount_in=request.amount_in,
-                amount_out=None,
-                price=None,
-                error=str(exc),
-            )
+            return self._error_quote(request, self._friendly_error(str(exc)))
+
+    def _error_quote(self, request: QuoteRequest, error: str) -> DexQuote:
+        return DexQuote(
+            chain=request.chain,
+            dex=self.dex,
+            token_in=request.token_in,
+            token_out=request.token_out,
+            amount_in=request.amount_in,
+            amount_out=None,
+            price=None,
+            error=error,
+        )
+
+    @staticmethod
+    def _friendly_error(error: str) -> str:
+        lower = error.lower()
+        if "429" in lower or "too many requests" in lower:
+            return "RPC rate limit while reading Aerodrome quote. Add a private Base RPC or wait for cache refresh."
+        if "could not transact" in lower or "call contract function" in lower:
+            return "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row."
+        return error[:240]
