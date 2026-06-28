@@ -15,6 +15,11 @@ except Exception:
     SchedulerService = None
 
 try:
+    from app.opportunities.opportunity_explorer import OpportunityExplorerService
+except Exception:
+    OpportunityExplorerService = None
+
+try:
     from app.events.event_service import EventBusService
     from app.events.models import EventType
 except Exception:
@@ -25,21 +30,30 @@ except Exception:
 class PaperAutopilot:
     """Safe paper-trading autopilot.
 
-    This runs the existing scheduler repeatedly. It never submits live trades.
+    It now also runs Opportunity Explorer so reports explain skipped trades.
     """
 
     def __init__(self, enable_paper_execution: bool = True) -> None:
         self.enable_paper_execution = enable_paper_execution
 
     def run_once(self) -> dict:
+        self._publish("Paper autopilot cycle started.")
+
+        opportunity_count = 0
+        if OpportunityExplorerService is not None:
+            try:
+                decisions = OpportunityExplorerService().scan()
+                opportunity_count = len(decisions)
+            except Exception:
+                opportunity_count = 0
+
         if SchedulerService is None:
             return {
                 "status": "FAILED",
                 "message": "SchedulerService is not available.",
+                "opportunity_decisions": opportunity_count,
                 "timestamp": self._utc_now(),
             }
-
-        self._publish("Paper autopilot cycle started.")
 
         result = SchedulerService().run_once(
             enable_paper_execution=self.enable_paper_execution
@@ -49,6 +63,7 @@ class PaperAutopilot:
             "status": result.status.value if hasattr(result.status, "value") else str(result.status),
             "run_id": result.run_id,
             "paper_execution_enabled": result.paper_execution_enabled,
+            "opportunity_decisions": opportunity_count,
             "total_latency_ms": result.total_latency_ms,
             "steps": [
                 {
@@ -103,10 +118,7 @@ class PaperAutopilot:
             EventBusService().publish(
                 event_type=EventType.SYSTEM,
                 source="paper_autopilot",
-                payload={
-                    "message": message,
-                    **(payload or {}),
-                },
+                payload={"message": message, **(payload or {})},
             )
         except Exception:
             return
@@ -124,43 +136,23 @@ def main() -> None:
         "--interval-seconds",
         type=int,
         default=int(os.getenv("CRYPTOAI_AUTOPILOT_INTERVAL_SECONDS", "300")),
-        help="Loop interval in seconds",
     )
-    parser.add_argument(
-        "--max-cycles",
-        type=int,
-        default=None,
-        help="Optional max cycles for testing, for example --max-cycles 2",
-    )
-    parser.add_argument(
-        "--disable-paper-execution",
-        action="store_true",
-        help="Run scheduler but skip paper execution",
-    )
+    parser.add_argument("--max-cycles", type=int, default=None)
+    parser.add_argument("--disable-paper-execution", action="store_true")
 
     args = parser.parse_args()
 
     live_enabled = os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false").lower() in {
-        "1",
-        "true",
-        "yes",
-        "on",
+        "1", "true", "yes", "on",
     }
 
     if live_enabled:
-        raise RuntimeError(
-            "Refusing to start paper autopilot because CRYPTOAI_LIVE_TRADING_ENABLED=true."
-        )
+        raise RuntimeError("Refusing to start because live trading is enabled.")
 
-    autopilot = PaperAutopilot(
-        enable_paper_execution=not args.disable_paper_execution
-    )
+    autopilot = PaperAutopilot(enable_paper_execution=not args.disable_paper_execution)
 
     if args.loop:
-        autopilot.run_loop(
-            interval_seconds=max(60, args.interval_seconds),
-            max_cycles=args.max_cycles,
-        )
+        autopilot.run_loop(max(60, args.interval_seconds), args.max_cycles)
     else:
         print(autopilot.run_once())
 
