@@ -1,26 +1,25 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-28T14:49:55Z`
+Generated: `2026-06-28T15:29:58Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Total orders: `21`
+- Total orders: `22`
 - Filled orders: `0`
-- Skipped orders: `21`
+- Skipped orders: `22`
 - Rejected orders: `0`
 - Total filled notional USD: `$0`
 
 ## Pairs Seen
 
-- `-`: 21
+- `-`: 22
 
 ## Latest Orders
 
 | Time | Pair | Status | Notional | Reason |
 |---|---|---|---:|---|
-| 2026-06-28T01:32:03Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:32:22Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:32:27Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T01:32:44Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
@@ -40,6 +39,7 @@ Generated: `2026-06-28T14:49:55Z`
 | 2026-06-28T02:47:04Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T14:25:50Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 | 2026-06-28T14:49:54Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
+| 2026-06-28T15:29:27Z | - | SKIPPED | 0 | Risk decision is WATCHLIST; paper order not created. |
 
 ## Notes
 
