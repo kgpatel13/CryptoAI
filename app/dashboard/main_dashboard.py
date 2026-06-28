@@ -8,10 +8,27 @@ from app.registry.dexes import get_dexes_for_chain
 from app.registry.pairs import get_pairs_for_chain
 from app.marketdata.market_service import MarketDataService
 from app.quotes.quote_service import QuoteService
-from app.scanner.opportunity_scanner import OpportunityScanner
-from app.papertrading.paper_service import PaperTradingService
-from app.analytics.paper_analytics_service import PaperAnalyticsService
 from app.services.system_health_service import SystemHealthService
+
+try:
+    from app.scanner.opportunity_scanner import OpportunityScanner
+except Exception:
+    OpportunityScanner = None
+
+try:
+    from app.scanner.net_opportunity_scanner import NetOpportunityScanner
+except Exception:
+    NetOpportunityScanner = None
+
+try:
+    from app.paper.paper_trading_service import PaperTradingService
+except Exception:
+    PaperTradingService = None
+
+try:
+    from app.analytics.analytics_service import AnalyticsService
+except Exception:
+    AnalyticsService = None
 
 
 st.set_page_config(
@@ -21,9 +38,7 @@ st.set_page_config(
 )
 
 st.title("📊 CryptoAI Quant Trading Dashboard")
-st.caption(
-    "Multi-chain crypto research platform — scanner first, no wallet, no live trading yet."
-)
+st.caption("Multi-chain crypto research platform — scanner first, no wallet, no live trading yet.")
 
 
 @st.cache_data(ttl=30)
@@ -36,48 +51,33 @@ def load_market_prices():
     return MarketDataService().get_registered_asset_prices()
 
 
-@st.cache_data(ttl=20)
+@st.cache_data(ttl=10)
 def load_dex_quotes():
-    return QuoteService().get_base_quotes(include_experimental_pairs=False)
+    return QuoteService().get_base_quotes()
 
 
-@st.cache_data(ttl=20)
+@st.cache_data(ttl=15)
 def load_gross_opportunities():
+    if OpportunityScanner is None:
+        return []
     return OpportunityScanner().scan_base_gross_opportunities()
 
 
-@st.cache_data(ttl=20)
-def load_net_opportunities():
-    return OpportunityScanner().scan_base_net_opportunities()
+@st.cache_data(ttl=15)
+def load_net_estimates():
+    if NetOpportunityScanner is None:
+        return []
+    scanner = NetOpportunityScanner()
+    if hasattr(scanner, "scan_base_net_opportunities"):
+        return scanner.scan_base_net_opportunities()
+    return []
 
 
-@st.cache_data(ttl=20)
-def load_paper_trades():
-    return PaperTradingService().run_once(persist=False)
-
-
-@st.cache_data(ttl=10)
-def load_paper_summary():
-    service = PaperAnalyticsService()
-    return service.summary()
-
-
-@st.cache_data(ttl=10)
-def load_recent_paper_trades():
-    service = PaperAnalyticsService()
-    return service.recent_trades(limit=100)
-
-
-@st.cache_data(ttl=10)
-def load_profit_by_pair():
-    service = PaperAnalyticsService()
-    return service.profit_by_pair()
-
-
-@st.cache_data(ttl=20)
-def load_system_health():
-    service = SystemHealthService()
-    return service.quote_provider_status(), service.quote_error_summary()
+def dataframe_or_info(rows, message: str):
+    if rows:
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    else:
+        st.info(message)
 
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(
@@ -87,19 +87,17 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(
         "🔁 DEX Quotes",
         "🚨 Gross Opps",
         "🧮 Net Estimates",
+        "⚡ Performance",
+        "💉 System Health",
         "🧪 Paper Trading",
         "📊 Analytics",
-        "🩺 System Health",
         "🪙 Assets",
-        "🏦 DEX Registry",
         "📈 Roadmap",
     ]
 )
 
-
 with tab1:
     st.subheader("Multi-Chain RPC Health")
-
     rows = []
     for result in load_chain_health():
         rows.append(
@@ -108,251 +106,134 @@ with tab1:
                 "Connected": "✅ Yes" if result.connected else "❌ No",
                 "Chain ID": result.chain_id,
                 "Latest Block": result.latest_block,
-                "Gas Gwei": float(result.gas_price_gwei)
-                if result.gas_price_gwei
-                else None,
-                "RPC Used": getattr(result, "rpc_url_used", ""),
+                "Gas Gwei": float(result.gas_price_gwei) if result.gas_price_gwei else None,
                 "Error": result.error or "",
             }
         )
-
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info(
-        "v0.8 adds RPC fallback support. You can put multiple RPC URLs in .env separated by commas."
-    )
-
 
 with tab2:
     st.subheader("Live Market Prices")
-
     try:
-        price_rows = []
+        rows = []
         for price in load_market_prices():
-            price_rows.append(
+            rows.append(
                 {
                     "Asset": price.name,
                     "Symbol": price.symbol,
                     "CoinGecko ID": price.coingecko_id,
                     "USD Price": float(price.usd_price) if price.usd_price else None,
-                    "24h Change %": float(price.change_24h_pct)
-                    if price.change_24h_pct
-                    else None,
+                    "24h Change %": float(price.change_24h_pct) if price.change_24h_pct else None,
                     "24h Volume": float(price.volume_24h) if price.volume_24h else None,
                     "Market Cap": float(price.market_cap) if price.market_cap else None,
                 }
             )
-
-        st.dataframe(pd.DataFrame(price_rows), use_container_width=True)
-        st.success("Live market data loaded successfully.")
+        st.dataframe(pd.DataFrame(rows), use_container_width=True)
     except Exception as exc:
         st.error(f"Failed to load market prices: {exc}")
 
-
 with tab3:
     st.subheader("Live DEX Quotes")
-
-    try:
-        quote_rows = []
-        for quote in load_dex_quotes():
-            quote_rows.append(
-                {
-                    "Chain": quote.chain,
-                    "DEX": quote.dex,
-                    "Token In": quote.token_in,
-                    "Token Out": quote.token_out,
-                    "Amount In": float(quote.amount_in),
-                    "Amount Out": float(quote.amount_out) if quote.amount_out else None,
-                    "Price": float(quote.price) if quote.price else None,
-                    "Status": "✅ OK" if not quote.error else "⚠️ Skipped",
-                    "Error": quote.error or "",
-                }
-            )
-
-        st.dataframe(pd.DataFrame(quote_rows), use_container_width=True)
-        st.info(
-            "v0.8 reduces public RPC pressure with quote caching and a smaller default request set."
+    rows = []
+    for quote in load_dex_quotes():
+        ok = quote.error is None and quote.amount_out is not None
+        rows.append(
+            {
+                "Chain": quote.chain,
+                "DEX": quote.dex,
+                "Token In": quote.token_in,
+                "Token Out": quote.token_out,
+                "Amount In": float(quote.amount_in),
+                "Amount Out": float(quote.amount_out) if quote.amount_out else None,
+                "Price": float(quote.price) if quote.price else None,
+                "Status": "✅ OK" if ok else "⚠️ Skipped",
+                "Error": quote.error or "",
+            }
         )
-    except Exception as exc:
-        st.error(f"Failed to load DEX quotes: {exc}")
-
+    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    st.info("v0.9 uses short TTL quote caching and parallel provider requests.")
 
 with tab4:
     st.subheader("Gross Opportunity Scanner")
-
-    try:
-        rows = []
-        for opp in load_gross_opportunities():
-            rows.append(
-                {
-                    "Chain": opp.chain,
-                    "Pair": opp.pair,
-                    "Buy DEX": opp.best_buy_dex,
-                    "Sell DEX": opp.best_sell_dex,
-                    "Buy Price": float(opp.buy_price),
-                    "Sell Price": float(opp.sell_price),
-                    "Gross Spread %": float(opp.gross_spread_pct),
-                }
-            )
-
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-        st.warning(
-            "Gross spread only. This does NOT include gas, slippage, MEV, DEX fees, or execution risk."
+    rows = []
+    for opp in load_gross_opportunities():
+        rows.append(
+            {
+                "Chain": getattr(opp, "chain", "-"),
+                "Pair": getattr(opp, "pair", "-"),
+                "Buy DEX": getattr(opp, "best_buy_dex", "-"),
+                "Sell DEX": getattr(opp, "best_sell_dex", "-"),
+                "Buy Price": float(getattr(opp, "buy_price", 0)),
+                "Sell Price": float(getattr(opp, "sell_price", 0)),
+                "Gross Spread %": float(getattr(opp, "gross_spread_pct", 0)),
+            }
         )
-    except Exception as exc:
-        st.error(f"Failed to scan gross opportunities: {exc}")
-
+    dataframe_or_info(rows, "No gross opportunities detected right now.")
 
 with tab5:
-    st.subheader("Estimated Net Opportunity Scanner")
-
-    try:
-        rows = []
-        for opp in load_net_opportunities():
-            rows.append(
-                {
-                    "Chain": opp.chain,
-                    "Pair": opp.pair,
-                    "Buy DEX": opp.best_buy_dex,
-                    "Sell DEX": opp.best_sell_dex,
-                    "Trade Size USD": float(opp.trade_size_usd),
-                    "Gross Spread %": float(opp.gross_spread_pct),
-                    "Gross Profit USD": float(opp.estimated_gross_profit_usd),
-                    "Estimated Cost USD": float(opp.estimated_cost_usd),
-                    "Estimated Net Profit USD": float(opp.estimated_net_profit_usd),
-                    "Estimated Net Profit %": float(opp.estimated_net_profit_pct),
-                    "Decision": opp.decision,
-                    "Reason": opp.reason,
-                }
-            )
-
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-        st.info(
-            "Net estimate uses conservative placeholder costs. Future versions will use live gas, liquidity, and slippage simulation."
-        )
-    except Exception as exc:
-        st.error(f"Failed to estimate net opportunities: {exc}")
-
+    st.subheader("Net Opportunity Estimates")
+    rows = []
+    for opp in load_net_estimates():
+        d = opp.__dict__ if hasattr(opp, "__dict__") else {}
+        rows.append({k: str(v) for k, v in d.items()})
+    dataframe_or_info(rows, "Net opportunity engine is available when v0.5+ scanner classes are present.")
+    st.warning("Still read-only. These estimates are not trade instructions.")
 
 with tab6:
-    st.subheader("Paper Trading Simulation")
+    st.subheader("Performance Metrics")
+    service = SystemHealthService()
+    rows = service.get_metric_rows()
+    dataframe_or_info(rows, "Metrics will populate after quote/chain calls complete.")
 
-    try:
-        paper_trades = load_paper_trades()
-        rows = []
-        for trade in paper_trades:
-            rows.append(
-                {
-                    "Timestamp UTC": trade.timestamp_utc,
-                    "Chain": trade.chain,
-                    "Pair": trade.pair,
-                    "Buy DEX": trade.buy_dex,
-                    "Sell DEX": trade.sell_dex,
-                    "Trade Size USD": float(trade.trade_size_usd),
-                    "Est. Net Profit USD": float(trade.estimated_net_profit_usd),
-                    "Est. Net Profit %": float(trade.estimated_net_profit_pct),
-                    "Status": trade.status,
-                    "Reason": trade.reason,
-                }
-            )
-
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
-        st.warning(
-            "Paper trading is simulation only. No wallet, no private key, no live execution."
-        )
-
-        if st.button("Record current paper scan to database + CSV"):
-            saved = PaperTradingService().run_once(persist=True)
-            st.success(
-                f"Saved {len(saved)} paper-trade rows to data/cryptoai.db and data/paper_trades.csv"
-            )
-            st.cache_data.clear()
-    except Exception as exc:
-        st.error(f"Failed to run paper trading simulation: {exc}")
-
+    st.markdown("### Cache Stats")
+    st.json(service.get_cache_stats())
 
 with tab7:
-    st.subheader("Historical Paper Trading Analytics")
-
-    try:
-        summary = load_paper_summary()
-
-        col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Total Stored Rows", int(summary.get("total_scans") or 0))
-        col2.metric("Paper Executed", int(summary.get("paper_executed") or 0))
-        col3.metric("Paper Skipped", int(summary.get("paper_skipped") or 0))
-        col4.metric(
-            "Total Est. Net P/L",
-            f"${float(summary.get('total_estimated_net_profit_usd') or 0):,.2f}",
+    st.subheader("System Health & Latency Budget")
+    service = SystemHealthService()
+    budget_rows = []
+    for item in service.get_latency_budget():
+        budget_rows.append(
+            {
+                "Stage": item.stage,
+                "Target ms": item.target_ms,
+                "Current ms": item.current_ms,
+                "Status": item.status,
+            }
         )
-
-        col5, col6, col7 = st.columns(3)
-        col5.metric(
-            "Avg Est. Net P/L",
-            f"${float(summary.get('avg_estimated_net_profit_usd') or 0):,.4f}",
-        )
-        col6.metric(
-            "Best Est. Net P/L",
-            f"${float(summary.get('best_estimated_net_profit_usd') or 0):,.4f}",
-        )
-        col7.metric(
-            "Worst Est. Net P/L",
-            f"${float(summary.get('worst_estimated_net_profit_usd') or 0):,.4f}",
-        )
-
-        st.markdown("### Estimated P/L by Pair")
-        pair_df = pd.DataFrame(load_profit_by_pair())
-        st.dataframe(pair_df, use_container_width=True)
-
-        if not pair_df.empty:
-            chart_df = pair_df.set_index("pair")[["total_estimated_net_profit_usd"]]
-            st.bar_chart(chart_df)
-
-        st.markdown("### Recent Stored Paper Trades")
-        recent_df = pd.DataFrame(load_recent_paper_trades())
-        st.dataframe(recent_df, use_container_width=True)
-
-        st.info(
-            "This tab reads from SQLite. Use the Paper Trading tab button to store new snapshots over time."
-        )
-    except Exception as exc:
-        st.error(f"Failed to load historical analytics: {exc}")
-
+    st.dataframe(pd.DataFrame(budget_rows), use_container_width=True)
+    st.info("For future autopilot trading, signal → decision → execution must stay inside a strict latency budget.")
 
 with tab8:
-    st.subheader("System Health")
-
-    try:
-        provider_status, quote_summary = load_system_health()
-
-        col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Quote Requests", int(quote_summary.get("total_quotes") or 0))
-        col2.metric("Successful", int(quote_summary.get("successful_quotes") or 0))
-        col3.metric("Failed", int(quote_summary.get("failed_quotes") or 0))
-        col4.metric("Success Rate", f"{float(quote_summary.get('success_rate_pct') or 0):.1f}%")
-
-        st.markdown("### Registered Quote Providers")
-        st.dataframe(pd.DataFrame(provider_status), use_container_width=True)
-
-        st.markdown("### Quote Error Categories")
-        error_categories = quote_summary.get("error_categories") or {}
-        st.dataframe(
-            pd.DataFrame(
-                [{"Category": key, "Count": value} for key, value in error_categories.items()]
-            ),
-            use_container_width=True,
-        )
-
-        st.info(
-            "Use this tab to distinguish real data issues from normal public RPC limits or unsupported routes."
-        )
-    except Exception as exc:
-        st.error(f"Failed to load system health: {exc}")
-
+    st.subheader("Paper Trading")
+    if PaperTradingService is None:
+        st.info("Paper trading module not found in this install.")
+    else:
+        try:
+            service = PaperTradingService()
+            result = service.run_once() if hasattr(service, "run_once") else None
+            st.write(result)
+        except Exception as exc:
+            st.error(f"Paper trading failed: {exc}")
 
 with tab9:
-    st.subheader("Token Registry")
+    st.subheader("Analytics")
+    if AnalyticsService is None:
+        st.info("Analytics module not found in this install.")
+    else:
+        try:
+            service = AnalyticsService()
+            if hasattr(service, "summary"):
+                st.write(service.summary())
+            else:
+                st.write("Analytics service loaded.")
+        except Exception as exc:
+            st.error(f"Analytics failed: {exc}")
 
+with tab10:
+    st.subheader("Assets, DEXs, and Pairs")
     token_rows = []
+    dex_rows = []
     pair_rows = []
 
     for chain_key, chain in SUPPORTED_CHAINS.items():
@@ -364,7 +245,18 @@ with tab9:
                     "Name": token.name,
                     "Address": token.address,
                     "Decimals": token.decimals,
-                    "Coingecko ID": token.coingecko_id,
+                    "CoinGecko ID": token.coingecko_id,
+                }
+            )
+
+        for dex in get_dexes_for_chain(chain_key):
+            dex_rows.append(
+                {
+                    "Chain": chain.name,
+                    "DEX": dex.name,
+                    "Type": dex.dex_type,
+                    "Router": dex.router_address or "-",
+                    "Notes": dex.notes,
                 }
             )
 
@@ -377,52 +269,30 @@ with tab9:
                 }
             )
 
-    st.markdown("### Supported Tokens")
+    st.markdown("### Tokens")
     st.dataframe(pd.DataFrame(token_rows), use_container_width=True)
-
-    st.markdown("### Supported Trading Pairs")
-    st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
-
-
-with tab10:
-    st.subheader("DEX Registry")
-
-    dex_rows = []
-    for chain_key, chain in SUPPORTED_CHAINS.items():
-        for dex in get_dexes_for_chain(chain_key):
-            dex_rows.append(
-                {
-                    "Chain": chain.name,
-                    "DEX": dex.name,
-                    "Type": dex.dex_type,
-                    "Router": dex.router_address or "-",
-                    "Notes": dex.notes,
-                }
-            )
-
+    st.markdown("### DEXs")
     st.dataframe(pd.DataFrame(dex_rows), use_container_width=True)
-
+    st.markdown("### Pairs")
+    st.dataframe(pd.DataFrame(pair_rows), use_container_width=True)
 
 with tab11:
     st.subheader("CryptoAI Roadmap")
-
     st.markdown(
         """
-        ✅ M0 — Development environment  
-        ✅ M1 — Multi-chain RPC connections  
-        ✅ M2 — Token, DEX, and pair registry  
-        ✅ M3 — Streamlit dashboard foundation  
-        ✅ M4 — Live market data engine  
-        ✅ M5 — Live DEX quote engine  
-        ✅ v0.5 — Connector framework and net opportunity estimates  
+        ✅ v0.1 — Project setup  
+        ✅ v0.2 — Multi-chain RPC  
+        ✅ v0.3 — Dashboard foundation  
+        ✅ v0.4 — Market data  
+        ✅ v0.5 — Connector framework and net estimates  
         ✅ v0.6 — Paper trading simulation  
         ✅ v0.7 — Historical storage and analytics  
-        🔄 v0.8 — Professional data engine: RPC failover, quote cache, system health  
-        🔜 v0.9 — Backtesting engine  
-        🔜 v1.0 — Stable paper-trading release  
+        ✅ v0.8 — RPC failover, quote cache, and system health  
+        🔄 v0.9 — Fast data layer and latency metrics  
+        🔜 v1.0 — Strategy engine  
+        🔜 v1.1 — Backtesting engine  
+        🔜 v1.2 — AI ranking engine  
+        🔜 v2.0 — Live trading controls with strict risk limits  
         """
     )
-
-    st.warning(
-        "Live trading remains disabled until scanner, backtesting, and paper trading prove an edge."
-    )
+    st.warning("Live trading remains disabled until scanner, backtesting, and paper trading prove an edge.")

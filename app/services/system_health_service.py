@@ -1,40 +1,62 @@
 from __future__ import annotations
 
-from collections import Counter
-from typing import Any
+from dataclasses import dataclass
 
-from app.quotes.quote_service import QuoteService
+from app.cache.quote_cache import quote_cache
+from app.metrics.metrics import metrics
+
+
+@dataclass(frozen=True)
+class LatencyBudget:
+    stage: str
+    target_ms: int
+    current_ms: float | None
+    status: str
 
 
 class SystemHealthService:
-    """Aggregates operational status for dashboard diagnostics."""
+    """Central place for latency and readiness status.
 
-    def quote_provider_status(self) -> list[dict[str, str]]:
-        return QuoteService().get_provider_status()
+    For future live trading, the full signal-to-execution pipeline must be
+    consistently fast. This service tracks early building blocks.
+    """
 
-    def quote_error_summary(self) -> dict[str, Any]:
-        quotes = QuoteService().get_base_quotes(include_experimental_pairs=False)
-        total = len(quotes)
-        success = sum(1 for quote in quotes if quote.error is None and quote.price is not None)
-        errors = [quote.error or "" for quote in quotes if quote.error]
+    def get_cache_stats(self) -> dict:
+        return quote_cache.stats()
 
-        categories = Counter(self._category(error) for error in errors)
+    def get_metric_rows(self) -> list[dict]:
+        return [
+            {
+                "Component": item.name,
+                "Calls": item.calls,
+                "Successes": item.successes,
+                "Failures": item.failures,
+                "Avg Latency ms": item.avg_latency_ms,
+                "Max Latency ms": item.max_latency_ms,
+            }
+            for item in metrics.snapshots()
+        ]
 
-        return {
-            "total_quotes": total,
-            "successful_quotes": success,
-            "failed_quotes": total - success,
-            "success_rate_pct": (success / total * 100) if total else 0,
-            "error_categories": dict(categories),
-        }
+    def get_latency_budget(self) -> list[LatencyBudget]:
+        snapshots = {s.name: s for s in metrics.snapshots()}
+
+        quote_avg = snapshots.get("quote_service.get_base_quotes").avg_latency_ms if snapshots.get("quote_service.get_base_quotes") else None
+        chain_avg = snapshots.get("chain_health.check_all").avg_latency_ms if snapshots.get("chain_health.check_all") else None
+
+        return [
+            self._budget("Chain health read", 1000, chain_avg),
+            self._budget("Quote refresh", 1500, quote_avg),
+            self._budget("Scanner decision path", 2500, quote_avg),
+            self._budget("Future execution path", 1000, None),
+        ]
 
     @staticmethod
-    def _category(error: str) -> str:
-        lower = error.lower()
-        if "rate limit" in lower or "429" in lower or "too many requests" in lower:
-            return "RPC rate limit"
-        if "unavailable" in lower or "could not transact" in lower:
-            return "Provider/route unavailable"
-        if "token not found" in lower:
-            return "Registry issue"
-        return "Other"
+    def _budget(stage: str, target_ms: int, current_ms: float | None) -> LatencyBudget:
+        if current_ms is None:
+            status = "Not measured"
+        elif current_ms <= target_ms:
+            status = "✅ OK"
+        else:
+            status = "⚠️ Slow"
+
+        return LatencyBudget(stage, target_ms, current_ms, status)
