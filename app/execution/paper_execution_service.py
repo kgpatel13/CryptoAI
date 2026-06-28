@@ -15,6 +15,12 @@ from app.execution.models import (
 )
 
 try:
+    from app.database.db import get_connection, initialize_database
+except Exception:
+    get_connection = None
+    initialize_database = None
+
+try:
     from app.risk.risk_service import RiskService
 except Exception:
     RiskService = None
@@ -26,11 +32,7 @@ except Exception:
 
 
 class PaperExecutionService:
-    """Simulated execution engine.
-
-    This service never connects to a wallet and never submits transactions.
-    It simply records hypothetical orders for candidates that passed risk gates.
-    """
+    """Simulated execution engine with JSONL + SQLite persistence."""
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -120,7 +122,8 @@ class PaperExecutionService:
             orders=orders,
         )
 
-        self._persist_orders(orders)
+        self._persist_orders_jsonl(orders)
+        self._persist_orders_db(orders)
         return batch
 
     def recent_orders(self, limit: int = 50) -> list[dict]:
@@ -177,16 +180,56 @@ class PaperExecutionService:
                     prices["CBBTC"] = Decimal(str(price))
         return prices
 
-    def _persist_orders(self, orders: list[PaperOrder]) -> None:
+    def _persist_orders_jsonl(self, orders: list[PaperOrder]) -> None:
         with self.order_file.open("a", encoding="utf-8") as fh:
             for order in orders:
-                payload = asdict(order)
-                for key, value in list(payload.items()):
-                    if isinstance(value, Decimal):
-                        payload[key] = str(value)
-                    elif hasattr(value, "value"):
-                        payload[key] = value.value
-                fh.write(json.dumps(payload) + "\n")
+                fh.write(json.dumps(self._serialize_order(order)) + "\n")
+
+    @staticmethod
+    def _persist_orders_db(orders: list[PaperOrder]) -> None:
+        if initialize_database is None or get_connection is None:
+            return
+
+        try:
+            initialize_database()
+            with get_connection() as conn:
+                for order in orders:
+                    conn.execute(
+                        """
+                        INSERT INTO paper_orders
+                        (order_id, timestamp, strategy_name, chain, pair, side,
+                         notional_usd, estimated_edge_pct, simulated_fill_price_usd,
+                         simulated_quantity, status, reason)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            order.order_id,
+                            order.timestamp,
+                            order.strategy_name,
+                            order.chain,
+                            order.pair,
+                            order.side.value if hasattr(order.side, "value") else str(order.side),
+                            str(order.notional_usd),
+                            str(order.estimated_edge_pct) if order.estimated_edge_pct is not None else None,
+                            str(order.simulated_fill_price_usd) if order.simulated_fill_price_usd is not None else None,
+                            str(order.simulated_quantity) if order.simulated_quantity is not None else None,
+                            order.status.value if hasattr(order.status, "value") else str(order.status),
+                            order.reason,
+                        ),
+                    )
+                conn.commit()
+        except Exception:
+            return
+
+    @staticmethod
+    def _serialize_order(order: PaperOrder) -> dict:
+        payload = asdict(order)
+        for key, value in list(payload.items()):
+            if isinstance(value, Decimal):
+                payload[key] = str(value)
+            elif hasattr(value, "value"):
+                payload[key] = value.value
+        return payload
 
     @staticmethod
     def _price_for(symbol: str, prices: dict[str, Decimal]) -> Decimal:

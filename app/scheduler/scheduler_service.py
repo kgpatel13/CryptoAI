@@ -7,6 +7,14 @@ from uuid import uuid4
 from app.scheduler.models import SchedulerRunResult, SchedulerStepResult, SchedulerStepStatus
 
 try:
+    from app.database.db import get_connection, initialize_database
+    from app.database.event_store import EventStore
+except Exception:
+    get_connection = None
+    initialize_database = None
+    EventStore = None
+
+try:
     from app.quotes.quote_service import QuoteService
 except Exception:
     QuoteService = None
@@ -33,11 +41,7 @@ except Exception:
 
 
 class SchedulerService:
-    """Safe automation loop foundation.
-
-    v1.6 intentionally runs one cycle at a time from the dashboard.
-    It does not run forever and does not execute real trades.
-    """
+    """Safe automation loop foundation with database persistence."""
 
     def run_once(self, enable_paper_execution: bool = False) -> SchedulerRunResult:
         run_id = str(uuid4())[:8]
@@ -70,7 +74,7 @@ class SchedulerService:
             else SchedulerStepStatus.OK
         )
 
-        return SchedulerRunResult(
+        result = SchedulerRunResult(
             run_id=run_id,
             started_at=started,
             completed_at=self._utc_now(),
@@ -79,6 +83,9 @@ class SchedulerService:
             total_latency_ms=round(total_latency_ms, 2),
             steps=steps,
         )
+
+        self._persist_run(result)
+        return result
 
     def _run_step(self, name: str, fn) -> SchedulerStepResult:
         start = time.perf_counter()
@@ -137,3 +144,52 @@ class SchedulerService:
     @staticmethod
     def _utc_now() -> str:
         return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+
+    @staticmethod
+    def _persist_run(result: SchedulerRunResult) -> None:
+        if initialize_database is None or get_connection is None:
+            return
+
+        try:
+            initialize_database()
+            with get_connection() as conn:
+                conn.execute(
+                    """
+                    INSERT INTO scheduler_runs
+                    (run_id, started_at, completed_at, status,
+                     paper_execution_enabled, total_latency_ms)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        result.run_id,
+                        result.started_at,
+                        result.completed_at,
+                        result.status.value if hasattr(result.status, "value") else str(result.status),
+                        1 if result.paper_execution_enabled else 0,
+                        result.total_latency_ms,
+                    ),
+                )
+
+                for step in result.steps:
+                    conn.execute(
+                        """
+                        INSERT INTO scheduler_steps
+                        (run_id, step_name, status, items_processed, latency_ms, message)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            result.run_id,
+                            step.step_name,
+                            step.status.value if hasattr(step.status, "value") else str(step.status),
+                            step.items_processed,
+                            step.latency_ms,
+                            step.message,
+                        ),
+                    )
+
+                conn.commit()
+
+            if EventStore is not None:
+                EventStore().record_event("scheduler_run", "scheduler", result)
+        except Exception:
+            return
