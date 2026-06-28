@@ -1,0 +1,169 @@
+from __future__ import annotations
+
+import argparse
+import os
+import time
+from datetime import UTC, datetime
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+try:
+    from app.scheduler.scheduler_service import SchedulerService
+except Exception:
+    SchedulerService = None
+
+try:
+    from app.events.event_service import EventBusService
+    from app.events.models import EventType
+except Exception:
+    EventBusService = None
+    EventType = None
+
+
+class PaperAutopilot:
+    """Safe paper-trading autopilot.
+
+    This runs the existing scheduler repeatedly. It never submits live trades.
+    """
+
+    def __init__(self, enable_paper_execution: bool = True) -> None:
+        self.enable_paper_execution = enable_paper_execution
+
+    def run_once(self) -> dict:
+        if SchedulerService is None:
+            return {
+                "status": "FAILED",
+                "message": "SchedulerService is not available.",
+                "timestamp": self._utc_now(),
+            }
+
+        self._publish("Paper autopilot cycle started.")
+
+        result = SchedulerService().run_once(
+            enable_paper_execution=self.enable_paper_execution
+        )
+
+        payload = {
+            "status": result.status.value if hasattr(result.status, "value") else str(result.status),
+            "run_id": result.run_id,
+            "paper_execution_enabled": result.paper_execution_enabled,
+            "total_latency_ms": result.total_latency_ms,
+            "steps": [
+                {
+                    "step": step.step_name,
+                    "status": step.status.value if hasattr(step.status, "value") else str(step.status),
+                    "items": step.items_processed,
+                    "latency_ms": step.latency_ms,
+                    "message": step.message,
+                }
+                for step in result.steps
+            ],
+            "timestamp": self._utc_now(),
+        }
+
+        self._publish("Paper autopilot cycle completed.", payload)
+        return payload
+
+    def run_loop(self, interval_seconds: int, max_cycles: int | None = None) -> None:
+        print(f"CryptoAI paper autopilot started. Interval: {interval_seconds}s")
+        print("Live trading is disabled. Press Ctrl+C to stop.")
+
+        cycle = 0
+        while True:
+            try:
+                cycle += 1
+                result = self.run_once()
+                print(result)
+
+                if max_cycles is not None and cycle >= max_cycles:
+                    print(f"Paper autopilot completed {max_cycles} cycle(s).")
+                    break
+
+            except KeyboardInterrupt:
+                print("Paper autopilot stopped.")
+                break
+            except Exception as exc:
+                print(
+                    {
+                        "status": "FAILED",
+                        "message": str(exc),
+                        "timestamp": self._utc_now(),
+                    }
+                )
+
+            time.sleep(interval_seconds)
+
+    @staticmethod
+    def _publish(message: str, payload: dict | None = None) -> None:
+        if EventBusService is None or EventType is None:
+            return
+        try:
+            EventBusService().publish(
+                event_type=EventType.SYSTEM,
+                source="paper_autopilot",
+                payload={
+                    "message": message,
+                    **(payload or {}),
+                },
+            )
+        except Exception:
+            return
+
+    @staticmethod
+    def _utc_now() -> str:
+        return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="CryptoAI paper autopilot")
+    parser.add_argument("--once", action="store_true", help="Run one paper cycle")
+    parser.add_argument("--loop", action="store_true", help="Run continuous paper cycles")
+    parser.add_argument(
+        "--interval-seconds",
+        type=int,
+        default=int(os.getenv("CRYPTOAI_AUTOPILOT_INTERVAL_SECONDS", "300")),
+        help="Loop interval in seconds",
+    )
+    parser.add_argument(
+        "--max-cycles",
+        type=int,
+        default=None,
+        help="Optional max cycles for testing, for example --max-cycles 2",
+    )
+    parser.add_argument(
+        "--disable-paper-execution",
+        action="store_true",
+        help="Run scheduler but skip paper execution",
+    )
+
+    args = parser.parse_args()
+
+    live_enabled = os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false").lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+    if live_enabled:
+        raise RuntimeError(
+            "Refusing to start paper autopilot because CRYPTOAI_LIVE_TRADING_ENABLED=true."
+        )
+
+    autopilot = PaperAutopilot(
+        enable_paper_execution=not args.disable_paper_execution
+    )
+
+    if args.loop:
+        autopilot.run_loop(
+            interval_seconds=max(60, args.interval_seconds),
+            max_cycles=args.max_cycles,
+        )
+    else:
+        print(autopilot.run_once())
+
+
+if __name__ == "__main__":
+    main()

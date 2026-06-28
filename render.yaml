@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: cryptoai-dashboard
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: CRYPTOAI_LIVE_TRADING_ENABLED
+        value: false
+      - key: CRYPTOAI_PAPER_TRADING_ENABLED
+        value: true
+      - key: CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION
+        value: true
+      - key: CRYPTOAI_MAX_LIVE_TRADE_USD
+        value: 0
+      - key: CRYPTOAI_MAX_DAILY_LOSS_USD
+        value: 0
+
+  # Use this as a separate worker only when your hosting plan supports always-on workers.
+  # Free web services may sleep, so do not rely on them for strict 24/7 scheduling.
+  - type: worker
+    name: cryptoai-paper-autopilot
+    env: docker
+    plan: free
+    autoDeploy: false
+    dockerCommand: python -m app.automation.paper_autopilot --loop --interval-seconds 300
+    envVars:
+      - key: CRYPTOAI_LIVE_TRADING_ENABLED
+        value: false
+      - key: CRYPTOAI_PAPER_TRADING_ENABLED
+        value: true
+      - key: CRYPTOAI_AUTOPILOT_ENABLE_PAPER_EXECUTION
+        value: true
+      - key: CRYPTOAI_AUTOPILOT_INTERVAL_SECONDS
+        value: 300
