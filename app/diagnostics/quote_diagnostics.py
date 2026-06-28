@@ -33,11 +33,7 @@ class QuoteDiagnostic:
 
 
 class QuoteDiagnosticsService:
-    """Quote-layer debugger.
-
-    v2.9 also confirms that QuoteService is calling providers with QuoteRequest
-    rather than positional token arguments.
-    """
+    """Quote-layer debugger that preserves cache/snapshots."""
 
     def __init__(self) -> None:
         self.data_dir = Path("data")
@@ -52,17 +48,10 @@ class QuoteDiagnosticsService:
         diagnostics: list[QuoteDiagnostic] = []
 
         try:
-            from app.cache.quote_cache import quote_cache
-            quote_cache.clear()
-        except Exception:
-            pass
-
-        try:
             from app.quotes.quote_service import QuoteService
             quote_service = QuoteService()
         except Exception as exc:
-            diag = self._service_error("QuoteService import/init failed", exc, start)
-            diagnostics.append(diag)
+            diagnostics.append(self._service_error("QuoteService import/init failed", exc, start))
             self._persist(diagnostics)
             self._write_report(diagnostics)
             return diagnostics
@@ -72,29 +61,13 @@ class QuoteDiagnosticsService:
             quotes = quote_service.get_base_quotes()
             base_latency = (time.perf_counter() - quote_start) * 1000
         except Exception as exc:
-            diag = self._service_error("QuoteService.get_base_quotes failed", exc, start)
-            diagnostics.append(diag)
+            diagnostics.append(self._service_error("QuoteService.get_base_quotes failed", exc, start))
             self._persist(diagnostics)
             self._write_report(diagnostics)
             return diagnostics
 
         if not quotes:
-            diagnostics.append(
-                QuoteDiagnostic(
-                    timestamp=self._utc_now(),
-                    chain="base",
-                    dex="-",
-                    pair="-",
-                    token_in="-",
-                    token_out="-",
-                    amount_in="-",
-                    amount_out=None,
-                    price=None,
-                    latency_ms=round(base_latency, 2),
-                    status=QuoteDiagnosticStatus.ERROR,
-                    error="QuoteService returned an empty quote list.",
-                )
-            )
+            diagnostics.append(QuoteDiagnostic(timestamp=self._utc_now(), chain="base", dex="-", pair="-", token_in="-", token_out="-", amount_in="-", amount_out=None, price=None, latency_ms=round(base_latency, 2), status=QuoteDiagnosticStatus.ERROR, error="QuoteService returned an empty quote list."))
         else:
             per_quote_latency = round(base_latency / max(1, len(quotes)), 2)
             for quote in quotes:
@@ -107,8 +80,7 @@ class QuoteDiagnosticsService:
     def recent(self, limit: int = 100) -> list[dict]:
         if not self.output_file.exists():
             return []
-
-        rows: list[dict] = []
+        rows = []
         for line in self.output_file.read_text(encoding="utf-8", errors="replace").splitlines():
             if not line.strip():
                 continue
@@ -142,36 +114,10 @@ class QuoteDiagnosticsService:
             status = QuoteDiagnosticStatus.OK
             error_text = ""
 
-        return QuoteDiagnostic(
-            timestamp=self._utc_now(),
-            chain=chain,
-            dex=dex,
-            pair=pair,
-            token_in=token_in,
-            token_out=token_out,
-            amount_in=amount_in,
-            amount_out=str(amount_out) if amount_out is not None else None,
-            price=str(price) if price is not None else None,
-            latency_ms=latency_ms,
-            status=status,
-            error=error_text,
-        )
+        return QuoteDiagnostic(timestamp=self._utc_now(), chain=chain, dex=dex, pair=pair, token_in=token_in, token_out=token_out, amount_in=amount_in, amount_out=str(amount_out) if amount_out is not None else None, price=str(price) if price is not None else None, latency_ms=latency_ms, status=status, error=error_text)
 
     def _service_error(self, context: str, exc: Exception, start: float) -> QuoteDiagnostic:
-        return QuoteDiagnostic(
-            timestamp=self._utc_now(),
-            chain="base",
-            dex="-",
-            pair="-",
-            token_in="-",
-            token_out="-",
-            amount_in="-",
-            amount_out=None,
-            price=None,
-            latency_ms=round((time.perf_counter() - start) * 1000, 2),
-            status=QuoteDiagnosticStatus.ERROR,
-            error=f"{context}: {type(exc).__name__}: {exc}",
-        )
+        return QuoteDiagnostic(timestamp=self._utc_now(), chain="base", dex="-", pair="-", token_in="-", token_out="-", amount_in="-", amount_out=None, price=None, latency_ms=round((time.perf_counter() - start) * 1000, 2), status=QuoteDiagnosticStatus.ERROR, error=f"{context}: {type(exc).__name__}: {exc}")
 
     def _persist(self, diagnostics: list[QuoteDiagnostic]) -> None:
         with self.output_file.open("a", encoding="utf-8") as fh:
@@ -204,22 +150,18 @@ class QuoteDiagnosticsService:
         ]
 
         for d in diagnostics:
-            lines.append(
-                f"| {d.chain} | {d.dex} | {d.pair} | {d.status.value} | "
-                f"{d.price or '-'} | {d.amount_out or '-'} | {d.latency_ms:.2f} | "
-                f"{d.error.replace('|', '/')} |"
-            )
+            lines.append(f"| {d.chain} | {d.dex} | {d.pair} | {d.status.value} | {d.price or '-'} | {d.amount_out or '-'} | {d.latency_ms:.2f} | {d.error.replace('|', '/')} |")
 
         lines += ["", "## Interpretation", ""]
-
-        signature_errors = [d for d in diagnostics if "missing 1 required positional argument" in d.error]
-        if signature_errors:
-            lines.append("- Provider interface is still broken. QuoteService is not using QuoteRequest correctly.")
-        elif ok < 2:
-            lines.append("- Provider interface is fixed if there are no signature errors, but there are not enough valid comparable quotes yet.")
-            lines.append("- Remaining errors are likely RPC, router, token-route, liquidity, or ABI issues.")
+        if ok >= 2:
+            lines.append("- Quote layer has at least two valid quotes or a recent healthy snapshot.")
+        elif ok > 0:
+            lines.append("- Quote layer has one valid quote. Real arbitrage needs another venue, but simulated paper validation may still run.")
         else:
-            lines.append("- Quote layer has at least two valid quotes. Opportunity Explorer should be able to compare prices.")
+            lines.append("- No valid quotes. Check RPC limits and provider errors. Configure BASE_RPC with a private RPC.")
+
+        if errors:
+            lines.append("- Errors are isolated and should not crash the paper pipeline.")
 
         self.report_file.write_text("\n".join(lines), encoding="utf-8")
 

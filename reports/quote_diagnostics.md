@@ -1,6 +1,6 @@
 # CryptoAI Quote Diagnostics
 
-Generated: `2026-06-28T16:09:38Z`
+Generated: `2026-06-28T16:33:47Z`
 
 ## Summary
 
@@ -13,11 +13,12 @@ Generated: `2026-06-28T16:09:38Z`
 
 | Chain | DEX | Pair | Status | Price | Amount Out | Latency ms | Error |
 |---|---|---|---|---:|---:|---:|---|
-| base | Uniswap V2 | USDC/WETH | OK | 0.000629644594857841211 | 0.629644594857841211 | 642.25 |  |
-| base | Uniswap V2 | WETH/USDC | OK | 1571.249171 | 1571.249171 | 642.25 |  |
-| base | Aerodrome | USDC/WETH | ERROR | - | - | 642.25 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
-| base | Aerodrome | WETH/USDC | ERROR | - | - | 642.25 | RPC rate limit while reading Aerodrome quote. Add a private Base RPC or wait for cache refresh. |
+| base | Uniswap V2 | WETH/USDC | OK | 1564.819862 | 1564.819862 | 3743.35 |  |
+| base | Uniswap V2 | USDC/WETH | OK | 0.000632232965178056877 | 0.632232965178056877 | 3743.35 |  |
+| base | Aerodrome | WETH/USDC | ERROR | - | - | 3743.35 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| base | Aerodrome | USDC/WETH | ERROR | - | - | 3743.35 | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
 
 ## Interpretation
 
-- Quote layer has at least two valid quotes. Opportunity Explorer should be able to compare prices.
+- Quote layer has at least two valid quotes or a recent healthy snapshot.
+- Errors are isolated and should not crash the paper pipeline.

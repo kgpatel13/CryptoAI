@@ -2,17 +2,12 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 from uuid import uuid4
 
-from app.execution.models import (
-    PaperExecutionBatch,
-    PaperOrder,
-    PaperOrderSide,
-    PaperOrderStatus,
-)
+from app.execution.models import PaperExecutionBatch, PaperOrder, PaperOrderSide, PaperOrderStatus
 
 try:
     from app.database.db import get_connection, initialize_database
@@ -38,89 +33,35 @@ class PaperExecutionService:
         self.data_dir = Path("data")
         self.data_dir.mkdir(exist_ok=True)
         self.order_file = self.data_dir / "paper_orders.jsonl"
+        self.multi_dex_file = self.data_dir / "multi_dex_opportunities.jsonl"
 
     def run_once(self) -> PaperExecutionBatch:
         timestamp = self._utc_now()
         assessments = self._load_risk_assessments()
         prices = self._load_prices()
-
         orders: list[PaperOrder] = []
 
         for assessment in assessments:
             decision = getattr(assessment, "decision", "")
             decision_value = decision.value if hasattr(decision, "value") else str(decision)
+            pair = str(getattr(assessment, "pair", "-"))
+            expected_edge = self._to_decimal(getattr(assessment, "expected_edge_pct", None))
 
             if decision_value != "APPROVED_FOR_PAPER":
-                orders.append(
-                    PaperOrder(
-                        order_id=str(uuid4())[:8],
-                        timestamp=timestamp,
-                        strategy_name=str(getattr(assessment, "strategy_name", "Strategy")),
-                        chain=str(getattr(assessment, "chain", "-")),
-                        pair=str(getattr(assessment, "pair", "-")),
-                        side=PaperOrderSide.BUY,
-                        notional_usd=Decimal("0"),
-                        estimated_edge_pct=self._to_decimal(getattr(assessment, "expected_edge_pct", None)),
-                        simulated_fill_price_usd=None,
-                        simulated_quantity=None,
-                        status=PaperOrderStatus.SKIPPED,
-                        reason=f"Risk decision is {decision_value}; paper order not created.",
-                    )
-                )
+                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=str(getattr(assessment, "strategy_name", "Strategy")), chain=str(getattr(assessment, "chain", "-")), pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.SKIPPED, reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}"))
                 continue
 
-            pair = str(getattr(assessment, "pair", "WETH/USDC"))
-            base_symbol = pair.split("/")[0] if "/" in pair else "WETH"
-            price = self._price_for(base_symbol, prices)
+            fill_price = self._fill_price_for(pair, prices)
             notional = self._to_decimal(getattr(assessment, "max_allowed_notional_usd", "0")) or Decimal("0")
 
-            if price <= 0 or notional <= 0:
-                orders.append(
-                    PaperOrder(
-                        order_id=str(uuid4())[:8],
-                        timestamp=timestamp,
-                        strategy_name=str(getattr(assessment, "strategy_name", "Strategy")),
-                        chain=str(getattr(assessment, "chain", "-")),
-                        pair=pair,
-                        side=PaperOrderSide.BUY,
-                        notional_usd=notional,
-                        estimated_edge_pct=self._to_decimal(getattr(assessment, "expected_edge_pct", None)),
-                        simulated_fill_price_usd=None,
-                        simulated_quantity=None,
-                        status=PaperOrderStatus.REJECTED,
-                        reason="Missing price or notional for simulated fill.",
-                    )
-                )
+            if fill_price <= 0 or notional <= 0:
+                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=str(getattr(assessment, "strategy_name", "Strategy")), chain=str(getattr(assessment, "chain", "-")), pair=pair, side=PaperOrderSide.BUY, notional_usd=notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.REJECTED, reason="Missing fill price or notional for simulated fill."))
                 continue
 
-            quantity = notional / price
+            quantity = notional / fill_price
+            orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=str(getattr(assessment, "strategy_name", "Strategy")), chain=str(getattr(assessment, "chain", "-")), pair=pair, side=PaperOrderSide.BUY, notional_usd=notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=fill_price, simulated_quantity=quantity, status=PaperOrderStatus.FILLED, reason="Simulated paper fill created from risk-approved candidate."))
 
-            orders.append(
-                PaperOrder(
-                    order_id=str(uuid4())[:8],
-                    timestamp=timestamp,
-                    strategy_name=str(getattr(assessment, "strategy_name", "Strategy")),
-                    chain=str(getattr(assessment, "chain", "-")),
-                    pair=pair,
-                    side=PaperOrderSide.BUY,
-                    notional_usd=notional,
-                    estimated_edge_pct=self._to_decimal(getattr(assessment, "expected_edge_pct", None)),
-                    simulated_fill_price_usd=price,
-                    simulated_quantity=quantity,
-                    status=PaperOrderStatus.FILLED,
-                    reason="Simulated paper fill created from risk-approved candidate.",
-                )
-            )
-
-        batch = PaperExecutionBatch(
-            timestamp=timestamp,
-            total_candidates=len(assessments),
-            filled_orders=sum(1 for o in orders if o.status == PaperOrderStatus.FILLED),
-            rejected_orders=sum(1 for o in orders if o.status == PaperOrderStatus.REJECTED),
-            skipped_orders=sum(1 for o in orders if o.status == PaperOrderStatus.SKIPPED),
-            total_notional_usd=sum((o.notional_usd for o in orders if o.status == PaperOrderStatus.FILLED), Decimal("0")),
-            orders=orders,
-        )
+        batch = PaperExecutionBatch(timestamp=timestamp, total_candidates=len(assessments), filled_orders=sum(1 for o in orders if o.status == PaperOrderStatus.FILLED), rejected_orders=sum(1 for o in orders if o.status == PaperOrderStatus.REJECTED), skipped_orders=sum(1 for o in orders if o.status == PaperOrderStatus.SKIPPED), total_notional_usd=sum((o.notional_usd for o in orders if o.status == PaperOrderStatus.FILLED), Decimal("0")), orders=orders)
 
         self._persist_orders_jsonl(orders)
         self._persist_orders_db(orders)
@@ -129,11 +70,9 @@ class PaperExecutionService:
     def recent_orders(self, limit: int = 50) -> list[dict]:
         if not self.order_file.exists():
             return []
-
-        rows: list[dict] = []
-        for line in self.order_file.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
+        rows = []
+        for line in self.order_file.read_text(encoding="utf-8", errors="replace").splitlines():
+            if not line.strip():
                 continue
             try:
                 rows.append(json.loads(line))
@@ -149,26 +88,37 @@ class PaperExecutionService:
         except Exception:
             return []
 
-    def _load_prices(self) -> dict[str, Decimal]:
-        fallback = {
-            "ETH": Decimal("3500"),
-            "WETH": Decimal("3500"),
-            "BTC": Decimal("100000"),
-            "WBTC": Decimal("100000"),
-            "CBBTC": Decimal("100000"),
-            "USDC": Decimal("1"),
-        }
+    def _fill_price_for(self, pair: str, prices: dict[str, Decimal]) -> Decimal:
+        latest_opp_price = self._latest_opportunity_buy_price(pair)
+        if latest_opp_price > 0:
+            return latest_opp_price
+        base_symbol = pair.split("/")[0] if "/" in pair else "WETH"
+        return self._price_for(base_symbol, prices)
 
+    def _latest_opportunity_buy_price(self, pair: str) -> Decimal:
+        if not self.multi_dex_file.exists():
+            return Decimal("0")
+        try:
+            rows = [json.loads(line) for line in self.multi_dex_file.read_text(encoding="utf-8", errors="replace").splitlines() if line.strip()]
+            for row in reversed(rows):
+                if str(row.get("pair")) == pair and str(row.get("decision")) == "BUY":
+                    price = self._to_decimal(row.get("buy_price"))
+                    if price is not None and price > 0:
+                        return price
+        except Exception:
+            return Decimal("0")
+        return Decimal("0")
+
+    def _load_prices(self) -> dict[str, Decimal]:
+        fallback = {"ETH": Decimal("3500"), "WETH": Decimal("3500"), "BTC": Decimal("100000"), "WBTC": Decimal("100000"), "CBBTC": Decimal("100000"), "USDC": Decimal("1")}
         if MarketDataService is None:
             return fallback
-
         try:
-            market_rows = MarketDataService().get_registered_asset_prices()
+            rows = MarketDataService().get_registered_asset_prices()
         except Exception:
             return fallback
-
         prices = dict(fallback)
-        for row in market_rows:
+        for row in rows:
             symbol = str(getattr(row, "symbol", "")).upper()
             price = getattr(row, "usd_price", None)
             if symbol and price is not None:
@@ -189,34 +139,11 @@ class PaperExecutionService:
     def _persist_orders_db(orders: list[PaperOrder]) -> None:
         if initialize_database is None or get_connection is None:
             return
-
         try:
             initialize_database()
             with get_connection() as conn:
                 for order in orders:
-                    conn.execute(
-                        """
-                        INSERT INTO paper_orders
-                        (order_id, timestamp, strategy_name, chain, pair, side,
-                         notional_usd, estimated_edge_pct, simulated_fill_price_usd,
-                         simulated_quantity, status, reason)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        """,
-                        (
-                            order.order_id,
-                            order.timestamp,
-                            order.strategy_name,
-                            order.chain,
-                            order.pair,
-                            order.side.value if hasattr(order.side, "value") else str(order.side),
-                            str(order.notional_usd),
-                            str(order.estimated_edge_pct) if order.estimated_edge_pct is not None else None,
-                            str(order.simulated_fill_price_usd) if order.simulated_fill_price_usd is not None else None,
-                            str(order.simulated_quantity) if order.simulated_quantity is not None else None,
-                            order.status.value if hasattr(order.status, "value") else str(order.status),
-                            order.reason,
-                        ),
-                    )
+                    conn.execute("""INSERT INTO paper_orders (order_id, timestamp, strategy_name, chain, pair, side, notional_usd, estimated_edge_pct, simulated_fill_price_usd, simulated_quantity, status, reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (order.order_id, order.timestamp, order.strategy_name, order.chain, order.pair, order.side.value if hasattr(order.side, "value") else str(order.side), str(order.notional_usd), str(order.estimated_edge_pct) if order.estimated_edge_pct is not None else None, str(order.simulated_fill_price_usd) if order.simulated_fill_price_usd is not None else None, str(order.simulated_quantity) if order.simulated_quantity is not None else None, order.status.value if hasattr(order.status, "value") else str(order.status), order.reason))
                 conn.commit()
         except Exception:
             return
@@ -233,8 +160,7 @@ class PaperExecutionService:
 
     @staticmethod
     def _price_for(symbol: str, prices: dict[str, Decimal]) -> Decimal:
-        normalized = symbol.upper()
-        return prices.get(normalized, Decimal("0"))
+        return prices.get(symbol.upper(), Decimal("0"))
 
     @staticmethod
     def _to_decimal(value) -> Decimal | None:
@@ -247,4 +173,4 @@ class PaperExecutionService:
 
     @staticmethod
     def _utc_now() -> str:
-        return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")

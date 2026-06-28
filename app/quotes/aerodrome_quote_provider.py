@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import time
 from decimal import Decimal
 
 from web3 import Web3
@@ -26,11 +29,7 @@ class AerodromeQuoteProvider(QuoteProvider):
     def __init__(self) -> None:
         chain_config = SUPPORTED_CHAINS["base"]
         self.client = RpcClient(chain_config)
-        self.web3 = self.client.web3
-        self.router = self.web3.eth.contract(
-            address=Web3.to_checksum_address(AERODROME_ROUTER),
-            abi=AERODROME_ROUTER_ABI,
-        )
+        self.rpc_urls = self.client.rpc_urls
 
     def supports(self, request: QuoteRequest) -> bool:
         return request.chain.lower() == self.chain and request.dex.lower() == self.dex.lower()
@@ -42,24 +41,25 @@ class AerodromeQuoteProvider(QuoteProvider):
         if token_in is None or token_out is None:
             return self._error_quote(request, "Token not found in registry")
 
-        try:
-            amount_in_units = int(request.amount_in * Decimal(10**token_in.decimals))
+        amount_in_units = int(request.amount_in * Decimal(10**token_in.decimals))
+        routes_by_pool_type = [
+            [(Web3.to_checksum_address(token_in.address), Web3.to_checksum_address(token_out.address), False, Web3.to_checksum_address(AERODROME_FACTORY))],
+            [(Web3.to_checksum_address(token_in.address), Web3.to_checksum_address(token_out.address), True, Web3.to_checksum_address(AERODROME_FACTORY))],
+        ]
 
-            # Aerodrome has volatile and stable pools. Try volatile first, then stable.
-            last_error: Exception | None = None
-            for stable_pool in (False, True):
+        last_error = ""
+        for attempt, rpc_url in enumerate(self.rpc_urls, start=1):
+            for routes in routes_by_pool_type:
                 try:
-                    routes = [
-                        (
-                            Web3.to_checksum_address(token_in.address),
-                            Web3.to_checksum_address(token_out.address),
-                            stable_pool,
-                            Web3.to_checksum_address(AERODROME_FACTORY),
-                        )
-                    ]
-                    amounts = self.router.functions.getAmountsOut(amount_in_units, routes).call()
+                    web3 = Web3(Web3.HTTPProvider(rpc_url, request_kwargs={"timeout": 12}))
+                    router = web3.eth.contract(
+                        address=Web3.to_checksum_address(AERODROME_ROUTER),
+                        abi=AERODROME_ROUTER_ABI,
+                    )
+                    amounts = router.functions.getAmountsOut(amount_in_units, routes).call()
                     amount_out = Decimal(amounts[-1]) / Decimal(10**token_out.decimals)
                     price = amount_out / request.amount_in if request.amount_in > 0 else None
+
                     return DexQuote(
                         chain=request.chain,
                         dex=self.dex,
@@ -70,15 +70,11 @@ class AerodromeQuoteProvider(QuoteProvider):
                         price=price,
                     )
                 except Exception as exc:
-                    last_error = exc
+                    last_error = f"{type(exc).__name__}: {exc}"
 
-            return self._error_quote(
-                request,
-                self._friendly_error(str(last_error) if last_error else "Aerodrome quote failed"),
-            )
+            time.sleep(min(2.0, 0.35 * attempt))
 
-        except Exception as exc:
-            return self._error_quote(request, self._friendly_error(str(exc)))
+        return self._error_quote(request, self._friendly_error(last_error))
 
     def _error_quote(self, request: QuoteRequest, error: str) -> DexQuote:
         return DexQuote(
@@ -89,14 +85,19 @@ class AerodromeQuoteProvider(QuoteProvider):
             amount_in=request.amount_in,
             amount_out=None,
             price=None,
-            error=error,
+            error=error[:300],
         )
 
     @staticmethod
-    def _friendly_error(error: str) -> str:
+    def _is_rate_limit(error: str) -> bool:
         lower = error.lower()
-        if "429" in lower or "too many requests" in lower:
-            return "RPC rate limit while reading Aerodrome quote. Add a private Base RPC or wait for cache refresh."
-        if "could not transact" in lower or "call contract function" in lower:
+        return "429" in lower or "too many requests" in lower or "rate limit" in lower
+
+    @classmethod
+    def _friendly_error(cls, error: str) -> str:
+        if cls._is_rate_limit(error):
+            return "RPC rate limit while reading Aerodrome quote. Configure BASE_RPC with a private RPC or wait for cache fallback."
+        lower = error.lower()
+        if "execution reverted" in lower or "could not transact" in lower or "call contract function" in lower:
             return "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row."
-        return error[:240]
+        return error[:300]
