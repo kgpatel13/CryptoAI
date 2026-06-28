@@ -19,11 +19,11 @@ except Exception:  # pragma: no cover
 
 
 class QuoteService:
-    """Fast quote service with cache and parallel provider calls.
+    """Fast quote service with cache and compatibility wrapper.
 
-    The dashboard can refresh frequently without hammering public RPCs.
-    For actual live trading later, this service will be replaced/augmented
-    by lower-latency paid RPCs, private routes, and dedicated workers.
+    Some existing providers in your repo may expose get_quote() with no args,
+    while newer providers expose get_quote(token_in, token_out, amount).
+    This service supports both so upgrades do not break the dashboard.
     """
 
     def __init__(self) -> None:
@@ -42,7 +42,7 @@ class QuoteService:
                 pass
 
     def get_base_quotes(self) -> list[DexQuote]:
-        cache_key = "base:default_quotes:v0_9"
+        cache_key = "base:default_quotes:v0_9_1"
         cached = quote_cache.get(cache_key)
         if cached is not None:
             return cached
@@ -81,7 +81,8 @@ class QuoteService:
                 for token_in, token_out, amount in requests:
                     tasks.append(
                         executor.submit(
-                            provider.get_quote,
+                            self._safe_provider_quote,
+                            provider,
                             token_in,
                             token_out,
                             amount,
@@ -106,3 +107,47 @@ class QuoteService:
                     )
 
         return quotes
+
+    @staticmethod
+    def _safe_provider_quote(provider, token_in: str, token_out: str, amount: Decimal) -> DexQuote:
+        provider_name = provider.__class__.__name__.replace("QuoteProvider", "")
+
+        try:
+            return provider.get_quote(token_in, token_out, amount)
+        except TypeError:
+            try:
+                result = provider.get_quote()
+                if isinstance(result, DexQuote):
+                    return result
+                return DexQuote(
+                    chain="base",
+                    dex=provider_name,
+                    token_in=token_in,
+                    token_out=token_out,
+                    amount_in=amount,
+                    amount_out=None,
+                    price=None,
+                    error="Provider returned unsupported quote format",
+                )
+            except Exception as exc:
+                return DexQuote(
+                    chain="base",
+                    dex=provider_name,
+                    token_in=token_in,
+                    token_out=token_out,
+                    amount_in=amount,
+                    amount_out=None,
+                    price=None,
+                    error=str(exc),
+                )
+        except Exception as exc:
+            return DexQuote(
+                chain="base",
+                dex=provider_name,
+                token_in=token_in,
+                token_out=token_out,
+                amount_in=amount,
+                amount_out=None,
+                price=None,
+                error=str(exc),
+            )

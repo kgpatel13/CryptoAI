@@ -151,7 +151,7 @@ with tab3:
             }
         )
     st.dataframe(pd.DataFrame(rows), use_container_width=True)
-    st.info("v0.9 uses short TTL quote caching and parallel provider requests.")
+    st.info("v0.9.1 supports old and new provider interfaces while keeping quote caching.")
 
 with tab4:
     st.subheader("Gross Opportunity Scanner")
@@ -182,9 +182,7 @@ with tab5:
 with tab6:
     st.subheader("Performance Metrics")
     service = SystemHealthService()
-    rows = service.get_metric_rows()
-    dataframe_or_info(rows, "Metrics will populate after quote/chain calls complete.")
-
+    dataframe_or_info(service.get_metric_rows(), "Metrics will populate after quote/chain calls complete.")
     st.markdown("### Cache Stats")
     st.json(service.get_cache_stats())
 
@@ -223,10 +221,18 @@ with tab9:
     else:
         try:
             service = AnalyticsService()
-            if hasattr(service, "summary"):
-                st.write(service.summary())
-            else:
-                st.write("Analytics service loaded.")
+            summary = service.summary() if hasattr(service, "summary") else {}
+            st.markdown("### Summary")
+            st.json(summary)
+
+            if hasattr(service, "recent_paper_trades"):
+                st.markdown("### Recent Paper Trades")
+                dataframe_or_info(service.recent_paper_trades(), "No paper trades saved yet.")
+
+            if hasattr(service, "recent_scans"):
+                st.markdown("### Recent Scans")
+                dataframe_or_info(service.recent_scans(), "No scan history saved yet.")
+
         except Exception as exc:
             st.error(f"Analytics failed: {exc}")
 
@@ -288,7 +294,8 @@ with tab11:
         ✅ v0.6 — Paper trading simulation  
         ✅ v0.7 — Historical storage and analytics  
         ✅ v0.8 — RPC failover, quote cache, and system health  
-        🔄 v0.9 — Fast data layer and latency metrics  
+        ✅ v0.9 — Fast data layer and latency metrics  
+        🔧 v0.9.1 — Analytics and provider compatibility hotfix  
         🔜 v1.0 — Strategy engine  
         🔜 v1.1 — Backtesting engine  
         🔜 v1.2 — AI ranking engine  
