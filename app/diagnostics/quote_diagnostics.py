@@ -35,8 +35,8 @@ class QuoteDiagnostic:
 class QuoteDiagnosticsService:
     """Quote-layer debugger.
 
-    This service does not trade. It only inspects QuoteService output and saves
-    why each quote is valid, invalid, or errored.
+    v2.9 also confirms that QuoteService is calling providers with QuoteRequest
+    rather than positional token arguments.
     """
 
     def __init__(self) -> None:
@@ -50,6 +50,12 @@ class QuoteDiagnosticsService:
     def run(self) -> list[QuoteDiagnostic]:
         start = time.perf_counter()
         diagnostics: list[QuoteDiagnostic] = []
+
+        try:
+            from app.cache.quote_cache import quote_cache
+            quote_cache.clear()
+        except Exception:
+            pass
 
         try:
             from app.quotes.quote_service import QuoteService
@@ -204,17 +210,15 @@ class QuoteDiagnosticsService:
                 f"{d.error.replace('|', '/')} |"
             )
 
-        lines += [
-            "",
-            "## Interpretation",
-            "",
-        ]
+        lines += ["", "## Interpretation", ""]
 
-        if ok < 2:
-            lines.append("- Not enough valid comparable quotes. Opportunity engine cannot create real arbitrage candidates.")
-        if errors or invalid:
-            lines.append("- Inspect the `Error` column first. Fix quote collection before tuning strategy thresholds.")
-        if ok >= 2:
+        signature_errors = [d for d in diagnostics if "missing 1 required positional argument" in d.error]
+        if signature_errors:
+            lines.append("- Provider interface is still broken. QuoteService is not using QuoteRequest correctly.")
+        elif ok < 2:
+            lines.append("- Provider interface is fixed if there are no signature errors, but there are not enough valid comparable quotes yet.")
+            lines.append("- Remaining errors are likely RPC, router, token-route, liquidity, or ABI issues.")
+        else:
             lines.append("- Quote layer has at least two valid quotes. Opportunity Explorer should be able to compare prices.")
 
         self.report_file.write_text("\n".join(lines), encoding="utf-8")

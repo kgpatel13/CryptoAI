@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from decimal import Decimal
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from decimal import Decimal
 
 from app.cache.quote_cache import quote_cache
 from app.metrics.metrics import metrics
-from app.quotes.models import DexQuote
+from app.quotes.models import DexQuote, QuoteRequest
+from app.quotes.provider_interface import QuoteProvider
 
 try:
     from app.quotes.aerodrome_quote_provider import AerodromeQuoteProvider
@@ -19,20 +20,22 @@ except Exception:  # pragma: no cover
 
 
 class QuoteService:
-    """Fast quote service with cache and compatibility wrapper.
+    """Quote service using the canonical QuoteRequest provider interface.
 
-    Some existing providers in your repo may expose get_quote() with no args,
-    while newer providers expose get_quote(token_in, token_out, amount).
-    This service supports both so upgrades do not break the dashboard.
+    v2.9 fix:
+    Providers implement `get_quote(request: QuoteRequest)`.
+    Older QuoteService versions incorrectly called `get_quote(token_in, token_out, amount)`,
+    which made every quote fail before any blockchain call was attempted.
     """
 
     def __init__(self) -> None:
-        self.providers = []
+        self.providers: list[QuoteProvider] = []
 
         if AerodromeQuoteProvider is not None:
             try:
                 self.providers.append(AerodromeQuoteProvider())
             except Exception:
+                # Provider init errors are reported as quote rows below.
                 pass
 
         if UniswapV2QuoteProvider is not None:
@@ -42,7 +45,8 @@ class QuoteService:
                 pass
 
     def get_base_quotes(self) -> list[DexQuote]:
-        cache_key = "base:default_quotes:v0_9_1"
+        # Versioned key prevents old cached signature-error rows from being reused.
+        cache_key = "base:default_quotes:v2_9_request_interface"
         cached = quote_cache.get(cache_key)
         if cached is not None:
             return cached
@@ -54,7 +58,7 @@ class QuoteService:
         return quotes
 
     def _load_base_quotes_fast(self) -> list[DexQuote]:
-        requests = [
+        quote_inputs = [
             ("WETH", "USDC", Decimal("1")),
             ("USDC", "WETH", Decimal("1000")),
         ]
@@ -69,7 +73,7 @@ class QuoteService:
                     amount_in=Decimal("1"),
                     amount_out=None,
                     price=None,
-                    error="No quote providers registered",
+                    error="No quote providers registered. Provider initialization likely failed.",
                 )
             ]
 
@@ -78,20 +82,19 @@ class QuoteService:
 
         with ThreadPoolExecutor(max_workers=4) as executor:
             for provider in self.providers:
-                for token_in, token_out, amount in requests:
-                    tasks.append(
-                        executor.submit(
-                            self._safe_provider_quote,
-                            provider,
-                            token_in,
-                            token_out,
-                            amount,
-                        )
+                for token_in, token_out, amount in quote_inputs:
+                    request = QuoteRequest(
+                        chain="base",
+                        dex=provider.dex,
+                        token_in=token_in,
+                        token_out=token_out,
+                        amount_in=amount,
                     )
+                    tasks.append(executor.submit(self._safe_provider_quote, provider, request))
 
-            for future in as_completed(tasks, timeout=8):
+            for future in as_completed(tasks, timeout=12):
                 try:
-                    quotes.append(future.result(timeout=1))
+                    quotes.append(future.result(timeout=2))
                 except Exception as exc:
                     quotes.append(
                         DexQuote(
@@ -102,52 +105,54 @@ class QuoteService:
                             amount_in=Decimal("0"),
                             amount_out=None,
                             price=None,
-                            error=f"Quote task failed: {exc}",
+                            error=f"Quote task failed: {type(exc).__name__}: {exc}",
                         )
                     )
 
         return quotes
 
     @staticmethod
-    def _safe_provider_quote(provider, token_in: str, token_out: str, amount: Decimal) -> DexQuote:
-        provider_name = provider.__class__.__name__.replace("QuoteProvider", "")
-
+    def _safe_provider_quote(provider: QuoteProvider, request: QuoteRequest) -> DexQuote:
         try:
-            return provider.get_quote(token_in, token_out, amount)
-        except TypeError:
-            try:
-                result = provider.get_quote()
-                if isinstance(result, DexQuote):
-                    return result
+            if not provider.supports(request):
                 return DexQuote(
-                    chain="base",
-                    dex=provider_name,
-                    token_in=token_in,
-                    token_out=token_out,
-                    amount_in=amount,
+                    chain=request.chain,
+                    dex=request.dex,
+                    token_in=request.token_in,
+                    token_out=request.token_out,
+                    amount_in=request.amount_in,
                     amount_out=None,
                     price=None,
-                    error="Provider returned unsupported quote format",
+                    error=(
+                        f"Provider {provider.__class__.__name__} does not support "
+                        f"{request.chain}/{request.dex}/{request.token_in}/{request.token_out}"
+                    ),
                 )
-            except Exception as exc:
+
+            quote = provider.get_quote(request)
+
+            if not isinstance(quote, DexQuote):
                 return DexQuote(
-                    chain="base",
-                    dex=provider_name,
-                    token_in=token_in,
-                    token_out=token_out,
-                    amount_in=amount,
+                    chain=request.chain,
+                    dex=request.dex,
+                    token_in=request.token_in,
+                    token_out=request.token_out,
+                    amount_in=request.amount_in,
                     amount_out=None,
                     price=None,
-                    error=str(exc),
+                    error=f"Provider returned unsupported quote type: {type(quote).__name__}",
                 )
+
+            return quote
+
         except Exception as exc:
             return DexQuote(
-                chain="base",
-                dex=provider_name,
-                token_in=token_in,
-                token_out=token_out,
-                amount_in=amount,
+                chain=request.chain,
+                dex=request.dex,
+                token_in=request.token_in,
+                token_out=request.token_out,
+                amount_in=request.amount_in,
                 amount_out=None,
                 price=None,
-                error=str(exc),
+                error=f"{type(exc).__name__}: {exc}",
             )

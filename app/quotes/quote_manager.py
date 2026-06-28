@@ -16,10 +16,12 @@ class QuoteManager:
     _quote_cache: TTLCache[DexQuote] = TTLCache(default_ttl_seconds=15)
 
     def __init__(self) -> None:
-        self.providers: list[QuoteProvider] = [
-            AerodromeQuoteProvider(),
-            UniswapV2QuoteProvider(),
-        ]
+        self.providers: list[QuoteProvider] = []
+        for provider_cls in (AerodromeQuoteProvider, UniswapV2QuoteProvider):
+            try:
+                self.providers.append(provider_cls())
+            except Exception:
+                continue
 
     def get_quote(self, request: QuoteRequest) -> DexQuote:
         cache_key = self._cache_key(request)
@@ -27,8 +29,7 @@ class QuoteManager:
         if cached is not None:
             return cached
 
-        # Small delay helps avoid hitting public RPC limits when the dashboard refreshes.
-        time.sleep(0.08)
+        time.sleep(0.05)
 
         for provider in self.providers:
             if provider.supports(request):
@@ -56,7 +57,15 @@ class QuoteManager:
         amount_in: Decimal,
     ) -> list[DexQuote]:
         return [
-            self.get_quote(QuoteRequest("base", provider.dex, token_in, token_out, amount_in))
+            self.get_quote(
+                QuoteRequest(
+                    chain="base",
+                    dex=provider.dex,
+                    token_in=token_in,
+                    token_out=token_out,
+                    amount_in=amount_in,
+                )
+            )
             for provider in self.providers
             if provider.chain == "base"
         ]
@@ -71,6 +80,7 @@ class QuoteManager:
     def _cache_key(request: QuoteRequest) -> str:
         return "|".join(
             [
+                "v2_9",
                 request.chain.lower(),
                 request.dex.lower(),
                 request.token_in.upper(),
