@@ -19,6 +19,7 @@ class StateService:
                 "portfolio_snapshots": self._count(conn, "portfolio_snapshots"),
                 "portfolio_holdings": self._count(conn, "portfolio_holdings"),
                 "portfolio_positions": self._count(conn, "portfolio_positions"),
+                "market_ticks": self._count_if_exists(conn, "market_ticks"),
             }
 
     def recent_scheduler_runs(self, limit: int = 25) -> list[dict]:
@@ -67,4 +68,14 @@ class StateService:
 
     @staticmethod
     def _count(conn, table: str) -> int:
+        return int(conn.execute(f"SELECT COUNT(*) AS c FROM {table}").fetchone()["c"])
+
+    @staticmethod
+    def _count_if_exists(conn, table: str) -> int:
+        row = conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+            (table,),
+        ).fetchone()
+        if not row:
+            return 0
         return int(conn.execute(f"SELECT COUNT(*) AS c FROM {table}").fetchone()["c"])
