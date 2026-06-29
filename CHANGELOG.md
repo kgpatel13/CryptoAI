@@ -1,5 +1,13 @@
 # CryptoAI Changelog
 
+## v5.5 - ETH Route Architecture & Buffer Candidate Evidence
+
+- Added ETH Route Architecture report for focusing Base `WETH/USDC` and `USDC/WETH` before wider market expansion.
+- Compared `0.20%` research-buffer candidate evidence against the unchanged `0.30%` production buffer.
+- Added explicit promotion gates so a lower buffer cannot graduate without high-confidence execution-cost, quote, provider, paper, and audit evidence.
+- Documented the real-money execution architecture for future v6 live-readiness work without enabling live trading.
+- Added dashboard, Report Audit, operations docs, roadmap, release notes, and regression tests for the route architecture evidence.
+
 ## v5.4 - Quote Coverage Expansion Evidence
 
 - Added Quote Coverage Evidence report for ranking configured pair, DEX, router, provider, and recent quote coverage.

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-29T18:18:12Z",
+  "generated_at": "2026-06-29T18:36:22Z",
   "mode": "paper",
-  "report_count": 33,
+  "report_count": 35,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -17,15 +17,15 @@
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
-      "size_bytes": 923,
-      "generated_at": "2026-06-29T18:18:08Z",
+      "size_bytes": 925,
+      "generated_at": "2026-06-29T18:33:55Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
-      "size_bytes": 502,
-      "generated_at": "2026-06-29T18:18:08Z",
+      "size_bytes": 505,
+      "generated_at": "2026-06-29T18:33:55Z",
       "stale": false
     },
     {
@@ -89,8 +89,8 @@
     {
       "name": "strategy_intelligence.json",
       "exists": true,
-      "size_bytes": 8880,
-      "generated_at": "2026-06-29T18:18:11Z",
+      "size_bytes": 9737,
+      "generated_at": "2026-06-29T18:36:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -102,8 +102,8 @@
     {
       "name": "strategy_intelligence.md",
       "exists": true,
-      "size_bytes": 3830,
-      "generated_at": "2026-06-29T18:18:11Z",
+      "size_bytes": 4449,
+      "generated_at": "2026-06-29T18:36:22Z",
       "stale": false
     },
     {
@@ -308,6 +308,27 @@
       "exists": true,
       "size_bytes": 2727,
       "generated_at": "2026-06-29T18:18:11Z",
+      "stale": false
+    },
+    {
+      "name": "eth_route_architecture.json",
+      "exists": true,
+      "size_bytes": 23760,
+      "generated_at": "2026-06-29T18:33:35Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "route_architecture_decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20",
+        "production_buffer_pct": "0.30",
+        "candidate_buffer_pct": "0.20"
+      }
+    },
+    {
+      "name": "eth_route_architecture.md",
+      "exists": true,
+      "size_bytes": 3950,
+      "generated_at": "2026-06-29T18:33:35Z",
       "stale": false
     },
     {

@@ -18,14 +18,15 @@
 - v5.1 - Replay Diagnostics and evidence gap analysis for production-buffer replay blockers.
 - v5.2 - Execution Cost Evidence Engine for measuring whether the current production cost buffer is conservative, accurate, too high, or too low.
 - v5.3 - Market Universe and Settings Evidence for ranking which chain/pair/DEX surfaces are actually ready for paper monitoring.
+- v5.4 - Quote Coverage Expansion Evidence for ranking quote-provider, router, and route-test gaps before adding more markets.
 
 ## Current
 
-- v5.4 - Quote Coverage Expansion Evidence for ranking quote-provider, router, and route-test gaps before adding more markets.
+- v5.5 - ETH Route Architecture and Buffer Candidate Evidence for focusing Base WETH/USDC and USDC/WETH, documenting real-money controls, and keeping 0.20% as a gated research candidate.
 
 ## Next
 
-- v5.5 - Strategy competition, market regime awareness, adaptive confidence, and walk-forward explainability.
+- v5.6 - Strategy competition, market regime awareness, adaptive confidence, and walk-forward explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.
 

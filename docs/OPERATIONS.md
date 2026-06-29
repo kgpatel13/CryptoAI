@@ -39,6 +39,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/market_universe_evidence.md` - human-readable Market Universe Evidence report.
 - `reports/quote_coverage_evidence.json` - quote-provider coverage, router metadata, route-test, and expansion target evidence.
 - `reports/quote_coverage_evidence.md` - human-readable Quote Coverage Evidence report.
+- `reports/eth_route_architecture.json` - Base ETH route, trusted venue, buffer candidate, and real-money architecture evidence.
+- `reports/eth_route_architecture.md` - human-readable ETH Route Architecture report.
 - `reports/backtest_report.json` - multi-DEX replay backtest metrics.
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
@@ -130,6 +132,12 @@ Generate quote coverage evidence manually after quote diagnostics and provider m
 python -m app.research.quote_coverage_evidence_service
 ```
 
+Generate ETH route architecture evidence manually after quote coverage, execution cost, optimization, and report audit are fresh:
+
+```bash
+python -m app.research.eth_route_architecture_service
+```
+
 Record experiment evidence manually:
 
 ```bash
@@ -189,6 +197,8 @@ reports/market_universe_evidence.json
 reports/market_universe_evidence.md
 reports/quote_coverage_evidence.json
 reports/quote_coverage_evidence.md
+reports/eth_route_architecture.json
+reports/eth_route_architecture.md
 reports/backtest_report.json
 reports/backtest_report.md
 reports/replay_diagnostics.json

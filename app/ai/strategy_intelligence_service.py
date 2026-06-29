@@ -26,6 +26,7 @@ class StrategyIntelligenceService:
         execution_cost = self._read_json("execution_cost_evidence.json")
         market_universe = self._read_json("market_universe_evidence.json")
         quote_coverage = self._read_json("quote_coverage_evidence.json")
+        eth_route = self._read_json("eth_route_architecture.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -42,6 +43,7 @@ class StrategyIntelligenceService:
             execution_cost=execution_cost,
             market_universe=market_universe,
             quote_coverage=quote_coverage,
+            eth_route=eth_route,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -77,6 +79,7 @@ class StrategyIntelligenceService:
         execution_cost: dict[str, Any],
         market_universe: dict[str, Any],
         quote_coverage: dict[str, Any],
+        eth_route: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -91,6 +94,10 @@ class StrategyIntelligenceService:
         paper_analytics = paper.get("portfolio_analytics", {}) if isinstance(paper.get("portfolio_analytics"), dict) else {}
         cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
         primary_focus = market_universe.get("primary_focus") if isinstance(market_universe.get("primary_focus"), dict) else {}
+        eth_promotion = eth_route.get("buffer_promotion", {}) if isinstance(eth_route.get("buffer_promotion"), dict) else {}
+        eth_scenarios = eth_route.get("combined_buffer_scenarios", {}) if isinstance(eth_route.get("combined_buffer_scenarios"), dict) else {}
+        eth_candidate = eth_scenarios.get("candidate_0_20", {}) if isinstance(eth_scenarios.get("candidate_0_20"), dict) else {}
+        eth_production = eth_scenarios.get("production_0_30", {}) if isinstance(eth_scenarios.get("production_0_30"), dict) else {}
         return {
             "feature_count": self._int(feature_store.get("feature_count")),
             "tradeable_or_filled_count": self._int(feature_store.get("tradeable_or_filled_count")),
@@ -125,6 +132,14 @@ class StrategyIntelligenceService:
             "quote_provider_gap_count": self._int(quote_coverage.get("provider_gap_count")),
             "quote_test_gap_count": self._int(quote_coverage.get("quote_gap_count")),
             "quote_next_target": self._format_quote_target(quote_coverage),
+            "eth_route_available": bool(eth_route),
+            "eth_route_decision": str(eth_route.get("route_architecture_decision", "-")),
+            "eth_candidate_buffer_pct": str(eth_route.get("candidate_buffer_pct", "-")),
+            "eth_production_buffer_pct": str(eth_route.get("production_buffer_pct", "-")),
+            "eth_promotion_passed_gates": self._int(eth_promotion.get("passed_gate_count")),
+            "eth_promotion_gate_count": self._int(eth_promotion.get("gate_count")),
+            "eth_candidate_positive_count": self._int(eth_candidate.get("positive_after_buffer_count")),
+            "eth_production_positive_count": self._int(eth_production.get("positive_after_buffer_count")),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -262,6 +277,8 @@ class StrategyIntelligenceService:
             blockers.append("No active market universe focus has enough quote evidence.")
         if context["quote_coverage_available"] and context["quote_active_pair_count"] == 0:
             blockers.append("No configured pair has two-DEX quote coverage.")
+        if context["eth_route_available"] and context["eth_route_decision"] == "KEEP_0_30_PRODUCTION_RESEARCH_0_20":
+            blockers.append("ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -297,7 +314,8 @@ class StrategyIntelligenceService:
                     (
                         f"Keep production buffer unchanged; focus {context['market_primary_focus']} and collect more "
                         f"execution-cost samples until {context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence. "
-                        f"Next quote expansion target: {context['quote_next_target']}."
+                        f"Next quote expansion target: {context['quote_next_target']}. "
+                        f"ETH route buffer gates: {context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}."
                     )
                 ]
             if context.get("replay_best_profitable_trade_count", 0):
@@ -342,6 +360,9 @@ class StrategyIntelligenceService:
             f"- Market universe: `{context['market_active_focus_count']}` active / `{context['market_research_target_count']}` research / `{context['market_blocked_count']}` blocked",
             f"- Quote coverage: `{context['quote_active_pair_count']}` active / `{context['quote_test_gap_count']}` quote-test gaps / `{context['quote_provider_gap_count']}` provider gaps",
             f"- Next quote target: `{context['quote_next_target']}`",
+            f"- ETH route decision: `{context['eth_route_decision']}`",
+            f"- ETH route buffers: production `{context['eth_production_buffer_pct']}` / candidate `{context['eth_candidate_buffer_pct']}`",
+            f"- ETH route promotion gates: `{context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}`",
             "",
             "## Strategies",
             "",

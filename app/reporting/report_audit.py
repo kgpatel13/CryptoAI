@@ -41,6 +41,8 @@ class ReportAuditService:
         "market_universe_evidence.md",
         "quote_coverage_evidence.json",
         "quote_coverage_evidence.md",
+        "eth_route_architecture.json",
+        "eth_route_architecture.md",
         "provider_monitor.json",
         "provider_monitor.md",
     ]
@@ -167,6 +169,9 @@ class ReportAuditService:
             "active_pair_count",
             "provider_gap_count",
             "quote_gap_count",
+            "route_architecture_decision",
+            "production_buffer_pct",
+            "candidate_buffer_pct",
             "provider_count",
             "alert_count",
             "feature_count",

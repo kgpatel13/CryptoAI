@@ -1,10 +1,10 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-29T18:18:12Z`
+Generated: `2026-06-29T18:36:22Z`
 
 ## Summary
 
-- Reports checked: `33`
+- Reports checked: `35`
 - Missing: `0`
 - Invalid JSON: `0`
 - Stale: `0`
@@ -21,16 +21,16 @@ Generated: `2026-06-29T18:18:12Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-29T18:17:57Z | False | 748 |
-| multi_dex_opportunities.md | True | 2026-06-29T18:18:08Z | False | 923 |
-| opportunity_explorer.md | True | 2026-06-29T18:18:08Z | False | 502 |
+| multi_dex_opportunities.md | True | 2026-06-29T18:33:55Z | False | 925 |
+| opportunity_explorer.md | True | 2026-06-29T18:33:55Z | False | 505 |
 | paper_report.json | True | 2026-06-29T18:18:09Z | False | 44360 |
 | paper_report.md | True | 2026-06-29T18:18:09Z | False | 10929 |
 | portfolio_analytics.json | True | 2026-06-29T18:18:09Z | False | 7630 |
 | portfolio_analytics.md | True | 2026-06-29T18:18:09Z | False | 3184 |
 | strategy_center.json | True | 2026-06-29T18:18:04Z | False | 18026 |
 | strategy_center.md | True | 2026-06-29T18:18:04Z | False | 5410 |
-| strategy_intelligence.json | True | 2026-06-29T18:18:11Z | False | 8880 |
-| strategy_intelligence.md | True | 2026-06-29T18:18:11Z | False | 3830 |
+| strategy_intelligence.json | True | 2026-06-29T18:36:22Z | False | 9737 |
+| strategy_intelligence.md | True | 2026-06-29T18:36:22Z | False | 4449 |
 | feature_store.json | True | 2026-06-29T18:18:09Z | False | 1627 |
 | feature_store.md | True | 2026-06-29T18:18:09Z | False | 1080 |
 | research_dashboard.json | True | 2026-06-29T18:18:09Z | False | 17659 |
@@ -51,5 +51,7 @@ Generated: `2026-06-29T18:18:12Z`
 | market_universe_evidence.md | True | 2026-06-29T18:18:11Z | False | 2736 |
 | quote_coverage_evidence.json | True | 2026-06-29T18:18:11Z | False | 16469 |
 | quote_coverage_evidence.md | True | 2026-06-29T18:18:11Z | False | 2727 |
+| eth_route_architecture.json | True | 2026-06-29T18:33:35Z | False | 23760 |
+| eth_route_architecture.md | True | 2026-06-29T18:33:35Z | False | 3950 |
 | provider_monitor.json | True | 2026-06-29T18:18:10Z | False | 4094 |
 | provider_monitor.md | True | 2026-06-29T18:18:10Z | False | 1374 |

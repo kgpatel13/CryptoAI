@@ -266,6 +266,16 @@ def render_market_intelligence() -> None:
             st.success("Quote coverage evidence generated.")
             st.json(result)
 
+    if st.button("Generate ETH Route Architecture"):
+        def task():
+            Service = import_object("app.research.eth_route_architecture_service", "EthRouteArchitectureService")
+            return Service().generate()
+
+        result = safe_run("Generating ETH route architecture evidence...", task)
+        if result is not None:
+            st.success("ETH route architecture evidence generated.")
+            st.json(result)
+
     report_json = REPORT_DIR / "market_intelligence.json"
     if report_json.exists():
         try:
@@ -337,6 +347,27 @@ def render_market_intelligence() -> None:
             dataframe_or_info(payload.get("next_provider_targets", []), "No quote coverage targets.")
     else:
         st.info("No quote_coverage_evidence.json yet. Generate Quote Coverage.")
+
+    route_json = REPORT_DIR / "eth_route_architecture.json"
+    if route_json.exists():
+        try:
+            payload = json.loads(route_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read ETH route architecture: {exc}")
+            payload = {}
+
+        if payload:
+            st.markdown("### ETH Route Architecture")
+            r1, r2, r3, r4 = st.columns(4)
+            r1.metric("Decision", payload.get("route_architecture_decision", "-"))
+            r2.metric("Production Buffer", payload.get("production_buffer_pct", "-"))
+            r3.metric("Candidate Buffer", payload.get("candidate_buffer_pct", "-"))
+            promotion = payload.get("buffer_promotion", {})
+            r4.metric("Promotion Gates", f"{promotion.get('passed_gate_count', '-')}/{promotion.get('gate_count', '-')}")
+            dataframe_or_info(payload.get("route_evidence", []), "No ETH route evidence rows yet.")
+            dataframe_or_info(payload.get("trusted_venues", []), "No trusted venue rows yet.")
+    else:
+        st.info("No eth_route_architecture.json yet. Generate ETH Route Architecture.")
 
 
 def render_provider_monitor() -> None:
@@ -489,6 +520,7 @@ def render_reports() -> None:
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
         ("Market Universe Evidence", REPORT_DIR / "market_universe_evidence.md"),
         ("Quote Coverage Evidence", REPORT_DIR / "quote_coverage_evidence.md"),
+        ("ETH Route Architecture", REPORT_DIR / "eth_route_architecture.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
@@ -937,6 +969,8 @@ def render_system_health() -> None:
         REPORT_DIR / "market_universe_evidence.md",
         REPORT_DIR / "quote_coverage_evidence.json",
         REPORT_DIR / "quote_coverage_evidence.md",
+        REPORT_DIR / "eth_route_architecture.json",
+        REPORT_DIR / "eth_route_architecture.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
         REPORT_DIR / "report_audit.json",
@@ -1010,6 +1044,7 @@ def render_setup() -> None:
         python -m app.backtesting.optimization_service
         python -m app.research.market_universe_evidence_service
         python -m app.research.quote_coverage_evidence_service
+        python -m app.research.eth_route_architecture_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service
         python -m app.ai.strategy_intelligence_service
