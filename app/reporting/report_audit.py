@@ -27,6 +27,8 @@ class ReportAuditService:
         "backtest_report.md",
         "optimization_report.json",
         "optimization_report.md",
+        "experiment_report.json",
+        "experiment_report.md",
         "market_intelligence.json",
         "market_intelligence.md",
         "provider_monitor.json",
@@ -146,6 +148,7 @@ class ReportAuditService:
     def _json_summary(self, name: str, payload: dict[str, Any]) -> dict[str, Any]:
         keys = [
             "mode",
+            "status",
             "overall_status",
             "overall_readiness_score",
             "provider_count",
@@ -160,6 +163,11 @@ class ReportAuditService:
             "input_row_count",
             "deduped_row_count",
             "scenario_count",
+            "experiment_count",
+            "gate_count",
+            "pass_count",
+            "warn_count",
+            "fail_count",
         ]
         return {key: payload[key] for key in keys if key in payload}
 

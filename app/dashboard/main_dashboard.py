@@ -411,6 +411,8 @@ def render_reports() -> None:
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
+        ("Optimization", REPORT_DIR / "optimization_report.md"),
+        ("Experiment Evidence", REPORT_DIR / "experiment_report.md"),
         ("Feature Store", REPORT_DIR / "feature_store.md"),
         ("Research Dashboard", REPORT_DIR / "research_dashboard.md"),
     ]:
@@ -425,7 +427,7 @@ def render_reports() -> None:
 def render_backtesting() -> None:
     st.subheader("Replay / Backtesting")
 
-    c1, c2 = st.columns(2)
+    c1, c2, c3 = st.columns(3)
     with c1:
         if st.button("Run Replay Backtest"):
             def task():
@@ -445,6 +447,16 @@ def render_backtesting() -> None:
             result = safe_run("Running optimization grid...", task)
             if result is not None:
                 st.success("Optimization report generated.")
+
+    with c3:
+        if st.button("Record Experiment"):
+            def task():
+                ExperimentService = import_object("app.backtesting.experiment_service", "ExperimentService")
+                return ExperimentService().run()
+
+            result = safe_run("Recording experiment evidence...", task)
+            if result is not None:
+                st.success("Experiment report generated.")
 
     backtest_json = REPORT_DIR / "backtest_report.json"
     if backtest_json.exists():
@@ -481,9 +493,29 @@ def render_backtesting() -> None:
     else:
         st.info("No optimization_report.json yet. Run Optimization.")
 
+    experiment_json = REPORT_DIR / "experiment_report.json"
+    if experiment_json.exists():
+        try:
+            payload = json.loads(experiment_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read experiment report: {exc}")
+            payload = {}
+        if payload:
+            latest = payload.get("latest_experiment") or {}
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Experiment Status", latest.get("status", "-"))
+            c2.metric("Pass", latest.get("pass_count", "-"))
+            c3.metric("Warn", latest.get("warn_count", "-"))
+            c4.metric("Fail", latest.get("fail_count", "-"))
+            dataframe_or_info(latest.get("gates", []), "No experiment gates yet.")
+            dataframe_or_info(payload.get("recent_experiments", []), "No experiment history yet.")
+    else:
+        st.info("No experiment_report.json yet. Record Experiment.")
+
     for title, path in [
         ("Backtest Report", REPORT_DIR / "backtest_report.md"),
         ("Optimization Report", REPORT_DIR / "optimization_report.md"),
+        ("Experiment Report", REPORT_DIR / "experiment_report.md"),
     ]:
         st.markdown(f"### {title}")
         txt = read_text(path)
@@ -697,6 +729,9 @@ def render_system_health() -> None:
         REPORT_DIR / "backtest_report.md",
         REPORT_DIR / "optimization_report.json",
         REPORT_DIR / "optimization_report.md",
+        REPORT_DIR / "experiment_report.json",
+        REPORT_DIR / "experiment_report.md",
+        DATA_DIR / "experiments.jsonl",
         DATA_DIR / "feature_vectors.jsonl",
         DATA_DIR / "feature_vectors.csv",
         REPORT_DIR / "feature_store.json",
@@ -773,6 +808,7 @@ def render_setup() -> None:
         python -m app.reporting.paper_report
         python -m app.backtesting.backtest_service
         python -m app.backtesting.optimization_service
+        python -m app.backtesting.experiment_service
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor

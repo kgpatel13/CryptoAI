@@ -1,10 +1,10 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-29T12:48:02Z`
+Generated: `2026-06-29T12:58:22Z`
 
 ## Summary
 
-- Reports checked: `21`
+- Reports checked: `23`
 - Missing: `0`
 - Invalid JSON: `0`
 - Stale: `0`
@@ -22,8 +22,8 @@ Generated: `2026-06-29T12:48:02Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-29T12:47:14Z | False | 748 |
-| multi_dex_opportunities.md | True | 2026-06-29T12:47:14Z | False | 925 |
-| opportunity_explorer.md | True | 2026-06-29T12:47:14Z | False | 505 |
+| multi_dex_opportunities.md | True | 2026-06-29T12:57:16Z | False | 925 |
+| opportunity_explorer.md | True | 2026-06-29T12:57:16Z | False | 505 |
 | paper_report.json | True | 2026-06-29T12:47:09Z | False | 45635 |
 | paper_report.md | True | 2026-06-29T12:47:09Z | False | 8998 |
 | portfolio_analytics.json | True | 2026-06-29T12:47:09Z | False | 10307 |
@@ -34,10 +34,12 @@ Generated: `2026-06-29T12:48:02Z`
 | feature_store.md | True | 2026-06-29T12:47:20Z | False | 1079 |
 | research_dashboard.json | True | 2026-06-29T12:47:20Z | False | 17202 |
 | research_dashboard.md | True | 2026-06-29T12:47:20Z | False | 4384 |
-| backtest_report.json | True | 2026-06-29T12:47:25Z | False | 685 |
-| backtest_report.md | True | 2026-06-29T12:47:25Z | False | 732 |
-| optimization_report.json | True | 2026-06-29T12:47:25Z | False | 47675 |
-| optimization_report.md | True | 2026-06-29T12:47:25Z | False | 2052 |
+| backtest_report.json | True | 2026-06-29T12:58:10Z | False | 685 |
+| backtest_report.md | True | 2026-06-29T12:58:10Z | False | 732 |
+| optimization_report.json | True | 2026-06-29T12:58:10Z | False | 53019 |
+| optimization_report.md | True | 2026-06-29T12:58:10Z | False | 2052 |
+| experiment_report.json | True | 2026-06-29T12:58:10Z | False | 6309 |
+| experiment_report.md | True | 2026-06-29T12:58:10Z | False | 1695 |
 | market_intelligence.json | True | 2026-06-29T12:47:53Z | False | 4261 |
 | market_intelligence.md | True | 2026-06-29T12:47:53Z | False | 1267 |
 | provider_monitor.json | True | 2026-06-29T12:47:53Z | False | 4423 |

@@ -10,14 +10,15 @@
 - v3.5 - Portfolio analytics and PnL engine.
 - v3.6 - Strategy framework and research platform foundation.
 - v4.0 - Quant research platform foundation.
+- v4.1 - 24/7 operations, Mission Control runtime state, heartbeat, scheduler loop, and operational metrics.
+- v4.2 - Replay engine, backtesting, and strategy optimization foundation.
 
 ## Current
 
-- v4.1 - 24/7 operations, Mission Control runtime state, heartbeat, scheduler loop, and operational metrics.
+- v4.3 - Experiment evidence tracking, replay/optimization gates, and walk-forward validation preparation.
 
 ## Next
 
-- v4.2 - Replay engine, backtesting, walk-forward validation, experiment tracking, and strategy optimization.
 - v5.0 - AI Strategy Intelligence, strategy competition, market regime awareness, adaptive confidence, and explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.

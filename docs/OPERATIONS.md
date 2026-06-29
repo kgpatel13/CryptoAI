@@ -44,6 +44,9 @@ Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/optimization_report.json` - parameter-grid optimization metrics.
 - `reports/optimization_report.md` - human-readable Optimization report.
+- `reports/experiment_report.json` - experiment evidence gates for replay, optimization, provider health, paper PnL, and report audit.
+- `reports/experiment_report.md` - human-readable Experiment report.
+- `data/experiments.jsonl` - append-only experiment evidence history.
 - `reports/report_audit.json` - report freshness, parseability, and warning summary.
 - `reports/report_audit.md` - human-readable Report Audit report.
 
@@ -83,6 +86,12 @@ Generate optimization manually:
 
 ```bash
 python -m app.backtesting.optimization_service
+```
+
+Record experiment evidence manually:
+
+```bash
+python -m app.backtesting.experiment_service
 ```
 
 Run continuously in paper mode:
@@ -130,6 +139,9 @@ reports/backtest_report.json
 reports/backtest_report.md
 reports/optimization_report.json
 reports/optimization_report.md
+reports/experiment_report.json
+reports/experiment_report.md
+data/experiments.jsonl
 reports/report_audit.json
 reports/report_audit.md
 ```

@@ -1,0 +1,184 @@
+{
+  "generated_at": "2026-06-29T12:58:10Z",
+  "mode": "paper",
+  "status": "RESEARCH_ONLY",
+  "gate_count": 5,
+  "pass_count": 2,
+  "warn_count": 1,
+  "fail_count": 2,
+  "latest_experiment": {
+    "experiment_id": "8ecb1e84cc66",
+    "generated_at": "2026-06-29T12:58:10Z",
+    "mode": "paper",
+    "label": "default-replay-optimization",
+    "status": "RESEARCH_ONLY",
+    "promotion_allowed": false,
+    "gate_count": 5,
+    "pass_count": 2,
+    "warn_count": 1,
+    "fail_count": 2,
+    "summary": {
+      "backtest_total_signals": 37,
+      "backtest_trades": 0,
+      "backtest_pnl_usd": "0.0000",
+      "optimization_scenarios": 48,
+      "optimization_best_trades": 15,
+      "optimization_best_pnl_usd": "7.6008",
+      "optimization_best_cost_buffer_pct": "0.20",
+      "provider_status": "CRITICAL",
+      "provider_alert_count": 4,
+      "paper_total_pnl_usd": "1.3939",
+      "audit_finding_count": 2
+    },
+    "gates": [
+      {
+        "name": "default_replay_has_positive_trades",
+        "status": "FAIL",
+        "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+      },
+      {
+        "name": "optimization_has_minimum_sample",
+        "status": "PASS",
+        "message": "Best scenario trades=15, pnl_usd=7.6008, min_trades=5."
+      },
+      {
+        "name": "provider_health_not_critical",
+        "status": "FAIL",
+        "message": "Provider status is CRITICAL with 4 alert(s)."
+      },
+      {
+        "name": "paper_pnl_non_negative",
+        "status": "PASS",
+        "message": "Paper total_pnl_usd=1.3939."
+      },
+      {
+        "name": "report_audit_has_no_findings",
+        "status": "WARN",
+        "message": "Report audit has 2 finding(s). Review before tuning."
+      }
+    ],
+    "notes": [
+      "Experiment tracking records research evidence only.",
+      "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+      "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+    ]
+  },
+  "experiment_count": 2,
+  "history_file": "data\\experiments.jsonl",
+  "recent_experiments": [
+    {
+      "experiment_id": "2c3933e93ba2",
+      "generated_at": "2026-06-29T12:56:41Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 2,
+      "warn_count": 1,
+      "fail_count": 2,
+      "summary": {
+        "backtest_total_signals": 33,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 13,
+        "optimization_best_pnl_usd": "6.9470",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "CRITICAL",
+        "provider_alert_count": 4,
+        "paper_total_pnl_usd": "1.3939",
+        "audit_finding_count": 2
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0.0000."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=13, pnl_usd=6.9470, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "FAIL",
+          "message": "Provider status is CRITICAL with 4 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=1.3939."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "WARN",
+          "message": "Report audit has 2 finding(s). Review before tuning."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    },
+    {
+      "experiment_id": "8ecb1e84cc66",
+      "generated_at": "2026-06-29T12:58:10Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 2,
+      "warn_count": 1,
+      "fail_count": 2,
+      "summary": {
+        "backtest_total_signals": 37,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 15,
+        "optimization_best_pnl_usd": "7.6008",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "CRITICAL",
+        "provider_alert_count": 4,
+        "paper_total_pnl_usd": "1.3939",
+        "audit_finding_count": 2
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=15, pnl_usd=7.6008, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "FAIL",
+          "message": "Provider status is CRITICAL with 4 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=1.3939."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "WARN",
+          "message": "Report audit has 2 finding(s). Review before tuning."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    }
+  ]
+}

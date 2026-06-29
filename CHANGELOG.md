@@ -1,5 +1,12 @@
 # CryptoAI Changelog
 
+## v4.3 - Experiment Evidence Tracking
+
+- Added experiment evidence tracking for replay, optimization, provider health, paper PnL, and report audit gates.
+- Added `experiment_report.json`, `experiment_report.md`, and append-only `data/experiments.jsonl` history.
+- Added dashboard controls and metrics for recording and reviewing experiment evidence.
+- Added experiment regression tests for research-only and paper-evidence-candidate states.
+
 ## v4.2 - Replay, Backtesting, Optimization
 
 - Started v4.2 replay/backtesting foundation.

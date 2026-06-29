@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v4.1 - 24/7 Paper Operations Core**
+**v4.3 - Experiment Evidence Tracking**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -68,6 +68,7 @@ python -m app.opportunities.opportunity_explorer
 python -m app.strategy.strategy_center
 python -m app.backtesting.backtest_service
 python -m app.backtesting.optimization_service
+python -m app.backtesting.experiment_service
 python -m app.market_intelligence.market_intelligence_service
 python -m app.operations.provider_monitor
 python -m app.reporting.report_audit
@@ -92,6 +93,9 @@ The continuous paper autopilot publishes:
 - `reports/backtest_report.md`
 - `reports/optimization_report.json`
 - `reports/optimization_report.md`
+- `reports/experiment_report.json`
+- `reports/experiment_report.md`
+- `data/experiments.jsonl`
 - `reports/report_audit.json`
 - `reports/report_audit.md`
 

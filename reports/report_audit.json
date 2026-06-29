@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-29T12:48:02Z",
+  "generated_at": "2026-06-29T12:58:22Z",
   "mode": "paper",
-  "report_count": 21,
+  "report_count": 23,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -18,14 +18,14 @@
       "name": "multi_dex_opportunities.md",
       "exists": true,
       "size_bytes": 925,
-      "generated_at": "2026-06-29T12:47:14Z",
+      "generated_at": "2026-06-29T12:57:16Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
       "size_bytes": 505,
-      "generated_at": "2026-06-29T12:47:14Z",
+      "generated_at": "2026-06-29T12:57:16Z",
       "stale": false
     },
     {
@@ -127,11 +127,11 @@
       "name": "backtest_report.json",
       "exists": true,
       "size_bytes": 685,
-      "generated_at": "2026-06-29T12:47:25Z",
+      "generated_at": "2026-06-29T12:58:10Z",
       "stale": false,
       "json_valid": true,
       "summary": {
-        "total_signals": 29,
+        "total_signals": 37,
         "simulated_trades": 0
       }
     },
@@ -139,20 +139,20 @@
       "name": "backtest_report.md",
       "exists": true,
       "size_bytes": 732,
-      "generated_at": "2026-06-29T12:47:25Z",
+      "generated_at": "2026-06-29T12:58:10Z",
       "stale": false
     },
     {
       "name": "optimization_report.json",
       "exists": true,
-      "size_bytes": 47675,
-      "generated_at": "2026-06-29T12:47:25Z",
+      "size_bytes": 53019,
+      "generated_at": "2026-06-29T12:58:10Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "input_row_count": 146,
-        "deduped_row_count": 111,
+        "input_row_count": 154,
+        "deduped_row_count": 119,
         "scenario_count": 48
       }
     },
@@ -160,7 +160,31 @@
       "name": "optimization_report.md",
       "exists": true,
       "size_bytes": 2052,
-      "generated_at": "2026-06-29T12:47:25Z",
+      "generated_at": "2026-06-29T12:58:10Z",
+      "stale": false
+    },
+    {
+      "name": "experiment_report.json",
+      "exists": true,
+      "size_bytes": 6309,
+      "generated_at": "2026-06-29T12:58:10Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "status": "RESEARCH_ONLY",
+        "experiment_count": 2,
+        "gate_count": 5,
+        "pass_count": 2,
+        "warn_count": 1,
+        "fail_count": 2
+      }
+    },
+    {
+      "name": "experiment_report.md",
+      "exists": true,
+      "size_bytes": 1695,
+      "generated_at": "2026-06-29T12:58:10Z",
       "stale": false
     },
     {
