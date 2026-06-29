@@ -39,6 +39,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
 - `reports/replay_diagnostics.md` - human-readable Replay Diagnostics report.
+- `reports/execution_cost_evidence.json` - measured execution-cost evidence from paper fills, quote diagnostics, provider health, and replay edges.
+- `reports/execution_cost_evidence.md` - human-readable Execution Cost Evidence report.
 - `reports/optimization_report.json` - parameter-grid optimization metrics.
 - `reports/optimization_report.md` - human-readable Optimization report.
 - `reports/experiment_report.json` - experiment evidence gates for replay, optimization, provider health, paper PnL, and report audit.
@@ -98,6 +100,12 @@ Generate replay diagnostics manually:
 
 ```bash
 python -m app.backtesting.replay_diagnostics_service
+```
+
+Generate execution cost evidence manually:
+
+```bash
+python -m app.execution.execution_cost_evidence_service
 ```
 
 Generate optimization manually:
@@ -165,6 +173,8 @@ reports/backtest_report.json
 reports/backtest_report.md
 reports/replay_diagnostics.json
 reports/replay_diagnostics.md
+reports/execution_cost_evidence.json
+reports/execution_cost_evidence.md
 reports/optimization_report.json
 reports/optimization_report.md
 reports/experiment_report.json

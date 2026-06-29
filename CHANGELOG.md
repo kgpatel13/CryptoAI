@@ -1,5 +1,13 @@
 # CryptoAI Changelog
 
+## v5.2 - Execution Cost Evidence Engine
+
+- Added Execution Cost Evidence report for measuring observed paper slippage, quote latency, provider health, and replay edge distribution.
+- Classified the unchanged `0.30%` production cost buffer as conservative, accurate, too high, too low, or insufficient based on measured evidence.
+- Integrated execution cost evidence into Experiment Evidence, Strategy Intelligence, dashboard, and Report Audit.
+- Added dashboard controls and report views for Execution Cost Evidence.
+- Added regression tests for lower-bound cost measurement, too-high classification, and insufficient sample handling.
+
 ## v5.1 - Replay Diagnostics and Evidence Gap Analysis
 
 - Added Replay Diagnostics report for explaining why production-buffer replay has zero trades.

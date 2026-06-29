@@ -15,14 +15,15 @@
 - v4.3 - Experiment evidence tracking, replay/optimization gates, and walk-forward validation preparation.
 - v4.4 - Provider health hardening, clean report evidence gates, and legacy paper evidence archive.
 - v5.0 - AI Strategy Intelligence, measured strategy scoring, and advisory paper optimization recommendations.
+- v5.1 - Replay Diagnostics and evidence gap analysis for production-buffer replay blockers.
 
 ## Current
 
-- v5.1 - Replay Diagnostics and evidence gap analysis for production-buffer replay blockers.
+- v5.2 - Execution Cost Evidence Engine for measuring whether the current production cost buffer is conservative, accurate, too high, or too low.
 
 ## Next
 
-- v5.2 - Strategy competition, market regime awareness, adaptive confidence, and walk-forward explainability.
+- v5.3 - Strategy competition, market regime awareness, adaptive confidence, and walk-forward explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.
 

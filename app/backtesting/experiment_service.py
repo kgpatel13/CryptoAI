@@ -37,13 +37,16 @@ class ExperimentService:
 
             OptimizationService(data_dir=self.data_dir, report_dir=self.report_dir).run()
         from app.backtesting.replay_diagnostics_service import ReplayDiagnosticsService
+        from app.execution.execution_cost_evidence_service import ExecutionCostEvidenceService
 
         ReplayDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+        ExecutionCostEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
 
         generated_at = self._utc_now()
         backtest = self._read_json(self.report_json.with_name("backtest_report.json"))
         optimization = self._read_json(self.report_json.with_name("optimization_report.json"))
         replay_diagnostics = self._read_json(self.report_json.with_name("replay_diagnostics.json"))
+        execution_cost = self._read_json(self.report_json.with_name("execution_cost_evidence.json"))
         provider = self._read_json(self.report_json.with_name("provider_monitor.json"))
         paper = self._read_json(self.report_json.with_name("paper_report.json"))
         audit = self._read_json(self.report_json.with_name("report_audit.json"))
@@ -77,8 +80,9 @@ class ExperimentService:
             "pass_count": pass_count,
             "warn_count": warn_count,
             "fail_count": fail_count,
-            "summary": self._summary(backtest, optimization, provider, paper, audit),
+            "summary": self._summary(backtest, optimization, provider, paper, audit, execution_cost),
             "replay_diagnostics": self._replay_diagnostic_summary(replay_diagnostics),
+            "execution_cost_evidence": self._execution_cost_summary(execution_cost),
             "gates": gates,
             "notes": [
                 "Experiment tracking records research evidence only.",
@@ -195,8 +199,10 @@ class ExperimentService:
         provider: dict[str, Any],
         paper: dict[str, Any],
         audit: dict[str, Any],
+        execution_cost: dict[str, Any],
     ) -> dict[str, Any]:
         best = optimization.get("best_scenario") if isinstance(optimization.get("best_scenario"), dict) else {}
+        cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
         return {
             "backtest_total_signals": backtest.get("total_signals"),
             "backtest_trades": backtest.get("simulated_trades"),
@@ -209,6 +215,12 @@ class ExperimentService:
             "provider_alert_count": provider.get("alert_count"),
             "paper_total_pnl_usd": paper.get("portfolio_analytics", {}).get("total_pnl_usd"),
             "audit_finding_count": self._audit_finding_count(audit),
+            "execution_cost_buffer_status": execution_cost.get("buffer_status", cost_assessment.get("buffer_status")),
+            "execution_cost_confidence": execution_cost.get("confidence", cost_assessment.get("confidence")),
+            "observed_total_cost_lower_bound_pct": execution_cost.get(
+                "observed_total_cost_lower_bound_pct",
+                cost_assessment.get("observed_total_cost_lower_bound_pct"),
+            ),
         }
 
     @staticmethod
@@ -220,6 +232,24 @@ class ExperimentService:
             "best_profitable_trade_count": replay_diagnostics.get("best_profitable_trade_count"),
             "best_profitable_total_pnl_usd": replay_diagnostics.get("best_profitable_total_pnl_usd"),
             "findings": replay_diagnostics.get("findings", []),
+        }
+
+    @staticmethod
+    def _execution_cost_summary(execution_cost: dict[str, Any]) -> dict[str, Any]:
+        assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
+        return {
+            "buffer_status": execution_cost.get("buffer_status", assessment.get("buffer_status")),
+            "confidence": execution_cost.get("confidence", assessment.get("confidence")),
+            "production_cost_buffer_pct": execution_cost.get("production_cost_buffer_pct", assessment.get("production_cost_buffer_pct")),
+            "observed_total_cost_lower_bound_pct": execution_cost.get(
+                "observed_total_cost_lower_bound_pct",
+                assessment.get("observed_total_cost_lower_bound_pct"),
+            ),
+            "buffer_surplus_vs_lower_bound_pct": execution_cost.get(
+                "buffer_surplus_vs_lower_bound_pct",
+                assessment.get("buffer_surplus_vs_lower_bound_pct"),
+            ),
+            "findings": execution_cost.get("findings", []),
         }
 
     @staticmethod
@@ -277,6 +307,14 @@ class ExperimentService:
             lines.append(f"- {key}: `{value}`")
         findings = latest.get("replay_diagnostics", {}).get("findings", [])
         for finding in findings:
+            lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
+        lines += ["", "## Execution Cost Evidence", ""]
+        for key, value in latest.get("execution_cost_evidence", {}).items():
+            if key == "findings":
+                continue
+            lines.append(f"- {key}: `{value}`")
+        cost_findings = latest.get("execution_cost_evidence", {}).get("findings", [])
+        for finding in cost_findings:
             lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
         lines += ["", "## Gates", "", "| Gate | Status | Message |", "|---|---|---|"]
         for gate in latest["gates"]:

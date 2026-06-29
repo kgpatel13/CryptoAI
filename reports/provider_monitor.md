@@ -1,6 +1,6 @@
 # CryptoAI Provider Monitor
 
-Generated: `2026-06-29T14:12:20Z`
+Generated: `2026-06-29T17:45:19Z`
 
 ## Summary
 
@@ -14,17 +14,17 @@ Generated: `2026-06-29T14:12:20Z`
 
 | Chain | Type | Provider | Score | Current | Rolling | Required | Consecutive Failures | Age Seconds | Error |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 23.12 |  |
-| base | dex | Aerodrome | 71 | OK | OK | True | 0 | 21.89 |  |
-| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 97 | OK | OK | True | 0 | 9.15 |  |
-| base | rpc | Base:rpc2:https://mainnet.base.org | 0 | WATCH | CRITICAL | False | 4 | 41864.67 | BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctl |
+| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 10.03 |  |
+| base | dex | Aerodrome | 77 | OK | OK | True | 0 | 8.93 |  |
+| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 98 | OK | OK | True | 0 | 0.85 |  |
+| base | rpc | Base:rpc2:https://mainnet.base.org | 0 | WATCH | CRITICAL | False | 4 | 54644.22 | BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctl |
 
 ## Alerts
 
 | Severity | Chain | Type | Provider | Message |
 |---|---|---|---|---|
 | WATCH | base | rpc | Base:rpc2:https://mainnet.base.org | Optional backup provider is unhealthy; same-chain required provider coverage is available. |
-| WATCH | base | rpc | Base:rpc2:https://mainnet.base.org | Provider observation is stale at 41864.67 seconds old. |
+| WATCH | base | rpc | Base:rpc2:https://mainnet.base.org | Provider observation is stale at 54644.22 seconds old. |
 
 ## Notes
 

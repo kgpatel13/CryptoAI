@@ -1,6 +1,6 @@
 # CryptoAI Strategy Center
 
-Generated: `2026-06-29T14:12:21Z`
+Generated: `2026-06-29T17:45:18Z`
 
 ## Summary
 
@@ -13,7 +13,7 @@ Generated: `2026-06-29T14:12:21Z`
 
 | Strategy | Enabled | Health | Weight | Orders | Filled | Risk Rejected | Open | Closed | Realized PnL | Win Rate | Avg Slip bps | Avg Latency ms |
 |---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| DEX Arbitrage Strategy | True | ACTIVE | 1.00 | 49 | 12 | 6 | 0 | 8 | 2.8220 | 50.0000 | 5.0000 | 250.0000 |
+| DEX Arbitrage Strategy | True | ACTIVE | 1.00 | 53 | 12 | 6 | 0 | 8 | 2.8220 | 50.0000 | 5.0000 | 250.0000 |
 | Momentum Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
 | Mean Reversion Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
 | Breakout Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
@@ -41,6 +41,8 @@ Generated: `2026-06-29T14:12:21Z`
 | 2026-06-29T14:08:37Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.0972099073325391546686591745 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
 | 2026-06-29T14:12:21Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.1128390759035909960434897425 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
 | 2026-06-29T14:12:21Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.0882186845516571827872423019 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
+| 2026-06-29T17:45:18Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0552147966416534495753429694 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0552% is too low after costs. |
+| 2026-06-29T17:45:18Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.1441080874515027154139680131 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs. |
 
 ## Notes
 

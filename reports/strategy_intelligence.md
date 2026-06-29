@@ -1,6 +1,6 @@
 # CryptoAI Strategy Intelligence
 
-Generated: `2026-06-29T14:15:05Z`
+Generated: `2026-06-29T17:48:56Z`
 
 ## Summary
 
@@ -12,22 +12,24 @@ Generated: `2026-06-29T14:15:05Z`
 - Experiment: `RESEARCH_ONLY` with `1` fail / `1` warn
 - Report audit findings: `0`
 - Replay production trades: `0` at `0.30` cost buffer
-- Replay best profitable buffer: `0.20` with `36` trade(s)
+- Replay best profitable buffer: `0.20` with `48` trade(s)
+- Execution cost status: `CONSERVATIVE` with `LOW` confidence
+- Observed cost lower bound %: `0.1300`
 
 ## Strategies
 
 | Strategy | Enabled | Score | Recommendation | Filled | Closed | PnL | Win Rate | Blockers |
 |---|---:|---:|---|---:|---:|---:|---:|---|
-| DEX Arbitrage Strategy | True | 84 | CONTINUE_RESEARCH | 12 | 8 | 2.8220 | 50.0000 | Live trading is disabled; this is advisory paper intelligence only.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Momentum Strategy | False | 31 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Mean Reversion Strategy | False | 31 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Breakout Strategy | False | 31 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| AI Ranked Strategy | False | 31 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| DEX Arbitrage Strategy | True | 85 | CONTINUE_RESEARCH | 12 | 8 | 2.8220 | 50.0000 | Live trading is disabled; this is advisory paper intelligence only.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Momentum Strategy | False | 32 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Mean Reversion Strategy | False | 32 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Breakout Strategy | False | 32 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| AI Ranked Strategy | False | 32 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
 
 ## Next Actions
 
 ### DEX Arbitrage Strategy
-- Keep production buffer unchanged; collect execution-cost evidence to prove whether 0.20% is realistic.
+- Keep production buffer unchanged; collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence.
 
 ### Momentum Strategy
 - Keep disabled until its feature pipeline and validation tests are implemented.

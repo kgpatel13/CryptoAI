@@ -11,6 +11,7 @@ It does not approve live trading.
 - `reports/strategy_center.json`
 - `reports/feature_store.json`
 - `reports/replay_diagnostics.json`
+- `reports/execution_cost_evidence.json`
 - `reports/optimization_report.json`
 - `reports/experiment_report.json`
 - `reports/provider_monitor.json`

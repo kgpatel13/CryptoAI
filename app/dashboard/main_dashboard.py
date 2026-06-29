@@ -428,6 +428,7 @@ def render_reports() -> None:
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
+        ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization", REPORT_DIR / "optimization_report.md"),
         ("Experiment Evidence", REPORT_DIR / "experiment_report.md"),
         ("Feature Store", REPORT_DIR / "feature_store.md"),
@@ -444,7 +445,7 @@ def render_reports() -> None:
 def render_backtesting() -> None:
     st.subheader("Replay / Backtesting")
 
-    c1, c2, c3, c4 = st.columns(4)
+    c1, c2, c3, c4, c5 = st.columns(5)
     with c1:
         if st.button("Run Replay Backtest"):
             def task():
@@ -476,6 +477,16 @@ def render_backtesting() -> None:
                 st.success("Replay diagnostics generated.")
 
     with c4:
+        if st.button("Run Cost Evidence"):
+            def task():
+                ExecutionCostEvidenceService = import_object("app.execution.execution_cost_evidence_service", "ExecutionCostEvidenceService")
+                return ExecutionCostEvidenceService().generate()
+
+            result = safe_run("Running execution cost evidence...", task)
+            if result is not None:
+                st.success("Execution cost evidence generated.")
+
+    with c5:
         if st.button("Record Experiment"):
             def task():
                 ReportAuditService = import_object("app.reporting.report_audit", "ReportAuditService")
@@ -526,6 +537,24 @@ def render_backtesting() -> None:
     else:
         st.info("No replay_diagnostics.json yet. Run Replay Diagnostics.")
 
+    cost_json = REPORT_DIR / "execution_cost_evidence.json"
+    if cost_json.exists():
+        try:
+            payload = json.loads(cost_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read execution cost evidence: {exc}")
+            payload = {}
+        if payload:
+            assessment = payload.get("assessment") or {}
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Cost Status", assessment.get("buffer_status", payload.get("buffer_status", "-")))
+            c2.metric("Confidence", assessment.get("confidence", payload.get("confidence", "-")))
+            c3.metric("Lower Bound %", assessment.get("observed_total_cost_lower_bound_pct", "-"))
+            c4.metric("Surplus %", assessment.get("buffer_surplus_vs_lower_bound_pct", "-"))
+            dataframe_or_info(payload.get("findings", []), "No execution cost findings yet.")
+    else:
+        st.info("No execution_cost_evidence.json yet. Run Cost Evidence.")
+
     optimization_json = REPORT_DIR / "optimization_report.json"
     if optimization_json.exists():
         try:
@@ -566,6 +595,7 @@ def render_backtesting() -> None:
     for title, path in [
         ("Backtest Report", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics Report", REPORT_DIR / "replay_diagnostics.md"),
+        ("Execution Cost Evidence Report", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization Report", REPORT_DIR / "optimization_report.md"),
         ("Experiment Report", REPORT_DIR / "experiment_report.md"),
     ]:
@@ -822,6 +852,8 @@ def render_system_health() -> None:
         REPORT_DIR / "backtest_report.md",
         REPORT_DIR / "replay_diagnostics.json",
         REPORT_DIR / "replay_diagnostics.md",
+        REPORT_DIR / "execution_cost_evidence.json",
+        REPORT_DIR / "execution_cost_evidence.md",
         REPORT_DIR / "optimization_report.json",
         REPORT_DIR / "optimization_report.md",
         REPORT_DIR / "experiment_report.json",
@@ -907,6 +939,7 @@ def render_setup() -> None:
         python -m app.operations.provider_monitor
         python -m app.backtesting.backtest_service
         python -m app.backtesting.replay_diagnostics_service
+        python -m app.execution.execution_cost_evidence_service
         python -m app.backtesting.optimization_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service

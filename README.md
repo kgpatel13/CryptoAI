@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v5.1 - Replay Diagnostics and Evidence Gap Analysis**
+**v5.2 - Execution Cost Evidence Engine**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -73,6 +73,7 @@ python -m app.market_intelligence.market_intelligence_service
 python -m app.operations.provider_monitor
 python -m app.backtesting.backtest_service
 python -m app.backtesting.replay_diagnostics_service
+python -m app.execution.execution_cost_evidence_service
 python -m app.backtesting.optimization_service
 python -m app.reporting.report_audit
 python -m app.backtesting.experiment_service
@@ -100,6 +101,8 @@ The continuous paper autopilot publishes:
 - `reports/backtest_report.md`
 - `reports/replay_diagnostics.json`
 - `reports/replay_diagnostics.md`
+- `reports/execution_cost_evidence.json`
+- `reports/execution_cost_evidence.md`
 - `reports/optimization_report.json`
 - `reports/optimization_report.md`
 - `reports/experiment_report.json`
@@ -137,5 +140,6 @@ See:
 - `docs/ARCHITECTURE.md`
 - `docs/STRATEGY_FRAMEWORK.md`
 - `docs/AI_STRATEGY_INTELLIGENCE.md`
+- `docs/EXECUTION_COST_EVIDENCE.md`
 - `docs/LIVE_READINESS.md`
-- `releases/RELEASE_v5.1.md`
+- `releases/RELEASE_v5.2.md`

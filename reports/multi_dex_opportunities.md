@@ -1,6 +1,6 @@
 # CryptoAI Multi-DEX Opportunity Report
 
-Generated: `2026-06-29T14:14:53Z`
+Generated: `2026-06-29T17:49:08Z`
 
 ## Quote Health
 
@@ -12,8 +12,8 @@ Generated: `2026-06-29T14:14:53Z`
 
 | Mode | Pair | Buy DEX | Sell DEX | Buy Price | Sell Price | Gross % | Cost % | Net % | Decision | Reason |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| REAL | WETH/USDC | Uniswap V2 | Aerodrome | 1553.52884600 | 1557.25490200 | 0.23984466 | 0.30000000 | -0.06015534 | SKIP | Real multi-DEX comparison: net edge -0.0602% is too low after costs. |
-| REAL | USDC/WETH | Uniswap V2 | Aerodrome | 0.00063683 | 0.00063784 | 0.15906043 | 0.30000000 | -0.14093957 | SKIP | Real multi-DEX comparison: net edge -0.1409% is too low after costs. |
+| REAL | WETH/USDC | Uniswap V2 | Aerodrome | 1620.33472100 | 1625.25316800 | 0.30354512 | 0.30000000 | 0.00354512 | SKIP | Real multi-DEX comparison: net edge 0.0035% is too low after costs. |
+| REAL | USDC/WETH | Uniswap V2 | Aerodrome | 0.00061056 | 0.00061116 | 0.09735087 | 0.30000000 | -0.20264913 | SKIP | Real multi-DEX comparison: net edge -0.2026% is too low after costs. |
 
 ## Failed / Invalid Quotes
 

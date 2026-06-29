@@ -1,20 +1,24 @@
 {
-  "generated_at": "2026-06-29T14:15:05Z",
+  "generated_at": "2026-06-29T17:48:56Z",
   "mode": "paper",
   "strategy_count": 5,
   "top_recommendation": "CONTINUE_RESEARCH",
   "promotion_allowed": false,
   "context": {
-    "feature_count": 365,
+    "feature_count": 433,
     "tradeable_or_filled_count": 180,
-    "optimization_best_trades": 36,
-    "optimization_best_pnl_usd": "13.1480",
+    "optimization_best_trades": 48,
+    "optimization_best_pnl_usd": "19.0773",
     "optimization_best_cost_buffer_pct": "0.20",
     "replay_production_cost_buffer_pct": "0.30",
     "replay_production_trade_count": 0,
     "replay_best_profitable_cost_buffer_pct": "0.20",
-    "replay_best_profitable_trade_count": 36,
-    "replay_best_profitable_total_pnl_usd": "13.1480",
+    "replay_best_profitable_trade_count": 48,
+    "replay_best_profitable_total_pnl_usd": "19.0773",
+    "execution_cost_buffer_status": "CONSERVATIVE",
+    "execution_cost_confidence": "LOW",
+    "execution_cost_lower_bound_pct": "0.1300",
+    "execution_cost_buffer_surplus_pct": "0.1700",
     "experiment_status": "RESEARCH_ONLY",
     "experiment_fail_count": 1,
     "experiment_warn_count": 1,
@@ -31,7 +35,7 @@
       "strategy_name": "DEX Arbitrage Strategy",
       "enabled": true,
       "health": "ACTIVE",
-      "orders": 49,
+      "orders": 53,
       "filled_orders": 12,
       "closed_positions": 8,
       "risk_rejected_orders": 6,
@@ -39,7 +43,7 @@
       "win_rate_pct": "50.0000",
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
-      "intelligence_score": 84,
+      "intelligence_score": 85,
       "recommendation": "CONTINUE_RESEARCH",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -56,11 +60,11 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+7 feature-store depth",
+        "+8 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
-        "Keep production buffer unchanged; collect execution-cost evidence to prove whether 0.20% is realistic."
+        "Keep production buffer unchanged; collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence."
       ]
     },
     {
@@ -76,7 +80,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 31,
+      "intelligence_score": 32,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -93,7 +97,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+7 feature-store depth",
+        "+8 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -113,7 +117,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 31,
+      "intelligence_score": 32,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -130,7 +134,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+7 feature-store depth",
+        "+8 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -150,7 +154,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 31,
+      "intelligence_score": 32,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -167,7 +171,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+7 feature-store depth",
+        "+8 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -187,7 +191,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 31,
+      "intelligence_score": 32,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -204,7 +208,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+7 feature-store depth",
+        "+8 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [

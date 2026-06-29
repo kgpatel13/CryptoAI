@@ -23,6 +23,7 @@ class StrategyIntelligenceService:
         feature_store = self._read_json("feature_store.json")
         optimization = self._read_json("optimization_report.json")
         replay_diagnostics = self._read_json("replay_diagnostics.json")
+        execution_cost = self._read_json("execution_cost_evidence.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -36,6 +37,7 @@ class StrategyIntelligenceService:
             feature_store=feature_store,
             optimization=optimization,
             replay_diagnostics=replay_diagnostics,
+            execution_cost=execution_cost,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -68,6 +70,7 @@ class StrategyIntelligenceService:
         feature_store: dict[str, Any],
         optimization: dict[str, Any],
         replay_diagnostics: dict[str, Any],
+        execution_cost: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -80,6 +83,7 @@ class StrategyIntelligenceService:
             else experiment
         )
         paper_analytics = paper.get("portfolio_analytics", {}) if isinstance(paper.get("portfolio_analytics"), dict) else {}
+        cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
         return {
             "feature_count": self._int(feature_store.get("feature_count")),
             "tradeable_or_filled_count": self._int(feature_store.get("tradeable_or_filled_count")),
@@ -91,6 +95,20 @@ class StrategyIntelligenceService:
             "replay_best_profitable_cost_buffer_pct": str(replay_diagnostics.get("best_profitable_cost_buffer_pct", "-")),
             "replay_best_profitable_trade_count": self._int(replay_diagnostics.get("best_profitable_trade_count")),
             "replay_best_profitable_total_pnl_usd": str(replay_diagnostics.get("best_profitable_total_pnl_usd", "0")),
+            "execution_cost_buffer_status": str(execution_cost.get("buffer_status", cost_assessment.get("buffer_status", "UNKNOWN"))),
+            "execution_cost_confidence": str(execution_cost.get("confidence", cost_assessment.get("confidence", "UNKNOWN"))),
+            "execution_cost_lower_bound_pct": str(
+                execution_cost.get(
+                    "observed_total_cost_lower_bound_pct",
+                    cost_assessment.get("observed_total_cost_lower_bound_pct", "-"),
+                )
+            ),
+            "execution_cost_buffer_surplus_pct": str(
+                execution_cost.get(
+                    "buffer_surplus_vs_lower_bound_pct",
+                    cost_assessment.get("buffer_surplus_vs_lower_bound_pct", "-"),
+                )
+            ),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -220,6 +238,10 @@ class StrategyIntelligenceService:
             blockers.append(
                 "Production replay has 0 trades while lower cost-buffer diagnostics are profitable."
             )
+        if context["execution_cost_buffer_status"] == "INSUFFICIENT_EVIDENCE":
+            blockers.append("Execution cost evidence is insufficient.")
+        if context["execution_cost_buffer_status"] == "TOO_LOW":
+            blockers.append("Execution cost evidence indicates the production buffer may be too low.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -243,6 +265,20 @@ class StrategyIntelligenceService:
         if recommendation == "HOLD_FIX_OPERATIONS":
             return ["Fix provider/audit findings, regenerate reports, and rerun experiment evidence."]
         if recommendation == "CONTINUE_RESEARCH":
+            if context.get("execution_cost_buffer_status") == "TOO_HIGH":
+                return [
+                    (
+                        "Keep production buffer unchanged; prepare a research-only cost-buffer candidate "
+                        "after confirming high-confidence execution-cost evidence."
+                    )
+                ]
+            if context.get("execution_cost_buffer_status") in {"CONSERVATIVE", "SLIGHTLY_CONSERVATIVE"}:
+                return [
+                    (
+                        "Keep production buffer unchanged; collect more execution-cost samples until "
+                        f"{context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence."
+                    )
+                ]
             if context.get("replay_best_profitable_trade_count", 0):
                 return [
                     (
@@ -279,6 +315,8 @@ class StrategyIntelligenceService:
             f"- Report audit findings: `{context['audit_finding_count']}`",
             f"- Replay production trades: `{context['replay_production_trade_count']}` at `{context['replay_production_cost_buffer_pct']}` cost buffer",
             f"- Replay best profitable buffer: `{context['replay_best_profitable_cost_buffer_pct']}` with `{context['replay_best_profitable_trade_count']}` trade(s)",
+            f"- Execution cost status: `{context['execution_cost_buffer_status']}` with `{context['execution_cost_confidence']}` confidence",
+            f"- Observed cost lower bound %: `{context['execution_cost_lower_bound_pct']}`",
             "",
             "## Strategies",
             "",
