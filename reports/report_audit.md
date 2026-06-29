@@ -1,10 +1,10 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-29T23:00:04Z`
+Generated: `2026-06-29T23:16:23Z`
 
 ## Summary
 
-- Reports checked: `37`
+- Reports checked: `39`
 - Missing: `0`
 - Invalid JSON: `0`
 - Stale: `0`
@@ -21,8 +21,8 @@ Generated: `2026-06-29T23:00:04Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-29T22:59:22Z | False | 748 |
-| multi_dex_opportunities.md | True | 2026-06-29T22:59:33Z | False | 925 |
-| opportunity_explorer.md | True | 2026-06-29T22:59:33Z | False | 505 |
+| multi_dex_opportunities.md | True | 2026-06-29T23:16:16Z | False | 925 |
+| opportunity_explorer.md | True | 2026-06-29T23:16:16Z | False | 505 |
 | paper_report.json | True | 2026-06-29T22:59:33Z | False | 43963 |
 | paper_report.md | True | 2026-06-29T22:59:33Z | False | 11449 |
 | portfolio_analytics.json | True | 2026-06-29T22:59:33Z | False | 7630 |
@@ -45,8 +45,8 @@ Generated: `2026-06-29T23:00:04Z`
 | optimization_report.md | True | 2026-06-29T22:59:36Z | False | 2087 |
 | experiment_report.json | True | 2026-06-29T22:59:36Z | False | 73016 |
 | experiment_report.md | True | 2026-06-29T22:59:36Z | False | 4482 |
-| market_intelligence.json | True | 2026-06-29T22:59:34Z | False | 4261 |
-| market_intelligence.md | True | 2026-06-29T22:59:34Z | False | 1267 |
+| market_intelligence.json | True | 2026-06-29T23:16:16Z | False | 4261 |
+| market_intelligence.md | True | 2026-06-29T23:16:16Z | False | 1267 |
 | market_universe_evidence.json | True | 2026-06-29T22:59:36Z | False | 8927 |
 | market_universe_evidence.md | True | 2026-06-29T22:59:36Z | False | 2736 |
 | quote_coverage_evidence.json | True | 2026-06-29T22:59:36Z | False | 16469 |
@@ -55,5 +55,7 @@ Generated: `2026-06-29T23:00:04Z`
 | eth_route_architecture.md | True | 2026-06-29T22:59:35Z | False | 3952 |
 | eth_market_coverage.json | True | 2026-06-29T22:59:35Z | False | 8665 |
 | eth_market_coverage.md | True | 2026-06-29T22:59:35Z | False | 2113 |
-| provider_monitor.json | True | 2026-06-29T22:59:34Z | False | 4094 |
-| provider_monitor.md | True | 2026-06-29T22:59:34Z | False | 1374 |
+| paper_trading_settings.json | True | 2026-06-29T23:16:13Z | False | 2003 |
+| paper_trading_settings.md | True | 2026-06-29T23:16:13Z | False | 1038 |
+| provider_monitor.json | True | 2026-06-29T23:16:16Z | False | 4095 |
+| provider_monitor.md | True | 2026-06-29T23:16:16Z | False | 1374 |

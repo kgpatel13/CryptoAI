@@ -41,6 +41,11 @@ try:
 except Exception:
     ProviderMonitorService = None
 
+try:
+    from app.operations.paper_settings_service import PaperSettingsService
+except Exception:
+    PaperSettingsService = None
+
 
 class PaperAutopilot:
     """Safe paper-trading autopilot.
@@ -207,6 +212,12 @@ def main() -> None:
     )
     parser.add_argument("--max-cycles", type=int, default=None)
     parser.add_argument("--disable-paper-execution", action="store_true")
+    parser.add_argument("--use-settings", action="store_true", help="Load validated 24/7 paper settings from config.")
+    parser.add_argument(
+        "--settings-file",
+        default="config/paper_trading_settings.json",
+        help="Paper settings JSON path used with --use-settings.",
+    )
 
     args = parser.parse_args()
 
@@ -216,6 +227,23 @@ def main() -> None:
 
     if live_enabled:
         raise RuntimeError("Refusing to start because live trading is enabled.")
+
+    cli_max_cycles = args.max_cycles
+    if args.use_settings:
+        if PaperSettingsService is None:
+            raise RuntimeError("PaperSettingsService is not available.")
+        settings_service = PaperSettingsService(settings_path=args.settings_file)
+        settings = settings_service.load()
+        validation = settings_service.generate_report(settings)
+        if validation["status"] != "VALID":
+            raise RuntimeError(
+                "Refusing to start because paper settings are invalid: "
+                + "; ".join(row["message"] for row in validation["findings"])
+            )
+        operations = validation["settings"]["operations"]
+        args.interval_seconds = int(operations["loop_interval_seconds"])
+        args.heartbeat_interval_seconds = int(operations["heartbeat_interval_seconds"])
+        args.max_cycles = cli_max_cycles if cli_max_cycles is not None else operations.get("max_cycles")
 
     autopilot = PaperAutopilot(enable_paper_execution=not args.disable_paper_execution)
 

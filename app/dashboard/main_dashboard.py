@@ -473,6 +473,152 @@ def render_paper_autopilot() -> None:
             st.success("Paper autopilot completed.")
             st.json(result)
 
+    st.markdown("### 24/7 Launch Command")
+    st.code("python -m app.automation.paper_autopilot --loop --use-settings", language="bash")
+
+
+def render_paper_settings() -> None:
+    st.subheader("Paper Settings")
+    PaperSettingsService = import_object("app.operations.paper_settings_service", "PaperSettingsService")
+    service = PaperSettingsService()
+    settings = service.load()
+    validation = service.validate(settings)
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Status", validation.get("status", "-"))
+    c2.metric("Paper Capital USD", validation.get("paper_capital_usd", "-"))
+    c3.metric("Errors", validation.get("error_count", "-"))
+    c4.metric("Warnings", validation.get("warning_count", "-"))
+
+    if validation.get("status") == "VALID":
+        st.success("Settings are valid for paper-mode launch.")
+    else:
+        st.error("Settings must be fixed before continuous paper launch.")
+    dataframe_or_info(validation.get("findings", []), "No settings findings.")
+
+    with st.form("paper_settings_form"):
+        st.markdown("### Operations")
+        o1, o2, o3 = st.columns(3)
+        loop_interval = o1.number_input(
+            "Loop interval seconds",
+            min_value=60,
+            max_value=3600,
+            value=int(settings["operations"]["loop_interval_seconds"]),
+            step=30,
+        )
+        heartbeat_interval = o2.number_input(
+            "Heartbeat seconds",
+            min_value=10,
+            max_value=300,
+            value=int(settings["operations"]["heartbeat_interval_seconds"]),
+            step=10,
+        )
+        max_cycles_enabled = o3.checkbox("Limit cycles", value=settings["operations"].get("max_cycles") is not None)
+        max_cycles = o3.number_input(
+            "Max cycles",
+            min_value=1,
+            max_value=100000,
+            value=int(settings["operations"].get("max_cycles") or 1),
+            step=1,
+            disabled=not max_cycles_enabled,
+        )
+
+        st.markdown("### Market Scope")
+        m1, m2, m3 = st.columns(3)
+        chains = m1.multiselect("Chains", ["base"], default=settings["market_scope"]["chains"])
+        routes = m2.multiselect("Routes", ["WETH/USDC", "USDC/WETH"], default=settings["market_scope"]["routes"])
+        dexes = m3.multiselect("DEXs", ["Uniswap V2", "Aerodrome"], default=settings["market_scope"]["dexes"])
+
+        st.markdown("### Paper Capital")
+        p1, p2, p3, p4 = st.columns(4)
+        initial_eth = p1.number_input("Initial ETH", min_value=0.01, max_value=1.0, value=float(settings["paper_capital"]["initial_capital_eth"]), step=0.01)
+        eth_reference = p2.number_input("ETH reference USD", min_value=1.0, max_value=100000.0, value=float(settings["paper_capital"]["eth_reference_usd"]), step=50.0)
+        max_notional = p3.number_input("Max trade USD", min_value=1.0, max_value=100000.0, value=float(settings["paper_capital"]["max_notional_usd_per_trade"]), step=10.0)
+        max_daily_trades = p4.number_input("Max daily trades", min_value=1, max_value=200, value=int(settings["paper_capital"]["max_daily_paper_trades"]), step=1)
+
+        st.markdown("### Evidence And Risk")
+        e1, e2, e3, e4 = st.columns(4)
+        min_quote_ok = e1.number_input("Min quote OK %", min_value=0.0, max_value=100.0, value=float(settings["opportunity"]["min_quote_ok_rate_pct"]), step=1.0)
+        min_coverage = e2.number_input("Min ETH coverage", min_value=0, max_value=100, value=int(settings["evidence_gates"]["min_eth_coverage_score"]), step=1)
+        max_open_positions = e3.number_input("Max open positions", min_value=1, max_value=20, value=int(settings["risk"]["max_open_positions"]), step=1)
+        daily_loss = e4.number_input("Max daily loss USD", min_value=1.0, max_value=100000.0, value=float(settings["risk"]["max_daily_loss_usd"]), step=5.0)
+
+        r1, r2, r3 = st.columns(3)
+        cooldown = r1.number_input("Cooldown seconds", min_value=60, max_value=86400, value=int(settings["risk"]["cooldown_seconds"]), step=60)
+        require_clean_audit = r2.checkbox("Require clean report audit", value=bool(settings["evidence_gates"]["require_report_audit_clean"]))
+        require_provider = r3.checkbox("Block critical provider status", value=bool(settings["evidence_gates"]["require_provider_not_critical"]))
+
+        st.markdown("### Locked Thresholds")
+        t1, t2, t3 = st.columns(3)
+        t1.text_input("Production buffer %", value=settings["opportunity"]["production_cost_buffer_pct"], disabled=True)
+        t2.text_input("Research candidate %", value=settings["opportunity"]["research_candidate_buffer_pct"], disabled=True)
+        t3.text_input("Paper BUY threshold %", value=settings["opportunity"]["paper_buy_threshold_pct"], disabled=True)
+
+        submitted = st.form_submit_button("Save Paper Settings")
+
+    if submitted:
+        updated = settings.copy()
+        updated["operations"] = {
+            "loop_interval_seconds": int(loop_interval),
+            "heartbeat_interval_seconds": int(heartbeat_interval),
+            "max_cycles": int(max_cycles) if max_cycles_enabled else None,
+        }
+        updated["market_scope"] = {
+            **settings["market_scope"],
+            "chains": chains,
+            "routes": routes,
+            "dexes": dexes,
+            "allow_stale_quotes_for_live": False,
+        }
+        updated["paper_capital"] = {
+            "initial_capital_eth": f"{initial_eth:.2f}",
+            "eth_reference_usd": f"{eth_reference:.2f}",
+            "max_notional_usd_per_trade": f"{max_notional:.2f}",
+            "max_daily_paper_trades": int(max_daily_trades),
+        }
+        updated["opportunity"] = {
+            **settings["opportunity"],
+            "min_quote_ok_rate_pct": f"{min_quote_ok:.2f}",
+        }
+        updated["risk"] = {
+            **settings["risk"],
+            "max_open_positions": int(max_open_positions),
+            "cooldown_seconds": int(cooldown),
+            "max_daily_loss_usd": f"{daily_loss:.2f}",
+            "duplicate_position_block": True,
+            "kill_switch_enabled": True,
+        }
+        updated["evidence_gates"] = {
+            **settings["evidence_gates"],
+            "require_report_audit_clean": bool(require_clean_audit),
+            "require_provider_not_critical": bool(require_provider),
+            "min_eth_coverage_score": int(min_coverage),
+        }
+        try:
+            service.save(updated)
+            service.generate_report(updated)
+            st.success("Paper settings saved.")
+            st.rerun()
+        except Exception as exc:
+            show_exception(exc)
+
+    if st.button("Reset To Safe Defaults"):
+        try:
+            service.reset()
+            service.generate_report()
+            st.success("Paper settings reset.")
+            st.rerun()
+        except Exception as exc:
+            show_exception(exc)
+
+    st.markdown("### Launch Command")
+    st.code(validation.get("launch_command", "python -m app.automation.paper_autopilot --loop --use-settings"), language="bash")
+
+    txt = read_text(REPORT_DIR / "paper_trading_settings.md")
+    if txt:
+        st.markdown("### Settings Report")
+        st.markdown(txt)
+
 
 def render_quote_diagnostics() -> None:
     st.subheader("Quote Diagnostics")
@@ -1019,6 +1165,9 @@ def render_system_health() -> None:
         REPORT_DIR / "eth_route_architecture.md",
         REPORT_DIR / "eth_market_coverage.json",
         REPORT_DIR / "eth_market_coverage.md",
+        Path("config") / "paper_trading_settings.json",
+        REPORT_DIR / "paper_trading_settings.json",
+        REPORT_DIR / "paper_trading_settings.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
         REPORT_DIR / "report_audit.json",
@@ -1094,11 +1243,13 @@ def render_setup() -> None:
         python -m app.research.quote_coverage_evidence_service
         python -m app.research.eth_route_architecture_service
         python -m app.research.eth_market_coverage_service
+        python -m app.operations.paper_settings_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service
         python -m app.ai.strategy_intelligence_service
         python -m app.reporting.report_audit
         python -m app.reporting.legacy_paper_archive --dry-run
+        python -m app.automation.paper_autopilot --loop --use-settings
         ```
         """
     )
@@ -1121,8 +1272,9 @@ PAGES = {
     "14 Provider Monitor": render_provider_monitor,
     "15 Research Dashboard": render_research_dashboard,
     "16 Risk & Controls": render_risk_controls,
-    "17 System Health": render_system_health,
-    "18 Setup / Roadmap": render_setup,
+    "17 Paper Settings": render_paper_settings,
+    "18 System Health": render_system_health,
+    "19 Setup / Roadmap": render_setup,
 }
 
 

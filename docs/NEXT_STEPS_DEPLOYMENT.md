@@ -19,7 +19,8 @@ CryptoAI still needs these before real money:
 Run:
 
 ```powershell
-python -m app.automation.paper_autopilot --loop --interval-seconds 300 --max-cycles 3
+python -m app.operations.paper_settings_service
+python -m app.automation.paper_autopilot --loop --use-settings --max-cycles 3
 ```
 
 ### Phase B — GitHub Actions scheduled paper checks

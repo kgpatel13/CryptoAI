@@ -43,6 +43,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/eth_route_architecture.md` - human-readable ETH Route Architecture report.
 - `reports/eth_market_coverage.json` - ETH Golden Path chain, DEX, token, quote, provider, and execution evidence maturity score.
 - `reports/eth_market_coverage.md` - human-readable ETH Market Coverage report.
+- `reports/paper_trading_settings.json` - validated 24/7 paper launch settings.
+- `reports/paper_trading_settings.md` - human-readable Paper Settings report.
 - `reports/backtest_report.json` - multi-DEX replay backtest metrics.
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
@@ -146,6 +148,12 @@ Generate ETH market coverage evidence manually after quote coverage, ETH route a
 python -m app.research.eth_market_coverage_service
 ```
 
+Generate validated paper launch settings:
+
+```bash
+python -m app.operations.paper_settings_service
+```
+
 Record experiment evidence manually:
 
 ```bash
@@ -163,13 +171,13 @@ python -m app.reporting.report_audit
 Run continuously in paper mode:
 
 ```bash
-python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60
+python -m app.automation.paper_autopilot --loop --use-settings
 ```
 
 Bounded validation run:
 
 ```bash
-python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60 --max-cycles 2
+python -m app.automation.paper_autopilot --loop --use-settings --max-cycles 2
 ```
 
 ## Safety
@@ -177,6 +185,7 @@ python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbe
 - Live trading remains disabled.
 - The runtime reports `live_trading_enabled` in Mission Control summaries.
 - The paper autopilot still refuses to start when `CRYPTOAI_LIVE_TRADING_ENABLED` is truthy.
+- The `--use-settings` launch path refuses invalid paper settings and writes the Paper Settings report before the loop starts.
 - AI ranking remains advisory.
 - Risk remains the final authority before paper execution.
 
@@ -185,7 +194,8 @@ python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbe
 ```bash
 python -m compileall -q app tests
 python -m unittest discover -s tests -v
-python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60 --max-cycles 1
+python -m app.operations.paper_settings_service
+python -m app.automation.paper_autopilot --loop --use-settings --max-cycles 1
 ```
 
 Expected files after a loop run:
@@ -209,6 +219,8 @@ reports/eth_route_architecture.json
 reports/eth_route_architecture.md
 reports/eth_market_coverage.json
 reports/eth_market_coverage.md
+reports/paper_trading_settings.json
+reports/paper_trading_settings.md
 reports/backtest_report.json
 reports/backtest_report.md
 reports/replay_diagnostics.json

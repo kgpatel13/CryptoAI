@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v5.6 - ETH Golden Path Market Coverage**
+**v5.7 - 24/7 Paper Launch Settings**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -79,11 +79,13 @@ python -m app.research.market_universe_evidence_service
 python -m app.research.quote_coverage_evidence_service
 python -m app.research.eth_route_architecture_service
 python -m app.research.eth_market_coverage_service
+python -m app.operations.paper_settings_service
 python -m app.reporting.report_audit
 python -m app.backtesting.experiment_service
 python -m app.ai.strategy_intelligence_service
 python -m app.reporting.report_audit
 python -m app.reporting.legacy_paper_archive --dry-run
+python -m app.automation.paper_autopilot --loop --use-settings
 python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60
 ```
 
@@ -109,6 +111,8 @@ The continuous paper autopilot publishes:
 - `reports/eth_route_architecture.md`
 - `reports/eth_market_coverage.json`
 - `reports/eth_market_coverage.md`
+- `reports/paper_trading_settings.json`
+- `reports/paper_trading_settings.md`
 - `reports/backtest_report.json`
 - `reports/backtest_report.md`
 - `reports/replay_diagnostics.json`

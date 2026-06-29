@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.7 - 24/7 Paper Launch Settings
+
+- Added validated paper launch settings for continuous 24/7 paper operation.
+- Added a dashboard Paper Settings page for loop cadence, 1 ETH paper profile, max trade size, daily trade cap, ETH coverage gates, and risk limits.
+- Added `paper_autopilot --use-settings` so CLI runs share the same validated settings as the dashboard.
+- Added settings reports and Report Audit integration.
+- Kept live trading disabled, production cost buffer at `0.30%`, and paper BUY threshold at `0.30%`.
+- Added regression tests for settings validation and safety locks.
+
 ## v5.6 - ETH Golden Path Market Coverage
 
 - Added ETH Market Coverage report for scoring target-vs-evidence maturity before expanding beyond ETH.

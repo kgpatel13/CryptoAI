@@ -1,0 +1,15 @@
+{
+  "cycles_completed": 1,
+  "cycles_failed": 0,
+  "last_cycle_status": "OK",
+  "last_error": null,
+  "live_trading_enabled": false,
+  "mode": "PAPER",
+  "run_id": "525a4409-3f7",
+  "service_name": "paper_autopilot",
+  "started_at": "2026-06-29T23:16:13Z",
+  "status": "STOPPED",
+  "stop_reason": "max_cycles_reached",
+  "updated_at": "2026-06-29T23:16:16Z",
+  "uptime_seconds": 2.85
+}
