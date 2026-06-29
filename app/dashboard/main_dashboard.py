@@ -80,6 +80,7 @@ def render_mission_control() -> None:
     paper_report = REPORT_DIR / "paper_report.json"
     research_report = REPORT_DIR / "research_dashboard.json"
     strategy_report = REPORT_DIR / "strategy_center.json"
+    strategy_intelligence_report = REPORT_DIR / "strategy_intelligence.json"
     mission_summary_report = REPORT_DIR / "mission_summary.json"
     heartbeat_report = DATA_DIR / "heartbeat.json"
     market_intelligence_report = REPORT_DIR / "market_intelligence.json"
@@ -88,6 +89,7 @@ def render_mission_control() -> None:
     paper = {}
     research = {}
     strategy = {}
+    strategy_intelligence = {}
     mission_summary = {}
     heartbeat = {}
     market_intelligence = {}
@@ -128,6 +130,12 @@ def render_mission_control() -> None:
         except Exception:
             provider_monitor = {}
 
+    if strategy_intelligence_report.exists():
+        try:
+            strategy_intelligence = json.loads(strategy_intelligence_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            strategy_intelligence = {}
+
     analytics = paper.get("portfolio_analytics", {})
     feature_store = research.get("feature_store", {})
     c1, c2, c3, c4 = st.columns(4)
@@ -167,6 +175,13 @@ def render_mission_control() -> None:
     p2.metric("Providers", provider_monitor.get("provider_count", "-"))
     p3.metric("Alerts", provider_monitor.get("alert_count", "-"))
     p4.metric("Critical", provider_monitor.get("critical_alert_count", "-"))
+
+    st.markdown("### Strategy Intelligence")
+    s1, s2, s3, s4 = st.columns(4)
+    s1.metric("Top Recommendation", strategy_intelligence.get("top_recommendation", "-"))
+    s2.metric("Strategies Scored", strategy_intelligence.get("strategy_count", "-"))
+    s3.metric("Promotion", "NO" if strategy_intelligence else "-")
+    s4.metric("Mode", strategy_intelligence.get("mode", "-"))
 
     st.markdown("### Safety Status")
     st.success("Paper trading only. Live execution remains disabled.")
@@ -410,6 +425,7 @@ def render_reports() -> None:
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
+        ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Optimization", REPORT_DIR / "optimization_report.md"),
         ("Experiment Evidence", REPORT_DIR / "experiment_report.md"),
@@ -673,6 +689,44 @@ def render_strategy_center() -> None:
         st.markdown(txt)
 
 
+def render_strategy_intelligence() -> None:
+    st.subheader("AI Strategy Intelligence")
+    if st.button("Generate Strategy Intelligence"):
+        def task():
+            StrategyIntelligenceService = import_object("app.ai.strategy_intelligence_service", "StrategyIntelligenceService")
+            return StrategyIntelligenceService().generate()
+
+        result = safe_run("Generating strategy intelligence...", task)
+        if result is not None:
+            st.success("Strategy intelligence generated.")
+            st.json(result)
+
+    report_json = REPORT_DIR / "strategy_intelligence.json"
+    if report_json.exists():
+        try:
+            payload = json.loads(report_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read strategy intelligence: {exc}")
+            payload = {}
+        if payload:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Top Recommendation", payload.get("top_recommendation", "-"))
+            c2.metric("Strategies", payload.get("strategy_count", "-"))
+            c3.metric("Promotion Allowed", payload.get("promotion_allowed", "-"))
+            c4.metric("Mode", payload.get("mode", "-"))
+            st.markdown("### Context")
+            st.json(payload.get("context", {}))
+            st.markdown("### Strategy Scores")
+            dataframe_or_info(payload.get("strategies", []), "No strategy intelligence rows yet.")
+    else:
+        st.info("No strategy_intelligence.json found yet. Generate Strategy Intelligence first.")
+
+    st.markdown("### Strategy Intelligence Report")
+    txt = read_text(REPORT_DIR / "strategy_intelligence.md")
+    if txt:
+        st.markdown(txt)
+
+
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
     flags = {
@@ -726,6 +780,8 @@ def render_system_health() -> None:
         DATA_DIR / "strategy_ranked_signals.jsonl",
         REPORT_DIR / "strategy_center.json",
         REPORT_DIR / "strategy_center.md",
+        REPORT_DIR / "strategy_intelligence.json",
+        REPORT_DIR / "strategy_intelligence.md",
         REPORT_DIR / "backtest_report.json",
         REPORT_DIR / "backtest_report.md",
         REPORT_DIR / "optimization_report.json",
@@ -811,6 +867,7 @@ def render_setup() -> None:
         python -m app.backtesting.optimization_service
         python -m app.backtesting.experiment_service
         python -m app.research.research_report
+        python -m app.ai.strategy_intelligence_service
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor
         python -m app.reporting.report_audit
@@ -832,12 +889,13 @@ PAGES = {
     "9 Paper Portfolio": render_paper_portfolio,
     "10 Portfolio Analytics": render_portfolio_analytics,
     "11 Strategy Center": render_strategy_center,
-    "12 Market Intelligence": render_market_intelligence,
-    "13 Provider Monitor": render_provider_monitor,
-    "14 Research Dashboard": render_research_dashboard,
-    "15 Risk & Controls": render_risk_controls,
-    "16 System Health": render_system_health,
-    "17 Setup / Roadmap": render_setup,
+    "12 AI Strategy Intelligence": render_strategy_intelligence,
+    "13 Market Intelligence": render_market_intelligence,
+    "14 Provider Monitor": render_provider_monitor,
+    "15 Research Dashboard": render_research_dashboard,
+    "16 Risk & Controls": render_risk_controls,
+    "17 System Health": render_system_health,
+    "18 Setup / Roadmap": render_setup,
 }
 
 

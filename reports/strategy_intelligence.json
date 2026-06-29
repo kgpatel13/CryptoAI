@@ -1,0 +1,210 @@
+{
+  "generated_at": "2026-06-29T13:35:07Z",
+  "mode": "paper",
+  "strategy_count": 5,
+  "top_recommendation": "CONTINUE_RESEARCH",
+  "promotion_allowed": false,
+  "context": {
+    "feature_count": 313,
+    "tradeable_or_filled_count": 180,
+    "optimization_best_trades": 19,
+    "optimization_best_pnl_usd": "9.6452",
+    "optimization_best_cost_buffer_pct": "0.20",
+    "experiment_status": "RESEARCH_ONLY",
+    "experiment_fail_count": 1,
+    "experiment_warn_count": 1,
+    "provider_status": "WATCH",
+    "provider_alert_count": 3,
+    "audit_finding_count": 0,
+    "paper_total_pnl_usd": "2.8220",
+    "paper_total_return_pct": "0.0282",
+    "paper_filled_orders": 12
+  },
+  "strategies": [
+    {
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "enabled": true,
+      "health": "ACTIVE",
+      "orders": 45,
+      "filled_orders": 12,
+      "closed_positions": 8,
+      "risk_rejected_orders": 6,
+      "realized_pnl_usd": "2.8220",
+      "win_rate_pct": "50.0000",
+      "avg_slippage_bps": "5.0000",
+      "avg_latency_ms": "250.0000",
+      "intelligence_score": 83,
+      "recommendation": "CONTINUE_RESEARCH",
+      "blockers": [
+        "Live trading is disabled; this is advisory paper intelligence only.",
+        "Experiment evidence has 1 failing gate(s).",
+        "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
+      ],
+      "score_factors": [
+        "+15 enabled strategy",
+        "+20 filled-order evidence",
+        "+18 positive realized PnL",
+        "+6 early positive win-rate sample",
+        "+15 optimization has positive sample",
+        "+8 paper portfolio PnL non-negative",
+        "+3 provider status WATCH",
+        "+7 report audit clean",
+        "+6 feature-store depth",
+        "-15 experiment gate failure"
+      ],
+      "next_actions": [
+        "Improve replay coverage until default replay produces positive production-buffer trades."
+      ]
+    },
+    {
+      "strategy_id": "momentum",
+      "strategy_name": "Momentum Strategy",
+      "enabled": false,
+      "health": "DISABLED",
+      "orders": 0,
+      "filled_orders": 0,
+      "closed_positions": 0,
+      "risk_rejected_orders": 0,
+      "realized_pnl_usd": "0.0000",
+      "win_rate_pct": "None",
+      "avg_slippage_bps": null,
+      "avg_latency_ms": null,
+      "intelligence_score": 30,
+      "recommendation": "RESEARCH_DISABLED",
+      "blockers": [
+        "Live trading is disabled; this is advisory paper intelligence only.",
+        "Strategy is disabled in the strategy registry.",
+        "Experiment evidence has 1 failing gate(s).",
+        "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
+      ],
+      "score_factors": [
+        "+0 disabled strategy",
+        "+0 filled-order evidence",
+        "+6 non-negative realized PnL",
+        "+15 optimization has positive sample",
+        "+8 paper portfolio PnL non-negative",
+        "+3 provider status WATCH",
+        "+7 report audit clean",
+        "+6 feature-store depth",
+        "-15 experiment gate failure"
+      ],
+      "next_actions": [
+        "Keep disabled until its feature pipeline and validation tests are implemented."
+      ]
+    },
+    {
+      "strategy_id": "mean_reversion",
+      "strategy_name": "Mean Reversion Strategy",
+      "enabled": false,
+      "health": "DISABLED",
+      "orders": 0,
+      "filled_orders": 0,
+      "closed_positions": 0,
+      "risk_rejected_orders": 0,
+      "realized_pnl_usd": "0.0000",
+      "win_rate_pct": "None",
+      "avg_slippage_bps": null,
+      "avg_latency_ms": null,
+      "intelligence_score": 30,
+      "recommendation": "RESEARCH_DISABLED",
+      "blockers": [
+        "Live trading is disabled; this is advisory paper intelligence only.",
+        "Strategy is disabled in the strategy registry.",
+        "Experiment evidence has 1 failing gate(s).",
+        "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
+      ],
+      "score_factors": [
+        "+0 disabled strategy",
+        "+0 filled-order evidence",
+        "+6 non-negative realized PnL",
+        "+15 optimization has positive sample",
+        "+8 paper portfolio PnL non-negative",
+        "+3 provider status WATCH",
+        "+7 report audit clean",
+        "+6 feature-store depth",
+        "-15 experiment gate failure"
+      ],
+      "next_actions": [
+        "Keep disabled until its feature pipeline and validation tests are implemented."
+      ]
+    },
+    {
+      "strategy_id": "breakout",
+      "strategy_name": "Breakout Strategy",
+      "enabled": false,
+      "health": "DISABLED",
+      "orders": 0,
+      "filled_orders": 0,
+      "closed_positions": 0,
+      "risk_rejected_orders": 0,
+      "realized_pnl_usd": "0.0000",
+      "win_rate_pct": "None",
+      "avg_slippage_bps": null,
+      "avg_latency_ms": null,
+      "intelligence_score": 30,
+      "recommendation": "RESEARCH_DISABLED",
+      "blockers": [
+        "Live trading is disabled; this is advisory paper intelligence only.",
+        "Strategy is disabled in the strategy registry.",
+        "Experiment evidence has 1 failing gate(s).",
+        "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
+      ],
+      "score_factors": [
+        "+0 disabled strategy",
+        "+0 filled-order evidence",
+        "+6 non-negative realized PnL",
+        "+15 optimization has positive sample",
+        "+8 paper portfolio PnL non-negative",
+        "+3 provider status WATCH",
+        "+7 report audit clean",
+        "+6 feature-store depth",
+        "-15 experiment gate failure"
+      ],
+      "next_actions": [
+        "Keep disabled until its feature pipeline and validation tests are implemented."
+      ]
+    },
+    {
+      "strategy_id": "ai_ranked",
+      "strategy_name": "AI Ranked Strategy",
+      "enabled": false,
+      "health": "DISABLED",
+      "orders": 0,
+      "filled_orders": 0,
+      "closed_positions": 0,
+      "risk_rejected_orders": 0,
+      "realized_pnl_usd": "0.0000",
+      "win_rate_pct": "None",
+      "avg_slippage_bps": null,
+      "avg_latency_ms": null,
+      "intelligence_score": 30,
+      "recommendation": "RESEARCH_DISABLED",
+      "blockers": [
+        "Live trading is disabled; this is advisory paper intelligence only.",
+        "Strategy is disabled in the strategy registry.",
+        "Experiment evidence has 1 failing gate(s).",
+        "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
+      ],
+      "score_factors": [
+        "+0 disabled strategy",
+        "+0 filled-order evidence",
+        "+6 non-negative realized PnL",
+        "+15 optimization has positive sample",
+        "+8 paper portfolio PnL non-negative",
+        "+3 provider status WATCH",
+        "+7 report audit clean",
+        "+6 feature-store depth",
+        "-15 experiment gate failure"
+      ],
+      "next_actions": [
+        "Keep disabled until its feature pipeline and validation tests are implemented."
+      ]
+    }
+  ],
+  "notes": [
+    "Strategy Intelligence is advisory and paper-only.",
+    "Risk engine remains the final authority before paper execution.",
+    "promotion_allowed is always false until dedicated live-readiness gates are implemented and approved."
+  ]
+}

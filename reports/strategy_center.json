@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T13:25:18Z",
+  "generated_at": "2026-06-29T13:34:59Z",
   "mode": "paper",
   "strategy_count": 5,
   "active_strategy_count": 1,
@@ -26,16 +26,16 @@
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
       "last_signal": {
-        "timestamp": "2026-06-29T13:25:18Z",
+        "timestamp": "2026-06-29T13:34:59Z",
         "signal_id": "arbitrage:base:USDC-WETH:SKIP",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
         "pair": "USDC/WETH",
         "action": "SKIP",
         "confidence_score": 10,
-        "expected_edge_pct": "-0.1516396104383123414073092587",
+        "expected_edge_pct": "-0.1475851574587660361695146862",
         "rank_score": 0,
-        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs.",
+        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1476% is too low after costs.",
         "source": "scanner",
         "features": {
           "strategy_id": "arbitrage",
@@ -385,6 +385,44 @@
       "expected_edge_pct": "-0.1516396104383123414073092587",
       "rank_score": 0,
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T13:34:59Z",
+      "rank": 1,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "action": "SKIP",
+      "confidence_score": 10,
+      "expected_edge_pct": "-0.0530589499588809716230039761",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0531% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T13:34:59Z",
+      "rank": 2,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "action": "SKIP",
+      "confidence_score": 10,
+      "expected_edge_pct": "-0.1475851574587660361695146862",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1476% is too low after costs.",
       "features": {
         "strategy_id": "arbitrage",
         "strategy_weight": "1.00",

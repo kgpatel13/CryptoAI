@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v4.4 - Provider Health Hardening**
+**v5.0 - AI Strategy Intelligence**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -69,6 +69,7 @@ python -m app.strategy.strategy_center
 python -m app.backtesting.backtest_service
 python -m app.backtesting.optimization_service
 python -m app.backtesting.experiment_service
+python -m app.ai.strategy_intelligence_service
 python -m app.market_intelligence.market_intelligence_service
 python -m app.operations.provider_monitor
 python -m app.reporting.report_audit
@@ -96,6 +97,8 @@ The continuous paper autopilot publishes:
 - `reports/optimization_report.md`
 - `reports/experiment_report.json`
 - `reports/experiment_report.md`
+- `reports/strategy_intelligence.json`
+- `reports/strategy_intelligence.md`
 - `data/experiments.jsonl`
 - `reports/report_audit.json`
 - `reports/report_audit.md`
@@ -126,5 +129,6 @@ See:
 - `docs/MARKET_INTELLIGENCE.md`
 - `docs/ARCHITECTURE.md`
 - `docs/STRATEGY_FRAMEWORK.md`
+- `docs/AI_STRATEGY_INTELLIGENCE.md`
 - `docs/LIVE_READINESS.md`
-- `releases/RELEASE_v4.4.md`
+- `releases/RELEASE_v5.0.md`

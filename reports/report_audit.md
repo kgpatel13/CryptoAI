@@ -1,10 +1,10 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-29T13:25:43Z`
+Generated: `2026-06-29T13:35:07Z`
 
 ## Summary
 
-- Reports checked: `23`
+- Reports checked: `25`
 - Missing: `0`
 - Invalid JSON: `0`
 - Stale: `0`
@@ -21,16 +21,18 @@ Generated: `2026-06-29T13:25:43Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-29T13:25:31Z | False | 738 |
-| multi_dex_opportunities.md | True | 2026-06-29T13:25:18Z | False | 925 |
-| opportunity_explorer.md | True | 2026-06-29T13:25:18Z | False | 505 |
-| paper_report.json | True | 2026-06-29T13:25:08Z | False | 42674 |
-| paper_report.md | True | 2026-06-29T13:25:08Z | False | 9294 |
-| portfolio_analytics.json | True | 2026-06-29T13:25:08Z | False | 7630 |
-| portfolio_analytics.md | True | 2026-06-29T13:25:08Z | False | 3184 |
-| strategy_center.json | True | 2026-06-29T13:25:18Z | False | 12787 |
-| strategy_center.md | True | 2026-06-29T13:25:18Z | False | 3583 |
-| feature_store.json | True | 2026-06-29T13:25:17Z | False | 1626 |
-| feature_store.md | True | 2026-06-29T13:25:17Z | False | 1079 |
+| multi_dex_opportunities.md | True | 2026-06-29T13:34:59Z | False | 925 |
+| opportunity_explorer.md | True | 2026-06-29T13:34:59Z | False | 505 |
+| paper_report.json | True | 2026-06-29T13:34:55Z | False | 42673 |
+| paper_report.md | True | 2026-06-29T13:34:55Z | False | 9294 |
+| portfolio_analytics.json | True | 2026-06-29T13:34:55Z | False | 7630 |
+| portfolio_analytics.md | True | 2026-06-29T13:34:55Z | False | 3184 |
+| strategy_center.json | True | 2026-06-29T13:34:59Z | False | 14081 |
+| strategy_center.md | True | 2026-06-29T13:34:59Z | False | 4025 |
+| strategy_intelligence.json | True | 2026-06-29T13:35:07Z | False | 7510 |
+| strategy_intelligence.md | True | 2026-06-29T13:35:07Z | False | 2870 |
+| feature_store.json | True | 2026-06-29T13:34:56Z | False | 1626 |
+| feature_store.md | True | 2026-06-29T13:34:56Z | False | 1079 |
 | research_dashboard.json | True | 2026-06-29T13:25:17Z | False | 17320 |
 | research_dashboard.md | True | 2026-06-29T13:25:17Z | False | 4434 |
 | backtest_report.json | True | 2026-06-29T13:25:42Z | False | 685 |
@@ -41,5 +43,5 @@ Generated: `2026-06-29T13:25:43Z`
 | experiment_report.md | True | 2026-06-29T13:25:42Z | False | 1735 |
 | market_intelligence.json | True | 2026-06-29T13:25:38Z | False | 4261 |
 | market_intelligence.md | True | 2026-06-29T13:25:38Z | False | 1267 |
-| provider_monitor.json | True | 2026-06-29T13:25:38Z | False | 4614 |
-| provider_monitor.md | True | 2026-06-29T13:25:38Z | False | 1506 |
+| provider_monitor.json | True | 2026-06-29T13:34:55Z | False | 4619 |
+| provider_monitor.md | True | 2026-06-29T13:34:55Z | False | 1510 |

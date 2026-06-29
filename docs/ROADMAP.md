@@ -13,14 +13,15 @@
 - v4.1 - 24/7 operations, Mission Control runtime state, heartbeat, scheduler loop, and operational metrics.
 - v4.2 - Replay engine, backtesting, and strategy optimization foundation.
 - v4.3 - Experiment evidence tracking, replay/optimization gates, and walk-forward validation preparation.
+- v4.4 - Provider health hardening, clean report evidence gates, and legacy paper evidence archive.
 
 ## Current
 
-- v4.4 - Provider health hardening, clean report evidence gates, and legacy paper evidence archive.
+- v5.0 - AI Strategy Intelligence, measured strategy scoring, and advisory paper optimization recommendations.
 
 ## Next
 
-- v5.0 - AI Strategy Intelligence, strategy competition, market regime awareness, adaptive confidence, and explainability.
+- v5.1 - Strategy competition, market regime awareness, adaptive confidence, and walk-forward explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.
 

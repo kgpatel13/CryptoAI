@@ -41,6 +41,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/optimization_report.md` - human-readable Optimization report.
 - `reports/experiment_report.json` - experiment evidence gates for replay, optimization, provider health, paper PnL, and report audit.
 - `reports/experiment_report.md` - human-readable Experiment report.
+- `reports/strategy_intelligence.json` - v5.0 advisory strategy scoring and recommendations.
+- `reports/strategy_intelligence.md` - human-readable Strategy Intelligence report.
 - `data/experiments.jsonl` - append-only experiment evidence history.
 - `reports/report_audit.json` - report freshness, parseability, and warning summary.
 - `reports/report_audit.md` - human-readable Report Audit report.
@@ -100,6 +102,12 @@ Record experiment evidence manually:
 python -m app.backtesting.experiment_service
 ```
 
+Generate strategy intelligence manually:
+
+```bash
+python -m app.ai.strategy_intelligence_service
+```
+
 Run continuously in paper mode:
 
 ```bash
@@ -147,6 +155,8 @@ reports/optimization_report.json
 reports/optimization_report.md
 reports/experiment_report.json
 reports/experiment_report.md
+reports/strategy_intelligence.json
+reports/strategy_intelligence.md
 data/experiments.jsonl
 reports/report_audit.json
 reports/report_audit.md

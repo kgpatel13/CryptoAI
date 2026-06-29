@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.0 - AI Strategy Intelligence
+
+- Added measured Strategy Intelligence report for strategy-level scoring and recommendations.
+- Combined Strategy Center, Feature Store, Optimization, Experiment, Provider Monitor, Paper Report, and Report Audit evidence.
+- Added conservative recommendations: research, watchlist, operations hold, and paper optimization candidate.
+- Added dashboard tab for AI Strategy Intelligence review.
+- Added Strategy Intelligence to Report Audit expected outputs.
+- Added regression tests for clean evidence and experiment-failure behavior.
+
 ## v4.4 - Provider Health Hardening
 
 - Moved paper autopilot operations reports after quote/workflow refresh so Provider Monitor reports on fresh health evidence.
