@@ -1,6 +1,6 @@
 # CryptoAI Market Intelligence
 
-Generated: `2026-06-29T23:16:16Z`
+Generated: `2026-06-29T23:31:55Z`
 
 ## Summary
 
@@ -14,7 +14,7 @@ Generated: `2026-06-29T23:16:16Z`
 
 | Chain | Tokens | DEXs | Pairs | Provider Score | Registry Score | Readiness | Status |
 |---|---:|---:|---:|---:|---:|---:|---|
-| Base | 3 | 3 | 2 | 70 | 100 | 86 | READY_FOR_PAPER |
+| Base | 3 | 3 | 2 | 71 | 100 | 87 | READY_FOR_PAPER |
 | Polygon | 3 | 2 | 2 | 40 | 100 | 73 | WATCH |
 | Arbitrum One | 3 | 3 | 2 | 40 | 100 | 73 | WATCH |
 | Ethereum | 3 | 3 | 2 | 40 | 100 | 73 | WATCH |

@@ -21,7 +21,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
         "asset_focus": "ETH",
         "chains": ["base"],
         "routes": ["WETH/USDC", "USDC/WETH"],
-        "dexes": ["Uniswap V2", "Aerodrome"],
+        "dexes": ["Uniswap V2", "Aerodrome", "Uniswap V3"],
         "allow_stale_quotes_for_live": False,
     },
     "paper_capital": {
@@ -64,7 +64,7 @@ class PaperSettingsService:
 
     SAFE_CHAINS = {"base"}
     SAFE_ROUTES = {"WETH/USDC", "USDC/WETH"}
-    SAFE_DEXES = {"Uniswap V2", "Aerodrome"}
+    SAFE_DEXES = {"Uniswap V2", "Aerodrome", "Uniswap V3"}
     CONFIDENCE_LEVELS = {"NONE", "LOW", "MEDIUM", "HIGH"}
 
     def __init__(
@@ -121,7 +121,7 @@ class PaperSettingsService:
         self._require(bool(routes), "market_scope.routes", "At least one ETH route is required.", findings)
         self._require(routes.issubset(self.SAFE_ROUTES), "market_scope.routes", "Only WETH/USDC and USDC/WETH are enabled for v5.7.", findings)
         self._require(bool(dexes), "market_scope.dexes", "At least one DEX is required.", findings)
-        self._require(dexes.issubset(self.SAFE_DEXES), "market_scope.dexes", "Only Uniswap V2 and Aerodrome are enabled for v5.7.", findings)
+        self._require(dexes.issubset(self.SAFE_DEXES), "market_scope.dexes", "Only Uniswap V2, Aerodrome, and Uniswap V3 are enabled for v5.8.", findings)
         self._require(market.get("allow_stale_quotes_for_live") is False, "market_scope.allow_stale_quotes_for_live", "Stale live quotes must never be allowed.", findings)
 
         capital = payload["paper_capital"]

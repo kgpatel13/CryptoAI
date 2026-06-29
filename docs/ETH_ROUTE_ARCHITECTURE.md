@@ -6,14 +6,14 @@ ETH Route Architecture focuses the system on one chain and one core ETH route be
 
 - Chain: Base
 - Routes: `WETH/USDC` and `USDC/WETH`
-- Active venues: Uniswap V2-compatible router and Aerodrome
-- Next verified venue target: Base Uniswap V3 quote provider
+- Active venues: Uniswap V2-compatible router, Aerodrome, and Uniswap V3
+- Next evidence target: sustained three-venue Base ETH route diagnostics
 
 The report compares the unchanged `0.30%` production buffer against a `0.20%` research candidate. It does not change production settings.
 
 ## Why Base First
 
-Base is the current focus because it already has two implemented quote providers and recent two-DEX quote evidence for `WETH/USDC`.
+Base is the current focus because it has implemented quote providers for Uniswap V2, Aerodrome, and Uniswap V3, with route evidence still required before any live-readiness decision.
 
 Ethereum, Arbitrum, and Polygon remain useful future surfaces, but they should not become active trade targets until router metadata, quote providers, route diagnostics, and provider health evidence are implemented.
 

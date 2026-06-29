@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-29T22:59:36Z",
+  "generated_at": "2026-06-29T23:31:26Z",
   "mode": "paper",
-  "implemented_provider_count": 2,
+  "implemented_provider_count": 3,
   "configured_pair_count": 8,
   "active_pair_count": 1,
   "provider_gap_count": 6,
@@ -14,12 +14,13 @@
       "pair": "WETH/USDC",
       "priority": 1,
       "dex_count": 3,
-      "implemented_provider_dex_count": 2,
-      "router_configured_dex_count": 2,
-      "direct_ok_dex_count": 2,
+      "implemented_provider_dex_count": 3,
+      "router_configured_dex_count": 3,
+      "direct_ok_dex_count": 3,
       "direct_ok_dexes": [
         "Aerodrome",
-        "Uniswap V2"
+        "Uniswap V2",
+        "Uniswap V3"
       ],
       "status": "ACTIVE_QUOTED",
       "score": 100,
@@ -30,12 +31,12 @@
       "pair": "CBBTC/USDC",
       "priority": 2,
       "dex_count": 3,
-      "implemented_provider_dex_count": 2,
-      "router_configured_dex_count": 2,
+      "implemented_provider_dex_count": 3,
+      "router_configured_dex_count": 3,
       "direct_ok_dex_count": 0,
       "direct_ok_dexes": [],
       "status": "NEEDS_QUOTE_TEST",
-      "score": 61,
+      "score": 65,
       "next_action": "Run targeted quote diagnostics for base CBBTC/USDC across implemented providers."
     },
     {
@@ -127,8 +128,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 21,
-      "inverse_ok_count": 21,
+      "direct_ok_count": 22,
+      "inverse_ok_count": 22,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -140,13 +141,13 @@
       "dex": "Uniswap V3",
       "dex_type": "v3",
       "token_ready": true,
-      "router_configured": false,
-      "provider_implemented": false,
-      "direct_ok_count": 0,
-      "inverse_ok_count": 0,
-      "recent_quote_ready": false,
-      "coverage_status": "NEEDS_ROUTER_AND_PROVIDER",
-      "next_action": "Verify router metadata, then implement quote provider for base Uniswap V3."
+      "router_configured": true,
+      "provider_implemented": true,
+      "direct_ok_count": 1,
+      "inverse_ok_count": 1,
+      "recent_quote_ready": true,
+      "coverage_status": "QUOTE_OK",
+      "next_action": "Recent direct OK quote exists."
     },
     {
       "chain": "base",
@@ -157,8 +158,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 8,
-      "inverse_ok_count": 8,
+      "direct_ok_count": 9,
+      "inverse_ok_count": 9,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -185,13 +186,13 @@
       "dex": "Uniswap V3",
       "dex_type": "v3",
       "token_ready": true,
-      "router_configured": false,
-      "provider_implemented": false,
+      "router_configured": true,
+      "provider_implemented": true,
       "direct_ok_count": 0,
       "inverse_ok_count": 0,
       "recent_quote_ready": false,
-      "coverage_status": "NEEDS_ROUTER_AND_PROVIDER",
-      "next_action": "Verify router metadata, then implement quote provider for base Uniswap V3."
+      "coverage_status": "NEEDS_QUOTE_TEST",
+      "next_action": "Run quote diagnostics for base CBBTC/USDC on Uniswap V3."
     },
     {
       "chain": "base",
@@ -454,7 +455,7 @@
       "chain": "base",
       "pair": "CBBTC/USDC",
       "status": "NEEDS_QUOTE_TEST",
-      "score": 61,
+      "score": 65,
       "next_action": "Run targeted quote diagnostics for base CBBTC/USDC across implemented providers."
     },
     {

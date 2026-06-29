@@ -18,7 +18,8 @@
     ],
     "dexes": [
       "Uniswap V2",
-      "Aerodrome"
+      "Aerodrome",
+      "Uniswap V3"
     ],
     "allow_stale_quotes_for_live": false
   },

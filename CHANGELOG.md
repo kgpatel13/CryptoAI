@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.8 - Verified Base Uniswap V3 Quote Provider
+
+- Added a Base Uniswap V3 QuoterV2 quote provider for `WETH/USDC` and `USDC/WETH` diagnostics.
+- Verified Base Uniswap V3 Factory, SwapRouter02, and QuoterV2 deployment addresses against official Uniswap deployment documentation.
+- Wired Uniswap V3 into QuoteService, QuoteManager, Quote Coverage Evidence, ETH Route Architecture, ETH Market Coverage, and Paper Settings.
+- Expanded the Base ETH paper launch profile from two DEX venues to three while keeping live trading disabled.
+- Kept production cost buffer and paper BUY threshold unchanged at `0.30%`.
+- Added regression tests for Uniswap V3 address constants, registry wiring, provider support, and paper settings coverage.
+
 ## v5.7 - 24/7 Paper Launch Settings
 
 - Added validated paper launch settings for continuous 24/7 paper operation.

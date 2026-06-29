@@ -174,6 +174,7 @@ class ReportAuditService:
             "provider_gap_count",
             "quote_gap_count",
             "route_architecture_decision",
+            "implemented_provider_count",
             "production_buffer_pct",
             "candidate_buffer_pct",
             "overall_coverage_score",

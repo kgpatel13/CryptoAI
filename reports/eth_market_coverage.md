@@ -1,6 +1,6 @@
 # CryptoAI ETH Market Coverage
 
-Generated: `2026-06-29T22:59:35Z`
+Generated: `2026-06-29T23:31:25Z`
 
 ## Summary
 
@@ -18,7 +18,7 @@ Generated: `2026-06-29T22:59:35Z`
 
 | Chain | Stage | Score | Status | Tokens | DEXs | Quote Routes | Providers | Next Action |
 |---|---|---:|---|---:|---:|---:|---:|---|
-| Base | reference | 82 | DEVELOPING | 2/4 | 3/3 | 2 | 4 | Improve quote OK rate, paper execution samples, and add verified Base Uniswap V3 quote provider. |
+| Base | reference | 82 | DEVELOPING | 2/4 | 3/3 | 2 | 5 | Improve sustained three-venue quote OK rate and paper execution samples before expanding beyond Base ETH. |
 | Ethereum | planned | 19 | TARGET_ONLY | 2/4 | 3/4 | 0 | 0 | Add verified token metadata for ethereum: USDT, DAI. |
 | Arbitrum One | planned | 23 | TARGET_ONLY | 2/4 | 3/3 | 0 | 0 | Add verified token metadata for arbitrum: USDT, DAI. |
 | Optimism | planned_next | 0 | TARGET_ONLY | 0/4 | 0/2 | 0 | 0 | Add verified token metadata for optimism: WETH, USDC, USDT, DAI. |
@@ -27,7 +27,7 @@ Generated: `2026-06-29T22:59:35Z`
 ## Next Actions
 
 - Keep ETH Golden Path on Base until coverage score reaches reference-ready maturity.
-- Implement verified Base Uniswap V3 quote provider before adding a new asset class.
+- Collect sustained Base Uniswap V3 quote diagnostics before adding a new asset class.
 - Add Optimism registry metadata only after official token/DEX/router addresses are verified.
 - Do not expand to BTC or blue chips until ETH coverage KPIs are stable.
 

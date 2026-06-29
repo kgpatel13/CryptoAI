@@ -8,6 +8,7 @@ from app.quotes.aerodrome_quote_provider import AerodromeQuoteProvider
 from app.quotes.models import DexQuote, QuoteRequest
 from app.quotes.provider_interface import QuoteProvider
 from app.quotes.uniswap_v2_quote_provider import UniswapV2QuoteProvider
+from app.quotes.uniswap_v3_quote_provider import UniswapV3QuoteProvider
 
 
 class QuoteManager:
@@ -17,7 +18,7 @@ class QuoteManager:
 
     def __init__(self) -> None:
         self.providers: list[QuoteProvider] = []
-        for provider_cls in (AerodromeQuoteProvider, UniswapV2QuoteProvider):
+        for provider_cls in (AerodromeQuoteProvider, UniswapV2QuoteProvider, UniswapV3QuoteProvider):
             try:
                 self.providers.append(provider_cls())
             except Exception:
@@ -80,7 +81,7 @@ class QuoteManager:
     def _cache_key(request: QuoteRequest) -> str:
         return "|".join(
             [
-                "v2_9",
+                "v5_8",
                 request.chain.lower(),
                 request.dex.lower(),
                 request.token_in.upper(),

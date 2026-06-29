@@ -1,6 +1,6 @@
 # CryptoAI Strategy Center
 
-Generated: `2026-06-29T22:59:28Z`
+Generated: `2026-06-29T23:31:21Z`
 
 ## Summary
 
@@ -13,7 +13,7 @@ Generated: `2026-06-29T22:59:28Z`
 
 | Strategy | Enabled | Health | Weight | Orders | Filled | Risk Rejected | Open | Closed | Realized PnL | Win Rate | Avg Slip bps | Avg Latency ms |
 |---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| DEX Arbitrage Strategy | True | ACTIVE | 1.00 | 57 | 12 | 6 | 0 | 8 | 2.8220 | 50.0000 | 5.0000 | 250.0000 |
+| DEX Arbitrage Strategy | True | ACTIVE | 1.00 | 67 | 12 | 6 | 0 | 8 | 2.8220 | 50.0000 | 5.0000 | 250.0000 |
 | Momentum Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
 | Mean Reversion Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
 | Breakout Strategy | False | DISABLED | 0.70 | 0 | 0 | 0 | 0 | 0 | 0.0000 | None | None | None |
@@ -23,8 +23,6 @@ Generated: `2026-06-29T22:59:28Z`
 
 | Time | Rank | Strategy | Pair | Action | Confidence | Edge % | Rank Score | Reason |
 |---|---:|---|---|---|---:|---:|---:|---|
-| 2026-06-29T02:22:34Z | 1 | DEX Arbitrage Strategy | WETH/USDC | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
-| 2026-06-29T02:22:34Z | 2 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:29:02Z | 1 | DEX Arbitrage Strategy | WETH/USDC | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:29:02Z | 2 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T12:47:14Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0627867526571790265828422155 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0628% is too low after costs. |
@@ -43,6 +41,8 @@ Generated: `2026-06-29T22:59:28Z`
 | 2026-06-29T18:18:04Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.2103086317172912901719613480 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs. |
 | 2026-06-29T22:59:28Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0761681979172122764045773608 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0762% is too low after costs. |
 | 2026-06-29T22:59:28Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.1234196220513873443362474363 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1234% is too low after costs. |
+| 2026-06-29T23:31:21Z | 1 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 76 | 0.3830010159406717421808796956 | 94 | Opportunity Explorer BUY: net edge 0.3830% >= threshold 0.30%. |
+| 2026-06-29T23:31:21Z | 2 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0091654991525793535216386928 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0092% is too low after costs. |
 
 ## Notes
 

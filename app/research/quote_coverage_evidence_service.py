@@ -16,6 +16,7 @@ class QuoteCoverageEvidenceService:
     IMPLEMENTED_PROVIDERS = {
         ("base", "Uniswap V2"),
         ("base", "Aerodrome"),
+        ("base", "Uniswap V3"),
     }
 
     def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:

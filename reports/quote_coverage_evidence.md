@@ -1,10 +1,10 @@
 # CryptoAI Quote Coverage Evidence
 
-Generated: `2026-06-29T22:59:36Z`
+Generated: `2026-06-29T23:31:26Z`
 
 ## Summary
 
-- Implemented providers: `2`
+- Implemented providers: `3`
 - Configured pairs: `8`
 - Active quoted pairs: `1`
 - Provider gap pairs: `6`
@@ -15,8 +15,8 @@ Generated: `2026-06-29T22:59:36Z`
 
 | Status | Chain | Pair | Score | DEXs | Implemented | Direct OK | Next Action |
 |---|---|---|---:|---:|---:|---:|---|
-| ACTIVE_QUOTED | base | WETH/USDC | 100 | 3 | 2 | 2 | Keep collecting quote, opportunity, and execution-cost evidence. |
-| NEEDS_QUOTE_TEST | base | CBBTC/USDC | 61 | 3 | 2 | 0 | Run targeted quote diagnostics for base CBBTC/USDC across implemented providers. |
+| ACTIVE_QUOTED | base | WETH/USDC | 100 | 3 | 3 | 3 | Keep collecting quote, opportunity, and execution-cost evidence. |
+| NEEDS_QUOTE_TEST | base | CBBTC/USDC | 65 | 3 | 3 | 0 | Run targeted quote diagnostics for base CBBTC/USDC across implemented providers. |
 | ROUTER_OR_PROVIDER_GAP | ethereum | WETH/USDC | 25 | 3 | 0 | 0 | Add verified router metadata and quote providers for ethereum WETH/USDC. |
 | ROUTER_OR_PROVIDER_GAP | arbitrum | WETH/USDC | 25 | 3 | 0 | 0 | Add verified router metadata and quote providers for arbitrum WETH/USDC. |
 | ROUTER_OR_PROVIDER_GAP | polygon | WETH/USDC | 20 | 2 | 0 | 0 | Add verified router metadata and quote providers for polygon WETH/USDC. |

@@ -1,6 +1,6 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-29T23:16:13Z`
+Generated: `2026-06-29T23:30:22Z`
 
 ## Summary
 
@@ -16,7 +16,7 @@ Generated: `2026-06-29T23:16:13Z`
 - Asset focus: `ETH`
 - Chains: `base`
 - Routes: `WETH/USDC, USDC/WETH`
-- DEXs: `Uniswap V2, Aerodrome`
+- DEXs: `Uniswap V2, Aerodrome, Uniswap V3`
 - Initial paper capital ETH: `1.0`
 - Max notional per trade USD: `100`
 - Production buffer %: `0.30`

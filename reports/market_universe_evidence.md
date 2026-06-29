@@ -1,6 +1,6 @@
 # CryptoAI Market Universe Evidence
 
-Generated: `2026-06-29T22:59:36Z`
+Generated: `2026-06-29T23:31:26Z`
 
 ## Summary
 
@@ -22,11 +22,11 @@ Generated: `2026-06-29T22:59:36Z`
 
 | Class | Chain | Pair | Score | Quote OK % | Healthy DEXs | Real Signals | Prod Trades | Lower-Bound Trades | Next Action |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| ACTIVE_FOCUS | base | WETH/USDC | 83 | 65.9091 | 2 | 70 | 0 | 70 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
+| ACTIVE_FOCUS | base | WETH/USDC | 85 | 68.0851 | 3 | 94 | 0 | 94 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
 | BLOCKED_NEEDS_QUOTES | polygon | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for polygon WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | ethereum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for ethereum WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | arbitrum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for arbitrum WETH/USDC before treating it as tradeable. |
-| BLOCKED_NEEDS_QUOTES | base | CBBTC/USDC | 36 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for base CBBTC/USDC before treating it as tradeable. |
+| BLOCKED_NEEDS_QUOTES | base | CBBTC/USDC | 38 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for base CBBTC/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | polygon | WBTC/USDC | 32 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for polygon WBTC/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | ethereum | WBTC/USDC | 32 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for ethereum WBTC/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | arbitrum | WBTC/USDC | 32 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for arbitrum WBTC/USDC before treating it as tradeable. |

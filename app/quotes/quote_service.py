@@ -21,6 +21,11 @@ try:
 except Exception:
     UniswapV2QuoteProvider = None
 
+try:
+    from app.quotes.uniswap_v3_quote_provider import UniswapV3QuoteProvider
+except Exception:
+    UniswapV3QuoteProvider = None
+
 
 class QuoteService:
     """Resilient quote service.
@@ -46,13 +51,17 @@ class QuoteService:
         if AerodromeQuoteProvider is not None:
             self._try_add_provider(AerodromeQuoteProvider)
 
+        if UniswapV3QuoteProvider is not None:
+            self._try_add_provider(UniswapV3QuoteProvider)
+
     def get_base_quotes(self) -> list[DexQuote]:
-        cache_key = "base:default_quotes:v3_1_resilient"
+        cache_key = "base:default_quotes:v5_8_uniswap_v3"
         cached = quote_cache.get(cache_key)
         if cached is not None:
             return cached
 
-        file_cached = self._load_snapshot(max_age_seconds=self.fresh_cache_seconds)
+        expected_dexes = {provider.dex for provider in self.providers}
+        file_cached = self._load_snapshot(max_age_seconds=self.fresh_cache_seconds, required_dexes=expected_dexes)
         if file_cached:
             quote_cache.set(cache_key, file_cached, ttl_seconds=self.fresh_cache_seconds)
             return file_cached
@@ -170,7 +179,7 @@ class QuoteService:
         }
         self.snapshot_file.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-    def _load_snapshot(self, max_age_seconds: int) -> list[DexQuote]:
+    def _load_snapshot(self, max_age_seconds: int, required_dexes: set[str] | None = None) -> list[DexQuote]:
         if not self.snapshot_file.exists():
             return []
         try:
@@ -179,6 +188,10 @@ class QuoteService:
             if time.time() - saved_at > max_age_seconds:
                 return []
             rows = payload.get("quotes", [])
+            if required_dexes:
+                snapshot_dexes = {str(row.get("dex", "")) for row in rows if isinstance(row, dict)}
+                if not required_dexes.issubset(snapshot_dexes):
+                    return []
             for row in rows:
                 if isinstance(row, dict):
                     row["saved_at"] = saved_at

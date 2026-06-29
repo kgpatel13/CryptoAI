@@ -1,24 +1,24 @@
 # CryptoAI Experiment Report
 
-Generated: `2026-06-29T22:59:36Z`
+Generated: `2026-06-29T23:31:26Z`
 
 ## Latest Experiment
 
-- Experiment ID: `f236334b0ef6`
+- Experiment ID: `e17d62fc9e0f`
 - Label: `default-replay-optimization`
-- Status: `RESEARCH_ONLY`
+- Status: `WATCHLIST`
 - Promotion allowed: `False`
-- Gates: `3 pass / 1 warn / 1 fail`
-- History count: `18`
+- Gates: `4 pass / 1 warn / 0 fail`
+- History count: `19`
 
 ## Summary
 
-- backtest_total_signals: `147`
-- backtest_trades: `0`
-- backtest_pnl_usd: `0.0000`
+- backtest_total_signals: `195`
+- backtest_trades: `5`
+- backtest_pnl_usd: `19.1500`
 - optimization_scenarios: `60`
-- optimization_best_trades: `70`
-- optimization_best_pnl_usd: `33.3502`
+- optimization_best_trades: `99`
+- optimization_best_pnl_usd: `68.9755`
 - optimization_best_cost_buffer_pct: `0.20`
 - provider_status: `WATCH`
 - provider_alert_count: `2`
@@ -37,12 +37,11 @@ Generated: `2026-06-29T22:59:36Z`
 ## Replay Diagnostics
 
 - production_cost_buffer_pct: `0.30`
-- production_trade_count: `0`
+- production_trade_count: `5`
 - best_profitable_cost_buffer_pct: `0.20`
-- best_profitable_trade_count: `70`
-- best_profitable_total_pnl_usd: `33.3502`
-- WATCH: Production buffer 0.30% has 9 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%.
-- ACTION: Collect more execution-cost and closed-paper-trade evidence before considering any threshold change.
+- best_profitable_trade_count: `99`
+- best_profitable_total_pnl_usd: `68.9755`
+- OK: Production buffer 0.30% and paper BUY threshold 0.30% produced 5 replay trade(s).
 
 ## Execution Cost Evidence
 
@@ -53,7 +52,6 @@ Generated: `2026-06-29T22:59:36Z`
 - buffer_surplus_vs_lower_bound_pct: `0.1700`
 - INFO: Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence.
 - ACTION: Collect more filled paper executions; current slippage sample is 6 and target is 30+.
-- WATCH: Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger.
 
 ## Market Universe Evidence
 
@@ -83,8 +81,8 @@ Generated: `2026-06-29T22:59:36Z`
 
 | Gate | Status | Message |
 |---|---|---|
-| default_replay_has_positive_trades | FAIL | Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0. |
-| optimization_has_minimum_sample | PASS | Best scenario trades=70, pnl_usd=33.3502, min_trades=5. |
+| default_replay_has_positive_trades | PASS | Default replay trades=5, pnl_usd=19.1500. |
+| optimization_has_minimum_sample | PASS | Best scenario trades=99, pnl_usd=68.9755, min_trades=5. |
 | provider_health_not_critical | WARN | Provider status is WATCH with 2 alert(s). |
 | paper_pnl_non_negative | PASS | Paper total_pnl_usd=2.8220. |
 | report_audit_has_no_findings | PASS | Report audit has no findings. |
@@ -93,7 +91,6 @@ Generated: `2026-06-29T22:59:36Z`
 
 | Time | ID | Status | Pass | Warn | Fail |
 |---|---|---|---:|---:|---:|
-| 2026-06-29T17:45:21Z | 6dec8e85e081 | RESEARCH_ONLY | 3 | 1 | 1 |
 | 2026-06-29T17:48:56Z | 47ebec9a0ff1 | RESEARCH_ONLY | 3 | 1 | 1 |
 | 2026-06-29T18:01:22Z | 9d4ee66aa17c | RESEARCH_ONLY | 3 | 1 | 1 |
 | 2026-06-29T18:03:26Z | 2f673ca40870 | RESEARCH_ONLY | 3 | 1 | 1 |
@@ -103,6 +100,7 @@ Generated: `2026-06-29T22:59:36Z`
 | 2026-06-29T18:18:11Z | 82206b3eb776 | RESEARCH_ONLY | 3 | 1 | 1 |
 | 2026-06-29T21:16:03Z | de3bc654289c | RESEARCH_ONLY | 2 | 2 | 1 |
 | 2026-06-29T22:59:36Z | f236334b0ef6 | RESEARCH_ONLY | 3 | 1 | 1 |
+| 2026-06-29T23:31:26Z | e17d62fc9e0f | WATCHLIST | 4 | 1 | 0 |
 
 ## Notes
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T22:59:35Z",
+  "generated_at": "2026-06-29T23:31:25Z",
   "mode": "paper",
   "asset_focus": "ETH",
   "coverage_model": "ETH_GOLDEN_PATH",
@@ -52,8 +52,8 @@
       ],
       "quote_ready_route_count": 2,
       "active_quote_coverage": true,
-      "provider_count": 4,
-      "provider_score": "70.5000",
+      "provider_count": 5,
+      "provider_score": "76.6000",
       "coverage_score": 82,
       "score_parts": {
         "token_registry": 8,
@@ -65,8 +65,8 @@
         "route_architecture": 5
       },
       "coverage_status": "DEVELOPING",
-      "next_action": "Improve quote OK rate, paper execution samples, and add verified Base Uniswap V3 quote provider.",
-      "notes": "Current reference chain with two active DEX quote providers."
+      "next_action": "Improve sustained three-venue quote OK rate and paper execution samples before expanding beyond Base ETH.",
+      "notes": "Current reference chain with three implemented DEX quote providers."
     },
     {
       "chain": "ethereum",
@@ -278,7 +278,7 @@
   ],
   "next_actions": [
     "Keep ETH Golden Path on Base until coverage score reaches reference-ready maturity.",
-    "Implement verified Base Uniswap V3 quote provider before adding a new asset class.",
+    "Collect sustained Base Uniswap V3 quote diagnostics before adding a new asset class.",
     "Add Optimism registry metadata only after official token/DEX/router addresses are verified.",
     "Do not expand to BTC or blue chips until ETH coverage KPIs are stable."
   ],

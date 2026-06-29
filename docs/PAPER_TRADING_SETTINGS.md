@@ -31,7 +31,7 @@ reports/paper_trading_settings.md
 - Asset focus: ETH.
 - Chain: Base.
 - Routes: `WETH/USDC`, `USDC/WETH`.
-- DEXs: Uniswap V2 and Aerodrome.
+- DEXs: Uniswap V2, Aerodrome, and Uniswap V3.
 - Initial paper capital: `1.0` ETH.
 - ETH reference price: `$3500`.
 - Max paper notional per trade: `$100`.
@@ -46,7 +46,7 @@ reports/paper_trading_settings.md
 - `0.20%` remains research-only evidence, not a paper execution threshold.
 - Live trading must remain disabled.
 - Duplicate position blocking and kill switch must stay enabled.
-- Base ETH scope is the only approved v5.7 paper launch profile.
+- Base ETH scope is the only approved v5.8 paper launch profile.
 
 ## About 1 ETH
 
@@ -64,4 +64,3 @@ For live trading later, the staged plan remains:
 The autopilot can run continuously, but it should not trade every signal blindly. It should act only when quotes, provider health, report audit, ETH coverage, cost evidence, duplicate-position checks, cooldowns, and risk limits pass.
 
 Risk gates are not downtime. They are the control system that keeps 24/7 operation from becoming uncontrolled execution.
-

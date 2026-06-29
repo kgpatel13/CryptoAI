@@ -1,11 +1,11 @@
 # CryptoAI Quote Diagnostics
 
-Generated: `2026-06-29T22:59:22Z`
+Generated: `2026-06-29T23:30:45Z`
 
 ## Summary
 
-- Total quote diagnostics: `4`
-- OK: `4`
+- Total quote diagnostics: `6`
+- OK: `6`
 - Error: `0`
 - Invalid: `0`
 
@@ -13,10 +13,12 @@ Generated: `2026-06-29T22:59:22Z`
 
 | Chain | DEX | Pair | Status | Price | Amount Out | Latency ms | Error |
 |---|---|---|---|---:|---:|---:|---|
-| base | Uniswap V2 | WETH/USDC | OK | 1606.421414 | 1606.421414 | 493.66 |  |
-| base | Uniswap V2 | USDC/WETH | OK | 0.000615851648751952387 | 0.615851648751952387 | 493.66 |  |
-| base | Aerodrome | WETH/USDC | OK | 1610.017096 | 1610.017096 | 493.66 |  |
-| base | Aerodrome | USDC/WETH | OK | 0.000616939121920921347 | 0.616939121920921347 | 493.66 |  |
+| base | Uniswap V2 | WETH/USDC | OK | 1601.364689 | 1601.364689 | 0.11 |  |
+| base | Uniswap V2 | USDC/WETH | OK | 0.000617797446433891756 | 0.617797446433891756 | 0.11 |  |
+| base | Aerodrome | WETH/USDC | OK | 1605.343862 | 1605.343862 | 0.11 |  |
+| base | Aerodrome | USDC/WETH | OK | 0.000618735215856033101 | 0.618735215856033101 | 0.11 |  |
+| base | Uniswap V3 | WETH/USDC | OK | 1606.02201 | 1606.02201 | 0.11 |  |
+| base | Uniswap V3 | USDC/WETH | OK | 0.000622017009269490764 | 0.622017009269490764 | 0.11 |  |
 
 ## Interpretation
 

@@ -36,10 +36,10 @@ class EthRouteArchitectureService:
         {
             "chain": "base",
             "venue": "Uniswap V3",
-            "role": "verified_next_provider_target",
-            "status": "NOT_IMPLEMENTED",
+            "role": "implemented_quote_provider",
+            "status": "ACTIVE",
             "source": "official_uniswap_base_deployments",
-            "notes": "Official Base deployment exists; quote provider and route tests are still required locally.",
+            "notes": "Official Base SwapRouter02 and QuoterV2 are verified; local quote provider is implemented for route diagnostics.",
         },
     ]
 
@@ -300,7 +300,7 @@ class EthRouteArchitectureService:
                 ),
             },
             {"severity": "ACTION", "message": promotion["next_action"]},
-            {"severity": "ACTION", "message": "Next venue expansion target for this route is a verified Base Uniswap V3 quote provider."},
+            {"severity": "ACTION", "message": "Next venue expansion target is sustained three-venue quote evidence for Base ETH routes."},
         ]
 
     @staticmethod

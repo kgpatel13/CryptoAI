@@ -26,9 +26,9 @@ It does not approve live trading or change risk, paper, or cost thresholds.
 
 ## Current Interpretation
 
-Base `WETH/USDC` is the only configured pair with active two-DEX quote evidence.
+Base `WETH/USDC` is the primary configured pair with active quote evidence. v5.8 adds a verified Base Uniswap V3 quote provider so diagnostics can move from two-venue evidence toward sustained three-venue evidence.
 
-Base `CBBTC/USDC` is the next safest targeted quote test because Base Uniswap V2 and Aerodrome providers are already implemented, but no recent OK quote evidence exists for that pair.
+Base `CBBTC/USDC` remains a later targeted quote test. The immediate priority is keeping ETH focused while collecting Uniswap V2, Aerodrome, and Uniswap V3 quote diagnostics for `WETH/USDC` and `USDC/WETH`.
 
 Ethereum, Arbitrum, and Polygon expansion still needs verified router metadata and quote-provider implementation before those markets should be treated as tradeable evidence.
 

@@ -527,7 +527,7 @@ def render_paper_settings() -> None:
         m1, m2, m3 = st.columns(3)
         chains = m1.multiselect("Chains", ["base"], default=settings["market_scope"]["chains"])
         routes = m2.multiselect("Routes", ["WETH/USDC", "USDC/WETH"], default=settings["market_scope"]["routes"])
-        dexes = m3.multiselect("DEXs", ["Uniswap V2", "Aerodrome"], default=settings["market_scope"]["dexes"])
+        dexes = m3.multiselect("DEXs", ["Uniswap V2", "Aerodrome", "Uniswap V3"], default=settings["market_scope"]["dexes"])
 
         st.markdown("### Paper Capital")
         p1, p2, p3, p4 = st.columns(4)

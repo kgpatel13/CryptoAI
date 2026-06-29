@@ -23,6 +23,7 @@ class PaperSettingsServiceTests(unittest.TestCase):
             self.assertEqual(payload["status"], "VALID")
             self.assertEqual(payload["paper_capital_usd"], "3500.00")
             self.assertEqual(payload["settings"]["paper_capital"]["initial_capital_eth"], "1.0")
+            self.assertIn("Uniswap V3", payload["settings"]["market_scope"]["dexes"])
             self.assertFalse(payload["settings"]["live_trading_enabled"])
             self.assertTrue((root / "reports" / "paper_trading_settings.json").exists())
             self.assertTrue((root / "reports" / "paper_trading_settings.md").exists())

@@ -21,15 +21,16 @@
 - v5.4 - Quote Coverage Expansion Evidence for ranking quote-provider, router, and route-test gaps before adding more markets.
 - v5.5 - ETH Route Architecture and Buffer Candidate Evidence for focusing Base WETH/USDC and USDC/WETH, documenting real-money controls, and keeping 0.20% as a gated research candidate.
 - v5.6 - ETH Golden Path Market Coverage for scoring ETH market maturity across target chains, DEXs, stables, quote evidence, provider health, and execution-cost confidence.
+- v5.7 - 24/7 Paper Launch Settings for dashboard-managed paper parameters, 1 ETH paper capital profile, validated launch command, and unchanged safety thresholds.
 
 ## Current
 
-- v5.7 - 24/7 Paper Launch Settings for dashboard-managed paper parameters, 1 ETH paper capital profile, validated launch command, and unchanged safety thresholds.
+- v5.8 - Verified Base Uniswap V3 Quote Provider for three-venue Base ETH quote diagnostics and market coverage evidence.
 
 ## Next
 
-- v5.8 - Verified Base Uniswap V3 quote provider and ETH/stable route diagnostics expansion.
-- v5.9 - Market regime awareness, adaptive confidence, and walk-forward explainability.
+- v5.9 - Sustained 24/7 paper evidence campaign with three-venue Base ETH route diagnostics.
+- v5.10 - Market regime awareness, adaptive confidence, and walk-forward explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.
 

@@ -21,7 +21,7 @@ class EthMarketCoverageService:
             "name": "Base",
             "stage": "reference",
             "dex_targets": ["Uniswap V2", "Aerodrome", "Uniswap V3"],
-            "notes": "Current reference chain with two active DEX quote providers.",
+            "notes": "Current reference chain with three implemented DEX quote providers.",
         },
         {
             "chain": "ethereum",
@@ -293,7 +293,7 @@ class EthMarketCoverageService:
     @staticmethod
     def _chain_next_action(chain: str, missing_dexes: list[str], missing_tokens: list[str], quote_ready_routes: list[str]) -> str:
         if chain == "base" and quote_ready_routes:
-            return "Improve quote OK rate, paper execution samples, and add verified Base Uniswap V3 quote provider."
+            return "Improve sustained three-venue quote OK rate and paper execution samples before expanding beyond Base ETH."
         if missing_tokens:
             return f"Add verified token metadata for {chain}: {', '.join(missing_tokens)}."
         if missing_dexes:
@@ -306,7 +306,7 @@ class EthMarketCoverageService:
         actions = []
         if base and base["coverage_status"] != "REFERENCE_READY":
             actions.append("Keep ETH Golden Path on Base until coverage score reaches reference-ready maturity.")
-        actions.append("Implement verified Base Uniswap V3 quote provider before adding a new asset class.")
+        actions.append("Collect sustained Base Uniswap V3 quote diagnostics before adding a new asset class.")
         actions.append("Add Optimism registry metadata only after official token/DEX/router addresses are verified.")
         actions.append("Do not expand to BTC or blue chips until ETH coverage KPIs are stable.")
         return actions

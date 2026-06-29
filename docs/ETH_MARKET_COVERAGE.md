@@ -39,7 +39,7 @@ Target venues:
 - Token registry coverage
 - DEX registry coverage
 - Implemented quote-provider coverage
-- Recent two-DEX quote evidence
+- Recent two-DEX and three-DEX quote evidence
 - Provider health evidence
 - Execution-cost confidence
 - ETH route architecture evidence

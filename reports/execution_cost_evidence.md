@@ -1,6 +1,6 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-29T22:59:36Z`
+Generated: `2026-06-29T23:31:26Z`
 
 ## Summary
 
@@ -29,27 +29,26 @@ Generated: `2026-06-29T22:59:36Z`
 
 ## Quote And Provider Evidence
 
-- Quote samples: `88`
-- Quote OK rate %: `65.9091`
-- Healthy DEX count: `2`
-- Avg OK quote latency ms: `1264.4938`
-- Provider count: `4`
-- Avg provider score: `70.5000`
+- Quote samples: `94`
+- Quote OK rate %: `68.0851`
+- Healthy DEX count: `3`
+- Avg OK quote latency ms: `1145.9578`
+- Provider count: `5`
+- Avg provider score: `76.6000`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `140`
-- Max gross edge %: `0.3367`
-- Production-buffer trades: `0`
+- Real replay signals: `188`
+- Max gross edge %: `0.6830`
+- Production-buffer trades: `5`
 - Production required gross edge %: `0.60`
-- Lower-bound cost trades: `123`
-- Lower-bound replay PnL USD: `101.7534`
+- Lower-bound cost trades: `171`
+- Lower-bound replay PnL USD: `164.1083`
 
 ## Findings
 
 - `INFO` Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence.
 - `ACTION` Collect more filled paper executions; current slippage sample is 6 and target is 30+.
-- `WATCH` Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger.
 
 ## Notes
 
