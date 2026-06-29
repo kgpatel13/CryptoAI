@@ -18,6 +18,7 @@ Operations Runtime
         +--> Runtime State
         +--> Operational Metrics
         +--> Mission Summary
+        +--> Market Intelligence
         |
         v
 SchedulerService.run_once()
@@ -34,6 +35,8 @@ Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
 - `reports/operational_metrics.json` - cycle counts, failures, latency, heartbeat count, and status counts.
 - `reports/mission_summary.json` - Mission Control machine-readable summary.
 - `reports/mission_summary.md` - Mission Control human-readable summary.
+- `reports/market_intelligence.json` - chain, token, DEX, pair, provider, and readiness summary.
+- `reports/market_intelligence.md` - human-readable Market Intelligence report.
 
 ## Commands
 
@@ -41,6 +44,12 @@ Run one cycle:
 
 ```bash
 python -m app.automation.paper_autopilot --once
+```
+
+Generate market intelligence manually:
+
+```bash
+python -m app.market_intelligence.market_intelligence_service
 ```
 
 Run continuously in paper mode:
@@ -80,6 +89,8 @@ data/runtime_state.json
 reports/operational_metrics.json
 reports/mission_summary.json
 reports/mission_summary.md
+reports/market_intelligence.json
+reports/market_intelligence.md
 ```
 
 ## Rollback

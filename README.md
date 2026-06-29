@@ -66,6 +66,7 @@ python -m app.diagnostics.quote_diagnostics
 python -m app.opportunities.multi_dex_opportunity_engine
 python -m app.opportunities.opportunity_explorer
 python -m app.strategy.strategy_center
+python -m app.market_intelligence.market_intelligence_service
 python -m app.automation.paper_autopilot --once
 python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60
 python -m app.reporting.paper_report
@@ -79,6 +80,8 @@ The continuous paper autopilot publishes:
 - `reports/mission_summary.json`
 - `reports/mission_summary.md`
 - `reports/operational_metrics.json`
+- `reports/market_intelligence.json`
+- `reports/market_intelligence.md`
 
 ## Strategy Configuration
 
@@ -96,6 +99,7 @@ See:
 
 - `docs/ROADMAP.md`
 - `docs/OPERATIONS.md`
+- `docs/MARKET_INTELLIGENCE.md`
 - `docs/ARCHITECTURE.md`
 - `docs/STRATEGY_FRAMEWORK.md`
 - `docs/LIVE_READINESS.md`

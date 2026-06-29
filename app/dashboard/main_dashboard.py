@@ -82,12 +82,14 @@ def render_mission_control() -> None:
     strategy_report = REPORT_DIR / "strategy_center.json"
     mission_summary_report = REPORT_DIR / "mission_summary.json"
     heartbeat_report = DATA_DIR / "heartbeat.json"
+    market_intelligence_report = REPORT_DIR / "market_intelligence.json"
 
     paper = {}
     research = {}
     strategy = {}
     mission_summary = {}
     heartbeat = {}
+    market_intelligence = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -111,6 +113,12 @@ def render_mission_control() -> None:
                 mission_summary = payload
             else:
                 heartbeat = payload
+
+    if market_intelligence_report.exists():
+        try:
+            market_intelligence = json.loads(market_intelligence_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            market_intelligence = {}
 
     analytics = paper.get("portfolio_analytics", {})
     feature_store = research.get("feature_store", {})
@@ -137,6 +145,13 @@ def render_mission_control() -> None:
         st.json(mission_summary)
     else:
         st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
+
+    st.markdown("### Market Intelligence")
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Readiness", market_intelligence.get("overall_readiness_score", "-"))
+    m2.metric("Chains", market_intelligence.get("chain_count", "-"))
+    m3.metric("Pair Candidates", market_intelligence.get("pair_candidate_count", "-"))
+    m4.metric("Configured Pairs", market_intelligence.get("configured_pair_count", "-"))
 
     st.markdown("### Safety Status")
     st.success("Paper trading only. Live execution remains disabled.")
@@ -187,6 +202,50 @@ def render_research_dashboard() -> None:
         st.markdown(txt)
     else:
         st.info("No research_dashboard.md found yet.")
+
+
+def render_market_intelligence() -> None:
+    st.subheader("Market Intelligence")
+    if st.button("Generate Market Intelligence"):
+        def task():
+            Service = import_object("app.market_intelligence.market_intelligence_service", "MarketIntelligenceService")
+            return Service().generate()
+
+        result = safe_run("Generating market intelligence...", task)
+        if result is not None:
+            st.success("Market intelligence generated.")
+            st.json(result)
+
+    report_json = REPORT_DIR / "market_intelligence.json"
+    if report_json.exists():
+        try:
+            payload = json.loads(report_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read market intelligence: {exc}")
+            payload = {}
+
+        if payload:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Readiness", payload.get("overall_readiness_score", "-"))
+            c2.metric("Chains", payload.get("chain_count", "-"))
+            c3.metric("Pairs", payload.get("pair_candidate_count", "-"))
+            c4.metric("Configured", payload.get("configured_pair_count", "-"))
+
+            st.markdown("### Chain Readiness")
+            dataframe_or_info(payload.get("chains", []), "No chain readiness rows yet.")
+
+            st.markdown("### Pair Candidates")
+            dataframe_or_info(payload.get("pair_candidates", []), "No pair candidates yet.")
+
+            st.markdown("### Provider Summary")
+            st.json(payload.get("provider_summary", {}))
+    else:
+        st.info("No market_intelligence.json yet. Generate Market Intelligence or run paper autopilot.")
+
+    st.markdown("### Market Intelligence Report")
+    txt = read_text(REPORT_DIR / "market_intelligence.md")
+    if txt:
+        st.markdown(txt)
 
 
 def render_paper_autopilot() -> None:
@@ -512,6 +571,8 @@ def render_system_health() -> None:
         REPORT_DIR / "mission_summary.json",
         REPORT_DIR / "mission_summary.md",
         REPORT_DIR / "operational_metrics.json",
+        REPORT_DIR / "market_intelligence.json",
+        REPORT_DIR / "market_intelligence.md",
     ]:
         rows.append(
             {
@@ -572,6 +633,7 @@ def render_setup() -> None:
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
         python -m app.research.research_report
+        python -m app.market_intelligence.market_intelligence_service
         ```
         """
     )
@@ -588,10 +650,11 @@ PAGES = {
     "8 Paper Portfolio": render_paper_portfolio,
     "9 Portfolio Analytics": render_portfolio_analytics,
     "10 Strategy Center": render_strategy_center,
-    "11 Research Dashboard": render_research_dashboard,
-    "12 Risk & Controls": render_risk_controls,
-    "13 System Health": render_system_health,
-    "14 Setup / Roadmap": render_setup,
+    "11 Market Intelligence": render_market_intelligence,
+    "12 Research Dashboard": render_research_dashboard,
+    "13 Risk & Controls": render_risk_controls,
+    "14 System Health": render_system_health,
+    "15 Setup / Roadmap": render_setup,
 }
 
 

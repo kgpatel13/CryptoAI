@@ -5,6 +5,7 @@
 - Added Operations Runtime for heartbeat, runtime state, graceful shutdown, uptime tracking, mission summary, and operational metrics.
 - Wired continuous `paper_autopilot --loop` through the operations runtime.
 - Added Mission Control dashboard visibility for runtime heartbeat and mission summary.
+- Added Market Intelligence report for chain, DEX, token, pair, provider-health, and readiness scoring.
 - Added operations regression tests with deterministic fake cycle runners.
 - Added v4.1 operations documentation and release notes.
 

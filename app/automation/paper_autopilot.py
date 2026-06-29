@@ -31,6 +31,11 @@ try:
 except Exception:
     OperationsRuntime = None
 
+try:
+    from app.market_intelligence.market_intelligence_service import MarketIntelligenceService
+except Exception:
+    MarketIntelligenceService = None
+
 
 class PaperAutopilot:
     """Safe paper-trading autopilot.
@@ -44,6 +49,14 @@ class PaperAutopilot:
     def run_once(self) -> dict:
         self._publish("Paper autopilot cycle started.")
 
+        market_readiness_score = None
+        if MarketIntelligenceService is not None:
+            try:
+                market_intelligence = MarketIntelligenceService().generate()
+                market_readiness_score = market_intelligence.get("overall_readiness_score")
+            except Exception:
+                market_readiness_score = None
+
         opportunity_count = 0
         if OpportunityExplorerService is not None:
             try:
@@ -56,6 +69,7 @@ class PaperAutopilot:
             return {
                 "status": "FAILED",
                 "message": "SchedulerService is not available.",
+                "market_readiness_score": market_readiness_score,
                 "opportunity_decisions": opportunity_count,
                 "timestamp": self._utc_now(),
             }
@@ -68,6 +82,7 @@ class PaperAutopilot:
             "status": result.status.value if hasattr(result.status, "value") else str(result.status),
             "run_id": result.run_id,
             "paper_execution_enabled": result.paper_execution_enabled,
+            "market_readiness_score": market_readiness_score,
             "opportunity_decisions": opportunity_count,
             "total_latency_ms": result.total_latency_ms,
             "steps": [
