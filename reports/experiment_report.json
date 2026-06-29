@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T13:25:42Z",
+  "generated_at": "2026-06-29T14:15:00Z",
   "mode": "paper",
   "status": "RESEARCH_ONLY",
   "gate_count": 5,
@@ -7,8 +7,8 @@
   "warn_count": 1,
   "fail_count": 1,
   "latest_experiment": {
-    "experiment_id": "6da896c5d39b",
-    "generated_at": "2026-06-29T13:25:42Z",
+    "experiment_id": "17711d33a07b",
+    "generated_at": "2026-06-29T14:15:00Z",
     "mode": "paper",
     "label": "default-replay-optimization",
     "status": "RESEARCH_ONLY",
@@ -18,17 +18,34 @@
     "warn_count": 1,
     "fail_count": 1,
     "summary": {
-      "backtest_total_signals": 45,
+      "backtest_total_signals": 79,
       "backtest_trades": 0,
       "backtest_pnl_usd": "0.0000",
       "optimization_scenarios": 48,
-      "optimization_best_trades": 19,
-      "optimization_best_pnl_usd": "9.6452",
+      "optimization_best_trades": 36,
+      "optimization_best_pnl_usd": "13.1480",
       "optimization_best_cost_buffer_pct": "0.20",
       "provider_status": "WATCH",
-      "provider_alert_count": 3,
+      "provider_alert_count": 2,
       "paper_total_pnl_usd": "2.8220",
       "audit_finding_count": 0
+    },
+    "replay_diagnostics": {
+      "production_cost_buffer_pct": "0.30",
+      "production_trade_count": 0,
+      "best_profitable_cost_buffer_pct": "0.20",
+      "best_profitable_trade_count": 36,
+      "best_profitable_total_pnl_usd": "13.1480",
+      "findings": [
+        {
+          "severity": "WATCH",
+          "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 36 trade(s)."
+        },
+        {
+          "severity": "ACTION",
+          "message": "Collect execution-cost evidence before considering any lower paper threshold."
+        }
+      ]
     },
     "gates": [
       {
@@ -39,12 +56,12 @@
       {
         "name": "optimization_has_minimum_sample",
         "status": "PASS",
-        "message": "Best scenario trades=19, pnl_usd=9.6452, min_trades=5."
+        "message": "Best scenario trades=36, pnl_usd=13.1480, min_trades=5."
       },
       {
         "name": "provider_health_not_critical",
         "status": "WARN",
-        "message": "Provider status is WATCH with 3 alert(s)."
+        "message": "Provider status is WATCH with 2 alert(s)."
       },
       {
         "name": "paper_pnl_non_negative",
@@ -63,7 +80,7 @@
       "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
     ]
   },
-  "experiment_count": 3,
+  "experiment_count": 7,
   "history_file": "data\\experiments.jsonl",
   "recent_experiments": [
     {
@@ -219,6 +236,302 @@
           "name": "provider_health_not_critical",
           "status": "WARN",
           "message": "Provider status is WATCH with 3 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=2.8220."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "PASS",
+          "message": "Report audit has no findings."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    },
+    {
+      "experiment_id": "56a7c49964ba",
+      "generated_at": "2026-06-29T14:07:59Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 3,
+      "warn_count": 1,
+      "fail_count": 1,
+      "summary": {
+        "backtest_total_signals": 53,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 23,
+        "optimization_best_pnl_usd": "11.5049",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "WATCH",
+        "provider_alert_count": 3,
+        "paper_total_pnl_usd": "2.8220",
+        "audit_finding_count": 0
+      },
+      "replay_diagnostics": {
+        "production_cost_buffer_pct": "0.30",
+        "production_trade_count": 0,
+        "best_profitable_cost_buffer_pct": "0.20",
+        "best_profitable_trade_count": 23,
+        "best_profitable_total_pnl_usd": "11.5049",
+        "findings": [
+          {
+            "severity": "WATCH",
+            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 23 trade(s)."
+          },
+          {
+            "severity": "ACTION",
+            "message": "Collect execution-cost evidence before considering any lower paper threshold."
+          }
+        ]
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=23, pnl_usd=11.5049, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "WARN",
+          "message": "Provider status is WATCH with 3 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=2.8220."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "PASS",
+          "message": "Report audit has no findings."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    },
+    {
+      "experiment_id": "0bee65006c9d",
+      "generated_at": "2026-06-29T14:08:45Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 2,
+      "warn_count": 2,
+      "fail_count": 1,
+      "summary": {
+        "backtest_total_signals": 63,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 28,
+        "optimization_best_pnl_usd": "11.6444",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "WATCH",
+        "provider_alert_count": 3,
+        "paper_total_pnl_usd": "2.8220",
+        "audit_finding_count": 17
+      },
+      "replay_diagnostics": {
+        "production_cost_buffer_pct": "0.30",
+        "production_trade_count": 0,
+        "best_profitable_cost_buffer_pct": "0.20",
+        "best_profitable_trade_count": 28,
+        "best_profitable_total_pnl_usd": "11.6444",
+        "findings": [
+          {
+            "severity": "WATCH",
+            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 28 trade(s)."
+          },
+          {
+            "severity": "ACTION",
+            "message": "Collect execution-cost evidence before considering any lower paper threshold."
+          }
+        ]
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=28, pnl_usd=11.6444, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "WARN",
+          "message": "Provider status is WATCH with 3 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=2.8220."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "WARN",
+          "message": "Report audit has 17 finding(s). Review before tuning."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    },
+    {
+      "experiment_id": "745bcc6fd902",
+      "generated_at": "2026-06-29T14:12:38Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 3,
+      "warn_count": 1,
+      "fail_count": 1,
+      "summary": {
+        "backtest_total_signals": 71,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 32,
+        "optimization_best_pnl_usd": "12.1156",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "WATCH",
+        "provider_alert_count": 2,
+        "paper_total_pnl_usd": "2.8220",
+        "audit_finding_count": 0
+      },
+      "replay_diagnostics": {
+        "production_cost_buffer_pct": "0.30",
+        "production_trade_count": 0,
+        "best_profitable_cost_buffer_pct": "0.20",
+        "best_profitable_trade_count": 32,
+        "best_profitable_total_pnl_usd": "12.1156",
+        "findings": [
+          {
+            "severity": "WATCH",
+            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 32 trade(s)."
+          },
+          {
+            "severity": "ACTION",
+            "message": "Collect execution-cost evidence before considering any lower paper threshold."
+          }
+        ]
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=32, pnl_usd=12.1156, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "WARN",
+          "message": "Provider status is WATCH with 2 alert(s)."
+        },
+        {
+          "name": "paper_pnl_non_negative",
+          "status": "PASS",
+          "message": "Paper total_pnl_usd=2.8220."
+        },
+        {
+          "name": "report_audit_has_no_findings",
+          "status": "PASS",
+          "message": "Report audit has no findings."
+        }
+      ],
+      "notes": [
+        "Experiment tracking records research evidence only.",
+        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
+        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
+      ]
+    },
+    {
+      "experiment_id": "17711d33a07b",
+      "generated_at": "2026-06-29T14:15:00Z",
+      "mode": "paper",
+      "label": "default-replay-optimization",
+      "status": "RESEARCH_ONLY",
+      "promotion_allowed": false,
+      "gate_count": 5,
+      "pass_count": 3,
+      "warn_count": 1,
+      "fail_count": 1,
+      "summary": {
+        "backtest_total_signals": 79,
+        "backtest_trades": 0,
+        "backtest_pnl_usd": "0.0000",
+        "optimization_scenarios": 48,
+        "optimization_best_trades": 36,
+        "optimization_best_pnl_usd": "13.1480",
+        "optimization_best_cost_buffer_pct": "0.20",
+        "provider_status": "WATCH",
+        "provider_alert_count": 2,
+        "paper_total_pnl_usd": "2.8220",
+        "audit_finding_count": 0
+      },
+      "replay_diagnostics": {
+        "production_cost_buffer_pct": "0.30",
+        "production_trade_count": 0,
+        "best_profitable_cost_buffer_pct": "0.20",
+        "best_profitable_trade_count": 36,
+        "best_profitable_total_pnl_usd": "13.1480",
+        "findings": [
+          {
+            "severity": "WATCH",
+            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 36 trade(s)."
+          },
+          {
+            "severity": "ACTION",
+            "message": "Collect execution-cost evidence before considering any lower paper threshold."
+          }
+        ]
+      },
+      "gates": [
+        {
+          "name": "default_replay_has_positive_trades",
+          "status": "FAIL",
+          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
+        },
+        {
+          "name": "optimization_has_minimum_sample",
+          "status": "PASS",
+          "message": "Best scenario trades=36, pnl_usd=13.1480, min_trades=5."
+        },
+        {
+          "name": "provider_health_not_critical",
+          "status": "WARN",
+          "message": "Provider status is WATCH with 2 alert(s)."
         },
         {
           "name": "paper_pnl_non_negative",

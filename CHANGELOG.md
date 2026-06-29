@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.1 - Replay Diagnostics and Evidence Gap Analysis
+
+- Added Replay Diagnostics report for explaining why production-buffer replay has zero trades.
+- Compared production cost buffer against lower-buffer research scenarios without automatically relaxing risk.
+- Integrated replay diagnostics into Experiment Evidence and Strategy Intelligence next actions.
+- Added dashboard metrics and report view for Replay Diagnostics.
+- Added Replay Diagnostics to Report Audit expected outputs.
+- Added regression tests for lower-buffer diagnostic findings.
+
 ## v5.0 - AI Strategy Intelligence
 
 - Added measured Strategy Intelligence report for strategy-level scoring and recommendations.

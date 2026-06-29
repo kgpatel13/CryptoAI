@@ -36,10 +36,14 @@ class ExperimentService:
             from app.backtesting.optimization_service import OptimizationService
 
             OptimizationService(data_dir=self.data_dir, report_dir=self.report_dir).run()
+        from app.backtesting.replay_diagnostics_service import ReplayDiagnosticsService
+
+        ReplayDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
 
         generated_at = self._utc_now()
         backtest = self._read_json(self.report_json.with_name("backtest_report.json"))
         optimization = self._read_json(self.report_json.with_name("optimization_report.json"))
+        replay_diagnostics = self._read_json(self.report_json.with_name("replay_diagnostics.json"))
         provider = self._read_json(self.report_json.with_name("provider_monitor.json"))
         paper = self._read_json(self.report_json.with_name("paper_report.json"))
         audit = self._read_json(self.report_json.with_name("report_audit.json"))
@@ -74,6 +78,7 @@ class ExperimentService:
             "warn_count": warn_count,
             "fail_count": fail_count,
             "summary": self._summary(backtest, optimization, provider, paper, audit),
+            "replay_diagnostics": self._replay_diagnostic_summary(replay_diagnostics),
             "gates": gates,
             "notes": [
                 "Experiment tracking records research evidence only.",
@@ -117,7 +122,7 @@ class ExperimentService:
         provider_status = str(provider.get("overall_status", "UNKNOWN"))
         provider_alerts = self._int(provider.get("alert_count"))
         paper_pnl = self._decimal(paper.get("portfolio_analytics", {}).get("total_pnl_usd"))
-        audit_findings = self._int(audit.get("finding_count"))
+        audit_findings = self._audit_finding_count(audit)
 
         gates = [
             self._gate(
@@ -203,7 +208,18 @@ class ExperimentService:
             "provider_status": provider.get("overall_status"),
             "provider_alert_count": provider.get("alert_count"),
             "paper_total_pnl_usd": paper.get("portfolio_analytics", {}).get("total_pnl_usd"),
-            "audit_finding_count": audit.get("finding_count"),
+            "audit_finding_count": self._audit_finding_count(audit),
+        }
+
+    @staticmethod
+    def _replay_diagnostic_summary(replay_diagnostics: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "production_cost_buffer_pct": replay_diagnostics.get("production_cost_buffer_pct"),
+            "production_trade_count": replay_diagnostics.get("production_trade_count"),
+            "best_profitable_cost_buffer_pct": replay_diagnostics.get("best_profitable_cost_buffer_pct"),
+            "best_profitable_trade_count": replay_diagnostics.get("best_profitable_trade_count"),
+            "best_profitable_total_pnl_usd": replay_diagnostics.get("best_profitable_total_pnl_usd"),
+            "findings": replay_diagnostics.get("findings", []),
         }
 
     @staticmethod
@@ -254,6 +270,14 @@ class ExperimentService:
         ]
         for key, value in latest["summary"].items():
             lines.append(f"- {key}: `{value}`")
+        lines += ["", "## Replay Diagnostics", ""]
+        for key, value in latest.get("replay_diagnostics", {}).items():
+            if key == "findings":
+                continue
+            lines.append(f"- {key}: `{value}`")
+        findings = latest.get("replay_diagnostics", {}).get("findings", [])
+        for finding in findings:
+            lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
         lines += ["", "## Gates", "", "| Gate | Status | Message |", "|---|---|---|"]
         for gate in latest["gates"]:
             lines.append(f"| {gate['name']} | {gate['status']} | {gate['message'].replace('|', '/')} |")
@@ -298,6 +322,28 @@ class ExperimentService:
             return int(value)
         except Exception:
             return 0
+
+    @classmethod
+    def _audit_finding_count(cls, audit: dict[str, Any]) -> int:
+        findings = audit.get("findings")
+        if not isinstance(findings, list):
+            return cls._int(audit.get("finding_count"))
+        downstream_reports = {
+            "experiment_report.json",
+            "experiment_report.md",
+            "strategy_intelligence.json",
+            "strategy_intelligence.md",
+        }
+        actionable = [
+            finding
+            for finding in findings
+            if not (
+                isinstance(finding, dict)
+                and finding.get("report") in downstream_reports
+                and finding.get("message") == "Report is older than freshness window."
+            )
+        ]
+        return len(actionable)
 
     @staticmethod
     def _utc_now() -> str:

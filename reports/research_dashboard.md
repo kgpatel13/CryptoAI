@@ -1,6 +1,6 @@
 # CryptoAI Research Dashboard
 
-Generated: `2026-06-29T13:25:17Z`
+Generated: `2026-06-29T14:12:20Z`
 
 ## Mission Control
 
@@ -9,34 +9,40 @@ Generated: `2026-06-29T13:25:17Z`
 - Portfolio equity USD: `$10002.8220`
 - Total PnL USD: `$2.8220`
 - Total return %: `0.0282`
-- Feature vectors: `303`
+- Feature vectors: `365`
 - Tradeable or filled records: `180`
 - Strategies: `1/5 active`
 
 ## Feature Store
 
-- Feature vectors: `303`
-- Average net edge %: `0.2194`
+- Feature vectors: `365`
+- Average net edge %: `0.1582`
 - Max net edge %: `0.3500`
 
 ### Source Counts
 
-- `opportunity_decision`: 123
-- `multi_dex_opportunity`: 125
-- `paper_order`: 45
-- `strategy_signal`: 10
+- `opportunity_decision`: 149
+- `multi_dex_opportunity`: 151
+- `paper_order`: 49
+- `strategy_signal`: 16
 
 ### Top Pairs
 
 | Pair | Count |
 |---|---:|
-| WETH/USDC | 134 |
-| USDC/WETH | 128 |
+| WETH/USDC | 165 |
+| USDC/WETH | 159 |
 
 ## Recent Features
 
 | Time | Source | Pair | Decision | Edge % | Reason |
 |---|---|---|---|---:|---|
+| 2026-06-29T14:08:37Z | strategy_signal | USDC/WETH | SKIP | -0.0972099073325391546686591745 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| 2026-06-29T14:08:37Z | strategy_signal | WETH/USDC | SKIP | -0.1038540157994195894303357355 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| 2026-06-29T13:34:59Z | strategy_signal | USDC/WETH | SKIP | -0.1475851574587660361695146862 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1476% is too low after costs. |
+| 2026-06-29T13:34:59Z | strategy_signal | WETH/USDC | SKIP | -0.0530589499588809716230039761 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0531% is too low after costs. |
+| 2026-06-29T13:25:18Z | strategy_signal | USDC/WETH | SKIP | -0.1516396104383123414073092587 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
+| 2026-06-29T13:25:18Z | strategy_signal | WETH/USDC | SKIP | -0.0488922657387659179562356805 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
 | 2026-06-29T12:47:14Z | strategy_signal | USDC/WETH | SKIP | -0.1379511013551796416279028826 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs. |
 | 2026-06-29T12:47:14Z | strategy_signal | WETH/USDC | SKIP | -0.0627867526571790265828422155 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0628% is too low after costs. |
 | 2026-06-29T02:29:02Z | strategy_signal | USDC/WETH | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
@@ -47,16 +53,10 @@ Generated: `2026-06-29T13:25:17Z`
 | 2026-06-28T18:36:53Z | strategy_signal | WETH/USDC | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-28T18:23:10Z | strategy_signal | - | WATCH | None | Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
 | 2026-06-28T18:22:32Z | strategy_signal | - | WATCH | None | Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| 2026-06-29T13:25:00Z | paper_order | USDC/WETH | SKIPPED | -0.1516396104383123414073092587 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1516% is below paper threshold 0.30%. |
-| 2026-06-29T13:25:00Z | paper_order | WETH/USDC | SKIPPED | -0.0488922657387659179562356805 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0489% is below paper threshold 0.30%. |
-| 2026-06-29T02:12:42Z | paper_order | USDC/WETH | FILLED | 0.3500 | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T02:12:42Z | paper_order | WETH/USDC | FILLED | 0.3500 | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T01:11:32Z | paper_order | USDC/WETH | FILLED | 0.3500 | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T01:11:32Z | paper_order | WETH/USDC | FILLED | 0.3500 | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-28T18:37:01Z | paper_order | USDC/WETH | RISK_REJECTED | 0.3500 | Portfolio risk rejected: existing open BUY position for USDC/WETH; reuse/monitor the open position instead of adding duplicate exposure. |
-| 2026-06-28T18:37:01Z | paper_order | WETH/USDC | RISK_REJECTED | 0.3500 | Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure. |
-| 2026-06-28T18:14:25Z | paper_order | USDC/WETH | RISK_REJECTED | 0.3500 | Portfolio risk rejected: existing open BUY position for USDC/WETH; reuse/monitor the open position instead of adding duplicate exposure. |
-| 2026-06-28T18:14:25Z | paper_order | WETH/USDC | FILLED | 0.3500 | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T14:12:10Z | paper_order | USDC/WETH | SKIPPED | -0.0882186845516571827872423019 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0882% is below paper threshold 0.30%. |
+| 2026-06-29T14:12:10Z | paper_order | WETH/USDC | SKIPPED | -0.1128390759035909960434897425 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1128% is below paper threshold 0.30%. |
+| 2026-06-29T14:08:22Z | paper_order | USDC/WETH | SKIPPED | -0.0972099073325391546686591745 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0972% is below paper threshold 0.30%. |
+| 2026-06-29T14:08:22Z | paper_order | WETH/USDC | SKIPPED | -0.1038540157994195894303357355 | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1039% is below paper threshold 0.30%. |
 
 ## Notes
 

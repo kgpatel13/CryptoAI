@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-29T13:34:55Z",
+  "generated_at": "2026-06-29T14:12:20Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "WATCH",
-  "alert_count": 3,
+  "alert_count": 2,
   "critical_alert_count": 0,
   "degraded_alert_count": 0,
   "stale_after_seconds": 900,
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 284.37,
-      "last_observed_age_seconds": 407.15,
+      "avg_latency_ms": 287.14,
+      "last_observed_age_seconds": 23.12,
       "last_error": null,
       "alerts": []
     },
@@ -28,39 +28,31 @@
       "name": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "score": 63,
-      "status": "WATCH",
-      "current_status": "WATCH",
-      "rolling_status": "DEGRADED",
+      "score": 71,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 63.64,
+      "success_rate_pct": 71.43,
       "consecutive_failures": 0,
-      "avg_latency_ms": 274.81,
-      "last_observed_age_seconds": 406.08,
+      "avg_latency_ms": 300.85,
+      "last_observed_age_seconds": 21.89,
       "last_error": null,
-      "alerts": [
-        {
-          "severity": "WATCH",
-          "provider": "Aerodrome",
-          "provider_type": "dex",
-          "chain": "base",
-          "message": "Provider has fresh successful observations but rolling score 63 is still recovering."
-        }
-      ]
+      "alerts": []
     },
     {
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 96,
+      "score": 97,
       "status": "OK",
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 96.23,
+      "success_rate_pct": 97.37,
       "consecutive_failures": 0,
-      "avg_latency_ms": 234.94,
-      "last_observed_age_seconds": 405.35,
+      "avg_latency_ms": 240.45,
+      "last_observed_age_seconds": 9.15,
       "last_error": null,
       "alerts": []
     },
@@ -76,7 +68,7 @@
       "success_rate_pct": 0.0,
       "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 39620.49,
+      "last_observed_age_seconds": 41864.67,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
@@ -91,7 +83,7 @@
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 39620.49 seconds old."
+          "message": "Provider observation is stale at 41864.67 seconds old."
         }
       ]
     }
@@ -100,11 +92,11 @@
     {
       "chain": "base",
       "provider_count": 4,
-      "average_score": 65,
+      "average_score": 67,
       "status": "WATCH",
       "critical_count": 0,
       "degraded_count": 0,
-      "watch_count": 2,
+      "watch_count": 1,
       "required_provider_count": 3
     }
   ],
@@ -112,8 +104,8 @@
     {
       "provider_type": "dex",
       "provider_count": 2,
-      "average_score": 82,
-      "status": "WATCH",
+      "average_score": 86,
+      "status": "OK",
       "required_provider_count": 2
     },
     {
@@ -127,13 +119,6 @@
   "alerts": [
     {
       "severity": "WATCH",
-      "provider": "Aerodrome",
-      "provider_type": "dex",
-      "chain": "base",
-      "message": "Provider has fresh successful observations but rolling score 63 is still recovering."
-    },
-    {
-      "severity": "WATCH",
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
@@ -144,7 +129,7 @@
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 39620.49 seconds old."
+      "message": "Provider observation is stale at 41864.67 seconds old."
     }
   ],
   "notes": [

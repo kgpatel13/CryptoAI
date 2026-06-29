@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-29T13:35:07Z",
+  "generated_at": "2026-06-29T14:15:05Z",
   "mode": "paper",
-  "report_count": 25,
+  "report_count": 27,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -10,34 +10,34 @@
     {
       "name": "quote_diagnostics.md",
       "exists": true,
-      "size_bytes": 738,
-      "generated_at": "2026-06-29T13:25:31Z",
+      "size_bytes": 748,
+      "generated_at": "2026-06-29T14:11:58Z",
       "stale": false
     },
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
       "size_bytes": 925,
-      "generated_at": "2026-06-29T13:34:59Z",
+      "generated_at": "2026-06-29T14:14:53Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
       "size_bytes": 505,
-      "generated_at": "2026-06-29T13:34:59Z",
+      "generated_at": "2026-06-29T14:14:53Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "exists": true,
-      "size_bytes": 42673,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "size_bytes": 44060,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "total_orders": 45,
+        "total_orders": 49,
         "filled_orders": 12,
         "legacy_accounting_warning_count": 0
       }
@@ -45,15 +45,15 @@
     {
       "name": "paper_report.md",
       "exists": true,
-      "size_bytes": 9294,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "size_bytes": 10054,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
       "size_bytes": 7630,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -64,14 +64,14 @@
       "name": "portfolio_analytics.md",
       "exists": true,
       "size_bytes": 3184,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     },
     {
       "name": "strategy_center.json",
       "exists": true,
-      "size_bytes": 14081,
-      "generated_at": "2026-06-29T13:34:59Z",
+      "size_bytes": 16669,
+      "generated_at": "2026-06-29T14:12:21Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -82,15 +82,15 @@
     {
       "name": "strategy_center.md",
       "exists": true,
-      "size_bytes": 4025,
-      "generated_at": "2026-06-29T13:34:59Z",
+      "size_bytes": 4909,
+      "generated_at": "2026-06-29T14:12:21Z",
       "stale": false
     },
     {
       "name": "strategy_intelligence.json",
       "exists": true,
-      "size_bytes": 7510,
-      "generated_at": "2026-06-29T13:35:07Z",
+      "size_bytes": 8249,
+      "generated_at": "2026-06-29T14:15:05Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -102,34 +102,34 @@
     {
       "name": "strategy_intelligence.md",
       "exists": true,
-      "size_bytes": 2870,
-      "generated_at": "2026-06-29T13:35:07Z",
+      "size_bytes": 3419,
+      "generated_at": "2026-06-29T14:15:05Z",
       "stale": false
     },
     {
       "name": "feature_store.json",
       "exists": true,
-      "size_bytes": 1626,
-      "generated_at": "2026-06-29T13:34:56Z",
+      "size_bytes": 1627,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "feature_count": 313
+        "feature_count": 365
       }
     },
     {
       "name": "feature_store.md",
       "exists": true,
-      "size_bytes": 1079,
-      "generated_at": "2026-06-29T13:34:56Z",
+      "size_bytes": 1080,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     },
     {
       "name": "research_dashboard.json",
       "exists": true,
-      "size_bytes": 17320,
-      "generated_at": "2026-06-29T13:25:17Z",
+      "size_bytes": 17515,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -139,19 +139,19 @@
     {
       "name": "research_dashboard.md",
       "exists": true,
-      "size_bytes": 4434,
-      "generated_at": "2026-06-29T13:25:17Z",
+      "size_bytes": 4674,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     },
     {
       "name": "backtest_report.json",
       "exists": true,
       "size_bytes": 685,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false,
       "json_valid": true,
       "summary": {
-        "total_signals": 45,
+        "total_signals": 79,
         "simulated_trades": 0
       }
     },
@@ -159,41 +159,63 @@
       "name": "backtest_report.md",
       "exists": true,
       "size_bytes": 732,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "generated_at": "2026-06-29T14:15:00Z",
+      "stale": false
+    },
+    {
+      "name": "replay_diagnostics.json",
+      "exists": true,
+      "size_bytes": 2242,
+      "generated_at": "2026-06-29T14:15:00Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "production_trade_count": 0,
+        "best_profitable_trade_count": 36,
+        "input_row_count": 208,
+        "deduped_row_count": 161
+      }
+    },
+    {
+      "name": "replay_diagnostics.md",
+      "exists": true,
+      "size_bytes": 1226,
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false
     },
     {
       "name": "optimization_report.json",
       "exists": true,
-      "size_bytes": 66505,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "size_bytes": 74523,
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "input_row_count": 166,
-        "deduped_row_count": 127,
+        "input_row_count": 208,
+        "deduped_row_count": 161,
         "scenario_count": 48
       }
     },
     {
       "name": "optimization_report.md",
       "exists": true,
-      "size_bytes": 2058,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "size_bytes": 2060,
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false
     },
     {
       "name": "experiment_report.json",
       "exists": true,
-      "size_bytes": 8290,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "size_bytes": 19526,
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "status": "RESEARCH_ONLY",
-        "experiment_count": 3,
+        "experiment_count": 7,
         "gate_count": 5,
         "pass_count": 3,
         "warn_count": 1,
@@ -203,15 +225,15 @@
     {
       "name": "experiment_report.md",
       "exists": true,
-      "size_bytes": 1735,
-      "generated_at": "2026-06-29T13:25:42Z",
+      "size_bytes": 2410,
+      "generated_at": "2026-06-29T14:15:00Z",
       "stale": false
     },
     {
       "name": "market_intelligence.json",
       "exists": true,
       "size_bytes": 4261,
-      "generated_at": "2026-06-29T13:25:38Z",
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -223,28 +245,28 @@
       "name": "market_intelligence.md",
       "exists": true,
       "size_bytes": 1267,
-      "generated_at": "2026-06-29T13:25:38Z",
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "exists": true,
-      "size_bytes": 4619,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "size_bytes": 4095,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "WATCH",
         "provider_count": 4,
-        "alert_count": 3
+        "alert_count": 2
       }
     },
     {
       "name": "provider_monitor.md",
       "exists": true,
-      "size_bytes": 1510,
-      "generated_at": "2026-06-29T13:34:55Z",
+      "size_bytes": 1374,
+      "generated_at": "2026-06-29T14:12:20Z",
       "stale": false
     }
   ],

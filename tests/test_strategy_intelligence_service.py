@@ -36,6 +36,33 @@ class StrategyIntelligenceServiceTests(unittest.TestCase):
             self.assertEqual(row["recommendation"], "CONTINUE_RESEARCH")
             self.assertIn("Experiment evidence has 1 failing gate(s).", row["blockers"])
 
+    def test_stale_existing_strategy_intelligence_report_does_not_block_itself(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp) / "reports"
+            reports.mkdir()
+            self._write_base_reports(reports, experiment_fail_count=0, experiment_warn_count=0, closed_positions=12)
+            (reports / "report_audit.json").write_text(
+                json.dumps(
+                    {
+                        "generated_at": "2026-06-29T00:00:00Z",
+                        "finding_count": 1,
+                        "findings": [
+                            {
+                                "severity": "WATCH",
+                                "report": "strategy_intelligence.json",
+                                "message": "Report is older than freshness window.",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            payload = StrategyIntelligenceService(data_dir=Path(tmp) / "data", report_dir=reports).generate()
+
+            self.assertEqual(payload["context"]["audit_finding_count"], 0)
+            self.assertEqual(payload["strategies"][0]["recommendation"], "PAPER_OPTIMIZE_CANDIDATE")
+
     @staticmethod
     def _write_base_reports(
         reports: Path,

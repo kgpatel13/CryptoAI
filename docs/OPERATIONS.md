@@ -37,6 +37,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/provider_monitor.md` - human-readable Provider Monitor report.
 - `reports/backtest_report.json` - multi-DEX replay backtest metrics.
 - `reports/backtest_report.md` - human-readable Backtest report.
+- `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
+- `reports/replay_diagnostics.md` - human-readable Replay Diagnostics report.
 - `reports/optimization_report.json` - parameter-grid optimization metrics.
 - `reports/optimization_report.md` - human-readable Optimization report.
 - `reports/experiment_report.json` - experiment evidence gates for replay, optimization, provider health, paper PnL, and report audit.
@@ -77,6 +79,8 @@ Generate report audit manually:
 python -m app.reporting.report_audit
 ```
 
+For an evidence-refresh run, run Report Audit once before experiment and Strategy Intelligence, then run it again after Strategy Intelligence. The first audit becomes input evidence; the final audit certifies the full report set.
+
 Archive legacy paper-order rows after reviewing a dry run:
 
 ```bash
@@ -90,6 +94,12 @@ Generate replay backtest manually:
 python -m app.backtesting.backtest_service
 ```
 
+Generate replay diagnostics manually:
+
+```bash
+python -m app.backtesting.replay_diagnostics_service
+```
+
 Generate optimization manually:
 
 ```bash
@@ -99,6 +109,7 @@ python -m app.backtesting.optimization_service
 Record experiment evidence manually:
 
 ```bash
+python -m app.reporting.report_audit
 python -m app.backtesting.experiment_service
 ```
 
@@ -106,6 +117,7 @@ Generate strategy intelligence manually:
 
 ```bash
 python -m app.ai.strategy_intelligence_service
+python -m app.reporting.report_audit
 ```
 
 Run continuously in paper mode:
@@ -151,6 +163,8 @@ reports/provider_monitor.json
 reports/provider_monitor.md
 reports/backtest_report.json
 reports/backtest_report.md
+reports/replay_diagnostics.json
+reports/replay_diagnostics.md
 reports/optimization_report.json
 reports/optimization_report.md
 reports/experiment_report.json

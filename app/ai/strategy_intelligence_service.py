@@ -22,6 +22,7 @@ class StrategyIntelligenceService:
         strategy_center = self._read_json("strategy_center.json")
         feature_store = self._read_json("feature_store.json")
         optimization = self._read_json("optimization_report.json")
+        replay_diagnostics = self._read_json("replay_diagnostics.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -34,6 +35,7 @@ class StrategyIntelligenceService:
         context = self._context(
             feature_store=feature_store,
             optimization=optimization,
+            replay_diagnostics=replay_diagnostics,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -65,6 +67,7 @@ class StrategyIntelligenceService:
         *,
         feature_store: dict[str, Any],
         optimization: dict[str, Any],
+        replay_diagnostics: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -83,12 +86,17 @@ class StrategyIntelligenceService:
             "optimization_best_trades": self._int(best.get("trade_count")),
             "optimization_best_pnl_usd": str(best.get("total_pnl_usd", "0")),
             "optimization_best_cost_buffer_pct": str(best.get("cost_buffer_pct", "-")),
+            "replay_production_cost_buffer_pct": str(replay_diagnostics.get("production_cost_buffer_pct", "-")),
+            "replay_production_trade_count": self._int(replay_diagnostics.get("production_trade_count")),
+            "replay_best_profitable_cost_buffer_pct": str(replay_diagnostics.get("best_profitable_cost_buffer_pct", "-")),
+            "replay_best_profitable_trade_count": self._int(replay_diagnostics.get("best_profitable_trade_count")),
+            "replay_best_profitable_total_pnl_usd": str(replay_diagnostics.get("best_profitable_total_pnl_usd", "0")),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
             "provider_status": str(provider.get("overall_status", "UNKNOWN")),
             "provider_alert_count": self._int(provider.get("alert_count")),
-            "audit_finding_count": self._int(audit.get("finding_count")),
+            "audit_finding_count": self._audit_finding_count(audit),
             "paper_total_pnl_usd": str(paper_analytics.get("total_pnl_usd", "0")),
             "paper_total_return_pct": str(paper_analytics.get("total_return_pct", "0")),
             "paper_filled_orders": self._int(paper.get("filled_orders")),
@@ -208,6 +216,10 @@ class StrategyIntelligenceService:
             blockers.append(f"Report audit has {context['audit_finding_count']} finding(s).")
         if context["experiment_fail_count"]:
             blockers.append(f"Experiment evidence has {context['experiment_fail_count']} failing gate(s).")
+        if context["replay_production_trade_count"] == 0 and context["replay_best_profitable_trade_count"] > 0:
+            blockers.append(
+                "Production replay has 0 trades while lower cost-buffer diagnostics are profitable."
+            )
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -231,6 +243,13 @@ class StrategyIntelligenceService:
         if recommendation == "HOLD_FIX_OPERATIONS":
             return ["Fix provider/audit findings, regenerate reports, and rerun experiment evidence."]
         if recommendation == "CONTINUE_RESEARCH":
+            if context.get("replay_best_profitable_trade_count", 0):
+                return [
+                    (
+                        "Keep production buffer unchanged; collect execution-cost evidence to prove whether "
+                        f"{context['replay_best_profitable_cost_buffer_pct']}% is realistic."
+                    )
+                ]
             return ["Improve replay coverage until default replay produces positive production-buffer trades."]
         if recommendation == "WATCHLIST":
             return ["Continue paper cycles and collect more closed-trade evidence before tuning risk upward."]
@@ -258,6 +277,8 @@ class StrategyIntelligenceService:
             f"- Provider status: `{context['provider_status']}`",
             f"- Experiment: `{context['experiment_status']}` with `{context['experiment_fail_count']}` fail / `{context['experiment_warn_count']}` warn",
             f"- Report audit findings: `{context['audit_finding_count']}`",
+            f"- Replay production trades: `{context['replay_production_trade_count']}` at `{context['replay_production_cost_buffer_pct']}` cost buffer",
+            f"- Replay best profitable buffer: `{context['replay_best_profitable_cost_buffer_pct']}` with `{context['replay_best_profitable_trade_count']}` trade(s)",
             "",
             "## Strategies",
             "",
@@ -298,6 +319,22 @@ class StrategyIntelligenceService:
             return int(value or 0)
         except Exception:
             return 0
+
+    @classmethod
+    def _audit_finding_count(cls, audit: dict[str, Any]) -> int:
+        findings = audit.get("findings")
+        if not isinstance(findings, list):
+            return cls._int(audit.get("finding_count"))
+        actionable = [
+            finding
+            for finding in findings
+            if not (
+                isinstance(finding, dict)
+                and finding.get("report") in {"strategy_intelligence.json", "strategy_intelligence.md"}
+                and finding.get("message") == "Report is older than freshness window."
+            )
+        ]
+        return len(actionable)
 
     @staticmethod
     def _decimal(value: Any) -> Decimal:

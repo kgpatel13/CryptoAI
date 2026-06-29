@@ -1,15 +1,15 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-29T13:34:55Z`
+Generated: `2026-06-29T14:12:20Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `162`
-- Total orders: `45`
+- Opportunity decisions: `190`
+- Total orders: `49`
 - Filled orders: `12`
-- Skipped orders: `27`
+- Skipped orders: `31`
 - Rejected orders: `0`
 - Portfolio risk rejections: `6`
 - Total filled notional USD: `$1225.0697`
@@ -27,7 +27,7 @@ Generated: `2026-06-29T13:34:55Z`
 
 ## Opportunity Decision Counts
 
-- `SKIP`: 64
+- `SKIP`: 92
 - `BUY`: 98
 
 ## Skip Reasons
@@ -35,6 +35,10 @@ Generated: `2026-06-29T13:34:55Z`
 - `Risk decision is WATCHLIST; paper order not created.`: 25
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0489% is below paper threshold 0.30%.`: 1
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1516% is below paper threshold 0.30%.`: 1
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1039% is below paper threshold 0.30%.`: 1
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0972% is below paper threshold 0.30%.`: 1
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1128% is below paper threshold 0.30%.`: 1
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0882% is below paper threshold 0.30%.`: 1
 
 ## Portfolio Risk Rejection Reasons
 
@@ -88,35 +92,31 @@ Generated: `2026-06-29T13:34:55Z`
 
 | Pair | Net % | Score | Decision | Reason |
 |---|---:|---:|---|---|
-| WETH/USDC | -0.0673149713862384432978766197 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0673% is too low after costs. |
-| USDC/WETH | -0.1334677807305146655124903447 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1335% is too low after costs. |
-| WETH/USDC | -0.0673149713862384432978766197 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0673% is too low after costs. |
-| USDC/WETH | -0.1334677807305146655124903447 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1335% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0488922657387659179562356805 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| USDC/WETH | -0.1516396104383123414073092587 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| WETH/USDC | -0.0548496818310013084719806097 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0548% is too low after costs. |
-| USDC/WETH | -0.1457626189854147383308695280 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1458% is too low after costs. |
-| WETH/USDC | -0.0548496818310013084719806097 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0548% is too low after costs. |
-| USDC/WETH | -0.1457626189854147383308695280 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1458% is too low after costs. |
+| WETH/USDC | -0.1038540157994195894303357355 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| USDC/WETH | -0.0972099073325391546686591745 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| WETH/USDC | -0.1038540157994195894303357355 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| USDC/WETH | -0.0972099073325391546686591745 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| WETH/USDC | -0.1038540157994195894303357355 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| USDC/WETH | -0.0972099073325391546686591745 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| WETH/USDC | -0.1038540157994195894303357355 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| USDC/WETH | -0.0972099073325391546686591745 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| WETH/USDC | -0.1038540157994195894303357355 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
+| USDC/WETH | -0.0972099073325391546686591745 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
+| WETH/USDC | -0.1128390759035909960434897425 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
+| USDC/WETH | -0.0882186845516571827872423019 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
+| WETH/USDC | -0.1128390759035909960434897425 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
+| USDC/WETH | -0.0882186845516571827872423019 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
+| WETH/USDC | -0.1128390759035909960434897425 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
+| USDC/WETH | -0.0882186845516571827872423019 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
+| WETH/USDC | -0.1128390759035909960434897425 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
+| USDC/WETH | -0.0882186845516571827872423019 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
+| WETH/USDC | -0.1128390759035909960434897425 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
+| USDC/WETH | -0.0882186845516571827872423019 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
 
 ## Latest Orders
 
 | Time | Pair | Status | Notional | Edge % | Slip bps | Quality | Reason |
 |---|---|---|---:|---:|---:|---|---|
-| 2026-06-28T16:34:07Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:42:36Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:59:13Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:59:35Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T17:02:19Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T17:22:57Z | WETH/USDC | FILLED | 100.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate after portfolio risk checks. |
 | 2026-06-28T17:36:44Z | WETH/USDC | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure. |
@@ -133,6 +133,10 @@ Generated: `2026-06-29T13:34:55Z`
 | 2026-06-29T02:12:42Z | USDC/WETH | FILLED | 100.0139 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 | 2026-06-29T13:25:00Z | WETH/USDC | SKIPPED | 0 | -0.0488922657387659179562356805 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0489% is below paper threshold 0.30%. |
 | 2026-06-29T13:25:00Z | USDC/WETH | SKIPPED | 0 | -0.1516396104383123414073092587 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1516% is below paper threshold 0.30%. |
+| 2026-06-29T14:08:22Z | WETH/USDC | SKIPPED | 0 | -0.1038540157994195894303357355 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1039% is below paper threshold 0.30%. |
+| 2026-06-29T14:08:22Z | USDC/WETH | SKIPPED | 0 | -0.0972099073325391546686591745 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0972% is below paper threshold 0.30%. |
+| 2026-06-29T14:12:10Z | WETH/USDC | SKIPPED | 0 | -0.1128390759035909960434897425 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.1128% is below paper threshold 0.30%. |
+| 2026-06-29T14:12:10Z | USDC/WETH | SKIPPED | 0 | -0.0882186845516571827872423019 | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0882% is below paper threshold 0.30%. |
 
 ## Notes
 

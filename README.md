@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v5.0 - AI Strategy Intelligence**
+**v5.1 - Replay Diagnostics and Evidence Gap Analysis**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -66,18 +66,23 @@ python -m app.diagnostics.quote_diagnostics
 python -m app.opportunities.multi_dex_opportunity_engine
 python -m app.opportunities.opportunity_explorer
 python -m app.strategy.strategy_center
-python -m app.backtesting.backtest_service
-python -m app.backtesting.optimization_service
-python -m app.backtesting.experiment_service
-python -m app.ai.strategy_intelligence_service
+python -m app.automation.paper_autopilot --once
+python -m app.reporting.paper_report
+python -m app.research.research_report
 python -m app.market_intelligence.market_intelligence_service
 python -m app.operations.provider_monitor
+python -m app.backtesting.backtest_service
+python -m app.backtesting.replay_diagnostics_service
+python -m app.backtesting.optimization_service
+python -m app.reporting.report_audit
+python -m app.backtesting.experiment_service
+python -m app.ai.strategy_intelligence_service
 python -m app.reporting.report_audit
 python -m app.reporting.legacy_paper_archive --dry-run
-python -m app.automation.paper_autopilot --once
 python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60
-python -m app.reporting.paper_report
 ```
+
+Run `report_audit` once before experiment/AI evidence and once at the end. The first run gives experiment and Strategy Intelligence a fresh audit snapshot; the final run certifies the generated report set.
 
 The continuous paper autopilot publishes:
 
@@ -93,6 +98,8 @@ The continuous paper autopilot publishes:
 - `reports/provider_monitor.md`
 - `reports/backtest_report.json`
 - `reports/backtest_report.md`
+- `reports/replay_diagnostics.json`
+- `reports/replay_diagnostics.md`
 - `reports/optimization_report.json`
 - `reports/optimization_report.md`
 - `reports/experiment_report.json`
@@ -131,4 +138,4 @@ See:
 - `docs/STRATEGY_FRAMEWORK.md`
 - `docs/AI_STRATEGY_INTELLIGENCE.md`
 - `docs/LIVE_READINESS.md`
-- `releases/RELEASE_v5.0.md`
+- `releases/RELEASE_v5.1.md`
