@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-29T02:50:17Z",
+  "generated_at": "2026-06-29T12:48:02Z",
   "mode": "paper",
-  "report_count": 19,
+  "report_count": 21,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -11,28 +11,28 @@
       "name": "quote_diagnostics.md",
       "exists": true,
       "size_bytes": 748,
-      "generated_at": "2026-06-29T02:43:12Z",
+      "generated_at": "2026-06-29T12:47:14Z",
       "stale": false
     },
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
       "size_bytes": 925,
-      "generated_at": "2026-06-29T02:49:51Z",
+      "generated_at": "2026-06-29T12:47:14Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
       "size_bytes": 505,
-      "generated_at": "2026-06-29T02:49:51Z",
+      "generated_at": "2026-06-29T12:47:14Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "exists": true,
-      "size_bytes": 47834,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 45635,
+      "generated_at": "2026-06-29T12:47:09Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -45,15 +45,15 @@
     {
       "name": "paper_report.md",
       "exists": true,
-      "size_bytes": 11397,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 8998,
+      "generated_at": "2026-06-29T12:47:09Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
       "size_bytes": 10307,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "generated_at": "2026-06-29T12:47:09Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -64,14 +64,14 @@
       "name": "portfolio_analytics.md",
       "exists": true,
       "size_bytes": 4040,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "generated_at": "2026-06-29T12:47:09Z",
       "stale": false
     },
     {
       "name": "strategy_center.json",
       "exists": true,
-      "size_bytes": 11064,
-      "generated_at": "2026-06-29T02:29:02Z",
+      "size_bytes": 12399,
+      "generated_at": "2026-06-29T12:47:14Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -82,34 +82,34 @@
     {
       "name": "strategy_center.md",
       "exists": true,
-      "size_bytes": 2699,
-      "generated_at": "2026-06-29T02:29:02Z",
+      "size_bytes": 3141,
+      "generated_at": "2026-06-29T12:47:14Z",
       "stale": false
     },
     {
       "name": "feature_store.json",
       "exists": true,
-      "size_bytes": 1616,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 1626,
+      "generated_at": "2026-06-29T12:47:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "feature_count": 213
+        "feature_count": 279
       }
     },
     {
       "name": "feature_store.md",
       "exists": true,
-      "size_bytes": 1074,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 1079,
+      "generated_at": "2026-06-29T12:47:20Z",
       "stale": false
     },
     {
       "name": "research_dashboard.json",
       "exists": true,
-      "size_bytes": 17052,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 17202,
+      "generated_at": "2026-06-29T12:47:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -119,19 +119,19 @@
     {
       "name": "research_dashboard.md",
       "exists": true,
-      "size_bytes": 4344,
-      "generated_at": "2026-06-29T02:29:07Z",
+      "size_bytes": 4384,
+      "generated_at": "2026-06-29T12:47:20Z",
       "stale": false
     },
     {
       "name": "backtest_report.json",
       "exists": true,
       "size_bytes": 685,
-      "generated_at": "2026-06-29T02:50:07Z",
+      "generated_at": "2026-06-29T12:47:25Z",
       "stale": false,
       "json_valid": true,
       "summary": {
-        "total_signals": 24,
+        "total_signals": 29,
         "simulated_trades": 0
       }
     },
@@ -139,47 +139,68 @@
       "name": "backtest_report.md",
       "exists": true,
       "size_bytes": 732,
-      "generated_at": "2026-06-29T02:50:07Z",
+      "generated_at": "2026-06-29T12:47:25Z",
+      "stale": false
+    },
+    {
+      "name": "optimization_report.json",
+      "exists": true,
+      "size_bytes": 47675,
+      "generated_at": "2026-06-29T12:47:25Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "input_row_count": 146,
+        "deduped_row_count": 111,
+        "scenario_count": 48
+      }
+    },
+    {
+      "name": "optimization_report.md",
+      "exists": true,
+      "size_bytes": 2052,
+      "generated_at": "2026-06-29T12:47:25Z",
       "stale": false
     },
     {
       "name": "market_intelligence.json",
       "exists": true,
-      "size_bytes": 4251,
-      "generated_at": "2026-06-29T02:43:22Z",
+      "size_bytes": 4261,
+      "generated_at": "2026-06-29T12:47:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_readiness_score": 74
+        "overall_readiness_score": 75
       }
     },
     {
       "name": "market_intelligence.md",
       "exists": true,
-      "size_bytes": 1257,
-      "generated_at": "2026-06-29T02:43:22Z",
+      "size_bytes": 1267,
+      "generated_at": "2026-06-29T12:47:53Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "exists": true,
-      "size_bytes": 3942,
-      "generated_at": "2026-06-29T02:43:22Z",
+      "size_bytes": 4423,
+      "generated_at": "2026-06-29T12:47:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "CRITICAL",
         "provider_count": 4,
-        "alert_count": 3
+        "alert_count": 4
       }
     },
     {
       "name": "provider_monitor.md",
       "exists": true,
-      "size_bytes": 1340,
-      "generated_at": "2026-06-29T02:43:22Z",
+      "size_bytes": 1457,
+      "generated_at": "2026-06-29T12:47:53Z",
       "stale": false
     }
   ],
@@ -187,7 +208,7 @@
     {
       "severity": "CRITICAL",
       "report": "provider_monitor.json",
-      "message": "Provider Monitor status is CRITICAL with 3 alert(s)."
+      "message": "Provider Monitor status is CRITICAL with 4 alert(s)."
     },
     {
       "severity": "WATCH",

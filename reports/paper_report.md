@@ -1,12 +1,12 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-29T02:29:07Z`
+Generated: `2026-06-29T12:47:09Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `98`
+- Opportunity decisions: `136`
 - Total orders: `49`
 - Filled orders: `18`
 - Skipped orders: `25`
@@ -27,8 +27,8 @@ Generated: `2026-06-29T02:29:07Z`
 
 ## Opportunity Decision Counts
 
-- `SKIP`: 12
-- `BUY`: 86
+- `SKIP`: 38
+- `BUY`: 98
 
 ## Skip Reasons
 
@@ -86,26 +86,26 @@ Generated: `2026-06-29T02:29:07Z`
 
 | Pair | Net % | Score | Decision | Reason |
 |---|---:|---:|---|---|
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | -0.0298675049772870267027804229 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| USDC/WETH | -0.1709255475815044931026504694 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1709% is too low after costs. |
+| WETH/USDC | -0.0298675049772870267027804229 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| USDC/WETH | -0.1709255475815044931026504694 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1709% is too low after costs. |
+| WETH/USDC | -0.0298675049772870267027804229 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| USDC/WETH | -0.1709255475815044931026504694 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1709% is too low after costs. |
+| WETH/USDC | -0.0298675049772870267027804229 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| USDC/WETH | -0.1709255475815044931026504694 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1709% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
+| WETH/USDC | -0.0687734568030397752517239749 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0688% is too low after costs. |
+| USDC/WETH | -0.1319654920999279734880701149 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1320% is too low after costs. |
 
 ## Latest Orders
 

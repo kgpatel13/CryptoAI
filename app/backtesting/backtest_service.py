@@ -38,7 +38,7 @@ class BacktestService:
         multi_dex_rows = self._read_jsonl(self.multi_dex_file)
 
         if multi_dex_rows:
-            result = self._backtest_multi_dex_history(multi_dex_rows, notional_usd, started, include_synthetic)
+            result = self._backtest_multi_dex_history(self._dedupe_opportunity_rows(multi_dex_rows), notional_usd, started, include_synthetic)
         else:
             rows = self._read_jsonl(self.scan_file)
             if rows:
@@ -380,6 +380,29 @@ class BacktestService:
             return []
 
         return rows
+
+    @staticmethod
+    def _dedupe_opportunity_rows(rows: list[dict]) -> list[dict]:
+        seen = set()
+        deduped = []
+        for row in rows:
+            key = (
+                row.get("timestamp"),
+                row.get("mode"),
+                row.get("chain"),
+                row.get("pair"),
+                row.get("buy_dex"),
+                row.get("sell_dex"),
+                row.get("gross_edge_pct"),
+                row.get("cost_buffer_pct"),
+                row.get("net_edge_pct"),
+                row.get("decision"),
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(row)
+        return deduped
 
     @staticmethod
     def _to_decimal(value) -> Decimal | None:

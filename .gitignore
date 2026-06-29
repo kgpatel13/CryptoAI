@@ -20,6 +20,7 @@ env/
 # Runtime data
 data/
 logs/
+streamlit_*.log
 *.db
 *.sqlite
 *.sqlite3

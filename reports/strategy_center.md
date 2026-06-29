@@ -1,6 +1,6 @@
 # CryptoAI Strategy Center
 
-Generated: `2026-06-29T02:29:02Z`
+Generated: `2026-06-29T12:47:14Z`
 
 ## Summary
 
@@ -31,6 +31,8 @@ Generated: `2026-06-29T02:29:02Z`
 | 2026-06-29T02:22:34Z | 2 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:29:02Z | 1 | DEX Arbitrage Strategy | WETH/USDC | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:29:02Z | 2 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
+| 2026-06-29T12:47:14Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0627867526571790265828422155 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0628% is too low after costs. |
+| 2026-06-29T12:47:14Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.1379511013551796416279028826 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs. |
 
 ## Notes
 

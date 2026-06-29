@@ -25,6 +25,8 @@ class ReportAuditService:
         "research_dashboard.md",
         "backtest_report.json",
         "backtest_report.md",
+        "optimization_report.json",
+        "optimization_report.md",
         "market_intelligence.json",
         "market_intelligence.md",
         "provider_monitor.json",
@@ -155,6 +157,9 @@ class ReportAuditService:
             "strategy_count",
             "total_signals",
             "simulated_trades",
+            "input_row_count",
+            "deduped_row_count",
+            "scenario_count",
         ]
         return {key: payload[key] for key in keys if key in payload}
 

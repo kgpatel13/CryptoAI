@@ -5,6 +5,8 @@
 - Started v4.2 replay/backtesting foundation.
 - Added multi-DEX opportunity replay backtest with real-vs-synthetic filtering.
 - Added `backtest_report.json` and `backtest_report.md` outputs.
+- Added parameter-grid Optimization report for cost buffer, minimum net edge, and notional scenarios.
+- Added Replay / Backtesting dashboard tab for backtest and optimization review.
 - Added backtest regression tests for real opportunity replay and explicit synthetic inclusion.
 
 ## v4.1 - 24/7 Paper Operations Core

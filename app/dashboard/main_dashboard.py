@@ -50,7 +50,7 @@ def read_text(path: Path) -> str | None:
 
 def dataframe_or_info(rows: list[dict], message: str) -> None:
     if rows:
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch")
     else:
         st.info(message)
 
@@ -422,6 +422,77 @@ def render_reports() -> None:
             st.info(f"{path} not found yet.")
 
 
+def render_backtesting() -> None:
+    st.subheader("Replay / Backtesting")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Run Replay Backtest"):
+            def task():
+                BacktestService = import_object("app.backtesting.backtest_service", "BacktestService")
+                return BacktestService().run_default_backtest()
+
+            result = safe_run("Running replay backtest...", task)
+            if result is not None:
+                st.success("Replay backtest generated.")
+
+    with c2:
+        if st.button("Run Optimization"):
+            def task():
+                OptimizationService = import_object("app.backtesting.optimization_service", "OptimizationService")
+                return OptimizationService().run()
+
+            result = safe_run("Running optimization grid...", task)
+            if result is not None:
+                st.success("Optimization report generated.")
+
+    backtest_json = REPORT_DIR / "backtest_report.json"
+    if backtest_json.exists():
+        try:
+            payload = json.loads(backtest_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read backtest report: {exc}")
+            payload = {}
+        if payload:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Replay Signals", payload.get("total_signals", "-"))
+            c2.metric("Trades", payload.get("simulated_trades", "-"))
+            c3.metric("PnL", payload.get("total_simulated_profit_usd", "-"))
+            c4.metric("Win Rate %", payload.get("win_rate_pct", "-"))
+            dataframe_or_info(payload.get("trades", []), "No replay trades met the threshold.")
+    else:
+        st.info("No backtest_report.json yet. Run Replay Backtest.")
+
+    optimization_json = REPORT_DIR / "optimization_report.json"
+    if optimization_json.exists():
+        try:
+            payload = json.loads(optimization_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read optimization report: {exc}")
+            payload = {}
+        if payload:
+            best = payload.get("best_scenario") or {}
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Scenarios", payload.get("scenario_count", "-"))
+            c2.metric("Best Trades", best.get("trade_count", "-"))
+            c3.metric("Best PnL", best.get("total_pnl_usd", "-"))
+            c4.metric("Best Cost %", best.get("cost_buffer_pct", "-"))
+            dataframe_or_info(payload.get("scenarios", [])[:25], "No optimization scenarios yet.")
+    else:
+        st.info("No optimization_report.json yet. Run Optimization.")
+
+    for title, path in [
+        ("Backtest Report", REPORT_DIR / "backtest_report.md"),
+        ("Optimization Report", REPORT_DIR / "optimization_report.md"),
+    ]:
+        st.markdown(f"### {title}")
+        txt = read_text(path)
+        if txt:
+            st.markdown(txt)
+        else:
+            st.info(f"{path} not found yet.")
+
+
 def render_paper_orders() -> None:
     st.subheader("Paper Orders")
     rows = read_jsonl(DATA_DIR / "paper_orders.jsonl", limit=200)
@@ -624,6 +695,8 @@ def render_system_health() -> None:
         REPORT_DIR / "strategy_center.md",
         REPORT_DIR / "backtest_report.json",
         REPORT_DIR / "backtest_report.md",
+        REPORT_DIR / "optimization_report.json",
+        REPORT_DIR / "optimization_report.md",
         DATA_DIR / "feature_vectors.jsonl",
         DATA_DIR / "feature_vectors.csv",
         REPORT_DIR / "feature_store.json",
@@ -648,7 +721,7 @@ def render_system_health() -> None:
                 "size_bytes": path.stat().st_size if path.exists() and path.is_file() else None,
             }
         )
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    st.dataframe(pd.DataFrame(rows), width="stretch")
 
     st.markdown("### Provider Health")
     provider_health_path = DATA_DIR / "provider_health.json"
@@ -657,7 +730,7 @@ def render_system_health() -> None:
             payload = json.loads(provider_health_path.read_text(encoding="utf-8", errors="replace"))
             providers = payload.get("providers", [])
             if providers:
-                st.dataframe(pd.DataFrame(providers), use_container_width=True)
+                st.dataframe(pd.DataFrame(providers), width="stretch")
             else:
                 st.info("Provider health file exists but has no provider rows yet.")
         except Exception as exc:
@@ -699,6 +772,7 @@ def render_setup() -> None:
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
         python -m app.backtesting.backtest_service
+        python -m app.backtesting.optimization_service
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor
@@ -715,16 +789,17 @@ PAGES = {
     "4 Multi-DEX Opportunities": render_multi_dex_opportunities,
     "5 Opportunity Explorer": render_opportunity_explorer,
     "6 Reports": render_reports,
-    "7 Paper Orders": render_paper_orders,
-    "8 Paper Portfolio": render_paper_portfolio,
-    "9 Portfolio Analytics": render_portfolio_analytics,
-    "10 Strategy Center": render_strategy_center,
-    "11 Market Intelligence": render_market_intelligence,
-    "12 Provider Monitor": render_provider_monitor,
-    "13 Research Dashboard": render_research_dashboard,
-    "14 Risk & Controls": render_risk_controls,
-    "15 System Health": render_system_health,
-    "16 Setup / Roadmap": render_setup,
+    "7 Replay / Backtesting": render_backtesting,
+    "8 Paper Orders": render_paper_orders,
+    "9 Paper Portfolio": render_paper_portfolio,
+    "10 Portfolio Analytics": render_portfolio_analytics,
+    "11 Strategy Center": render_strategy_center,
+    "12 Market Intelligence": render_market_intelligence,
+    "13 Provider Monitor": render_provider_monitor,
+    "14 Research Dashboard": render_research_dashboard,
+    "15 Risk & Controls": render_risk_controls,
+    "16 System Health": render_system_health,
+    "17 Setup / Roadmap": render_setup,
 }
 
 

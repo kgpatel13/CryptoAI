@@ -67,6 +67,7 @@ python -m app.opportunities.multi_dex_opportunity_engine
 python -m app.opportunities.opportunity_explorer
 python -m app.strategy.strategy_center
 python -m app.backtesting.backtest_service
+python -m app.backtesting.optimization_service
 python -m app.market_intelligence.market_intelligence_service
 python -m app.operations.provider_monitor
 python -m app.reporting.report_audit
@@ -89,6 +90,8 @@ The continuous paper autopilot publishes:
 - `reports/provider_monitor.md`
 - `reports/backtest_report.json`
 - `reports/backtest_report.md`
+- `reports/optimization_report.json`
+- `reports/optimization_report.md`
 - `reports/report_audit.json`
 - `reports/report_audit.md`
 
