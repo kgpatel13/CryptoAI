@@ -39,9 +39,11 @@ class ExperimentService:
         from app.backtesting.replay_diagnostics_service import ReplayDiagnosticsService
         from app.execution.execution_cost_evidence_service import ExecutionCostEvidenceService
         from app.research.market_universe_evidence_service import MarketUniverseEvidenceService
+        from app.research.quote_coverage_evidence_service import QuoteCoverageEvidenceService
 
         ReplayDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
         ExecutionCostEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+        QuoteCoverageEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
         MarketUniverseEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
 
         generated_at = self._utc_now()
@@ -50,6 +52,7 @@ class ExperimentService:
         replay_diagnostics = self._read_json(self.report_json.with_name("replay_diagnostics.json"))
         execution_cost = self._read_json(self.report_json.with_name("execution_cost_evidence.json"))
         market_universe = self._read_json(self.report_json.with_name("market_universe_evidence.json"))
+        quote_coverage = self._read_json(self.report_json.with_name("quote_coverage_evidence.json"))
         provider = self._read_json(self.report_json.with_name("provider_monitor.json"))
         paper = self._read_json(self.report_json.with_name("paper_report.json"))
         audit = self._read_json(self.report_json.with_name("report_audit.json"))
@@ -83,10 +86,11 @@ class ExperimentService:
             "pass_count": pass_count,
             "warn_count": warn_count,
             "fail_count": fail_count,
-            "summary": self._summary(backtest, optimization, provider, paper, audit, execution_cost, market_universe),
+            "summary": self._summary(backtest, optimization, provider, paper, audit, execution_cost, market_universe, quote_coverage),
             "replay_diagnostics": self._replay_diagnostic_summary(replay_diagnostics),
             "execution_cost_evidence": self._execution_cost_summary(execution_cost),
             "market_universe_evidence": self._market_universe_summary(market_universe),
+            "quote_coverage_evidence": self._quote_coverage_summary(quote_coverage),
             "gates": gates,
             "notes": [
                 "Experiment tracking records research evidence only.",
@@ -205,6 +209,7 @@ class ExperimentService:
         audit: dict[str, Any],
         execution_cost: dict[str, Any],
         market_universe: dict[str, Any],
+        quote_coverage: dict[str, Any],
     ) -> dict[str, Any]:
         best = optimization.get("best_scenario") if isinstance(optimization.get("best_scenario"), dict) else {}
         cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
@@ -230,6 +235,9 @@ class ExperimentService:
             "market_primary_focus": self._format_focus(primary_focus),
             "market_active_focus_count": market_universe.get("active_focus_count"),
             "market_blocked_count": market_universe.get("blocked_count"),
+            "quote_active_pair_count": quote_coverage.get("active_pair_count"),
+            "quote_provider_gap_count": quote_coverage.get("provider_gap_count"),
+            "quote_gap_count": quote_coverage.get("quote_gap_count"),
         }
 
     @staticmethod
@@ -272,6 +280,18 @@ class ExperimentService:
             "provider_status": market_universe.get("provider_status"),
             "provider_alert_count": market_universe.get("provider_alert_count"),
             "findings": market_universe.get("findings", []),
+        }
+
+    @staticmethod
+    def _quote_coverage_summary(quote_coverage: dict[str, Any]) -> dict[str, Any]:
+        targets = quote_coverage.get("next_provider_targets")
+        first_target = targets[0] if isinstance(targets, list) and targets and isinstance(targets[0], dict) else {}
+        return {
+            "active_pair_count": quote_coverage.get("active_pair_count"),
+            "provider_gap_count": quote_coverage.get("provider_gap_count"),
+            "quote_gap_count": quote_coverage.get("quote_gap_count"),
+            "next_target": ExperimentService._format_focus(first_target),
+            "findings": quote_coverage.get("findings", []),
         }
 
     @staticmethod
@@ -345,6 +365,14 @@ class ExperimentService:
             lines.append(f"- {key}: `{value}`")
         universe_findings = latest.get("market_universe_evidence", {}).get("findings", [])
         for finding in universe_findings:
+            lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
+        lines += ["", "## Quote Coverage Evidence", ""]
+        for key, value in latest.get("quote_coverage_evidence", {}).items():
+            if key == "findings":
+                continue
+            lines.append(f"- {key}: `{value}`")
+        coverage_findings = latest.get("quote_coverage_evidence", {}).get("findings", [])
+        for finding in coverage_findings:
             lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
         lines += ["", "## Gates", "", "| Gate | Status | Message |", "|---|---|---|"]
         for gate in latest["gates"]:

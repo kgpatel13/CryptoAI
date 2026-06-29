@@ -39,6 +39,8 @@ class ReportAuditService:
         "market_intelligence.md",
         "market_universe_evidence.json",
         "market_universe_evidence.md",
+        "quote_coverage_evidence.json",
+        "quote_coverage_evidence.md",
         "provider_monitor.json",
         "provider_monitor.md",
     ]
@@ -162,6 +164,9 @@ class ReportAuditService:
             "active_focus_count",
             "research_target_count",
             "blocked_count",
+            "active_pair_count",
+            "provider_gap_count",
+            "quote_gap_count",
             "provider_count",
             "alert_count",
             "feature_count",

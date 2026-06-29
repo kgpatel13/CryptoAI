@@ -256,6 +256,16 @@ def render_market_intelligence() -> None:
             st.success("Market universe evidence generated.")
             st.json(result)
 
+    if st.button("Generate Quote Coverage"):
+        def task():
+            Service = import_object("app.research.quote_coverage_evidence_service", "QuoteCoverageEvidenceService")
+            return Service().generate()
+
+        result = safe_run("Generating quote coverage evidence...", task)
+        if result is not None:
+            st.success("Quote coverage evidence generated.")
+            st.json(result)
+
     report_json = REPORT_DIR / "market_intelligence.json"
     if report_json.exists():
         try:
@@ -307,6 +317,26 @@ def render_market_intelligence() -> None:
             dataframe_or_info(payload.get("findings", []), "No universe findings.")
     else:
         st.info("No market_universe_evidence.json yet. Generate Universe Evidence.")
+
+    coverage_json = REPORT_DIR / "quote_coverage_evidence.json"
+    if coverage_json.exists():
+        try:
+            payload = json.loads(coverage_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read quote coverage evidence: {exc}")
+            payload = {}
+
+        if payload:
+            st.markdown("### Quote Coverage Evidence")
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Active Pairs", payload.get("active_pair_count", "-"))
+            c2.metric("Quote Gaps", payload.get("quote_gap_count", "-"))
+            c3.metric("Provider Gaps", payload.get("provider_gap_count", "-"))
+            c4.metric("Providers", payload.get("implemented_provider_count", "-"))
+            dataframe_or_info(payload.get("pair_coverage", []), "No quote coverage rows yet.")
+            dataframe_or_info(payload.get("next_provider_targets", []), "No quote coverage targets.")
+    else:
+        st.info("No quote_coverage_evidence.json yet. Generate Quote Coverage.")
 
 
 def render_provider_monitor() -> None:
@@ -458,6 +488,7 @@ def render_reports() -> None:
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
         ("Market Universe Evidence", REPORT_DIR / "market_universe_evidence.md"),
+        ("Quote Coverage Evidence", REPORT_DIR / "quote_coverage_evidence.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
@@ -904,6 +935,8 @@ def render_system_health() -> None:
         REPORT_DIR / "market_intelligence.md",
         REPORT_DIR / "market_universe_evidence.json",
         REPORT_DIR / "market_universe_evidence.md",
+        REPORT_DIR / "quote_coverage_evidence.json",
+        REPORT_DIR / "quote_coverage_evidence.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
         REPORT_DIR / "report_audit.json",
@@ -976,6 +1009,7 @@ def render_setup() -> None:
         python -m app.execution.execution_cost_evidence_service
         python -m app.backtesting.optimization_service
         python -m app.research.market_universe_evidence_service
+        python -m app.research.quote_coverage_evidence_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service
         python -m app.ai.strategy_intelligence_service

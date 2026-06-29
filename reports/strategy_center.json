@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T17:45:18Z",
+  "generated_at": "2026-06-29T18:18:04Z",
   "mode": "paper",
   "strategy_count": 5,
   "active_strategy_count": 1,
@@ -26,16 +26,16 @@
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
       "last_signal": {
-        "timestamp": "2026-06-29T17:45:18Z",
+        "timestamp": "2026-06-29T18:18:04Z",
         "signal_id": "arbitrage:base:USDC-WETH:SKIP",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
         "pair": "USDC/WETH",
         "action": "SKIP",
         "confidence_score": 10,
-        "expected_edge_pct": "-0.1441080874515027154139680131",
+        "expected_edge_pct": "-0.2103086317172912901719613480",
         "rank_score": 0,
-        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs.",
+        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs.",
         "source": "scanner",
         "features": {
           "strategy_id": "arbitrage",
@@ -164,44 +164,6 @@
     }
   ],
   "ranked_signals": [
-    {
-      "timestamp": "2026-06-28T18:22:32Z",
-      "rank": 1,
-      "strategy_id": "arbitrage",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "-",
-      "action": "WATCH",
-      "confidence_score": 0,
-      "expected_edge_pct": null,
-      "rank_score": 10,
-      "reason": "Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "features": {
-        "strategy_id": "arbitrage",
-        "strategy_weight": "1.00",
-        "strategy_mode": "paper",
-        "min_confidence": 50
-      }
-    },
-    {
-      "timestamp": "2026-06-28T18:23:10Z",
-      "rank": 1,
-      "strategy_id": "arbitrage",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "-",
-      "action": "WATCH",
-      "confidence_score": 0,
-      "expected_edge_pct": null,
-      "rank_score": 10,
-      "reason": "Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "features": {
-        "strategy_id": "arbitrage",
-        "strategy_weight": "1.00",
-        "strategy_mode": "paper",
-        "min_confidence": 50
-      }
-    },
     {
       "timestamp": "2026-06-28T18:36:53Z",
       "rank": 1,
@@ -537,6 +499,44 @@
       "expected_edge_pct": "-0.1441080874515027154139680131",
       "rank_score": 0,
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T18:18:04Z",
+      "rank": 1,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "action": "SKIP",
+      "confidence_score": 2,
+      "expected_edge_pct": "0.0111071078041971530481190535",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge 0.0111% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T18:18:04Z",
+      "rank": 2,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "action": "SKIP",
+      "confidence_score": 10,
+      "expected_edge_pct": "-0.2103086317172912901719613480",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs.",
       "features": {
         "strategy_id": "arbitrage",
         "strategy_weight": "1.00",

@@ -21,6 +21,8 @@ It does not approve live trading.
 
 Market Intelligence feeds `reports/market_universe_evidence.json`, which ranks the configured universe against measured quote, opportunity, optimization, and execution-cost evidence.
 
+Quote Coverage Evidence uses the same registries plus quote diagnostics to rank provider and route-test gaps before expansion.
+
 ## Readiness Score
 
 Readiness combines:

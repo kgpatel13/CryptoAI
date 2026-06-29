@@ -14,7 +14,7 @@ DEXES: dict[str, list[Dex]] = {
     "base": [
         Dex("Uniswap V2", "base", "v2", "0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24", "Uniswap V2-compatible router on Base"),
         Dex("Uniswap V3", "base", "v3", None, "Primary concentrated liquidity DEX; quote provider not implemented yet"),
-        Dex("Aerodrome", "base", "solidly", "0xcF77a3Ba9A5CA399B7c97c74d54e5bB28Aac43B9", "Aerodrome router"),
+        Dex("Aerodrome", "base", "solidly", "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43", "Aerodrome router"),
     ],
     "ethereum": [
         Dex("Uniswap V3", "ethereum", "v3", None),

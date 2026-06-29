@@ -1,59 +1,59 @@
 {
-  "generated_at": "2026-06-29T17:45:19Z",
+  "generated_at": "2026-06-29T18:18:09Z",
   "mode": "paper",
-  "feature_count": 433,
+  "feature_count": 475,
   "tradeable_or_filled_count": 180,
   "risk_or_execution_rejected_count": 6,
   "source_counts": {
-    "opportunity_decision": 179,
-    "multi_dex_opportunity": 181,
-    "paper_order": 53,
-    "strategy_signal": 20
+    "opportunity_decision": 197,
+    "multi_dex_opportunity": 201,
+    "paper_order": 55,
+    "strategy_signal": 22
   },
   "chain_counts": {
-    "base": 433
+    "base": 475
   },
   "pair_counts": {
-    "WETH/USDC": 199,
-    "USDC/WETH": 193
+    "WETH/USDC": 220,
+    "USDC/WETH": 214
   },
   "decision_counts": {
-    "SKIP": 210,
+    "SKIP": 250,
     "BUY": 162,
-    "SKIPPED": 35,
+    "SKIPPED": 37,
     "FILLED": 12,
     "RISK_REJECTED": 6,
     "WATCH": 2,
     "READY_FOR_PAPER": 6
   },
-  "avg_net_edge_pct": "0.1133",
+  "avg_net_edge_pct": "0.0927",
   "max_net_edge_pct": "0.3500",
   "top_pairs": [
     {
       "pair": "WETH/USDC",
-      "count": 199
+      "count": 220
     },
     {
       "pair": "USDC/WETH",
-      "count": 193
+      "count": 214
     }
   ],
   "top_sources": [
     {
       "source": "multi_dex_opportunity",
-      "count": 181
+      "count": 201
     },
     {
       "source": "opportunity_decision",
-      "count": 179
+      "count": 197
     },
     {
       "source": "paper_order",
-      "count": 53
+      "count": 55
     },
     {
       "source": "strategy_signal",
-      "count": 20
+      "count": 22
     }
   ],
   "data_quality": {

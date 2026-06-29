@@ -1,6 +1,6 @@
 # CryptoAI Strategy Center
 
-Generated: `2026-06-29T17:45:18Z`
+Generated: `2026-06-29T18:18:04Z`
 
 ## Summary
 
@@ -23,8 +23,6 @@ Generated: `2026-06-29T17:45:18Z`
 
 | Time | Rank | Strategy | Pair | Action | Confidence | Edge % | Rank Score | Reason |
 |---|---:|---|---|---|---:|---:|---:|---|
-| 2026-06-28T18:22:32Z | 1 | DEX Arbitrage Strategy | - | WATCH | 0 | None | 10 | Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| 2026-06-28T18:23:10Z | 1 | DEX Arbitrage Strategy | - | WATCH | 0 | None | 10 | Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
 | 2026-06-28T18:36:53Z | 1 | DEX Arbitrage Strategy | WETH/USDC | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-28T18:36:53Z | 2 | DEX Arbitrage Strategy | USDC/WETH | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:22:34Z | 1 | DEX Arbitrage Strategy | WETH/USDC | READY_FOR_PAPER | 70 | 0.3500 | 90 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
@@ -43,6 +41,8 @@ Generated: `2026-06-29T17:45:18Z`
 | 2026-06-29T14:12:21Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.0882186845516571827872423019 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
 | 2026-06-29T17:45:18Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 10 | -0.0552147966416534495753429694 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0552% is too low after costs. |
 | 2026-06-29T17:45:18Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.1441080874515027154139680131 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs. |
+| 2026-06-29T18:18:04Z | 1 | DEX Arbitrage Strategy | WETH/USDC | SKIP | 2 | 0.0111071078041971530481190535 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge 0.0111% is too low after costs. |
+| 2026-06-29T18:18:04Z | 2 | DEX Arbitrage Strategy | USDC/WETH | SKIP | 10 | -0.2103086317172912901719613480 | 0 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs. |
 
 ## Notes
 

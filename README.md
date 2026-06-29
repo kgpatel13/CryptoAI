@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v5.3 - Market Universe and Settings Evidence**
+**v5.4 - Quote Coverage Expansion Evidence**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 
@@ -76,6 +76,7 @@ python -m app.backtesting.replay_diagnostics_service
 python -m app.execution.execution_cost_evidence_service
 python -m app.backtesting.optimization_service
 python -m app.research.market_universe_evidence_service
+python -m app.research.quote_coverage_evidence_service
 python -m app.reporting.report_audit
 python -m app.backtesting.experiment_service
 python -m app.ai.strategy_intelligence_service
@@ -100,6 +101,8 @@ The continuous paper autopilot publishes:
 - `reports/provider_monitor.md`
 - `reports/market_universe_evidence.json`
 - `reports/market_universe_evidence.md`
+- `reports/quote_coverage_evidence.json`
+- `reports/quote_coverage_evidence.md`
 - `reports/backtest_report.json`
 - `reports/backtest_report.md`
 - `reports/replay_diagnostics.json`
@@ -141,9 +144,10 @@ See:
 - `docs/OPERATIONS.md`
 - `docs/MARKET_INTELLIGENCE.md`
 - `docs/MARKET_UNIVERSE_EVIDENCE.md`
+- `docs/QUOTE_COVERAGE_EVIDENCE.md`
 - `docs/ARCHITECTURE.md`
 - `docs/STRATEGY_FRAMEWORK.md`
 - `docs/AI_STRATEGY_INTELLIGENCE.md`
 - `docs/EXECUTION_COST_EVIDENCE.md`
 - `docs/LIVE_READINESS.md`
-- `releases/RELEASE_v5.3.md`
+- `releases/RELEASE_v5.4.md`

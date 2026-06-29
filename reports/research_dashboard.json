@@ -1,62 +1,62 @@
 {
-  "generated_at": "2026-06-29T17:45:19Z",
+  "generated_at": "2026-06-29T18:18:09Z",
   "mode": "paper",
   "feature_store": {
-    "generated_at": "2026-06-29T17:45:19Z",
+    "generated_at": "2026-06-29T18:18:09Z",
     "mode": "paper",
-    "feature_count": 433,
+    "feature_count": 475,
     "tradeable_or_filled_count": 180,
     "risk_or_execution_rejected_count": 6,
     "source_counts": {
-      "opportunity_decision": 179,
-      "multi_dex_opportunity": 181,
-      "paper_order": 53,
-      "strategy_signal": 20
+      "opportunity_decision": 197,
+      "multi_dex_opportunity": 201,
+      "paper_order": 55,
+      "strategy_signal": 22
     },
     "chain_counts": {
-      "base": 433
+      "base": 475
     },
     "pair_counts": {
-      "WETH/USDC": 199,
-      "USDC/WETH": 193
+      "WETH/USDC": 220,
+      "USDC/WETH": 214
     },
     "decision_counts": {
-      "SKIP": 210,
+      "SKIP": 250,
       "BUY": 162,
-      "SKIPPED": 35,
+      "SKIPPED": 37,
       "FILLED": 12,
       "RISK_REJECTED": 6,
       "WATCH": 2,
       "READY_FOR_PAPER": 6
     },
-    "avg_net_edge_pct": "0.1133",
+    "avg_net_edge_pct": "0.0927",
     "max_net_edge_pct": "0.3500",
     "top_pairs": [
       {
         "pair": "WETH/USDC",
-        "count": 199
+        "count": 220
       },
       {
         "pair": "USDC/WETH",
-        "count": 193
+        "count": 214
       }
     ],
     "top_sources": [
       {
         "source": "multi_dex_opportunity",
-        "count": 181
+        "count": 201
       },
       {
         "source": "opportunity_decision",
-        "count": 179
+        "count": 197
       },
       {
         "source": "paper_order",
-        "count": 53
+        "count": 55
       },
       {
         "source": "strategy_signal",
-        "count": 20
+        "count": 22
       }
     ],
     "data_quality": {
@@ -75,7 +75,41 @@
   },
   "recent_features": [
     {
-      "feature_id": "fv_c119e5dc5755",
+      "feature_id": "fv_51ca0b76d2b2",
+      "created_at": "2026-06-29T18:18:04Z",
+      "source": "strategy_signal",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "strategy_id": "arbitrage",
+      "decision": "SKIP",
+      "estimated_net_edge_pct": "-0.2103086317172912901719613480",
+      "readiness_score": 10,
+      "confidence_score": 10,
+      "risk_status": "PENDING",
+      "execution_quality": null,
+      "latency_ms": null,
+      "slippage_bps": null,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs."
+    },
+    {
+      "feature_id": "fv_febb5574a7f8",
+      "created_at": "2026-06-29T18:18:04Z",
+      "source": "strategy_signal",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "strategy_id": "arbitrage",
+      "decision": "SKIP",
+      "estimated_net_edge_pct": "0.0111071078041971530481190535",
+      "readiness_score": 2,
+      "confidence_score": 2,
+      "risk_status": "PENDING",
+      "execution_quality": null,
+      "latency_ms": null,
+      "slippage_bps": null,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge 0.0111% is too low after costs."
+    },
+    {
+      "feature_id": "fv_ca6fe53954e3",
       "created_at": "2026-06-29T17:45:18Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -92,7 +126,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs."
     },
     {
-      "feature_id": "fv_180abb9d3076",
+      "feature_id": "fv_955cbd5e4f73",
       "created_at": "2026-06-29T17:45:18Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -109,7 +143,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0552% is too low after costs."
     },
     {
-      "feature_id": "fv_e9e72b530efe",
+      "feature_id": "fv_83c8e0802d32",
       "created_at": "2026-06-29T14:12:21Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -126,7 +160,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs."
     },
     {
-      "feature_id": "fv_d55a87a8e02a",
+      "feature_id": "fv_26278ae09c95",
       "created_at": "2026-06-29T14:12:21Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -143,7 +177,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs."
     },
     {
-      "feature_id": "fv_f487e5dc79b1",
+      "feature_id": "fv_acd2dc09ccb8",
       "created_at": "2026-06-29T14:08:37Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -160,7 +194,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs."
     },
     {
-      "feature_id": "fv_5847c18d7306",
+      "feature_id": "fv_63e42c200030",
       "created_at": "2026-06-29T14:08:37Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -177,7 +211,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs."
     },
     {
-      "feature_id": "fv_36790e87b536",
+      "feature_id": "fv_1df8dbcea825",
       "created_at": "2026-06-29T13:34:59Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -194,7 +228,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1476% is too low after costs."
     },
     {
-      "feature_id": "fv_bd3c57b8fc86",
+      "feature_id": "fv_37c52f4235ab",
       "created_at": "2026-06-29T13:34:59Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -211,7 +245,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0531% is too low after costs."
     },
     {
-      "feature_id": "fv_1cb7a9a2cdaf",
+      "feature_id": "fv_f6fbea6bb73c",
       "created_at": "2026-06-29T13:25:18Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -228,7 +262,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs."
     },
     {
-      "feature_id": "fv_4af30b6e972a",
+      "feature_id": "fv_fb8d38068afc",
       "created_at": "2026-06-29T13:25:18Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -245,7 +279,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs."
     },
     {
-      "feature_id": "fv_7af76a53f834",
+      "feature_id": "fv_efcf69f12c2e",
       "created_at": "2026-06-29T12:47:14Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -262,7 +296,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs."
     },
     {
-      "feature_id": "fv_40e23337bbef",
+      "feature_id": "fv_327fbba3affc",
       "created_at": "2026-06-29T12:47:14Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -279,7 +313,7 @@
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0628% is too low after costs."
     },
     {
-      "feature_id": "fv_b08db81ec5f8",
+      "feature_id": "fv_4ab00f3a717b",
       "created_at": "2026-06-29T02:29:02Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -296,7 +330,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_8a0b25ef052a",
+      "feature_id": "fv_15fbb04ba906",
       "created_at": "2026-06-29T02:29:02Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -313,7 +347,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_b085d6d0e5ab",
+      "feature_id": "fv_e6c366b5a6a7",
       "created_at": "2026-06-29T02:22:34Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -330,7 +364,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_e449ea3888e0",
+      "feature_id": "fv_8d246d640e27",
       "created_at": "2026-06-29T02:22:34Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -347,7 +381,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_79ef94bc3e77",
+      "feature_id": "fv_5d391250197b",
       "created_at": "2026-06-28T18:36:53Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -364,7 +398,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_4b599c0fff91",
+      "feature_id": "fv_099bc4ed1044",
       "created_at": "2026-06-28T18:36:53Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -381,7 +415,7 @@
       "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%."
     },
     {
-      "feature_id": "fv_9e5944e480c3",
+      "feature_id": "fv_6e982fcfd099",
       "created_at": "2026-06-28T18:23:10Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -398,7 +432,7 @@
       "reason": "Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning."
     },
     {
-      "feature_id": "fv_4b0fb2fb5b61",
+      "feature_id": "fv_e4c54f2723ec",
       "created_at": "2026-06-28T18:22:32Z",
       "source": "strategy_signal",
       "chain": "base",
@@ -415,7 +449,41 @@
       "reason": "Opportunity Explorer: REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning."
     },
     {
-      "feature_id": "fv_1c97526251c3",
+      "feature_id": "fv_617566e29632",
+      "created_at": "2026-06-29T18:18:08Z",
+      "source": "paper_order",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "strategy_id": "arbitrage",
+      "decision": "SKIPPED",
+      "estimated_net_edge_pct": "-0.2103086317172912901719613480",
+      "readiness_score": 0,
+      "confidence_score": 0,
+      "risk_status": "SKIPPED",
+      "execution_quality": null,
+      "latency_ms": null,
+      "slippage_bps": null,
+      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.2103% is below paper threshold 0.30%."
+    },
+    {
+      "feature_id": "fv_fcf712451720",
+      "created_at": "2026-06-29T18:18:08Z",
+      "source": "paper_order",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "strategy_id": "arbitrage",
+      "decision": "SKIPPED",
+      "estimated_net_edge_pct": "0.0111071078041971530481190535",
+      "readiness_score": 0,
+      "confidence_score": 0,
+      "risk_status": "SKIPPED",
+      "execution_quality": null,
+      "latency_ms": null,
+      "slippage_bps": null,
+      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0111% is below paper threshold 0.30%."
+    },
+    {
+      "feature_id": "fv_f6b7c05341a0",
       "created_at": "2026-06-29T17:45:15Z",
       "source": "paper_order",
       "chain": "base",
@@ -430,81 +498,13 @@
       "latency_ms": null,
       "slippage_bps": null,
       "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.1441% is below paper threshold 0.30%."
-    },
-    {
-      "feature_id": "fv_241a9033a4b8",
-      "created_at": "2026-06-29T17:45:15Z",
-      "source": "paper_order",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "strategy_id": "arbitrage",
-      "decision": "SKIPPED",
-      "estimated_net_edge_pct": "-0.0552147966416534495753429694",
-      "readiness_score": 0,
-      "confidence_score": 0,
-      "risk_status": "SKIPPED",
-      "execution_quality": null,
-      "latency_ms": null,
-      "slippage_bps": null,
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.0552% is below paper threshold 0.30%."
-    },
-    {
-      "feature_id": "fv_3f9d9ae4ce61",
-      "created_at": "2026-06-29T14:23:16Z",
-      "source": "paper_order",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "strategy_id": "arbitrage",
-      "decision": "SKIPPED",
-      "estimated_net_edge_pct": "-0.1520149749886572845258085844",
-      "readiness_score": 0,
-      "confidence_score": 0,
-      "risk_status": "SKIPPED",
-      "execution_quality": null,
-      "latency_ms": null,
-      "slippage_bps": null,
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.1520% is below paper threshold 0.30%."
-    },
-    {
-      "feature_id": "fv_f43ecc9eeddb",
-      "created_at": "2026-06-29T14:23:16Z",
-      "source": "paper_order",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "strategy_id": "arbitrage",
-      "decision": "SKIPPED",
-      "estimated_net_edge_pct": "-0.0491398180386638460061568368",
-      "readiness_score": 0,
-      "confidence_score": 0,
-      "risk_status": "SKIPPED",
-      "execution_quality": null,
-      "latency_ms": null,
-      "slippage_bps": null,
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.0491% is below paper threshold 0.30%."
-    },
-    {
-      "feature_id": "fv_2ee9fa66433a",
-      "created_at": "2026-06-29T14:12:10Z",
-      "source": "paper_order",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "strategy_id": "arbitrage",
-      "decision": "SKIPPED",
-      "estimated_net_edge_pct": "-0.0882186845516571827872423019",
-      "readiness_score": 0,
-      "confidence_score": 0,
-      "risk_status": "SKIPPED",
-      "execution_quality": null,
-      "latency_ms": null,
-      "slippage_bps": null,
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.0882% is below paper threshold 0.30%."
     }
   ],
   "mission_control": {
     "portfolio_equity_usd": "10002.8220",
     "total_pnl_usd": "2.8220",
     "total_return_pct": "0.0282",
-    "feature_vectors": 433,
+    "feature_vectors": 475,
     "tradeable_or_filled": 180,
     "active_strategies": 1,
     "strategy_count": 5,

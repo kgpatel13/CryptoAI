@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.4 - Quote Coverage Expansion Evidence
+
+- Added Quote Coverage Evidence report for ranking configured pair, DEX, router, provider, and recent quote coverage.
+- Identified Base `WETH/USDC` as the only active two-DEX quoted pair and Base `CBBTC/USDC` as the next targeted quote test.
+- Added quote coverage context to Strategy Intelligence and dashboard Market Intelligence views.
+- Added Quote Coverage Evidence to Report Audit expected reports.
+- Corrected the Base Aerodrome registry router to match the quote provider contract constant.
+- Added regression tests for quote coverage classification and registry/provider address consistency.
+
 ## v5.3 - Market Universe and Settings Evidence
 
 - Added Market Universe Evidence report for ranking configured chain/pair/DEX coverage from measured quote, provider, opportunity, optimization, and execution-cost evidence.

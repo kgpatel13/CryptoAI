@@ -37,6 +37,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/provider_monitor.md` - human-readable Provider Monitor report.
 - `reports/market_universe_evidence.json` - ranked chain/pair/DEX universe and research-only settings evidence.
 - `reports/market_universe_evidence.md` - human-readable Market Universe Evidence report.
+- `reports/quote_coverage_evidence.json` - quote-provider coverage, router metadata, route-test, and expansion target evidence.
+- `reports/quote_coverage_evidence.md` - human-readable Quote Coverage Evidence report.
 - `reports/backtest_report.json` - multi-DEX replay backtest metrics.
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
@@ -122,6 +124,12 @@ Generate market universe evidence manually after market intelligence, provider m
 python -m app.research.market_universe_evidence_service
 ```
 
+Generate quote coverage evidence manually after quote diagnostics and provider monitor are fresh:
+
+```bash
+python -m app.research.quote_coverage_evidence_service
+```
+
 Record experiment evidence manually:
 
 ```bash
@@ -179,6 +187,8 @@ reports/provider_monitor.json
 reports/provider_monitor.md
 reports/market_universe_evidence.json
 reports/market_universe_evidence.md
+reports/quote_coverage_evidence.json
+reports/quote_coverage_evidence.md
 reports/backtest_report.json
 reports/backtest_report.md
 reports/replay_diagnostics.json

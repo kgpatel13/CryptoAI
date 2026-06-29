@@ -25,6 +25,7 @@ class StrategyIntelligenceService:
         replay_diagnostics = self._read_json("replay_diagnostics.json")
         execution_cost = self._read_json("execution_cost_evidence.json")
         market_universe = self._read_json("market_universe_evidence.json")
+        quote_coverage = self._read_json("quote_coverage_evidence.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -40,6 +41,7 @@ class StrategyIntelligenceService:
             replay_diagnostics=replay_diagnostics,
             execution_cost=execution_cost,
             market_universe=market_universe,
+            quote_coverage=quote_coverage,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -74,6 +76,7 @@ class StrategyIntelligenceService:
         replay_diagnostics: dict[str, Any],
         execution_cost: dict[str, Any],
         market_universe: dict[str, Any],
+        quote_coverage: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -117,6 +120,11 @@ class StrategyIntelligenceService:
             "market_active_focus_count": self._int(market_universe.get("active_focus_count")),
             "market_research_target_count": self._int(market_universe.get("research_target_count")),
             "market_blocked_count": self._int(market_universe.get("blocked_count")),
+            "quote_coverage_available": bool(quote_coverage),
+            "quote_active_pair_count": self._int(quote_coverage.get("active_pair_count")),
+            "quote_provider_gap_count": self._int(quote_coverage.get("provider_gap_count")),
+            "quote_test_gap_count": self._int(quote_coverage.get("quote_gap_count")),
+            "quote_next_target": self._format_quote_target(quote_coverage),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -252,6 +260,8 @@ class StrategyIntelligenceService:
             blockers.append("Execution cost evidence indicates the production buffer may be too low.")
         if context["market_blocked_count"] and context["market_active_focus_count"] == 0:
             blockers.append("No active market universe focus has enough quote evidence.")
+        if context["quote_coverage_available"] and context["quote_active_pair_count"] == 0:
+            blockers.append("No configured pair has two-DEX quote coverage.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -286,7 +296,8 @@ class StrategyIntelligenceService:
                 return [
                     (
                         f"Keep production buffer unchanged; focus {context['market_primary_focus']} and collect more "
-                        f"execution-cost samples until {context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence."
+                        f"execution-cost samples until {context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence. "
+                        f"Next quote expansion target: {context['quote_next_target']}."
                     )
                 ]
             if context.get("replay_best_profitable_trade_count", 0):
@@ -329,6 +340,8 @@ class StrategyIntelligenceService:
             f"- Observed cost lower bound %: `{context['execution_cost_lower_bound_pct']}`",
             f"- Market primary focus: `{context['market_primary_focus']}`",
             f"- Market universe: `{context['market_active_focus_count']}` active / `{context['market_research_target_count']}` research / `{context['market_blocked_count']}` blocked",
+            f"- Quote coverage: `{context['quote_active_pair_count']}` active / `{context['quote_test_gap_count']}` quote-test gaps / `{context['quote_provider_gap_count']}` provider gaps",
+            f"- Next quote target: `{context['quote_next_target']}`",
             "",
             "## Strategies",
             "",
@@ -376,6 +389,16 @@ class StrategyIntelligenceService:
         pair = focus.get("pair")
         if chain and pair:
             return f"{chain} {pair}"
+        return "-"
+
+    @staticmethod
+    def _format_quote_target(quote_coverage: dict[str, Any]) -> str:
+        targets = quote_coverage.get("next_provider_targets")
+        if isinstance(targets, list) and targets and isinstance(targets[0], dict):
+            chain = targets[0].get("chain")
+            pair = targets[0].get("pair")
+            if chain and pair:
+                return f"{chain} {pair}"
         return "-"
 
     @classmethod

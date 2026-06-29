@@ -19,6 +19,7 @@ It does not change production cost buffers, risk thresholds, paper thresholds, o
 - `reports/provider_monitor.json`
 - `reports/optimization_report.json`
 - `reports/execution_cost_evidence.json`
+- `reports/quote_coverage_evidence.json`
 - `data/quote_diagnostics.jsonl`
 - `data/multi_dex_opportunities.jsonl`
 
@@ -38,6 +39,8 @@ It does not change production cost buffers, risk thresholds, paper thresholds, o
 ## Current Interpretation
 
 Base `WETH/USDC` is the default research focus because it has real quote evidence across Uniswap V2 and Aerodrome. Other configured chains and pairs remain expansion candidates until quote providers and provider-health evidence exist for those venues.
+
+Use Quote Coverage Evidence to identify the next route/provider target before expanding the active universe.
 
 ## Command
 
