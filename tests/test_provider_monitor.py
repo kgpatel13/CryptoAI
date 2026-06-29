@@ -44,7 +44,7 @@ class ProviderMonitorTests(unittest.TestCase):
                             {
                                 "name": "broken-rpc",
                                 "provider_type": "rpc",
-                                "chain": "polygon",
+                                "chain": "Polygon",
                                 "score": 20,
                                 "success_rate_pct": 10,
                                 "consecutive_failures": 4,
@@ -76,6 +76,7 @@ class ProviderMonitorTests(unittest.TestCase):
             self.assertEqual(rows["base-rpc"]["status"], "OK")
             self.assertEqual(rows["slow-dex"]["status"], "DEGRADED")
             self.assertEqual(rows["broken-rpc"]["status"], "CRITICAL")
+            self.assertEqual(rows["broken-rpc"]["chain"], "polygon")
             self.assertTrue((report_dir / "provider_monitor.json").exists())
             self.assertTrue((report_dir / "provider_monitor.md").exists())
 

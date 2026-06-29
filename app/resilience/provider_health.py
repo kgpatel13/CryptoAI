@@ -89,9 +89,10 @@ class ProviderHealthRegistry:
         self._stats: dict[str, ProviderHealthStats] = {}
 
     def get(self, name: str, provider_type: str, chain: str = "base") -> ProviderHealthStats:
-        key = self._key(provider_type, chain, name)
+        normalized_chain = self._normalize_chain(chain)
+        key = self._key(provider_type, normalized_chain, name)
         if key not in self._stats:
-            self._stats[key] = ProviderHealthStats(name=name, provider_type=provider_type, chain=chain)
+            self._stats[key] = ProviderHealthStats(name=name, provider_type=provider_type, chain=normalized_chain)
         return self._stats[key]
 
     def record_success(self, name: str, provider_type: str, latency_ms: float, chain: str = "base", **metadata) -> None:
@@ -116,6 +117,19 @@ class ProviderHealthRegistry:
     @staticmethod
     def _key(provider_type: str, chain: str, name: str) -> str:
         return f"{provider_type.lower()}|{chain.lower()}|{name.lower()}"
+
+    @staticmethod
+    def _normalize_chain(chain: str) -> str:
+        normalized = str(chain).strip().lower()
+        aliases = {
+            "base": "base",
+            "ethereum": "ethereum",
+            "ethereum mainnet": "ethereum",
+            "arbitrum one": "arbitrum",
+            "arbitrum": "arbitrum",
+            "polygon": "polygon",
+        }
+        return aliases.get(normalized, normalized)
 
 
 provider_health_registry = ProviderHealthRegistry()

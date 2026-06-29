@@ -108,7 +108,7 @@ class ProviderMonitorService:
         return ProviderMonitorRow(
             name=str(row.get("name", "unknown")),
             provider_type=str(row.get("provider_type", "unknown")),
-            chain=str(row.get("chain", "unknown")),
+            chain=self._normalize_chain(row.get("chain", "unknown")),
             score=score,
             status=status,
             success_rate_pct=self._float(row.get("success_rate_pct")) or 0.0,
@@ -129,6 +129,7 @@ class ProviderMonitorService:
         name = str(row.get("name", "unknown"))
         provider_type = str(row.get("provider_type", "unknown"))
         chain = str(row.get("chain", "unknown"))
+        chain = self._normalize_chain(chain)
         alerts: list[ProviderAlert] = []
 
         if score <= self.critical_score_threshold:
@@ -284,6 +285,19 @@ class ProviderMonitorService:
     @staticmethod
     def _write_json(path: Path, payload: dict[str, Any]) -> None:
         path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+    @staticmethod
+    def _normalize_chain(chain: Any) -> str:
+        normalized = str(chain).strip().lower()
+        aliases = {
+            "base": "base",
+            "ethereum": "ethereum",
+            "ethereum mainnet": "ethereum",
+            "arbitrum one": "arbitrum",
+            "arbitrum": "arbitrum",
+            "polygon": "polygon",
+        }
+        return aliases.get(normalized, normalized)
 
     @staticmethod
     def _int(value: Any, default: int) -> int:

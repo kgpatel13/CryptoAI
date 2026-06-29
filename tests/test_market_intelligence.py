@@ -21,7 +21,7 @@ class MarketIntelligenceTests(unittest.TestCase):
                         "providers": [
                             {"name": "base-rpc", "provider_type": "rpc", "chain": "base", "score": 90},
                             {"name": "uniswap", "provider_type": "dex", "chain": "base", "score": 80},
-                            {"name": "polygon-rpc", "provider_type": "rpc", "chain": "polygon", "score": 60},
+                            {"name": "polygon-rpc", "provider_type": "rpc", "chain": "Polygon", "score": 60},
                         ]
                     }
                 ),
@@ -39,6 +39,7 @@ class MarketIntelligenceTests(unittest.TestCase):
             self.assertEqual(base["provider_count"], 2)
             self.assertEqual(base["provider_score"], 85)
             self.assertEqual(base["readiness_status"], "READY_FOR_PAPER")
+            self.assertEqual(payload["provider_summary"]["by_chain"]["polygon"], 1)
 
             pairs = {row["pair"]: row for row in payload["pair_candidates"] if row["chain"] == "base"}
             self.assertTrue(pairs["WETH/USDC"]["configured"])

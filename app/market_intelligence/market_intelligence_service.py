@@ -238,7 +238,7 @@ class MarketIntelligenceService:
         scores = []
         for row in provider_rows:
             provider_type = str(row.get("provider_type", "unknown"))
-            chain = str(row.get("chain", "unknown"))
+            chain = MarketIntelligenceService._normalize_chain(row.get("chain", "unknown"))
             by_type[provider_type] = by_type.get(provider_type, 0) + 1
             by_chain[chain] = by_chain.get(chain, 0) + 1
             try:
@@ -251,6 +251,19 @@ class MarketIntelligenceService:
             "by_chain": dict(sorted(by_chain.items())),
             "average_score": round(sum(scores) / len(scores)) if scores else None,
         }
+
+    @staticmethod
+    def _normalize_chain(chain: Any) -> str:
+        normalized = str(chain).strip().lower()
+        aliases = {
+            "base": "base",
+            "ethereum": "ethereum",
+            "ethereum mainnet": "ethereum",
+            "arbitrum one": "arbitrum",
+            "arbitrum": "arbitrum",
+            "polygon": "polygon",
+        }
+        return aliases.get(normalized, normalized)
 
     def _write_markdown(self, payload: dict[str, Any]) -> None:
         lines = [

@@ -1,0 +1,140 @@
+{
+  "generated_at": "2026-06-29T02:18:32Z",
+  "mode": "paper",
+  "provider_count": 4,
+  "overall_status": "CRITICAL",
+  "alert_count": 3,
+  "critical_alert_count": 3,
+  "degraded_alert_count": 0,
+  "stale_after_seconds": 900,
+  "providers": [
+    {
+      "name": "Uniswap V2",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 313.21,
+      "last_observed_age_seconds": 33.49,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 0,
+      "status": "CRITICAL",
+      "success_rate_pct": 0.0,
+      "consecutive_failures": 4,
+      "avg_latency_ms": null,
+      "last_observed_age_seconds": 22.7,
+      "last_error": "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row.",
+      "alerts": [
+        {
+          "severity": "CRITICAL",
+          "provider": "Aerodrome",
+          "provider_type": "dex",
+          "chain": "base",
+          "message": "Provider score 0 is at or below critical threshold."
+        },
+        {
+          "severity": "CRITICAL",
+          "provider": "Aerodrome",
+          "provider_type": "dex",
+          "chain": "base",
+          "message": "Provider has 4 consecutive failures."
+        }
+      ]
+    },
+    {
+      "name": "Base:rpc1:https://base-rpc.publicnode.com",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 75,
+      "status": "OK",
+      "success_rate_pct": 75.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 258.91,
+      "last_observed_age_seconds": 22.06,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 0,
+      "status": "CRITICAL",
+      "success_rate_pct": 0.0,
+      "consecutive_failures": 2,
+      "avg_latency_ms": null,
+      "last_observed_age_seconds": 22.7,
+      "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
+      "alerts": [
+        {
+          "severity": "CRITICAL",
+          "provider": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "chain": "base",
+          "message": "Provider score 0 is at or below critical threshold."
+        }
+      ]
+    }
+  ],
+  "chains": [
+    {
+      "chain": "base",
+      "provider_count": 4,
+      "average_score": 44,
+      "status": "CRITICAL",
+      "critical_count": 2,
+      "degraded_count": 0,
+      "watch_count": 0
+    }
+  ],
+  "provider_types": [
+    {
+      "provider_type": "dex",
+      "provider_count": 2,
+      "average_score": 50,
+      "status": "CRITICAL"
+    },
+    {
+      "provider_type": "rpc",
+      "provider_count": 2,
+      "average_score": 38,
+      "status": "CRITICAL"
+    }
+  ],
+  "alerts": [
+    {
+      "severity": "CRITICAL",
+      "provider": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "message": "Provider score 0 is at or below critical threshold."
+    },
+    {
+      "severity": "CRITICAL",
+      "provider": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "message": "Provider has 4 consecutive failures."
+    },
+    {
+      "severity": "CRITICAL",
+      "provider": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider score 0 is at or below critical threshold."
+    }
+  ],
+  "notes": [
+    "Provider Monitor summarizes existing provider-health observations.",
+    "It does not make network calls or execute trades.",
+    "Missing provider observations should be treated as incomplete operational evidence."
+  ]
+}
