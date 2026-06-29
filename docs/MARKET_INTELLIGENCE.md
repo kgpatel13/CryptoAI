@@ -19,6 +19,8 @@ It does not approve live trading.
 - `reports/market_intelligence.json`
 - `reports/market_intelligence.md`
 
+Market Intelligence feeds `reports/market_universe_evidence.json`, which ranks the configured universe against measured quote, opportunity, optimization, and execution-cost evidence.
+
 ## Readiness Score
 
 Readiness combines:

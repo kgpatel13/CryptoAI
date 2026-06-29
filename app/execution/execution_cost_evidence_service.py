@@ -29,6 +29,7 @@ class ExecutionCostEvidenceService:
         production_cost_buffer_pct: Decimal = Decimal("0.30"),
         fallback_gas_buffer_pct: Decimal = Decimal("0.08"),
         fallback_fee_slippage_buffer_pct: Decimal = Decimal("0.22"),
+        paper_buy_threshold_pct: Decimal = Decimal("0.30"),
         replay_notional_usd: Decimal = Decimal("1000"),
     ) -> dict[str, Any]:
         orders = self._read_jsonl(self.paper_orders_file)
@@ -56,6 +57,7 @@ class ExecutionCostEvidenceService:
         replay = self._replay_cost_evidence(
             rows=multi_dex_rows,
             production_cost_buffer_pct=production_cost_buffer_pct,
+            paper_buy_threshold_pct=paper_buy_threshold_pct,
             observed_total_lower_bound_pct=observed_total_lower_bound,
             replay_notional_usd=replay_notional_usd,
         )
@@ -72,6 +74,7 @@ class ExecutionCostEvidenceService:
             "generated_at": self._utc_now(),
             "mode": "paper",
             "production_cost_buffer_pct": str(production_cost_buffer_pct),
+            "paper_buy_threshold_pct": str(paper_buy_threshold_pct),
             "buffer_status": assessment["buffer_status"],
             "confidence": assessment["confidence"],
             "observed_total_cost_lower_bound_pct": assessment["observed_total_cost_lower_bound_pct"],
@@ -213,6 +216,7 @@ class ExecutionCostEvidenceService:
         *,
         rows: list[dict[str, Any]],
         production_cost_buffer_pct: Decimal,
+        paper_buy_threshold_pct: Decimal,
         observed_total_lower_bound_pct: Decimal | None,
         replay_notional_usd: Decimal,
     ) -> dict[str, Any]:
@@ -222,7 +226,8 @@ class ExecutionCostEvidenceService:
             for row in real_rows
             if self._to_decimal(row.get("gross_edge_pct")) is not None
         ]
-        production_trade_count = sum(1 for edge in gross_edges if edge > production_cost_buffer_pct)
+        production_required_edge = production_cost_buffer_pct + paper_buy_threshold_pct
+        production_trade_count = sum(1 for edge in gross_edges if edge >= production_required_edge)
         lower_bound_trade_count = 0
         lower_bound_total_pnl = Decimal("0")
         if observed_total_lower_bound_pct is not None:
@@ -237,6 +242,7 @@ class ExecutionCostEvidenceService:
             "p95_gross_edge_pct": str(self._percentile(gross_edges, Decimal("0.95")).quantize(Decimal("0.0001"))) if gross_edges else "0.0000",
             "max_gross_edge_pct": str(max(gross_edges, default=Decimal("0")).quantize(Decimal("0.0001"))),
             "production_trade_count": production_trade_count,
+            "production_required_gross_edge_pct": str(production_required_edge),
             "observed_lower_bound_trade_count": lower_bound_trade_count,
             "observed_lower_bound_total_pnl_usd": str(lower_bound_total_pnl.quantize(Decimal("0.0001"))),
             "replay_notional_usd": str(replay_notional_usd),
@@ -364,6 +370,7 @@ class ExecutionCostEvidenceService:
             "## Summary",
             "",
             f"- Production cost buffer %: `{payload['production_cost_buffer_pct']}`",
+            f"- Paper BUY threshold %: `{payload['paper_buy_threshold_pct']}`",
             f"- Buffer status: `{assessment['buffer_status']}`",
             f"- Confidence: `{assessment['confidence']}`",
             f"- Observed total cost lower bound %: `{assessment['observed_total_cost_lower_bound_pct']}`",
@@ -399,6 +406,7 @@ class ExecutionCostEvidenceService:
             f"- Real replay signals: `{replay['real_signal_count']}`",
             f"- Max gross edge %: `{replay['max_gross_edge_pct']}`",
             f"- Production-buffer trades: `{replay['production_trade_count']}`",
+            f"- Production required gross edge %: `{replay['production_required_gross_edge_pct']}`",
             f"- Lower-bound cost trades: `{replay['observed_lower_bound_trade_count']}`",
             f"- Lower-bound replay PnL USD: `{replay['observed_lower_bound_total_pnl_usd']}`",
             "",

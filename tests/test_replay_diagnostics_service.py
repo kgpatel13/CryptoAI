@@ -50,12 +50,45 @@ class ReplayDiagnosticsServiceTests(unittest.TestCase):
             payload = ReplayDiagnosticsService(data_dir=data, report_dir=reports).generate()
 
             self.assertEqual(payload["production_trade_count"], 0)
+            self.assertEqual(payload["production_positive_edge_count"], 0)
             self.assertEqual(payload["best_profitable_cost_buffer_pct"], "0.20")
             self.assertEqual(payload["best_profitable_trade_count"], 1)
             self.assertEqual(payload["synthetic_signal_count"], 1)
             self.assertIn("Production buffer", payload["findings"][0]["message"])
             self.assertTrue((reports / "replay_diagnostics.json").exists())
             self.assertTrue((reports / "replay_diagnostics.md").exists())
+
+    def test_positive_after_cost_below_buy_threshold_is_not_production_trade(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "data"
+            reports = root / "reports"
+            data.mkdir()
+            reports.mkdir()
+            (data / "multi_dex_opportunities.jsonl").write_text(
+                json.dumps(
+                    {
+                        "timestamp": "2026-06-29T00:00:00Z",
+                        "mode": "REAL",
+                        "chain": "base",
+                        "pair": "WETH/USDC",
+                        "buy_dex": "Uniswap V2",
+                        "sell_dex": "Aerodrome",
+                        "gross_edge_pct": "0.3035",
+                        "cost_buffer_pct": "0.30",
+                        "net_edge_pct": "0.0035",
+                        "decision": "SKIP",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            payload = ReplayDiagnosticsService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(payload["production_positive_edge_count"], 1)
+            self.assertEqual(payload["production_trade_count"], 0)
+            self.assertIn("positive-after-cost", payload["findings"][0]["message"])
 
 
 if __name__ == "__main__":

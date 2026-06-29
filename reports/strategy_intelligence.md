@@ -1,6 +1,6 @@
 # CryptoAI Strategy Intelligence
 
-Generated: `2026-06-29T17:48:56Z`
+Generated: `2026-06-29T18:05:19Z`
 
 ## Summary
 
@@ -12,9 +12,11 @@ Generated: `2026-06-29T17:48:56Z`
 - Experiment: `RESEARCH_ONLY` with `1` fail / `1` warn
 - Report audit findings: `0`
 - Replay production trades: `0` at `0.30` cost buffer
-- Replay best profitable buffer: `0.20` with `48` trade(s)
+- Replay best profitable buffer: `0.20` with `49` trade(s)
 - Execution cost status: `CONSERVATIVE` with `LOW` confidence
 - Observed cost lower bound %: `0.1300`
+- Market primary focus: `base WETH/USDC`
+- Market universe: `1` active / `0` research / `7` blocked
 
 ## Strategies
 
@@ -29,7 +31,7 @@ Generated: `2026-06-29T17:48:56Z`
 ## Next Actions
 
 ### DEX Arbitrage Strategy
-- Keep production buffer unchanged; collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence.
+- Keep production buffer unchanged; focus base WETH/USDC and collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence.
 
 ### Momentum Strategy
 - Keep disabled until its feature pipeline and validation tests are implemented.

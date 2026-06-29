@@ -23,6 +23,7 @@ class ReplayDiagnosticsService:
         self,
         *,
         production_cost_buffer: Decimal = Decimal("0.30"),
+        paper_buy_threshold: Decimal = Decimal("0.30"),
         cost_buffers: list[Decimal] | None = None,
         notional_usd: Decimal = Decimal("1000"),
         include_synthetic: bool = False,
@@ -34,7 +35,13 @@ class ReplayDiagnosticsService:
         synthetic_rows = [row for row in deduped if str(row.get("mode", "REAL")) != "REAL"]
         considered = deduped if include_synthetic else real_rows
         scenarios = [self._scenario(considered, cost_buffer, notional_usd) for cost_buffer in cost_buffers]
-        production = self._scenario(considered, production_cost_buffer, notional_usd)
+        production_positive = self._scenario(considered, production_cost_buffer, notional_usd)
+        production = self._scenario(
+            considered,
+            production_cost_buffer,
+            notional_usd,
+            min_net_edge=paper_buy_threshold,
+        )
         profitable = [row for row in scenarios if row["trade_count"] > 0 and self._decimal(row["total_pnl_usd"]) > 0]
         best = max(profitable, key=lambda row: (self._decimal(row["total_pnl_usd"]), row["trade_count"]), default=None)
         max_gross_edge = max((self._to_decimal(row.get("gross_edge_pct")) or Decimal("0") for row in considered), default=Decimal("0"))
@@ -48,14 +55,17 @@ class ReplayDiagnosticsService:
             "real_signal_count": len(real_rows),
             "synthetic_signal_count": len(synthetic_rows),
             "production_cost_buffer_pct": str(production_cost_buffer),
+            "paper_buy_threshold_pct": str(paper_buy_threshold),
             "production_trade_count": production["trade_count"],
             "production_total_pnl_usd": production["total_pnl_usd"],
+            "production_positive_edge_count": production_positive["trade_count"],
+            "production_positive_edge_total_pnl_usd": production_positive["total_pnl_usd"],
             "best_profitable_cost_buffer_pct": best["cost_buffer_pct"] if best else None,
             "best_profitable_trade_count": best["trade_count"] if best else 0,
             "best_profitable_total_pnl_usd": best["total_pnl_usd"] if best else "0.0000",
             "max_observed_gross_edge_pct": str(max_gross_edge),
             "cost_buffer_scenarios": scenarios,
-            "findings": self._findings(production, best, production_cost_buffer),
+            "findings": self._findings(production, production_positive, best, production_cost_buffer, paper_buy_threshold),
             "notes": [
                 "Replay Diagnostics replays recorded real opportunities only by default.",
                 "It is explanatory research evidence and does not lower risk thresholds automatically.",
@@ -66,7 +76,14 @@ class ReplayDiagnosticsService:
         self.report_md.write_text(self._markdown(payload), encoding="utf-8")
         return payload
 
-    def _scenario(self, rows: list[dict[str, Any]], cost_buffer: Decimal, notional_usd: Decimal) -> dict[str, Any]:
+    def _scenario(
+        self,
+        rows: list[dict[str, Any]],
+        cost_buffer: Decimal,
+        notional_usd: Decimal,
+        *,
+        min_net_edge: Decimal = Decimal("0"),
+    ) -> dict[str, Any]:
         trades = []
         below_threshold = 0
         max_net_edge = Decimal("0")
@@ -77,7 +94,7 @@ class ReplayDiagnosticsService:
                 continue
             net_edge = gross_edge - cost_buffer
             max_net_edge = max(max_net_edge, net_edge)
-            if net_edge <= 0:
+            if (min_net_edge == 0 and net_edge <= min_net_edge) or (min_net_edge > 0 and net_edge < min_net_edge):
                 below_threshold += 1
                 continue
             pnl = (notional_usd * net_edge / Decimal("100")).quantize(Decimal("0.0001"))
@@ -99,15 +116,34 @@ class ReplayDiagnosticsService:
     @staticmethod
     def _findings(
         production: dict[str, Any],
+        production_positive: dict[str, Any],
         best: dict[str, Any] | None,
         production_cost_buffer: Decimal,
+        paper_buy_threshold: Decimal,
     ) -> list[dict[str, str]]:
         if production["trade_count"] > 0:
             return [
                 {
                     "severity": "OK",
-                    "message": f"Production buffer {production_cost_buffer}% produced {production['trade_count']} replay trade(s).",
+                    "message": (
+                        f"Production buffer {production_cost_buffer}% and paper BUY threshold "
+                        f"{paper_buy_threshold}% produced {production['trade_count']} replay trade(s)."
+                    ),
                 }
+            ]
+        if production_positive["trade_count"] > 0:
+            return [
+                {
+                    "severity": "WATCH",
+                    "message": (
+                        f"Production buffer {production_cost_buffer}% has {production_positive['trade_count']} positive-after-cost "
+                        f"signal(s), but 0 pass the paper BUY threshold {paper_buy_threshold}%."
+                    ),
+                },
+                {
+                    "severity": "ACTION",
+                    "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change.",
+                },
             ]
         if best:
             return [
@@ -142,8 +178,10 @@ class ReplayDiagnosticsService:
             f"- Real signals: `{payload['real_signal_count']}`",
             f"- Synthetic signals: `{payload['synthetic_signal_count']}`",
             f"- Production cost buffer %: `{payload['production_cost_buffer_pct']}`",
+            f"- Paper BUY threshold %: `{payload['paper_buy_threshold_pct']}`",
             f"- Production trades: `{payload['production_trade_count']}`",
             f"- Production PnL USD: `{payload['production_total_pnl_usd']}`",
+            f"- Positive-after-cost signals at production buffer: `{payload['production_positive_edge_count']}`",
             f"- Best profitable cost buffer %: `{payload['best_profitable_cost_buffer_pct']}`",
             f"- Best profitable trades: `{payload['best_profitable_trade_count']}`",
             f"- Best profitable PnL USD: `{payload['best_profitable_total_pnl_usd']}`",

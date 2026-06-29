@@ -30,7 +30,7 @@ class OptimizationService:
         rows = self._read_jsonl(self.input_file)
         deduped_rows = self._dedupe_opportunity_rows(rows)
         cost_buffers = cost_buffers or [Decimal("0.20"), Decimal("0.25"), Decimal("0.30"), Decimal("0.35")]
-        min_net_edges = min_net_edges or [Decimal("0.00"), Decimal("0.05"), Decimal("0.10"), Decimal("0.20")]
+        min_net_edges = min_net_edges or [Decimal("0.00"), Decimal("0.05"), Decimal("0.10"), Decimal("0.20"), Decimal("0.30")]
         notionals = notionals or [Decimal("100"), Decimal("250"), Decimal("1000")]
 
         scenarios = []

@@ -38,15 +38,18 @@ class ExperimentService:
             OptimizationService(data_dir=self.data_dir, report_dir=self.report_dir).run()
         from app.backtesting.replay_diagnostics_service import ReplayDiagnosticsService
         from app.execution.execution_cost_evidence_service import ExecutionCostEvidenceService
+        from app.research.market_universe_evidence_service import MarketUniverseEvidenceService
 
         ReplayDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
         ExecutionCostEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+        MarketUniverseEvidenceService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
 
         generated_at = self._utc_now()
         backtest = self._read_json(self.report_json.with_name("backtest_report.json"))
         optimization = self._read_json(self.report_json.with_name("optimization_report.json"))
         replay_diagnostics = self._read_json(self.report_json.with_name("replay_diagnostics.json"))
         execution_cost = self._read_json(self.report_json.with_name("execution_cost_evidence.json"))
+        market_universe = self._read_json(self.report_json.with_name("market_universe_evidence.json"))
         provider = self._read_json(self.report_json.with_name("provider_monitor.json"))
         paper = self._read_json(self.report_json.with_name("paper_report.json"))
         audit = self._read_json(self.report_json.with_name("report_audit.json"))
@@ -80,9 +83,10 @@ class ExperimentService:
             "pass_count": pass_count,
             "warn_count": warn_count,
             "fail_count": fail_count,
-            "summary": self._summary(backtest, optimization, provider, paper, audit, execution_cost),
+            "summary": self._summary(backtest, optimization, provider, paper, audit, execution_cost, market_universe),
             "replay_diagnostics": self._replay_diagnostic_summary(replay_diagnostics),
             "execution_cost_evidence": self._execution_cost_summary(execution_cost),
+            "market_universe_evidence": self._market_universe_summary(market_universe),
             "gates": gates,
             "notes": [
                 "Experiment tracking records research evidence only.",
@@ -200,9 +204,11 @@ class ExperimentService:
         paper: dict[str, Any],
         audit: dict[str, Any],
         execution_cost: dict[str, Any],
+        market_universe: dict[str, Any],
     ) -> dict[str, Any]:
         best = optimization.get("best_scenario") if isinstance(optimization.get("best_scenario"), dict) else {}
         cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
+        primary_focus = market_universe.get("primary_focus") if isinstance(market_universe.get("primary_focus"), dict) else {}
         return {
             "backtest_total_signals": backtest.get("total_signals"),
             "backtest_trades": backtest.get("simulated_trades"),
@@ -221,6 +227,9 @@ class ExperimentService:
                 "observed_total_cost_lower_bound_pct",
                 cost_assessment.get("observed_total_cost_lower_bound_pct"),
             ),
+            "market_primary_focus": self._format_focus(primary_focus),
+            "market_active_focus_count": market_universe.get("active_focus_count"),
+            "market_blocked_count": market_universe.get("blocked_count"),
         }
 
     @staticmethod
@@ -250,6 +259,19 @@ class ExperimentService:
                 assessment.get("buffer_surplus_vs_lower_bound_pct"),
             ),
             "findings": execution_cost.get("findings", []),
+        }
+
+    @staticmethod
+    def _market_universe_summary(market_universe: dict[str, Any]) -> dict[str, Any]:
+        primary_focus = market_universe.get("primary_focus") if isinstance(market_universe.get("primary_focus"), dict) else {}
+        return {
+            "primary_focus": ExperimentService._format_focus(primary_focus),
+            "active_focus_count": market_universe.get("active_focus_count"),
+            "research_target_count": market_universe.get("research_target_count"),
+            "blocked_count": market_universe.get("blocked_count"),
+            "provider_status": market_universe.get("provider_status"),
+            "provider_alert_count": market_universe.get("provider_alert_count"),
+            "findings": market_universe.get("findings", []),
         }
 
     @staticmethod
@@ -315,6 +337,14 @@ class ExperimentService:
             lines.append(f"- {key}: `{value}`")
         cost_findings = latest.get("execution_cost_evidence", {}).get("findings", [])
         for finding in cost_findings:
+            lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
+        lines += ["", "## Market Universe Evidence", ""]
+        for key, value in latest.get("market_universe_evidence", {}).items():
+            if key == "findings":
+                continue
+            lines.append(f"- {key}: `{value}`")
+        universe_findings = latest.get("market_universe_evidence", {}).get("findings", [])
+        for finding in universe_findings:
             lines.append(f"- {finding.get('severity', '-')}: {finding.get('message', '-')}")
         lines += ["", "## Gates", "", "| Gate | Status | Message |", "|---|---|---|"]
         for gate in latest["gates"]:
@@ -386,6 +416,14 @@ class ExperimentService:
     @staticmethod
     def _utc_now() -> str:
         return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+    @staticmethod
+    def _format_focus(focus: dict[str, Any]) -> str:
+        chain = focus.get("chain")
+        pair = focus.get("pair")
+        if chain and pair:
+            return f"{chain} {pair}"
+        return "-"
 
 
 def main() -> None:

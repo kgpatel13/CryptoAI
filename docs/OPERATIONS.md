@@ -35,6 +35,8 @@ Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 - `reports/market_intelligence.md` - human-readable Market Intelligence report.
 - `reports/provider_monitor.json` - provider status, chain summaries, and alerts.
 - `reports/provider_monitor.md` - human-readable Provider Monitor report.
+- `reports/market_universe_evidence.json` - ranked chain/pair/DEX universe and research-only settings evidence.
+- `reports/market_universe_evidence.md` - human-readable Market Universe Evidence report.
 - `reports/backtest_report.json` - multi-DEX replay backtest metrics.
 - `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/replay_diagnostics.json` - replay threshold diagnostics for production and lower cost buffers.
@@ -114,6 +116,12 @@ Generate optimization manually:
 python -m app.backtesting.optimization_service
 ```
 
+Generate market universe evidence manually after market intelligence, provider monitor, replay diagnostics, execution cost evidence, and optimization are fresh:
+
+```bash
+python -m app.research.market_universe_evidence_service
+```
+
 Record experiment evidence manually:
 
 ```bash
@@ -169,6 +177,8 @@ reports/market_intelligence.json
 reports/market_intelligence.md
 reports/provider_monitor.json
 reports/provider_monitor.md
+reports/market_universe_evidence.json
+reports/market_universe_evidence.md
 reports/backtest_report.json
 reports/backtest_report.md
 reports/replay_diagnostics.json

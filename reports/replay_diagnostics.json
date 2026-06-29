@@ -1,52 +1,55 @@
 {
-  "generated_at": "2026-06-29T17:48:56Z",
+  "generated_at": "2026-06-29T18:05:19Z",
   "mode": "paper",
   "source_file": "data\\multi_dex_opportunities.jsonl",
   "include_synthetic": false,
-  "input_row_count": 236,
-  "deduped_row_count": 185,
-  "real_signal_count": 103,
+  "input_row_count": 240,
+  "deduped_row_count": 187,
+  "real_signal_count": 105,
   "synthetic_signal_count": 82,
   "production_cost_buffer_pct": "0.30",
+  "paper_buy_threshold_pct": "0.30",
   "production_trade_count": 0,
   "production_total_pnl_usd": "0.0000",
+  "production_positive_edge_count": 1,
+  "production_positive_edge_total_pnl_usd": "0.0355",
   "best_profitable_cost_buffer_pct": "0.20",
-  "best_profitable_trade_count": 48,
-  "best_profitable_total_pnl_usd": "19.0773",
-  "max_observed_gross_edge_pct": "0.2759559950885942184615057939",
+  "best_profitable_trade_count": 49,
+  "best_profitable_total_pnl_usd": "20.1128",
+  "max_observed_gross_edge_pct": "0.3035451216502074820379041918",
   "cost_buffer_scenarios": [
     {
       "cost_buffer_pct": "0.20",
-      "considered_signals": 103,
-      "trade_count": 48,
-      "skipped_below_threshold": 55,
-      "total_pnl_usd": "19.0773",
-      "avg_net_edge_pct": "0.0397",
-      "max_net_edge_pct": "0.0760"
+      "considered_signals": 105,
+      "trade_count": 49,
+      "skipped_below_threshold": 56,
+      "total_pnl_usd": "20.1128",
+      "avg_net_edge_pct": "0.0410",
+      "max_net_edge_pct": "0.1035"
     },
     {
       "cost_buffer_pct": "0.25",
-      "considered_signals": 103,
-      "trade_count": 16,
-      "skipped_below_threshold": 87,
-      "total_pnl_usd": "1.7322",
-      "avg_net_edge_pct": "0.0108",
-      "max_net_edge_pct": "0.0260"
+      "considered_signals": 105,
+      "trade_count": 17,
+      "skipped_below_threshold": 88,
+      "total_pnl_usd": "2.2677",
+      "avg_net_edge_pct": "0.0133",
+      "max_net_edge_pct": "0.0535"
     },
     {
       "cost_buffer_pct": "0.30",
-      "considered_signals": 103,
-      "trade_count": 0,
-      "skipped_below_threshold": 103,
-      "total_pnl_usd": "0.0000",
-      "avg_net_edge_pct": "0.0000",
-      "max_net_edge_pct": "0.0000"
+      "considered_signals": 105,
+      "trade_count": 1,
+      "skipped_below_threshold": 104,
+      "total_pnl_usd": "0.0355",
+      "avg_net_edge_pct": "0.0035",
+      "max_net_edge_pct": "0.0035"
     },
     {
       "cost_buffer_pct": "0.35",
-      "considered_signals": 103,
+      "considered_signals": 105,
       "trade_count": 0,
-      "skipped_below_threshold": 103,
+      "skipped_below_threshold": 105,
       "total_pnl_usd": "0.0000",
       "avg_net_edge_pct": "0.0000",
       "max_net_edge_pct": "0.0000"
@@ -55,11 +58,11 @@
   "findings": [
     {
       "severity": "WATCH",
-      "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 48 trade(s)."
+      "message": "Production buffer 0.30% has 1 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
     },
     {
       "severity": "ACTION",
-      "message": "Collect execution-cost evidence before considering any lower paper threshold."
+      "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
     }
   ],
   "notes": [

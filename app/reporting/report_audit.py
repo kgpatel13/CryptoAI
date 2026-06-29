@@ -37,6 +37,8 @@ class ReportAuditService:
         "experiment_report.md",
         "market_intelligence.json",
         "market_intelligence.md",
+        "market_universe_evidence.json",
+        "market_universe_evidence.md",
         "provider_monitor.json",
         "provider_monitor.md",
     ]
@@ -157,6 +159,9 @@ class ReportAuditService:
             "status",
             "overall_status",
             "overall_readiness_score",
+            "active_focus_count",
+            "research_target_count",
+            "blocked_count",
             "provider_count",
             "alert_count",
             "feature_count",

@@ -25,6 +25,8 @@ The report treats paper slippage plus configured gas buffer as a measured lower 
 
 `TOO_HIGH` requires high-confidence evidence plus replay signals that are profitable under observed lower-bound costs but blocked by the current production buffer. Low-confidence evidence remains `CONSERVATIVE` rather than recommending a threshold change.
 
+Production-trade counts require the configured production cost buffer plus the paper BUY threshold. Lower-bound counts are diagnostic and do not imply current paper eligibility.
+
 ## Command
 
 ```bash

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T17:48:56Z",
+  "generated_at": "2026-06-29T18:05:19Z",
   "mode": "paper",
   "strategy_count": 5,
   "top_recommendation": "CONTINUE_RESEARCH",
@@ -7,18 +7,22 @@
   "context": {
     "feature_count": 433,
     "tradeable_or_filled_count": 180,
-    "optimization_best_trades": 48,
-    "optimization_best_pnl_usd": "19.0773",
+    "optimization_best_trades": 49,
+    "optimization_best_pnl_usd": "20.1128",
     "optimization_best_cost_buffer_pct": "0.20",
     "replay_production_cost_buffer_pct": "0.30",
     "replay_production_trade_count": 0,
     "replay_best_profitable_cost_buffer_pct": "0.20",
-    "replay_best_profitable_trade_count": 48,
-    "replay_best_profitable_total_pnl_usd": "19.0773",
+    "replay_best_profitable_trade_count": 49,
+    "replay_best_profitable_total_pnl_usd": "20.1128",
     "execution_cost_buffer_status": "CONSERVATIVE",
     "execution_cost_confidence": "LOW",
     "execution_cost_lower_bound_pct": "0.1300",
     "execution_cost_buffer_surplus_pct": "0.1700",
+    "market_primary_focus": "base WETH/USDC",
+    "market_active_focus_count": 1,
+    "market_research_target_count": 0,
+    "market_blocked_count": 7,
     "experiment_status": "RESEARCH_ONLY",
     "experiment_fail_count": 1,
     "experiment_warn_count": 1,
@@ -64,7 +68,7 @@
         "-15 experiment gate failure"
       ],
       "next_actions": [
-        "Keep production buffer unchanged; collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence."
+        "Keep production buffer unchanged; focus base WETH/USDC and collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence."
       ]
     },
     {

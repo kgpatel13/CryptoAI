@@ -24,6 +24,7 @@ class StrategyIntelligenceService:
         optimization = self._read_json("optimization_report.json")
         replay_diagnostics = self._read_json("replay_diagnostics.json")
         execution_cost = self._read_json("execution_cost_evidence.json")
+        market_universe = self._read_json("market_universe_evidence.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -38,6 +39,7 @@ class StrategyIntelligenceService:
             optimization=optimization,
             replay_diagnostics=replay_diagnostics,
             execution_cost=execution_cost,
+            market_universe=market_universe,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -71,6 +73,7 @@ class StrategyIntelligenceService:
         optimization: dict[str, Any],
         replay_diagnostics: dict[str, Any],
         execution_cost: dict[str, Any],
+        market_universe: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -84,6 +87,7 @@ class StrategyIntelligenceService:
         )
         paper_analytics = paper.get("portfolio_analytics", {}) if isinstance(paper.get("portfolio_analytics"), dict) else {}
         cost_assessment = execution_cost.get("assessment") if isinstance(execution_cost.get("assessment"), dict) else {}
+        primary_focus = market_universe.get("primary_focus") if isinstance(market_universe.get("primary_focus"), dict) else {}
         return {
             "feature_count": self._int(feature_store.get("feature_count")),
             "tradeable_or_filled_count": self._int(feature_store.get("tradeable_or_filled_count")),
@@ -109,6 +113,10 @@ class StrategyIntelligenceService:
                     cost_assessment.get("buffer_surplus_vs_lower_bound_pct", "-"),
                 )
             ),
+            "market_primary_focus": self._format_focus(primary_focus),
+            "market_active_focus_count": self._int(market_universe.get("active_focus_count")),
+            "market_research_target_count": self._int(market_universe.get("research_target_count")),
+            "market_blocked_count": self._int(market_universe.get("blocked_count")),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -242,6 +250,8 @@ class StrategyIntelligenceService:
             blockers.append("Execution cost evidence is insufficient.")
         if context["execution_cost_buffer_status"] == "TOO_LOW":
             blockers.append("Execution cost evidence indicates the production buffer may be too low.")
+        if context["market_blocked_count"] and context["market_active_focus_count"] == 0:
+            blockers.append("No active market universe focus has enough quote evidence.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -275,8 +285,8 @@ class StrategyIntelligenceService:
             if context.get("execution_cost_buffer_status") in {"CONSERVATIVE", "SLIGHTLY_CONSERVATIVE"}:
                 return [
                     (
-                        "Keep production buffer unchanged; collect more execution-cost samples until "
-                        f"{context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence."
+                        f"Keep production buffer unchanged; focus {context['market_primary_focus']} and collect more "
+                        f"execution-cost samples until {context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence."
                     )
                 ]
             if context.get("replay_best_profitable_trade_count", 0):
@@ -317,6 +327,8 @@ class StrategyIntelligenceService:
             f"- Replay best profitable buffer: `{context['replay_best_profitable_cost_buffer_pct']}` with `{context['replay_best_profitable_trade_count']}` trade(s)",
             f"- Execution cost status: `{context['execution_cost_buffer_status']}` with `{context['execution_cost_confidence']}` confidence",
             f"- Observed cost lower bound %: `{context['execution_cost_lower_bound_pct']}`",
+            f"- Market primary focus: `{context['market_primary_focus']}`",
+            f"- Market universe: `{context['market_active_focus_count']}` active / `{context['market_research_target_count']}` research / `{context['market_blocked_count']}` blocked",
             "",
             "## Strategies",
             "",
@@ -357,6 +369,14 @@ class StrategyIntelligenceService:
             return int(value or 0)
         except Exception:
             return 0
+
+    @staticmethod
+    def _format_focus(focus: dict[str, Any]) -> str:
+        chain = focus.get("chain")
+        pair = focus.get("pair")
+        if chain and pair:
+            return f"{chain} {pair}"
+        return "-"
 
     @classmethod
     def _audit_finding_count(cls, audit: dict[str, Any]) -> int:

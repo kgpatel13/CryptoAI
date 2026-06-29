@@ -246,6 +246,16 @@ def render_market_intelligence() -> None:
             st.success("Market intelligence generated.")
             st.json(result)
 
+    if st.button("Generate Universe Evidence"):
+        def task():
+            Service = import_object("app.research.market_universe_evidence_service", "MarketUniverseEvidenceService")
+            return Service().generate()
+
+        result = safe_run("Generating market universe evidence...", task)
+        if result is not None:
+            st.success("Market universe evidence generated.")
+            st.json(result)
+
     report_json = REPORT_DIR / "market_intelligence.json"
     if report_json.exists():
         try:
@@ -276,6 +286,27 @@ def render_market_intelligence() -> None:
     txt = read_text(REPORT_DIR / "market_intelligence.md")
     if txt:
         st.markdown(txt)
+
+    universe_json = REPORT_DIR / "market_universe_evidence.json"
+    if universe_json.exists():
+        try:
+            payload = json.loads(universe_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read market universe evidence: {exc}")
+            payload = {}
+
+        if payload:
+            st.markdown("### Market Universe Evidence")
+            c1, c2, c3, c4 = st.columns(4)
+            focus = payload.get("primary_focus") or {}
+            c1.metric("Primary Focus", f"{focus.get('chain', '-')}\n{focus.get('pair', '-')}")
+            c2.metric("Active", payload.get("active_focus_count", "-"))
+            c3.metric("Research", payload.get("research_target_count", "-"))
+            c4.metric("Blocked", payload.get("blocked_count", "-"))
+            dataframe_or_info(payload.get("universe", []), "No universe rows yet.")
+            dataframe_or_info(payload.get("findings", []), "No universe findings.")
+    else:
+        st.info("No market_universe_evidence.json yet. Generate Universe Evidence.")
 
 
 def render_provider_monitor() -> None:
@@ -426,6 +457,7 @@ def render_reports() -> None:
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
+        ("Market Universe Evidence", REPORT_DIR / "market_universe_evidence.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
@@ -870,6 +902,8 @@ def render_system_health() -> None:
         REPORT_DIR / "operational_metrics.json",
         REPORT_DIR / "market_intelligence.json",
         REPORT_DIR / "market_intelligence.md",
+        REPORT_DIR / "market_universe_evidence.json",
+        REPORT_DIR / "market_universe_evidence.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
         REPORT_DIR / "report_audit.json",
@@ -941,6 +975,7 @@ def render_setup() -> None:
         python -m app.backtesting.replay_diagnostics_service
         python -m app.execution.execution_cost_evidence_service
         python -m app.backtesting.optimization_service
+        python -m app.research.market_universe_evidence_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service
         python -m app.ai.strategy_intelligence_service

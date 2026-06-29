@@ -1,7 +1,8 @@
 {
-  "generated_at": "2026-06-29T17:48:56Z",
+  "generated_at": "2026-06-29T18:05:19Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
+  "paper_buy_threshold_pct": "0.30",
   "buffer_status": "CONSERVATIVE",
   "confidence": "LOW",
   "observed_total_cost_lower_bound_pct": "0.1300",
@@ -44,15 +45,15 @@
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "285.4700",
-    "avg_provider_score": "68.7500",
+    "avg_provider_latency_ms": "283.7900",
+    "avg_provider_score": "69.0000",
     "providers": [
       {
         "name": "Uniswap V2",
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 302.45,
+        "avg_latency_ms": 304.07,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -60,17 +61,17 @@
         "name": "Aerodrome",
         "provider_type": "dex",
         "chain": "base",
-        "success_rate_pct": 77.78,
-        "avg_latency_ms": 306.54,
-        "score": 77,
+        "success_rate_pct": 78.95,
+        "avg_latency_ms": 299.35,
+        "score": 78,
         "consecutive_failures": 0
       },
       {
         "name": "Base:rpc1:https://base-rpc.publicnode.com",
         "provider_type": "rpc",
         "chain": "base",
-        "success_rate_pct": 98.11,
-        "avg_latency_ms": 247.42,
+        "success_rate_pct": 98.18,
+        "avg_latency_ms": 247.95,
         "score": 98,
         "consecutive_failures": 0
       },
@@ -86,13 +87,14 @@
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 96,
+    "real_signal_count": 98,
     "avg_gross_edge_pct": "0.1997",
-    "p95_gross_edge_pct": "0.2696",
-    "max_gross_edge_pct": "0.2760",
+    "p95_gross_edge_pct": "0.2701",
+    "max_gross_edge_pct": "0.3035",
     "production_trade_count": 0,
-    "observed_lower_bound_trade_count": 88,
-    "observed_lower_bound_total_pnl_usd": "67.0093",
+    "production_required_gross_edge_pct": "0.60",
+    "observed_lower_bound_trade_count": 89,
+    "observed_lower_bound_total_pnl_usd": "68.7448",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -103,9 +105,9 @@
     "buffer_surplus_vs_lower_bound_pct": "0.1700",
     "paper_sample_count": 6,
     "quote_ok_rate_pct": "62.5000",
-    "avg_provider_score": "68.7500",
+    "avg_provider_score": "69.0000",
     "production_trade_count": 0,
-    "observed_lower_bound_trade_count": 88
+    "observed_lower_bound_trade_count": 89
   },
   "findings": [
     {

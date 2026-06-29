@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.3 - Market Universe and Settings Evidence
+
+- Added Market Universe Evidence report for ranking configured chain/pair/DEX coverage from measured quote, provider, opportunity, optimization, and execution-cost evidence.
+- Classified pairs as active focus, research targets, quote-provider blocked, or watchlist without changing production thresholds.
+- Added research-only settings evidence so lower-buffer optimization can be reviewed without changing the `0.30%` production buffer.
+- Clarified replay diagnostics so production trades require both production cost buffer and paper BUY threshold.
+- Integrated universe evidence into Strategy Intelligence, dashboard, Report Audit, docs, and release notes.
+- Added regression tests for active-focus ranking and quote-provider blocking.
+
 ## v5.2 - Execution Cost Evidence Engine
 
 - Added Execution Cost Evidence report for measuring observed paper slippage, quote latency, provider health, and replay edge distribution.
