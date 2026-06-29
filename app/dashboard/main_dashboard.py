@@ -83,6 +83,7 @@ def render_mission_control() -> None:
     mission_summary_report = REPORT_DIR / "mission_summary.json"
     heartbeat_report = DATA_DIR / "heartbeat.json"
     market_intelligence_report = REPORT_DIR / "market_intelligence.json"
+    provider_monitor_report = REPORT_DIR / "provider_monitor.json"
 
     paper = {}
     research = {}
@@ -90,6 +91,7 @@ def render_mission_control() -> None:
     mission_summary = {}
     heartbeat = {}
     market_intelligence = {}
+    provider_monitor = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -119,6 +121,12 @@ def render_mission_control() -> None:
             market_intelligence = json.loads(market_intelligence_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             market_intelligence = {}
+
+    if provider_monitor_report.exists():
+        try:
+            provider_monitor = json.loads(provider_monitor_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            provider_monitor = {}
 
     analytics = paper.get("portfolio_analytics", {})
     feature_store = research.get("feature_store", {})
@@ -152,6 +160,13 @@ def render_mission_control() -> None:
     m2.metric("Chains", market_intelligence.get("chain_count", "-"))
     m3.metric("Pair Candidates", market_intelligence.get("pair_candidate_count", "-"))
     m4.metric("Configured Pairs", market_intelligence.get("configured_pair_count", "-"))
+
+    st.markdown("### Provider Monitor")
+    p1, p2, p3, p4 = st.columns(4)
+    p1.metric("Provider Status", provider_monitor.get("overall_status", "-"))
+    p2.metric("Providers", provider_monitor.get("provider_count", "-"))
+    p3.metric("Alerts", provider_monitor.get("alert_count", "-"))
+    p4.metric("Critical", provider_monitor.get("critical_alert_count", "-"))
 
     st.markdown("### Safety Status")
     st.success("Paper trading only. Live execution remains disabled.")
@@ -244,6 +259,50 @@ def render_market_intelligence() -> None:
 
     st.markdown("### Market Intelligence Report")
     txt = read_text(REPORT_DIR / "market_intelligence.md")
+    if txt:
+        st.markdown(txt)
+
+
+def render_provider_monitor() -> None:
+    st.subheader("Provider Monitor")
+    if st.button("Generate Provider Monitor"):
+        def task():
+            Service = import_object("app.operations.provider_monitor", "ProviderMonitorService")
+            return Service().generate()
+
+        result = safe_run("Generating provider monitor...", task)
+        if result is not None:
+            st.success("Provider monitor generated.")
+            st.json(result)
+
+    report_json = REPORT_DIR / "provider_monitor.json"
+    if report_json.exists():
+        try:
+            payload = json.loads(report_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read provider monitor: {exc}")
+            payload = {}
+
+        if payload:
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Status", payload.get("overall_status", "-"))
+            c2.metric("Providers", payload.get("provider_count", "-"))
+            c3.metric("Alerts", payload.get("alert_count", "-"))
+            c4.metric("Critical", payload.get("critical_alert_count", "-"))
+
+            st.markdown("### Chain Summary")
+            dataframe_or_info(payload.get("chains", []), "No chain provider rows yet.")
+
+            st.markdown("### Providers")
+            dataframe_or_info(payload.get("providers", []), "No provider rows yet.")
+
+            st.markdown("### Alerts")
+            dataframe_or_info(payload.get("alerts", []), "No provider alerts.")
+    else:
+        st.info("No provider_monitor.json yet. Generate Provider Monitor or run paper autopilot.")
+
+    st.markdown("### Provider Monitor Report")
+    txt = read_text(REPORT_DIR / "provider_monitor.md")
     if txt:
         st.markdown(txt)
 
@@ -573,6 +632,8 @@ def render_system_health() -> None:
         REPORT_DIR / "operational_metrics.json",
         REPORT_DIR / "market_intelligence.json",
         REPORT_DIR / "market_intelligence.md",
+        REPORT_DIR / "provider_monitor.json",
+        REPORT_DIR / "provider_monitor.md",
     ]:
         rows.append(
             {
@@ -634,6 +695,7 @@ def render_setup() -> None:
         python -m app.reporting.paper_report
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
+        python -m app.operations.provider_monitor
         ```
         """
     )
@@ -651,10 +713,11 @@ PAGES = {
     "9 Portfolio Analytics": render_portfolio_analytics,
     "10 Strategy Center": render_strategy_center,
     "11 Market Intelligence": render_market_intelligence,
-    "12 Research Dashboard": render_research_dashboard,
-    "13 Risk & Controls": render_risk_controls,
-    "14 System Health": render_system_health,
-    "15 Setup / Roadmap": render_setup,
+    "12 Provider Monitor": render_provider_monitor,
+    "13 Research Dashboard": render_research_dashboard,
+    "14 Risk & Controls": render_risk_controls,
+    "15 System Health": render_system_health,
+    "16 Setup / Roadmap": render_setup,
 }
 
 

@@ -19,6 +19,7 @@ Operations Runtime
         +--> Operational Metrics
         +--> Mission Summary
         +--> Market Intelligence
+        +--> Provider Monitor
         |
         v
 SchedulerService.run_once()
@@ -37,6 +38,8 @@ Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
 - `reports/mission_summary.md` - Mission Control human-readable summary.
 - `reports/market_intelligence.json` - chain, token, DEX, pair, provider, and readiness summary.
 - `reports/market_intelligence.md` - human-readable Market Intelligence report.
+- `reports/provider_monitor.json` - provider status, chain summaries, and alerts.
+- `reports/provider_monitor.md` - human-readable Provider Monitor report.
 
 ## Commands
 
@@ -50,6 +53,12 @@ Generate market intelligence manually:
 
 ```bash
 python -m app.market_intelligence.market_intelligence_service
+```
+
+Generate provider monitoring manually:
+
+```bash
+python -m app.operations.provider_monitor
 ```
 
 Run continuously in paper mode:
@@ -91,6 +100,8 @@ reports/mission_summary.json
 reports/mission_summary.md
 reports/market_intelligence.json
 reports/market_intelligence.md
+reports/provider_monitor.json
+reports/provider_monitor.md
 ```
 
 ## Rollback
