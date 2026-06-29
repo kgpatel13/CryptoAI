@@ -1,6 +1,6 @@
 # CryptoAI Opportunity Explorer
 
-Generated: `2026-06-28T18:37:02Z`
+Generated: `2026-06-29T01:11:33Z`
 
 | Pair | Buy | Sell | Gross % | Cost % | Net % | Score | Decision | Reason |
 |---|---|---|---:|---:|---:|---:|---|---|

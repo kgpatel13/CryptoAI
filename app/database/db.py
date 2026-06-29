@@ -2,14 +2,36 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
+from types import TracebackType
 
 
 DB_PATH = Path("data") / "cryptoai.db"
 
 
+class ManagedConnection(sqlite3.Connection):
+    """SQLite connection that closes when used as a context manager.
+
+    Python's built-in sqlite3.Connection context manager commits or rolls back,
+    but it does not close the file handle on __exit__. On Windows that can leave
+    temp test databases locked until garbage collection, which breaks cleanup.
+    This subclass preserves normal sqlite transaction behavior and closes the
+    connection deterministically when used as `with get_connection() as conn:`.
+    """
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> bool:
+        result = super().__exit__(exc_type, exc_value, traceback)
+        self.close()
+        return result
+
+
 def get_connection() -> sqlite3.Connection:
     DB_PATH.parent.mkdir(exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, factory=ManagedConnection)
     conn.row_factory = sqlite3.Row
     return conn
 

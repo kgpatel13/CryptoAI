@@ -1,12 +1,12 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-28T18:39:53Z`
+Generated: `2026-06-29T01:08:34Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `24`
+- Opportunity decisions: `38`
 - Total orders: `45`
 - Filled orders: `14`
 - Skipped orders: `25`
@@ -26,8 +26,8 @@ Generated: `2026-06-28T18:39:53Z`
 
 ## Opportunity Decision Counts
 
-- `SKIP`: 6
-- `BUY`: 18
+- `SKIP`: 12
+- `BUY`: 26
 
 ## Skip Reasons
 
@@ -84,18 +84,18 @@ Generated: `2026-06-28T18:39:53Z`
 
 | Pair | Net % | Score | Decision | Reason |
 |---|---:|---:|---|---|
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
 | - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
+| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
+| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
+| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
 | WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |

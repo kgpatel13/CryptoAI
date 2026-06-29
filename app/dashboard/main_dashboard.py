@@ -74,6 +74,94 @@ def safe_run(label: str, fn):
             return None
 
 
+
+def render_mission_control() -> None:
+    st.subheader("Mission Control")
+    paper_report = REPORT_DIR / "paper_report.json"
+    research_report = REPORT_DIR / "research_dashboard.json"
+    strategy_report = REPORT_DIR / "strategy_center.json"
+
+    paper = {}
+    research = {}
+    strategy = {}
+    for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
+        if target.exists():
+            try:
+                payload = json.loads(target.read_text(encoding="utf-8", errors="replace"))
+            except Exception:
+                payload = {}
+            if name == "paper":
+                paper = payload
+            elif name == "research":
+                research = payload
+            else:
+                strategy = payload
+
+    analytics = paper.get("portfolio_analytics", {})
+    feature_store = research.get("feature_store", {})
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Equity USD", analytics.get("equity_usd", "-"))
+    c2.metric("Total PnL USD", analytics.get("total_pnl_usd", "-"))
+    c3.metric("Open Positions", paper.get("portfolio", {}).get("open_positions", "-"))
+    c4.metric("Mode", "PAPER")
+
+    c5, c6, c7, c8 = st.columns(4)
+    c5.metric("Feature Vectors", feature_store.get("feature_count", "-"))
+    c6.metric("Active Strategies", strategy.get("active_strategy_count", "-"))
+    c7.metric("Risk Rejections", paper.get("risk_rejected_orders", "-"))
+    c8.metric("Avg Slippage bps", paper.get("avg_slippage_bps", "-"))
+
+    st.markdown("### Safety Status")
+    st.success("Paper trading only. Live execution remains disabled.")
+    if feature_store:
+        st.markdown("### Research Data Quality")
+        st.json(feature_store.get("data_quality", {}))
+    else:
+        st.info("Research dashboard not generated yet. Run Research Dashboard from the Research page.")
+
+
+def render_research_dashboard() -> None:
+    st.subheader("Research Dashboard")
+    if st.button("Generate Research Dashboard / Feature Store"):
+        def task():
+            ResearchReportService = import_object("app.research.research_report", "ResearchReportService")
+            return ResearchReportService().generate()
+
+        result = safe_run("Building feature store and research dashboard...", task)
+        if result is not None:
+            st.success("Research dashboard generated.")
+            st.json(result)
+
+    feature_json = REPORT_DIR / "feature_store.json"
+    research_json = REPORT_DIR / "research_dashboard.json"
+    if feature_json.exists():
+        try:
+            payload = json.loads(feature_json.read_text(encoding="utf-8", errors="replace"))
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Feature Vectors", payload.get("feature_count", 0))
+            c2.metric("Tradeable/Filled", payload.get("tradeable_or_filled_count", 0))
+            c3.metric("Rejected", payload.get("risk_or_execution_rejected_count", 0))
+            c4.metric("Avg Edge %", payload.get("avg_net_edge_pct", "-"))
+            st.markdown("### Top Pairs")
+            dataframe_or_info(payload.get("top_pairs", []), "No pair feature data yet.")
+            st.markdown("### Source Counts")
+            st.json(payload.get("source_counts", {}))
+        except Exception as exc:
+            st.error(f"Could not read feature store report: {exc}")
+    else:
+        st.info("No feature_store.json yet.")
+
+    st.markdown("### Recent Feature Vectors")
+    dataframe_or_info(read_jsonl(DATA_DIR / "feature_vectors.jsonl", limit=100), "No feature vectors saved yet.")
+
+    st.markdown("### Research Report")
+    txt = read_text(REPORT_DIR / "research_dashboard.md")
+    if txt:
+        st.markdown(txt)
+    else:
+        st.info("No research_dashboard.md found yet.")
+
+
 def render_paper_autopilot() -> None:
     st.subheader("Paper Autopilot")
     enable_paper = st.checkbox("Enable paper execution", value=True)
@@ -177,6 +265,8 @@ def render_reports() -> None:
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
+        ("Feature Store", REPORT_DIR / "feature_store.md"),
+        ("Research Dashboard", REPORT_DIR / "research_dashboard.md"),
     ]:
         st.markdown(f"### {title}")
         txt = read_text(path)
@@ -383,6 +473,12 @@ def render_system_health() -> None:
         DATA_DIR / "strategy_ranked_signals.jsonl",
         REPORT_DIR / "strategy_center.json",
         REPORT_DIR / "strategy_center.md",
+        DATA_DIR / "feature_vectors.jsonl",
+        DATA_DIR / "feature_vectors.csv",
+        REPORT_DIR / "feature_store.json",
+        REPORT_DIR / "feature_store.md",
+        REPORT_DIR / "research_dashboard.json",
+        REPORT_DIR / "research_dashboard.md",
     ]:
         rows.append(
             {
@@ -442,24 +538,27 @@ def render_setup() -> None:
         python -m app.opportunities.opportunity_explorer
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
+        python -m app.research.research_report
         ```
         """
     )
 
 
 PAGES = {
-    "1 Paper Autopilot": render_paper_autopilot,
-    "2 Quote Diagnostics": render_quote_diagnostics,
-    "3 Multi-DEX Opportunities": render_multi_dex_opportunities,
-    "4 Opportunity Explorer": render_opportunity_explorer,
-    "5 Reports": render_reports,
-    "6 Paper Orders": render_paper_orders,
-    "7 Paper Portfolio": render_paper_portfolio,
-    "8 Portfolio Analytics": render_portfolio_analytics,
-    "9 Strategy Center": render_strategy_center,
-    "10 Risk & Controls": render_risk_controls,
-    "11 System Health": render_system_health,
-    "12 Setup / Roadmap": render_setup,
+    "1 Mission Control": render_mission_control,
+    "2 Paper Autopilot": render_paper_autopilot,
+    "3 Quote Diagnostics": render_quote_diagnostics,
+    "4 Multi-DEX Opportunities": render_multi_dex_opportunities,
+    "5 Opportunity Explorer": render_opportunity_explorer,
+    "6 Reports": render_reports,
+    "7 Paper Orders": render_paper_orders,
+    "8 Paper Portfolio": render_paper_portfolio,
+    "9 Portfolio Analytics": render_portfolio_analytics,
+    "10 Strategy Center": render_strategy_center,
+    "11 Research Dashboard": render_research_dashboard,
+    "12 Risk & Controls": render_risk_controls,
+    "13 System Health": render_system_health,
+    "14 Setup / Roadmap": render_setup,
 }
 
 

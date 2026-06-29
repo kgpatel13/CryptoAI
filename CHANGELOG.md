@@ -1,3 +1,14 @@
+# CryptoAI Changelog
+
+## v4.0 - Quant Research Platform
+
+- Added Feature Store with JSONL, CSV, and SQLite exports.
+- Added Research Dashboard report and dashboard page.
+- Added Mission Control dashboard page.
+- Added deterministic decision explainability helper.
+- Added research documentation and v4.0 release notes.
+- Added regression tests for feature vectors, exports, and explainability.
+
 
 ## v3.5 - Portfolio Analytics & PnL Engine
 
