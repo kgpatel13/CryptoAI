@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-29T18:36:22Z",
+  "generated_at": "2026-06-29T23:00:04Z",
   "mode": "paper",
   "strategy_count": 5,
   "top_recommendation": "CONTINUE_RESEARCH",
   "promotion_allowed": false,
   "context": {
-    "feature_count": 475,
+    "feature_count": 535,
     "tradeable_or_filled_count": 180,
-    "optimization_best_trades": 56,
-    "optimization_best_pnl_usd": "28.1462",
+    "optimization_best_trades": 70,
+    "optimization_best_pnl_usd": "33.3502",
     "optimization_best_cost_buffer_pct": "0.20",
     "replay_production_cost_buffer_pct": "0.30",
     "replay_production_trade_count": 0,
     "replay_best_profitable_cost_buffer_pct": "0.20",
-    "replay_best_profitable_trade_count": 56,
-    "replay_best_profitable_total_pnl_usd": "28.1462",
+    "replay_best_profitable_trade_count": 70,
+    "replay_best_profitable_total_pnl_usd": "33.3502",
     "execution_cost_buffer_status": "CONSERVATIVE",
     "execution_cost_confidence": "LOW",
     "execution_cost_lower_bound_pct": "0.1300",
@@ -32,10 +32,16 @@
     "eth_route_decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20",
     "eth_candidate_buffer_pct": "0.20",
     "eth_production_buffer_pct": "0.30",
-    "eth_promotion_passed_gates": 5,
+    "eth_promotion_passed_gates": 4,
     "eth_promotion_gate_count": 8,
-    "eth_candidate_positive_count": 57,
+    "eth_candidate_positive_count": 70,
     "eth_production_positive_count": 9,
+    "eth_market_coverage_available": true,
+    "eth_market_coverage_score": 52,
+    "eth_market_coverage_status": "ETH_COVERAGE_EARLY",
+    "eth_market_target_chain_count": 5,
+    "eth_market_configured_chain_count": 4,
+    "eth_market_quote_ready_route_count": 2,
     "experiment_status": "RESEARCH_ONLY",
     "experiment_fail_count": 1,
     "experiment_warn_count": 1,
@@ -52,7 +58,7 @@
       "strategy_name": "DEX Arbitrage Strategy",
       "enabled": true,
       "health": "ACTIVE",
-      "orders": 53,
+      "orders": 57,
       "filled_orders": 12,
       "closed_positions": 8,
       "risk_rejected_orders": 6,
@@ -60,13 +66,14 @@
       "win_rate_pct": "50.0000",
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
-      "intelligence_score": 86,
+      "intelligence_score": 87,
       "recommendation": "CONTINUE_RESEARCH",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
         "Experiment evidence has 1 failing gate(s).",
         "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
+        "ETH Golden Path market coverage is still below developing maturity.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -78,11 +85,11 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+9 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
-        "Keep production buffer unchanged; focus base WETH/USDC and collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence. Next quote expansion target: base CBBTC/USDC. ETH route buffer gates: 5/8."
+        "Keep production buffer unchanged; focus base WETH/USDC and collect more execution-cost samples until 0.1300% lower-bound evidence is high confidence. Next quote expansion target: base CBBTC/USDC. ETH route buffer gates: 4/8. ETH coverage score: 52."
       ]
     },
     {
@@ -98,7 +105,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 33,
+      "intelligence_score": 34,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -106,6 +113,7 @@
         "Experiment evidence has 1 failing gate(s).",
         "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
+        "ETH Golden Path market coverage is still below developing maturity.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -116,7 +124,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+9 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -136,7 +144,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 33,
+      "intelligence_score": 34,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -144,6 +152,7 @@
         "Experiment evidence has 1 failing gate(s).",
         "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
+        "ETH Golden Path market coverage is still below developing maturity.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -154,7 +163,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+9 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -174,7 +183,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 33,
+      "intelligence_score": 34,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -182,6 +191,7 @@
         "Experiment evidence has 1 failing gate(s).",
         "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
+        "ETH Golden Path market coverage is still below developing maturity.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -192,7 +202,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+9 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -212,7 +222,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 33,
+      "intelligence_score": 34,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -220,6 +230,7 @@
         "Experiment evidence has 1 failing gate(s).",
         "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
+        "ETH Golden Path market coverage is still below developing maturity.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -230,7 +241,7 @@
         "+8 paper portfolio PnL non-negative",
         "+3 provider status WATCH",
         "+7 report audit clean",
-        "+9 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [

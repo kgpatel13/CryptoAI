@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T18:18:10Z",
+  "generated_at": "2026-06-29T22:59:34Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "WATCH",
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 304.5,
-      "last_observed_age_seconds": 14.01,
+      "avg_latency_ms": 303.61,
+      "last_observed_age_seconds": 13.37,
       "last_error": null,
       "alerts": []
     },
@@ -28,15 +28,15 @@
       "name": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "score": 80,
+      "score": 84,
       "status": "OK",
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 80.95,
+      "success_rate_pct": 84.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 298.08,
-      "last_observed_age_seconds": 13.22,
+      "avg_latency_ms": 292.06,
+      "last_observed_age_seconds": 12.44,
       "last_error": null,
       "alerts": []
     },
@@ -49,10 +49,10 @@
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 98.41,
+      "success_rate_pct": 98.72,
       "consecutive_failures": 0,
-      "avg_latency_ms": 247.17,
-      "last_observed_age_seconds": 1.69,
+      "avg_latency_ms": 245.64,
+      "last_observed_age_seconds": 1.31,
       "last_error": null,
       "alerts": []
     },
@@ -68,7 +68,7 @@
       "success_rate_pct": 0.0,
       "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 56614.88,
+      "last_observed_age_seconds": 73499.19,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
@@ -83,7 +83,7 @@
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 56614.88 seconds old."
+          "message": "Provider observation is stale at 73499.19 seconds old."
         }
       ]
     }
@@ -104,7 +104,7 @@
     {
       "provider_type": "dex",
       "provider_count": 2,
-      "average_score": 90,
+      "average_score": 92,
       "status": "OK",
       "required_provider_count": 2
     },
@@ -129,7 +129,7 @@
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 56614.88 seconds old."
+      "message": "Provider observation is stale at 73499.19 seconds old."
     }
   ],
   "notes": [

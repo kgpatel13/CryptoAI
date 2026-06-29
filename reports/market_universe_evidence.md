@@ -1,6 +1,6 @@
 # CryptoAI Market Universe Evidence
 
-Generated: `2026-06-29T18:18:11Z`
+Generated: `2026-06-29T22:59:36Z`
 
 ## Summary
 
@@ -22,7 +22,7 @@ Generated: `2026-06-29T18:18:11Z`
 
 | Class | Chain | Pair | Score | Quote OK % | Healthy DEXs | Real Signals | Prod Trades | Lower-Bound Trades | Next Action |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| ACTIVE_FOCUS | base | WETH/USDC | 83 | 64.2857 | 2 | 56 | 0 | 56 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
+| ACTIVE_FOCUS | base | WETH/USDC | 83 | 65.9091 | 2 | 70 | 0 | 70 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
 | BLOCKED_NEEDS_QUOTES | polygon | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for polygon WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | ethereum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for ethereum WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | arbitrum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for arbitrum WETH/USDC before treating it as tradeable. |

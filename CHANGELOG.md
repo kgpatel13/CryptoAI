@@ -1,5 +1,13 @@
 # CryptoAI Changelog
 
+## v5.6 - ETH Golden Path Market Coverage
+
+- Added ETH Market Coverage report for scoring target-vs-evidence maturity before expanding beyond ETH.
+- Added the Golden Path coverage target across Base, Ethereum, Arbitrum, Optimism, and Polygon without pretending unimplemented markets are active.
+- Added Mission Control and Market Intelligence dashboard KPIs for ETH coverage score, status, target chains, and quote-ready routes.
+- Integrated ETH coverage into Strategy Intelligence and Report Audit.
+- Added regression tests to prevent fake market coverage and require two-DEX quote readiness.
+
 ## v5.5 - ETH Route Architecture & Buffer Candidate Evidence
 
 - Added ETH Route Architecture report for focusing Base `WETH/USDC` and `USDC/WETH` before wider market expansion.

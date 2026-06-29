@@ -85,6 +85,7 @@ def render_mission_control() -> None:
     heartbeat_report = DATA_DIR / "heartbeat.json"
     market_intelligence_report = REPORT_DIR / "market_intelligence.json"
     provider_monitor_report = REPORT_DIR / "provider_monitor.json"
+    eth_market_coverage_report = REPORT_DIR / "eth_market_coverage.json"
 
     paper = {}
     research = {}
@@ -94,6 +95,7 @@ def render_mission_control() -> None:
     heartbeat = {}
     market_intelligence = {}
     provider_monitor = {}
+    eth_market_coverage = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -129,6 +131,12 @@ def render_mission_control() -> None:
             provider_monitor = json.loads(provider_monitor_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             provider_monitor = {}
+
+    if eth_market_coverage_report.exists():
+        try:
+            eth_market_coverage = json.loads(eth_market_coverage_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            eth_market_coverage = {}
 
     if strategy_intelligence_report.exists():
         try:
@@ -168,6 +176,13 @@ def render_mission_control() -> None:
     m2.metric("Chains", market_intelligence.get("chain_count", "-"))
     m3.metric("Pair Candidates", market_intelligence.get("pair_candidate_count", "-"))
     m4.metric("Configured Pairs", market_intelligence.get("configured_pair_count", "-"))
+
+    st.markdown("### ETH Golden Path Coverage")
+    e1, e2, e3, e4 = st.columns(4)
+    e1.metric("Coverage Score", eth_market_coverage.get("overall_coverage_score", "-"))
+    e2.metric("Coverage Status", eth_market_coverage.get("overall_status", "-"))
+    e3.metric("Target Chains", eth_market_coverage.get("target_chain_count", "-"))
+    e4.metric("Quote Routes", eth_market_coverage.get("quote_ready_route_count", "-"))
 
     st.markdown("### Provider Monitor")
     p1, p2, p3, p4 = st.columns(4)
@@ -276,6 +291,16 @@ def render_market_intelligence() -> None:
             st.success("ETH route architecture evidence generated.")
             st.json(result)
 
+    if st.button("Generate ETH Market Coverage"):
+        def task():
+            Service = import_object("app.research.eth_market_coverage_service", "EthMarketCoverageService")
+            return Service().generate()
+
+        result = safe_run("Generating ETH market coverage evidence...", task)
+        if result is not None:
+            st.success("ETH market coverage evidence generated.")
+            st.json(result)
+
     report_json = REPORT_DIR / "market_intelligence.json"
     if report_json.exists():
         try:
@@ -368,6 +393,26 @@ def render_market_intelligence() -> None:
             dataframe_or_info(payload.get("trusted_venues", []), "No trusted venue rows yet.")
     else:
         st.info("No eth_route_architecture.json yet. Generate ETH Route Architecture.")
+
+    coverage_json = REPORT_DIR / "eth_market_coverage.json"
+    if coverage_json.exists():
+        try:
+            payload = json.loads(coverage_json.read_text(encoding="utf-8", errors="replace"))
+        except Exception as exc:
+            st.error(f"Could not read ETH market coverage: {exc}")
+            payload = {}
+
+        if payload:
+            st.markdown("### ETH Golden Path Coverage")
+            g1, g2, g3, g4 = st.columns(4)
+            g1.metric("Score", payload.get("overall_coverage_score", "-"))
+            g2.metric("Status", payload.get("overall_status", "-"))
+            g3.metric("Configured Chains", f"{payload.get('configured_target_chain_count', '-')}/{payload.get('target_chain_count', '-')}")
+            g4.metric("Quote Routes", payload.get("quote_ready_route_count", "-"))
+            dataframe_or_info(payload.get("chains", []), "No ETH coverage chain rows yet.")
+            dataframe_or_info(payload.get("next_actions", []), "No ETH coverage actions yet.")
+    else:
+        st.info("No eth_market_coverage.json yet. Generate ETH Market Coverage.")
 
 
 def render_provider_monitor() -> None:
@@ -521,6 +566,7 @@ def render_reports() -> None:
         ("Market Universe Evidence", REPORT_DIR / "market_universe_evidence.md"),
         ("Quote Coverage Evidence", REPORT_DIR / "quote_coverage_evidence.md"),
         ("ETH Route Architecture", REPORT_DIR / "eth_route_architecture.md"),
+        ("ETH Market Coverage", REPORT_DIR / "eth_market_coverage.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
@@ -971,6 +1017,8 @@ def render_system_health() -> None:
         REPORT_DIR / "quote_coverage_evidence.md",
         REPORT_DIR / "eth_route_architecture.json",
         REPORT_DIR / "eth_route_architecture.md",
+        REPORT_DIR / "eth_market_coverage.json",
+        REPORT_DIR / "eth_market_coverage.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
         REPORT_DIR / "report_audit.json",
@@ -1045,6 +1093,7 @@ def render_setup() -> None:
         python -m app.research.market_universe_evidence_service
         python -m app.research.quote_coverage_evidence_service
         python -m app.research.eth_route_architecture_service
+        python -m app.research.eth_market_coverage_service
         python -m app.reporting.report_audit
         python -m app.backtesting.experiment_service
         python -m app.ai.strategy_intelligence_service

@@ -15,6 +15,7 @@ It does not approve live trading.
 - `reports/market_universe_evidence.json`
 - `reports/quote_coverage_evidence.json`
 - `reports/eth_route_architecture.json`
+- `reports/eth_market_coverage.json`
 - `reports/optimization_report.json`
 - `reports/experiment_report.json`
 - `reports/provider_monitor.json`

@@ -27,6 +27,7 @@ class StrategyIntelligenceService:
         market_universe = self._read_json("market_universe_evidence.json")
         quote_coverage = self._read_json("quote_coverage_evidence.json")
         eth_route = self._read_json("eth_route_architecture.json")
+        eth_market_coverage = self._read_json("eth_market_coverage.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -44,6 +45,7 @@ class StrategyIntelligenceService:
             market_universe=market_universe,
             quote_coverage=quote_coverage,
             eth_route=eth_route,
+            eth_market_coverage=eth_market_coverage,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -80,6 +82,7 @@ class StrategyIntelligenceService:
         market_universe: dict[str, Any],
         quote_coverage: dict[str, Any],
         eth_route: dict[str, Any],
+        eth_market_coverage: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -140,6 +143,12 @@ class StrategyIntelligenceService:
             "eth_promotion_gate_count": self._int(eth_promotion.get("gate_count")),
             "eth_candidate_positive_count": self._int(eth_candidate.get("positive_after_buffer_count")),
             "eth_production_positive_count": self._int(eth_production.get("positive_after_buffer_count")),
+            "eth_market_coverage_available": bool(eth_market_coverage),
+            "eth_market_coverage_score": self._int(eth_market_coverage.get("overall_coverage_score")),
+            "eth_market_coverage_status": str(eth_market_coverage.get("overall_status", "-")),
+            "eth_market_target_chain_count": self._int(eth_market_coverage.get("target_chain_count")),
+            "eth_market_configured_chain_count": self._int(eth_market_coverage.get("configured_target_chain_count")),
+            "eth_market_quote_ready_route_count": self._int(eth_market_coverage.get("quote_ready_route_count")),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -279,6 +288,8 @@ class StrategyIntelligenceService:
             blockers.append("No configured pair has two-DEX quote coverage.")
         if context["eth_route_available"] and context["eth_route_decision"] == "KEEP_0_30_PRODUCTION_RESEARCH_0_20":
             blockers.append("ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.")
+        if context["eth_market_coverage_available"] and context["eth_market_coverage_score"] < 60:
+            blockers.append("ETH Golden Path market coverage is still below developing maturity.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -315,7 +326,8 @@ class StrategyIntelligenceService:
                         f"Keep production buffer unchanged; focus {context['market_primary_focus']} and collect more "
                         f"execution-cost samples until {context['execution_cost_lower_bound_pct']}% lower-bound evidence is high confidence. "
                         f"Next quote expansion target: {context['quote_next_target']}. "
-                        f"ETH route buffer gates: {context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}."
+                        f"ETH route buffer gates: {context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}. "
+                        f"ETH coverage score: {context['eth_market_coverage_score']}."
                     )
                 ]
             if context.get("replay_best_profitable_trade_count", 0):
@@ -363,6 +375,8 @@ class StrategyIntelligenceService:
             f"- ETH route decision: `{context['eth_route_decision']}`",
             f"- ETH route buffers: production `{context['eth_production_buffer_pct']}` / candidate `{context['eth_candidate_buffer_pct']}`",
             f"- ETH route promotion gates: `{context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}`",
+            f"- ETH market coverage: `{context['eth_market_coverage_score']}` / `{context['eth_market_coverage_status']}`",
+            f"- ETH configured chains: `{context['eth_market_configured_chain_count']}/{context['eth_market_target_chain_count']}` with `{context['eth_market_quote_ready_route_count']}` quote-ready route(s)",
             "",
             "## Strategies",
             "",

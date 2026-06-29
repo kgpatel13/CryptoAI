@@ -1,6 +1,6 @@
 # CryptoAI ETH Route Architecture
 
-Generated: `2026-06-29T18:33:35Z`
+Generated: `2026-06-29T22:59:35Z`
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated: `2026-06-29T18:33:35Z`
 - Production buffer %: `0.30`
 - Research candidate buffer %: `0.20`
 - Decision: `KEEP_0_30_PRODUCTION_RESEARCH_0_20`
-- Promotion gates: `5/8`
+- Promotion gates: `4/8`
 
 ## Trusted Venues
 
@@ -23,7 +23,7 @@ Generated: `2026-06-29T18:33:35Z`
 
 | Route | Two-DEX Ready | DEXs | 0.20% Signals | 0.20% PnL | 0.30% Signals | 0.30% PnL | Action |
 |---|---|---|---:|---:|---:|---:|---|
-| WETH/USDC | True | Aerodrome, Uniswap V2 | 46 | 28.4110 | 9 | 1.1800 | Keep WETH/USDC in 0.20% research replay; production stays at 0.30%. |
+| WETH/USDC | True | Aerodrome, Uniswap V2 | 59 | 32.5039 | 9 | 1.1800 | Keep WETH/USDC in 0.20% research replay; production stays at 0.30%. |
 | USDC/WETH | True | Aerodrome, Uniswap V2 | 11 | 0.8463 | 0 | 0.0000 | Keep USDC/WETH in 0.20% research replay; production stays at 0.30%. |
 
 ## Buffer Promotion Gates
@@ -32,12 +32,12 @@ Generated: `2026-06-29T18:33:35Z`
 |---|---|---|
 | execution_cost_confidence_high | False | LOW |
 | paper_slippage_samples_30_plus | False | 6 |
-| quote_ok_rate_90_plus | False | 64.2857 |
+| quote_ok_rate_90_plus | False | 65.9091 |
 | active_two_dex_eth_route | True | 1 |
 | provider_not_critical | True | WATCH |
-| report_audit_clean | True | 0 |
-| candidate_has_30_plus_signals | True | 57 |
-| candidate_avg_net_edge_0_03_plus | True | 0.0513 |
+| report_audit_clean | False | 33 |
+| candidate_has_30_plus_signals | True | 70 |
+| candidate_avg_net_edge_0_03_plus | True | 0.0476 |
 
 ## Real Money Architecture
 
@@ -50,7 +50,7 @@ Generated: `2026-06-29T18:33:35Z`
 ## Findings
 
 - `INFO` 2 ETH route direction(s) have two-DEX quote readiness on Base.
-- `WATCH` 0.20% candidate replay has 57 positive signal(s) versus 9 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
+- `WATCH` 0.20% candidate replay has 70 positive signal(s) versus 9 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
 - `ACTION` Keep production buffer at 0.30%; collect missing evidence before any buffer change.
 - `ACTION` Next venue expansion target for this route is a verified Base Uniswap V3 quote provider.
 

@@ -1,6 +1,6 @@
 # CryptoAI Research Dashboard
 
-Generated: `2026-06-29T18:18:09Z`
+Generated: `2026-06-29T22:59:34Z`
 
 ## Mission Control
 
@@ -9,34 +9,36 @@ Generated: `2026-06-29T18:18:09Z`
 - Portfolio equity USD: `$10002.8220`
 - Total PnL USD: `$2.8220`
 - Total return %: `0.0282`
-- Feature vectors: `475`
+- Feature vectors: `535`
 - Tradeable or filled records: `180`
 - Strategies: `1/5 active`
 
 ## Feature Store
 
-- Feature vectors: `475`
-- Average net edge %: `0.0927`
+- Feature vectors: `535`
+- Average net edge %: `0.0694`
 - Max net edge %: `0.3500`
 
 ### Source Counts
 
-- `opportunity_decision`: 197
-- `multi_dex_opportunity`: 201
-- `paper_order`: 55
-- `strategy_signal`: 22
+- `opportunity_decision`: 223
+- `multi_dex_opportunity`: 229
+- `paper_order`: 59
+- `strategy_signal`: 24
 
 ### Top Pairs
 
 | Pair | Count |
 |---|---:|
-| WETH/USDC | 220 |
-| USDC/WETH | 214 |
+| WETH/USDC | 250 |
+| USDC/WETH | 244 |
 
 ## Recent Features
 
 | Time | Source | Pair | Decision | Edge % | Reason |
 |---|---|---|---|---:|---|
+| 2026-06-29T22:59:28Z | strategy_signal | USDC/WETH | SKIP | -0.1234196220513873443362474363 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1234% is too low after costs. |
+| 2026-06-29T22:59:28Z | strategy_signal | WETH/USDC | SKIP | -0.0761681979172122764045773608 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0762% is too low after costs. |
 | 2026-06-29T18:18:04Z | strategy_signal | USDC/WETH | SKIP | -0.2103086317172912901719613480 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs. |
 | 2026-06-29T18:18:04Z | strategy_signal | WETH/USDC | SKIP | 0.0111071078041971530481190535 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge 0.0111% is too low after costs. |
 | 2026-06-29T17:45:18Z | strategy_signal | USDC/WETH | SKIP | -0.1441080874515027154139680131 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs. |
@@ -55,8 +57,6 @@ Generated: `2026-06-29T18:18:09Z`
 | 2026-06-29T02:29:02Z | strategy_signal | WETH/USDC | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:22:34Z | strategy_signal | USDC/WETH | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 | 2026-06-29T02:22:34Z | strategy_signal | WETH/USDC | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
-| 2026-06-28T18:36:53Z | strategy_signal | USDC/WETH | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
-| 2026-06-28T18:36:53Z | strategy_signal | WETH/USDC | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
 
 ## Notes
 
