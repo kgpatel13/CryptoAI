@@ -714,6 +714,7 @@ def render_system_health() -> None:
         DATA_DIR / "multi_dex_opportunities.jsonl",
         DATA_DIR / "opportunity_decisions.jsonl",
         DATA_DIR / "paper_orders.jsonl",
+        DATA_DIR / "paper_orders_legacy_archive.jsonl",
         DATA_DIR / "paper_portfolio_state.json",
         REPORT_DIR / "quote_diagnostics.md",
         REPORT_DIR / "multi_dex_opportunities.md",
@@ -813,6 +814,7 @@ def render_setup() -> None:
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor
         python -m app.reporting.report_audit
+        python -m app.reporting.legacy_paper_archive --dry-run
         ```
         """
     )

@@ -125,6 +125,91 @@ class ProviderMonitorTests(unittest.TestCase):
             self.assertEqual(rows["untimed-dex"]["status"], "WATCH")
             self.assertGreaterEqual(rows["stale-rpc"]["last_observed_age_seconds"], 3600)
 
+    def test_optional_backup_rpc_does_not_make_chain_critical_when_required_rpc_is_healthy(self) -> None:
+        now = time.time()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data_dir = root / "data"
+            data_dir.mkdir()
+            (data_dir / "provider_health.json").write_text(
+                json.dumps(
+                    {
+                        "providers": [
+                            {
+                                "name": "Base:rpc1:https://base-rpc.publicnode.com",
+                                "provider_type": "rpc",
+                                "chain": "base",
+                                "score": 95,
+                                "success_rate_pct": 95,
+                                "consecutive_failures": 0,
+                                "last_success_at": now,
+                            },
+                            {
+                                "name": "Base:rpc2:https://mainnet.base.org",
+                                "provider_type": "rpc",
+                                "chain": "base",
+                                "score": 0,
+                                "success_rate_pct": 0,
+                                "consecutive_failures": 4,
+                                "last_failure_at": now,
+                                "last_error": "timeout",
+                            },
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            payload = ProviderMonitorService(
+                data_dir=data_dir,
+                report_dir=root / "reports",
+                stale_after_seconds=900,
+            ).generate()
+
+            rows = {row["name"]: row for row in payload["providers"]}
+            self.assertEqual(payload["overall_status"], "WATCH")
+            self.assertEqual(payload["critical_alert_count"], 0)
+            self.assertEqual(rows["Base:rpc2:https://mainnet.base.org"]["status"], "WATCH")
+            self.assertFalse(rows["Base:rpc2:https://mainnet.base.org"]["required_for_overall"])
+
+    def test_fresh_successful_provider_with_low_rolling_score_is_recovering_watch(self) -> None:
+        now = time.time()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data_dir = root / "data"
+            data_dir.mkdir()
+            (data_dir / "provider_health.json").write_text(
+                json.dumps(
+                    {
+                        "providers": [
+                            {
+                                "name": "Aerodrome",
+                                "provider_type": "dex",
+                                "chain": "base",
+                                "score": 55,
+                                "success_rate_pct": 55,
+                                "consecutive_failures": 0,
+                                "last_success_at": now,
+                                "last_failure_at": now - 60,
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            payload = ProviderMonitorService(
+                data_dir=data_dir,
+                report_dir=root / "reports",
+                stale_after_seconds=900,
+            ).generate()
+
+            row = payload["providers"][0]
+            self.assertEqual(payload["overall_status"], "WATCH")
+            self.assertEqual(row["status"], "WATCH")
+            self.assertEqual(row["rolling_status"], "DEGRADED")
+            self.assertIn("fresh successful observations", row["alerts"][0]["message"])
+
     def test_provider_monitor_handles_missing_health_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

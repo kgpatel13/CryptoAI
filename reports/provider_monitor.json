@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-29T12:47:53Z",
+  "generated_at": "2026-06-29T13:25:38Z",
   "mode": "paper",
   "provider_count": 4,
-  "overall_status": "CRITICAL",
-  "alert_count": 4,
-  "critical_alert_count": 2,
-  "degraded_alert_count": 1,
+  "overall_status": "WATCH",
+  "alert_count": 3,
+  "critical_alert_count": 0,
+  "degraded_alert_count": 0,
   "stale_after_seconds": 900,
   "providers": [
     {
@@ -14,10 +14,13 @@
       "chain": "base",
       "score": 100,
       "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 273.28,
-      "last_observed_age_seconds": 39.85,
+      "avg_latency_ms": 279.54,
+      "last_observed_age_seconds": 41.57,
       "last_error": null,
       "alerts": []
     },
@@ -25,20 +28,23 @@
       "name": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "score": 50,
-      "status": "DEGRADED",
-      "success_rate_pct": 50.0,
+      "score": 60,
+      "status": "WATCH",
+      "current_status": "WATCH",
+      "rolling_status": "DEGRADED",
+      "required_for_overall": true,
+      "success_rate_pct": 60.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 264.97,
-      "last_observed_age_seconds": 38.93,
+      "avg_latency_ms": 265.46,
+      "last_observed_age_seconds": 40.54,
       "last_error": null,
       "alerts": [
         {
-          "severity": "DEGRADED",
+          "severity": "WATCH",
           "provider": "Aerodrome",
           "provider_type": "dex",
           "chain": "base",
-          "message": "Provider score 50 is below degraded threshold."
+          "message": "Provider has fresh successful observations but rolling score 60 is still recovering."
         }
       ]
     },
@@ -46,12 +52,15 @@
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 93,
+      "score": 95,
       "status": "OK",
-      "success_rate_pct": 93.94,
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 95.92,
       "consecutive_failures": 0,
-      "avg_latency_ms": 227.24,
-      "last_observed_age_seconds": 38.93,
+      "avg_latency_ms": 230.63,
+      "last_observed_age_seconds": 6.67,
       "last_error": null,
       "alerts": []
     },
@@ -60,33 +69,29 @@
       "provider_type": "rpc",
       "chain": "base",
       "score": 0,
-      "status": "CRITICAL",
+      "status": "WATCH",
+      "current_status": "WATCH",
+      "rolling_status": "CRITICAL",
+      "required_for_overall": false,
       "success_rate_pct": 0.0,
       "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 36797.93,
+      "last_observed_age_seconds": 39063.22,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
-          "severity": "CRITICAL",
+          "severity": "WATCH",
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider score 0 is at or below critical threshold."
-        },
-        {
-          "severity": "CRITICAL",
-          "provider": "Base:rpc2:https://mainnet.base.org",
-          "provider_type": "rpc",
-          "chain": "base",
-          "message": "Provider has 4 consecutive failures."
+          "message": "Optional backup provider is unhealthy; same-chain required provider coverage is available."
         },
         {
           "severity": "WATCH",
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 36797.93 seconds old."
+          "message": "Provider observation is stale at 39063.22 seconds old."
         }
       ]
     }
@@ -95,55 +100,51 @@
     {
       "chain": "base",
       "provider_count": 4,
-      "average_score": 61,
-      "status": "CRITICAL",
-      "critical_count": 1,
-      "degraded_count": 1,
-      "watch_count": 0
+      "average_score": 64,
+      "status": "WATCH",
+      "critical_count": 0,
+      "degraded_count": 0,
+      "watch_count": 2,
+      "required_provider_count": 3
     }
   ],
   "provider_types": [
     {
       "provider_type": "dex",
       "provider_count": 2,
-      "average_score": 75,
-      "status": "DEGRADED"
+      "average_score": 80,
+      "status": "WATCH",
+      "required_provider_count": 2
     },
     {
       "provider_type": "rpc",
       "provider_count": 2,
-      "average_score": 46,
-      "status": "CRITICAL"
+      "average_score": 48,
+      "status": "WATCH",
+      "required_provider_count": 1
     }
   ],
   "alerts": [
     {
-      "severity": "DEGRADED",
+      "severity": "WATCH",
       "provider": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "message": "Provider score 50 is below degraded threshold."
-    },
-    {
-      "severity": "CRITICAL",
-      "provider": "Base:rpc2:https://mainnet.base.org",
-      "provider_type": "rpc",
-      "chain": "base",
-      "message": "Provider score 0 is at or below critical threshold."
-    },
-    {
-      "severity": "CRITICAL",
-      "provider": "Base:rpc2:https://mainnet.base.org",
-      "provider_type": "rpc",
-      "chain": "base",
-      "message": "Provider has 4 consecutive failures."
+      "message": "Provider has fresh successful observations but rolling score 60 is still recovering."
     },
     {
       "severity": "WATCH",
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 36797.93 seconds old."
+      "message": "Optional backup provider is unhealthy; same-chain required provider coverage is available."
+    },
+    {
+      "severity": "WATCH",
+      "provider": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider observation is stale at 39063.22 seconds old."
     }
   ],
   "notes": [

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-29T12:47:53Z",
+  "generated_at": "2026-06-29T13:25:38Z",
   "mode": "paper",
   "chain_count": 4,
   "pair_candidate_count": 8,
   "configured_pair_count": 8,
-  "overall_readiness_score": 75,
+  "overall_readiness_score": 76,
   "chains": [
     {
       "chain": "base",
@@ -14,9 +14,9 @@
       "configured_pair_count": 2,
       "generated_pair_count": 2,
       "provider_count": 4,
-      "provider_score": 61,
+      "provider_score": 64,
       "registry_score": 100,
-      "readiness_score": 82,
+      "readiness_score": 84,
       "readiness_status": "READY_FOR_PAPER",
       "notes": [
         "Registry and provider inputs are sufficient for paper-mode monitoring."
@@ -162,7 +162,7 @@
     "by_chain": {
       "base": 4
     },
-    "average_score": 61
+    "average_score": 64
   },
   "notes": [
     "Market intelligence is paper-mode observability only.",

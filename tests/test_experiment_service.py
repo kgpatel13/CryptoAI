@@ -79,6 +79,43 @@ class ExperimentServiceTests(unittest.TestCase):
             self.assertEqual(latest["fail_count"], 0)
             self.assertEqual(latest["warn_count"], 0)
 
+    def test_provider_watch_status_keeps_experiment_on_watchlist(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir, report_dir = self._dirs(tmp)
+            self._write_json(
+                report_dir / "backtest_report.json",
+                {"generated_at": "2026-06-29T00:00:00Z", "simulated_trades": 2, "total_simulated_profit_usd": "1.5000"},
+            )
+            self._write_json(
+                report_dir / "optimization_report.json",
+                {
+                    "generated_at": "2026-06-29T00:00:00Z",
+                    "scenario_count": 2,
+                    "best_scenario": {"trade_count": 6, "total_pnl_usd": "2.0000", "cost_buffer_pct": "0.30"},
+                },
+            )
+            self._write_json(
+                report_dir / "provider_monitor.json",
+                {"generated_at": "2026-06-29T00:00:00Z", "overall_status": "WATCH", "alert_count": 1},
+            )
+            self._write_json(
+                report_dir / "paper_report.json",
+                {"generated_at": "2026-06-29T00:00:00Z", "portfolio_analytics": {"total_pnl_usd": "0.1000"}},
+            )
+            self._write_json(report_dir / "report_audit.json", {"generated_at": "2026-06-29T00:00:00Z", "finding_count": 0})
+
+            payload = ExperimentService(data_dir=data_dir, report_dir=report_dir).run(
+                run_backtest=False,
+                run_optimization=False,
+            )
+
+            latest = payload["latest_experiment"]
+            self.assertEqual(latest["status"], "WATCHLIST")
+            self.assertEqual(latest["fail_count"], 0)
+            self.assertEqual(latest["warn_count"], 1)
+            provider_gate = [gate for gate in latest["gates"] if gate["name"] == "provider_health_not_critical"][0]
+            self.assertEqual(provider_gate["status"], "WARN")
+
     @staticmethod
     def _dirs(tmp: str) -> tuple[Path, Path]:
         root = Path(tmp)

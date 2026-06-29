@@ -54,22 +54,6 @@ class PaperAutopilot:
     def run_once(self) -> dict:
         self._publish("Paper autopilot cycle started.")
 
-        provider_monitor_status = None
-        if ProviderMonitorService is not None:
-            try:
-                provider_monitor = ProviderMonitorService().generate()
-                provider_monitor_status = provider_monitor.get("overall_status")
-            except Exception:
-                provider_monitor_status = None
-
-        market_readiness_score = None
-        if MarketIntelligenceService is not None:
-            try:
-                market_intelligence = MarketIntelligenceService().generate()
-                market_readiness_score = market_intelligence.get("overall_readiness_score")
-            except Exception:
-                market_readiness_score = None
-
         opportunity_count = 0
         if OpportunityExplorerService is not None:
             try:
@@ -79,6 +63,7 @@ class PaperAutopilot:
                 opportunity_count = 0
 
         if SchedulerService is None:
+            provider_monitor_status, market_readiness_score = self._generate_operations_reports()
             return {
                 "status": "FAILED",
                 "message": "SchedulerService is not available.",
@@ -91,6 +76,7 @@ class PaperAutopilot:
         result = SchedulerService().run_once(
             enable_paper_execution=self.enable_paper_execution
         )
+        provider_monitor_status, market_readiness_score = self._generate_operations_reports()
 
         payload = {
             "status": result.status.value if hasattr(result.status, "value") else str(result.status),
@@ -115,6 +101,26 @@ class PaperAutopilot:
 
         self._publish("Paper autopilot cycle completed.", payload)
         return payload
+
+    @staticmethod
+    def _generate_operations_reports() -> tuple[str | None, int | None]:
+        provider_monitor_status = None
+        if ProviderMonitorService is not None:
+            try:
+                provider_monitor = ProviderMonitorService().generate()
+                provider_monitor_status = provider_monitor.get("overall_status")
+            except Exception:
+                provider_monitor_status = None
+
+        market_readiness_score = None
+        if MarketIntelligenceService is not None:
+            try:
+                market_intelligence = MarketIntelligenceService().generate()
+                market_readiness_score = market_intelligence.get("overall_readiness_score")
+            except Exception:
+                market_readiness_score = None
+
+        return provider_monitor_status, market_readiness_score
 
     def run_loop(
         self,

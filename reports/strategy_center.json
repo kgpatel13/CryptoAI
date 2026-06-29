@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T12:47:14Z",
+  "generated_at": "2026-06-29T13:25:18Z",
   "mode": "paper",
   "strategy_count": 5,
   "active_strategy_count": 1,
@@ -13,29 +13,29 @@
       "weight": "1.00",
       "class_name": "ArbitrageStrategy",
       "registry_reason": "Registered successfully.",
-      "orders": 49,
-      "filled_orders": 18,
+      "orders": 45,
+      "filled_orders": 12,
       "risk_rejected_orders": 6,
-      "skipped_orders": 25,
-      "open_positions": 2,
-      "closed_positions": 6,
-      "filled_notional_usd": "1850.0697",
-      "realized_pnl_usd": "1.3939",
-      "wins": 3,
+      "skipped_orders": 27,
+      "open_positions": 0,
+      "closed_positions": 8,
+      "filled_notional_usd": "1225.0697",
+      "realized_pnl_usd": "2.8220",
+      "wins": 4,
       "losses": 1,
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
       "last_signal": {
-        "timestamp": "2026-06-29T12:47:14Z",
+        "timestamp": "2026-06-29T13:25:18Z",
         "signal_id": "arbitrage:base:USDC-WETH:SKIP",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
         "pair": "USDC/WETH",
         "action": "SKIP",
         "confidence_score": 10,
-        "expected_edge_pct": "-0.1379511013551796416279028826",
+        "expected_edge_pct": "-0.1516396104383123414073092587",
         "rank_score": 0,
-        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs.",
+        "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs.",
         "source": "scanner",
         "features": {
           "strategy_id": "arbitrage",
@@ -45,50 +45,24 @@
         }
       },
       "last_order": {
-        "order_id": "ecf1b1bf",
-        "timestamp": "2026-06-29T02:12:42Z",
+        "order_id": "ad368da5",
+        "timestamp": "2026-06-29T13:25:00Z",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
         "pair": "USDC/WETH",
         "side": "BUY",
-        "notional_usd": "100.0139",
-        "estimated_edge_pct": "0.3500",
-        "simulated_fill_price_usd": "1.000500000000000000",
-        "simulated_quantity": "99.96391804097951024487756122",
-        "status": "FILLED",
-        "reason": "Simulated paper execution completed through professional order lifecycle.",
-        "requested_notional_usd": "100.0139",
-        "filled_notional_usd": "100.0139",
-        "slippage_bps": "5",
-        "latency_ms": 250,
-        "execution_quality": "GOOD",
-        "lifecycle_events": [
-          {
-            "timestamp": "2026-06-29T02:12:42Z",
-            "status": "NEW",
-            "message": "Order candidate created."
-          },
-          {
-            "timestamp": "2026-06-29T02:12:42Z",
-            "status": "VALIDATED",
-            "message": "Portfolio and quote gates passed."
-          },
-          {
-            "timestamp": "2026-06-29T02:12:42Z",
-            "status": "SUBMITTED",
-            "message": "Paper order submitted to execution simulator."
-          },
-          {
-            "timestamp": "2026-06-29T02:12:42Z",
-            "status": "PENDING",
-            "message": "Simulated routing latency 250ms."
-          },
-          {
-            "timestamp": "2026-06-29T02:12:42Z",
-            "status": "FILLED",
-            "message": "Filled $100.0139 at 1.000500000000000000 with 5bps simulated slippage."
-          }
-        ]
+        "notional_usd": "0",
+        "estimated_edge_pct": "-0.1516396104383123414073092587",
+        "simulated_fill_price_usd": null,
+        "simulated_quantity": null,
+        "status": "SKIPPED",
+        "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge -0.1516% is below paper threshold 0.30%.",
+        "requested_notional_usd": null,
+        "filled_notional_usd": null,
+        "slippage_bps": null,
+        "latency_ms": null,
+        "execution_quality": null,
+        "lifecycle_events": []
       },
       "win_rate_pct": "50.0000"
     },
@@ -373,6 +347,44 @@
       "expected_edge_pct": "-0.1379511013551796416279028826",
       "rank_score": 0,
       "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T13:25:18Z",
+      "rank": 1,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "action": "SKIP",
+      "confidence_score": 10,
+      "expected_edge_pct": "-0.0488922657387659179562356805",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T13:25:18Z",
+      "rank": 2,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "action": "SKIP",
+      "confidence_score": 10,
+      "expected_edge_pct": "-0.1516396104383123414073092587",
+      "rank_score": 0,
+      "reason": "Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs.",
       "features": {
         "strategy_id": "arbitrage",
         "strategy_weight": "1.00",

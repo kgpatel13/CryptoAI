@@ -12,10 +12,11 @@
 - v4.0 - Quant research platform foundation.
 - v4.1 - 24/7 operations, Mission Control runtime state, heartbeat, scheduler loop, and operational metrics.
 - v4.2 - Replay engine, backtesting, and strategy optimization foundation.
+- v4.3 - Experiment evidence tracking, replay/optimization gates, and walk-forward validation preparation.
 
 ## Current
 
-- v4.3 - Experiment evidence tracking, replay/optimization gates, and walk-forward validation preparation.
+- v4.4 - Provider health hardening, clean report evidence gates, and legacy paper evidence archive.
 
 ## Next
 

@@ -142,12 +142,12 @@ class ExperimentService:
                     "message": f"Provider status is CRITICAL with {provider_alerts} alert(s).",
                 }
             )
-        elif provider_status == "DEGRADED":
+        elif provider_status in {"DEGRADED", "WATCH"}:
             gates.append(
                 {
                     "name": "provider_health_not_critical",
                     "status": "WARN",
-                    "message": f"Provider status is DEGRADED with {provider_alerts} alert(s).",
+                    "message": f"Provider status is {provider_status} with {provider_alerts} alert(s).",
                 }
             )
         else:

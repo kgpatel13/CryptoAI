@@ -1,5 +1,15 @@
 # CryptoAI Changelog
 
+## v4.4 - Provider Health Hardening
+
+- Moved paper autopilot operations reports after quote/workflow refresh so Provider Monitor reports on fresh health evidence.
+- Split provider current status from rolling score status for recovering providers.
+- Downgraded unhealthy optional backup RPCs to WATCH when required same-chain RPC coverage is fresh and healthy.
+- Treated fresh successful low-score providers as WATCH recovery instead of persistent DEGRADED.
+- Added legacy paper-order archive utility for pre-repair inverse-pair rows.
+- Updated experiment gates so provider WATCH remains a warning, not a pass.
+- Refreshed reports with zero audit findings and no legacy paper accounting warnings.
+
 ## v4.3 - Experiment Evidence Tracking
 
 - Added experiment evidence tracking for replay, optimization, provider health, paper PnL, and report audit gates.

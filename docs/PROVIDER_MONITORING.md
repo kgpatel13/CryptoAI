@@ -20,10 +20,17 @@ Provider observations are produced by the quote and RPC layers as they record su
 ## Statuses
 
 - `OK` - provider score and freshness are acceptable.
-- `WATCH` - observations are stale or incomplete.
+- `WATCH` - observations are stale, incomplete, recovering, or optional-backup only.
 - `DEGRADED` - provider score is below the degraded threshold.
 - `CRITICAL` - provider score is critically low or consecutive failures exceed the configured threshold.
 - `NEEDS_DATA` - no provider observations exist yet.
+
+Provider Monitor reports both:
+
+- `current_status` - operational status after freshness, recovery, and optional-backup rules.
+- `rolling_status` - raw score status before recovery/optional-backup interpretation.
+
+An optional backup RPC can be unhealthy without making the chain critical when a required same-chain RPC has fresh successful observations. A provider with fresh successful observations and a low rolling score is marked WATCH while the rolling score recovers.
 
 ## Configuration
 
@@ -37,8 +44,11 @@ Environment variables:
 ## Command
 
 ```bash
+python -m app.diagnostics.quote_diagnostics
 python -m app.operations.provider_monitor
 ```
+
+Run quote diagnostics or one paper autopilot cycle before Provider Monitor when validating current health. Provider Monitor itself stays read-only and no-network by design.
 
 ## Safety
 

@@ -108,6 +108,47 @@ class OperationsRuntimeTests(unittest.TestCase):
         self.assertEqual(captured["kwargs"]["service_name"], "paper_autopilot")
         self.assertEqual(captured["kwargs"]["heartbeat_interval_seconds"], 5)
 
+    def test_autopilot_generates_provider_monitor_after_cycle_refresh(self) -> None:
+        calls: list[str] = []
+
+        class FakeOpportunityExplorer:
+            def scan(self) -> list:
+                calls.append("opportunity")
+                return [{"id": "decision-1"}]
+
+        class FakeScheduler:
+            def run_once(self, enable_paper_execution: bool = False):
+                calls.append("scheduler")
+                return SchedulerResult()
+
+        class SchedulerResult:
+            status = "OK"
+            run_id = "run-1"
+            paper_execution_enabled = True
+            total_latency_ms = 1.0
+            steps = []
+
+        class FakeProviderMonitor:
+            def generate(self) -> dict:
+                calls.append("provider")
+                return {"overall_status": "WATCH"}
+
+        class FakeMarketIntelligence:
+            def generate(self) -> dict:
+                calls.append("market")
+                return {"overall_readiness_score": 77}
+
+        with patch("app.automation.paper_autopilot.OpportunityExplorerService", FakeOpportunityExplorer):
+            with patch("app.automation.paper_autopilot.SchedulerService", FakeScheduler):
+                with patch("app.automation.paper_autopilot.ProviderMonitorService", FakeProviderMonitor):
+                    with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
+                        result = PaperAutopilot().run_once()
+
+        self.assertEqual(calls, ["opportunity", "scheduler", "provider", "market"])
+        self.assertEqual(result["provider_monitor_status"], "WATCH")
+        self.assertEqual(result["market_readiness_score"], 77)
+        self.assertEqual(result["opportunity_decisions"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

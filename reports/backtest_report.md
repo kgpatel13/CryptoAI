@@ -1,14 +1,14 @@
 # CryptoAI Backtest Report
 
-Generated: `2026-06-29T12:58:10Z`
+Generated: `2026-06-29T13:25:42Z`
 
 ## Summary
 
 - Strategy: `Multi-DEX Opportunity Replay`
 - Source: `data\multi_dex_opportunities.jsonl`
-- Total signals: `37`
+- Total signals: `45`
 - Simulated trades: `0`
-- Skipped signals: `37`
+- Skipped signals: `45`
 - Total simulated PnL: `0.0000`
 - Average net edge %: `0.0000`
 - Win rate %: `0.0000`

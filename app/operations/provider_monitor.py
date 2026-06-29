@@ -28,6 +28,9 @@ class ProviderMonitorRow:
     chain: str
     score: int
     status: str
+    current_status: str
+    rolling_status: str
+    required_for_overall: bool
     success_rate_pct: float
     consecutive_failures: int
     avg_latency_ms: float | None
@@ -65,7 +68,8 @@ class ProviderMonitorService:
     def generate(self) -> dict[str, Any]:
         provider_rows = self._read_provider_rows()
         now = time.time()
-        monitored = [self._monitor_row(row, now) for row in provider_rows]
+        coverage = self._healthy_required_coverage(provider_rows, now)
+        monitored = [self._monitor_row(row, now, coverage) for row in provider_rows]
         alerts = [alert for row in monitored for alert in row.alerts]
         payload = {
             "generated_at": self._utc_now(),
@@ -90,27 +94,37 @@ class ProviderMonitorService:
         self._write_markdown(payload)
         return payload
 
-    def _monitor_row(self, row: dict[str, Any], now: float) -> ProviderMonitorRow:
+    def _monitor_row(self, row: dict[str, Any], now: float, coverage: set[tuple[str, str]]) -> ProviderMonitorRow:
         score = self._int(row.get("score"), 0)
         consecutive_failures = self._int(row.get("consecutive_failures"), 0)
         last_success_at = self._float(row.get("last_success_at"))
         last_failure_at = self._float(row.get("last_failure_at"))
         last_observed_at = max(value for value in [last_success_at, last_failure_at] if value is not None) if (last_success_at or last_failure_at) else None
         age_seconds = round(now - last_observed_at, 2) if last_observed_at else None
+        provider_type = str(row.get("provider_type", "unknown"))
+        chain = self._normalize_chain(row.get("chain", "unknown"))
+        required_for_overall = not self._is_optional_backup(row)
+        has_required_peer = (chain, provider_type) in coverage
+        recovered = self._has_fresh_success(row, now) and score < self.degraded_score_threshold
 
         alerts = self._alerts_for_row(
             row=row,
             score=score,
             consecutive_failures=consecutive_failures,
             age_seconds=age_seconds,
+            recovered=recovered,
+            optional_with_required_peer=(not required_for_overall and has_required_peer),
         )
         status = self._status_from_alerts(alerts)
         return ProviderMonitorRow(
             name=str(row.get("name", "unknown")),
-            provider_type=str(row.get("provider_type", "unknown")),
-            chain=self._normalize_chain(row.get("chain", "unknown")),
+            provider_type=provider_type,
+            chain=chain,
             score=score,
             status=status,
+            current_status=status,
+            rolling_status=self._rolling_status(score),
+            required_for_overall=required_for_overall,
             success_rate_pct=self._float(row.get("success_rate_pct")) or 0.0,
             consecutive_failures=consecutive_failures,
             avg_latency_ms=self._float(row.get("avg_latency_ms")),
@@ -125,6 +139,8 @@ class ProviderMonitorService:
         score: int,
         consecutive_failures: int,
         age_seconds: float | None,
+        recovered: bool,
+        optional_with_required_peer: bool,
     ) -> list[ProviderAlert]:
         name = str(row.get("name", "unknown"))
         provider_type = str(row.get("provider_type", "unknown"))
@@ -132,7 +148,28 @@ class ProviderMonitorService:
         chain = self._normalize_chain(chain)
         alerts: list[ProviderAlert] = []
 
-        if score <= self.critical_score_threshold:
+        if optional_with_required_peer:
+            if score <= self.critical_score_threshold or consecutive_failures >= self.consecutive_failure_threshold:
+                alerts.append(
+                    ProviderAlert(
+                        "WATCH",
+                        name,
+                        provider_type,
+                        chain,
+                        "Optional backup provider is unhealthy; same-chain required provider coverage is available.",
+                    )
+                )
+        elif recovered and score < self.degraded_score_threshold:
+            alerts.append(
+                ProviderAlert(
+                    "WATCH",
+                    name,
+                    provider_type,
+                    chain,
+                    f"Provider has fresh successful observations but rolling score {score} is still recovering.",
+                )
+            )
+        elif score <= self.critical_score_threshold:
             alerts.append(
                 ProviderAlert("CRITICAL", name, provider_type, chain, f"Provider score {score} is at or below critical threshold.")
             )
@@ -141,7 +178,7 @@ class ProviderMonitorService:
                 ProviderAlert("DEGRADED", name, provider_type, chain, f"Provider score {score} is below degraded threshold.")
             )
 
-        if consecutive_failures >= self.consecutive_failure_threshold:
+        if consecutive_failures >= self.consecutive_failure_threshold and not optional_with_required_peer:
             alerts.append(
                 ProviderAlert(
                     "CRITICAL",
@@ -182,12 +219,16 @@ class ProviderMonitorService:
     def _overall_status(rows: list[ProviderMonitorRow]) -> str:
         if not rows:
             return "NEEDS_DATA"
-        statuses = {row.status for row in rows}
+        statuses = {row.status for row in rows if row.required_for_overall}
+        if not statuses:
+            statuses = {row.status for row in rows}
         if "CRITICAL" in statuses:
             return "CRITICAL"
         if "DEGRADED" in statuses:
             return "DEGRADED"
         if "WATCH" in statuses:
+            return "WATCH"
+        if any(row.status == "WATCH" for row in rows):
             return "WATCH"
         return "OK"
 
@@ -208,6 +249,7 @@ class ProviderMonitorService:
                     "critical_count": sum(1 for row in chain_rows if row.status == "CRITICAL"),
                     "degraded_count": sum(1 for row in chain_rows if row.status == "DEGRADED"),
                     "watch_count": sum(1 for row in chain_rows if row.status == "WATCH"),
+                    "required_provider_count": sum(1 for row in chain_rows if row.required_for_overall),
                 }
             )
         return summary
@@ -226,9 +268,22 @@ class ProviderMonitorService:
                     "provider_count": len(type_rows),
                     "average_score": round(sum(scores) / len(scores)) if scores else 0,
                     "status": ProviderMonitorService._overall_status(type_rows),
+                    "required_provider_count": sum(1 for row in type_rows if row.required_for_overall),
                 }
             )
         return summary
+
+    def _healthy_required_coverage(self, rows: list[dict[str, Any]], now: float) -> set[tuple[str, str]]:
+        coverage = set()
+        for row in rows:
+            if self._is_optional_backup(row):
+                continue
+            if not self._has_fresh_success(row, now):
+                continue
+            chain = self._normalize_chain(row.get("chain", "unknown"))
+            provider_type = str(row.get("provider_type", "unknown"))
+            coverage.add((chain, provider_type))
+        return coverage
 
     def _read_provider_rows(self) -> list[dict[str, Any]]:
         path = self.data_dir / "provider_health.json"
@@ -257,14 +312,15 @@ class ProviderMonitorService:
             "",
             "## Providers",
             "",
-            "| Chain | Type | Provider | Score | Status | Consecutive Failures | Age Seconds | Error |",
-            "|---|---|---|---:|---|---:|---:|---|",
+            "| Chain | Type | Provider | Score | Current | Rolling | Required | Consecutive Failures | Age Seconds | Error |",
+            "|---|---|---|---:|---|---|---|---:|---:|---|",
         ]
         for row in payload["providers"]:
             error = str(row.get("last_error") or "").replace("|", "/")[:100]
             lines.append(
                 f"| {row['chain']} | {row['provider_type']} | {row['name']} | {row['score']} | "
-                f"{row['status']} | {row['consecutive_failures']} | {row['last_observed_age_seconds']} | {error} |"
+                f"{row['current_status']} | {row['rolling_status']} | {row['required_for_overall']} | "
+                f"{row['consecutive_failures']} | {row['last_observed_age_seconds']} | {error} |"
             )
 
         lines += ["", "## Alerts", "", "| Severity | Chain | Type | Provider | Message |", "|---|---|---|---|---|"]
@@ -298,6 +354,44 @@ class ProviderMonitorService:
             "polygon": "polygon",
         }
         return aliases.get(normalized, normalized)
+
+    def _has_fresh_success(self, row: dict[str, Any], now: float) -> bool:
+        last_success_at = self._float(row.get("last_success_at"))
+        if last_success_at is None:
+            return False
+        last_failure_at = self._float(row.get("last_failure_at"))
+        if last_failure_at is not None and last_failure_at > last_success_at:
+            return False
+        if now - last_success_at > self.stale_after_seconds:
+            return False
+        return self._int(row.get("consecutive_failures"), 0) == 0
+
+    @staticmethod
+    def _is_optional_backup(row: dict[str, Any]) -> bool:
+        provider_type = str(row.get("provider_type", "")).lower()
+        if provider_type != "rpc":
+            return False
+        metadata = row.get("metadata", {})
+        if isinstance(metadata, dict):
+            role = str(metadata.get("role", "")).lower()
+            if role in {"backup", "fallback", "optional"}:
+                return True
+        name = str(row.get("name", "")).lower()
+        marker = ":rpc"
+        if marker not in name:
+            return False
+        try:
+            raw = name.split(marker, 1)[1].split(":", 1)[0]
+            return int(raw) > 1
+        except Exception:
+            return False
+
+    def _rolling_status(self, score: int) -> str:
+        if score <= self.critical_score_threshold:
+            return "CRITICAL"
+        if score < self.degraded_score_threshold:
+            return "DEGRADED"
+        return "OK"
 
     @staticmethod
     def _int(value: Any, default: int) -> int:

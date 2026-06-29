@@ -1,29 +1,29 @@
 # CryptoAI Feature Store Report
 
-Generated: `2026-06-29T12:47:20Z`
+Generated: `2026-06-29T13:25:17Z`
 
 ## Summary
 
 - Mode: `paper`
-- Feature vectors: `279`
-- Tradeable or filled: `186`
+- Feature vectors: `303`
+- Tradeable or filled: `180`
 - Risk/execution rejected: `6`
-- Average net edge %: `0.2630`
+- Average net edge %: `0.2194`
 - Max net edge %: `0.3500`
 
 ## Source Counts
 
-- `opportunity_decision`: 109
-- `multi_dex_opportunity`: 111
-- `paper_order`: 49
+- `opportunity_decision`: 123
+- `multi_dex_opportunity`: 125
+- `paper_order`: 45
 - `strategy_signal`: 10
 
 ## Decision Counts
 
-- `SKIP`: 60
+- `SKIP`: 88
 - `BUY`: 162
-- `SKIPPED`: 25
-- `FILLED`: 18
+- `SKIPPED`: 27
+- `FILLED`: 12
 - `RISK_REJECTED`: 6
 - `WATCH`: 2
 - `READY_FOR_PAPER`: 6
@@ -32,8 +32,8 @@ Generated: `2026-06-29T12:47:20Z`
 
 | Pair | Count |
 |---|---:|
-| WETH/USDC | 119 |
-| USDC/WETH | 119 |
+| WETH/USDC | 134 |
+| USDC/WETH | 128 |
 
 ## Data Quality
 

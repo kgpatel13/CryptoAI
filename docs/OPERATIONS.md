@@ -14,18 +14,13 @@ Paper Autopilot CLI
         v
 Operations Runtime
         |
-        +--> Heartbeat
-        +--> Runtime State
-        +--> Operational Metrics
-        +--> Mission Summary
-        +--> Market Intelligence
-        +--> Provider Monitor
-        |
-        v
 SchedulerService.run_once()
         |
         v
 Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
+        |
+        v
+Provider Monitor + Market Intelligence + Heartbeat/Mission Reports
 ```
 
 ## Runtime Files
@@ -49,6 +44,7 @@ Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
 - `data/experiments.jsonl` - append-only experiment evidence history.
 - `reports/report_audit.json` - report freshness, parseability, and warning summary.
 - `reports/report_audit.md` - human-readable Report Audit report.
+- `data/paper_orders_legacy_archive.jsonl` - archived pre-repair paper rows excluded from clean evidence.
 
 ## Commands
 
@@ -67,13 +63,23 @@ python -m app.market_intelligence.market_intelligence_service
 Generate provider monitoring manually:
 
 ```bash
+python -m app.diagnostics.quote_diagnostics
 python -m app.operations.provider_monitor
 ```
+
+Provider Monitor reads existing health observations and does not make network calls. Run quote diagnostics or one paper autopilot cycle first when validating provider health.
 
 Generate report audit manually:
 
 ```bash
 python -m app.reporting.report_audit
+```
+
+Archive legacy paper-order rows after reviewing a dry run:
+
+```bash
+python -m app.reporting.legacy_paper_archive --dry-run
+python -m app.reporting.legacy_paper_archive
 ```
 
 Generate replay backtest manually:
@@ -144,6 +150,7 @@ reports/experiment_report.md
 data/experiments.jsonl
 reports/report_audit.json
 reports/report_audit.md
+data/paper_orders_legacy_archive.jsonl
 ```
 
 ## Rollback
