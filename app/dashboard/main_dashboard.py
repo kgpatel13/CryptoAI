@@ -80,10 +80,14 @@ def render_mission_control() -> None:
     paper_report = REPORT_DIR / "paper_report.json"
     research_report = REPORT_DIR / "research_dashboard.json"
     strategy_report = REPORT_DIR / "strategy_center.json"
+    mission_summary_report = REPORT_DIR / "mission_summary.json"
+    heartbeat_report = DATA_DIR / "heartbeat.json"
 
     paper = {}
     research = {}
     strategy = {}
+    mission_summary = {}
+    heartbeat = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -96,6 +100,17 @@ def render_mission_control() -> None:
                 research = payload
             else:
                 strategy = payload
+
+    for target, name in [(mission_summary_report, "mission"), (heartbeat_report, "heartbeat")]:
+        if target.exists():
+            try:
+                payload = json.loads(target.read_text(encoding="utf-8", errors="replace"))
+            except Exception:
+                payload = {}
+            if name == "mission":
+                mission_summary = payload
+            else:
+                heartbeat = payload
 
     analytics = paper.get("portfolio_analytics", {})
     feature_store = research.get("feature_store", {})
@@ -110,6 +125,18 @@ def render_mission_control() -> None:
     c6.metric("Active Strategies", strategy.get("active_strategy_count", "-"))
     c7.metric("Risk Rejections", paper.get("risk_rejected_orders", "-"))
     c8.metric("Avg Slippage bps", paper.get("avg_slippage_bps", "-"))
+
+    st.markdown("### Operations")
+    o1, o2, o3, o4 = st.columns(4)
+    o1.metric("Runtime", mission_summary.get("status", "-"))
+    o2.metric("Uptime Seconds", mission_summary.get("uptime_seconds", "-"))
+    o3.metric("Cycles", mission_summary.get("cycles_completed", "-"))
+    o4.metric("Heartbeat", heartbeat.get("status", "-"))
+
+    if mission_summary:
+        st.json(mission_summary)
+    else:
+        st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
 
     st.markdown("### Safety Status")
     st.success("Paper trading only. Live execution remains disabled.")
@@ -457,6 +484,9 @@ def render_system_health() -> None:
         DATA_DIR,
         REPORT_DIR,
         DATA_DIR / "provider_health.json",
+        DATA_DIR / "heartbeat.json",
+        DATA_DIR / "heartbeat_history.jsonl",
+        DATA_DIR / "runtime_state.json",
         DATA_DIR / "quote_snapshot.json",
         DATA_DIR / "quote_diagnostics.jsonl",
         DATA_DIR / "multi_dex_opportunities.jsonl",
@@ -479,6 +509,9 @@ def render_system_health() -> None:
         REPORT_DIR / "feature_store.md",
         REPORT_DIR / "research_dashboard.json",
         REPORT_DIR / "research_dashboard.md",
+        REPORT_DIR / "mission_summary.json",
+        REPORT_DIR / "mission_summary.md",
+        REPORT_DIR / "operational_metrics.json",
     ]:
         rows.append(
             {

@@ -4,13 +4,34 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v3.6 — Strategy Framework & Research Platform Foundation**
+**v4.1 - 24/7 Paper Operations Core**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
+
+## Leadership
+
+- Project Owner: Kamlesh Patel
+- Primary Architect: ChatGPT GPT-5.5
+
+## Core Principles
+
+1. Reliability over speed.
+2. Research before AI.
+3. AI advises, Risk decides.
+4. Data before opinions.
+5. Never break existing architecture.
+6. Everything measurable.
+7. Everything tested.
+8. Everything documented.
+9. Everything rollback friendly.
+10. Live trading only after sufficient paper evidence.
 
 ## Core Flow
 
 ```text
+24/7 Operations / Mission Control
+        |
+        v
 Quotes / Market Data
         |
         v
@@ -46,8 +67,18 @@ python -m app.opportunities.multi_dex_opportunity_engine
 python -m app.opportunities.opportunity_explorer
 python -m app.strategy.strategy_center
 python -m app.automation.paper_autopilot --once
+python -m app.automation.paper_autopilot --loop --interval-seconds 300 --heartbeat-interval-seconds 60
 python -m app.reporting.paper_report
 ```
+
+The continuous paper autopilot publishes:
+
+- `data/heartbeat.json`
+- `data/heartbeat_history.jsonl`
+- `data/runtime_state.json`
+- `reports/mission_summary.json`
+- `reports/mission_summary.md`
+- `reports/operational_metrics.json`
 
 ## Strategy Configuration
 
@@ -64,7 +95,8 @@ Only the DEX arbitrage strategy is enabled by default. Research strategies are v
 See:
 
 - `docs/ROADMAP.md`
+- `docs/OPERATIONS.md`
 - `docs/ARCHITECTURE.md`
 - `docs/STRATEGY_FRAMEWORK.md`
 - `docs/LIVE_READINESS.md`
-- `releases/RELEASE_v3.6.md`
+- `releases/RELEASE_v4.1.md`

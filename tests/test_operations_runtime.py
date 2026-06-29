@@ -1,0 +1,113 @@
+from __future__ import annotations
+
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+from app.automation.paper_autopilot import PaperAutopilot
+from app.operations.models import RuntimeStatus
+from app.operations.runtime import OperationsRuntime
+
+
+class OperationsRuntimeTests(unittest.TestCase):
+    def test_runtime_writes_heartbeat_state_metrics_and_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            calls = 0
+
+            def run_cycle() -> dict:
+                nonlocal calls
+                calls += 1
+                return {"status": "OK", "run_id": f"cycle-{calls}"}
+
+            runtime = OperationsRuntime(
+                service_name="paper_autopilot",
+                interval_seconds=0,
+                heartbeat_interval_seconds=1,
+                max_cycles=2,
+                data_dir=root / "data",
+                report_dir=root / "reports",
+            )
+
+            summary = runtime.run(run_cycle)
+
+            self.assertEqual(summary.status, RuntimeStatus.STOPPED)
+            self.assertEqual(summary.cycles_completed, 2)
+            self.assertEqual(summary.stop_reason, "max_cycles_reached")
+
+            heartbeat = json.loads((root / "data" / "heartbeat.json").read_text(encoding="utf-8"))
+            state = json.loads((root / "data" / "runtime_state.json").read_text(encoding="utf-8"))
+            metrics = json.loads((root / "reports" / "operational_metrics.json").read_text(encoding="utf-8"))
+            mission = json.loads((root / "reports" / "mission_summary.json").read_text(encoding="utf-8"))
+
+            self.assertEqual(heartbeat["status"], "STOPPED")
+            self.assertEqual(state["status"], "STOPPED")
+            self.assertEqual(metrics["cycles_completed"], 2)
+            self.assertEqual(metrics["scheduler_status_counts"], {"OK": 2})
+            self.assertEqual(mission["mode"], "PAPER")
+            self.assertFalse(mission["live_trading_enabled"])
+            self.assertTrue((root / "reports" / "mission_summary.md").exists())
+
+    def test_runtime_records_failed_cycles_without_enabling_live_trading(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+
+            def run_cycle() -> dict:
+                raise RuntimeError("simulated cycle failure")
+
+            runtime = OperationsRuntime(
+                service_name="paper_autopilot",
+                interval_seconds=0,
+                heartbeat_interval_seconds=1,
+                max_cycles=1,
+                data_dir=root / "data",
+                report_dir=root / "reports",
+            )
+
+            summary = runtime.run(run_cycle)
+
+            self.assertEqual(summary.status, RuntimeStatus.STOPPED)
+            self.assertEqual(summary.cycles_completed, 1)
+            self.assertEqual(summary.cycles_failed, 1)
+            self.assertEqual(summary.last_cycle_status, "FAILED")
+            self.assertEqual(summary.last_error, "simulated cycle failure")
+
+    def test_autopilot_loop_uses_operations_runtime(self) -> None:
+        class FakeRuntime:
+            def __init__(self, **kwargs) -> None:
+                self.kwargs = kwargs
+                captured["kwargs"] = kwargs
+
+            def install_signal_handlers(self) -> None:
+                captured["installed"] = True
+
+            def run(self, cycle_runner):
+                captured["cycle"] = cycle_runner()
+                return RuntimeStatusSummary()
+
+        class RuntimeStatusSummary:
+            def to_dict(self) -> dict:
+                return {"status": "STOPPED", "cycles_completed": 1}
+
+        captured: dict = {}
+        autopilot = PaperAutopilot()
+
+        with patch.object(autopilot, "run_once", return_value={"status": "OK"}):
+            with patch("app.automation.paper_autopilot.OperationsRuntime", FakeRuntime):
+                result = autopilot.run_loop(
+                    interval_seconds=60,
+                    max_cycles=1,
+                    heartbeat_interval_seconds=5,
+                )
+
+        self.assertEqual(result["status"], "STOPPED")
+        self.assertTrue(captured["installed"])
+        self.assertEqual(captured["cycle"], {"status": "OK"})
+        self.assertEqual(captured["kwargs"]["service_name"], "paper_autopilot")
+        self.assertEqual(captured["kwargs"]["heartbeat_interval_seconds"], 5)
+
+
+if __name__ == "__main__":
+    unittest.main()

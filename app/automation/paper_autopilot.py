@@ -26,6 +26,11 @@ except Exception:
     EventBusService = None
     EventType = None
 
+try:
+    from app.operations.runtime import OperationsRuntime
+except Exception:
+    OperationsRuntime = None
+
 
 class PaperAutopilot:
     """Safe paper-trading autopilot.
@@ -81,9 +86,27 @@ class PaperAutopilot:
         self._publish("Paper autopilot cycle completed.", payload)
         return payload
 
-    def run_loop(self, interval_seconds: int, max_cycles: int | None = None) -> None:
+    def run_loop(
+        self,
+        interval_seconds: int,
+        max_cycles: int | None = None,
+        heartbeat_interval_seconds: int = 60,
+    ) -> dict:
         print(f"CryptoAI paper autopilot started. Interval: {interval_seconds}s")
         print("Live trading is disabled. Press Ctrl+C to stop.")
+
+        if OperationsRuntime is not None:
+            runtime = OperationsRuntime(
+                service_name="paper_autopilot",
+                interval_seconds=interval_seconds,
+                heartbeat_interval_seconds=heartbeat_interval_seconds,
+                max_cycles=max_cycles,
+            )
+            runtime.install_signal_handlers()
+            summary = runtime.run(self.run_once)
+            payload = summary.to_dict()
+            print(payload)
+            return payload
 
         cycle = 0
         while True:
@@ -94,11 +117,15 @@ class PaperAutopilot:
 
                 if max_cycles is not None and cycle >= max_cycles:
                     print(f"Paper autopilot completed {max_cycles} cycle(s).")
-                    break
+                    return result
 
             except KeyboardInterrupt:
                 print("Paper autopilot stopped.")
-                break
+                return {
+                    "status": "STOPPED",
+                    "message": "Paper autopilot stopped.",
+                    "timestamp": self._utc_now(),
+                }
             except Exception as exc:
                 print(
                     {
@@ -137,6 +164,11 @@ def main() -> None:
         type=int,
         default=int(os.getenv("CRYPTOAI_AUTOPILOT_INTERVAL_SECONDS", "300")),
     )
+    parser.add_argument(
+        "--heartbeat-interval-seconds",
+        type=int,
+        default=int(os.getenv("CRYPTOAI_HEARTBEAT_INTERVAL_SECONDS", "60")),
+    )
     parser.add_argument("--max-cycles", type=int, default=None)
     parser.add_argument("--disable-paper-execution", action="store_true")
 
@@ -152,7 +184,11 @@ def main() -> None:
     autopilot = PaperAutopilot(enable_paper_execution=not args.disable_paper_execution)
 
     if args.loop:
-        autopilot.run_loop(max(60, args.interval_seconds), args.max_cycles)
+        autopilot.run_loop(
+            interval_seconds=max(60, args.interval_seconds),
+            max_cycles=args.max_cycles,
+            heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
+        )
     else:
         print(autopilot.run_once())
 
