@@ -1,27 +1,26 @@
 # CryptoAI Multi-DEX Opportunity Report
 
-Generated: `2026-06-29T02:34:36Z`
+Generated: `2026-06-29T02:50:34Z`
 
 ## Quote Health
 
 - Total quotes: `4`
-- Healthy quotes: `2`
-- Failed/invalid quotes: `2`
+- Healthy quotes: `4`
+- Failed/invalid quotes: `0`
 
 ## Opportunities
 
 | Mode | Pair | Buy DEX | Sell DEX | Buy Price | Sell Price | Gross % | Cost % | Net % | Decision | Reason |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| PAPER_SIMULATED | WETH/USDC | Uniswap V2 | SyntheticPaperVenue | 1558.85602500 | 1568.98858916 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| PAPER_SIMULATED | USDC/WETH | Uniswap V2 | SyntheticPaperVenue | 0.00063465 | 0.00063878 | 0.65000000 | 0.30000000 | 0.35000000 | BUY | Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| REAL | WETH/USDC | Uniswap V2 | Aerodrome | 1562.14268100 | 1566.36253600 | 0.27013250 | 0.30000000 | -0.02986750 | SKIP | Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| REAL | USDC/WETH | Uniswap V2 | Aerodrome | 0.00063332 | 0.00063413 | 0.12907445 | 0.30000000 | -0.17092555 | SKIP | Real multi-DEX comparison: net edge -0.1709% is too low after costs. |
 
 ## Failed / Invalid Quotes
 
 | DEX | Pair | Error |
 |---|---|---|
-| Aerodrome | WETH/USDC | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
-| Aerodrome | USDC/WETH | Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row. |
+| - | - | None |
 
 ## Interpretation
 
-- Only one DEX is healthy. Real arbitrage is not possible yet; simulated paper mode can validate downstream pipeline.
+- Multiple DEXes are healthy. Real multi-DEX comparison is possible.

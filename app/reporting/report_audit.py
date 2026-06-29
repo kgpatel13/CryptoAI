@@ -23,6 +23,8 @@ class ReportAuditService:
         "feature_store.md",
         "research_dashboard.json",
         "research_dashboard.md",
+        "backtest_report.json",
+        "backtest_report.md",
         "market_intelligence.json",
         "market_intelligence.md",
         "provider_monitor.json",
@@ -151,6 +153,8 @@ class ReportAuditService:
             "filled_orders",
             "legacy_accounting_warning_count",
             "strategy_count",
+            "total_signals",
+            "simulated_trades",
         ]
         return {key: payload[key] for key in keys if key in payload}
 

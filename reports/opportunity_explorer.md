@@ -1,8 +1,8 @@
 # CryptoAI Opportunity Explorer
 
-Generated: `2026-06-29T02:34:36Z`
+Generated: `2026-06-29T02:50:34Z`
 
 | Pair | Buy | Sell | Gross % | Cost % | Net % | Score | Decision | Reason |
 |---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | SyntheticPaperVenue | 0.6500 | 0.3000 | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| USDC/WETH | Uniswap V2 | SyntheticPaperVenue | 0.6500 | 0.3000 | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | Uniswap V2 | Aerodrome | 0.2701 | 0.3000 | -0.0299 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0299% is too low after costs. |
+| USDC/WETH | Uniswap V2 | Aerodrome | 0.1291 | 0.3000 | -0.1709 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.1709% is too low after costs. |

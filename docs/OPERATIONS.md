@@ -40,6 +40,8 @@ Quotes -> Strategy -> AI Ranking -> Risk -> Paper Execution
 - `reports/market_intelligence.md` - human-readable Market Intelligence report.
 - `reports/provider_monitor.json` - provider status, chain summaries, and alerts.
 - `reports/provider_monitor.md` - human-readable Provider Monitor report.
+- `reports/backtest_report.json` - multi-DEX replay backtest metrics.
+- `reports/backtest_report.md` - human-readable Backtest report.
 - `reports/report_audit.json` - report freshness, parseability, and warning summary.
 - `reports/report_audit.md` - human-readable Report Audit report.
 
@@ -67,6 +69,12 @@ Generate report audit manually:
 
 ```bash
 python -m app.reporting.report_audit
+```
+
+Generate replay backtest manually:
+
+```bash
+python -m app.backtesting.backtest_service
 ```
 
 Run continuously in paper mode:
@@ -110,6 +118,8 @@ reports/market_intelligence.json
 reports/market_intelligence.md
 reports/provider_monitor.json
 reports/provider_monitor.md
+reports/backtest_report.json
+reports/backtest_report.md
 reports/report_audit.json
 reports/report_audit.md
 ```

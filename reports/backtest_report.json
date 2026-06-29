@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-06-29T02:50:07Z",
+  "strategy_name": "Multi-DEX Opportunity Replay",
+  "started_at": "2026-06-29T02:50:07Z",
+  "completed_at": "2026-06-29T02:50:07Z",
+  "total_signals": 24,
+  "simulated_trades": 0,
+  "skipped_signals": 24,
+  "winning_trades": 0,
+  "losing_trades": 0,
+  "breakeven_trades": 0,
+  "total_simulated_profit_usd": "0.0000",
+  "average_profit_usd": "0.0000",
+  "average_net_edge_pct": "0.0000",
+  "max_drawdown_usd": "0.0000",
+  "win_rate_pct": "0.0000",
+  "source_file": "data\\multi_dex_opportunities.jsonl",
+  "notes": "Replay used multi_dex_opportunities.jsonl. Synthetic paper opportunities were excluded.",
+  "trades": []
+}

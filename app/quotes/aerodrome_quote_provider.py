@@ -15,7 +15,7 @@ from app.resilience.provider_health import provider_health_registry
 from app.resilience.retry_policy import RetryPolicy
 
 
-AERODROME_ROUTER = "0xcF77a3Ba9A5CA399B7c97c74d54e5bB28Aac43B9"
+AERODROME_ROUTER = "0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43"
 AERODROME_FACTORY = "0x420dd381b31aef6683db6b902084cb0ffece40da"
 
 

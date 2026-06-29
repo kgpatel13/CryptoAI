@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-06-29T02:34:44Z",
+  "generated_at": "2026-06-29T02:50:17Z",
   "mode": "paper",
-  "report_count": 17,
+  "report_count": 19,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
-  "finding_count": 4,
+  "finding_count": 2,
   "reports": [
     {
       "name": "quote_diagnostics.md",
       "exists": true,
-      "size_bytes": 1041,
-      "generated_at": "2026-06-29T02:28:42Z",
+      "size_bytes": 748,
+      "generated_at": "2026-06-29T02:43:12Z",
       "stale": false
     },
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
-      "size_bytes": 1526,
-      "generated_at": "2026-06-29T02:34:36Z",
+      "size_bytes": 925,
+      "generated_at": "2026-06-29T02:49:51Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
-      "size_bytes": 813,
-      "generated_at": "2026-06-29T02:34:36Z",
+      "size_bytes": 505,
+      "generated_at": "2026-06-29T02:49:51Z",
       "stale": false
     },
     {
@@ -124,10 +124,29 @@
       "stale": false
     },
     {
+      "name": "backtest_report.json",
+      "exists": true,
+      "size_bytes": 685,
+      "generated_at": "2026-06-29T02:50:07Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "total_signals": 24,
+        "simulated_trades": 0
+      }
+    },
+    {
+      "name": "backtest_report.md",
+      "exists": true,
+      "size_bytes": 732,
+      "generated_at": "2026-06-29T02:50:07Z",
+      "stale": false
+    },
+    {
       "name": "market_intelligence.json",
       "exists": true,
       "size_bytes": 4251,
-      "generated_at": "2026-06-29T02:34:44Z",
+      "generated_at": "2026-06-29T02:43:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -139,28 +158,28 @@
       "name": "market_intelligence.md",
       "exists": true,
       "size_bytes": 1257,
-      "generated_at": "2026-06-29T02:34:44Z",
+      "generated_at": "2026-06-29T02:43:22Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "exists": true,
-      "size_bytes": 4440,
-      "generated_at": "2026-06-29T02:34:44Z",
+      "size_bytes": 3942,
+      "generated_at": "2026-06-29T02:43:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "CRITICAL",
         "provider_count": 4,
-        "alert_count": 4
+        "alert_count": 3
       }
     },
     {
       "name": "provider_monitor.md",
       "exists": true,
-      "size_bytes": 1515,
-      "generated_at": "2026-06-29T02:34:44Z",
+      "size_bytes": 1340,
+      "generated_at": "2026-06-29T02:43:22Z",
       "stale": false
     }
   ],
@@ -168,22 +187,12 @@
     {
       "severity": "CRITICAL",
       "report": "provider_monitor.json",
-      "message": "Provider Monitor status is CRITICAL with 4 alert(s)."
-    },
-    {
-      "severity": "WATCH",
-      "report": "quote_diagnostics.md",
-      "message": "Quote Diagnostics has 2 error row(s) and 0 invalid row(s)."
+      "message": "Provider Monitor status is CRITICAL with 3 alert(s)."
     },
     {
       "severity": "WATCH",
       "report": "paper_report.json",
       "message": "6 legacy inverse-pair paper order(s) are annotated for accounting caution."
-    },
-    {
-      "severity": "WATCH",
-      "report": "opportunity_explorer.md",
-      "message": "Current BUY opportunities are paper-simulated because only one healthy DEX venue is available."
     }
   ],
   "notes": [

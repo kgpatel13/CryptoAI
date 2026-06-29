@@ -1,5 +1,12 @@
 # CryptoAI Changelog
 
+## v4.2 - Replay, Backtesting, Optimization
+
+- Started v4.2 replay/backtesting foundation.
+- Added multi-DEX opportunity replay backtest with real-vs-synthetic filtering.
+- Added `backtest_report.json` and `backtest_report.md` outputs.
+- Added backtest regression tests for real opportunity replay and explicit synthetic inclusion.
+
 ## v4.1 - 24/7 Paper Operations Core
 
 - Added Operations Runtime for heartbeat, runtime state, graceful shutdown, uptime tracking, mission summary, and operational metrics.

@@ -410,6 +410,7 @@ def render_reports() -> None:
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
+        ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Feature Store", REPORT_DIR / "feature_store.md"),
         ("Research Dashboard", REPORT_DIR / "research_dashboard.md"),
     ]:
@@ -621,6 +622,8 @@ def render_system_health() -> None:
         DATA_DIR / "strategy_ranked_signals.jsonl",
         REPORT_DIR / "strategy_center.json",
         REPORT_DIR / "strategy_center.md",
+        REPORT_DIR / "backtest_report.json",
+        REPORT_DIR / "backtest_report.md",
         DATA_DIR / "feature_vectors.jsonl",
         DATA_DIR / "feature_vectors.csv",
         REPORT_DIR / "feature_store.json",
@@ -695,6 +698,7 @@ def render_setup() -> None:
         python -m app.opportunities.opportunity_explorer
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
+        python -m app.backtesting.backtest_service
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor

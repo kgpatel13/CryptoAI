@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-29T02:34:44Z",
+  "generated_at": "2026-06-29T02:43:22Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "CRITICAL",
-  "alert_count": 4,
-  "critical_alert_count": 4,
+  "alert_count": 3,
+  "critical_alert_count": 3,
   "degraded_alert_count": 0,
   "stale_after_seconds": 900,
   "providers": [
@@ -16,8 +16,8 @@
       "status": "OK",
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 281.1,
-      "last_observed_age_seconds": 17.97,
+      "avg_latency_ms": 267.57,
+      "last_observed_age_seconds": 10.57,
       "last_error": null,
       "alerts": []
     },
@@ -25,27 +25,20 @@
       "name": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "score": 0,
+      "score": 20,
       "status": "CRITICAL",
-      "success_rate_pct": 0.0,
-      "consecutive_failures": 8,
-      "avg_latency_ms": null,
-      "last_observed_age_seconds": 9.45,
-      "last_error": "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row.",
+      "success_rate_pct": 20.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 283.78,
+      "last_observed_age_seconds": 9.59,
+      "last_error": null,
       "alerts": [
         {
           "severity": "CRITICAL",
           "provider": "Aerodrome",
           "provider_type": "dex",
           "chain": "base",
-          "message": "Provider score 0 is at or below critical threshold."
-        },
-        {
-          "severity": "CRITICAL",
-          "provider": "Aerodrome",
-          "provider_type": "dex",
-          "chain": "base",
-          "message": "Provider has 8 consecutive failures."
+          "message": "Provider score 20 is at or below critical threshold."
         }
       ]
     },
@@ -53,12 +46,12 @@
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 75,
+      "score": 81,
       "status": "OK",
-      "success_rate_pct": 75.0,
+      "success_rate_pct": 81.82,
       "consecutive_failures": 0,
-      "avg_latency_ms": 222.53,
-      "last_observed_age_seconds": 8.78,
+      "avg_latency_ms": 229.46,
+      "last_observed_age_seconds": 9.59,
       "last_error": null,
       "alerts": []
     },
@@ -71,7 +64,7 @@
       "success_rate_pct": 0.0,
       "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 9.45,
+      "last_observed_age_seconds": 526.7,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
@@ -95,7 +88,7 @@
     {
       "chain": "base",
       "provider_count": 4,
-      "average_score": 44,
+      "average_score": 50,
       "status": "CRITICAL",
       "critical_count": 2,
       "degraded_count": 0,
@@ -106,13 +99,13 @@
     {
       "provider_type": "dex",
       "provider_count": 2,
-      "average_score": 50,
+      "average_score": 60,
       "status": "CRITICAL"
     },
     {
       "provider_type": "rpc",
       "provider_count": 2,
-      "average_score": 38,
+      "average_score": 40,
       "status": "CRITICAL"
     }
   ],
@@ -122,14 +115,7 @@
       "provider": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "message": "Provider score 0 is at or below critical threshold."
-    },
-    {
-      "severity": "CRITICAL",
-      "provider": "Aerodrome",
-      "provider_type": "dex",
-      "chain": "base",
-      "message": "Provider has 8 consecutive failures."
+      "message": "Provider score 20 is at or below critical threshold."
     },
     {
       "severity": "CRITICAL",
