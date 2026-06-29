@@ -12,9 +12,9 @@ except Exception:
 
 
 class PaperReportService:
-    def __init__(self) -> None:
-        self.data_dir = Path("data")
-        self.report_dir = Path("reports")
+    def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:
+        self.data_dir = Path(data_dir)
+        self.report_dir = Path(report_dir)
         self.paper_orders_file = self.data_dir / "paper_orders.jsonl"
         self.opportunity_file = self.data_dir / "opportunity_decisions.jsonl"
         self.portfolio_state_file = self.data_dir / "paper_portfolio_state.json"
@@ -64,11 +64,13 @@ class PaperReportService:
             "portfolio": portfolio_summary,
             "portfolio_analytics": portfolio_analytics,
             "latest_opportunities": opportunities[-20:],
-            "latest_orders": orders[-20:],
+            "latest_orders": [self._annotate_order(order) for order in orders[-20:]],
+            "legacy_accounting_warning_count": sum(1 for order in orders if self._legacy_accounting_warning(order)),
             "notes": [
                 "This is simulated paper-trading output only.",
                 "No real wallet or exchange order was used.",
-                "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
+            "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
+            "Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis.",
             ],
         }
 
@@ -108,6 +110,7 @@ class PaperReportService:
             f"- Total return %: `{report.get('portfolio_analytics', {}).get('total_return_pct', '-')}`",
             f"- Win rate %: `{report.get('portfolio_analytics', {}).get('win_rate_pct', '-')}`",
             f"- Max drawdown %: `{report.get('portfolio_analytics', {}).get('max_drawdown_pct', '-')}`",
+            f"- Legacy accounting warnings: `{report.get('legacy_accounting_warning_count', 0)}`",
             "",
             "## Opportunity Decision Counts",
             "",
@@ -274,6 +277,26 @@ class PaperReportService:
         if not values:
             return "-"
         return str((sum(values, Decimal("0")) / Decimal(len(values))).quantize(Decimal("0.0001")))
+
+    @staticmethod
+    def _annotate_order(order: dict) -> dict:
+        annotated = dict(order)
+        if PaperReportService._legacy_accounting_warning(order):
+            annotated["legacy_accounting_warning"] = (
+                "Inverse-pair quantity appears to be from pre-repair accounting. "
+                "Portfolio/PnL reports use repaired canonical accounting."
+            )
+        return annotated
+
+    @staticmethod
+    def _legacy_accounting_warning(order: dict) -> bool:
+        pair = str(order.get("pair", "")).upper()
+        quantity = PaperReportService._decimal(order.get("simulated_quantity"))
+        fill_price = PaperReportService._decimal(order.get("simulated_fill_price_usd"))
+        notional = PaperReportService._decimal(order.get("notional_usd"))
+        if notional <= 0 or quantity <= 0:
+            return False
+        return pair.startswith("USDC/") and fill_price < Decimal("0.01") and quantity > notional * Decimal("10")
 
     def _portfolio_analytics(self) -> dict:
         if PnLAnalyticsService is None:

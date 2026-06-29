@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-29T02:18:32Z",
+  "generated_at": "2026-06-29T02:28:53Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "CRITICAL",
-  "alert_count": 3,
+  "alert_count": 4,
   "critical_alert_count": 3,
-  "degraded_alert_count": 0,
+  "degraded_alert_count": 1,
   "stale_after_seconds": 900,
   "providers": [
     {
@@ -16,8 +16,8 @@
       "status": "OK",
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 313.21,
-      "last_observed_age_seconds": 33.49,
+      "avg_latency_ms": 223.54,
+      "last_observed_age_seconds": 25.35,
       "last_error": null,
       "alerts": []
     },
@@ -30,7 +30,7 @@
       "success_rate_pct": 0.0,
       "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 22.7,
+      "last_observed_age_seconds": 10.5,
       "last_error": "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row.",
       "alerts": [
         {
@@ -53,14 +53,22 @@
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 75,
-      "status": "OK",
-      "success_rate_pct": 75.0,
-      "consecutive_failures": 0,
-      "avg_latency_ms": 258.91,
-      "last_observed_age_seconds": 22.06,
-      "last_error": null,
-      "alerts": []
+      "score": 46,
+      "status": "DEGRADED",
+      "success_rate_pct": 66.67,
+      "consecutive_failures": 2,
+      "avg_latency_ms": 181.74,
+      "last_observed_age_seconds": 18.0,
+      "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
+      "alerts": [
+        {
+          "severity": "DEGRADED",
+          "provider": "Base:rpc1:https://base-rpc.publicnode.com",
+          "provider_type": "rpc",
+          "chain": "base",
+          "message": "Provider score 46 is below degraded threshold."
+        }
+      ]
     },
     {
       "name": "Base:rpc2:https://mainnet.base.org",
@@ -71,7 +79,7 @@
       "success_rate_pct": 0.0,
       "consecutive_failures": 2,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 22.7,
+      "last_observed_age_seconds": 10.5,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
@@ -88,10 +96,10 @@
     {
       "chain": "base",
       "provider_count": 4,
-      "average_score": 44,
+      "average_score": 36,
       "status": "CRITICAL",
       "critical_count": 2,
-      "degraded_count": 0,
+      "degraded_count": 1,
       "watch_count": 0
     }
   ],
@@ -105,7 +113,7 @@
     {
       "provider_type": "rpc",
       "provider_count": 2,
-      "average_score": 38,
+      "average_score": 23,
       "status": "CRITICAL"
     }
   ],
@@ -123,6 +131,13 @@
       "provider_type": "dex",
       "chain": "base",
       "message": "Provider has 4 consecutive failures."
+    },
+    {
+      "severity": "DEGRADED",
+      "provider": "Base:rpc1:https://base-rpc.publicnode.com",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider score 46 is below degraded threshold."
     },
     {
       "severity": "CRITICAL",

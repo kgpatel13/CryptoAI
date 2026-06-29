@@ -1,33 +1,34 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-29T01:08:34Z`
+Generated: `2026-06-29T02:29:07Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `38`
-- Total orders: `45`
-- Filled orders: `14`
+- Opportunity decisions: `98`
+- Total orders: `49`
+- Filled orders: `18`
 - Skipped orders: `25`
 - Rejected orders: `0`
 - Portfolio risk rejections: `6`
-- Total filled notional USD: `$1450.0135`
-- Paper portfolio cash USD: `$9800.9883`
+- Total filled notional USD: `$1850.0697`
+- Paper portfolio cash USD: `$9801.3661`
 - Open paper positions: `2`
-- Closed paper positions: `2`
+- Closed paper positions: `6`
 - Avg execution slippage bps: `5.0000`
 - Avg execution latency ms: `250.0000`
-- Equity USD: `$10001.4613`
-- Total PnL USD: `$1.4613`
-- Total return %: `0.0146`
-- Win rate %: `100.0000`
+- Equity USD: `$10001.3939`
+- Total PnL USD: `$1.3939`
+- Total return %: `0.0139`
+- Win rate %: `75.0000`
 - Max drawdown %: `0.0000`
+- Legacy accounting warnings: `6`
 
 ## Opportunity Decision Counts
 
 - `SKIP`: 12
-- `BUY`: 26
+- `BUY`: 86
 
 ## Skip Reasons
 
@@ -42,28 +43,28 @@ Generated: `2026-06-29T01:08:34Z`
 ## Execution Quality
 
 - `UNKNOWN`: 12
-- `GOOD`: 2
+- `GOOD`: 6
 
 ## Paper Portfolio
 
-- Cash USD: `$9800.9883`
+- Cash USD: `$9801.3661`
 - Initial cash USD: `$10000`
 - Open positions: `2`
-- Closed positions: `2`
-- Daily realized PnL USD: `$1.0018`
-- Unrealized PnL USD: `$0.4595`
+- Closed positions: `6`
+- Daily realized PnL USD: `$0.3921`
+- Unrealized PnL USD: `$0.0000`
 - Daily filled trades: `4`
-- Exposure by chain: `{'base': '200.0135'}`
-- Exposure by token: `{'USDC': '100.0035', 'WETH': '100.0100'}`
+- Exposure by chain: `{'base': '200.0278'}`
+- Exposure by token: `{'WETH': '100.0139', 'USDC': '100.0139'}`
 
 ## Portfolio Analytics
 
-- Equity USD: `$10001.4613`
-- Total PnL USD: `$1.4613`
-- Total return %: `0.0146`
-- Win rate %: `100.0000`
-- Profit factor: `N/A`
-- Expectancy USD: `$0.5009`
+- Equity USD: `$10001.3939`
+- Total PnL USD: `$1.3939`
+- Total return %: `0.0139`
+- Win rate %: `75.0000`
+- Profit factor: `51.5036`
+- Expectancy USD: `$0.3485`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 
@@ -71,14 +72,15 @@ Generated: `2026-06-29T01:08:34Z`
 
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
-| 2026-06-28 | 14 | 1450.0135 | 1.0018 | 1.0018 | 0.0100 |
+| 2026-06-28 | 14 | 1450.0135 | 1.3939 | 1.3939 | 0.0139 |
+| 2026-06-29 | 4 | 400.0562 | 0.0000 | 1.3939 | 0.0000 |
 
 ### Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 7 | 725.0035 | 0.3500 | 100.0000 |
-| WETH/USDC | 7 | 725.0100 | 0.6518 | 100.0000 |
+| USDC/WETH | 9 | 925.0316 | 0.3500 | 100.0000 |
+| WETH/USDC | 9 | 925.0381 | 1.0439 | 66.6667 |
 
 ## Latest Opportunities
 
@@ -90,12 +92,12 @@ Generated: `2026-06-29T01:08:34Z`
 | USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
-| - | None | 0 | SKIP | REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning. |
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
+| USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | USDC/WETH | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
 | WETH/USDC | 0.3500 | 70 | BUY | PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable. |
@@ -109,10 +111,6 @@ Generated: `2026-06-29T01:08:34Z`
 
 | Time | Pair | Status | Notional | Edge % | Slip bps | Quality | Reason |
 |---|---|---|---:|---:|---:|---|---|
-| 2026-06-28T16:34:07Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:34:07Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:42:36Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:42:36Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:13Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:13Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:35Z | WETH/USDC | FILLED | 105.0000 | 0.3500 | - | - | Simulated paper fill created from risk-approved candidate. |
@@ -129,9 +127,14 @@ Generated: `2026-06-29T01:08:34Z`
 | 2026-06-28T18:14:25Z | USDC/WETH | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for USDC/WETH; reuse/monitor the open position instead of adding duplicate exposure. |
 | 2026-06-28T18:37:01Z | WETH/USDC | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for WETH/USDC; reuse/monitor the open position instead of adding duplicate exposure. |
 | 2026-06-28T18:37:01Z | USDC/WETH | RISK_REJECTED | 0 | 0.3500 | None | None | Portfolio risk rejected: existing open BUY position for USDC/WETH; reuse/monitor the open position instead of adding duplicate exposure. |
+| 2026-06-29T01:11:32Z | WETH/USDC | FILLED | 100.0142 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T01:11:32Z | USDC/WETH | FILLED | 100.0142 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T02:12:42Z | WETH/USDC | FILLED | 100.0139 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T02:12:42Z | USDC/WETH | FILLED | 100.0139 | 0.3500 | 5 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 
 ## Notes
 
 - This is simulated paper-trading output only.
 - No real wallet or exchange order was used.
 - If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.
+- Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis.

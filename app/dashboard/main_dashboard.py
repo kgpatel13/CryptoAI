@@ -634,6 +634,8 @@ def render_system_health() -> None:
         REPORT_DIR / "market_intelligence.md",
         REPORT_DIR / "provider_monitor.json",
         REPORT_DIR / "provider_monitor.md",
+        REPORT_DIR / "report_audit.json",
+        REPORT_DIR / "report_audit.md",
     ]:
         rows.append(
             {
@@ -696,6 +698,7 @@ def render_setup() -> None:
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
         python -m app.operations.provider_monitor
+        python -m app.reporting.report_audit
         ```
         """
     )

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T18:36:53Z",
+  "generated_at": "2026-06-29T02:29:02Z",
   "mode": "paper",
   "strategy_count": 5,
   "active_strategy_count": 1,
@@ -13,20 +13,20 @@
       "weight": "1.00",
       "class_name": "ArbitrageStrategy",
       "registry_reason": "Registered successfully.",
-      "orders": 43,
-      "filled_orders": 14,
-      "risk_rejected_orders": 4,
+      "orders": 49,
+      "filled_orders": 18,
+      "risk_rejected_orders": 6,
       "skipped_orders": 25,
       "open_positions": 2,
-      "closed_positions": 2,
-      "filled_notional_usd": "1450.0135",
-      "realized_pnl_usd": "1.0018",
-      "wins": 2,
-      "losses": 0,
+      "closed_positions": 6,
+      "filled_notional_usd": "1850.0697",
+      "realized_pnl_usd": "1.3939",
+      "wins": 3,
+      "losses": 1,
       "avg_slippage_bps": "5.0000",
       "avg_latency_ms": "250.0000",
       "last_signal": {
-        "timestamp": "2026-06-28T18:36:53Z",
+        "timestamp": "2026-06-29T02:29:02Z",
         "signal_id": "arbitrage:base:USDC-WETH:READY_FOR_PAPER",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
@@ -45,26 +45,52 @@
         }
       },
       "last_order": {
-        "order_id": "14f99e04",
-        "timestamp": "2026-06-28T18:14:25Z",
+        "order_id": "ecf1b1bf",
+        "timestamp": "2026-06-29T02:12:42Z",
         "strategy_name": "DEX Arbitrage Strategy",
         "chain": "base",
         "pair": "USDC/WETH",
         "side": "BUY",
-        "notional_usd": "0",
+        "notional_usd": "100.0139",
         "estimated_edge_pct": "0.3500",
-        "simulated_fill_price_usd": null,
-        "simulated_quantity": null,
-        "status": "RISK_REJECTED",
-        "reason": "Portfolio risk rejected: existing open BUY position for USDC/WETH; reuse/monitor the open position instead of adding duplicate exposure.",
-        "requested_notional_usd": null,
-        "filled_notional_usd": null,
-        "slippage_bps": null,
-        "latency_ms": null,
-        "execution_quality": null,
-        "lifecycle_events": []
+        "simulated_fill_price_usd": "1.000500000000000000",
+        "simulated_quantity": "99.96391804097951024487756122",
+        "status": "FILLED",
+        "reason": "Simulated paper execution completed through professional order lifecycle.",
+        "requested_notional_usd": "100.0139",
+        "filled_notional_usd": "100.0139",
+        "slippage_bps": "5",
+        "latency_ms": 250,
+        "execution_quality": "GOOD",
+        "lifecycle_events": [
+          {
+            "timestamp": "2026-06-29T02:12:42Z",
+            "status": "NEW",
+            "message": "Order candidate created."
+          },
+          {
+            "timestamp": "2026-06-29T02:12:42Z",
+            "status": "VALIDATED",
+            "message": "Portfolio and quote gates passed."
+          },
+          {
+            "timestamp": "2026-06-29T02:12:42Z",
+            "status": "SUBMITTED",
+            "message": "Paper order submitted to execution simulator."
+          },
+          {
+            "timestamp": "2026-06-29T02:12:42Z",
+            "status": "PENDING",
+            "message": "Simulated routing latency 250ms."
+          },
+          {
+            "timestamp": "2026-06-29T02:12:42Z",
+            "status": "FILLED",
+            "message": "Filled $100.0139 at 1.000500000000000000 with 5bps simulated slippage."
+          }
+        ]
       },
-      "win_rate_pct": "100.0000"
+      "win_rate_pct": "50.0000"
     },
     {
       "strategy_id": "momentum",
@@ -223,6 +249,82 @@
     },
     {
       "timestamp": "2026-06-28T18:36:53Z",
+      "rank": 2,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "action": "READY_FOR_PAPER",
+      "confidence_score": 70,
+      "expected_edge_pct": "0.3500",
+      "rank_score": 90,
+      "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T02:22:34Z",
+      "rank": 1,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "action": "READY_FOR_PAPER",
+      "confidence_score": 70,
+      "expected_edge_pct": "0.3500",
+      "rank_score": 90,
+      "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T02:22:34Z",
+      "rank": 2,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "action": "READY_FOR_PAPER",
+      "confidence_score": 70,
+      "expected_edge_pct": "0.3500",
+      "rank_score": 90,
+      "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T02:29:02Z",
+      "rank": 1,
+      "strategy_id": "arbitrage",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "action": "READY_FOR_PAPER",
+      "confidence_score": 70,
+      "expected_edge_pct": "0.3500",
+      "rank_score": 90,
+      "reason": "Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%.",
+      "features": {
+        "strategy_id": "arbitrage",
+        "strategy_weight": "1.00",
+        "strategy_mode": "paper",
+        "min_confidence": 50
+      }
+    },
+    {
+      "timestamp": "2026-06-29T02:29:02Z",
       "rank": 2,
       "strategy_id": "arbitrage",
       "strategy_name": "DEX Arbitrage Strategy",

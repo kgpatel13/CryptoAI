@@ -1,22 +1,22 @@
 # CryptoAI Portfolio Analytics Report
 
-Generated: `2026-06-29T01:08:34Z`
+Generated: `2026-06-29T02:29:07Z`
 
 ## Summary
 
 - Mode: `paper`
 - Initial cash USD: `$10000.0000`
-- Cash USD: `$9800.9883`
-- Equity USD: `$10001.4613`
-- Realized PnL USD: `$1.0018`
-- Unrealized PnL USD: `$0.4595`
-- Total PnL USD: `$1.4613`
-- Total return %: `0.0146`
-- Trade count: `14`
-- Closed/PnL trade count: `2`
-- Win rate %: `100.0000`
-- Profit factor: `N/A`
-- Expectancy USD: `$0.5009`
+- Cash USD: `$9801.3661`
+- Equity USD: `$10001.3939`
+- Realized PnL USD: `$1.3939`
+- Unrealized PnL USD: `$0.0000`
+- Total PnL USD: `$1.3939`
+- Total return %: `0.0139`
+- Trade count: `18`
+- Closed/PnL trade count: `4`
+- Win rate %: `75.0000`
+- Profit factor: `51.5036`
+- Expectancy USD: `$0.3485`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 - Avg slippage bps: `5.0000`
@@ -26,14 +26,15 @@ Generated: `2026-06-29T01:08:34Z`
 
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
-| 2026-06-28 | 14 | 1450.0135 | 1.0018 | 1.0018 | 0.0100 |
+| 2026-06-28 | 14 | 1450.0135 | 1.3939 | 1.3939 | 0.0139 |
+| 2026-06-29 | 4 | 400.0562 | 0.0000 | 1.3939 | 0.0000 |
 
 ## Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 7 | 725.0035 | 0.3500 | 100.0000 |
-| WETH/USDC | 7 | 725.0100 | 0.6518 | 100.0000 |
+| USDC/WETH | 9 | 925.0316 | 0.3500 | 100.0000 |
+| WETH/USDC | 9 | 925.0381 | 1.0439 | 66.6667 |
 
 ## Recent Trade Journal
 
@@ -41,9 +42,9 @@ Generated: `2026-06-29T01:08:34Z`
 |---|---|---|---:|---:|---|---|
 | 2026-06-28T16:34:07Z | WETH/USDC | FILLED | 105.0000 | 0.6518 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:34:07Z | USDC/WETH | FILLED | 105.0000 | 0.3500 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:42:36Z | WETH/USDC | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
+| 2026-06-28T16:42:36Z | WETH/USDC | FILLED | 105.0000 | 0.4197 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:42:36Z | USDC/WETH | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:59:13Z | WETH/USDC | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
+| 2026-06-28T16:59:13Z | WETH/USDC | FILLED | 105.0000 | -0.0276 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:13Z | USDC/WETH | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:35Z | WETH/USDC | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
 | 2026-06-28T16:59:35Z | USDC/WETH | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
@@ -53,6 +54,10 @@ Generated: `2026-06-29T01:08:34Z`
 | 2026-06-28T17:22:57Z | USDC/WETH | FILLED | 100.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate after portfolio risk checks. |
 | 2026-06-28T17:52:15Z | USDC/WETH | FILLED | 100.0035 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 | 2026-06-28T18:14:25Z | WETH/USDC | FILLED | 100.0100 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T01:11:32Z | WETH/USDC | FILLED | 100.0142 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T01:11:32Z | USDC/WETH | FILLED | 100.0142 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T02:12:42Z | WETH/USDC | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T02:12:42Z | USDC/WETH | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 
 ## Notes
 

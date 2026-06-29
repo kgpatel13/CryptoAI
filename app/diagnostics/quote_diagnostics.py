@@ -35,9 +35,9 @@ class QuoteDiagnostic:
 class QuoteDiagnosticsService:
     """Quote-layer debugger that preserves cache/snapshots."""
 
-    def __init__(self) -> None:
-        self.data_dir = Path("data")
-        self.report_dir = Path("reports")
+    def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:
+        self.data_dir = Path(data_dir)
+        self.report_dir = Path(report_dir)
         self.data_dir.mkdir(exist_ok=True)
         self.report_dir.mkdir(exist_ok=True)
         self.output_file = self.data_dir / "quote_diagnostics.jsonl"
@@ -130,6 +130,7 @@ class QuoteDiagnosticsService:
         ok = sum(1 for d in diagnostics if d.status == QuoteDiagnosticStatus.OK)
         errors = sum(1 for d in diagnostics if d.status == QuoteDiagnosticStatus.ERROR)
         invalid = sum(1 for d in diagnostics if d.status == QuoteDiagnosticStatus.INVALID)
+        healthy_dex_count = len({d.dex for d in diagnostics if d.status == QuoteDiagnosticStatus.OK})
 
         lines = [
             "# CryptoAI Quote Diagnostics",
@@ -153,10 +154,10 @@ class QuoteDiagnosticsService:
             lines.append(f"| {d.chain} | {d.dex} | {d.pair} | {d.status.value} | {d.price or '-'} | {d.amount_out or '-'} | {d.latency_ms:.2f} | {d.error.replace('|', '/')} |")
 
         lines += ["", "## Interpretation", ""]
-        if ok >= 2:
-            lines.append("- Quote layer has at least two valid quotes or a recent healthy snapshot.")
+        if ok >= 2 and healthy_dex_count >= 2:
+            lines.append("- Quote layer has at least two valid DEX venues or a recent healthy snapshot.")
         elif ok > 0:
-            lines.append("- Quote layer has one valid quote. Real arbitrage needs another venue, but simulated paper validation may still run.")
+            lines.append("- Quote layer has valid quote rows but fewer than two healthy DEX venues. Real arbitrage needs another venue, but simulated paper validation may still run.")
         else:
             lines.append("- No valid quotes. Check RPC limits and provider errors. Configure BASE_RPC with a private RPC.")
 

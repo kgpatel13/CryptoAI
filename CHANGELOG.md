@@ -7,6 +7,7 @@
 - Added Mission Control dashboard visibility for runtime heartbeat and mission summary.
 - Added Market Intelligence report for chain, DEX, token, pair, provider-health, and readiness scoring.
 - Added Provider Monitor report for stale, degraded, and critical provider observations.
+- Added Report Audit report for freshness, parseability, critical status, and legacy accounting review.
 - Added operations regression tests with deterministic fake cycle runners.
 - Added v4.1 operations documentation and release notes.
 

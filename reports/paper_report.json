@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-06-29T01:08:34Z",
+  "generated_at": "2026-06-29T02:29:07Z",
   "mode": "paper",
   "live_trading": "disabled",
-  "total_opportunity_decisions": 38,
+  "total_opportunity_decisions": 98,
   "opportunity_decision_counts": {
     "SKIP": 12,
-    "BUY": 26
+    "BUY": 86
   },
-  "total_orders": 45,
-  "filled_orders": 14,
+  "total_orders": 49,
+  "filled_orders": 18,
   "skipped_orders": 25,
   "rejected_orders": 0,
   "risk_rejected_orders": 6,
-  "total_filled_notional_usd": "1450.0135",
+  "total_filled_notional_usd": "1850.0697",
   "skip_reasons": {
     "Risk decision is WATCHLIST; paper order not created.": 25
   },
@@ -23,51 +23,51 @@
   },
   "execution_quality_counts": {
     "UNKNOWN": 12,
-    "GOOD": 2
+    "GOOD": 6
   },
   "avg_slippage_bps": "5.0000",
   "avg_latency_ms": "250.0000",
   "portfolio": {
-    "cash_usd": "9800.9883",
+    "cash_usd": "9801.3661",
     "initial_cash_usd": "10000",
     "open_positions": 2,
-    "closed_positions": 2,
+    "closed_positions": 6,
     "daily_filled_trades": 4,
-    "daily_realized_pnl_usd": "1.0018",
-    "realized_pnl_usd": "1.0018",
-    "unrealized_pnl_usd": "0.4595",
+    "daily_realized_pnl_usd": "0.3921",
+    "realized_pnl_usd": "1.3939",
+    "unrealized_pnl_usd": "0.0000",
     "exposure_by_chain": {
-      "base": "200.0135"
+      "base": "200.0278"
     },
     "exposure_by_token": {
-      "USDC": "100.0035",
-      "WETH": "100.0100"
+      "WETH": "100.0139",
+      "USDC": "100.0139"
     },
-    "updated_at": "2026-06-28T18:14:25Z"
+    "updated_at": "2026-06-29T02:12:42Z"
   },
   "portfolio_analytics": {
-    "generated_at": "2026-06-29T01:08:34Z",
+    "generated_at": "2026-06-29T02:29:07Z",
     "mode": "paper",
     "initial_cash_usd": "10000.0000",
-    "cash_usd": "9800.9883",
-    "open_position_notional_usd": "200.0135",
-    "equity_usd": "10001.4613",
-    "realized_pnl_usd": "1.0018",
-    "unrealized_pnl_usd": "0.4595",
-    "total_pnl_usd": "1.4613",
-    "total_return_pct": "0.0146",
-    "trade_count": 14,
-    "closed_trade_count": 2,
+    "cash_usd": "9801.3661",
+    "open_position_notional_usd": "200.0278",
+    "equity_usd": "10001.3939",
+    "realized_pnl_usd": "1.3939",
+    "unrealized_pnl_usd": "0.0000",
+    "total_pnl_usd": "1.3939",
+    "total_return_pct": "0.0139",
+    "trade_count": 18,
+    "closed_trade_count": 4,
     "open_positions": 2,
-    "closed_positions": 2,
-    "win_count": 2,
-    "loss_count": 0,
-    "breakeven_or_open_trade_count": 12,
-    "win_rate_pct": "100.0000",
-    "gross_profit_usd": "1.0018",
-    "gross_loss_usd": "0.0000",
-    "profit_factor": "N/A",
-    "expectancy_usd": "0.5009",
+    "closed_positions": 6,
+    "win_count": 3,
+    "loss_count": 1,
+    "breakeven_or_open_trade_count": 14,
+    "win_rate_pct": "75.0000",
+    "gross_profit_usd": "1.4215",
+    "gross_loss_usd": "0.0276",
+    "profit_factor": "51.5036",
+    "expectancy_usd": "0.3485",
     "max_drawdown_usd": "0.0000",
     "max_drawdown_pct": "0.0000",
     "avg_slippage_bps": "5.0000",
@@ -77,32 +77,45 @@
         "date": "2026-06-28",
         "trades": "14",
         "filled_notional_usd": "1450.0135",
-        "realized_pnl_usd": "1.0018",
-        "cumulative_realized_pnl_usd": "1.0018",
-        "daily_return_pct": "0.0100"
+        "realized_pnl_usd": "1.3939",
+        "cumulative_realized_pnl_usd": "1.3939",
+        "daily_return_pct": "0.0139"
+      },
+      {
+        "date": "2026-06-29",
+        "trades": "4",
+        "filled_notional_usd": "400.0562",
+        "realized_pnl_usd": "0.0000",
+        "cumulative_realized_pnl_usd": "1.3939",
+        "daily_return_pct": "0.0000"
       }
     ],
     "equity_curve": [
       {
         "date": "2026-06-28",
-        "equity_usd": "10001.0018",
-        "return_from_start_pct": "0.0100"
+        "equity_usd": "10001.3939",
+        "return_from_start_pct": "0.0139"
+      },
+      {
+        "date": "2026-06-29",
+        "equity_usd": "10001.3939",
+        "return_from_start_pct": "0.0139"
       }
     ],
     "performance_by_pair": [
       {
         "pair": "USDC/WETH",
-        "trades": "7",
-        "filled_notional_usd": "725.0035",
+        "trades": "9",
+        "filled_notional_usd": "925.0316",
         "realized_pnl_usd": "0.3500",
         "win_rate_pct": "100.0000"
       },
       {
         "pair": "WETH/USDC",
-        "trades": "7",
-        "filled_notional_usd": "725.0100",
-        "realized_pnl_usd": "0.6518",
-        "win_rate_pct": "100.0000"
+        "trades": "9",
+        "filled_notional_usd": "925.0381",
+        "realized_pnl_usd": "1.0439",
+        "win_rate_pct": "66.6667"
       }
     ],
     "trade_journal": [
@@ -142,7 +155,7 @@
         "side": "BUY",
         "status": "FILLED",
         "notional_usd": "105.0000",
-        "realized_pnl_usd": "0.0000",
+        "realized_pnl_usd": "0.4197",
         "slippage_bps": null,
         "latency_ms": null,
         "execution_quality": "UNKNOWN",
@@ -170,7 +183,7 @@
         "side": "BUY",
         "status": "FILLED",
         "notional_usd": "105.0000",
-        "realized_pnl_usd": "0.0000",
+        "realized_pnl_usd": "-0.0276",
         "slippage_bps": null,
         "latency_ms": null,
         "execution_quality": "UNKNOWN",
@@ -301,6 +314,62 @@
         "latency_ms": "250",
         "execution_quality": "GOOD",
         "reason": "Simulated paper execution completed through professional order lifecycle."
+      },
+      {
+        "order_id": "5dd40c54",
+        "timestamp": "2026-06-29T01:11:32Z",
+        "date": "2026-06-29",
+        "pair": "WETH/USDC",
+        "side": "BUY",
+        "status": "FILLED",
+        "notional_usd": "100.0142",
+        "realized_pnl_usd": "0.0000",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Simulated paper execution completed through professional order lifecycle."
+      },
+      {
+        "order_id": "632e4de0",
+        "timestamp": "2026-06-29T01:11:32Z",
+        "date": "2026-06-29",
+        "pair": "USDC/WETH",
+        "side": "BUY",
+        "status": "FILLED",
+        "notional_usd": "100.0142",
+        "realized_pnl_usd": "0.0000",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Simulated paper execution completed through professional order lifecycle."
+      },
+      {
+        "order_id": "1e80fe9d",
+        "timestamp": "2026-06-29T02:12:42Z",
+        "date": "2026-06-29",
+        "pair": "WETH/USDC",
+        "side": "BUY",
+        "status": "FILLED",
+        "notional_usd": "100.0139",
+        "realized_pnl_usd": "0.0000",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Simulated paper execution completed through professional order lifecycle."
+      },
+      {
+        "order_id": "ecf1b1bf",
+        "timestamp": "2026-06-29T02:12:42Z",
+        "date": "2026-06-29",
+        "pair": "USDC/WETH",
+        "side": "BUY",
+        "status": "FILLED",
+        "notional_usd": "100.0139",
+        "realized_pnl_usd": "0.0000",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Simulated paper execution completed through professional order lifecycle."
       }
     ],
     "notes": [
@@ -311,13 +380,13 @@
   },
   "latest_opportunities": [
     {
-      "opportunity_id": "0ad5167b-3",
+      "opportunity_id": "c8fc26fe-5",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1559.431749",
-      "sell_price": "1569.5680553685",
+      "buy_price": "1545.664643",
+      "sell_price": "1555.7114631795",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -326,16 +395,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:01Z"
+      "timestamp": "2026-06-29T02:18:10Z"
     },
     {
-      "opportunity_id": "6358e4b8-0",
+      "opportunity_id": "58ee151d-9",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634418607815447198",
-      "sell_price": "0.0006385423287662476047870",
+      "buy_price": "0.000640072418732163269",
+      "sell_price": "0.0006442328894539223302485",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -344,16 +413,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:01Z"
+      "timestamp": "2026-06-29T02:18:10Z"
     },
     {
-      "opportunity_id": "cb465cf2-5",
+      "opportunity_id": "ce3b3501-a",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1559.431749",
-      "sell_price": "1569.5680553685",
+      "buy_price": "1545.664643",
+      "sell_price": "1555.7114631795",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -362,16 +431,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:01Z"
+      "timestamp": "2026-06-29T02:18:10Z"
     },
     {
-      "opportunity_id": "4361430a-c",
+      "opportunity_id": "8927afdb-4",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634418607815447198",
-      "sell_price": "0.0006385423287662476047870",
+      "buy_price": "0.000640072418732163269",
+      "sell_price": "0.0006442328894539223302485",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -380,16 +449,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:01Z"
+      "timestamp": "2026-06-29T02:18:10Z"
     },
     {
-      "opportunity_id": "2bed5b9d-9",
+      "opportunity_id": "199a9c69-5",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1559.431749",
-      "sell_price": "1569.5680553685",
+      "buy_price": "1548.187853",
+      "sell_price": "1558.2510740445",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -398,16 +467,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:02Z"
+      "timestamp": "2026-06-29T02:22:34Z"
     },
     {
-      "opportunity_id": "4728fda4-b",
+      "opportunity_id": "6cc7c620-6",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634418607815447198",
-      "sell_price": "0.0006385423287662476047870",
+      "buy_price": "0.000639028710397487249",
+      "sell_price": "0.0006431823970150709161185",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -416,124 +485,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-28T18:37:02Z"
+      "timestamp": "2026-06-29T02:22:34Z"
     },
     {
-      "opportunity_id": "1f56089d-e",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-28T19:13:03Z"
-    },
-    {
-      "opportunity_id": "1f8e75c0-5",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-28T19:13:03Z"
-    },
-    {
-      "opportunity_id": "e0938f80-a",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-29T01:05:47Z"
-    },
-    {
-      "opportunity_id": "cc5cda8a-7",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-29T01:05:47Z"
-    },
-    {
-      "opportunity_id": "cd5e527e-0",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-29T01:06:01Z"
-    },
-    {
-      "opportunity_id": "9d31607d-b",
-      "chain": "base",
-      "pair": "-",
-      "buy_source": "-",
-      "sell_source": "-",
-      "buy_price": null,
-      "sell_price": null,
-      "gross_spread_pct": null,
-      "gas_buffer_pct": "0.08",
-      "fee_slippage_buffer_pct": "0.22",
-      "total_cost_buffer_pct": "0.30",
-      "estimated_net_edge_pct": null,
-      "readiness_score": 0,
-      "decision": "SKIP",
-      "reason": "REAL: No healthy quotes available. Fix quote providers/RPC before strategy tuning.",
-      "timestamp": "2026-06-29T01:06:01Z"
-    },
-    {
-      "opportunity_id": "8d054b98-1",
+      "opportunity_id": "f7ddc61f-9",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1558.864159",
-      "sell_price": "1568.9967760335",
+      "buy_price": "1548.187853",
+      "sell_price": "1558.2510740445",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -542,16 +503,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:01Z"
+      "timestamp": "2026-06-29T02:22:45Z"
     },
     {
-      "opportunity_id": "441c0e5f-6",
+      "opportunity_id": "f9cbc85b-2",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634649850054484356",
-      "sell_price": "0.0006387750740798385043140",
+      "buy_price": "0.000639028710397487249",
+      "sell_price": "0.0006431823970150709161185",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -560,16 +521,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:01Z"
+      "timestamp": "2026-06-29T02:22:45Z"
     },
     {
-      "opportunity_id": "4fcfc27f-3",
+      "opportunity_id": "7103089a-d",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1558.864159",
-      "sell_price": "1568.9967760335",
+      "buy_price": "1552.343199",
+      "sell_price": "1562.4334297935",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -578,16 +539,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:02Z"
+      "timestamp": "2026-06-29T02:25:41Z"
     },
     {
-      "opportunity_id": "a02fec81-7",
+      "opportunity_id": "dc87dc92-4",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634649850054484356",
-      "sell_price": "0.0006387750740798385043140",
+      "buy_price": "0.000637317272814808295",
+      "sell_price": "0.0006414598350881045489175",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -596,16 +557,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:02Z"
+      "timestamp": "2026-06-29T02:25:41Z"
     },
     {
-      "opportunity_id": "48469bb8-e",
+      "opportunity_id": "6dc6ef04-9",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1558.864159",
-      "sell_price": "1568.9967760335",
+      "buy_price": "1552.343199",
+      "sell_price": "1562.4334297935",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -614,16 +575,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:31Z"
+      "timestamp": "2026-06-29T02:25:41Z"
     },
     {
-      "opportunity_id": "4c2ae759-0",
+      "opportunity_id": "aa201582-5",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634649850054484356",
-      "sell_price": "0.0006387750740798385043140",
+      "buy_price": "0.000637317272814808295",
+      "sell_price": "0.0006414598350881045489175",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -632,16 +593,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:31Z"
+      "timestamp": "2026-06-29T02:25:41Z"
     },
     {
-      "opportunity_id": "be7cdae1-2",
+      "opportunity_id": "b1ef2cb8-8",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "1558.864159",
-      "sell_price": "1568.9967760335",
+      "buy_price": "1552.343199",
+      "sell_price": "1562.4334297935",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -650,16 +611,16 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:31Z"
+      "timestamp": "2026-06-29T02:26:57Z"
     },
     {
-      "opportunity_id": "7bd5af07-0",
+      "opportunity_id": "d7676181-3",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
       "sell_source": "SyntheticPaperVenue",
-      "buy_price": "0.000634649850054484356",
-      "sell_price": "0.0006387750740798385043140",
+      "buy_price": "0.000637317272814808295",
+      "sell_price": "0.0006414598350881045489175",
       "gross_spread_pct": "0.6500",
       "gas_buffer_pct": "0.08",
       "fee_slippage_buffer_pct": "0.22",
@@ -668,66 +629,118 @@
       "readiness_score": 70,
       "decision": "BUY",
       "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
-      "timestamp": "2026-06-29T01:08:31Z"
+      "timestamp": "2026-06-29T02:26:57Z"
+    },
+    {
+      "opportunity_id": "7f50e387-f",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "1552.343199",
+      "sell_price": "1562.4334297935",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:26:57Z"
+    },
+    {
+      "opportunity_id": "7543b112-1",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "0.000637317272814808295",
+      "sell_price": "0.0006414598350881045489175",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:26:57Z"
+    },
+    {
+      "opportunity_id": "ffa3be56-0",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "1558.809981",
+      "sell_price": "1568.9422458765",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:28:54Z"
+    },
+    {
+      "opportunity_id": "e8486701-a",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "0.000634671980564107288",
+      "sell_price": "0.0006387973484377739853720",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:28:54Z"
+    },
+    {
+      "opportunity_id": "37b69d2e-8",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "1558.809981",
+      "sell_price": "1568.9422458765",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:29:02Z"
+    },
+    {
+      "opportunity_id": "72a5e49a-0",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "buy_source": "Uniswap V2",
+      "sell_source": "SyntheticPaperVenue",
+      "buy_price": "0.000634671980564107288",
+      "sell_price": "0.0006387973484377739853720",
+      "gross_spread_pct": "0.6500",
+      "gas_buffer_pct": "0.08",
+      "fee_slippage_buffer_pct": "0.22",
+      "total_cost_buffer_pct": "0.30",
+      "estimated_net_edge_pct": "0.3500",
+      "readiness_score": 70,
+      "decision": "BUY",
+      "reason": "PAPER_SIMULATED: Paper-simulated opportunity because only one healthy DEX quote exists. Use this only to validate strategy/risk/paper-execution pipeline: net edge 0.3500% is above BUY threshold 0.30%. Not live-tradeable.",
+      "timestamp": "2026-06-29T02:29:02Z"
     }
   ],
   "latest_orders": [
-    {
-      "order_id": "6ba16e03",
-      "timestamp": "2026-06-28T16:34:07Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "side": "BUY",
-      "notional_usd": "105.0000",
-      "estimated_edge_pct": "0.3500",
-      "simulated_fill_price_usd": "1564.819862",
-      "simulated_quantity": "0.06710037528907592559685953168",
-      "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
-    },
-    {
-      "order_id": "f299b01d",
-      "timestamp": "2026-06-28T16:34:07Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "side": "BUY",
-      "notional_usd": "105.0000",
-      "estimated_edge_pct": "0.3500",
-      "simulated_fill_price_usd": "0.000632232965178056877",
-      "simulated_quantity": "166078.0215255442527404796342",
-      "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
-    },
-    {
-      "order_id": "5aa25418",
-      "timestamp": "2026-06-28T16:42:36Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "side": "BUY",
-      "notional_usd": "105.0000",
-      "estimated_edge_pct": "0.3500",
-      "simulated_fill_price_usd": "1561.783493",
-      "simulated_quantity": "0.06723082967044779746561196367",
-      "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
-    },
-    {
-      "order_id": "7ebbd365",
-      "timestamp": "2026-06-28T16:42:36Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "side": "BUY",
-      "notional_usd": "105.0000",
-      "estimated_edge_pct": "0.3500",
-      "simulated_fill_price_usd": "0.000633462781383901401",
-      "simulated_quantity": "165755.5946232714736251221271",
-      "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
-    },
     {
       "order_id": "c3f54223",
       "timestamp": "2026-06-28T16:59:13Z",
@@ -754,7 +767,8 @@
       "simulated_fill_price_usd": "0.000634005859521992706",
       "simulated_quantity": "165613.6113302872534988215255",
       "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
+      "reason": "Simulated paper fill created from risk-approved candidate.",
+      "legacy_accounting_warning": "Inverse-pair quantity appears to be from pre-repair accounting. Portfolio/PnL reports use repaired canonical accounting."
     },
     {
       "order_id": "1c4e0441",
@@ -782,7 +796,8 @@
       "simulated_fill_price_usd": "0.000634005859521992706",
       "simulated_quantity": "165613.6113302872534988215255",
       "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
+      "reason": "Simulated paper fill created from risk-approved candidate.",
+      "legacy_accounting_warning": "Inverse-pair quantity appears to be from pre-repair accounting. Portfolio/PnL reports use repaired canonical accounting."
     },
     {
       "order_id": "1852cacf",
@@ -810,7 +825,8 @@
       "simulated_fill_price_usd": "0.000634005809130152783",
       "simulated_quantity": "165613.6244935335062039623184",
       "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate."
+      "reason": "Simulated paper fill created from risk-approved candidate.",
+      "legacy_accounting_warning": "Inverse-pair quantity appears to be from pre-repair accounting. Portfolio/PnL reports use repaired canonical accounting."
     },
     {
       "order_id": "a38ea700",
@@ -838,7 +854,8 @@
       "simulated_fill_price_usd": "0.000633617608836572183",
       "simulated_quantity": "157823.8966300458592473904105",
       "status": "FILLED",
-      "reason": "Simulated paper fill created from risk-approved candidate after portfolio risk checks."
+      "reason": "Simulated paper fill created from risk-approved candidate after portfolio risk checks.",
+      "legacy_accounting_warning": "Inverse-pair quantity appears to be from pre-repair accounting. Portfolio/PnL reports use repaired canonical accounting."
     },
     {
       "order_id": "72c8b836",
@@ -1051,11 +1068,197 @@
       "latency_ms": null,
       "execution_quality": null,
       "lifecycle_events": []
+    },
+    {
+      "order_id": "5dd40c54",
+      "timestamp": "2026-06-29T01:11:32Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "side": "BUY",
+      "notional_usd": "100.0142",
+      "estimated_edge_pct": "0.3500",
+      "simulated_fill_price_usd": "1560.370844524500000000",
+      "simulated_quantity": "0.06409642960899968127710009119",
+      "status": "FILLED",
+      "reason": "Simulated paper execution completed through professional order lifecycle.",
+      "requested_notional_usd": "100.0142",
+      "filled_notional_usd": "100.0142",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "FILLED",
+          "message": "Filled $100.0142 at 1560.370844524500000000 with 5bps simulated slippage."
+        }
+      ]
+    },
+    {
+      "order_id": "632e4de0",
+      "timestamp": "2026-06-29T01:11:32Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "side": "BUY",
+      "notional_usd": "100.0142",
+      "estimated_edge_pct": "0.3500",
+      "simulated_fill_price_usd": "1.000500000000000000",
+      "simulated_quantity": "99.96421789105447276361819090",
+      "status": "FILLED",
+      "reason": "Simulated paper execution completed through professional order lifecycle.",
+      "requested_notional_usd": "100.0142",
+      "filled_notional_usd": "100.0142",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-29T01:11:32Z",
+          "status": "FILLED",
+          "message": "Filled $100.0142 at 1.000500000000000000 with 5bps simulated slippage."
+        }
+      ]
+    },
+    {
+      "order_id": "1e80fe9d",
+      "timestamp": "2026-06-29T02:12:42Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "side": "BUY",
+      "notional_usd": "100.0139",
+      "estimated_edge_pct": "0.3500",
+      "simulated_fill_price_usd": "1556.770793398500000000",
+      "simulated_quantity": "0.06424446066441495888549255361",
+      "status": "FILLED",
+      "reason": "Simulated paper execution completed through professional order lifecycle.",
+      "requested_notional_usd": "100.0139",
+      "filled_notional_usd": "100.0139",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "FILLED",
+          "message": "Filled $100.0139 at 1556.770793398500000000 with 5bps simulated slippage."
+        }
+      ]
+    },
+    {
+      "order_id": "ecf1b1bf",
+      "timestamp": "2026-06-29T02:12:42Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "side": "BUY",
+      "notional_usd": "100.0139",
+      "estimated_edge_pct": "0.3500",
+      "simulated_fill_price_usd": "1.000500000000000000",
+      "simulated_quantity": "99.96391804097951024487756122",
+      "status": "FILLED",
+      "reason": "Simulated paper execution completed through professional order lifecycle.",
+      "requested_notional_usd": "100.0139",
+      "filled_notional_usd": "100.0139",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-29T02:12:42Z",
+          "status": "FILLED",
+          "message": "Filled $100.0139 at 1.000500000000000000 with 5bps simulated slippage."
+        }
+      ]
     }
   ],
+  "legacy_accounting_warning_count": 6,
   "notes": [
     "This is simulated paper-trading output only.",
     "No real wallet or exchange order was used.",
-    "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons."
+    "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
+    "Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis."
   ]
 }
