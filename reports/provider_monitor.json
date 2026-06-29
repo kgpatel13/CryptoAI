@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-29T02:28:53Z",
+  "generated_at": "2026-06-29T02:34:44Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "CRITICAL",
   "alert_count": 4,
-  "critical_alert_count": 3,
-  "degraded_alert_count": 1,
+  "critical_alert_count": 4,
+  "degraded_alert_count": 0,
   "stale_after_seconds": 900,
   "providers": [
     {
@@ -16,8 +16,8 @@
       "status": "OK",
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 223.54,
-      "last_observed_age_seconds": 25.35,
+      "avg_latency_ms": 281.1,
+      "last_observed_age_seconds": 17.97,
       "last_error": null,
       "alerts": []
     },
@@ -28,9 +28,9 @@
       "score": 0,
       "status": "CRITICAL",
       "success_rate_pct": 0.0,
-      "consecutive_failures": 4,
+      "consecutive_failures": 8,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 10.5,
+      "last_observed_age_seconds": 9.45,
       "last_error": "Aerodrome quote unavailable for this route/RPC. Provider kept registered; scanner will skip this row.",
       "alerts": [
         {
@@ -45,7 +45,7 @@
           "provider": "Aerodrome",
           "provider_type": "dex",
           "chain": "base",
-          "message": "Provider has 4 consecutive failures."
+          "message": "Provider has 8 consecutive failures."
         }
       ]
     },
@@ -53,22 +53,14 @@
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 46,
-      "status": "DEGRADED",
-      "success_rate_pct": 66.67,
-      "consecutive_failures": 2,
-      "avg_latency_ms": 181.74,
-      "last_observed_age_seconds": 18.0,
-      "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
-      "alerts": [
-        {
-          "severity": "DEGRADED",
-          "provider": "Base:rpc1:https://base-rpc.publicnode.com",
-          "provider_type": "rpc",
-          "chain": "base",
-          "message": "Provider score 46 is below degraded threshold."
-        }
-      ]
+      "score": 75,
+      "status": "OK",
+      "success_rate_pct": 75.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 222.53,
+      "last_observed_age_seconds": 8.78,
+      "last_error": null,
+      "alerts": []
     },
     {
       "name": "Base:rpc2:https://mainnet.base.org",
@@ -77,9 +69,9 @@
       "score": 0,
       "status": "CRITICAL",
       "success_rate_pct": 0.0,
-      "consecutive_failures": 2,
+      "consecutive_failures": 4,
       "avg_latency_ms": null,
-      "last_observed_age_seconds": 10.5,
+      "last_observed_age_seconds": 9.45,
       "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
       "alerts": [
         {
@@ -88,6 +80,13 @@
           "provider_type": "rpc",
           "chain": "base",
           "message": "Provider score 0 is at or below critical threshold."
+        },
+        {
+          "severity": "CRITICAL",
+          "provider": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "chain": "base",
+          "message": "Provider has 4 consecutive failures."
         }
       ]
     }
@@ -96,10 +95,10 @@
     {
       "chain": "base",
       "provider_count": 4,
-      "average_score": 36,
+      "average_score": 44,
       "status": "CRITICAL",
       "critical_count": 2,
-      "degraded_count": 1,
+      "degraded_count": 0,
       "watch_count": 0
     }
   ],
@@ -113,7 +112,7 @@
     {
       "provider_type": "rpc",
       "provider_count": 2,
-      "average_score": 23,
+      "average_score": 38,
       "status": "CRITICAL"
     }
   ],
@@ -130,14 +129,7 @@
       "provider": "Aerodrome",
       "provider_type": "dex",
       "chain": "base",
-      "message": "Provider has 4 consecutive failures."
-    },
-    {
-      "severity": "DEGRADED",
-      "provider": "Base:rpc1:https://base-rpc.publicnode.com",
-      "provider_type": "rpc",
-      "chain": "base",
-      "message": "Provider score 46 is below degraded threshold."
+      "message": "Provider has 8 consecutive failures."
     },
     {
       "severity": "CRITICAL",
@@ -145,6 +137,13 @@
       "provider_type": "rpc",
       "chain": "base",
       "message": "Provider score 0 is at or below critical threshold."
+    },
+    {
+      "severity": "CRITICAL",
+      "provider": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider has 4 consecutive failures."
     }
   ],
   "notes": [

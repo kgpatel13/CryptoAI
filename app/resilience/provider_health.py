@@ -87,8 +87,10 @@ class ProviderHealthRegistry:
         self.output_path = Path(output_path)
         self.output_path.parent.mkdir(exist_ok=True)
         self._stats: dict[str, ProviderHealthStats] = {}
+        self._loaded = False
 
     def get(self, name: str, provider_type: str, chain: str = "base") -> ProviderHealthStats:
+        self._load_existing_once()
         normalized_chain = self._normalize_chain(chain)
         key = self._key(provider_type, normalized_chain, name)
         if key not in self._stats:
@@ -114,6 +116,41 @@ class ProviderHealthRegistry:
         payload = {"generated_at": time.time(), "providers": self.snapshot()}
         self.output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
+    def _load_existing_once(self) -> None:
+        if self._loaded:
+            return
+        self._loaded = True
+        if not self.output_path.exists():
+            return
+        try:
+            payload = json.loads(self.output_path.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            return
+        rows = payload.get("providers", []) if isinstance(payload, dict) else []
+        if not isinstance(rows, list):
+            return
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            name = str(row.get("name", "")).strip()
+            provider_type = str(row.get("provider_type", "")).strip()
+            if not name or not provider_type:
+                continue
+            chain = self._normalize_chain(str(row.get("chain", "base")))
+            stats = ProviderHealthStats(name=name, provider_type=provider_type, chain=chain)
+            stats.success_count = self._int(row.get("success_count"))
+            stats.failure_count = self._int(row.get("failure_count"))
+            stats.consecutive_failures = self._int(row.get("consecutive_failures"))
+            avg_latency = self._float(row.get("avg_latency_ms"))
+            stats.total_latency_ms = avg_latency * stats.success_count if avg_latency is not None else 0.0
+            stats.last_latency_ms = self._float(row.get("last_latency_ms"))
+            stats.last_success_at = self._float(row.get("last_success_at"))
+            stats.last_failure_at = self._float(row.get("last_failure_at"))
+            stats.last_error = row.get("last_error")
+            metadata = row.get("metadata", {})
+            stats.metadata = metadata if isinstance(metadata, dict) else {}
+            self._stats[self._key(provider_type, chain, name)] = stats
+
     @staticmethod
     def _key(provider_type: str, chain: str, name: str) -> str:
         return f"{provider_type.lower()}|{chain.lower()}|{name.lower()}"
@@ -130,6 +167,22 @@ class ProviderHealthRegistry:
             "polygon": "polygon",
         }
         return aliases.get(normalized, normalized)
+
+    @staticmethod
+    def _int(value) -> int:
+        try:
+            return int(value or 0)
+        except Exception:
+            return 0
+
+    @staticmethod
+    def _float(value) -> float | None:
+        if value is None:
+            return None
+        try:
+            return float(value)
+        except Exception:
+            return None
 
 
 provider_health_registry = ProviderHealthRegistry()

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T02:29:59Z",
+  "generated_at": "2026-06-29T02:34:44Z",
   "mode": "paper",
   "report_count": 17,
   "missing_count": 0,
@@ -18,14 +18,14 @@
       "name": "multi_dex_opportunities.md",
       "exists": true,
       "size_bytes": 1526,
-      "generated_at": "2026-06-29T02:29:16Z",
+      "generated_at": "2026-06-29T02:34:36Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
       "size_bytes": 813,
-      "generated_at": "2026-06-29T02:29:16Z",
+      "generated_at": "2026-06-29T02:34:36Z",
       "stale": false
     },
     {
@@ -127,26 +127,26 @@
       "name": "market_intelligence.json",
       "exists": true,
       "size_bytes": 4251,
-      "generated_at": "2026-06-29T02:28:53Z",
+      "generated_at": "2026-06-29T02:34:44Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_readiness_score": 72
+        "overall_readiness_score": 74
       }
     },
     {
       "name": "market_intelligence.md",
       "exists": true,
       "size_bytes": 1257,
-      "generated_at": "2026-06-29T02:28:53Z",
+      "generated_at": "2026-06-29T02:34:44Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "exists": true,
-      "size_bytes": 4606,
-      "generated_at": "2026-06-29T02:28:53Z",
+      "size_bytes": 4440,
+      "generated_at": "2026-06-29T02:34:44Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -159,8 +159,8 @@
     {
       "name": "provider_monitor.md",
       "exists": true,
-      "size_bytes": 1638,
-      "generated_at": "2026-06-29T02:28:53Z",
+      "size_bytes": 1515,
+      "generated_at": "2026-06-29T02:34:44Z",
       "stale": false
     }
   ],

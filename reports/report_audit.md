@@ -1,6 +1,6 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-29T02:29:59Z`
+Generated: `2026-06-29T02:34:44Z`
 
 ## Summary
 
@@ -24,8 +24,8 @@ Generated: `2026-06-29T02:29:59Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-29T02:28:42Z | False | 1041 |
-| multi_dex_opportunities.md | True | 2026-06-29T02:29:16Z | False | 1526 |
-| opportunity_explorer.md | True | 2026-06-29T02:29:16Z | False | 813 |
+| multi_dex_opportunities.md | True | 2026-06-29T02:34:36Z | False | 1526 |
+| opportunity_explorer.md | True | 2026-06-29T02:34:36Z | False | 813 |
 | paper_report.json | True | 2026-06-29T02:29:07Z | False | 47834 |
 | paper_report.md | True | 2026-06-29T02:29:07Z | False | 11397 |
 | portfolio_analytics.json | True | 2026-06-29T02:29:07Z | False | 10307 |
@@ -36,7 +36,7 @@ Generated: `2026-06-29T02:29:59Z`
 | feature_store.md | True | 2026-06-29T02:29:07Z | False | 1074 |
 | research_dashboard.json | True | 2026-06-29T02:29:07Z | False | 17052 |
 | research_dashboard.md | True | 2026-06-29T02:29:07Z | False | 4344 |
-| market_intelligence.json | True | 2026-06-29T02:28:53Z | False | 4251 |
-| market_intelligence.md | True | 2026-06-29T02:28:53Z | False | 1257 |
-| provider_monitor.json | True | 2026-06-29T02:28:53Z | False | 4606 |
-| provider_monitor.md | True | 2026-06-29T02:28:53Z | False | 1638 |
+| market_intelligence.json | True | 2026-06-29T02:34:44Z | False | 4251 |
+| market_intelligence.md | True | 2026-06-29T02:34:44Z | False | 1257 |
+| provider_monitor.json | True | 2026-06-29T02:34:44Z | False | 4440 |
+| provider_monitor.md | True | 2026-06-29T02:34:44Z | False | 1515 |

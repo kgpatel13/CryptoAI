@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -27,6 +28,22 @@ class ProviderHealthTests(unittest.TestCase):
             self.assertEqual(rows[0]["chain"], "base")
             self.assertEqual(rows[0]["success_count"], 1)
             self.assertEqual(rows[0]["failure_count"], 1)
+
+    def test_preserves_existing_provider_rows_across_process_like_instances(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "provider_health.json"
+            first = ProviderHealthRegistry(path)
+            first.record_failure("Aerodrome", "dex", "route unavailable", chain="base")
+
+            second = ProviderHealthRegistry(path)
+            second.record_success("Uniswap V2", "dex", 12, chain="base")
+
+            rows = json.loads(path.read_text(encoding="utf-8"))["providers"]
+            names = {row["name"] for row in rows}
+
+            self.assertEqual(names, {"Aerodrome", "Uniswap V2"})
+            aerodrome = next(row for row in rows if row["name"] == "Aerodrome")
+            self.assertEqual(aerodrome["failure_count"], 1)
 
 
 if __name__ == "__main__":
