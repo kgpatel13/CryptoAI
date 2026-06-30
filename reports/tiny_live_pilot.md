@@ -1,6 +1,6 @@
 # Tiny Live Pilot
 
-Generated: `2026-06-30T18:54:22Z`
+Generated: `2026-06-30T19:03:59Z`
 - Mode: `plan`
 - Overall status: `LIVE_PILOT_BLOCKED`
 - Send attempted: `False`
@@ -38,7 +38,7 @@ Generated: `2026-06-30T18:54:22Z`
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
   "chain_id": 8453,
-  "latest_block": 48028157,
+  "latest_block": 48028446,
   "rpc_url": "https://base-rpc.publicnode.com",
   "usdc_balance": "449.998478",
   "eth_balance": "0.024148469750380405",

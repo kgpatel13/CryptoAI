@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T18:54:21Z",
+  "generated_at": "2026-06-30T19:03:57Z",
   "mode": "paper",
   "report_count": 55,
   "missing_count": 0,
@@ -24,16 +24,16 @@
       "name": "multi_dex_opportunities.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 951,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 930,
+      "generated_at": "2026-06-30T19:03:18Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 531,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 510,
+      "generated_at": "2026-06-30T19:03:18Z",
       "stale": false
     },
     {
@@ -338,7 +338,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5055,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -355,7 +355,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 3063,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false
     },
     {
@@ -363,7 +363,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2936,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -379,7 +379,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1952,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false
     },
     {
@@ -577,7 +577,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3469,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -592,15 +592,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1907,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false
     },
     {
       "name": "tiny_live_pilot.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 53700,
-      "generated_at": "2026-06-30T18:53:50Z",
+      "size_bytes": 53694,
+      "generated_at": "2026-06-30T19:03:27Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -615,30 +615,30 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2592,
-      "generated_at": "2026-06-30T18:53:50Z",
+      "generated_at": "2026-06-30T19:03:27Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3854,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "size_bytes": 5202,
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "WATCH",
         "provider_count": 5,
-        "alert_count": 1
+        "alert_count": 4
       }
     },
     {
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1184,
-      "generated_at": "2026-06-30T18:54:20Z",
+      "size_bytes": 1469,
+      "generated_at": "2026-06-30T19:03:57Z",
       "stale": false
     }
   ],

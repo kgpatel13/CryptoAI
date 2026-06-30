@@ -1,0 +1,396 @@
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import time
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+from app.execution.live_control_center_service import LiveControlCenterService
+
+
+class LiveExecutionEngineService:
+    """State machine for live execution readiness.
+
+    The engine intentionally does not sign or send transactions. It converts the
+    scattered live readiness reports into one execution workflow so the operator
+    can see whether approval, a smoke swap, or continuous live arbitrage is
+    allowed. Continuous live sends remain blocked until a reviewed atomic live
+    arbitrage executor exists and every real-money gate is green.
+    """
+
+    MONITOR_COMMAND = "python -m app.execution.live_execution_engine_service --loop --interval 30"
+    CONTROL_COMMAND = "python -m app.execution.live_control_center_service --loop --interval 30"
+    APPROVE_COMMAND = "python -m app.execution.tiny_live_pilot_service --mode approve --confirm LIVE_PILOT_APPROVED"
+    SMOKE_SWAP_COMMAND = "python -m app.execution.tiny_live_pilot_service --mode swap --confirm LIVE_PILOT_APPROVED"
+
+    def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:
+        self.data_dir = Path(data_dir)
+        self.report_dir = Path(report_dir)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.report_dir.mkdir(parents=True, exist_ok=True)
+        self.output_json = self.report_dir / "live_execution_engine.json"
+        self.output_md = self.report_dir / "live_execution_engine.md"
+
+    def generate(self, refresh_control: bool = True) -> dict[str, Any]:
+        refresh_errors: list[str] = []
+        if refresh_control:
+            try:
+                LiveControlCenterService(data_dir=self.data_dir, report_dir=self.report_dir).generate(refresh_plan=True)
+            except Exception as exc:
+                refresh_errors.append(f"live_control_center: {type(exc).__name__}: {exc}")
+
+        control = self._read_json("live_control_center.json")
+        wallet = self._read_json("wallet_preflight.json")
+        readiness = self._read_json("live_readiness_checklist.json")
+        tx_sim = self._read_json("transaction_simulation.json")
+        pilot = self._read_json("tiny_live_pilot.json")
+        provider = self._read_json("provider_monitor.json")
+        audit = self._read_json("report_audit.json")
+        safety = self._read_json("live_safety.json")
+
+        state = self._state(
+            control=control,
+            wallet=wallet,
+            readiness=readiness,
+            tx_sim=tx_sim,
+            pilot=pilot,
+            provider=provider,
+            audit=audit,
+            safety=safety,
+        )
+        payload = {
+            "generated_at": self._utc_now(),
+            "mode": "live_execution_engine",
+            "overall_status": state["overall_status"],
+            "execution_stage": state["execution_stage"],
+            "can_send_approval": state["can_send_approval"],
+            "can_send_smoke_swap": state["can_send_smoke_swap"],
+            "can_run_continuous_live": state["can_run_continuous_live"],
+            "next_unblock_step": state["next_unblock_step"],
+            "next_allowed_command": state["next_allowed_command"],
+            "commands": {
+                "safe_live_monitor": self.CONTROL_COMMAND,
+                "live_execution_monitor": self.MONITOR_COMMAND,
+                "approval": self.APPROVE_COMMAND if state["can_send_approval"] else None,
+                "smoke_swap": self.SMOKE_SWAP_COMMAND if state["can_send_smoke_swap"] else None,
+                "continuous_live": None,
+            },
+            "refresh_errors": refresh_errors,
+            "gates": state["gates"],
+            "blockers": state["blockers"],
+            "missing_components": state["missing_components"],
+            "unblock_path": self._unblock_path(),
+            "wallet": control.get("wallet", {}) if isinstance(control.get("wallet"), dict) else {},
+            "notes": [
+                "This engine is an execution-readiness state machine. It never signs, approves, swaps, or runs autonomous live arbitrage.",
+                "Manual approval and manual smoke-swap commands appear only when all prerequisite reports permit them.",
+                "Continuous live arbitrage requires a reviewed atomic executor path; the current tiny pilot is one-leg smoke testing only.",
+                "Paper profits do not guarantee live profits because live execution can fail from gas, slippage, MEV, reverts, nonce issues, and pool movement.",
+            ],
+        }
+        self.output_json.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+        self.output_md.write_text(self._markdown(payload), encoding="utf-8")
+        return payload
+
+    def run_loop(self, interval: int = 30, max_cycles: int | None = None) -> dict[str, Any]:
+        cycles = 0
+        last_payload: dict[str, Any] = {}
+        print(f"CryptoAI live execution engine monitor started. Interval: {interval}s")
+        print("Read-only execution state machine. It will not send live transactions.")
+        try:
+            while True:
+                cycles += 1
+                last_payload = self.generate(refresh_control=True)
+                print(
+                    json.dumps(
+                        {
+                            "cycle": cycles,
+                            "generated_at": last_payload.get("generated_at"),
+                            "overall_status": last_payload.get("overall_status"),
+                            "execution_stage": last_payload.get("execution_stage"),
+                            "can_send_approval": last_payload.get("can_send_approval"),
+                            "can_send_smoke_swap": last_payload.get("can_send_smoke_swap"),
+                            "can_run_continuous_live": last_payload.get("can_run_continuous_live"),
+                            "next_unblock_step": last_payload.get("next_unblock_step"),
+                        },
+                        indent=2,
+                    )
+                )
+                if max_cycles is not None and cycles >= max_cycles:
+                    break
+                time.sleep(interval)
+        except KeyboardInterrupt:
+            pass
+        return {"status": "STOPPED", "cycles_completed": cycles, "last_payload": last_payload}
+
+    def _state(
+        self,
+        *,
+        control: dict[str, Any],
+        wallet: dict[str, Any],
+        readiness: dict[str, Any],
+        tx_sim: dict[str, Any],
+        pilot: dict[str, Any],
+        provider: dict[str, Any],
+        audit: dict[str, Any],
+        safety: dict[str, Any],
+    ) -> dict[str, Any]:
+        pilot_plan = pilot.get("pilot_plan", {}) if isinstance(pilot.get("pilot_plan"), dict) else {}
+        gates = {
+            "wallet_preflight_allowed": wallet.get("wallet_preflight_allowed") is True,
+            "live_review_ready": readiness.get("live_review_ready") is True,
+            "transaction_simulation_passed": tx_sim.get("transaction_simulation_passed") is True,
+            "provider_monitor_ok": provider.get("overall_status") == "OK",
+            "report_audit_clean": self._int(audit.get("blocking_finding_count", audit.get("finding_count"))) == 0,
+            "tiny_live_pilot_ready": pilot.get("overall_status") == "LIVE_PILOT_READY",
+            "allowance_sufficient": pilot_plan.get("allowance_sufficient") is True,
+            "approval_tx_available": pilot_plan.get("approval_tx_available") is True,
+            "swap_tx_available": pilot_plan.get("swap_tx_available") is True,
+            "live_safety_report_present": bool(safety),
+            "live_control_center_present": bool(control),
+            "atomic_executor_ready": self._atomic_executor_ready(),
+        }
+        blockers = self._blockers(
+            control=control,
+            readiness=readiness,
+            tx_sim=tx_sim,
+            pilot=pilot,
+            gates=gates,
+        )
+        missing_components = self._missing_components(gates)
+
+        prerequisite_ready = (
+            gates["wallet_preflight_allowed"]
+            and gates["live_review_ready"]
+            and gates["transaction_simulation_passed"]
+            and gates["provider_monitor_ok"]
+            and gates["report_audit_clean"]
+            and gates["tiny_live_pilot_ready"]
+        )
+        can_send_approval = prerequisite_ready and gates["approval_tx_available"] and not gates["allowance_sufficient"]
+        can_send_smoke_swap = prerequisite_ready and gates["allowance_sufficient"] and gates["swap_tx_available"]
+        can_run_continuous_live = prerequisite_ready and gates["atomic_executor_ready"] and can_send_smoke_swap
+
+        if can_run_continuous_live:
+            status = "READY_FOR_CONTINUOUS_LIVE"
+            stage = "CONTINUOUS_LIVE_READY"
+        elif can_send_smoke_swap:
+            status = "READY_FOR_MANUAL_SMOKE_SWAP"
+            stage = "TINY_LIVE_SMOKE_SWAP"
+        elif can_send_approval:
+            status = "READY_FOR_MANUAL_APPROVAL"
+            stage = "TOKEN_ALLOWANCE_APPROVAL"
+        elif not gates["wallet_preflight_allowed"]:
+            status = "BLOCKED_PREFLIGHT"
+            stage = "WALLET_PREFLIGHT"
+        elif not gates["live_review_ready"]:
+            status = "BLOCKED_LIVE_READINESS"
+            stage = "LIVE_READINESS"
+        elif not gates["transaction_simulation_passed"]:
+            status = "BLOCKED_TRANSACTION_SIMULATION"
+            stage = "EXACT_CALLDATA_ETH_CALL"
+        elif not gates["tiny_live_pilot_ready"]:
+            status = "BLOCKED_TINY_LIVE_PILOT"
+            stage = "TINY_LIVE_PLAN"
+        elif not gates["atomic_executor_ready"]:
+            status = "BLOCKED_ATOMIC_EXECUTOR_MISSING"
+            stage = "ATOMIC_ARBITRAGE_EXECUTOR"
+        else:
+            status = "BLOCKED_LIVE_AUTOMATION"
+            stage = "LIVE_AUTOMATION_REVIEW"
+
+        next_command = None
+        if can_send_approval:
+            next_command = self.APPROVE_COMMAND
+        elif can_send_smoke_swap:
+            next_command = self.SMOKE_SWAP_COMMAND
+
+        return {
+            "overall_status": status,
+            "execution_stage": stage,
+            "can_send_approval": can_send_approval,
+            "can_send_smoke_swap": can_send_smoke_swap,
+            "can_run_continuous_live": can_run_continuous_live,
+            "next_unblock_step": blockers[0]["detail"] if blockers else ("Manual tiny smoke swap is the next reviewed step." if can_send_smoke_swap else "No blocker detected."),
+            "next_allowed_command": next_command,
+            "gates": gates,
+            "blockers": blockers,
+            "missing_components": missing_components,
+        }
+
+    def _blockers(
+        self,
+        *,
+        control: dict[str, Any],
+        readiness: dict[str, Any],
+        tx_sim: dict[str, Any],
+        pilot: dict[str, Any],
+        gates: dict[str, bool],
+    ) -> list[dict[str, str]]:
+        rows: list[dict[str, str]] = []
+        gate_details = [
+            ("wallet_preflight_allowed", "Wallet preflight is not ready for the isolated Base wallet."),
+            ("live_review_ready", "Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work."),
+            ("transaction_simulation_passed", "Exact calldata plus Base eth_call transaction simulation has not passed."),
+            ("provider_monitor_ok", "Provider monitor must be OK before any live send."),
+            ("report_audit_clean", "Report audit still has blocking findings."),
+            ("tiny_live_pilot_ready", "Tiny live pilot plan is blocked."),
+        ]
+        for name, detail in gate_details:
+            if not gates[name]:
+                rows.append({"source": "live_execution_engine", "name": name, "severity": "BLOCK", "detail": detail})
+
+        for source_name, payload, key in [
+            ("live_control_center", control, "blocking_checks"),
+            ("live_readiness", readiness, "checks"),
+            ("transaction_simulation", tx_sim, "checks"),
+            ("tiny_live_pilot", pilot, "checks"),
+        ]:
+            raw_rows = payload.get(key, [])
+            if not isinstance(raw_rows, list):
+                continue
+            for row in raw_rows:
+                severity = str(row.get("severity", ""))
+                passed = row.get("passed")
+                if severity in {"BLOCK", "ACTION"} or passed is False:
+                    rows.append(
+                        {
+                            "source": source_name,
+                            "name": str(row.get("name", "-")),
+                            "severity": severity or "ACTION",
+                            "detail": str(row.get("detail", "-")),
+                        }
+                    )
+        if not gates["atomic_executor_ready"]:
+            rows.append(
+                {
+                    "source": "live_execution_engine",
+                    "name": "atomic_executor_ready",
+                    "severity": "ACTION",
+                    "detail": "Continuous live arbitrage is blocked until an atomic route executor or equivalent single-transaction execution path is implemented and reviewed.",
+                }
+            )
+        return rows[:50]
+
+    @staticmethod
+    def _missing_components(gates: dict[str, bool]) -> list[dict[str, str]]:
+        rows: list[dict[str, str]] = []
+        if not gates["atomic_executor_ready"]:
+            rows.append(
+                {
+                    "component": "atomic_live_arbitrage_executor",
+                    "status": "MISSING",
+                    "detail": "Required before continuous live arbitrage; manual tiny smoke swap is only one-leg execution.",
+                }
+            )
+        if not gates["transaction_simulation_passed"]:
+            rows.append(
+                {
+                    "component": "exact_calldata_eth_call_pass",
+                    "status": "ACTION",
+                    "detail": "Need a SHADOW_READY Base USDC/WETH opportunity with exact calldata built and eth_call PASS.",
+                }
+            )
+        return rows
+
+    @staticmethod
+    def _unblock_path() -> list[dict[str, str]]:
+        return [
+            {"step": "1", "name": "Live-parity paper profile", "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $5 for the tiny pilot."},
+            {"step": "2", "name": "Execution evidence", "detail": "Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities."},
+            {"step": "3", "name": "Transaction simulation", "detail": "Build exact Base calldata and pass eth_call for the selected USDC/WETH route."},
+            {"step": "4", "name": "Manual tiny live pilot", "detail": "Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP."},
+            {"step": "5", "name": "Atomic live executor", "detail": "Implement and review single-transaction arbitrage execution before continuous live trading is allowed."},
+        ]
+
+    @staticmethod
+    def _atomic_executor_ready() -> bool:
+        enabled = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ENABLED", "").strip().lower() in {"1", "true", "yes", "on"}
+        address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
+        return enabled and bool(address)
+
+    def _read_json(self, name: str) -> dict[str, Any]:
+        path = self.report_dir / name
+        if not path.exists():
+            return {}
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+            return payload if isinstance(payload, dict) else {}
+        except Exception:
+            return {}
+
+    def _markdown(self, payload: dict[str, Any]) -> str:
+        lines = [
+            "# Live Execution Engine",
+            "",
+            f"Generated: `{payload['generated_at']}`",
+            f"- Overall status: `{payload['overall_status']}`",
+            f"- Execution stage: `{payload['execution_stage']}`",
+            f"- Can send approval: `{payload['can_send_approval']}`",
+            f"- Can send smoke swap: `{payload['can_send_smoke_swap']}`",
+            f"- Can run continuous live: `{payload['can_run_continuous_live']}`",
+            f"- Next unblock step: `{payload['next_unblock_step']}`",
+            "",
+            "## Commands",
+            "",
+            "```json",
+            json.dumps(payload["commands"], indent=2),
+            "```",
+            "",
+            "## Gates",
+            "",
+            "```json",
+            json.dumps(payload["gates"], indent=2),
+            "```",
+            "",
+            "## Blockers",
+            "",
+            "| Source | Check | Severity | Detail |",
+            "|---|---|---|---|",
+        ]
+        if payload["blockers"]:
+            for row in payload["blockers"][:30]:
+                lines.append(f"| {row.get('source', '-')} | {row.get('name', '-')} | {row.get('severity', '-')} | {row.get('detail', '-')} |")
+        else:
+            lines.append("| - | - | PASS | No blockers. |")
+        lines.extend(["", "## Unblock Path", "", "| Step | Name | Detail |", "|---|---|---|"])
+        for row in payload["unblock_path"]:
+            lines.append(f"| {row['step']} | {row['name']} | {row['detail']} |")
+        lines.extend(["", "## Notes", ""])
+        lines.extend(f"- {note}" for note in payload["notes"])
+        return "\n".join(lines) + "\n"
+
+    @staticmethod
+    def _int(value: Any) -> int:
+        try:
+            return int(value or 0)
+        except (TypeError, ValueError):
+            return 0
+
+    @staticmethod
+    def _utc_now() -> str:
+        return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="CryptoAI live execution engine monitor")
+    parser.add_argument("--loop", action="store_true", help="Continuously refresh read-only live execution status.")
+    parser.add_argument("--interval", type=int, default=30, help="Loop interval in seconds.")
+    parser.add_argument("--max-cycles", type=int, default=None, help="Optional cycle limit for tests/manual checks.")
+    parser.add_argument("--no-refresh-control", action="store_true", help="Do not refresh live control reports before summarizing.")
+    args = parser.parse_args()
+
+    service = LiveExecutionEngineService()
+    if args.loop:
+        result = service.run_loop(interval=max(5, args.interval), max_cycles=args.max_cycles)
+        print(json.dumps(result, indent=2))
+    else:
+        payload = service.generate(refresh_control=not args.no_refresh_control)
+        print(json.dumps(payload, indent=2))
+
+
+if __name__ == "__main__":
+    main()

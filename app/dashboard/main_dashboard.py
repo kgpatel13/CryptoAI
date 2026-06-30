@@ -911,6 +911,8 @@ def render_reports() -> None:
         ("Live Safety", REPORT_DIR / "live_safety.md"),
         ("Wallet Preflight", REPORT_DIR / "wallet_preflight.md"),
         ("Tiny Live Pilot", REPORT_DIR / "tiny_live_pilot.md"),
+        ("Live Control Center", REPORT_DIR / "live_control_center.md"),
+        ("Live Execution Engine", REPORT_DIR / "live_execution_engine.md"),
         ("Live Readiness Checklist", REPORT_DIR / "live_readiness_checklist.md"),
         ("Transaction Simulation", REPORT_DIR / "transaction_simulation.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
@@ -1473,7 +1475,13 @@ def render_live_control_center() -> None:
     st.subheader("Live Control Center")
     st.caption("Read-only live pilot status with real Base wallet data. This page never sends transactions.")
 
-    if st.button("Refresh Live Control Center"):
+    b1, b2 = st.columns(2)
+    with b1:
+        refresh_control = st.button("Refresh Live Control Center")
+    with b2:
+        refresh_engine = st.button("Refresh Live Execution Engine")
+
+    if refresh_control:
         def task():
             LiveControlCenterService = import_object("app.execution.live_control_center_service", "LiveControlCenterService")
             return LiveControlCenterService().generate(refresh_plan=True)
@@ -1481,6 +1489,16 @@ def render_live_control_center() -> None:
         result = safe_run("Refreshing live control center...", task)
         if result is not None:
             st.success("Live control center refreshed.")
+            show_json(result)
+
+    if refresh_engine:
+        def task():
+            LiveExecutionEngineService = import_object("app.execution.live_execution_engine_service", "LiveExecutionEngineService")
+            return LiveExecutionEngineService().generate(refresh_control=True)
+
+        result = safe_run("Refreshing live execution engine...", task)
+        if result is not None:
+            st.success("Live execution engine refreshed.")
             show_json(result)
 
     control = read_json(REPORT_DIR / "live_control_center.json")
@@ -1533,6 +1551,30 @@ def render_live_control_center() -> None:
     orders = control.get("recent_live_pilot_orders", []) if isinstance(control.get("recent_live_pilot_orders"), list) else []
     dataframe_or_info(orders, "No live pilot order journal rows yet.")
 
+    st.markdown("### Live Execution Engine")
+    engine = read_json(REPORT_DIR / "live_execution_engine.json")
+    if engine:
+        e1, e2, e3, e4 = st.columns(4)
+        e1.metric("Engine Status", engine.get("overall_status", "-"))
+        e2.metric("Stage", engine.get("execution_stage", "-"))
+        e3.metric("Approval", "YES" if engine.get("can_send_approval") else "NO")
+        e4.metric("Smoke Swap", "YES" if engine.get("can_send_smoke_swap") else "NO")
+        st.metric("Continuous Live", "YES" if engine.get("can_run_continuous_live") else "NO")
+        st.caption(str(engine.get("next_unblock_step", "-")))
+        commands = engine.get("commands", {}) if isinstance(engine.get("commands"), dict) else {}
+        st.code(commands.get("live_execution_monitor", "python -m app.execution.live_execution_engine_service --loop --interval 30"), language="powershell")
+        next_allowed = engine.get("next_allowed_command")
+        if next_allowed:
+            st.caption("Next allowed live command. Run only after reviewing the status above.")
+            st.code(next_allowed, language="powershell")
+        missing = engine.get("missing_components", []) if isinstance(engine.get("missing_components"), list) else []
+        dataframe_or_info(missing, "No missing live execution components.")
+        blockers = engine.get("blockers", []) if isinstance(engine.get("blockers"), list) else []
+        dataframe_or_info(blockers, "No live execution blockers.")
+    else:
+        st.info("No live_execution_engine.json yet. Refresh the Live Execution Engine or run the command below.")
+        st.code("python -m app.execution.live_execution_engine_service", language="powershell")
+
     st.markdown("### Full Control Report")
     show_json(control)
 
@@ -1568,6 +1610,8 @@ def render_system_health() -> None:
         REPORT_DIR / "tiny_live_pilot.md",
         REPORT_DIR / "live_control_center.json",
         REPORT_DIR / "live_control_center.md",
+        REPORT_DIR / "live_execution_engine.json",
+        REPORT_DIR / "live_execution_engine.md",
         REPORT_DIR / "live_readiness_checklist.json",
         REPORT_DIR / "live_readiness_checklist.md",
         REPORT_DIR / "transaction_simulation.json",
@@ -1683,6 +1727,8 @@ def render_setup() -> None:
         python -m app.execution.live_control_center_service
         python -m app.execution.live_control_center_service --loop --interval 30
         python -m app.execution.live_control_center_service --live-loop --interval 30
+        python -m app.execution.live_execution_engine_service
+        python -m app.execution.live_execution_engine_service --loop --interval 30
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-30T18:54:20Z",
+  "generated_at": "2026-06-30T19:03:57Z",
   "mode": "paper",
   "provider_count": 5,
   "overall_status": "WATCH",
-  "alert_count": 1,
+  "alert_count": 4,
   "critical_alert_count": 0,
   "degraded_alert_count": 0,
   "stale_after_seconds": 900,
@@ -13,48 +13,72 @@
       "provider_type": "dex",
       "chain": "base",
       "score": 100,
-      "status": "OK",
-      "current_status": "OK",
+      "status": "WATCH",
+      "current_status": "WATCH",
       "rolling_status": "OK",
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 335.29,
-      "last_observed_age_seconds": 401.82,
+      "last_observed_age_seconds": 978.67,
       "last_error": null,
-      "alerts": []
+      "alerts": [
+        {
+          "severity": "WATCH",
+          "provider": "Aerodrome",
+          "provider_type": "dex",
+          "chain": "base",
+          "message": "Provider observation is stale at 978.67 seconds old."
+        }
+      ]
     },
     {
       "name": "Uniswap V2",
       "provider_type": "dex",
       "chain": "base",
       "score": 100,
-      "status": "OK",
-      "current_status": "OK",
+      "status": "WATCH",
+      "current_status": "WATCH",
       "rolling_status": "OK",
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 354.41,
-      "last_observed_age_seconds": 402.69,
+      "last_observed_age_seconds": 979.54,
       "last_error": null,
-      "alerts": []
+      "alerts": [
+        {
+          "severity": "WATCH",
+          "provider": "Uniswap V2",
+          "provider_type": "dex",
+          "chain": "base",
+          "message": "Provider observation is stale at 979.54 seconds old."
+        }
+      ]
     },
     {
       "name": "Uniswap V3",
       "provider_type": "dex",
       "chain": "base",
       "score": 99,
-      "status": "OK",
-      "current_status": "OK",
+      "status": "WATCH",
+      "current_status": "WATCH",
       "rolling_status": "OK",
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 804.97,
-      "last_observed_age_seconds": 400.18,
+      "last_observed_age_seconds": 977.03,
       "last_error": null,
-      "alerts": []
+      "alerts": [
+        {
+          "severity": "WATCH",
+          "provider": "Uniswap V3",
+          "provider_type": "dex",
+          "chain": "base",
+          "message": "Provider observation is stale at 977.03 seconds old."
+        }
+      ]
     },
     {
       "name": "Base:rpc2:https://mainnet.base.org",
@@ -68,7 +92,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 209.14,
-      "last_observed_age_seconds": 1765.13,
+      "last_observed_age_seconds": 2341.99,
       "last_error": null,
       "alerts": [
         {
@@ -76,7 +100,7 @@
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 1765.13 seconds old."
+          "message": "Provider observation is stale at 2341.99 seconds old."
         }
       ]
     },
@@ -91,8 +115,8 @@
       "required_for_overall": true,
       "success_rate_pct": 99.98,
       "consecutive_failures": 0,
-      "avg_latency_ms": 254.94,
-      "last_observed_age_seconds": 31.2,
+      "avg_latency_ms": 254.8,
+      "last_observed_age_seconds": 31.04,
       "last_error": null,
       "alerts": []
     }
@@ -105,7 +129,7 @@
       "status": "WATCH",
       "critical_count": 0,
       "degraded_count": 0,
-      "watch_count": 1,
+      "watch_count": 4,
       "required_provider_count": 4
     }
   ],
@@ -114,7 +138,7 @@
       "provider_type": "dex",
       "provider_count": 3,
       "average_score": 100,
-      "status": "OK",
+      "status": "WATCH",
       "required_provider_count": 3
     },
     {
@@ -128,10 +152,31 @@
   "alerts": [
     {
       "severity": "WATCH",
+      "provider": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "message": "Provider observation is stale at 978.67 seconds old."
+    },
+    {
+      "severity": "WATCH",
+      "provider": "Uniswap V2",
+      "provider_type": "dex",
+      "chain": "base",
+      "message": "Provider observation is stale at 979.54 seconds old."
+    },
+    {
+      "severity": "WATCH",
+      "provider": "Uniswap V3",
+      "provider_type": "dex",
+      "chain": "base",
+      "message": "Provider observation is stale at 977.03 seconds old."
+    },
+    {
+      "severity": "WATCH",
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 1765.13 seconds old."
+      "message": "Provider observation is stale at 2341.99 seconds old."
     }
   ],
   "notes": [

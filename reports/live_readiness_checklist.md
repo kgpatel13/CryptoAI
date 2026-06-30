@@ -1,6 +1,6 @@
 # Live Readiness Checklist
 
-Generated: `2026-06-30T18:54:20Z`
+Generated: `2026-06-30T19:03:57Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
