@@ -1,15 +1,15 @@
 # Wallet Preflight Report
 
-Generated: `2026-06-30T18:49:08Z`
-- Overall status: `WALLET_PREP_ACTION`
-- Wallet preflight allowed: `False`
+Generated: `2026-06-30T18:54:20Z`
+- Overall status: `WALLET_PREP_READY`
+- Wallet preflight allowed: `True`
 - Live trading approval: `False`
 - Planned chain: `base`
 - Planned USDC USD: `$450.0000`
 - Planned ETH gas USD: `$50.0000`
 - Planned total USD: `$500.0000`
 - Blocked checks: `0`
-- Action checks: `1`
+- Action checks: `0`
 
 ## Checks
 
@@ -27,7 +27,7 @@ Generated: `2026-06-30T18:49:08Z`
 | planned_gas_budget | PASS | Planned ETH gas budget is within preparation range. |
 | configured_wallet_ceiling | PASS | Configured wallet ceiling is within tiny-pilot policy. |
 | configured_trade_cap | PASS | Configured trade cap is within tiny-pilot policy. |
-| configured_daily_loss | ACTION | Set CRYPTOAI_MAX_DAILY_LOSS_USD to a value > $0 and no larger than the live trade cap. |
+| configured_daily_loss | PASS | Configured daily loss cap is within tiny-pilot policy. |
 | manual_confirmation_required | PASS | Manual confirmation is required. |
 | transaction_simulation_required | PASS | Transaction simulation is required. |
 

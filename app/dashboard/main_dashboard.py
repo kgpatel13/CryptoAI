@@ -1512,6 +1512,8 @@ def render_live_control_center() -> None:
     st.markdown("### Commands")
     st.caption("Continuous monitor is safe and read-only. It does not approve, swap, or trade.")
     st.code(control.get("continuous_monitor_command", "python -m app.execution.live_control_center_service --loop --interval 30"), language="powershell")
+    st.caption("Continuous live command is the future live entrypoint. Today it monitors and refuses autonomous sends until the live executor exists and all gates are green.")
+    st.code(control.get("continuous_live_trading_command", "python -m app.execution.live_control_center_service --live-loop --interval 30"), language="powershell")
     next_command = control.get("next_command")
     if next_command:
         st.caption("Next command is informational. Only run it when the status says READY_FOR_APPROVAL or READY_FOR_TINY_SWAP.")
@@ -1680,6 +1682,7 @@ def render_setup() -> None:
         python -m app.execution.transaction_simulation_service
         python -m app.execution.live_control_center_service
         python -m app.execution.live_control_center_service --loop --interval 30
+        python -m app.execution.live_control_center_service --live-loop --interval 30
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

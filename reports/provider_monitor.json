@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T18:49:08Z",
+  "generated_at": "2026-06-30T18:54:20Z",
   "mode": "paper",
   "provider_count": 5,
   "overall_status": "WATCH",
@@ -20,7 +20,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 335.29,
-      "last_observed_age_seconds": 89.54,
+      "last_observed_age_seconds": 401.82,
       "last_error": null,
       "alerts": []
     },
@@ -36,7 +36,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 354.41,
-      "last_observed_age_seconds": 90.41,
+      "last_observed_age_seconds": 402.69,
       "last_error": null,
       "alerts": []
     },
@@ -52,7 +52,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 804.97,
-      "last_observed_age_seconds": 87.9,
+      "last_observed_age_seconds": 400.18,
       "last_error": null,
       "alerts": []
     },
@@ -68,7 +68,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 209.14,
-      "last_observed_age_seconds": 1452.85,
+      "last_observed_age_seconds": 1765.13,
       "last_error": null,
       "alerts": [
         {
@@ -76,7 +76,7 @@
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 1452.85 seconds old."
+          "message": "Provider observation is stale at 1765.13 seconds old."
         }
       ]
     },
@@ -91,8 +91,8 @@
       "required_for_overall": true,
       "success_rate_pct": 99.98,
       "consecutive_failures": 0,
-      "avg_latency_ms": 255.01,
-      "last_observed_age_seconds": 0.25,
+      "avg_latency_ms": 254.94,
+      "last_observed_age_seconds": 31.2,
       "last_error": null,
       "alerts": []
     }
@@ -131,7 +131,7 @@
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 1452.85 seconds old."
+      "message": "Provider observation is stale at 1765.13 seconds old."
     }
   ],
   "notes": [

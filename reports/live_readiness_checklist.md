@@ -1,6 +1,6 @@
 # Live Readiness Checklist
 
-Generated: `2026-06-30T18:49:09Z`
+Generated: `2026-06-30T18:54:20Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
@@ -10,9 +10,9 @@ Generated: `2026-06-30T18:49:09Z`
 - Paper realized PnL USD: `$20.1636`
 - Max live wallet USD: `$500`
 - Max live trade USD: `$5`
-- Max daily loss USD: `$10`
+- Max daily loss USD: `$5`
 - Blocked checks: `1`
-- Action checks: `7`
+- Action checks: `6`
 - Watch checks: `0`
 
 ## Checks
@@ -31,7 +31,7 @@ Generated: `2026-06-30T18:49:09Z`
 | report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
-| wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
+| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
 | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 | live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
 | live_feature_off | PASS | Live feature flag is off. |

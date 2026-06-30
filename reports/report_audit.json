@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T18:49:09Z",
+  "generated_at": "2026-06-30T18:54:21Z",
   "mode": "paper",
   "report_count": 55,
   "missing_count": 0,
@@ -337,8 +337,8 @@
       "name": "live_readiness_checklist.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5115,
-      "generated_at": "2026-06-30T18:49:09Z",
+      "size_bytes": 5055,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -347,23 +347,23 @@
         "blocked_check_count": 1,
         "check_count": 22,
         "closed_trade_count": 114,
-        "pass_count": 14
+        "pass_count": 15
       }
     },
     {
       "name": "live_readiness_checklist.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3122,
-      "generated_at": "2026-06-30T18:49:09Z",
+      "size_bytes": 3063,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false
     },
     {
       "name": "transaction_simulation.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2981,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 2936,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -371,15 +371,15 @@
         "overall_status": "TX_SIMULATION_ACTION",
         "blocked_check_count": 0,
         "check_count": 12,
-        "pass_count": 7
+        "pass_count": 8
       }
     },
     {
       "name": "transaction_simulation.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1996,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 1952,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false
     },
     {
@@ -576,13 +576,13 @@
       "name": "wallet_preflight.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 3506,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 3469,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "WALLET_PREP_ACTION",
+        "overall_status": "WALLET_PREP_READY",
         "blocked_check_count": 0,
         "check_count": 15
       }
@@ -591,8 +591,8 @@
       "name": "wallet_preflight.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 1943,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 1907,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false
     },
     {
@@ -600,7 +600,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 53700,
-      "generated_at": "2026-06-30T18:47:21Z",
+      "generated_at": "2026-06-30T18:53:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -615,15 +615,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2592,
-      "generated_at": "2026-06-30T18:47:21Z",
+      "generated_at": "2026-06-30T18:53:50Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3850,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 3854,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -637,8 +637,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1180,
-      "generated_at": "2026-06-30T18:49:08Z",
+      "size_bytes": 1184,
+      "generated_at": "2026-06-30T18:54:20Z",
       "stale": false
     }
   ],

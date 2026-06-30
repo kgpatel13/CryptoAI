@@ -1,6 +1,6 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-30T18:49:09Z`
+Generated: `2026-06-30T18:54:21Z`
 
 ## Summary
 
@@ -76,10 +76,10 @@ Generated: `2026-06-30T18:49:09Z`
 | execution_realism.md | operational | True | 2026-06-30T18:49:08Z | False | 1319 |
 | execution_cost_evidence.json | operational | True | 2026-06-30T18:49:08Z | False | 3977 |
 | execution_cost_evidence.md | operational | True | 2026-06-30T18:49:08Z | False | 1538 |
-| live_readiness_checklist.json | operational | True | 2026-06-30T18:49:09Z | False | 5115 |
-| live_readiness_checklist.md | operational | True | 2026-06-30T18:49:09Z | False | 3122 |
-| transaction_simulation.json | operational | True | 2026-06-30T18:49:08Z | False | 2981 |
-| transaction_simulation.md | operational | True | 2026-06-30T18:49:08Z | False | 1996 |
+| live_readiness_checklist.json | operational | True | 2026-06-30T18:54:20Z | False | 5055 |
+| live_readiness_checklist.md | operational | True | 2026-06-30T18:54:20Z | False | 3063 |
+| transaction_simulation.json | operational | True | 2026-06-30T18:54:20Z | False | 2936 |
+| transaction_simulation.md | operational | True | 2026-06-30T18:54:20Z | False | 1952 |
 | optimization_report.json | research | True | 2026-06-30T07:46:43Z | True | 541825 |
 | optimization_report.md | research | True | 2026-06-30T07:46:43Z | True | 2210 |
 | experiment_report.json | research | True | 2026-06-30T07:46:44Z | True | 9949 |
@@ -96,9 +96,9 @@ Generated: `2026-06-30T18:49:09Z`
 | eth_market_coverage.md | research | True | 2026-06-30T07:46:46Z | True | 2124 |
 | paper_trading_settings.json | review | True | 2026-06-30T18:41:23Z | False | 3142 |
 | paper_trading_settings.md | review | True | 2026-06-30T18:41:23Z | False | 1659 |
-| wallet_preflight.json | review | True | 2026-06-30T18:49:08Z | False | 3506 |
-| wallet_preflight.md | review | True | 2026-06-30T18:49:08Z | False | 1943 |
-| tiny_live_pilot.json | review | True | 2026-06-30T18:47:21Z | False | 53700 |
-| tiny_live_pilot.md | review | True | 2026-06-30T18:47:21Z | False | 2592 |
-| provider_monitor.json | operational | True | 2026-06-30T18:49:08Z | False | 3850 |
-| provider_monitor.md | operational | True | 2026-06-30T18:49:08Z | False | 1180 |
+| wallet_preflight.json | review | True | 2026-06-30T18:54:20Z | False | 3469 |
+| wallet_preflight.md | review | True | 2026-06-30T18:54:20Z | False | 1907 |
+| tiny_live_pilot.json | review | True | 2026-06-30T18:53:50Z | False | 53700 |
+| tiny_live_pilot.md | review | True | 2026-06-30T18:53:50Z | False | 2592 |
+| provider_monitor.json | operational | True | 2026-06-30T18:54:20Z | False | 3854 |
+| provider_monitor.md | operational | True | 2026-06-30T18:54:20Z | False | 1184 |

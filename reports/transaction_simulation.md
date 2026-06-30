@@ -1,6 +1,6 @@
 # Transaction Simulation Report
 
-Generated: `2026-06-30T18:49:08Z`
+Generated: `2026-06-30T18:54:20Z`
 - Overall status: `TX_SIMULATION_ACTION`
 - Transaction simulation passed: `False`
 - Live trading approval: `False`
@@ -11,7 +11,7 @@ Generated: `2026-06-30T18:49:08Z`
 - Calldata status: `NOT_BUILT`
 - eth_call status: `NOT_RUN`
 - Blocked checks: `0`
-- Action checks: `5`
+- Action checks: `4`
 
 ## Checks
 
@@ -20,7 +20,7 @@ Generated: `2026-06-30T18:49:08Z`
 | live_trading_disabled | PASS | Live trading is disabled. |
 | kill_switch_enabled | PASS | Live kill switch is enabled. |
 | private_key_absent | PASS | Private key is absent. |
-| wallet_preflight_ready | ACTION | Wallet Preflight must be ready before transaction simulation review. |
+| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
 | live_readiness_review_ready | ACTION | Live Readiness Checklist must be review-ready before transaction simulation can pass. |
 | shadow_candidate_available | ACTION | No BUY plus SHADOW_READY opportunity is available for simulation. |
 | candidate_scope_allowed | PASS | Simulation candidate is Base USDC/WETH scope. |

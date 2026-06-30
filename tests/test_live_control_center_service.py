@@ -20,8 +20,8 @@ class LiveControlCenterServiceTests(unittest.TestCase):
             payload = service.generate(refresh_plan=False)
 
         self.assertEqual(payload["overall_status"], "BLOCKED_LIVE_READINESS")
-        self.assertIsNone(payload["continuous_live_trading_command"])
-        self.assertEqual(payload["continuous_live_trading_status"], "NOT_AVAILABLE")
+        self.assertIn("--live-loop", payload["continuous_live_trading_command"])
+        self.assertEqual(payload["continuous_live_trading_status"], "NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR")
 
     def test_ready_for_approval_when_all_gates_pass_and_allowance_missing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -51,6 +51,16 @@ class LiveControlCenterServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "STOPPED")
         self.assertEqual(result["cycles_completed"], 2)
         self.assertEqual(generate.call_count, 2)
+
+    def test_live_loop_refuses_autonomous_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            service = LiveControlCenterService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
+            with patch.object(service, "generate", return_value={"generated_at": "now", "overall_status": "READY_FOR_TINY_SWAP", "next_action": "manual only", "continuous_live_trading_status": "NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR", "continuous_monitor_command": "monitor"}) as generate:
+                result = service.run_live_loop(interval=0, max_cycles=1)
+
+        self.assertEqual(result["live_loop_status"], "REFUSED_AUTONOMOUS_EXECUTION")
+        self.assertEqual(result["cycles_completed"], 1)
+        self.assertEqual(generate.call_count, 1)
 
     @staticmethod
     def _write_json(path: Path, payload: dict) -> None:

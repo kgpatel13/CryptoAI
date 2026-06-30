@@ -91,8 +91,8 @@ class LiveControlCenterService:
             "next_action": next_action,
             "next_command": next_command,
             "continuous_monitor_command": "python -m app.execution.live_control_center_service --loop --interval 30",
-            "continuous_live_trading_command": None,
-            "continuous_live_trading_status": "NOT_AVAILABLE",
+            "continuous_live_trading_command": "python -m app.execution.live_control_center_service --live-loop --interval 30",
+            "continuous_live_trading_status": "NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR",
             "refresh_errors": refresh_errors,
             "wallet": {
                 "address": pilot_plan.get("wallet_address", ""),
@@ -127,7 +127,8 @@ class LiveControlCenterService:
             "notes": [
                 "This control center is read-only and never sends live transactions.",
                 "Refreshing safe reports can update wallet, provider, readiness, and simulation evidence, but cannot approve or swap.",
-                "Continuous live arbitrage is not available until exact transaction simulation and live readiness pass.",
+                "The live-loop command exists as the future continuous entrypoint, but currently refuses autonomous execution.",
+                "Continuous live arbitrage is not available until exact transaction simulation, live readiness, and a real live arbitrage executor pass review.",
                 "The current live-capable path is a manual tiny smoke pilot only.",
             ],
         }
@@ -162,6 +163,45 @@ class LiveControlCenterService:
         except KeyboardInterrupt:
             pass
         return {"status": "STOPPED", "cycles_completed": cycles, "last_payload": last_payload}
+
+    def run_live_loop(self, interval: int = 30, max_cycles: int | None = None) -> dict[str, Any]:
+        """Future continuous live entrypoint.
+
+        This loop deliberately does not send transactions. It gives the user one
+        command to run when they think live is close, but keeps the actual
+        execution path blocked until the project has a reviewed continuous live
+        arbitrage executor.
+        """
+        cycles = 0
+        last_payload: dict[str, Any] = {}
+        print(f"CryptoAI continuous live loop requested. Interval: {interval}s")
+        print("Autonomous live execution is not available yet. This loop will monitor and refuse sends.")
+        try:
+            while True:
+                cycles += 1
+                last_payload = self.generate(refresh_plan=True)
+                status = last_payload.get("overall_status")
+                summary = {
+                    "cycle": cycles,
+                    "generated_at": last_payload.get("generated_at"),
+                    "live_loop_status": "REFUSED_AUTONOMOUS_EXECUTION",
+                    "readiness_status": status,
+                    "continuous_live_trading_status": last_payload.get("continuous_live_trading_status"),
+                    "next_action": last_payload.get("next_action"),
+                    "safe_monitor_command": last_payload.get("continuous_monitor_command"),
+                }
+                print(json.dumps(summary, indent=2))
+                if max_cycles is not None and cycles >= max_cycles:
+                    break
+                time.sleep(interval)
+        except KeyboardInterrupt:
+            pass
+        return {
+            "status": "STOPPED",
+            "live_loop_status": "REFUSED_AUTONOMOUS_EXECUTION",
+            "cycles_completed": cycles,
+            "last_payload": last_payload,
+        }
 
     def _decision(
         self,
@@ -264,7 +304,8 @@ class LiveControlCenterService:
             f"- Next action: `{payload['next_action']}`",
             f"- Next command: `{payload['next_command'] or '-'}`",
             f"- Continuous monitor: `{payload['continuous_monitor_command']}`",
-            f"- Continuous live trading: `{payload['continuous_live_trading_status']}`",
+            f"- Continuous live command: `{payload['continuous_live_trading_command']}`",
+            f"- Continuous live status: `{payload['continuous_live_trading_status']}`",
             "",
             "## Wallet",
             "",
@@ -301,13 +342,17 @@ class LiveControlCenterService:
 def main() -> None:
     parser = argparse.ArgumentParser(description="CryptoAI live control center monitor")
     parser.add_argument("--loop", action="store_true", help="Continuously refresh read-only live control status.")
+    parser.add_argument("--live-loop", action="store_true", help="Future continuous live entrypoint; currently monitors and refuses autonomous sends.")
     parser.add_argument("--interval", type=int, default=30, help="Loop interval in seconds.")
     parser.add_argument("--max-cycles", type=int, default=None, help="Optional cycle limit for tests/manual checks.")
     parser.add_argument("--no-refresh-plan", action="store_true", help="Do not refresh tiny_live_pilot plan before summarizing.")
     args = parser.parse_args()
 
     service = LiveControlCenterService()
-    if args.loop:
+    if args.live_loop:
+        result = service.run_live_loop(interval=max(5, args.interval), max_cycles=args.max_cycles)
+        print(json.dumps(result, indent=2))
+    elif args.loop:
         result = service.run_loop(interval=max(5, args.interval), max_cycles=args.max_cycles)
         print(json.dumps(result, indent=2))
     else:
