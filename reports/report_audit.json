@@ -1,14 +1,20 @@
 {
-  "generated_at": "2026-06-30T12:47:19Z",
+  "generated_at": "2026-06-30T12:54:42Z",
   "mode": "paper",
-  "report_count": 47,
+  "report_count": 49,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 27,
+  "operational_stale_count": 0,
+  "research_stale_count": 24,
   "finding_count": 27,
+  "blocking_finding_count": 0,
+  "operational_finding_count": 0,
+  "research_finding_count": 24,
   "reports": [
     {
       "name": "quote_diagnostics.md",
+      "category": "review",
       "exists": true,
       "size_bytes": 917,
       "generated_at": "2026-06-30T07:46:38Z",
@@ -16,20 +22,23 @@
     },
     {
       "name": "multi_dex_opportunities.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 930,
-      "generated_at": "2026-06-30T12:47:18Z",
+      "generated_at": "2026-06-30T12:54:12Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 510,
-      "generated_at": "2026-06-30T12:47:18Z",
+      "generated_at": "2026-06-30T12:54:12Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 137183,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -44,6 +53,7 @@
     },
     {
       "name": "paper_report.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 32190,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -51,6 +61,7 @@
     },
     {
       "name": "paper_run_review.json",
+      "category": "review",
       "exists": true,
       "size_bytes": 2484,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -70,6 +81,7 @@
     },
     {
       "name": "paper_run_review.md",
+      "category": "review",
       "exists": true,
       "size_bytes": 1613,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -77,6 +89,7 @@
     },
     {
       "name": "live_safety.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 5103,
       "generated_at": "2026-06-30T12:30:59Z",
@@ -92,6 +105,7 @@
     },
     {
       "name": "live_safety.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 2291,
       "generated_at": "2026-06-30T12:30:59Z",
@@ -99,6 +113,7 @@
     },
     {
       "name": "portfolio_analytics.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 69532,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -111,6 +126,7 @@
     },
     {
       "name": "portfolio_analytics.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 6085,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -118,6 +134,7 @@
     },
     {
       "name": "strategy_center.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 6967,
       "generated_at": "2026-06-30T07:46:41Z",
@@ -130,6 +147,7 @@
     },
     {
       "name": "strategy_center.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 1712,
       "generated_at": "2026-06-30T07:46:41Z",
@@ -137,6 +155,7 @@
     },
     {
       "name": "strategy_intelligence.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 10599,
       "generated_at": "2026-06-30T07:46:46Z",
@@ -150,6 +169,7 @@
     },
     {
       "name": "strategy_intelligence.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 4993,
       "generated_at": "2026-06-30T07:46:46Z",
@@ -157,6 +177,7 @@
     },
     {
       "name": "feature_store.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 1584,
       "generated_at": "2026-06-30T07:46:42Z",
@@ -169,6 +190,7 @@
     },
     {
       "name": "feature_store.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 1040,
       "generated_at": "2026-06-30T07:46:42Z",
@@ -176,6 +198,7 @@
     },
     {
       "name": "research_dashboard.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 17995,
       "generated_at": "2026-06-30T07:46:42Z",
@@ -187,6 +210,7 @@
     },
     {
       "name": "research_dashboard.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 5066,
       "generated_at": "2026-06-30T07:46:42Z",
@@ -194,6 +218,7 @@
     },
     {
       "name": "backtest_report.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 245879,
       "generated_at": "2026-06-30T07:46:43Z",
@@ -206,6 +231,7 @@
     },
     {
       "name": "backtest_report.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 9462,
       "generated_at": "2026-06-30T07:46:43Z",
@@ -213,6 +239,7 @@
     },
     {
       "name": "replay_diagnostics.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 2269,
       "generated_at": "2026-06-30T07:46:44Z",
@@ -228,6 +255,7 @@
     },
     {
       "name": "replay_diagnostics.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 1258,
       "generated_at": "2026-06-30T07:46:44Z",
@@ -235,6 +263,7 @@
     },
     {
       "name": "pool_depth_ladder.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 6965,
       "generated_at": "2026-06-30T12:40:26Z",
@@ -251,6 +280,7 @@
     },
     {
       "name": "pool_depth_ladder.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 1719,
       "generated_at": "2026-06-30T12:40:26Z",
@@ -258,6 +288,7 @@
     },
     {
       "name": "execution_realism.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 7365,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -274,6 +305,7 @@
     },
     {
       "name": "execution_realism.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 1381,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -281,6 +313,7 @@
     },
     {
       "name": "execution_cost_evidence.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 3796,
       "generated_at": "2026-06-30T12:30:58Z",
@@ -294,6 +327,7 @@
     },
     {
       "name": "execution_cost_evidence.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 1542,
       "generated_at": "2026-06-30T12:30:58Z",
@@ -301,6 +335,7 @@
     },
     {
       "name": "optimization_report.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 541825,
       "generated_at": "2026-06-30T07:46:43Z",
@@ -315,6 +350,7 @@
     },
     {
       "name": "optimization_report.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 2210,
       "generated_at": "2026-06-30T07:46:43Z",
@@ -322,6 +358,7 @@
     },
     {
       "name": "experiment_report.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 9949,
       "generated_at": "2026-06-30T07:46:44Z",
@@ -339,6 +376,7 @@
     },
     {
       "name": "experiment_report.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 3439,
       "generated_at": "2026-06-30T07:46:44Z",
@@ -346,6 +384,7 @@
     },
     {
       "name": "market_intelligence.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 4264,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -358,6 +397,7 @@
     },
     {
       "name": "market_intelligence.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 1269,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -365,6 +405,7 @@
     },
     {
       "name": "market_universe_evidence.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 8885,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -379,6 +420,7 @@
     },
     {
       "name": "market_universe_evidence.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 2694,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -386,6 +428,7 @@
     },
     {
       "name": "quote_coverage_evidence.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 16283,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -401,6 +444,7 @@
     },
     {
       "name": "quote_coverage_evidence.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 2665,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -408,6 +452,7 @@
     },
     {
       "name": "eth_route_architecture.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 27781,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -422,6 +467,7 @@
     },
     {
       "name": "eth_route_architecture.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 3986,
       "generated_at": "2026-06-30T07:46:45Z",
@@ -429,6 +475,7 @@
     },
     {
       "name": "eth_market_coverage.json",
+      "category": "research",
       "exists": true,
       "size_bytes": 8684,
       "generated_at": "2026-06-30T07:46:46Z",
@@ -445,6 +492,7 @@
     },
     {
       "name": "eth_market_coverage.md",
+      "category": "research",
       "exists": true,
       "size_bytes": 2124,
       "generated_at": "2026-06-30T07:46:46Z",
@@ -452,6 +500,7 @@
     },
     {
       "name": "paper_trading_settings.json",
+      "category": "review",
       "exists": true,
       "size_bytes": 3175,
       "generated_at": "2026-06-30T08:26:16Z",
@@ -468,13 +517,38 @@
     },
     {
       "name": "paper_trading_settings.md",
+      "category": "review",
       "exists": true,
       "size_bytes": 1693,
       "generated_at": "2026-06-30T08:26:16Z",
       "stale": true
     },
     {
+      "name": "wallet_preflight.json",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 3606,
+      "generated_at": "2026-06-30T12:53:56Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "WALLET_PREP_ACTION",
+        "blocked_check_count": 0,
+        "check_count": 15
+      }
+    },
+    {
+      "name": "wallet_preflight.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 2038,
+      "generated_at": "2026-06-30T12:53:56Z",
+      "stale": false
+    },
+    {
       "name": "provider_monitor.json",
+      "category": "operational",
       "exists": true,
       "size_bytes": 2880,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -489,6 +563,7 @@
     },
     {
       "name": "provider_monitor.md",
+      "category": "operational",
       "exists": true,
       "size_bytes": 1007,
       "generated_at": "2026-06-30T12:47:19Z",
@@ -499,141 +574,196 @@
     {
       "severity": "WATCH",
       "report": "quote_diagnostics.md",
+      "category": "review",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "strategy_center.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "strategy_center.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "strategy_intelligence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "strategy_intelligence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "feature_store.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "feature_store.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "research_dashboard.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "research_dashboard.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "backtest_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "backtest_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "replay_diagnostics.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "replay_diagnostics.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "optimization_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "optimization_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "experiment_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "experiment_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "market_universe_evidence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "market_universe_evidence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "quote_coverage_evidence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "quote_coverage_evidence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "eth_route_architecture.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "eth_route_architecture.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "eth_market_coverage.json",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "eth_market_coverage.md",
+      "category": "research",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "paper_trading_settings.json",
+      "category": "review",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
       "report": "paper_trading_settings.md",
+      "category": "review",
+      "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
     }
   ],
   "notes": [
     "Report Audit is a review aid for paper-mode operations.",
-    "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning."
+    "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
+    "Stale research reports are tracked separately from runtime-critical operational evidence."
   ]
 }

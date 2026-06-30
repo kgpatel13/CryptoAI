@@ -38,6 +38,8 @@ class ReportAuditService:
         "quote_diagnostics.md",
         "paper_trading_settings.json",
         "paper_trading_settings.md",
+        "wallet_preflight.json",
+        "wallet_preflight.md",
     }
 
     EXPECTED_REPORTS = [
@@ -86,6 +88,8 @@ class ReportAuditService:
         "eth_market_coverage.md",
         "paper_trading_settings.json",
         "paper_trading_settings.md",
+        "wallet_preflight.json",
+        "wallet_preflight.md",
         "provider_monitor.json",
         "provider_monitor.md",
     ]

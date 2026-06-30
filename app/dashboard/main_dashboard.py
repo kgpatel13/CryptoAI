@@ -1334,6 +1334,23 @@ def render_risk_controls() -> None:
             st.success("Live safety report generated.")
             st.json(result)
 
+    if st.button("Generate Wallet Preflight"):
+        def task():
+            WalletPreflightService = import_object("app.execution.wallet_preflight_service", "WalletPreflightService")
+            return WalletPreflightService().generate()
+
+        result = safe_run("Generating wallet preflight...", task)
+        if result is not None:
+            st.success("Wallet preflight generated.")
+            st.json(result)
+
+    st.markdown("### Wallet Preflight Report")
+    wallet_txt = read_text(REPORT_DIR / "wallet_preflight.md")
+    if wallet_txt:
+        st.markdown(wallet_txt)
+    else:
+        st.info("No wallet_preflight.md found yet. Generate Wallet Preflight first.")
+
     st.markdown("### Live Safety Report")
     txt = read_text(REPORT_DIR / "live_safety.md")
     if txt:
@@ -1402,6 +1419,8 @@ def render_system_health() -> None:
         REPORT_DIR / "paper_report.md",
         REPORT_DIR / "live_safety.json",
         REPORT_DIR / "live_safety.md",
+        REPORT_DIR / "wallet_preflight.json",
+        REPORT_DIR / "wallet_preflight.md",
         REPORT_DIR / "portfolio_analytics.json",
         REPORT_DIR / "portfolio_analytics.md",
         DATA_DIR / "strategy_signals.jsonl",
@@ -1507,6 +1526,7 @@ def render_setup() -> None:
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
         python -m app.execution.live_safety_report
+        python -m app.execution.wallet_preflight_service
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

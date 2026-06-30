@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.15 - Isolated Wallet Preflight
+
+- Added `WalletPreflightService` for preparation-only checks of the future isolated tiny-live wallet.
+- Added `wallet_preflight.json` and `wallet_preflight.md`.
+- Added Risk & Controls dashboard support for generating and reviewing Wallet Preflight.
+- Added Report Audit coverage for wallet preflight reports.
+- Validates the Base-only, USDC/WETH, `$450 USDC + $50 ETH gas`, `$500 max wallet` preparation plan without storing keys or sending transactions.
+- Kept live trading disabled, kill switch expected ON, private keys absent during preflight, and live approval false.
+
 ## v5.14 - Operational Evidence Gate Split
 
 - Added operational, review, and research categories to Report Audit.
