@@ -1100,6 +1100,19 @@ def render_paper_portfolio() -> None:
     c3.metric("Daily Fills", state.get("daily_filled_trades", 0))
     c4.metric("Daily PnL", state.get("daily_realized_pnl_usd", "0"))
 
+    paper_report = read_json(REPORT_DIR / "paper_report.json")
+    reconciliation = paper_report.get("pnl_reconciliation", {}) if isinstance(paper_report, dict) else {}
+    if reconciliation:
+        status = reconciliation.get("status", "-")
+        if status == "RECONCILED":
+            st.success("PnL reconciled to active paper portfolio state.")
+        else:
+            st.warning(
+                "Paper-order history differs from active portfolio state. "
+                "Cash and Daily PnL below use paper_portfolio_state.json."
+            )
+        st.json(reconciliation)
+
     st.markdown("### Open Positions")
     dataframe_or_info(positions, "No open paper positions.")
 
@@ -1147,6 +1160,18 @@ def render_portfolio_analytics() -> None:
             c6.metric("Max Drawdown %", analytics.get("max_drawdown_pct", "-"))
             c7.metric("Avg Slip bps", analytics.get("avg_slippage_bps", "-"))
             c8.metric("Avg Latency ms", analytics.get("avg_latency_ms", "-"))
+
+            reconciliation = analytics.get("pnl_reconciliation", {})
+            if reconciliation:
+                status = reconciliation.get("status", "-")
+                if status == "RECONCILED":
+                    st.success("PnL reconciled to active paper portfolio state.")
+                else:
+                    st.warning(
+                        "Historical paper-order journal differs from active portfolio state. "
+                        "Analytics totals, Daily PnL, and equity curve use the active portfolio ledger."
+                    )
+                st.json(reconciliation)
 
             st.markdown("### Daily PnL")
             dataframe_or_info(analytics.get("daily_pnl", []), "No daily PnL rows yet.")

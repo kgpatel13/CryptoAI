@@ -33,6 +33,14 @@ class PaperReportService:
         portfolio_state = self._read_json(self.portfolio_state_file)
         portfolio_summary = self._portfolio_summary(portfolio_state)
         portfolio_analytics = self._portfolio_analytics()
+        order_file_realized_pnl = sum(self._decimal(o.get("realized_pnl_usd", "0")) for o in filled)
+        portfolio_realized_pnl = self._portfolio_realized_pnl(portfolio_state, fallback=order_file_realized_pnl)
+        pnl_reconciliation = self._pnl_reconciliation(
+            portfolio_realized_pnl=portfolio_realized_pnl,
+            order_file_realized_pnl=order_file_realized_pnl,
+            portfolio_state=portfolio_state,
+            filled_order_count=len(filled),
+        )
 
         decision_counts = {}
         for row in opportunities:
@@ -56,7 +64,10 @@ class PaperReportService:
             "rejected_orders": len(rejected),
             "risk_rejected_orders": len(risk_rejected),
             "total_filled_notional_usd": str(total_notional),
-            "total_realized_pnl_usd": str(sum(self._decimal(o.get("realized_pnl_usd", "0")) for o in filled)),
+            "total_realized_pnl_usd": str(portfolio_realized_pnl),
+            "portfolio_realized_pnl_usd": str(portfolio_realized_pnl),
+            "order_file_realized_pnl_usd": str(order_file_realized_pnl),
+            "pnl_reconciliation": pnl_reconciliation,
             "skip_reasons": skip_reasons,
             "risk_rejection_reasons": self._reason_counts(risk_rejected),
             "execution_quality_counts": self._value_counts(filled, "execution_quality"),
@@ -71,6 +82,8 @@ class PaperReportService:
                 "This is simulated paper-trading output only.",
                 "No real wallet or exchange order was used.",
             "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
+            "Portfolio cash and realized PnL are reconciled to paper_portfolio_state.json.",
+            "Order-file realized PnL is retained as historical execution evidence and may include rows from earlier paper sessions.",
             "Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis.",
             ],
         }
@@ -102,6 +115,8 @@ class PaperReportService:
             f"- Portfolio risk rejections: `{report['risk_rejected_orders']}`",
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
             f"- Total realized PnL USD: `${report['total_realized_pnl_usd']}`",
+            f"- Order-file realized PnL USD: `${report.get('order_file_realized_pnl_usd', '-')}`",
+            f"- PnL reconciliation: `{report.get('pnl_reconciliation', {}).get('status', '-')}`",
             f"- Paper portfolio cash USD: `${report['portfolio'].get('cash_usd', '-')}`",
             f"- Open paper positions: `{report['portfolio'].get('open_positions', 0)}`",
             f"- Closed paper positions: `{report['portfolio'].get('closed_positions', 0)}`",
@@ -150,6 +165,7 @@ class PaperReportService:
         portfolio = report.get("portfolio", {})
         lines.append(f"- Cash USD: `${portfolio.get('cash_usd', '-')}`")
         lines.append(f"- Initial cash USD: `${portfolio.get('initial_cash_usd', '-')}`")
+        lines.append(f"- Portfolio realized PnL USD: `${portfolio.get('realized_pnl_usd', '-')}`")
         lines.append(f"- Open positions: `{portfolio.get('open_positions', 0)}`")
         lines.append(f"- Closed positions: `{portfolio.get('closed_positions', 0)}`")
         lines.append(f"- Daily realized PnL USD: `${portfolio.get('daily_realized_pnl_usd', 0)}`")
@@ -157,6 +173,18 @@ class PaperReportService:
         lines.append(f"- Daily filled trades: `{portfolio.get('daily_filled_trades', 0)}`")
         lines.append(f"- Exposure by chain: `{portfolio.get('exposure_by_chain', {})}`")
         lines.append(f"- Exposure by token: `{portfolio.get('exposure_by_token', {})}`")
+
+        lines += ["", "## PnL Reconciliation", ""]
+        reconciliation = report.get("pnl_reconciliation", {})
+        if reconciliation:
+            lines.append(f"- Source of truth: `{reconciliation.get('source_of_truth', '-')}`")
+            lines.append(f"- Status: `{reconciliation.get('status', '-')}`")
+            lines.append(f"- Portfolio realized PnL USD: `${reconciliation.get('portfolio_realized_pnl_usd', '-')}`")
+            lines.append(f"- Order-file realized PnL USD: `${reconciliation.get('order_file_realized_pnl_usd', '-')}`")
+            lines.append(f"- Difference USD: `${reconciliation.get('difference_usd', '-')}`")
+            lines.append(f"- Note: {reconciliation.get('reason', '-')}")
+        else:
+            lines.append("- No PnL reconciliation data available.")
 
         lines += ["", "## Portfolio Analytics", ""]
         analytics = report.get("portfolio_analytics", {})
@@ -345,6 +373,52 @@ class PaperReportService:
             "exposure_by_chain": exposure_by_chain,
             "exposure_by_token": exposure_by_token,
             "updated_at": state.get("updated_at"),
+        }
+
+    @classmethod
+    def _portfolio_realized_pnl(cls, state: dict, *, fallback: Decimal) -> Decimal:
+        if not state:
+            return fallback
+        if "realized_pnl_usd" in state:
+            return cls._decimal(state.get("realized_pnl_usd"))
+        if "daily_realized_pnl_usd" in state:
+            return cls._decimal(state.get("daily_realized_pnl_usd"))
+        cash = cls._decimal(state.get("cash_usd"))
+        initial = cls._decimal(state.get("initial_cash_usd"))
+        if cash or initial:
+            return cash - initial
+        return fallback
+
+    @classmethod
+    def _pnl_reconciliation(
+        cls,
+        *,
+        portfolio_realized_pnl: Decimal,
+        order_file_realized_pnl: Decimal,
+        portfolio_state: dict,
+        filled_order_count: int,
+    ) -> dict:
+        difference = order_file_realized_pnl - portfolio_realized_pnl
+        tolerance = Decimal("0.0001")
+        if abs(difference) <= tolerance:
+            status = "RECONCILED"
+            reason = "The active portfolio ledger and paper-order history agree."
+        else:
+            status = "ORDER_HISTORY_DIFFERS_FROM_PORTFOLIO_STATE"
+            reason = (
+                "Active cash and realized PnL come from paper_portfolio_state.json. "
+                "The order file contains additional historical paper rows, usually from a prior reset/session, "
+                "so it is shown as execution evidence but does not drive portfolio cash."
+            )
+        return {
+            "source_of_truth": "paper_portfolio_state.json",
+            "status": status,
+            "portfolio_realized_pnl_usd": str(portfolio_realized_pnl),
+            "order_file_realized_pnl_usd": str(order_file_realized_pnl),
+            "difference_usd": str(difference.quantize(Decimal("0.0001"))),
+            "filled_order_count": filled_order_count,
+            "state_updated_at": portfolio_state.get("updated_at"),
+            "reason": reason,
         }
 
     @staticmethod

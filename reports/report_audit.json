@@ -1,59 +1,59 @@
 {
-  "generated_at": "2026-06-30T03:09:40Z",
+  "generated_at": "2026-06-30T07:31:30Z",
   "mode": "paper",
   "report_count": 43,
-  "missing_count": 0,
+  "missing_count": 37,
   "invalid_json_count": 0,
   "stale_count": 0,
-  "finding_count": 0,
+  "finding_count": 37,
   "reports": [
     {
       "name": "quote_diagnostics.md",
-      "exists": true,
-      "size_bytes": 929,
-      "generated_at": "2026-06-30T03:09:08Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "multi_dex_opportunities.md",
-      "exists": true,
-      "size_bytes": 951,
-      "generated_at": "2026-06-30T03:09:15Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "opportunity_explorer.md",
-      "exists": true,
-      "size_bytes": 531,
-      "generated_at": "2026-06-30T03:09:15Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "paper_report.json",
       "exists": true,
-      "size_bytes": 100434,
-      "generated_at": "2026-06-30T03:09:13Z",
+      "size_bytes": 4074,
+      "generated_at": "2026-06-30T07:31:30Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "total_orders": 418,
-        "filled_orders": 83,
+        "total_orders": 0,
+        "filled_orders": 0,
         "legacy_accounting_warning_count": 0
       }
     },
     {
       "name": "paper_report.md",
       "exists": true,
-      "size_bytes": 11674,
-      "generated_at": "2026-06-30T03:09:13Z",
+      "size_bytes": 2474,
+      "generated_at": "2026-06-30T07:31:30Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
-      "size_bytes": 57253,
-      "generated_at": "2026-06-30T03:09:13Z",
+      "size_bytes": 1941,
+      "generated_at": "2026-06-30T07:31:30Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -63,349 +63,239 @@
     {
       "name": "portfolio_analytics.md",
       "exists": true,
-      "size_bytes": 5446,
-      "generated_at": "2026-06-30T03:09:13Z",
+      "size_bytes": 1547,
+      "generated_at": "2026-06-30T07:31:30Z",
       "stale": false
     },
     {
       "name": "strategy_center.json",
-      "exists": true,
-      "size_bytes": 8235,
-      "generated_at": "2026-06-30T03:09:15Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "strategy_count": 5
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "strategy_center.md",
-      "exists": true,
-      "size_bytes": 2128,
-      "generated_at": "2026-06-30T03:09:15Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "strategy_intelligence.json",
-      "exists": true,
-      "size_bytes": 10603,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "strategy_count": 5,
-        "top_recommendation": "HOLD_FIX_OPERATIONS"
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "strategy_intelligence.md",
-      "exists": true,
-      "size_bytes": 4994,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "feature_store.json",
-      "exists": true,
-      "size_bytes": 1589,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "feature_count": 4192
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "feature_store.md",
-      "exists": true,
-      "size_bytes": 1043,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "research_dashboard.json",
-      "exists": true,
-      "size_bytes": 17931,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper"
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "research_dashboard.md",
-      "exists": true,
-      "size_bytes": 5034,
-      "generated_at": "2026-06-30T03:09:39Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "backtest_report.json",
-      "exists": true,
-      "size_bytes": 234518,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "total_signals": 1000,
-        "simulated_trades": 391
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "backtest_report.md",
-      "exists": true,
-      "size_bytes": 9463,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "replay_diagnostics.json",
-      "exists": true,
-      "size_bytes": 2280,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "production_trade_count": 391,
-        "best_profitable_trade_count": 1000,
-        "input_row_count": 2114,
-        "deduped_row_count": 1886
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "replay_diagnostics.md",
-      "exists": true,
-      "size_bytes": 1268,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "pool_depth_ladder.json",
-      "exists": true,
-      "size_bytes": 6446,
-      "generated_at": "2026-06-30T03:09:18Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "DEPTH_EVIDENCE_WATCH",
-        "confidence": "LOW",
-        "depth_ready_route_count": 0,
-        "watch_route_count": 2,
-        "route_count": 2
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "pool_depth_ladder.md",
-      "exists": true,
-      "size_bytes": 1672,
-      "generated_at": "2026-06-30T03:09:18Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "execution_realism.json",
-      "exists": true,
-      "size_bytes": 5433,
-      "generated_at": "2026-06-30T03:09:35Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "NOT_SHADOW_READY",
-        "paper_capital_usd": "1000.0000",
-        "confidence": "LOW",
-        "shadow_ready_count": 0,
-        "live_ready_count": 0
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "execution_realism.md",
-      "exists": true,
-      "size_bytes": 1159,
-      "generated_at": "2026-06-30T03:09:35Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "execution_cost_evidence.json",
-      "exists": true,
-      "size_bytes": 3925,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "buffer_status": "INSUFFICIENT_EVIDENCE",
-        "confidence": "INSUFFICIENT"
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "execution_cost_evidence.md",
-      "exists": true,
-      "size_bytes": 1655,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "optimization_report.json",
-      "exists": true,
-      "size_bytes": 516377,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "input_row_count": 2114,
-        "deduped_row_count": 1886,
-        "scenario_count": 60
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "optimization_report.md",
-      "exists": true,
-      "size_bytes": 2247,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "experiment_report.json",
-      "exists": true,
-      "size_bytes": 20069,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "status": "WATCHLIST",
-        "experiment_count": 3,
-        "gate_count": 5,
-        "pass_count": 4,
-        "warn_count": 1,
-        "fail_count": 0
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "experiment_report.md",
-      "exists": true,
-      "size_bytes": 3581,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "market_intelligence.json",
-      "exists": true,
-      "size_bytes": 4264,
-      "generated_at": "2026-06-30T03:09:16Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_readiness_score": 80
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "market_intelligence.md",
-      "exists": true,
-      "size_bytes": 1269,
-      "generated_at": "2026-06-30T03:09:16Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "market_universe_evidence.json",
-      "exists": true,
-      "size_bytes": 8892,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "market_universe_evidence.md",
-      "exists": true,
-      "size_bytes": 2694,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "quote_coverage_evidence.json",
-      "exists": true,
-      "size_bytes": 16283,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "active_pair_count": 1,
-        "provider_gap_count": 6,
-        "quote_gap_count": 1,
-        "implemented_provider_count": 3
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "quote_coverage_evidence.md",
-      "exists": true,
-      "size_bytes": 2665,
-      "generated_at": "2026-06-30T03:09:38Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "eth_route_architecture.json",
-      "exists": true,
-      "size_bytes": 27788,
-      "generated_at": "2026-06-30T03:09:36Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "route_architecture_decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20",
-        "production_buffer_pct": "0.30",
-        "candidate_buffer_pct": "0.20"
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "eth_route_architecture.md",
-      "exists": true,
-      "size_bytes": 3989,
-      "generated_at": "2026-06-30T03:09:36Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "eth_market_coverage.json",
-      "exists": true,
-      "size_bytes": 8684,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "ETH_COVERAGE_EARLY",
-        "overall_coverage_score": 53,
-        "target_chain_count": 5,
-        "configured_target_chain_count": 4,
-        "quote_ready_route_count": 2
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "eth_market_coverage.md",
-      "exists": true,
-      "size_bytes": 2124,
-      "generated_at": "2026-06-30T03:09:37Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "paper_trading_settings.json",
       "exists": true,
       "size_bytes": 3172,
-      "generated_at": "2026-06-30T03:09:37Z",
+      "generated_at": "2026-06-30T07:31:18Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -421,32 +311,211 @@
       "name": "paper_trading_settings.md",
       "exists": true,
       "size_bytes": 1678,
-      "generated_at": "2026-06-30T03:09:37Z",
+      "generated_at": "2026-06-30T07:31:18Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
-      "exists": true,
-      "size_bytes": 2880,
-      "generated_at": "2026-06-30T03:09:16Z",
-      "stale": false,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "OK",
-        "provider_count": 4,
-        "alert_count": 0
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "provider_monitor.md",
-      "exists": true,
-      "size_bytes": 1006,
-      "generated_at": "2026-06-30T03:09:16Z",
-      "stale": false
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     }
   ],
-  "findings": [],
+  "findings": [
+    {
+      "severity": "WARN",
+      "report": "quote_diagnostics.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "multi_dex_opportunities.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "opportunity_explorer.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "strategy_center.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "strategy_center.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "strategy_intelligence.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "strategy_intelligence.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "feature_store.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "feature_store.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "research_dashboard.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "research_dashboard.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "backtest_report.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "backtest_report.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "replay_diagnostics.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "replay_diagnostics.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "pool_depth_ladder.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "pool_depth_ladder.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "execution_realism.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "execution_realism.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "execution_cost_evidence.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "execution_cost_evidence.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "optimization_report.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "optimization_report.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "experiment_report.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "experiment_report.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "market_intelligence.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "market_intelligence.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "market_universe_evidence.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "market_universe_evidence.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "quote_coverage_evidence.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "quote_coverage_evidence.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "eth_route_architecture.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "eth_route_architecture.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "eth_market_coverage.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "eth_market_coverage.md",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "provider_monitor.json",
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "provider_monitor.md",
+      "message": "Expected report is missing."
+    }
+  ],
   "notes": [
     "Report Audit is a review aid for paper-mode operations.",
     "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning."

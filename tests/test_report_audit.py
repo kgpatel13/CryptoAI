@@ -139,6 +139,66 @@ class ReportAuditTests(unittest.TestCase):
             self.assertEqual(report["portfolio_analytics"]["cash_usd"], "10035.0000")
             self.assertEqual(report["legacy_accounting_warning_count"], 0)
 
+    def test_paper_report_reconciles_pnl_to_active_portfolio_state(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "data"
+            reports = root / "reports"
+            data.mkdir()
+            reports.mkdir()
+            (data / "paper_orders.jsonl").write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "order_id": "old1",
+                                "timestamp": "2026-06-29T00:00:00Z",
+                                "pair": "WETH/USDC",
+                                "status": "CLOSED",
+                                "execution_type": "ARBITRAGE_ROUND_TRIP",
+                                "notional_usd": "1000.0000",
+                                "realized_pnl_usd": "100.0000",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "order_id": "active1",
+                                "timestamp": "2026-06-30T00:00:00Z",
+                                "pair": "WETH/USDC",
+                                "status": "CLOSED",
+                                "execution_type": "ARBITRAGE_ROUND_TRIP",
+                                "notional_usd": "1000.0000",
+                                "realized_pnl_usd": "30.0000",
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            (data / "paper_portfolio_state.json").write_text(
+                json.dumps(
+                    {
+                        "initial_cash_usd": "1000",
+                        "cash_usd": "1030.0000",
+                        "realized_pnl_usd": "30.0000",
+                        "daily_realized_pnl_usd": "30.0000",
+                        "positions": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            report = PaperReportService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(report["total_realized_pnl_usd"], "30.0000")
+            self.assertEqual(report["portfolio_realized_pnl_usd"], "30.0000")
+            self.assertEqual(report["order_file_realized_pnl_usd"], "130.0000")
+            self.assertEqual(
+                report["pnl_reconciliation"]["status"],
+                "ORDER_HISTORY_DIFFERS_FROM_PORTFOLIO_STATE",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

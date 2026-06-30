@@ -119,6 +119,13 @@ class PnLAnalyticsService:
         equity = self._q(cash + open_notional + unrealized)
         total_pnl = self._q(realized + unrealized)
         total_return_pct = self._pct(total_pnl, initial_cash)
+        journal_realized = self._q(sum((t.realized_pnl_usd for t in journal), Decimal("0")))
+        pnl_reconciliation = self._pnl_reconciliation(
+            portfolio_realized_pnl=realized,
+            journal_realized_pnl=journal_realized,
+            state=state,
+            journal_count=len(journal),
+        )
 
         closed_or_pnl_trades = [t for t in journal if t.realized_pnl_usd != 0]
         wins = [t for t in closed_or_pnl_trades if t.realized_pnl_usd > 0]
@@ -127,13 +134,25 @@ class PnLAnalyticsService:
 
         gross_profit = sum((t.realized_pnl_usd for t in wins), Decimal("0"))
         gross_loss = sum((abs(t.realized_pnl_usd) for t in losses), Decimal("0"))
+        journal_gross_profit = gross_profit
+        journal_gross_loss = gross_loss
+        if pnl_reconciliation["status"] != "RECONCILED":
+            gross_profit = realized if realized > 0 else Decimal("0")
+            gross_loss = abs(realized) if realized < 0 else Decimal("0")
+            expectancy_count = int(state.get("daily_filled_trades", len(closed_or_pnl_trades)) or 0)
+            expectancy = realized / Decimal(expectancy_count) if expectancy_count > 0 else Decimal("0")
+        else:
+            expectancy = (sum((t.realized_pnl_usd for t in closed_or_pnl_trades), Decimal("0")) / Decimal(len(closed_or_pnl_trades))) if closed_or_pnl_trades else Decimal("0")
         profit_factor = (gross_profit / gross_loss) if gross_loss > 0 else None
-        expectancy = (sum((t.realized_pnl_usd for t in closed_or_pnl_trades), Decimal("0")) / Decimal(len(closed_or_pnl_trades))) if closed_or_pnl_trades else Decimal("0")
 
-        daily = self._daily_pnl(journal, initial_cash)
+        if pnl_reconciliation["status"] == "RECONCILED":
+            daily = self._daily_pnl(journal, initial_cash)
+            by_pair = self._by_pair(journal)
+        else:
+            daily = self._daily_pnl_from_state(state, journal, initial_cash)
+            by_pair = self._by_pair_allocated_to_portfolio_state(journal, realized)
         equity_curve = self._equity_curve(daily, initial_cash)
         max_drawdown = self._max_drawdown(equity_curve)
-        by_pair = self._by_pair(journal)
 
         return {
             "generated_at": self._utc_now(),
@@ -143,9 +162,11 @@ class PnLAnalyticsService:
             "open_position_notional_usd": str(self._q(open_notional)),
             "equity_usd": str(equity),
             "realized_pnl_usd": str(self._q(realized)),
+            "journal_realized_pnl_usd": str(journal_realized),
             "unrealized_pnl_usd": str(self._q(unrealized)),
             "total_pnl_usd": str(total_pnl),
             "total_return_pct": str(total_return_pct),
+            "pnl_reconciliation": pnl_reconciliation,
             "trade_count": len(journal),
             "closed_trade_count": len([t for t in journal if t.status == "CLOSED"]),
             "open_positions": len([p for p in state.get("positions", []) if str(p.get("status", "OPEN")).upper() == "OPEN"]),
@@ -156,6 +177,8 @@ class PnLAnalyticsService:
             "win_rate_pct": str(self._pct(Decimal(len(wins)), Decimal(len(closed_or_pnl_trades))) if closed_or_pnl_trades else Decimal("0.0000")),
             "gross_profit_usd": str(self._q(gross_profit)),
             "gross_loss_usd": str(self._q(gross_loss)),
+            "journal_gross_profit_usd": str(self._q(journal_gross_profit)),
+            "journal_gross_loss_usd": str(self._q(journal_gross_loss)),
             "profit_factor": str(self._q(profit_factor)) if profit_factor is not None else "N/A",
             "expectancy_usd": str(self._q(expectancy)),
             "max_drawdown_usd": str(self._q(max_drawdown["drawdown_usd"])),
@@ -168,6 +191,8 @@ class PnLAnalyticsService:
             "trade_journal": [t.to_dict() for t in journal[-100:]],
             "notes": [
                 "Paper analytics are for simulated trading only.",
+                "Cash, equity, total PnL, Daily PnL, and the equity curve are reconciled to paper_portfolio_state.json.",
+                "The recent trade journal is execution evidence from paper_orders.jsonl and can include rows from earlier paper sessions.",
                 "Closed-trade metrics are meaningful after positions have entry and exit records.",
                 "Live trading remains disabled unless explicitly enabled elsewhere and gated by live safety checks.",
             ],
@@ -197,6 +222,27 @@ class PnLAnalyticsService:
                 }
             )
         return rows
+
+    def _daily_pnl_from_state(
+        self,
+        state: dict[str, Any],
+        journal: list[TradeJournalEntry],
+        initial_cash: Decimal,
+    ) -> list[dict[str, str]]:
+        date = str(state.get("daily_date") or state.get("updated_at") or self._utc_now())[:10]
+        realized = self._q(self._decimal(state.get("daily_realized_pnl_usd", state.get("realized_pnl_usd", "0"))))
+        trades = int(state.get("daily_filled_trades", len(journal) if journal else 0) or 0)
+        return [
+            {
+                "date": date,
+                "trades": str(trades),
+                "filled_notional_usd": str(self._q(self._state_day_notional(journal, date))),
+                "realized_pnl_usd": str(realized),
+                "cumulative_realized_pnl_usd": str(realized),
+                "daily_return_pct": str(self._pct(realized, initial_cash)),
+                "pnl_basis": "paper_portfolio_state",
+            }
+        ]
 
     def _equity_curve(self, daily_rows: list[dict[str, str]], initial_cash: Decimal) -> list[dict[str, str]]:
         rows = []
@@ -253,6 +299,84 @@ class PnLAnalyticsService:
             )
         return rows
 
+    def _by_pair_allocated_to_portfolio_state(
+        self,
+        journal: list[TradeJournalEntry],
+        portfolio_realized_pnl: Decimal,
+    ) -> list[dict[str, str]]:
+        raw_rows = self._by_pair(journal)
+        total_positive_pnl = sum(
+            (self._decimal(row.get("realized_pnl_usd", "0")) for row in raw_rows if self._decimal(row.get("realized_pnl_usd", "0")) > 0),
+            Decimal("0"),
+        )
+        if not raw_rows:
+            return []
+        if total_positive_pnl <= 0:
+            pair = raw_rows[0]["pair"]
+            return [
+                {
+                    "pair": pair,
+                    "trades": raw_rows[0]["trades"],
+                    "filled_notional_usd": raw_rows[0]["filled_notional_usd"],
+                    "realized_pnl_usd": str(self._q(portfolio_realized_pnl)),
+                    "win_rate_pct": raw_rows[0]["win_rate_pct"],
+                    "pnl_basis": "paper_portfolio_state",
+                }
+            ]
+        allocated = []
+        remaining = self._q(portfolio_realized_pnl)
+        positive_rows = [row for row in raw_rows if self._decimal(row.get("realized_pnl_usd", "0")) > 0]
+        for row in raw_rows:
+            pnl = self._decimal(row.get("realized_pnl_usd", "0"))
+            if pnl <= 0:
+                allocated_pnl = Decimal("0.0000")
+            elif row is positive_rows[-1]:
+                allocated_pnl = remaining
+            else:
+                allocated_pnl = self._q(portfolio_realized_pnl * pnl / total_positive_pnl)
+                remaining -= allocated_pnl
+            allocated.append(
+                {
+                    **row,
+                    "realized_pnl_usd": str(self._q(allocated_pnl)),
+                    "pnl_basis": "allocated_to_paper_portfolio_state",
+                }
+            )
+        return allocated
+
+    def _state_day_notional(self, journal: list[TradeJournalEntry], date: str) -> Decimal:
+        return sum((trade.notional_usd for trade in journal if trade.date == date), Decimal("0"))
+
+    def _pnl_reconciliation(
+        self,
+        *,
+        portfolio_realized_pnl: Decimal,
+        journal_realized_pnl: Decimal,
+        state: dict[str, Any],
+        journal_count: int,
+    ) -> dict[str, Any]:
+        difference = self._q(journal_realized_pnl - portfolio_realized_pnl)
+        if abs(difference) <= Decimal("0.0001"):
+            status = "RECONCILED"
+            reason = "The paper-order journal and active portfolio ledger agree."
+        else:
+            status = "ORDER_HISTORY_DIFFERS_FROM_PORTFOLIO_STATE"
+            reason = (
+                "Cash and total PnL use the active portfolio ledger. "
+                "The paper-order journal is retained as historical execution evidence and can include rows from earlier paper sessions."
+            )
+        return {
+            "source_of_truth": "paper_portfolio_state.json",
+            "status": status,
+            "portfolio_realized_pnl_usd": str(self._q(portfolio_realized_pnl)),
+            "journal_realized_pnl_usd": str(journal_realized_pnl),
+            "difference_usd": str(difference),
+            "journal_trade_count": journal_count,
+            "state_daily_filled_trades": state.get("daily_filled_trades", 0),
+            "state_updated_at": state.get("updated_at"),
+            "reason": reason,
+        }
+
     def _closed_position_pnl_by_pair(self, state: dict[str, Any]) -> dict[str, list[Decimal]]:
         rows: dict[str, list[Decimal]] = defaultdict(list)
         for pos in state.get("positions", []):
@@ -306,6 +430,8 @@ class PnLAnalyticsService:
             f"- Unrealized PnL USD: `${analytics['unrealized_pnl_usd']}`",
             f"- Total PnL USD: `${analytics['total_pnl_usd']}`",
             f"- Total return %: `{analytics['total_return_pct']}`",
+            f"- PnL reconciliation: `{analytics.get('pnl_reconciliation', {}).get('status', '-')}`",
+            f"- Journal realized PnL USD: `${analytics.get('journal_realized_pnl_usd', '-')}`",
             f"- Trade count: `{analytics['trade_count']}`",
             f"- Closed/PnL trade count: `{analytics['closed_trade_count']}`",
             f"- Win rate %: `{analytics['win_rate_pct']}`",
@@ -327,6 +453,18 @@ class PnLAnalyticsService:
                 lines.append(f"| {row['date']} | {row['trades']} | {row['filled_notional_usd']} | {row['realized_pnl_usd']} | {row['cumulative_realized_pnl_usd']} | {row['daily_return_pct']} |")
         else:
             lines.append("No filled paper trades yet.")
+
+        reconciliation = analytics.get("pnl_reconciliation", {})
+        lines += ["", "## PnL Reconciliation", ""]
+        if reconciliation:
+            lines.append(f"- Source of truth: `{reconciliation.get('source_of_truth', '-')}`")
+            lines.append(f"- Status: `{reconciliation.get('status', '-')}`")
+            lines.append(f"- Portfolio realized PnL USD: `${reconciliation.get('portfolio_realized_pnl_usd', '-')}`")
+            lines.append(f"- Journal realized PnL USD: `${reconciliation.get('journal_realized_pnl_usd', '-')}`")
+            lines.append(f"- Difference USD: `${reconciliation.get('difference_usd', '-')}`")
+            lines.append(f"- Note: {reconciliation.get('reason', '-')}")
+        else:
+            lines.append("No PnL reconciliation data available.")
 
         lines += ["", "## Performance by Pair", ""]
         by_pair = analytics.get("performance_by_pair", [])

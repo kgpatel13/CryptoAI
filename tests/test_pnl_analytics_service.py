@@ -158,6 +158,76 @@ class PnLAnalyticsServiceTests(unittest.TestCase):
             self.assertEqual(analytics["trade_journal"][0]["buy_source"], "Uniswap V2")
             self.assertEqual(analytics["trade_journal"][0]["sell_source"], "Uniswap V3")
 
+    def test_analytics_reconciles_totals_to_active_portfolio_state(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "data"
+            reports = root / "reports"
+            data.mkdir()
+            reports.mkdir()
+
+            (data / "paper_orders.jsonl").write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "order_id": "old1",
+                                "timestamp": "2026-06-29T00:00:00Z",
+                                "pair": "WETH/USDC",
+                                "side": "BUY",
+                                "status": "CLOSED",
+                                "execution_type": "ARBITRAGE_ROUND_TRIP",
+                                "notional_usd": "1000.0000",
+                                "realized_pnl_usd": "100.0000",
+                                "execution_quality": "GOOD",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "order_id": "active1",
+                                "timestamp": "2026-06-30T00:00:00Z",
+                                "pair": "WETH/USDC",
+                                "side": "BUY",
+                                "status": "CLOSED",
+                                "execution_type": "ARBITRAGE_ROUND_TRIP",
+                                "notional_usd": "1000.0000",
+                                "realized_pnl_usd": "30.0000",
+                                "execution_quality": "GOOD",
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            (data / "paper_portfolio_state.json").write_text(
+                json.dumps(
+                    {
+                        "initial_cash_usd": "1000",
+                        "cash_usd": "1030.0000",
+                        "realized_pnl_usd": "30.0000",
+                        "daily_date": "2026-06-30",
+                        "daily_filled_trades": 2,
+                        "daily_realized_pnl_usd": "30.0000",
+                        "unrealized_pnl_usd": "0.0000",
+                        "positions": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            analytics = PnLAnalyticsService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(analytics["cash_usd"], "1030.0000")
+            self.assertEqual(analytics["total_pnl_usd"], "30.0000")
+            self.assertEqual(analytics["journal_realized_pnl_usd"], "130.0000")
+            self.assertEqual(analytics["daily_pnl"][0]["realized_pnl_usd"], "30.0000")
+            self.assertEqual(analytics["equity_curve"][0]["equity_usd"], "1030.0000")
+            self.assertEqual(
+                analytics["pnl_reconciliation"]["status"],
+                "ORDER_HISTORY_DIFFERS_FROM_PORTFOLIO_STATE",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

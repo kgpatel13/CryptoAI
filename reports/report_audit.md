@@ -1,65 +1,101 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-30T03:09:40Z`
+Generated: `2026-06-30T07:31:30Z`
 
 ## Summary
 
 - Reports checked: `43`
-- Missing: `0`
+- Missing: `37`
 - Invalid JSON: `0`
 - Stale: `0`
-- Findings: `0`
+- Findings: `37`
 
 ## Findings
 
 | Severity | Report | Message |
 |---|---|---|
-| OK | - | No report findings. |
+| WARN | quote_diagnostics.md | Expected report is missing. |
+| WARN | multi_dex_opportunities.md | Expected report is missing. |
+| WARN | opportunity_explorer.md | Expected report is missing. |
+| WARN | strategy_center.json | Expected report is missing. |
+| WARN | strategy_center.md | Expected report is missing. |
+| WARN | strategy_intelligence.json | Expected report is missing. |
+| WARN | strategy_intelligence.md | Expected report is missing. |
+| WARN | feature_store.json | Expected report is missing. |
+| WARN | feature_store.md | Expected report is missing. |
+| WARN | research_dashboard.json | Expected report is missing. |
+| WARN | research_dashboard.md | Expected report is missing. |
+| WARN | backtest_report.json | Expected report is missing. |
+| WARN | backtest_report.md | Expected report is missing. |
+| WARN | replay_diagnostics.json | Expected report is missing. |
+| WARN | replay_diagnostics.md | Expected report is missing. |
+| WARN | pool_depth_ladder.json | Expected report is missing. |
+| WARN | pool_depth_ladder.md | Expected report is missing. |
+| WARN | execution_realism.json | Expected report is missing. |
+| WARN | execution_realism.md | Expected report is missing. |
+| WARN | execution_cost_evidence.json | Expected report is missing. |
+| WARN | execution_cost_evidence.md | Expected report is missing. |
+| WARN | optimization_report.json | Expected report is missing. |
+| WARN | optimization_report.md | Expected report is missing. |
+| WARN | experiment_report.json | Expected report is missing. |
+| WARN | experiment_report.md | Expected report is missing. |
+| WARN | market_intelligence.json | Expected report is missing. |
+| WARN | market_intelligence.md | Expected report is missing. |
+| WARN | market_universe_evidence.json | Expected report is missing. |
+| WARN | market_universe_evidence.md | Expected report is missing. |
+| WARN | quote_coverage_evidence.json | Expected report is missing. |
+| WARN | quote_coverage_evidence.md | Expected report is missing. |
+| WARN | eth_route_architecture.json | Expected report is missing. |
+| WARN | eth_route_architecture.md | Expected report is missing. |
+| WARN | eth_market_coverage.json | Expected report is missing. |
+| WARN | eth_market_coverage.md | Expected report is missing. |
+| WARN | provider_monitor.json | Expected report is missing. |
+| WARN | provider_monitor.md | Expected report is missing. |
 
 ## Reports
 
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
-| quote_diagnostics.md | True | 2026-06-30T03:09:08Z | False | 929 |
-| multi_dex_opportunities.md | True | 2026-06-30T03:09:15Z | False | 951 |
-| opportunity_explorer.md | True | 2026-06-30T03:09:15Z | False | 531 |
-| paper_report.json | True | 2026-06-30T03:09:13Z | False | 100434 |
-| paper_report.md | True | 2026-06-30T03:09:13Z | False | 11674 |
-| portfolio_analytics.json | True | 2026-06-30T03:09:13Z | False | 57253 |
-| portfolio_analytics.md | True | 2026-06-30T03:09:13Z | False | 5446 |
-| strategy_center.json | True | 2026-06-30T03:09:15Z | False | 8235 |
-| strategy_center.md | True | 2026-06-30T03:09:15Z | False | 2128 |
-| strategy_intelligence.json | True | 2026-06-30T03:09:39Z | False | 10603 |
-| strategy_intelligence.md | True | 2026-06-30T03:09:39Z | False | 4994 |
-| feature_store.json | True | 2026-06-30T03:09:39Z | False | 1589 |
-| feature_store.md | True | 2026-06-30T03:09:39Z | False | 1043 |
-| research_dashboard.json | True | 2026-06-30T03:09:39Z | False | 17931 |
-| research_dashboard.md | True | 2026-06-30T03:09:39Z | False | 5034 |
-| backtest_report.json | True | 2026-06-30T03:09:37Z | False | 234518 |
-| backtest_report.md | True | 2026-06-30T03:09:37Z | False | 9463 |
-| replay_diagnostics.json | True | 2026-06-30T03:09:38Z | False | 2280 |
-| replay_diagnostics.md | True | 2026-06-30T03:09:38Z | False | 1268 |
-| pool_depth_ladder.json | True | 2026-06-30T03:09:18Z | False | 6446 |
-| pool_depth_ladder.md | True | 2026-06-30T03:09:18Z | False | 1672 |
-| execution_realism.json | True | 2026-06-30T03:09:35Z | False | 5433 |
-| execution_realism.md | True | 2026-06-30T03:09:35Z | False | 1159 |
-| execution_cost_evidence.json | True | 2026-06-30T03:09:38Z | False | 3925 |
-| execution_cost_evidence.md | True | 2026-06-30T03:09:38Z | False | 1655 |
-| optimization_report.json | True | 2026-06-30T03:09:37Z | False | 516377 |
-| optimization_report.md | True | 2026-06-30T03:09:37Z | False | 2247 |
-| experiment_report.json | True | 2026-06-30T03:09:38Z | False | 20069 |
-| experiment_report.md | True | 2026-06-30T03:09:38Z | False | 3581 |
-| market_intelligence.json | True | 2026-06-30T03:09:16Z | False | 4264 |
-| market_intelligence.md | True | 2026-06-30T03:09:16Z | False | 1269 |
-| market_universe_evidence.json | True | 2026-06-30T03:09:38Z | False | 8892 |
-| market_universe_evidence.md | True | 2026-06-30T03:09:38Z | False | 2694 |
-| quote_coverage_evidence.json | True | 2026-06-30T03:09:38Z | False | 16283 |
-| quote_coverage_evidence.md | True | 2026-06-30T03:09:38Z | False | 2665 |
-| eth_route_architecture.json | True | 2026-06-30T03:09:36Z | False | 27788 |
-| eth_route_architecture.md | True | 2026-06-30T03:09:36Z | False | 3989 |
-| eth_market_coverage.json | True | 2026-06-30T03:09:37Z | False | 8684 |
-| eth_market_coverage.md | True | 2026-06-30T03:09:37Z | False | 2124 |
-| paper_trading_settings.json | True | 2026-06-30T03:09:37Z | False | 3172 |
-| paper_trading_settings.md | True | 2026-06-30T03:09:37Z | False | 1678 |
-| provider_monitor.json | True | 2026-06-30T03:09:16Z | False | 2880 |
-| provider_monitor.md | True | 2026-06-30T03:09:16Z | False | 1006 |
+| quote_diagnostics.md | False | - | None | 0 |
+| multi_dex_opportunities.md | False | - | None | 0 |
+| opportunity_explorer.md | False | - | None | 0 |
+| paper_report.json | True | 2026-06-30T07:31:30Z | False | 4074 |
+| paper_report.md | True | 2026-06-30T07:31:30Z | False | 2474 |
+| portfolio_analytics.json | True | 2026-06-30T07:31:30Z | False | 1941 |
+| portfolio_analytics.md | True | 2026-06-30T07:31:30Z | False | 1547 |
+| strategy_center.json | False | - | None | 0 |
+| strategy_center.md | False | - | None | 0 |
+| strategy_intelligence.json | False | - | None | 0 |
+| strategy_intelligence.md | False | - | None | 0 |
+| feature_store.json | False | - | None | 0 |
+| feature_store.md | False | - | None | 0 |
+| research_dashboard.json | False | - | None | 0 |
+| research_dashboard.md | False | - | None | 0 |
+| backtest_report.json | False | - | None | 0 |
+| backtest_report.md | False | - | None | 0 |
+| replay_diagnostics.json | False | - | None | 0 |
+| replay_diagnostics.md | False | - | None | 0 |
+| pool_depth_ladder.json | False | - | None | 0 |
+| pool_depth_ladder.md | False | - | None | 0 |
+| execution_realism.json | False | - | None | 0 |
+| execution_realism.md | False | - | None | 0 |
+| execution_cost_evidence.json | False | - | None | 0 |
+| execution_cost_evidence.md | False | - | None | 0 |
+| optimization_report.json | False | - | None | 0 |
+| optimization_report.md | False | - | None | 0 |
+| experiment_report.json | False | - | None | 0 |
+| experiment_report.md | False | - | None | 0 |
+| market_intelligence.json | False | - | None | 0 |
+| market_intelligence.md | False | - | None | 0 |
+| market_universe_evidence.json | False | - | None | 0 |
+| market_universe_evidence.md | False | - | None | 0 |
+| quote_coverage_evidence.json | False | - | None | 0 |
+| quote_coverage_evidence.md | False | - | None | 0 |
+| eth_route_architecture.json | False | - | None | 0 |
+| eth_route_architecture.md | False | - | None | 0 |
+| eth_market_coverage.json | False | - | None | 0 |
+| eth_market_coverage.md | False | - | None | 0 |
+| paper_trading_settings.json | True | 2026-06-30T07:31:18Z | False | 3172 |
+| paper_trading_settings.md | True | 2026-06-30T07:31:18Z | False | 1678 |
+| provider_monitor.json | False | - | None | 0 |
+| provider_monitor.md | False | - | None | 0 |
