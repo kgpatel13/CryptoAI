@@ -60,6 +60,34 @@ class PoolDepthLadderServiceTests(unittest.TestCase):
             self.assertEqual(payload["overall_status"], "DEPTH_EVIDENCE_WATCH")
             self.assertEqual(payload["confidence"], "LOW")
 
+    def test_one_bad_venue_does_not_block_two_good_depth_venues(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data, reports = self._dirs(tmp)
+            self._write_settings(reports, max_notional="1000")
+            self._write_portfolio(data, cash="1000")
+
+            payload = PoolDepthLadderService(
+                data_dir=data,
+                report_dir=reports,
+                quote_manager=FakeQuoteManager(
+                    {
+                        "Aerodrome": Decimal("0.04"),
+                        "Uniswap V2": Decimal("0.30"),
+                        "Uniswap V3": Decimal("0.02"),
+                    },
+                    impact_starts_at_usd=Decimal("500"),
+                ),
+                dexscreener=FakeDexScreener(),
+            ).generate()
+
+            self.assertEqual(payload["overall_status"], "DEPTH_EVIDENCE_READY")
+            self.assertEqual(payload["depth_ready_route_count"], 2)
+            for route in payload["routes"]:
+                self.assertEqual(route["status"], "DEPTH_READY")
+                self.assertEqual(len(route["selected_depth_venues"]), 2)
+                self.assertLessEqual(Decimal(route["requested_price_impact_pct"]), PoolDepthLadderService.GOOD_IMPACT_PCT)
+                self.assertGreater(Decimal(route["worst_requested_price_impact_pct"]), PoolDepthLadderService.GOOD_IMPACT_PCT)
+
     @staticmethod
     def _dirs(tmp: str) -> tuple[Path, Path]:
         root = Path(tmp)

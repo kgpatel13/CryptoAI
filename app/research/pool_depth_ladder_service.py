@@ -267,7 +267,7 @@ class PoolDepthLadderService:
             dex_rows = []
             worst_tested_impact = Decimal("0")
             ok_dexes: set[str] = set()
-            requested_impacts: list[Decimal] = []
+            requested_impacts: list[tuple[str, Decimal]] = []
             for dex in sorted({row["dex"] for row in pair_rows if row.get("dex") != "-"}):
                 rows_for_dex = [row for row in pair_rows if row.get("dex") == dex]
                 ok_rows = [row for row in rows_for_dex if row["status"] == "OK"]
@@ -279,7 +279,7 @@ class PoolDepthLadderService:
                 requested_row = self._best_row_at_or_below_requested(ok_rows, requested_notional)
                 requested_impact = self._decimal(requested_row.get("price_impact_pct")) if requested_row else None
                 if requested_impact is not None:
-                    requested_impacts.append(requested_impact)
+                    requested_impacts.append((dex, requested_impact))
                 if ok_rows:
                     ok_dexes.add(dex)
                 dex_rows.append(
@@ -293,11 +293,17 @@ class PoolDepthLadderService:
                     }
                 )
 
-            requested_worst_impact = max(requested_impacts) if requested_impacts else Decimal("999")
+            executable_requested = sorted(
+                [(dex, impact) for dex, impact in requested_impacts if impact <= self.GOOD_IMPACT_PCT],
+                key=lambda item: item[1],
+            )
+            selected_depth_venues = executable_requested[:2]
+            selected_requested_impact = max((impact for _dex, impact in selected_depth_venues), default=None)
+            requested_worst_impact = max((impact for _dex, impact in requested_impacts), default=Decimal("999"))
             if len(ok_dexes) < 2:
                 status = "INSUFFICIENT_DEPTH"
                 confidence = "LOW"
-            elif max_usable >= requested_notional and requested_worst_impact <= self.GOOD_IMPACT_PCT:
+            elif max_usable >= requested_notional and len(selected_depth_venues) >= 2 and selected_requested_impact is not None:
                 status = "DEPTH_READY"
                 confidence = "MEDIUM"
             elif requested_worst_impact <= self.WATCH_IMPACT_PCT:
@@ -316,10 +322,15 @@ class PoolDepthLadderService:
                     "healthy_dex_count": len(ok_dexes),
                     "requested_notional_usd": self._fmt_usd(requested_notional),
                     "max_usable_notional_usd": self._fmt_usd(max_usable),
-                    "requested_price_impact_pct": self._fmt(requested_worst_impact if requested_worst_impact != Decimal("999") else None),
+                    "requested_price_impact_pct": self._fmt(selected_requested_impact if selected_requested_impact is not None else requested_worst_impact if requested_worst_impact != Decimal("999") else None),
+                    "worst_requested_price_impact_pct": self._fmt(requested_worst_impact if requested_worst_impact != Decimal("999") else None),
                     "worst_price_impact_pct": self._fmt(worst_tested_impact),
+                    "selected_depth_venues": [
+                        {"dex": dex, "requested_price_impact_pct": self._fmt(impact)}
+                        for dex, impact in selected_depth_venues
+                    ],
                     "dexes": dex_rows,
-                    "reason": self._route_reason(status, pair, max_usable, requested_notional, requested_worst_impact),
+                    "reason": self._route_reason(status, pair, max_usable, requested_notional, selected_requested_impact or requested_worst_impact),
                 }
             )
         return routes
@@ -402,14 +413,14 @@ class PoolDepthLadderService:
             "",
             "## Routes",
             "",
-            "| Pair | Status | Confidence | DEXes | Max Usable USD | Requested Impact % | Worst Tested Impact % | Reason |",
-            "|---|---|---|---:|---:|---:|---:|---|",
+            "| Pair | Status | Confidence | DEXes | Max Usable USD | Best-Two Requested Impact % | Worst Requested Impact % | Worst Tested Impact % | Reason |",
+            "|---|---|---|---:|---:|---:|---:|---:|---|",
         ]
         for route in payload["routes"]:
             lines.append(
                 f"| {route['pair']} | {route['status']} | {route['confidence']} | {route['healthy_dex_count']} | "
                 f"{route['max_usable_notional_usd']} | {route.get('requested_price_impact_pct') or '-'} | "
-                f"{route['worst_price_impact_pct']} | {route['reason']} |"
+                f"{route.get('worst_requested_price_impact_pct') or '-'} | {route['worst_price_impact_pct']} | {route['reason']} |"
             )
         if not payload["routes"]:
             lines.append("| - | DEPTH_EVIDENCE_UNAVAILABLE | NONE | 0 | 0.0000 | - | No route evidence. |")
