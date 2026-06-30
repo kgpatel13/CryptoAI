@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 12,
+  "blocked_check_count": 11,
   "check_count": 20,
   "checks": [
     {
@@ -81,10 +81,10 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Paper run is not yet ready for shadow review.",
+      "detail": "Paper run is ready for shadow review.",
       "name": "paper_shadow_review",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Fresh paper run has enough closed trades.",
@@ -123,7 +123,7 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-06-30T13:26:43Z",
+  "generated_at": "2026-06-30T13:58:29Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "0",

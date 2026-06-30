@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T13:27:37Z",
+  "generated_at": "2026-06-30T13:58:49Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -46,7 +46,7 @@
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "414.6925",
+    "avg_provider_latency_ms": "414.2000",
     "avg_provider_score": "99.7500",
     "providers": [
       {
@@ -54,7 +54,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 319.64,
+        "avg_latency_ms": 318.49,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -63,7 +63,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 329.78,
+        "avg_latency_ms": 329.73,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -72,7 +72,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 758.78,
+        "avg_latency_ms": 757.86,
         "score": 99,
         "consecutive_failures": 0
       },
@@ -81,21 +81,21 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 250.57,
+        "avg_latency_ms": 250.72,
         "score": 100,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 20937,
+    "real_signal_count": 20945,
     "avg_gross_edge_pct": "0.4877",
     "p95_gross_edge_pct": "0.6643",
     "max_gross_edge_pct": "0.8054",
-    "production_trade_count": 3505,
+    "production_trade_count": 3509,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 20937,
-    "observed_lower_bound_total_pnl_usd": "74883.6814",
+    "observed_lower_bound_trade_count": 20945,
+    "observed_lower_bound_total_pnl_usd": "74911.9997",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -107,8 +107,8 @@
     "paper_sample_count": 656,
     "quote_ok_rate_pct": "100.0000",
     "avg_provider_score": "99.7500",
-    "production_trade_count": 3505,
-    "observed_lower_bound_trade_count": 20937
+    "production_trade_count": 3509,
+    "observed_lower_bound_trade_count": 20945
   },
   "findings": [
     {

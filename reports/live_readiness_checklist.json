@@ -1,7 +1,7 @@
 {
-  "action_count": 4,
+  "action_count": 5,
   "blocked_check_count": 0,
-  "check_count": 21,
+  "check_count": 22,
   "checks": [
     {
       "detail": "Closed paper trade sample meets the configured minimum.",
@@ -82,6 +82,12 @@
       "severity": "ACTION"
     },
     {
+      "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
+      "name": "transaction_simulation_passed",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
       "detail": "Live Safety remains blocked during readiness review.",
       "name": "live_safety_blocked",
       "passed": true,
@@ -131,7 +137,7 @@
     }
   ],
   "closed_trade_count": 656,
-  "generated_at": "2026-06-30T13:27:38Z",
+  "generated_at": "2026-06-30T13:59:04Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "0",

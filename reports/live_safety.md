@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T13:26:43Z`
+Generated: `2026-06-30T13:58:29Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `0`
 - Max live trade USD: `0`
 - Max daily loss USD: `0`
-- Blocked checks: `12` / `20`
+- Blocked checks: `11` / `20`
 
 ## Checks
 
@@ -26,7 +26,7 @@ Generated: `2026-06-30T13:26:43Z`
 | dex_allowlist | PASS | Live DEX allowlist is restricted to approved DEXs. |
 | token_allowlist | PASS | Live token allowlist is restricted to approved tokens. |
 | transaction_simulation | BLOCK | Transaction simulation is required and has not passed. |
-| paper_shadow_review | BLOCK | Paper run is not yet ready for shadow review. |
+| paper_shadow_review | PASS | Paper run is ready for shadow review. |
 | paper_closed_trades | PASS | Fresh paper run has enough closed trades. |
 | execution_cost_confidence | PASS | Execution-cost confidence meets policy. |
 | execution_cost_samples | PASS | Execution-cost evidence has enough paper samples. |

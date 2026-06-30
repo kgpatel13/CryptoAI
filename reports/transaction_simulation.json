@@ -1,0 +1,159 @@
+{
+  "action_count": 6,
+  "blocked_check_count": 0,
+  "check_count": 12,
+  "checks": [
+    {
+      "detail": "Live trading is disabled.",
+      "name": "live_trading_disabled",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live kill switch is enabled.",
+      "name": "kill_switch_enabled",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Private key is absent.",
+      "name": "private_key_absent",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Wallet Preflight must be ready before transaction simulation review.",
+      "name": "wallet_preflight_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Live Readiness Checklist must be review-ready before transaction simulation can pass.",
+      "name": "live_readiness_review_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "A BUY plus SHADOW_READY opportunity is available.",
+      "name": "shadow_candidate_available",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate is Base USDC/WETH scope.",
+      "name": "candidate_scope_allowed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Both route routers are configured.",
+      "name": "routers_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate uses a DEX outside the tiny-live allowlist.",
+      "name": "approved_live_dexes",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Configure a tiny live trade cap before transaction simulation review.",
+      "name": "live_trade_cap_configured",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Exact router calldata is not implemented yet.",
+      "name": "exact_calldata_built",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Base eth_call simulation has not passed yet.",
+      "name": "eth_call_simulation_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "generated_at": "2026-06-30T13:58:51Z",
+  "live_trading_approval": false,
+  "mode": "paper",
+  "notes": [
+    "Transaction Simulation is evidence-only and never sends a transaction.",
+    "The gate remains non-passing until exact calldata is built and eth_call simulation succeeds for both arbitrage legs.",
+    "Private keys must remain absent while developing this report."
+  ],
+  "overall_status": "TX_SIMULATION_ACTION",
+  "pass_count": 6,
+  "selected_candidate": {
+    "buy_source": "Uniswap V2",
+    "chain": "base",
+    "confidence": "MEDIUM",
+    "configured_cost_buffer_pct": "0.3000",
+    "depth_model": "POOL_DEPTH_LADDER",
+    "estimated_gas_pct": "0.0100",
+    "estimated_gas_usd": "0.0500",
+    "estimated_price_impact_pct": "0.0178",
+    "executable_ratio_pct": "100.0000",
+    "gross_edge_pct": "0.6476",
+    "max_executable_notional_usd": "500.0000",
+    "mev_risk": "MEDIUM",
+    "mev_risk_buffer_pct": "0.0500",
+    "pair": "WETH/USDC",
+    "pool_depth_status": "DEPTH_READY",
+    "realism_status": "SHADOW_READY",
+    "reason": "Opportunity passed current realism screen.",
+    "reported_net_edge_pct": "0.3476",
+    "requested_notional_usd": "500.0000",
+    "sell_source": "Uniswap V3",
+    "source_decision": "BUY",
+    "stress_net_edge_pct": "0.2698",
+    "stress_total_cost_pct": "0.3778",
+    "timestamp": "2026-06-30T13:57:47Z"
+  },
+  "simulation_intent": {
+    "buy_dex": "Uniswap V2",
+    "calldata_status": "NOT_IMPLEMENTED",
+    "chain": "base",
+    "chain_id": 8453,
+    "deadline_seconds": "120",
+    "eth_call_status": "NOT_RUN",
+    "max_slippage_bps": "50",
+    "notional_usd": "500.0000",
+    "pair": "WETH/USDC",
+    "required_next_step": "Implement exact router calldata and run eth_call against Base for both arbitrage legs.",
+    "routers": [
+      {
+        "configured": true,
+        "dex": "Uniswap V2",
+        "dex_type": "v2",
+        "router_address": "0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24"
+      },
+      {
+        "configured": true,
+        "dex": "Uniswap V3",
+        "dex_type": "v3",
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481"
+      }
+    ],
+    "sell_dex": "Uniswap V3",
+    "status": "INTENT_READY",
+    "tokens": [
+      {
+        "address": "0x4200000000000000000000000000000000000006",
+        "configured": true,
+        "decimals": 18,
+        "symbol": "WETH"
+      },
+      {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "configured": true,
+        "decimals": 6,
+        "symbol": "USDC"
+      }
+    ],
+    "wallet_address": null
+  },
+  "transaction_simulation_passed": false
+}

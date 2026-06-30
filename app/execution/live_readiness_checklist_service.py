@@ -35,6 +35,7 @@ class LiveReadinessChecklistService:
         audit = self._read_json("report_audit.json")
         live_safety = self._read_json("live_safety.json")
         wallet = self._read_json("wallet_preflight.json")
+        transaction_simulation = self._read_json("transaction_simulation.json")
         settings = self._read_json("paper_trading_settings.json")
         paper_settings = settings.get("settings", {}) if isinstance(settings.get("settings"), dict) else {}
         orders = self._read_jsonl(self.data_dir / "paper_orders.jsonl")
@@ -50,6 +51,7 @@ class LiveReadinessChecklistService:
             audit=audit,
             live_safety=live_safety,
             wallet=wallet,
+            transaction_simulation=transaction_simulation,
             paper_settings=paper_settings,
             orders=orders,
         )
@@ -99,6 +101,7 @@ class LiveReadinessChecklistService:
         audit: dict[str, Any],
         live_safety: dict[str, Any],
         wallet: dict[str, Any],
+        transaction_simulation: dict[str, Any],
         paper_settings: dict[str, Any],
         orders: list[dict[str, Any]],
     ) -> list[dict[str, str]]:
@@ -204,6 +207,13 @@ class LiveReadinessChecklistService:
                 "ACTION",
                 "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
                 "Wallet Preflight is ready.",
+            ),
+            self._check(
+                "transaction_simulation_passed",
+                transaction_simulation.get("transaction_simulation_passed") is True,
+                "ACTION",
+                "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
+                "Transaction Simulation passed exact calldata and eth_call checks.",
             ),
             self._check(
                 "live_safety_blocked",

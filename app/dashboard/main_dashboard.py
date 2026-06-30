@@ -904,6 +904,7 @@ def render_reports() -> None:
         ("Live Safety", REPORT_DIR / "live_safety.md"),
         ("Wallet Preflight", REPORT_DIR / "wallet_preflight.md"),
         ("Live Readiness Checklist", REPORT_DIR / "live_readiness_checklist.md"),
+        ("Transaction Simulation", REPORT_DIR / "transaction_simulation.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
@@ -1365,6 +1366,23 @@ def render_risk_controls() -> None:
             st.success("Live readiness checklist generated.")
             st.json(result)
 
+    if st.button("Generate Transaction Simulation"):
+        def task():
+            TransactionSimulationService = import_object("app.execution.transaction_simulation_service", "TransactionSimulationService")
+            return TransactionSimulationService().generate()
+
+        result = safe_run("Generating transaction simulation evidence...", task)
+        if result is not None:
+            st.success("Transaction simulation report generated.")
+            st.json(result)
+
+    st.markdown("### Transaction Simulation Report")
+    tx_sim_txt = read_text(REPORT_DIR / "transaction_simulation.md")
+    if tx_sim_txt:
+        st.markdown(tx_sim_txt)
+    else:
+        st.info("No transaction_simulation.md found yet. Generate Transaction Simulation first.")
+
     st.markdown("### Live Readiness Checklist")
     readiness_txt = read_text(REPORT_DIR / "live_readiness_checklist.md")
     if readiness_txt:
@@ -1451,6 +1469,8 @@ def render_system_health() -> None:
         REPORT_DIR / "wallet_preflight.md",
         REPORT_DIR / "live_readiness_checklist.json",
         REPORT_DIR / "live_readiness_checklist.md",
+        REPORT_DIR / "transaction_simulation.json",
+        REPORT_DIR / "transaction_simulation.md",
         REPORT_DIR / "portfolio_analytics.json",
         REPORT_DIR / "portfolio_analytics.md",
         DATA_DIR / "strategy_signals.jsonl",
@@ -1558,6 +1578,7 @@ def render_setup() -> None:
         python -m app.execution.live_safety_report
         python -m app.execution.wallet_preflight_service
         python -m app.execution.live_readiness_checklist_service
+        python -m app.execution.transaction_simulation_service
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

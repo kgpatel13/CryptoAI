@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.17 - Transaction Simulation Evidence Gate
+
+- Added `TransactionSimulationService` for a future tiny-live transaction simulation evidence gate.
+- Added `transaction_simulation.json` and `transaction_simulation.md`.
+- Integrated Transaction Simulation into Risk & Controls, Reports, System Health, Report Audit, and Live Readiness Checklist.
+- Validates latest `BUY` plus `SHADOW_READY` candidate scope, token metadata, router metadata, wallet preflight, live caps, and approved DEX policy.
+- Keeps `transaction_simulation_passed=false` until exact router calldata and Base `eth_call` simulation are implemented.
+- Kept live trading disabled, live approval false, kill switch expected ON, and private keys absent.
+
 ## v5.16 - Live Readiness Checklist and Paper Parity Profile
 
 - Added `LiveReadinessChecklistService` for one consolidated pre-live review gate.

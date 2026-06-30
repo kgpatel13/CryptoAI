@@ -1,12 +1,12 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-30T13:26:43Z`
+Generated: `2026-06-30T13:58:29Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `24048`
+- Opportunity decisions: `24056`
 - Total orders: `4398`
 - Filled orders: `656`
 - Skipped orders: `3742`
@@ -30,8 +30,8 @@ Generated: `2026-06-30T13:26:43Z`
 
 ## Opportunity Decision Counts
 
-- `BUY`: 4088
-- `SKIP`: 3161
+- `BUY`: 4092
+- `SKIP`: 3165
 - `WATCH`: 16799
 
 ## Skip Reasons
@@ -288,14 +288,6 @@ Generated: `2026-06-30T13:26:43Z`
 | USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
 | WETH/USDC | -0.0132407594917757837461631346 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0132% is too low after costs. |
 | USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
-| WETH/USDC | -0.0132407594917757837461631346 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0132% is too low after costs. |
-| USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
-| WETH/USDC | -0.0132407594917757837461631346 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0132% is too low after costs. |
-| USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
-| WETH/USDC | -0.0132407594917757837461631346 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0132% is too low after costs. |
-| USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
-| WETH/USDC | -0.0132407594917757837461631346 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0132% is too low after costs. |
-| USDC/WETH | 0.3820981840906741394550701202 | 76 | BUY | REAL: Real multi-DEX comparison: net edge 0.3821% is above BUY threshold 0.30%. |
 | WETH/USDC | -0.0096795895181918623317587379 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0097% is too low after costs. |
 | USDC/WETH | 0.3870245424006731046690010465 | 77 | BUY | REAL: Real multi-DEX comparison: net edge 0.3870% is above BUY threshold 0.30%. |
 | WETH/USDC | -0.0096795895181918623317587379 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0097% is too low after costs. |
@@ -304,6 +296,14 @@ Generated: `2026-06-30T13:26:43Z`
 | USDC/WETH | -0.0583281692912888130868947423 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0583% is too low after costs. |
 | WETH/USDC | 0.4257903013825168808184358639 | 85 | BUY | REAL: Real multi-DEX comparison: net edge 0.4258% is above BUY threshold 0.30%. |
 | USDC/WETH | -0.0583281692912888130868947423 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0583% is too low after costs. |
+| WETH/USDC | 0.4257903013825168808184358639 | 85 | BUY | REAL: Real multi-DEX comparison: net edge 0.4258% is above BUY threshold 0.30%. |
+| USDC/WETH | -0.0583281692912888130868947423 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0583% is too low after costs. |
+| WETH/USDC | 0.4257903013825168808184358639 | 85 | BUY | REAL: Real multi-DEX comparison: net edge 0.4258% is above BUY threshold 0.30%. |
+| USDC/WETH | -0.0583281692912888130868947423 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0583% is too low after costs. |
+| WETH/USDC | 0.3475509665863147460853165324 | 69 | BUY | REAL: Real multi-DEX comparison: net edge 0.3476% is above BUY threshold 0.30%. |
+| USDC/WETH | 0.0209036112094021612786704974 | 4 | SKIP | REAL: Real multi-DEX comparison: net edge 0.0209% is too low after costs. |
+| WETH/USDC | 0.3475509665863147460853165324 | 69 | BUY | REAL: Real multi-DEX comparison: net edge 0.3476% is above BUY threshold 0.30%. |
+| USDC/WETH | 0.0209036112094021612786704974 | 4 | SKIP | REAL: Real multi-DEX comparison: net edge 0.0209% is too low after costs. |
 
 ## Latest Orders
 

@@ -101,6 +101,7 @@ class LiveReadinessChecklistServiceTests(unittest.TestCase):
             "report_audit.json": {"finding_count": 0, "blocking_finding_count": 0},
             "live_safety.json": {"overall_status": "LIVE_BLOCKED", "live_guard_allowed": False},
             "wallet_preflight.json": {"wallet_preflight_allowed": True},
+            "transaction_simulation.json": {"transaction_simulation_passed": True},
             "paper_trading_settings.json": {
                 "paper_profile": "live_parity_500",
                 "settings": {

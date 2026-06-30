@@ -26,6 +26,8 @@ class ReportAuditService:
         "execution_cost_evidence.md",
         "live_readiness_checklist.json",
         "live_readiness_checklist.md",
+        "transaction_simulation.json",
+        "transaction_simulation.md",
         "market_intelligence.json",
         "market_intelligence.md",
         "provider_monitor.json",
@@ -44,6 +46,8 @@ class ReportAuditService:
         "wallet_preflight.md",
         "live_readiness_checklist.json",
         "live_readiness_checklist.md",
+        "transaction_simulation.json",
+        "transaction_simulation.md",
     }
 
     EXPECTED_REPORTS = [
@@ -78,6 +82,8 @@ class ReportAuditService:
         "execution_cost_evidence.md",
         "live_readiness_checklist.json",
         "live_readiness_checklist.md",
+        "transaction_simulation.json",
+        "transaction_simulation.md",
         "optimization_report.json",
         "optimization_report.md",
         "experiment_report.json",

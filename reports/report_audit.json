@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-30T13:27:39Z",
+  "generated_at": "2026-06-30T13:58:52Z",
   "mode": "paper",
-  "report_count": 51,
+  "report_count": 53,
   "missing_count": 0,
   "invalid_json_count": 0,
-  "stale_count": 27,
+  "stale_count": 29,
   "operational_stale_count": 0,
   "research_stale_count": 24,
-  "finding_count": 27,
+  "finding_count": 29,
   "blocking_finding_count": 0,
   "operational_finding_count": 0,
   "research_finding_count": 24,
@@ -24,24 +24,24 @@
       "name": "multi_dex_opportunities.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 930,
-      "generated_at": "2026-06-30T13:26:06Z",
+      "size_bytes": 928,
+      "generated_at": "2026-06-30T13:57:47Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 510,
-      "generated_at": "2026-06-30T13:26:06Z",
+      "size_bytes": 507,
+      "generated_at": "2026-06-30T13:57:47Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 137181,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 137175,
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -55,8 +55,8 @@
       "name": "paper_report.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 32190,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 32184,
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false
     },
     {
@@ -65,7 +65,7 @@
       "exists": true,
       "size_bytes": 2590,
       "generated_at": "2026-06-30T13:27:38Z",
-      "stale": false,
+      "stale": true,
       "json_valid": true,
       "summary": {
         "mode": "paper",
@@ -85,21 +85,21 @@
       "exists": true,
       "size_bytes": 1724,
       "generated_at": "2026-06-30T13:27:38Z",
-      "stale": false
+      "stale": true
     },
     {
       "name": "live_safety.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5108,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 5098,
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_BLOCKED",
         "live_guard_allowed": false,
-        "blocked_check_count": 12,
+        "blocked_check_count": 11,
         "check_count": 20
       }
     },
@@ -107,8 +107,8 @@
       "name": "live_safety.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2297,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 2288,
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false
     },
     {
@@ -116,7 +116,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 69532,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -129,7 +129,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6085,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "generated_at": "2026-06-30T13:58:29Z",
       "stale": false
     },
     {
@@ -266,7 +266,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6967,
-      "generated_at": "2026-06-30T13:27:16Z",
+      "generated_at": "2026-06-30T13:58:31Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -283,15 +283,15 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1719,
-      "generated_at": "2026-06-30T13:27:16Z",
+      "generated_at": "2026-06-30T13:58:31Z",
       "stale": false
     },
     {
       "name": "execution_realism.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5379,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 5378,
+      "generated_at": "2026-06-30T13:58:48Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -307,8 +307,8 @@
       "name": "execution_realism.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1151,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 1150,
+      "generated_at": "2026-06-30T13:58:48Z",
       "stale": false
     },
     {
@@ -316,7 +316,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 3797,
-      "generated_at": "2026-06-30T13:27:37Z",
+      "generated_at": "2026-06-30T13:58:49Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -330,32 +330,56 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1542,
-      "generated_at": "2026-06-30T13:27:37Z",
+      "generated_at": "2026-06-30T13:58:49Z",
       "stale": false
     },
     {
       "name": "live_readiness_checklist.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 4857,
-      "generated_at": "2026-06-30T13:27:38Z",
+      "size_bytes": 5079,
+      "generated_at": "2026-06-30T13:58:51Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_REVIEW_NOT_READY",
-        "blocked_check_count": 0,
-        "check_count": 21,
+        "blocked_check_count": 1,
+        "check_count": 22,
         "closed_trade_count": 656,
-        "pass_count": 17
+        "pass_count": 16
       }
     },
     {
       "name": "live_readiness_checklist.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2956,
-      "generated_at": "2026-06-30T13:27:38Z",
+      "size_bytes": 3088,
+      "generated_at": "2026-06-30T13:58:51Z",
+      "stale": false
+    },
+    {
+      "name": "transaction_simulation.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 4890,
+      "generated_at": "2026-06-30T13:58:51Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "TX_SIMULATION_ACTION",
+        "blocked_check_count": 0,
+        "check_count": 12,
+        "pass_count": 6
+      }
+    },
+    {
+      "name": "transaction_simulation.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 2957,
+      "generated_at": "2026-06-30T13:58:51Z",
       "stale": false
     },
     {
@@ -412,7 +436,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4264,
-      "generated_at": "2026-06-30T13:27:37Z",
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -425,7 +449,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1269,
-      "generated_at": "2026-06-30T13:27:37Z",
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false
     },
     {
@@ -553,7 +577,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3606,
-      "generated_at": "2026-06-30T13:26:44Z",
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -568,15 +592,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2038,
-      "generated_at": "2026-06-30T13:26:44Z",
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2881,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 2876,
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -590,8 +614,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1008,
-      "generated_at": "2026-06-30T13:26:43Z",
+      "size_bytes": 1002,
+      "generated_at": "2026-06-30T13:58:50Z",
       "stale": false
     }
   ],
@@ -599,6 +623,20 @@
     {
       "severity": "WATCH",
       "report": "quote_diagnostics.md",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_run_review.json",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_run_review.md",
       "category": "review",
       "blocks_shadow_review": false,
       "message": "Report is older than freshness window."
