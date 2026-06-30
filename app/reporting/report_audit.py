@@ -9,6 +9,37 @@ from typing import Any
 class ReportAuditService:
     """Audits report freshness, parseability, and operational warning signals."""
 
+    OPERATIONAL_REPORTS = {
+        "multi_dex_opportunities.md",
+        "opportunity_explorer.md",
+        "paper_report.json",
+        "paper_report.md",
+        "live_safety.json",
+        "live_safety.md",
+        "portfolio_analytics.json",
+        "portfolio_analytics.md",
+        "pool_depth_ladder.json",
+        "pool_depth_ladder.md",
+        "execution_realism.json",
+        "execution_realism.md",
+        "execution_cost_evidence.json",
+        "execution_cost_evidence.md",
+        "market_intelligence.json",
+        "market_intelligence.md",
+        "provider_monitor.json",
+        "provider_monitor.md",
+    }
+
+    REVIEW_REPORTS = {
+        "paper_run_review.json",
+        "paper_run_review.md",
+        "report_audit.json",
+        "report_audit.md",
+        "quote_diagnostics.md",
+        "paper_trading_settings.json",
+        "paper_trading_settings.md",
+    }
+
     EXPECTED_REPORTS = [
         "quote_diagnostics.md",
         "multi_dex_opportunities.md",
@@ -67,6 +98,9 @@ class ReportAuditService:
     def generate(self) -> dict[str, Any]:
         reports = [self._inspect_report(name) for name in self.EXPECTED_REPORTS]
         findings = self._findings(reports)
+        blocking_findings = [finding for finding in findings if finding.get("blocks_shadow_review") is True]
+        operational_findings = [finding for finding in findings if finding.get("category") == "operational"]
+        research_findings = [finding for finding in findings if finding.get("category") == "research"]
         payload = {
             "generated_at": self._utc_now(),
             "mode": "paper",
@@ -74,12 +108,18 @@ class ReportAuditService:
             "missing_count": sum(1 for row in reports if not row["exists"]),
             "invalid_json_count": sum(1 for row in reports if row.get("json_valid") is False),
             "stale_count": sum(1 for row in reports if row.get("stale") is True),
+            "operational_stale_count": sum(1 for row in reports if row.get("stale") is True and row.get("category") == "operational"),
+            "research_stale_count": sum(1 for row in reports if row.get("stale") is True and row.get("category") == "research"),
             "finding_count": len(findings),
+            "blocking_finding_count": len(blocking_findings),
+            "operational_finding_count": len(operational_findings),
+            "research_finding_count": len(research_findings),
             "reports": reports,
             "findings": findings,
             "notes": [
                 "Report Audit is a review aid for paper-mode operations.",
                 "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
+                "Stale research reports are tracked separately from runtime-critical operational evidence.",
             ],
         }
         self._write_json(self.report_dir / "report_audit.json", payload)
@@ -90,6 +130,7 @@ class ReportAuditService:
         path = self.report_dir / name
         row: dict[str, Any] = {
             "name": name,
+            "category": self._report_category(name),
             "exists": path.exists(),
             "size_bytes": path.stat().st_size if path.exists() else 0,
             "generated_at": None,
@@ -114,15 +155,15 @@ class ReportAuditService:
                 row["summary"] = self._json_summary(name, payload)
         return row
 
-    def _findings(self, reports: list[dict[str, Any]]) -> list[dict[str, str]]:
-        findings: list[dict[str, str]] = []
+    def _findings(self, reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        findings: list[dict[str, Any]] = []
         for row in reports:
             if not row["exists"]:
-                findings.append({"severity": "WARN", "report": row["name"], "message": "Expected report is missing."})
+                findings.append(self._finding(row, "WARN", "Expected report is missing."))
             elif row.get("json_valid") is False:
-                findings.append({"severity": "ERROR", "report": row["name"], "message": row.get("json_error", "Invalid JSON.")})
+                findings.append(self._finding(row, "ERROR", row.get("json_error", "Invalid JSON.")))
             elif row.get("stale") is True:
-                findings.append({"severity": "WATCH", "report": row["name"], "message": "Report is older than freshness window."})
+                findings.append(self._finding(row, "WATCH", "Report is older than freshness window."))
 
         provider = self._read_json("provider_monitor.json")
         if provider.get("overall_status") in {"CRITICAL", "DEGRADED"}:
@@ -130,6 +171,8 @@ class ReportAuditService:
                 {
                     "severity": "CRITICAL",
                     "report": "provider_monitor.json",
+                    "category": "operational",
+                    "blocks_shadow_review": True,
                     "message": f"Provider Monitor status is {provider.get('overall_status')} with {provider.get('alert_count', 0)} alert(s).",
                 }
             )
@@ -143,6 +186,8 @@ class ReportAuditService:
                 {
                     "severity": "WATCH",
                     "report": "quote_diagnostics.md",
+                    "category": "review",
+                    "blocks_shadow_review": False,
                     "message": f"Quote Diagnostics has {quote_errors} error row(s) and {quote_invalid} invalid row(s).",
                 }
             )
@@ -154,6 +199,8 @@ class ReportAuditService:
                 {
                     "severity": "WATCH",
                     "report": "paper_report.json",
+                    "category": "operational",
+                    "blocks_shadow_review": True,
                     "message": f"{warning_count} legacy inverse-pair paper order(s) are annotated for accounting caution.",
                 }
             )
@@ -164,10 +211,29 @@ class ReportAuditService:
                 {
                     "severity": "WATCH",
                     "report": "opportunity_explorer.md",
+                    "category": "operational",
+                    "blocks_shadow_review": True,
                     "message": "Current BUY opportunities are paper-simulated because only one healthy DEX venue is available.",
                 }
             )
         return findings
+
+    def _finding(self, row: dict[str, Any], severity: str, message: str) -> dict[str, Any]:
+        category = str(row.get("category", "research"))
+        return {
+            "severity": severity,
+            "report": row["name"],
+            "category": category,
+            "blocks_shadow_review": category == "operational",
+            "message": message,
+        }
+
+    def _report_category(self, name: str) -> str:
+        if name in self.OPERATIONAL_REPORTS:
+            return "operational"
+        if name in self.REVIEW_REPORTS:
+            return "review"
+        return "research"
 
     def _json_summary(self, name: str, payload: dict[str, Any]) -> dict[str, Any]:
         keys = [
@@ -291,19 +357,26 @@ class ReportAuditService:
             f"- Invalid JSON: `{payload['invalid_json_count']}`",
             f"- Stale: `{payload['stale_count']}`",
             f"- Findings: `{payload['finding_count']}`",
+            f"- Blocking findings: `{payload['blocking_finding_count']}`",
+            f"- Operational findings: `{payload['operational_finding_count']}`",
+            f"- Research findings: `{payload['research_finding_count']}`",
             "",
             "## Findings",
             "",
-            "| Severity | Report | Message |",
-            "|---|---|---|",
+            "| Severity | Category | Blocks Shadow | Report | Message |",
+            "|---|---|---|---|---|",
         ]
         for finding in payload["findings"]:
-            lines.append(f"| {finding['severity']} | {finding['report']} | {finding['message']} |")
+            lines.append(
+                f"| {finding['severity']} | {finding.get('category', '-')} | {finding.get('blocks_shadow_review', False)} | {finding['report']} | {finding['message']} |"
+            )
         if not payload["findings"]:
-            lines.append("| OK | - | No report findings. |")
-        lines += ["", "## Reports", "", "| Report | Exists | Generated | Stale | Size |", "|---|---|---|---|---:|"]
+            lines.append("| OK | - | False | - | No report findings. |")
+        lines += ["", "## Reports", "", "| Report | Category | Exists | Generated | Stale | Size |", "|---|---|---|---|---|---:|"]
         for row in payload["reports"]:
-            lines.append(f"| {row['name']} | {row['exists']} | {row.get('generated_at') or '-'} | {row.get('stale')} | {row['size_bytes']} |")
+            lines.append(
+                f"| {row['name']} | {row.get('category', '-')} | {row['exists']} | {row.get('generated_at') or '-'} | {row.get('stale')} | {row['size_bytes']} |"
+            )
         (self.report_dir / "report_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     @staticmethod

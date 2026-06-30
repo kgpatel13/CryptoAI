@@ -188,9 +188,9 @@ class LiveTradingGuard:
             ),
             self._check(
                 "report_audit",
-                self._int(audit.get("finding_count")) == 0,
-                "Report audit has findings.",
-                "Report audit is clean.",
+                self._audit_blocking_findings(audit) == 0,
+                "Report audit has blocking operational findings.",
+                "Report audit has no blocking operational findings.",
             ),
             self._check(
                 "execution_realism",
@@ -234,6 +234,11 @@ class LiveTradingGuard:
             return payload if isinstance(payload, dict) else {}
         except Exception:
             return {}
+
+    def _audit_blocking_findings(self, audit: dict[str, Any]) -> int:
+        if "blocking_finding_count" in audit:
+            return self._int(audit.get("blocking_finding_count"))
+        return self._int(audit.get("finding_count"))
 
     @staticmethod
     def _int(value: Any) -> int:

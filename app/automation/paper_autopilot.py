@@ -169,15 +169,15 @@ class PaperAutopilot:
             except Exception:
                 pass
 
-        if PaperRunReviewService is not None:
-            try:
-                PaperRunReviewService().generate()
-            except Exception:
-                pass
-
         if ReportAuditService is not None:
             try:
                 ReportAuditService().generate()
+            except Exception:
+                pass
+
+        if PaperRunReviewService is not None:
+            try:
+                PaperRunReviewService().generate()
             except Exception:
                 pass
 

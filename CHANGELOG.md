@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.14 - Operational Evidence Gate Split
+
+- Added operational, review, and research categories to Report Audit.
+- Added blocking, operational, and research finding counts so stale background research remains visible without blocking healthy paper runtime review.
+- Updated Paper Run Review and Live Safety to use blocking operational findings instead of total stale-report count.
+- Reordered paper autopilot report generation so Report Audit refreshes before Paper Run Review consumes it.
+- Reclassified paper settings as a configuration snapshot, not a per-cycle freshness blocker.
+- Kept live trading disabled, paper BUY threshold unchanged at `0.30%`, production cost buffer unchanged at `0.30%`, and `$500` paper/live pilot caps intact.
+
 ## v5.13 - Pool Depth and Quote-Size Ladder Evidence
 
 - Added `PoolDepthLadderService` to probe Base ETH routes at increasing quote sizes and measure requested-size price impact.

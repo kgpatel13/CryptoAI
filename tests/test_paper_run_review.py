@@ -110,6 +110,47 @@ class PaperRunReviewServiceTests(unittest.TestCase):
             self.assertEqual(review["losing_trade_count"], 1)
             self.assertTrue(any("negative realized PnL" in finding["message"] for finding in review["findings"]))
 
+    def test_stale_research_audit_findings_do_not_block_shadow_review_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            data = root / "data"
+            reports = root / "reports"
+            data.mkdir()
+            reports.mkdir()
+
+            (data / "paper_portfolio_state.json").write_text(
+                json.dumps({"initial_cash_usd": "500", "cash_usd": "510", "realized_pnl_usd": "10", "positions": []}),
+                encoding="utf-8",
+            )
+            (data / "paper_orders.jsonl").write_text(
+                json.dumps({"order_id": "win1", "timestamp": "2026-06-30T07:35:00Z", "status": "CLOSED", "realized_pnl_usd": "10"})
+                + "\n",
+                encoding="utf-8",
+            )
+            (reports / "paper_report.json").write_text(json.dumps({"pnl_reconciliation": {"status": "RECONCILED"}}), encoding="utf-8")
+            (reports / "portfolio_analytics.json").write_text(json.dumps({"pnl_reconciliation": {"status": "RECONCILED"}}), encoding="utf-8")
+            (reports / "provider_monitor.json").write_text(json.dumps({"overall_status": "OK"}), encoding="utf-8")
+            (reports / "pool_depth_ladder.json").write_text(json.dumps({"depth_ready_route_count": 1, "overall_status": "DEPTH_EVIDENCE_READY"}), encoding="utf-8")
+            (reports / "execution_realism.json").write_text(json.dumps({"shadow_ready_count": 1, "live_ready_count": 0, "confidence": "MEDIUM"}), encoding="utf-8")
+            (reports / "report_audit.json").write_text(
+                json.dumps(
+                    {
+                        "finding_count": 5,
+                        "blocking_finding_count": 0,
+                        "operational_finding_count": 0,
+                        "research_finding_count": 5,
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            review = PaperRunReviewService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(review["overall_status"], "SHADOW_REVIEW_CANDIDATE")
+            self.assertEqual(review["shadow_decision"], "REVIEW_READY")
+            self.assertEqual(review["report_audit_blocking_findings"], 0)
+            self.assertTrue(any("paper runtime gates are not blocked" in finding["message"] for finding in review["findings"]))
+
 
 if __name__ == "__main__":
     unittest.main()

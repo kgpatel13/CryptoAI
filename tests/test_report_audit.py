@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from datetime import UTC, datetime
 from pathlib import Path
 
 from app.reporting.paper_report import PaperReportService
@@ -55,6 +56,35 @@ class ReportAuditTests(unittest.TestCase):
             self.assertTrue(any("paper-simulated" in message for message in messages))
             self.assertTrue((reports / "report_audit.json").exists())
             self.assertTrue((reports / "report_audit.md").exists())
+
+    def test_stale_research_reports_are_non_blocking_findings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp)
+            self._write_all_expected_reports(reports)
+            stale_at = "2020-01-01T00:00:00Z"
+            (reports / "backtest_report.json").write_text(json.dumps({"generated_at": stale_at}), encoding="utf-8")
+            (reports / "backtest_report.md").write_text(f"# Backtest\n\nGenerated: `{stale_at}`\n", encoding="utf-8")
+
+            payload = ReportAuditService(report_dir=reports, stale_after_minutes=30).generate()
+
+            self.assertEqual(payload["blocking_finding_count"], 0)
+            self.assertEqual(payload["operational_finding_count"], 0)
+            self.assertEqual(payload["research_finding_count"], 2)
+            self.assertTrue(all(not finding["blocks_shadow_review"] for finding in payload["findings"]))
+
+    def test_stale_operational_reports_remain_blocking_findings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            reports = Path(tmp)
+            self._write_all_expected_reports(reports)
+            stale_at = "2020-01-01T00:00:00Z"
+            (reports / "paper_report.json").write_text(json.dumps({"generated_at": stale_at}), encoding="utf-8")
+
+            payload = ReportAuditService(report_dir=reports, stale_after_minutes=30).generate()
+
+            self.assertEqual(payload["blocking_finding_count"], 1)
+            self.assertEqual(payload["operational_finding_count"], 1)
+            self.assertEqual(payload["research_finding_count"], 0)
+            self.assertTrue(payload["findings"][0]["blocks_shadow_review"])
 
     def test_paper_report_annotates_legacy_inverse_pair_orders(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -198,6 +228,15 @@ class ReportAuditTests(unittest.TestCase):
                 report["pnl_reconciliation"]["status"],
                 "ORDER_HISTORY_DIFFERS_FROM_PORTFOLIO_STATE",
             )
+
+    def _write_all_expected_reports(self, reports: Path) -> None:
+        generated_at = datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+        for name in ReportAuditService.EXPECTED_REPORTS:
+            path = reports / name
+            if path.suffix == ".json":
+                path.write_text(json.dumps({"generated_at": generated_at}), encoding="utf-8")
+            else:
+                path.write_text(f"# {name}\n\nGenerated: `{generated_at}`\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

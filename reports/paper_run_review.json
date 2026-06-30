@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T08:24:31Z",
+  "generated_at": "2026-06-30T12:47:19Z",
   "mode": "paper",
   "overall_status": "OPERATIONS_REVIEW",
   "recommendation": "Refresh operational evidence before shadow review.",
@@ -7,22 +7,22 @@
   "shadow_decision": "BLOCKED",
   "paper_profile": "shadow_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "598.7553",
-  "realized_pnl_usd": "98.7553",
-  "return_pct": "19.7511",
-  "closed_trade_count": 53,
+  "cash_usd": "1679.8276",
+  "realized_pnl_usd": "1179.8276",
+  "return_pct": "235.9655",
+  "closed_trade_count": 656,
   "losing_trade_count": 0,
   "open_position_count": 0,
-  "first_trade_at": "2026-06-30T08:19:07Z",
-  "last_trade_at": "2026-06-30T08:24:30Z",
+  "first_trade_at": "2026-06-30T08:32:29Z",
+  "last_trade_at": "2026-06-30T12:47:18Z",
   "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
   "execution_realism_status": "SHADOW_REVIEW_READY",
   "execution_realism_confidence": "MEDIUM",
-  "shadow_ready_count": 1,
+  "shadow_ready_count": 2,
   "live_ready_count": 0,
-  "report_audit_findings": 25,
+  "report_audit_findings": 27,
   "gates": [
     {
       "name": "pnl_reconciled",
@@ -52,26 +52,22 @@
     {
       "name": "execution_shadow_ready",
       "status": "PASS",
-      "message": "shadow_ready=1; status=SHADOW_REVIEW_READY"
+      "message": "shadow_ready=2; status=SHADOW_REVIEW_READY"
     },
     {
       "name": "report_audit_clean",
       "status": "BLOCK",
-      "message": "findings=25"
+      "message": "findings=27"
     }
   ],
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $98.7553 across 53 closed trade(s)."
+      "message": "Paper run is profitable so far: $1179.8276 across 656 closed trade(s)."
     },
     {
       "severity": "WATCH",
-      "message": "High early return with a small trade sample; treat as paper-only until more evidence accumulates."
-    },
-    {
-      "severity": "WATCH",
-      "message": "Report audit has 25 finding(s); refresh missing/stale research reports as needed."
+      "message": "Report audit has 27 finding(s); refresh missing/stale research reports as needed."
     },
     {
       "severity": "SUMMARY",

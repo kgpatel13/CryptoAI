@@ -52,6 +52,27 @@ class LiveTradingGuardTests(unittest.TestCase):
         self.assertFalse(decision.allowed)
         self.assertTrue(any(check.name == "wallet_ceiling" and not check.passed for check in decision.checks))
 
+    def test_non_blocking_research_audit_findings_do_not_fail_live_guard_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            report_dir = Path(tmp)
+            self._write_live_ready_reports(report_dir)
+            (report_dir / "report_audit.json").write_text(
+                json.dumps(
+                    {
+                        "finding_count": 5,
+                        "blocking_finding_count": 0,
+                        "operational_finding_count": 0,
+                        "research_finding_count": 5,
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            decision = LiveTradingGuard(self._configured_flags(), report_dir=report_dir).check()
+
+        self.assertTrue(decision.allowed)
+        self.assertTrue(any(check.name == "report_audit" and check.passed for check in decision.checks))
+
     def _configured_flags(self, **overrides) -> FeatureFlags:
         values = {
             "live_trading_enabled": True,

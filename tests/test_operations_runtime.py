@@ -175,7 +175,7 @@ class OperationsRuntimeTests(unittest.TestCase):
                                             with patch("app.automation.paper_autopilot.PaperAutopilot._report_missing_or_stale", return_value=True):
                                                 result = PaperAutopilot().run_once()
 
-        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "pool_depth", "realism", "run_review", "audit"])
+        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "pool_depth", "realism", "audit", "run_review"])
         self.assertEqual(result["provider_monitor_status"], "WATCH")
         self.assertEqual(result["market_readiness_score"], 77)
         self.assertEqual(result["opportunity_decisions"], 1)

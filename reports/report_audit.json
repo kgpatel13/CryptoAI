@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-30T08:24:31Z",
+  "generated_at": "2026-06-30T12:47:19Z",
   "mode": "paper",
   "report_count": 47,
   "missing_count": 0,
   "invalid_json_count": 0,
-  "stale_count": 25,
-  "finding_count": 25,
+  "stale_count": 27,
+  "finding_count": 27,
   "reports": [
     {
       "name": "quote_diagnostics.md",
@@ -17,43 +17,43 @@
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
-      "size_bytes": 928,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 930,
+      "generated_at": "2026-06-30T12:47:18Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
-      "size_bytes": 507,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 510,
+      "generated_at": "2026-06-30T12:47:18Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "exists": true,
-      "size_bytes": 91247,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 137183,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "total_orders": 106,
-        "filled_orders": 53,
+        "total_orders": 4398,
+        "filled_orders": 656,
         "legacy_accounting_warning_count": 0
       }
     },
     {
       "name": "paper_report.md",
       "exists": true,
-      "size_bytes": 10700,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 32190,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     },
     {
       "name": "paper_run_review.json",
       "exists": true,
-      "size_bytes": 2637,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 2484,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -62,58 +62,58 @@
         "recommendation": "Refresh operational evidence before shadow review.",
         "shadow_decision": "BLOCKED",
         "live_decision": "BLOCKED",
-        "closed_trade_count": 53,
+        "closed_trade_count": 656,
         "losing_trade_count": 0,
-        "shadow_ready_count": 1,
+        "shadow_ready_count": 2,
         "live_ready_count": 0
       }
     },
     {
       "name": "paper_run_review.md",
       "exists": true,
-      "size_bytes": 1716,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 1613,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     },
     {
       "name": "live_safety.json",
       "exists": true,
-      "size_bytes": 5087,
-      "generated_at": "2026-06-30T08:23:13Z",
+      "size_bytes": 5103,
+      "generated_at": "2026-06-30T12:30:59Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_BLOCKED",
         "live_guard_allowed": false,
-        "blocked_check_count": 12,
+        "blocked_check_count": 13,
         "check_count": 20
       }
     },
     {
       "name": "live_safety.md",
       "exists": true,
-      "size_bytes": 2276,
-      "generated_at": "2026-06-30T08:23:13Z",
+      "size_bytes": 2291,
+      "generated_at": "2026-06-30T12:30:59Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
-      "size_bytes": 37917,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 69532,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "closed_trade_count": 53
+        "closed_trade_count": 656
       }
     },
     {
       "name": "portfolio_analytics.md",
       "exists": true,
-      "size_bytes": 6003,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 6085,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     },
     {
@@ -236,8 +236,8 @@
     {
       "name": "pool_depth_ladder.json",
       "exists": true,
-      "size_bytes": 6966,
-      "generated_at": "2026-06-30T08:19:09Z",
+      "size_bytes": 6965,
+      "generated_at": "2026-06-30T12:40:26Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -253,14 +253,14 @@
       "name": "pool_depth_ladder.md",
       "exists": true,
       "size_bytes": 1719,
-      "generated_at": "2026-06-30T08:19:09Z",
+      "generated_at": "2026-06-30T12:40:26Z",
       "stale": false
     },
     {
       "name": "execution_realism.json",
       "exists": true,
-      "size_bytes": 5378,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 7365,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -268,22 +268,22 @@
         "overall_status": "SHADOW_REVIEW_READY",
         "paper_capital_usd": "500.0000",
         "confidence": "MEDIUM",
-        "shadow_ready_count": 1,
+        "shadow_ready_count": 2,
         "live_ready_count": 0
       }
     },
     {
       "name": "execution_realism.md",
       "exists": true,
-      "size_bytes": 1150,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 1381,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     },
     {
       "name": "execution_cost_evidence.json",
       "exists": true,
-      "size_bytes": 3789,
-      "generated_at": "2026-06-30T08:23:13Z",
+      "size_bytes": 3796,
+      "generated_at": "2026-06-30T12:30:58Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -295,8 +295,8 @@
     {
       "name": "execution_cost_evidence.md",
       "exists": true,
-      "size_bytes": 1538,
-      "generated_at": "2026-06-30T08:23:13Z",
+      "size_bytes": 1542,
+      "generated_at": "2026-06-30T12:30:58Z",
       "stale": false
     },
     {
@@ -348,7 +348,7 @@
       "name": "market_intelligence.json",
       "exists": true,
       "size_bytes": 4264,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -360,7 +360,7 @@
       "name": "market_intelligence.md",
       "exists": true,
       "size_bytes": 1269,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     },
     {
@@ -454,8 +454,8 @@
       "name": "paper_trading_settings.json",
       "exists": true,
       "size_bytes": 3175,
-      "generated_at": "2026-06-30T08:19:01Z",
-      "stale": false,
+      "generated_at": "2026-06-30T08:26:16Z",
+      "stale": true,
       "json_valid": true,
       "summary": {
         "mode": "paper",
@@ -470,14 +470,14 @@
       "name": "paper_trading_settings.md",
       "exists": true,
       "size_bytes": 1693,
-      "generated_at": "2026-06-30T08:19:01Z",
-      "stale": false
+      "generated_at": "2026-06-30T08:26:16Z",
+      "stale": true
     },
     {
       "name": "provider_monitor.json",
       "exists": true,
       "size_bytes": 2880,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -490,8 +490,8 @@
     {
       "name": "provider_monitor.md",
       "exists": true,
-      "size_bytes": 1008,
-      "generated_at": "2026-06-30T08:24:31Z",
+      "size_bytes": 1007,
+      "generated_at": "2026-06-30T12:47:19Z",
       "stale": false
     }
   ],
@@ -619,6 +619,16 @@
     {
       "severity": "WATCH",
       "report": "eth_market_coverage.md",
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_trading_settings.json",
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_trading_settings.md",
       "message": "Report is older than freshness window."
     }
   ],

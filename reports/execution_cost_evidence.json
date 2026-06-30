@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T08:23:13Z",
+  "generated_at": "2026-06-30T12:30:58Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -14,8 +14,8 @@
     "source": "latest_opportunity_decision"
   },
   "paper_execution_evidence": {
-    "sample_count": 40,
-    "total_filled_notional_usd": "21431.4670",
+    "sample_count": 576,
+    "total_filled_notional_usd": "288000.0000",
     "avg_slippage_bps": "5.0000",
     "p95_slippage_bps": "5.0000",
     "max_slippage_bps": "5.0000",
@@ -26,7 +26,7 @@
     "p95_latency_ms": "250.0000",
     "max_latency_ms": "250.0000",
     "execution_quality_counts": {
-      "GOOD": 40
+      "GOOD": 576
     }
   },
   "quote_evidence": {
@@ -46,15 +46,15 @@
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "380.4150",
-    "avg_provider_score": "100.0000",
+    "avg_provider_latency_ms": "416.6775",
+    "avg_provider_score": "99.7500",
     "providers": [
       {
         "name": "Aerodrome",
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 291.64,
+        "avg_latency_ms": 319.91,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -63,7 +63,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 312.0,
+        "avg_latency_ms": 330.75,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -72,8 +72,8 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 663.56,
-        "score": 100,
+        "avg_latency_ms": 762.0,
+        "score": 99,
         "consecutive_failures": 0
       },
       {
@@ -81,21 +81,21 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 254.46,
+        "avg_latency_ms": 254.05,
         "score": 100,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 1636,
-    "avg_gross_edge_pct": "0.4856",
+    "real_signal_count": 19685,
+    "avg_gross_edge_pct": "0.4878",
     "p95_gross_edge_pct": "0.6643",
-    "max_gross_edge_pct": "0.6643",
-    "production_trade_count": 639,
+    "max_gross_edge_pct": "0.8054",
+    "production_trade_count": 3198,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 1636,
-    "observed_lower_bound_total_pnl_usd": "5818.3967",
+    "observed_lower_bound_trade_count": 19685,
+    "observed_lower_bound_total_pnl_usd": "70439.2381",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -104,11 +104,11 @@
     "production_cost_buffer_pct": "0.30",
     "observed_total_cost_lower_bound_pct": "0.1300",
     "buffer_surplus_vs_lower_bound_pct": "0.1700",
-    "paper_sample_count": 40,
+    "paper_sample_count": 576,
     "quote_ok_rate_pct": "100.0000",
-    "avg_provider_score": "100.0000",
-    "production_trade_count": 639,
-    "observed_lower_bound_trade_count": 1636
+    "avg_provider_score": "99.7500",
+    "production_trade_count": 3198,
+    "observed_lower_bound_trade_count": 19685
   },
   "findings": [
     {

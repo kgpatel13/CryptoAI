@@ -89,6 +89,9 @@ class PaperRunReviewService:
             "shadow_ready_count": self._int(execution_realism.get("shadow_ready_count")),
             "live_ready_count": self._int(execution_realism.get("live_ready_count")),
             "report_audit_findings": self._int(report_audit.get("finding_count")),
+            "report_audit_blocking_findings": self._audit_blocking_findings(report_audit),
+            "report_audit_operational_findings": self._int(report_audit.get("operational_finding_count")),
+            "report_audit_research_findings": self._int(report_audit.get("research_finding_count")),
             "gates": gates,
             "findings": findings,
             "notes": [
@@ -139,8 +142,8 @@ class PaperRunReviewService:
             ),
             self._gate(
                 "report_audit_clean",
-                self._int(report_audit.get("finding_count")) == 0,
-                f"findings={self._int(report_audit.get('finding_count'))}",
+                self._audit_blocking_findings(report_audit) == 0,
+                f"blocking_findings={self._audit_blocking_findings(report_audit)}; total_findings={self._int(report_audit.get('finding_count'))}",
             ),
         ]
 
@@ -212,12 +215,24 @@ class PaperRunReviewService:
             findings.append({"severity": "ACTION", "message": "Pool-depth ladder has zero depth-ready routes; paper profit is not executable-size evidence yet."})
         if self._int(execution_realism.get("shadow_ready_count")) == 0:
             findings.append({"severity": "ACTION", "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."})
-        if self._int(report_audit.get("finding_count")):
-            findings.append({"severity": "WATCH", "message": f"Report audit has {self._int(report_audit.get('finding_count'))} finding(s); refresh missing/stale research reports as needed."})
+        blocking_findings = self._audit_blocking_findings(report_audit)
+        research_findings = self._int(report_audit.get("research_finding_count"))
+        total_findings = self._int(report_audit.get("finding_count"))
+        if blocking_findings:
+            findings.append({"severity": "WATCH", "message": f"Report audit has {blocking_findings} blocking operational finding(s); refresh runtime evidence before shadow review."})
+        elif research_findings:
+            findings.append({"severity": "INFO", "message": f"Report audit has {research_findings} stale research finding(s); paper runtime gates are not blocked by research freshness."})
+        elif total_findings:
+            findings.append({"severity": "INFO", "message": f"Report audit has {total_findings} non-blocking finding(s)."})
         blocked = [gate["name"] for gate in gates if gate["status"] != "PASS"]
         if blocked:
             findings.append({"severity": "SUMMARY", "message": "Blocked gates: " + ", ".join(blocked) + "."})
         return findings
+
+    def _audit_blocking_findings(self, report_audit: dict[str, Any]) -> int:
+        if "blocking_finding_count" in report_audit:
+            return self._int(report_audit.get("blocking_finding_count"))
+        return self._int(report_audit.get("finding_count"))
 
     @staticmethod
     def _trade_window(rows: list[dict[str, Any]]) -> tuple[str | None, str | None]:
@@ -302,6 +317,8 @@ class PaperRunReviewService:
             f"- Provider status: `{payload['provider_status']}`",
             f"- Pool depth status: `{payload['pool_depth_status']}`",
             f"- Execution realism: `{payload['execution_realism_status']}` / `{payload['execution_realism_confidence']}`",
+            f"- Report audit blocking findings: `{payload['report_audit_blocking_findings']}`",
+            f"- Report audit research findings: `{payload['report_audit_research_findings']}`",
             "",
             "## Gates",
             "",
