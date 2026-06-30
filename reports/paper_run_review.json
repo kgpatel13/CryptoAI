@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T22:41:15Z",
+  "generated_at": "2026-06-30T23:05:20Z",
   "mode": "paper",
   "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
   "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
@@ -7,22 +7,22 @@
   "shadow_decision": "BLOCKED",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "534.5250",
-  "realized_pnl_usd": "34.5250",
-  "return_pct": "6.9050",
-  "closed_trade_count": 883,
+  "cash_usd": "539.0745",
+  "realized_pnl_usd": "39.0745",
+  "return_pct": "7.8149",
+  "closed_trade_count": 942,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-06-30T22:40:47Z",
-  "provider_status": "WATCH",
+  "last_trade_at": "2026-06-30T23:05:16Z",
+  "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
   "execution_realism_status": "NOT_SHADOW_READY",
   "execution_realism_confidence": "NONE",
   "shadow_ready_count": 0,
   "live_ready_count": 0,
-  "report_audit_findings": 27,
+  "report_audit_findings": 25,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -44,8 +44,8 @@
     },
     {
       "name": "provider_ok",
-      "status": "BLOCK",
-      "message": "provider_status=WATCH"
+      "status": "PASS",
+      "message": "provider_status=OK"
     },
     {
       "name": "pool_depth_ready",
@@ -60,13 +60,13 @@
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=27"
+      "message": "blocking_findings=0; total_findings=25"
     }
   ],
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $34.5250 across 883 closed trade(s)."
+      "message": "Paper run is profitable so far: $39.0745 across 942 closed trade(s)."
     },
     {
       "severity": "ACTION",
@@ -78,7 +78,7 @@
     },
     {
       "severity": "SUMMARY",
-      "message": "Blocked gates: provider_ok, execution_shadow_ready."
+      "message": "Blocked gates: execution_shadow_ready."
     }
   ],
   "notes": [

@@ -25,6 +25,7 @@ class LiveExecutionEngineService:
     CONTROL_COMMAND = "python -m app.execution.live_control_center_service --loop --interval 30"
     APPROVE_COMMAND = "python -m app.execution.tiny_live_pilot_service --mode approve --confirm LIVE_PILOT_APPROVED"
     SMOKE_SWAP_COMMAND = "python -m app.execution.tiny_live_pilot_service --mode swap --confirm LIVE_PILOT_APPROVED"
+    CONTINUOUS_LIVE_COMMAND = "python -m app.execution.live_autopilot --loop --interval-seconds 0"
 
     def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:
         self.data_dir = Path(data_dir)
@@ -76,7 +77,7 @@ class LiveExecutionEngineService:
                 "live_execution_monitor": self.MONITOR_COMMAND,
                 "approval": self.APPROVE_COMMAND if state["can_send_approval"] else None,
                 "smoke_swap": self.SMOKE_SWAP_COMMAND if state["can_send_smoke_swap"] else None,
-                "continuous_live": None,
+                "continuous_live": self.CONTINUOUS_LIVE_COMMAND if state["can_run_continuous_live"] else None,
             },
             "refresh_errors": refresh_errors,
             "gates": state["gates"],
@@ -87,7 +88,7 @@ class LiveExecutionEngineService:
             "notes": [
                 "This engine is an execution-readiness state machine. It never signs, approves, swaps, or runs autonomous live arbitrage.",
                 "Manual approval and manual smoke-swap commands appear only when all prerequisite reports permit them.",
-                "Continuous live arbitrage requires a reviewed atomic executor path; the current tiny pilot is one-leg smoke testing only.",
+                "Continuous live arbitrage requires a reviewed atomic executor path plus the live autopilot send flag; the current tiny pilot is one-leg smoke testing only.",
                 "Paper profits do not guarantee live profits because live execution can fail from gas, slippage, MEV, reverts, nonce issues, and pool movement.",
             ],
         }
@@ -303,7 +304,7 @@ class LiveExecutionEngineService:
             {"step": "2", "name": "Execution evidence", "detail": "Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities."},
             {"step": "3", "name": "Transaction simulation", "detail": "Build exact Base calldata and pass eth_call for the selected USDC/WETH route."},
             {"step": "4", "name": "Manual tiny live pilot", "detail": "Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP."},
-            {"step": "5", "name": "Atomic live executor", "detail": "Implement and review single-transaction arbitrage execution before continuous live trading is allowed."},
+            {"step": "5", "name": "Atomic live executor", "detail": "Implement and review single-transaction arbitrage execution, then inject the reviewed adapter into live_autopilot before continuous live trading is allowed."},
         ]
 
     @staticmethod

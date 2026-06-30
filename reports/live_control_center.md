@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-06-30T22:40:30Z`
+Generated: `2026-06-30T23:03:41Z`
 - Overall status: `BLOCKED_LIVE_READINESS`
 - Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
 - Next command: `python -m app.execution.live_readiness_checklist_service`
@@ -19,10 +19,10 @@ Generated: `2026-06-30T22:40:30Z`
   "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
-  "smoke_usd": "5",
+  "smoke_usd": "20",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48034941
+  "latest_block": 48035637
 }
 ```
 
@@ -37,8 +37,8 @@ Generated: `2026-06-30T22:40:30Z`
   "transaction_simulation": "TX_SIMULATION_ACTION",
   "transaction_simulation_passed": false,
   "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
-  "tiny_live_blocked_checks": 3,
-  "provider_monitor": "WATCH",
+  "tiny_live_blocked_checks": 2,
+  "provider_monitor": "OK",
   "report_audit_blocking_findings": 0,
   "live_safety": "LIVE_BLOCKED"
 }
@@ -50,7 +50,6 @@ Generated: `2026-06-30T22:40:30Z`
 |---|---|---|---|
 | tiny_live_pilot | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
 | tiny_live_pilot | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
-| tiny_live_pilot | provider_ok | BLOCK | Provider monitor must be OK. |
 
 ## Notes
 

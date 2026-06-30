@@ -13,18 +13,6 @@
       "source": "live_execution_engine"
     },
     {
-      "detail": "Provider monitor must be OK before any live send.",
-      "name": "provider_monitor_ok",
-      "severity": "BLOCK",
-      "source": "live_execution_engine"
-    },
-    {
-      "detail": "Report audit still has blocking findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "live_execution_engine"
-    },
-    {
       "detail": "Tiny live pilot plan is blocked.",
       "name": "tiny_live_pilot_ready",
       "severity": "BLOCK",
@@ -43,27 +31,9 @@
       "source": "live_control_center"
     },
     {
-      "detail": "Report audit has blocking findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "live_control_center"
-    },
-    {
-      "detail": "Provider monitor must be OK.",
-      "name": "provider_ok",
-      "severity": "BLOCK",
-      "source": "live_control_center"
-    },
-    {
       "detail": "Paper Run Review must reach REVIEW_READY before live-pilot review.",
       "name": "paper_shadow_review_ready",
       "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Provider Monitor must be OK.",
-      "name": "provider_health_ok",
-      "severity": "BLOCK",
       "source": "live_readiness"
     },
     {
@@ -79,32 +49,14 @@
       "source": "live_readiness"
     },
     {
-      "detail": "Report Audit has blocking operational findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
       "name": "transaction_simulation_passed",
       "severity": "ACTION",
       "source": "live_readiness"
     },
     {
-      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
-      "name": "paper_live_wallet_parity",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
       "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
       "name": "paper_live_trade_cap_parity",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
-      "name": "paper_live_daily_loss_parity",
       "severity": "ACTION",
       "source": "live_readiness"
     },
@@ -145,18 +97,6 @@
       "source": "tiny_live_pilot"
     },
     {
-      "detail": "Report audit has blocking findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "tiny_live_pilot"
-    },
-    {
-      "detail": "Provider monitor must be OK.",
-      "name": "provider_ok",
-      "severity": "BLOCK",
-      "source": "tiny_live_pilot"
-    },
-    {
       "detail": "Continuous live arbitrage is blocked until an atomic route executor or equivalent single-transaction execution path is implemented and reviewed.",
       "name": "atomic_executor_ready",
       "severity": "ACTION",
@@ -181,14 +121,14 @@
     "live_control_center_present": true,
     "live_review_ready": false,
     "live_safety_report_present": true,
-    "provider_monitor_ok": false,
-    "report_audit_clean": false,
+    "provider_monitor_ok": true,
+    "report_audit_clean": true,
     "swap_tx_available": true,
     "tiny_live_pilot_ready": false,
     "transaction_simulation_passed": false,
     "wallet_preflight_allowed": true
   },
-  "generated_at": "2026-06-30T19:15:58Z",
+  "generated_at": "2026-06-30T23:03:41Z",
   "missing_components": [
     {
       "component": "atomic_live_arbitrage_executor",
@@ -207,14 +147,14 @@
   "notes": [
     "This engine is an execution-readiness state machine. It never signs, approves, swaps, or runs autonomous live arbitrage.",
     "Manual approval and manual smoke-swap commands appear only when all prerequisite reports permit them.",
-    "Continuous live arbitrage requires a reviewed atomic executor path; the current tiny pilot is one-leg smoke testing only.",
+    "Continuous live arbitrage requires a reviewed atomic executor path plus the live autopilot send flag; the current tiny pilot is one-leg smoke testing only.",
     "Paper profits do not guarantee live profits because live execution can fail from gas, slippage, MEV, reverts, nonce issues, and pool movement."
   ],
   "overall_status": "BLOCKED_LIVE_READINESS",
   "refresh_errors": [],
   "unblock_path": [
     {
-      "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $5 for the tiny pilot.",
+      "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $20 for the tiny pilot.",
       "name": "Live-parity paper profile",
       "step": "1"
     },
@@ -234,7 +174,7 @@
       "step": "4"
     },
     {
-      "detail": "Implement and review single-transaction arbitrage execution before continuous live trading is allowed.",
+      "detail": "Implement and review single-transaction arbitrage execution, then inject the reviewed adapter into live_autopilot before continuous live trading is allowed.",
       "name": "Atomic live executor",
       "step": "5"
     }
@@ -246,9 +186,9 @@
     "chain": "base",
     "dex": "Uniswap V3",
     "eth_balance": "0.024148469750380405",
-    "latest_block": 48028798,
+    "latest_block": 48035637,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-    "smoke_usd": "5",
+    "smoke_usd": "20",
     "swap_tx_available": true,
     "usdc_balance": "449.998478"
   }

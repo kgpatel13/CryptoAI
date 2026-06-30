@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import os
 import tempfile
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
 
@@ -50,8 +52,48 @@ class LiveAutopilotTests(unittest.TestCase):
         autopilot = LiveAutopilot()
         payload = autopilot._decision({"can_run_continuous_live": True})
 
-        self.assertEqual(payload["status"], "REFUSED_EXECUTION_ADAPTER_MISSING")
-        self.assertEqual(payload["action"], "DO_NOT_SEND")
+        self.assertEqual(payload["status"], "READY_FOR_CONTINUOUS_LIVE")
+        self.assertEqual(payload["action"], "SEND_CONTINUOUS_LIVE")
+
+    def test_continuous_live_does_not_send_without_explicit_send_flag(self) -> None:
+        autopilot = LiveAutopilot()
+
+        with self._env({"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED": "false"}):
+            payload = autopilot._execute_if_allowed(
+                engine={"can_run_continuous_live": True},
+                decision={"status": "READY_FOR_CONTINUOUS_LIVE", "action": "SEND_CONTINUOUS_LIVE", "reason": "ready"},
+            )
+
+        self.assertEqual(payload["status"], "REFUSED_SEND_FLAG_DISABLED")
+        self.assertFalse(payload["transaction_sent"])
+
+    def test_continuous_live_uses_injected_adapter_when_green_and_enabled(self) -> None:
+        class FakeAdapter:
+            def execute(self, engine):
+                return {"status": "SENT", "transaction_sent": True, "reason": "fake tx", "engine": engine["overall_status"]}
+
+        autopilot = LiveAutopilot(execution_adapter=FakeAdapter())
+
+        with self._env({"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED": "true"}):
+            payload = autopilot._execute_if_allowed(
+                engine={"overall_status": "READY_FOR_CONTINUOUS_LIVE", "can_run_continuous_live": True},
+                decision={"status": "READY_FOR_CONTINUOUS_LIVE", "action": "SEND_CONTINUOUS_LIVE", "reason": "ready"},
+            )
+
+        self.assertEqual(payload["status"], "SENT")
+        self.assertTrue(payload["transaction_sent"])
+
+    def test_default_adapter_still_fails_closed_when_green_and_enabled(self) -> None:
+        autopilot = LiveAutopilot()
+
+        with self._env({"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED": "true"}):
+            payload = autopilot._execute_if_allowed(
+                engine={"overall_status": "READY_FOR_CONTINUOUS_LIVE", "can_run_continuous_live": True},
+                decision={"status": "READY_FOR_CONTINUOUS_LIVE", "action": "SEND_CONTINUOUS_LIVE", "reason": "ready"},
+            )
+
+        self.assertEqual(payload["status"], "REFUSED")
+        self.assertFalse(payload["transaction_sent"])
 
     def test_loop_is_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -66,6 +108,21 @@ class LiveAutopilotTests(unittest.TestCase):
         self.assertEqual(result["status"], "STOPPED")
         self.assertEqual(result["cycles_completed"], 2)
         self.assertEqual(run_once.call_count, 2)
+
+    @contextmanager
+    def _env(self, values: dict[str, str]):
+        keys = {"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED"}
+        previous = {key: os.environ.get(key) for key in keys}
+        try:
+            for key in keys:
+                os.environ.pop(key, None)
+            os.environ.update(values)
+            yield
+        finally:
+            for key in keys:
+                os.environ.pop(key, None)
+                if previous[key] is not None:
+                    os.environ[key] = previous[key]
 
 
 if __name__ == "__main__":
