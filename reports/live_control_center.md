@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-06-30T19:03:59Z`
+Generated: `2026-06-30T19:10:56Z`
 - Overall status: `BLOCKED_LIVE_READINESS`
 - Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
 - Next command: `python -m app.execution.live_readiness_checklist_service`
@@ -21,7 +21,7 @@ Generated: `2026-06-30T19:03:59Z`
   "smoke_usd": "5",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48028446
+  "latest_block": 48028654
 }
 ```
 

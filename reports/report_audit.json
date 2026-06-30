@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T19:03:57Z",
+  "generated_at": "2026-06-30T19:10:54Z",
   "mode": "paper",
   "report_count": 55,
   "missing_count": 0,
@@ -25,7 +25,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 930,
-      "generated_at": "2026-06-30T19:03:18Z",
+      "generated_at": "2026-06-30T19:09:11Z",
       "stale": false
     },
     {
@@ -33,7 +33,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 510,
-      "generated_at": "2026-06-30T19:03:18Z",
+      "generated_at": "2026-06-30T19:09:11Z",
       "stale": false
     },
     {
@@ -338,7 +338,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5055,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -355,7 +355,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 3063,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false
     },
     {
@@ -363,7 +363,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2936,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -379,7 +379,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1952,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false
     },
     {
@@ -577,7 +577,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3469,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -592,15 +592,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1907,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false
     },
     {
       "name": "tiny_live_pilot.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 53694,
-      "generated_at": "2026-06-30T19:03:27Z",
+      "size_bytes": 55237,
+      "generated_at": "2026-06-30T19:10:24Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -615,15 +615,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2592,
-      "generated_at": "2026-06-30T19:03:27Z",
+      "generated_at": "2026-06-30T19:10:24Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5202,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "size_bytes": 5211,
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -637,8 +637,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1469,
-      "generated_at": "2026-06-30T19:03:57Z",
+      "size_bytes": 1475,
+      "generated_at": "2026-06-30T19:10:54Z",
       "stale": false
     }
   ],

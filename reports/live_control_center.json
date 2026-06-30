@@ -35,7 +35,7 @@
     "wallet_preflight": "WALLET_PREP_READY",
     "wallet_preflight_allowed": true
   },
-  "generated_at": "2026-06-30T19:03:59Z",
+  "generated_at": "2026-06-30T19:10:56Z",
   "mode": "live_control_center",
   "next_action": "Continue paper/live-parity evidence; live readiness is not ready.",
   "next_command": "python -m app.execution.live_readiness_checklist_service",
@@ -125,7 +125,7 @@
     "chain": "base",
     "dex": "Uniswap V3",
     "eth_balance": "0.024148469750380405",
-    "latest_block": 48028446,
+    "latest_block": 48028654,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "smoke_usd": "5",
     "swap_tx_available": true,
