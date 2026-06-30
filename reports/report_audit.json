@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T07:50:48Z",
+  "generated_at": "2026-06-30T07:52:23Z",
   "mode": "paper",
-  "report_count": 43,
+  "report_count": 45,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -32,7 +32,7 @@
       "name": "paper_report.json",
       "exists": true,
       "size_bytes": 125430,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "generated_at": "2026-06-30T07:52:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -46,25 +46,52 @@
       "name": "paper_report.md",
       "exists": true,
       "size_bytes": 11697,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "generated_at": "2026-06-30T07:52:22Z",
+      "stale": false
+    },
+    {
+      "name": "paper_run_review.json",
+      "exists": true,
+      "size_bytes": 2276,
+      "generated_at": "2026-06-30T07:52:23Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "SHADOW_REVIEW_CANDIDATE",
+        "recommendation": "Review sustained paper evidence before any live-trading design decision.",
+        "shadow_decision": "REVIEW_READY",
+        "live_decision": "BLOCKED",
+        "closed_trade_count": 105,
+        "losing_trade_count": 0,
+        "shadow_ready_count": 2,
+        "live_ready_count": 0
+      }
+    },
+    {
+      "name": "paper_run_review.md",
+      "exists": true,
+      "size_bytes": 1497,
+      "generated_at": "2026-06-30T07:52:23Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
       "size_bytes": 69436,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "generated_at": "2026-06-30T07:52:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
-        "mode": "paper"
+        "mode": "paper",
+        "closed_trade_count": 105
       }
     },
     {
       "name": "portfolio_analytics.md",
       "exists": true,
       "size_bytes": 6040,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "generated_at": "2026-06-30T07:52:22Z",
       "stale": false
     },
     {
@@ -187,47 +214,47 @@
     {
       "name": "pool_depth_ladder.json",
       "exists": true,
-      "size_bytes": 6465,
-      "generated_at": "2026-06-30T07:50:16Z",
+      "size_bytes": 6969,
+      "generated_at": "2026-06-30T07:52:07Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "DEPTH_EVIDENCE_WATCH",
-        "confidence": "LOW",
-        "depth_ready_route_count": 0,
-        "watch_route_count": 2,
+        "overall_status": "DEPTH_EVIDENCE_READY",
+        "confidence": "MEDIUM",
+        "depth_ready_route_count": 2,
+        "watch_route_count": 0,
         "route_count": 2
       }
     },
     {
       "name": "pool_depth_ladder.md",
       "exists": true,
-      "size_bytes": 1672,
-      "generated_at": "2026-06-30T07:50:16Z",
+      "size_bytes": 1720,
+      "generated_at": "2026-06-30T07:52:07Z",
       "stale": false
     },
     {
       "name": "execution_realism.json",
       "exists": true,
-      "size_bytes": 7445,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "size_bytes": 7375,
+      "generated_at": "2026-06-30T07:52:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "NOT_SHADOW_READY",
+        "overall_status": "SHADOW_REVIEW_READY",
         "paper_capital_usd": "1000.0000",
-        "confidence": "LOW",
-        "shadow_ready_count": 0,
+        "confidence": "MEDIUM",
+        "shadow_ready_count": 2,
         "live_ready_count": 0
       }
     },
     {
       "name": "execution_realism.md",
       "exists": true,
-      "size_bytes": 1393,
-      "generated_at": "2026-06-30T07:50:48Z",
+      "size_bytes": 1387,
+      "generated_at": "2026-06-30T07:52:22Z",
       "stale": false
     },
     {

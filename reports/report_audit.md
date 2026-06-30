@@ -1,10 +1,10 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-30T07:50:48Z`
+Generated: `2026-06-30T07:52:23Z`
 
 ## Summary
 
-- Reports checked: `43`
+- Reports checked: `45`
 - Missing: `0`
 - Invalid JSON: `0`
 - Stale: `0`
@@ -23,10 +23,12 @@ Generated: `2026-06-30T07:50:48Z`
 | quote_diagnostics.md | True | 2026-06-30T07:46:38Z | False | 917 |
 | multi_dex_opportunities.md | True | 2026-06-30T07:50:47Z | False | 942 |
 | opportunity_explorer.md | True | 2026-06-30T07:50:47Z | False | 522 |
-| paper_report.json | True | 2026-06-30T07:50:48Z | False | 125430 |
-| paper_report.md | True | 2026-06-30T07:50:48Z | False | 11697 |
-| portfolio_analytics.json | True | 2026-06-30T07:50:48Z | False | 69436 |
-| portfolio_analytics.md | True | 2026-06-30T07:50:48Z | False | 6040 |
+| paper_report.json | True | 2026-06-30T07:52:22Z | False | 125430 |
+| paper_report.md | True | 2026-06-30T07:52:22Z | False | 11697 |
+| paper_run_review.json | True | 2026-06-30T07:52:23Z | False | 2276 |
+| paper_run_review.md | True | 2026-06-30T07:52:23Z | False | 1497 |
+| portfolio_analytics.json | True | 2026-06-30T07:52:22Z | False | 69436 |
+| portfolio_analytics.md | True | 2026-06-30T07:52:22Z | False | 6040 |
 | strategy_center.json | True | 2026-06-30T07:46:41Z | False | 6967 |
 | strategy_center.md | True | 2026-06-30T07:46:41Z | False | 1712 |
 | strategy_intelligence.json | True | 2026-06-30T07:46:46Z | False | 10599 |
@@ -39,10 +41,10 @@ Generated: `2026-06-30T07:50:48Z`
 | backtest_report.md | True | 2026-06-30T07:46:43Z | False | 9462 |
 | replay_diagnostics.json | True | 2026-06-30T07:46:44Z | False | 2269 |
 | replay_diagnostics.md | True | 2026-06-30T07:46:44Z | False | 1258 |
-| pool_depth_ladder.json | True | 2026-06-30T07:50:16Z | False | 6465 |
-| pool_depth_ladder.md | True | 2026-06-30T07:50:16Z | False | 1672 |
-| execution_realism.json | True | 2026-06-30T07:50:48Z | False | 7445 |
-| execution_realism.md | True | 2026-06-30T07:50:48Z | False | 1393 |
+| pool_depth_ladder.json | True | 2026-06-30T07:52:07Z | False | 6969 |
+| pool_depth_ladder.md | True | 2026-06-30T07:52:07Z | False | 1720 |
+| execution_realism.json | True | 2026-06-30T07:52:22Z | False | 7375 |
+| execution_realism.md | True | 2026-06-30T07:52:22Z | False | 1387 |
 | execution_cost_evidence.json | True | 2026-06-30T07:46:44Z | False | 3918 |
 | execution_cost_evidence.md | True | 2026-06-30T07:46:44Z | False | 1651 |
 | optimization_report.json | True | 2026-06-30T07:46:43Z | False | 541825 |

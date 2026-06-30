@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-06-30T07:47:20Z",
+  "generated_at": "2026-06-30T07:52:23Z",
   "mode": "paper",
-  "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
-  "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
+  "overall_status": "SHADOW_REVIEW_CANDIDATE",
+  "recommendation": "Review sustained paper evidence before any live-trading design decision.",
   "live_decision": "BLOCKED",
-  "shadow_decision": "BLOCKED",
+  "shadow_decision": "REVIEW_READY",
   "paper_profile": "unbounded_paper_lab",
   "initial_cash_usd": "1000.0000",
-  "cash_usd": "1370.8424",
-  "realized_pnl_usd": "370.8424",
-  "return_pct": "37.0842",
-  "closed_trade_count": 93,
+  "cash_usd": "1422.5483",
+  "realized_pnl_usd": "422.5483",
+  "return_pct": "42.2548",
+  "closed_trade_count": 105,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T07:34:59Z",
-  "last_trade_at": "2026-06-30T07:45:07Z",
+  "last_trade_at": "2026-06-30T07:50:47Z",
   "provider_status": "OK",
-  "pool_depth_status": "DEPTH_EVIDENCE_WATCH",
-  "pool_depth_ready_route_count": 0,
-  "execution_realism_status": "NOT_SHADOW_READY",
-  "execution_realism_confidence": "LOW",
-  "shadow_ready_count": 0,
+  "pool_depth_status": "DEPTH_EVIDENCE_READY",
+  "pool_depth_ready_route_count": 2,
+  "execution_realism_status": "SHADOW_REVIEW_READY",
+  "execution_realism_confidence": "MEDIUM",
+  "shadow_ready_count": 2,
   "live_ready_count": 0,
   "report_audit_findings": 0,
   "gates": [
@@ -46,13 +46,13 @@
     },
     {
       "name": "pool_depth_ready",
-      "status": "BLOCK",
-      "message": "depth_ready_routes=0; status=DEPTH_EVIDENCE_WATCH"
+      "status": "PASS",
+      "message": "depth_ready_routes=2; status=DEPTH_EVIDENCE_READY"
     },
     {
       "name": "execution_shadow_ready",
-      "status": "BLOCK",
-      "message": "shadow_ready=0; status=NOT_SHADOW_READY"
+      "status": "PASS",
+      "message": "shadow_ready=2; status=SHADOW_REVIEW_READY"
     },
     {
       "name": "report_audit_clean",
@@ -63,23 +63,7 @@
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $370.8424 across 93 closed trade(s)."
-    },
-    {
-      "severity": "WATCH",
-      "message": "High early return with a small trade sample; treat as paper-only until more evidence accumulates."
-    },
-    {
-      "severity": "ACTION",
-      "message": "Pool-depth ladder has zero depth-ready routes; paper profit is not executable-size evidence yet."
-    },
-    {
-      "severity": "ACTION",
-      "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."
-    },
-    {
-      "severity": "SUMMARY",
-      "message": "Blocked gates: pool_depth_ready, execution_shadow_ready."
+      "message": "Paper run is profitable so far: $422.5483 across 105 closed trade(s)."
     }
   ],
   "notes": [
