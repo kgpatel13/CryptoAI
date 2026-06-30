@@ -76,7 +76,66 @@ class PaperSettingsServiceTests(unittest.TestCase):
         messages = [row["message"] for row in payload["findings"]]
         self.assertEqual(payload["status"], "INVALID")
         self.assertIn("Only Base is enabled for the first paper launch profile.", messages)
-        self.assertIn("Only WETH/USDC and USDC/WETH are enabled for v5.7.", messages)
+        self.assertIn("Only WETH/USDC and USDC/WETH are enabled for the Base ETH paper profile.", messages)
+
+    def test_aggressive_paper_profile_exports_runtime_environment(self) -> None:
+        service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
+        settings = service.defaults()
+        settings["paper_profile"] = "aggressive_paper"
+        settings["operations"]["loop_interval_seconds"] = 30
+        settings["paper_capital"]["eth_reference_usd"] = "10000"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "1000"
+        settings["paper_capital"]["max_daily_paper_trades"] = 200
+        settings["risk"]["cooldown_seconds"] = 60
+        settings["risk"]["max_daily_loss_usd"] = "500"
+
+        payload = service.validate(settings)
+        env = payload["runtime_environment"]
+
+        self.assertEqual(payload["status"], "VALID")
+        self.assertEqual(payload["paper_capital_usd"], "10000.00")
+        self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "10000.00")
+        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "1000")
+        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "1000")
+        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "10.00")
+        self.assertEqual(env["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"], "10.00")
+        self.assertEqual(env["CRYPTOAI_MAX_DAILY_PAPER_TRADES"], "200")
+        self.assertEqual(env["CRYPTOAI_TRADE_COOLDOWN_SECONDS"], "60")
+        self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.30")
+
+    def test_unbounded_paper_lab_allows_zero_limits_and_large_capital(self) -> None:
+        service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
+        settings = service.defaults()
+        settings["paper_profile"] = "unbounded_paper_lab"
+        settings["operations"]["loop_interval_seconds"] = 0
+        settings["paper_capital"]["initial_capital_eth"] = "10.0"
+        settings["paper_capital"]["eth_reference_usd"] = "10000"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "100000"
+        settings["paper_capital"]["max_daily_paper_trades"] = 0
+        settings["paper_capital"]["sizing_mode"] = "full_available_cash"
+        settings["risk"]["max_open_positions"] = 0
+        settings["risk"]["duplicate_position_block"] = False
+        settings["risk"]["cooldown_seconds"] = 0
+        settings["risk"]["max_daily_loss_usd"] = "0"
+        settings["evidence_gates"]["require_report_audit_clean"] = False
+        settings["evidence_gates"]["require_provider_not_critical"] = False
+
+        payload = service.validate(settings)
+        env = payload["runtime_environment"]
+
+        self.assertEqual(payload["status"], "VALID")
+        self.assertEqual(payload["warning_count"], 0)
+        self.assertEqual(payload["paper_capital_usd"], "100000.00")
+        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "100000")
+        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
+        self.assertEqual(env["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"], "100.00")
+        self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
+        self.assertEqual(env["CRYPTOAI_MAX_DAILY_PAPER_TRADES"], "0")
+        self.assertEqual(env["CRYPTOAI_MAX_OPEN_POSITIONS"], "0")
+        self.assertEqual(env["CRYPTOAI_TRADE_COOLDOWN_SECONDS"], "0")
+        self.assertEqual(env["CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS"], "0")
+        self.assertEqual(env["CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION"], "false")
+        self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "0")
 
 
 if __name__ == "__main__":

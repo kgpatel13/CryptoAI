@@ -1,5 +1,25 @@
 # CryptoAI Changelog
 
+## v5.10 - Unbounded Paper Lab Profile
+
+- Added an explicit `unbounded_paper_lab` profile for stress-testing 24/7 paper execution with larger simulated capital.
+- Allowed paper-only `0` values for unlimited daily trades, unlimited open positions, no cooldown, and disabled paper daily-loss stop.
+- Allowed `0` loop interval for continuous paper scanning where the next cycle starts immediately after the prior cycle completes.
+- Added `full_available_cash` paper sizing so approved paper trades can request the configured max trade size and then use available portfolio cash as the final cap.
+- Added dashboard controls for duplicate-position blocking and widened the paper capital/notional input ranges.
+- Wired unbounded settings into Portfolio Risk so zero-valued paper throttles are actually disabled during `--use-settings` runs.
+- Kept live trading disabled, stale-live quotes blocked, kill switch enabled, and paper BUY threshold locked at `0.30%`.
+- Added regression coverage for the unbounded settings export and zero-limit risk behavior.
+
+## v5.9 - Aggressive Paper Execution Profile
+
+- Added an explicit `aggressive_paper` settings profile for faster paper evidence collection.
+- Reduced the configurable paper loop floor from 60 seconds to 15 seconds; the saved aggressive profile uses 30 seconds.
+- Wired `paper_autopilot --use-settings` into runtime environment variables so paper capital, max notional, daily trade cap, cooldown, and daily loss settings are enforced by Risk and Paper Execution.
+- Increased saved aggressive paper profile to 1 ETH at a `$10000` reference, `$1000` max paper notional, 200 daily paper trades, 60-second cooldown, and `$500` paper daily loss guard.
+- Kept live trading disabled, duplicate open-position protection enabled, kill switch enabled, and paper BUY threshold locked at `0.30%`.
+- Added regression coverage for aggressive paper runtime environment export.
+
 ## v5.8 - Verified Base Uniswap V3 Quote Provider
 
 - Added a Base Uniswap V3 QuoterV2 quote provider for `WETH/USDC` and `USDC/WETH` diagnostics.

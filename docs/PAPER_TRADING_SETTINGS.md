@@ -1,6 +1,6 @@
 # CryptoAI Paper Trading Settings
 
-v5.7 adds a validated launch profile for continuous paper operation.
+v5.10 adds an unbounded paper lab profile for continuous paper stress testing.
 
 The goal is to let CryptoAI run 24/7 with clear parameters while keeping real-money execution locked behind evidence gates.
 
@@ -24,7 +24,36 @@ reports/paper_trading_settings.json
 reports/paper_trading_settings.md
 ```
 
-## Default Launch Profile
+## Unbounded Paper Lab Profile
+
+The saved runtime profile is currently `unbounded_paper_lab`.
+
+- Mode: paper only.
+- Live trading: disabled.
+- Asset focus: ETH.
+- Chain: Base.
+- Routes: `WETH/USDC`, `USDC/WETH`.
+- DEXs: Uniswap V2, Aerodrome, and Uniswap V3.
+- Initial paper capital: `10.0` ETH.
+- ETH reference price: `$10000`.
+- Max paper notional per trade: `$100000`.
+- Sizing mode: `full_available_cash`.
+- Max daily paper trades: `0` for unlimited paper trades.
+- Max open positions: `0` for unlimited paper positions.
+- Duplicate position blocking: disabled.
+- Loop interval: `0` for continuous scan after each cycle completes.
+- Heartbeat interval: `60` seconds.
+- Cooldown: `0` for no cooldown.
+- Max paper daily loss guard: `0` for disabled.
+- Report audit and critical-provider launch blocks: disabled for paper lab stress testing.
+
+`0` is a special paper-only value for loop interval, daily trades, open positions, cooldown, and daily-loss stop. It means continuous, unlimited, or disabled depending on the field.
+
+`full_available_cash` means the strategy risk layer requests the configured max trade size for an approved signal. Portfolio risk then caps the actual paper fill to available simulated cash.
+
+## Standard Safe Defaults
+
+Resetting the Paper Settings page restores the safer default profile.
 
 - Mode: paper only.
 - Live trading: disabled.
@@ -45,12 +74,12 @@ reports/paper_trading_settings.md
 - Paper BUY threshold must stay at least `0.30%`.
 - `0.20%` remains research-only evidence, not a paper execution threshold.
 - Live trading must remain disabled.
-- Duplicate position blocking and kill switch must stay enabled.
-- Base ETH scope is the only approved v5.8 paper launch profile.
+- Kill switch must stay enabled.
+- Base ETH scope is the only approved v5.10 paper launch profile.
 
-## About 1 ETH
+## About Paper ETH Capital
 
-The `1.0` ETH setting is a paper capital profile and future live capital ceiling. It is not an instruction to spend the full ETH balance on one trade.
+The ETH setting is simulated paper capital. It is not an instruction to spend a full real ETH balance on one trade.
 
 For live trading later, the staged plan remains:
 
@@ -63,4 +92,20 @@ For live trading later, the staged plan remains:
 
 The autopilot can run continuously, but it should not trade every signal blindly. It should act only when quotes, provider health, report audit, ETH coverage, cost evidence, duplicate-position checks, cooldowns, and risk limits pass.
 
-Risk gates are not downtime. They are the control system that keeps 24/7 operation from becoming uncontrolled execution.
+In unbounded paper lab mode, paper throttles are intentionally relaxed so the system can generate higher-volume evidence. Live trading still requires the staged live-readiness process.
+
+## Settings Enforcement
+
+When launched with `--use-settings`, the worker exports paper settings into the Risk and Paper Execution services for that process:
+
+- Paper capital USD.
+- Default and max paper notional.
+- Risk-per-trade and cash-usage percentages.
+- Max daily paper trades.
+- Max open positions.
+- Cooldown and duplicate signal window.
+- Max paper daily loss.
+- Paper BUY edge threshold.
+- Paper sizing mode.
+- Duplicate-position blocking flag.
+- Token and chain exposure caps set to the full paper portfolio for the process.

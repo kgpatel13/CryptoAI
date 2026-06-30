@@ -63,6 +63,25 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         self.assertFalse(decision.approved)
         self.assertIn("max daily", decision.reason.lower())
 
+    def test_zero_limits_disable_paper_throttles(self) -> None:
+        os.environ["CRYPTOAI_MAX_DAILY_PAPER_TRADES"] = "0"
+        os.environ["CRYPTOAI_MAX_OPEN_POSITIONS"] = "0"
+        os.environ["CRYPTOAI_TRADE_COOLDOWN_SECONDS"] = "0"
+        os.environ["CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS"] = "0"
+        os.environ["CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION"] = "false"
+        os.environ["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"] = "100"
+        os.environ["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT"] = "100"
+        svc = self.service()
+        svc.record_filled_order(order_id="a", timestamp="2026-06-28T00:00:00Z", strategy_name="test", chain="base", pair="WETH/USDC", side="BUY", notional_usd=Decimal("100"), fill_price_usd=Decimal("2000"), quantity=Decimal("0.05"))
+        svc.record_filled_order(order_id="b", timestamp="2026-06-28T00:01:00Z", strategy_name="test", chain="base", pair="WETH/USDC", side="BUY", notional_usd=Decimal("100"), fill_price_usd=Decimal("2000"), quantity=Decimal("0.05"))
+
+        decision = svc.assess(chain="base", pair="WETH/USDC", side="BUY", requested_notional_usd=Decimal("100"), now="2026-06-28T00:02:00Z")
+
+        self.assertTrue(decision.approved, decision.reason)
+        self.assertEqual(decision.notional_usd, Decimal("100.0000"))
+
     def test_monitor_positions_closes_take_profit(self) -> None:
         svc = self.service()
         svc.record_filled_order(order_id="tp1", timestamp="2026-06-28T00:00:00Z", strategy_name="test", chain="base", pair="WETH/USDC", side="BUY", notional_usd=Decimal("100"), fill_price_usd=Decimal("2000"), quantity=Decimal("0.05"))

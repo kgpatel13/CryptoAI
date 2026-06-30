@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from copy import deepcopy
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
@@ -11,6 +12,7 @@ from typing import Any
 DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
     "version": 1,
     "mode": "paper",
+    "paper_profile": "standard",
     "live_trading_enabled": False,
     "operations": {
         "loop_interval_seconds": 300,
@@ -29,6 +31,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
         "eth_reference_usd": "3500",
         "max_notional_usd_per_trade": "100",
         "max_daily_paper_trades": 24,
+        "sizing_mode": "edge_scaled",
     },
     "opportunity": {
         "production_cost_buffer_pct": "0.30",
@@ -105,7 +108,7 @@ class PaperSettingsService:
         self._require(payload.get("live_trading_enabled") is False, "live_trading_enabled", "Live trading must remain disabled.", findings)
 
         operations = payload["operations"]
-        self._range_int(operations.get("loop_interval_seconds"), 60, 3600, "operations.loop_interval_seconds", findings)
+        self._range_int(operations.get("loop_interval_seconds"), 0, 3600, "operations.loop_interval_seconds", findings)
         self._range_int(operations.get("heartbeat_interval_seconds"), 10, 300, "operations.heartbeat_interval_seconds", findings)
         max_cycles = operations.get("max_cycles")
         if max_cycles is not None:
@@ -115,35 +118,42 @@ class PaperSettingsService:
         chains = set(market.get("chains", []))
         routes = set(market.get("routes", []))
         dexes = set(market.get("dexes", []))
-        self._require(market.get("asset_focus") == "ETH", "market_scope.asset_focus", "The v5.7 launch profile is ETH-only.", findings)
+        self._require(market.get("asset_focus") == "ETH", "market_scope.asset_focus", "The Base ETH paper profile is ETH-only.", findings)
         self._require(bool(chains), "market_scope.chains", "At least one chain is required.", findings)
         self._require(chains.issubset(self.SAFE_CHAINS), "market_scope.chains", "Only Base is enabled for the first paper launch profile.", findings)
         self._require(bool(routes), "market_scope.routes", "At least one ETH route is required.", findings)
-        self._require(routes.issubset(self.SAFE_ROUTES), "market_scope.routes", "Only WETH/USDC and USDC/WETH are enabled for v5.7.", findings)
+        self._require(routes.issubset(self.SAFE_ROUTES), "market_scope.routes", "Only WETH/USDC and USDC/WETH are enabled for the Base ETH paper profile.", findings)
         self._require(bool(dexes), "market_scope.dexes", "At least one DEX is required.", findings)
-        self._require(dexes.issubset(self.SAFE_DEXES), "market_scope.dexes", "Only Uniswap V2, Aerodrome, and Uniswap V3 are enabled for v5.8.", findings)
+        self._require(dexes.issubset(self.SAFE_DEXES), "market_scope.dexes", "Only Uniswap V2, Aerodrome, and Uniswap V3 are enabled for the Base ETH paper profile.", findings)
         self._require(market.get("allow_stale_quotes_for_live") is False, "market_scope.allow_stale_quotes_for_live", "Stale live quotes must never be allowed.", findings)
 
         capital = payload["paper_capital"]
         initial_eth = self._decimal(capital.get("initial_capital_eth"), "paper_capital.initial_capital_eth", findings)
         eth_reference = self._decimal(capital.get("eth_reference_usd"), "paper_capital.eth_reference_usd", findings)
         max_notional = self._decimal(capital.get("max_notional_usd_per_trade"), "paper_capital.max_notional_usd_per_trade", findings)
-        self._range_int(capital.get("max_daily_paper_trades"), 1, 200, "paper_capital.max_daily_paper_trades", findings)
+        sizing_mode = str(capital.get("sizing_mode", "edge_scaled"))
+        self._range_int(capital.get("max_daily_paper_trades"), 0, 100000, "paper_capital.max_daily_paper_trades", findings)
         if initial_eth is not None:
-            self._require(Decimal("0") < initial_eth <= Decimal("1.0"), "paper_capital.initial_capital_eth", "Paper capital must be greater than 0 and no more than 1 ETH for this launch profile.", findings)
+            self._require(Decimal("0") < initial_eth <= Decimal("100000"), "paper_capital.initial_capital_eth", "Paper capital must be greater than 0 ETH and no more than 100000 ETH for paper simulation.", findings)
         if eth_reference is not None:
             self._require(eth_reference > Decimal("0"), "paper_capital.eth_reference_usd", "ETH reference price must be greater than 0.", findings)
         if max_notional is not None:
             self._require(max_notional > Decimal("0"), "paper_capital.max_notional_usd_per_trade", "Per-trade notional must be greater than 0.", findings)
+        self._require(
+            sizing_mode in {"edge_scaled", "full_available_cash"},
+            "paper_capital.sizing_mode",
+            "Paper sizing mode must be edge_scaled or full_available_cash.",
+            findings,
+        )
         if initial_eth is not None and eth_reference is not None and max_notional is not None:
             paper_capital_usd = initial_eth * eth_reference
             max_alloc = paper_capital_usd * Decimal("0.10")
-            if max_notional > max_alloc:
+            if sizing_mode != "full_available_cash" and max_notional > max_alloc:
                 warnings.append(
                     {
                         "severity": "WARN",
                         "field": "paper_capital.max_notional_usd_per_trade",
-                        "message": "Per-trade notional is above 10% of the 1 ETH paper capital profile.",
+                        "message": "Per-trade notional is above 10% of the configured paper capital profile.",
                     }
                 )
 
@@ -165,17 +175,16 @@ class PaperSettingsService:
             self._require(Decimal("0") <= quote_ok <= Decimal("100"), "opportunity.min_quote_ok_rate_pct", "Quote OK rate must be 0-100%.", findings)
 
         risk = payload["risk"]
-        self._range_int(risk.get("max_open_positions"), 1, 20, "risk.max_open_positions", findings)
-        self._require(risk.get("duplicate_position_block") is True, "risk.duplicate_position_block", "Duplicate position block must stay enabled.", findings)
-        self._range_int(risk.get("cooldown_seconds"), 60, 86400, "risk.cooldown_seconds", findings)
+        self._range_int(risk.get("max_open_positions"), 0, 100000, "risk.max_open_positions", findings)
+        self._range_int(risk.get("cooldown_seconds"), 0, 86400, "risk.cooldown_seconds", findings)
         max_daily_loss = self._decimal(risk.get("max_daily_loss_usd"), "risk.max_daily_loss_usd", findings)
         if max_daily_loss is not None:
-            self._require(max_daily_loss > Decimal("0"), "risk.max_daily_loss_usd", "Max daily loss must be greater than 0.", findings)
+            self._require(max_daily_loss >= Decimal("0"), "risk.max_daily_loss_usd", "Max daily loss must be 0 or greater.", findings)
         self._require(risk.get("kill_switch_enabled") is True, "risk.kill_switch_enabled", "Kill switch must stay enabled.", findings)
 
         gates = payload["evidence_gates"]
-        self._require(gates.get("require_report_audit_clean") is True, "evidence_gates.require_report_audit_clean", "Report Audit clean gate must stay enabled.", findings)
-        self._require(gates.get("require_provider_not_critical") is True, "evidence_gates.require_provider_not_critical", "Provider critical gate must stay enabled.", findings)
+        self._require(isinstance(gates.get("require_report_audit_clean"), bool), "evidence_gates.require_report_audit_clean", "Report Audit clean gate must be true or false.", findings)
+        self._require(isinstance(gates.get("require_provider_not_critical"), bool), "evidence_gates.require_provider_not_critical", "Provider critical gate must be true or false.", findings)
         confidence = str(gates.get("min_execution_cost_confidence", "")).upper()
         self._require(confidence in self.CONFIDENCE_LEVELS, "evidence_gates.min_execution_cost_confidence", "Execution-cost confidence must be NONE, LOW, MEDIUM, or HIGH.", findings)
         self._range_int(gates.get("min_eth_coverage_score"), 0, 100, "evidence_gates.min_eth_coverage_score", findings)
@@ -184,13 +193,57 @@ class PaperSettingsService:
         return {
             "generated_at": self._utc_now(),
             "mode": "paper",
+            "paper_profile": str(payload.get("paper_profile", "standard")),
             "status": "VALID" if not findings else "INVALID",
             "error_count": len(findings),
             "warning_count": len(warnings),
             "paper_capital_usd": str((initial_eth * eth_reference).quantize(Decimal("0.01"))) if initial_eth is not None and eth_reference is not None else None,
             "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings",
             "settings": payload,
+            "runtime_environment": self.runtime_environment(payload),
             "findings": all_findings,
+        }
+
+    def apply_runtime_environment(self, settings: dict[str, Any] | None = None) -> dict[str, str]:
+        env = self.runtime_environment(settings or self.load())
+        for key, value in env.items():
+            os.environ[key] = value
+        return env
+
+    def runtime_environment(self, settings: dict[str, Any] | None = None) -> dict[str, str]:
+        payload = self._merge(self.defaults(), settings or self.load())
+        capital = payload["paper_capital"]
+        risk = payload["risk"]
+        opportunity = payload["opportunity"]
+
+        initial_eth = self._safe_decimal(capital.get("initial_capital_eth"))
+        eth_reference = self._safe_decimal(capital.get("eth_reference_usd"))
+        max_notional = self._safe_decimal(capital.get("max_notional_usd_per_trade"))
+        paper_capital_usd = initial_eth * eth_reference
+        allocation_pct = Decimal("1.00")
+        if paper_capital_usd > 0 and max_notional > 0:
+            allocation_pct = min(
+                Decimal("100.00"),
+                (max_notional / paper_capital_usd * Decimal("100")).quantize(Decimal("0.01")),
+            )
+
+        cooldown = int(risk.get("cooldown_seconds", 900))
+        return {
+            "CRYPTOAI_PAPER_INITIAL_CASH_USD": str(paper_capital_usd.quantize(Decimal("0.01"))),
+            "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": str(max_notional),
+            "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": str(max_notional),
+            "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": str(allocation_pct),
+            "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": str(allocation_pct),
+            "CRYPTOAI_PAPER_SIZING_MODE": str(capital.get("sizing_mode", "edge_scaled")),
+            "CRYPTOAI_MAX_DAILY_PAPER_TRADES": str(int(capital.get("max_daily_paper_trades", 24))),
+            "CRYPTOAI_MAX_OPEN_POSITIONS": str(int(risk.get("max_open_positions", 1))),
+            "CRYPTOAI_TRADE_COOLDOWN_SECONDS": str(cooldown),
+            "CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS": str(cooldown),
+            "CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION": "true" if bool(risk.get("duplicate_position_block", True)) else "false",
+            "CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT": "100.00",
+            "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
+            "CRYPTOAI_MAX_DAILY_LOSS_USD": str(self._safe_decimal(risk.get("max_daily_loss_usd"))),
+            "CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT": str(opportunity.get("paper_buy_threshold_pct", "0.30")),
         }
 
     def generate_report(self, settings: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -236,6 +289,13 @@ class PaperSettingsService:
             findings.append({"severity": "ERROR", "field": field, "message": f"{field} must be a decimal number."})
             return None
 
+    @staticmethod
+    def _safe_decimal(value: Any) -> Decimal:
+        try:
+            return Decimal(str(value))
+        except Exception:
+            return Decimal("0")
+
     def _write_markdown(self, payload: dict[str, Any]) -> None:
         settings = payload["settings"]
         lines = [
@@ -247,6 +307,7 @@ class PaperSettingsService:
             "",
             f"- Status: `{payload['status']}`",
             f"- Mode: `{payload['mode']}`",
+            f"- Paper profile: `{payload['paper_profile']}`",
             f"- Paper capital USD: `{payload['paper_capital_usd']}`",
             f"- Errors: `{payload['error_count']}`",
             f"- Warnings: `{payload['warning_count']}`",
@@ -258,8 +319,15 @@ class PaperSettingsService:
             f"- Chains: `{', '.join(settings['market_scope']['chains'])}`",
             f"- Routes: `{', '.join(settings['market_scope']['routes'])}`",
             f"- DEXs: `{', '.join(settings['market_scope']['dexes'])}`",
+            f"- Loop interval seconds: `{settings['operations']['loop_interval_seconds']}`",
             f"- Initial paper capital ETH: `{settings['paper_capital']['initial_capital_eth']}`",
             f"- Max notional per trade USD: `{settings['paper_capital']['max_notional_usd_per_trade']}`",
+            f"- Paper sizing mode: `{settings['paper_capital'].get('sizing_mode', 'edge_scaled')}`",
+            f"- Max daily paper trades: `{settings['paper_capital']['max_daily_paper_trades']}`",
+            f"- Max open positions: `{settings['risk']['max_open_positions']}`",
+            f"- Duplicate position block: `{settings['risk']['duplicate_position_block']}`",
+            f"- Cooldown seconds: `{settings['risk']['cooldown_seconds']}`",
+            f"- Max daily loss USD: `{settings['risk']['max_daily_loss_usd']}`",
             f"- Production buffer %: `{settings['opportunity']['production_cost_buffer_pct']}`",
             f"- Research candidate buffer %: `{settings['opportunity']['research_candidate_buffer_pct']}`",
             f"- Paper BUY threshold %: `{settings['opportunity']['paper_buy_threshold_pct']}`",
@@ -277,6 +345,7 @@ class PaperSettingsService:
             "",
             "## Notes",
             "",
+            "- Limit value `0` means continuous, unlimited, or disabled for loop interval, daily trades, open positions, cooldown, and daily-loss stop.",
         ]
         for note in settings.get("notes", []):
             lines.append(f"- {note}")

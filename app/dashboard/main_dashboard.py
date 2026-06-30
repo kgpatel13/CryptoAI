@@ -497,14 +497,22 @@ def render_paper_settings() -> None:
     dataframe_or_info(validation.get("findings", []), "No settings findings.")
 
     with st.form("paper_settings_form"):
+        profile_options = ["standard", "aggressive_paper", "unbounded_paper_lab"]
+        selected_profile = str(settings.get("paper_profile", "standard"))
+        profile = st.selectbox(
+            "Paper profile",
+            profile_options,
+            index=profile_options.index(selected_profile) if selected_profile in profile_options else 0,
+        )
+
         st.markdown("### Operations")
         o1, o2, o3 = st.columns(3)
         loop_interval = o1.number_input(
             "Loop interval seconds",
-            min_value=60,
+            min_value=0,
             max_value=3600,
             value=int(settings["operations"]["loop_interval_seconds"]),
-            step=30,
+            step=15,
         )
         heartbeat_interval = o2.number_input(
             "Heartbeat seconds",
@@ -530,23 +538,29 @@ def render_paper_settings() -> None:
         dexes = m3.multiselect("DEXs", ["Uniswap V2", "Aerodrome", "Uniswap V3"], default=settings["market_scope"]["dexes"])
 
         st.markdown("### Paper Capital")
-        p1, p2, p3, p4 = st.columns(4)
-        initial_eth = p1.number_input("Initial ETH", min_value=0.01, max_value=1.0, value=float(settings["paper_capital"]["initial_capital_eth"]), step=0.01)
-        eth_reference = p2.number_input("ETH reference USD", min_value=1.0, max_value=100000.0, value=float(settings["paper_capital"]["eth_reference_usd"]), step=50.0)
-        max_notional = p3.number_input("Max trade USD", min_value=1.0, max_value=100000.0, value=float(settings["paper_capital"]["max_notional_usd_per_trade"]), step=10.0)
-        max_daily_trades = p4.number_input("Max daily trades", min_value=1, max_value=200, value=int(settings["paper_capital"]["max_daily_paper_trades"]), step=1)
+        p1, p2, p3, p4, p5 = st.columns(5)
+        initial_eth = p1.number_input("Initial ETH", min_value=0.01, max_value=100000.0, value=float(settings["paper_capital"]["initial_capital_eth"]), step=0.01)
+        eth_reference = p2.number_input("ETH reference USD", min_value=1.0, max_value=1000000.0, value=float(settings["paper_capital"]["eth_reference_usd"]), step=50.0)
+        max_notional = p3.number_input("Max trade USD", min_value=1.0, max_value=1000000000.0, value=float(settings["paper_capital"]["max_notional_usd_per_trade"]), step=10.0)
+        max_daily_trades = p4.number_input("Max daily trades", min_value=0, max_value=100000, value=int(settings["paper_capital"]["max_daily_paper_trades"]), step=1)
+        sizing_mode = p5.selectbox(
+            "Sizing mode",
+            ["edge_scaled", "full_available_cash"],
+            index=1 if settings["paper_capital"].get("sizing_mode") == "full_available_cash" else 0,
+        )
 
         st.markdown("### Evidence And Risk")
         e1, e2, e3, e4 = st.columns(4)
         min_quote_ok = e1.number_input("Min quote OK %", min_value=0.0, max_value=100.0, value=float(settings["opportunity"]["min_quote_ok_rate_pct"]), step=1.0)
         min_coverage = e2.number_input("Min ETH coverage", min_value=0, max_value=100, value=int(settings["evidence_gates"]["min_eth_coverage_score"]), step=1)
-        max_open_positions = e3.number_input("Max open positions", min_value=1, max_value=20, value=int(settings["risk"]["max_open_positions"]), step=1)
-        daily_loss = e4.number_input("Max daily loss USD", min_value=1.0, max_value=100000.0, value=float(settings["risk"]["max_daily_loss_usd"]), step=5.0)
+        max_open_positions = e3.number_input("Max open positions", min_value=0, max_value=100000, value=int(settings["risk"]["max_open_positions"]), step=1)
+        daily_loss = e4.number_input("Max daily loss USD", min_value=0.0, max_value=1000000000.0, value=float(settings["risk"]["max_daily_loss_usd"]), step=5.0)
 
-        r1, r2, r3 = st.columns(3)
-        cooldown = r1.number_input("Cooldown seconds", min_value=60, max_value=86400, value=int(settings["risk"]["cooldown_seconds"]), step=60)
+        r1, r2, r3, r4 = st.columns(4)
+        cooldown = r1.number_input("Cooldown seconds", min_value=0, max_value=86400, value=int(settings["risk"]["cooldown_seconds"]), step=15)
         require_clean_audit = r2.checkbox("Require clean report audit", value=bool(settings["evidence_gates"]["require_report_audit_clean"]))
         require_provider = r3.checkbox("Block critical provider status", value=bool(settings["evidence_gates"]["require_provider_not_critical"]))
+        duplicate_position_block = r4.checkbox("Block duplicate position", value=bool(settings["risk"]["duplicate_position_block"]))
 
         st.markdown("### Locked Thresholds")
         t1, t2, t3 = st.columns(3)
@@ -558,6 +572,7 @@ def render_paper_settings() -> None:
 
     if submitted:
         updated = settings.copy()
+        updated["paper_profile"] = str(profile)
         updated["operations"] = {
             "loop_interval_seconds": int(loop_interval),
             "heartbeat_interval_seconds": int(heartbeat_interval),
@@ -575,6 +590,7 @@ def render_paper_settings() -> None:
             "eth_reference_usd": f"{eth_reference:.2f}",
             "max_notional_usd_per_trade": f"{max_notional:.2f}",
             "max_daily_paper_trades": int(max_daily_trades),
+            "sizing_mode": str(sizing_mode),
         }
         updated["opportunity"] = {
             **settings["opportunity"],
@@ -585,7 +601,7 @@ def render_paper_settings() -> None:
             "max_open_positions": int(max_open_positions),
             "cooldown_seconds": int(cooldown),
             "max_daily_loss_usd": f"{daily_loss:.2f}",
-            "duplicate_position_block": True,
+            "duplicate_position_block": bool(duplicate_position_block),
             "kill_switch_enabled": True,
         }
         updated["evidence_gates"] = {

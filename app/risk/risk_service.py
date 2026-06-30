@@ -19,6 +19,7 @@ class RiskService:
         self.min_edge_for_paper_pct = Decimal(os.getenv("CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT", "0.30"))
         self.default_paper_notional_usd = Decimal(os.getenv("CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD", "100"))
         self.max_paper_notional_usd = Decimal(os.getenv("CRYPTOAI_MAX_PAPER_NOTIONAL_USD", "250"))
+        self.paper_sizing_mode = os.getenv("CRYPTOAI_PAPER_SIZING_MODE", "edge_scaled").strip().lower()
         self.live_trading_enabled = os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false").lower() in {"1", "true", "yes", "on"}
 
     def assess_ranked_signals(self) -> list[RiskAssessment]:
@@ -53,10 +54,13 @@ class RiskService:
         if recommendation not in {"PAPER_TRADE_CANDIDATE", "WATCH"} and source_action != "READY_FOR_PAPER":
             return self._watch(strategy_name, chain, pair, ai_score, expected_edge, recommendation, f"Recommendation {recommendation} with source action {source_action} is not approved for paper.")
 
-        notional = min(
-            self.max_paper_notional_usd,
-            max(self.default_paper_notional_usd, expected_edge * Decimal("300")),
-        )
+        if self.paper_sizing_mode == "full_available_cash":
+            notional = self.max_paper_notional_usd
+        else:
+            notional = min(
+                self.max_paper_notional_usd,
+                max(self.default_paper_notional_usd, expected_edge * Decimal("300")),
+            )
 
         return RiskAssessment(
             strategy_name=strategy_name,

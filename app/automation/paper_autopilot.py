@@ -133,7 +133,8 @@ class PaperAutopilot:
         max_cycles: int | None = None,
         heartbeat_interval_seconds: int = 60,
     ) -> dict:
-        print(f"CryptoAI paper autopilot started. Interval: {interval_seconds}s")
+        interval_label = "continuous" if interval_seconds == 0 else f"{interval_seconds}s"
+        print(f"CryptoAI paper autopilot started. Interval: {interval_label}")
         print("Live trading is disabled. Press Ctrl+C to stop.")
 
         if OperationsRuntime is not None:
@@ -240,6 +241,7 @@ def main() -> None:
                 "Refusing to start because paper settings are invalid: "
                 + "; ".join(row["message"] for row in validation["findings"])
             )
+        settings_service.apply_runtime_environment(validation["settings"])
         operations = validation["settings"]["operations"]
         args.interval_seconds = int(operations["loop_interval_seconds"])
         args.heartbeat_interval_seconds = int(operations["heartbeat_interval_seconds"])
@@ -249,7 +251,7 @@ def main() -> None:
 
     if args.loop:
         autopilot.run_loop(
-            interval_seconds=max(60, args.interval_seconds),
+            interval_seconds=max(0, args.interval_seconds),
             max_cycles=args.max_cycles,
             heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
         )

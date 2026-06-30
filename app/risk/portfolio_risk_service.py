@@ -67,11 +67,11 @@ class PortfolioRiskService:
         if self.max_daily_loss_usd > 0 and self._decimal(state.get("daily_realized_pnl_usd", "0")) <= -self.max_daily_loss_usd:
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: daily loss guard reached ${self.max_daily_loss_usd}.")
 
-        if int(state.get("daily_filled_trades", 0)) >= self.max_daily_trades:
+        if self.max_daily_trades > 0 and int(state.get("daily_filled_trades", 0)) >= self.max_daily_trades:
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: max daily paper trades reached ({self.max_daily_trades}).")
 
         open_positions = self._open_positions(state)
-        if len(open_positions) >= self.max_open_positions:
+        if self.max_open_positions > 0 and len(open_positions) >= self.max_open_positions:
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: max open positions reached ({self.max_open_positions}).")
 
         normalized_pair = self._normalize_pair(pair)
@@ -81,12 +81,12 @@ class PortfolioRiskService:
         if existing is not None and self.block_same_pair_open_position:
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: existing open {normalized_side} position for {normalized_pair}; reuse/monitor the open position instead of adding duplicate exposure.")
 
-        duplicate = self._recent_duplicate(open_positions, normalized_pair, normalized_side, timestamp)
+        duplicate = self._recent_duplicate(open_positions, normalized_pair, normalized_side, timestamp) if self.duplicate_window_seconds > 0 else None
         if duplicate is not None:
             age = self._age_seconds(duplicate.get("opened_at"), timestamp)
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: duplicate {normalized_side} signal for {normalized_pair} within {self.duplicate_window_seconds}s window (age {age}s).")
 
-        cooldown = self._cooldown_active(state, normalized_pair, normalized_side, timestamp)
+        cooldown = self._cooldown_active(state, normalized_pair, normalized_side, timestamp) if self.cooldown_seconds > 0 else None
         if cooldown is not None:
             age = self._age_seconds(cooldown, timestamp)
             return PortfolioRiskDecision(False, Decimal("0"), f"Portfolio risk rejected: cooldown active for {normalized_pair} {normalized_side} ({age}s/{self.cooldown_seconds}s).")

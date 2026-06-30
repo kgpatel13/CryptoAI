@@ -1,12 +1,13 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-29T23:30:22Z`
+Generated: `2026-06-29T23:57:43Z`
 
 ## Summary
 
 - Status: `VALID`
 - Mode: `paper`
-- Paper capital USD: `3500.00`
+- Paper profile: `unbounded_paper_lab`
+- Paper capital USD: `100000.00`
 - Errors: `0`
 - Warnings: `0`
 - Launch command: `python -m app.automation.paper_autopilot --loop --use-settings`
@@ -17,8 +18,15 @@ Generated: `2026-06-29T23:30:22Z`
 - Chains: `base`
 - Routes: `WETH/USDC, USDC/WETH`
 - DEXs: `Uniswap V2, Aerodrome, Uniswap V3`
-- Initial paper capital ETH: `1.0`
-- Max notional per trade USD: `100`
+- Loop interval seconds: `0`
+- Initial paper capital ETH: `10.0`
+- Max notional per trade USD: `100000`
+- Paper sizing mode: `full_available_cash`
+- Max daily paper trades: `0`
+- Max open positions: `0`
+- Duplicate position block: `False`
+- Cooldown seconds: `0`
+- Max daily loss USD: `0`
 - Production buffer %: `0.30`
 - Research candidate buffer %: `0.20`
 - Paper BUY threshold %: `0.30`
@@ -31,7 +39,9 @@ Generated: `2026-06-29T23:30:22Z`
 
 ## Notes
 
+- Limit value `0` means continuous, unlimited, or disabled for loop interval, daily trades, open positions, cooldown, and daily-loss stop.
 - Paper settings are launch controls for continuous simulation only.
 - Live trading remains disabled until live-readiness gates pass.
 - The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.
-- One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.
+- Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.
+- Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.

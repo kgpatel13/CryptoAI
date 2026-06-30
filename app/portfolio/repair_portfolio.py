@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from app.operations.paper_settings_service import PaperSettingsService
 from app.risk.portfolio_risk_service import PortfolioRiskService
 
 
@@ -10,7 +11,19 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Repair or reset CryptoAI paper portfolio accounting state.")
     parser.add_argument("--state", default="data/paper_portfolio_state.json", help="Paper portfolio state path.")
     parser.add_argument("--reset", action="store_true", help="Reset paper portfolio state to a clean initial portfolio.")
+    parser.add_argument("--use-settings", action="store_true", help="Apply config/paper_trading_settings.json before repairing or resetting.")
     args = parser.parse_args()
+
+    if args.use_settings:
+        settings_service = PaperSettingsService()
+        settings = settings_service.load()
+        validation = settings_service.validate(settings)
+        if validation["status"] != "VALID":
+            raise RuntimeError(
+                "Refusing to use invalid paper settings: "
+                + "; ".join(row["message"] for row in validation["findings"])
+            )
+        settings_service.apply_runtime_environment(validation["settings"])
 
     service = PortfolioRiskService(state_path=Path(args.state))
     if args.reset:

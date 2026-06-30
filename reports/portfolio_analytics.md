@@ -1,18 +1,18 @@
 # CryptoAI Portfolio Analytics Report
 
-Generated: `2026-06-29T23:31:19Z`
+Generated: `2026-06-29T23:58:05Z`
 
 ## Summary
 
 - Mode: `paper`
 - Initial cash USD: `$10000.0000`
-- Cash USD: `$10002.8220`
+- Cash USD: `$9902.7938`
 - Equity USD: `$10002.8220`
 - Realized PnL USD: `$2.8220`
 - Unrealized PnL USD: `$0.0000`
 - Total PnL USD: `$2.8220`
 - Total return %: `0.0282`
-- Trade count: `12`
+- Trade count: `13`
 - Closed/PnL trade count: `5`
 - Win rate %: `80.0000`
 - Profit factor: `103.2464`
@@ -27,13 +27,13 @@ Generated: `2026-06-29T23:31:19Z`
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
 | 2026-06-28 | 8 | 825.0135 | 2.8220 | 2.8220 | 0.0282 |
-| 2026-06-29 | 4 | 400.0562 | 0.0000 | 2.8220 | 0.0000 |
+| 2026-06-29 | 5 | 500.0844 | 0.0000 | 2.8220 | 0.0000 |
 
 ## Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 3 | 300.0316 | 0.3500 | 100.0000 |
+| USDC/WETH | 4 | 400.0598 | 0.3500 | 100.0000 |
 | WETH/USDC | 9 | 925.0381 | 2.4720 | 75.0000 |
 
 ## Recent Trade Journal
@@ -52,6 +52,7 @@ Generated: `2026-06-29T23:31:19Z`
 | 2026-06-29T01:11:32Z | USDC/WETH | FILLED | 100.0142 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 | 2026-06-29T02:12:42Z | WETH/USDC | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 | 2026-06-29T02:12:42Z | USDC/WETH | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+| 2026-06-29T23:31:55Z | USDC/WETH | FILLED | 100.0282 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
 
 ## Notes
 
