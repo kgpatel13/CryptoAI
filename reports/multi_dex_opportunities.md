@@ -1,6 +1,6 @@
 # CryptoAI Multi-DEX Opportunity Report
 
-Generated: `2026-06-30T14:59:41Z`
+Generated: `2026-06-30T15:20:52Z`
 
 ## Quote Health
 
@@ -12,8 +12,8 @@ Generated: `2026-06-30T14:59:41Z`
 
 | Mode | Pair | Buy DEX | Sell DEX | Buy Price | Sell Price | Gross % | Cost % | Net % | Decision | Reason |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| REAL | WETH/USDC | Uniswap V2 | Uniswap V3 | 1554.82642500 | 1561.60402900 | 0.43590744 | 0.30000000 | 0.13590744 | WATCH | Real multi-DEX comparison: net edge 0.1359% is positive but below BUY threshold. |
-| REAL | USDC/WETH | Uniswap V2 | Uniswap V3 | 0.00063630 | 0.00063969 | 0.53332745 | 0.30000000 | 0.23332745 | WATCH | Real multi-DEX comparison: net edge 0.2333% is positive but below BUY threshold. |
+| REAL | WETH/USDC | Uniswap V2 | Uniswap V3 | 1551.24661800 | 1563.71682700 | 0.80388307 | 0.30000000 | 0.50388307 | BUY | Real multi-DEX comparison: net edge 0.5039% is above BUY threshold 0.30%. |
+| REAL | USDC/WETH | Uniswap V2 | Uniswap V3 | 0.00063777 | 0.00063883 | 0.16623633 | 0.30000000 | -0.13376367 | SKIP | Real multi-DEX comparison: net edge -0.1338% is too low after costs. |
 
 ## Failed / Invalid Quotes
 

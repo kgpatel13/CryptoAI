@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 5,
+  "blocked_check_count": 10,
   "check_count": 20,
   "checks": [
     {
@@ -81,28 +81,28 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Paper run is ready for shadow review.",
+      "detail": "Paper run is not yet ready for shadow review.",
       "name": "paper_shadow_review",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Fresh paper run has enough closed trades.",
+      "detail": "Fresh paper run needs at least 30 closed trades.",
       "name": "paper_closed_trades",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Execution-cost confidence meets policy.",
+      "detail": "Execution-cost confidence is INSUFFICIENT; required HIGH.",
       "name": "execution_cost_confidence",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Execution-cost evidence has enough paper samples.",
+      "detail": "Execution-cost evidence needs at least 30 paper samples.",
       "name": "execution_cost_samples",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Provider monitor is OK.",
@@ -117,13 +117,13 @@
       "severity": "PASS"
     },
     {
-      "detail": "Execution realism has shadow-ready evidence and no live approvals.",
+      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
       "name": "execution_realism",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T14:49:19Z",
+  "generated_at": "2026-06-30T15:22:40Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "10",

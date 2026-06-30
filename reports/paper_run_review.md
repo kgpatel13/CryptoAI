@@ -1,6 +1,6 @@
 # CryptoAI Paper Run Review
 
-Generated: `2026-06-30T14:49:39Z`
+Generated: `2026-06-30T15:22:41Z`
 
 ## Summary
 
@@ -31,7 +31,7 @@ Generated: `2026-06-30T14:49:39Z`
 | provider_ok | PASS | provider_status=OK |
 | pool_depth_ready | PASS | depth_ready_routes=2; status=DEPTH_EVIDENCE_READY |
 | execution_shadow_ready | BLOCK | shadow_ready=0; status=NO_OPPORTUNITIES |
-| report_audit_clean | PASS | blocking_findings=0; total_findings=29 |
+| report_audit_clean | PASS | blocking_findings=0; total_findings=25 |
 
 ## Findings
 

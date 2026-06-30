@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T14:49:39Z",
+  "generated_at": "2026-06-30T15:22:41Z",
   "mode": "paper",
   "overall_status": "COLLECTING_PAPER_EVIDENCE",
   "recommendation": "Continue paper run until closed trade evidence exists.",
@@ -22,7 +22,7 @@
   "execution_realism_confidence": "NONE",
   "shadow_ready_count": 0,
   "live_ready_count": 0,
-  "report_audit_findings": 29,
+  "report_audit_findings": 25,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -60,7 +60,7 @@
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=29"
+      "message": "blocking_findings=0; total_findings=25"
     }
   ],
   "findings": [

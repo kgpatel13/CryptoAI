@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T14:49:19Z`
+Generated: `2026-06-30T15:22:40Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `500`
 - Max live trade USD: `50`
 - Max daily loss USD: `10`
-- Blocked checks: `5` / `20`
+- Blocked checks: `10` / `20`
 
 ## Checks
 
@@ -26,13 +26,13 @@ Generated: `2026-06-30T14:49:19Z`
 | dex_allowlist | PASS | Live DEX allowlist is restricted to approved DEXs. |
 | token_allowlist | PASS | Live token allowlist is restricted to approved tokens. |
 | transaction_simulation | BLOCK | Transaction simulation is required and has not passed. |
-| paper_shadow_review | PASS | Paper run is ready for shadow review. |
-| paper_closed_trades | PASS | Fresh paper run has enough closed trades. |
-| execution_cost_confidence | PASS | Execution-cost confidence meets policy. |
-| execution_cost_samples | PASS | Execution-cost evidence has enough paper samples. |
+| paper_shadow_review | BLOCK | Paper run is not yet ready for shadow review. |
+| paper_closed_trades | BLOCK | Fresh paper run needs at least 30 closed trades. |
+| execution_cost_confidence | BLOCK | Execution-cost confidence is INSUFFICIENT; required HIGH. |
+| execution_cost_samples | BLOCK | Execution-cost evidence needs at least 30 paper samples. |
 | provider_health | PASS | Provider monitor is OK. |
 | report_audit | PASS | Report audit has no blocking operational findings. |
-| execution_realism | PASS | Execution realism has shadow-ready evidence and no live approvals. |
+| execution_realism | BLOCK | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
 
 ## Notes
 

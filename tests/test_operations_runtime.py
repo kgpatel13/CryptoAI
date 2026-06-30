@@ -6,12 +6,38 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from app.automation.paper_autopilot import PaperAutopilot
+from app.automation.paper_autopilot import PaperAutopilot, SingleInstanceLock
 from app.operations.models import RuntimeStatus
 from app.operations.runtime import OperationsRuntime
 
 
 class OperationsRuntimeTests(unittest.TestCase):
+    def test_single_instance_lock_blocks_second_active_runner(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lock_path = Path(tmp) / "paper_autopilot.lock"
+            first = SingleInstanceLock(lock_path)
+            first.acquire()
+            try:
+                with self.assertRaisesRegex(RuntimeError, "already running"):
+                    SingleInstanceLock(lock_path).acquire()
+            finally:
+                first.release()
+
+            self.assertFalse(lock_path.exists())
+
+    def test_single_instance_lock_removes_stale_lock(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lock_path = Path(tmp) / "paper_autopilot.lock"
+            lock_path.write_text("pid=0\nstarted_at=old\n", encoding="utf-8")
+
+            lock = SingleInstanceLock(lock_path)
+            try:
+                lock.acquire()
+                self.assertTrue(lock_path.exists())
+                self.assertIn(f"pid=", lock_path.read_text(encoding="utf-8"))
+            finally:
+                lock.release()
+
     def test_runtime_writes_heartbeat_state_metrics_and_summary(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -153,6 +179,31 @@ class OperationsRuntimeTests(unittest.TestCase):
                 calls.append("realism")
                 return {"overall_status": "PAPER_ONLY_NEEDS_DEPTH"}
 
+        class FakeExecutionCostEvidence:
+            def generate(self) -> dict:
+                calls.append("cost")
+                return {"confidence": "LOW"}
+
+        class FakeWalletPreflight:
+            def generate(self) -> dict:
+                calls.append("wallet")
+                return {"overall_status": "WALLET_PREP_READY"}
+
+        class FakeLiveSafety:
+            def generate(self) -> dict:
+                calls.append("live_safety")
+                return {"overall_status": "LIVE_BLOCKED"}
+
+        class FakeTransactionSimulation:
+            def generate(self) -> dict:
+                calls.append("tx_sim")
+                return {"overall_status": "TX_SIMULATION_ACTION"}
+
+        class FakeLiveReadiness:
+            def generate(self) -> dict:
+                calls.append("live_readiness")
+                return {"overall_status": "LIVE_REVIEW_NOT_READY"}
+
         class FakePoolDepthLadder:
             def generate(self) -> dict:
                 calls.append("pool_depth")
@@ -163,19 +214,45 @@ class OperationsRuntimeTests(unittest.TestCase):
                 calls.append("market")
                 return {"overall_readiness_score": 77}
 
-        with patch("app.automation.paper_autopilot.OpportunityExplorerService", FakeOpportunityExplorer):
-            with patch("app.automation.paper_autopilot.SchedulerService", FakeScheduler):
-                with patch("app.automation.paper_autopilot.ProviderMonitorService", FakeProviderMonitor):
-                    with patch("app.automation.paper_autopilot.PaperReportService", FakePaperReport):
-                        with patch("app.automation.paper_autopilot.ReportAuditService", FakeReportAudit):
-                            with patch("app.automation.paper_autopilot.PaperRunReviewService", FakePaperRunReview):
-                                with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
-                                    with patch("app.automation.paper_autopilot.ExecutionRealismService", FakeExecutionRealism):
-                                        with patch("app.automation.paper_autopilot.PoolDepthLadderService", FakePoolDepthLadder):
-                                            with patch("app.automation.paper_autopilot.PaperAutopilot._report_missing_or_stale", return_value=True):
-                                                result = PaperAutopilot().run_once()
+        with (
+            patch("app.automation.paper_autopilot.OpportunityExplorerService", FakeOpportunityExplorer),
+            patch("app.automation.paper_autopilot.SchedulerService", FakeScheduler),
+            patch("app.automation.paper_autopilot.ProviderMonitorService", FakeProviderMonitor),
+            patch("app.automation.paper_autopilot.PaperReportService", FakePaperReport),
+            patch("app.automation.paper_autopilot.ReportAuditService", FakeReportAudit),
+            patch("app.automation.paper_autopilot.PaperRunReviewService", FakePaperRunReview),
+            patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence),
+            patch("app.automation.paper_autopilot.ExecutionRealismService", FakeExecutionRealism),
+            patch("app.automation.paper_autopilot.ExecutionCostEvidenceService", FakeExecutionCostEvidence),
+            patch("app.automation.paper_autopilot.WalletPreflightService", FakeWalletPreflight),
+            patch("app.automation.paper_autopilot.LiveSafetyReportService", FakeLiveSafety),
+            patch("app.automation.paper_autopilot.TransactionSimulationService", FakeTransactionSimulation),
+            patch("app.automation.paper_autopilot.LiveReadinessChecklistService", FakeLiveReadiness),
+            patch("app.automation.paper_autopilot.PoolDepthLadderService", FakePoolDepthLadder),
+            patch("app.automation.paper_autopilot.PaperAutopilot._report_missing_or_stale", return_value=True),
+        ):
+            result = PaperAutopilot().run_once()
 
-        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "pool_depth", "realism", "audit", "run_review"])
+        self.assertEqual(
+            calls,
+            [
+                "opportunity",
+                "scheduler",
+                "paper",
+                "provider",
+                "market",
+                "pool_depth",
+                "cost",
+                "realism",
+                "wallet",
+                "live_safety",
+                "tx_sim",
+                "audit",
+                "run_review",
+                "live_readiness",
+                "audit",
+            ],
+        )
         self.assertEqual(result["provider_monitor_status"], "WATCH")
         self.assertEqual(result["market_readiness_score"], 77)
         self.assertEqual(result["opportunity_decisions"], 1)

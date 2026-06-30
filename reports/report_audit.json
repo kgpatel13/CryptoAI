@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-30T14:59:59Z",
+  "generated_at": "2026-06-30T15:22:41Z",
   "mode": "paper",
   "report_count": 53,
   "missing_count": 0,
   "invalid_json_count": 0,
-  "stale_count": 24,
+  "stale_count": 25,
   "operational_stale_count": 0,
   "research_stale_count": 24,
-  "finding_count": 24,
+  "finding_count": 25,
   "blocking_finding_count": 0,
   "operational_finding_count": 0,
   "research_finding_count": 24,
@@ -18,22 +18,22 @@
       "exists": true,
       "size_bytes": 925,
       "generated_at": "2026-06-30T14:50:11Z",
-      "stale": false
+      "stale": true
     },
     {
       "name": "multi_dex_opportunities.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 951,
-      "generated_at": "2026-06-30T14:59:41Z",
+      "size_bytes": 930,
+      "generated_at": "2026-06-30T15:20:52Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 531,
-      "generated_at": "2026-06-30T14:59:41Z",
+      "size_bytes": 511,
+      "generated_at": "2026-06-30T15:20:52Z",
       "stale": false
     },
     {
@@ -41,7 +41,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4069,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -56,7 +56,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2469,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false
     },
     {
@@ -64,7 +64,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2752,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "generated_at": "2026-06-30T15:22:41Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -84,22 +84,22 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1817,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "generated_at": "2026-06-30T15:22:41Z",
       "stale": false
     },
     {
       "name": "live_safety.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5019,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "size_bytes": 5084,
+      "generated_at": "2026-06-30T15:22:40Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_BLOCKED",
         "live_guard_allowed": false,
-        "blocked_check_count": 5,
+        "blocked_check_count": 10,
         "check_count": 20
       }
     },
@@ -107,8 +107,8 @@
       "name": "live_safety.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2212,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "size_bytes": 2272,
+      "generated_at": "2026-06-30T15:22:40Z",
       "stale": false
     },
     {
@@ -116,7 +116,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1938,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -129,7 +129,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1544,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false
     },
     {
@@ -266,7 +266,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6981,
-      "generated_at": "2026-06-30T14:49:22Z",
+      "generated_at": "2026-06-30T15:22:22Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -283,7 +283,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1718,
-      "generated_at": "2026-06-30T14:49:22Z",
+      "generated_at": "2026-06-30T15:22:22Z",
       "stale": false
     },
     {
@@ -291,7 +291,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1070,
-      "generated_at": "2026-06-30T14:49:20Z",
+      "generated_at": "2026-06-30T15:22:39Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -308,7 +308,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1048,
-      "generated_at": "2026-06-30T14:49:20Z",
+      "generated_at": "2026-06-30T15:22:39Z",
       "stale": false
     },
     {
@@ -316,7 +316,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2962,
-      "generated_at": "2026-06-30T14:49:20Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -330,7 +330,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1721,
-      "generated_at": "2026-06-30T14:49:20Z",
+      "generated_at": "2026-06-30T15:22:21Z",
       "stale": false
     },
     {
@@ -338,7 +338,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5018,
-      "generated_at": "2026-06-30T14:59:59Z",
+      "generated_at": "2026-06-30T15:22:41Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -355,7 +355,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 3025,
-      "generated_at": "2026-06-30T14:59:59Z",
+      "generated_at": "2026-06-30T15:22:41Z",
       "stale": false
     },
     {
@@ -363,7 +363,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2936,
-      "generated_at": "2026-06-30T14:59:59Z",
+      "generated_at": "2026-06-30T15:22:40Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -379,7 +379,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1952,
-      "generated_at": "2026-06-30T14:59:59Z",
+      "generated_at": "2026-06-30T15:22:40Z",
       "stale": false
     },
     {
@@ -436,7 +436,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4264,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "generated_at": "2026-06-30T15:16:44Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -449,7 +449,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1269,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "generated_at": "2026-06-30T15:16:44Z",
       "stale": false
     },
     {
@@ -552,7 +552,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3142,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:21:27Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -569,7 +569,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1659,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:21:27Z",
       "stale": false
     },
     {
@@ -577,7 +577,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3469,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:39Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -592,15 +592,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1907,
-      "generated_at": "2026-06-30T14:49:19Z",
+      "generated_at": "2026-06-30T15:22:39Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2877,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "size_bytes": 2885,
+      "generated_at": "2026-06-30T15:16:44Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -614,12 +614,19 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1004,
-      "generated_at": "2026-06-30T14:49:39Z",
+      "size_bytes": 1011,
+      "generated_at": "2026-06-30T15:16:44Z",
       "stale": false
     }
   ],
   "findings": [
+    {
+      "severity": "WATCH",
+      "report": "quote_diagnostics.md",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
     {
       "severity": "WATCH",
       "report": "strategy_center.json",

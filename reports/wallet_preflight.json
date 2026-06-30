@@ -94,7 +94,7 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-06-30T14:49:19Z",
+  "generated_at": "2026-06-30T15:22:39Z",
   "live_kill_switch_enabled": true,
   "live_trading_approval": false,
   "live_trading_enabled": false,

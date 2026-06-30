@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import os
 import time
 from datetime import UTC, datetime
@@ -63,14 +64,114 @@ except Exception:
     PaperRunReviewService = None
 
 try:
+    from app.execution.execution_cost_evidence_service import ExecutionCostEvidenceService
+except Exception:
+    ExecutionCostEvidenceService = None
+
+try:
     from app.execution.execution_realism_service import ExecutionRealismService
 except Exception:
     ExecutionRealismService = None
 
 try:
+    from app.execution.live_readiness_checklist_service import LiveReadinessChecklistService
+except Exception:
+    LiveReadinessChecklistService = None
+
+try:
+    from app.execution.live_safety_report import LiveSafetyReportService
+except Exception:
+    LiveSafetyReportService = None
+
+try:
+    from app.execution.transaction_simulation_service import TransactionSimulationService
+except Exception:
+    TransactionSimulationService = None
+
+try:
+    from app.execution.wallet_preflight_service import WalletPreflightService
+except Exception:
+    WalletPreflightService = None
+
+try:
     from app.research.pool_depth_ladder_service import PoolDepthLadderService
 except Exception:
     PoolDepthLadderService = None
+
+
+class SingleInstanceLock:
+    """Small file lock to prevent concurrent paper autopilot writers."""
+
+    def __init__(self, lock_path: Path | str = "data/paper_autopilot.lock") -> None:
+        self.lock_path = Path(lock_path)
+        self.fd: int | None = None
+
+    def acquire(self) -> None:
+        self.lock_path.parent.mkdir(parents=True, exist_ok=True)
+        flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
+        payload = f"pid={os.getpid()}\nstarted_at={PaperAutopilot._utc_now()}\n"
+        try:
+            self.fd = os.open(str(self.lock_path), flags)
+        except FileExistsError:
+            if self._remove_stale_lock():
+                self.fd = os.open(str(self.lock_path), flags)
+            else:
+                detail = self.lock_path.read_text(encoding="utf-8", errors="replace").strip()
+                raise RuntimeError(f"Paper autopilot is already running; lock={self.lock_path}; {detail}")
+        os.write(self.fd, payload.encode("utf-8"))
+
+    def release(self) -> None:
+        if self.fd is not None:
+            os.close(self.fd)
+            self.fd = None
+        try:
+            self.lock_path.unlink()
+        except FileNotFoundError:
+            pass
+
+    def __enter__(self) -> "SingleInstanceLock":
+        self.acquire()
+        return self
+
+    def __exit__(self, _exc_type, _exc, _tb) -> None:
+        self.release()
+
+    def _remove_stale_lock(self) -> bool:
+        try:
+            text = self.lock_path.read_text(encoding="utf-8", errors="replace")
+        except FileNotFoundError:
+            return True
+        pid = None
+        for line in text.splitlines():
+            if line.startswith("pid="):
+                try:
+                    pid = int(line.split("=", 1)[1])
+                except ValueError:
+                    pid = None
+        if pid is not None and self._pid_running(pid):
+            return False
+        try:
+            self.lock_path.unlink()
+            return True
+        except FileNotFoundError:
+            return True
+
+    @staticmethod
+    def _pid_running(pid: int) -> bool:
+        if pid <= 0:
+            return False
+        if os.name == "nt":
+            process_query_limited_information = 0x1000
+            handle = ctypes.windll.kernel32.OpenProcess(process_query_limited_information, False, pid)
+            if not handle:
+                return False
+            ctypes.windll.kernel32.CloseHandle(handle)
+            return True
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        return True
 
 
 class PaperAutopilot:
@@ -163,9 +264,33 @@ class PaperAutopilot:
             except Exception:
                 pass
 
+        if ExecutionCostEvidenceService is not None:
+            try:
+                ExecutionCostEvidenceService().generate()
+            except Exception:
+                pass
+
         if ExecutionRealismService is not None:
             try:
                 ExecutionRealismService().generate()
+            except Exception:
+                pass
+
+        if WalletPreflightService is not None:
+            try:
+                WalletPreflightService().generate()
+            except Exception:
+                pass
+
+        if LiveSafetyReportService is not None:
+            try:
+                LiveSafetyReportService().generate()
+            except Exception:
+                pass
+
+        if TransactionSimulationService is not None:
+            try:
+                TransactionSimulationService().generate()
             except Exception:
                 pass
 
@@ -178,6 +303,18 @@ class PaperAutopilot:
         if PaperRunReviewService is not None:
             try:
                 PaperRunReviewService().generate()
+            except Exception:
+                pass
+
+        if LiveReadinessChecklistService is not None:
+            try:
+                LiveReadinessChecklistService().generate()
+            except Exception:
+                pass
+
+        if ReportAuditService is not None:
+            try:
+                ReportAuditService().generate()
             except Exception:
                 pass
 
@@ -279,6 +416,7 @@ def main() -> None:
     )
     parser.add_argument("--max-cycles", type=int, default=None)
     parser.add_argument("--disable-paper-execution", action="store_true")
+    parser.add_argument("--disable-single-instance-lock", action="store_true")
     parser.add_argument("--use-settings", action="store_true", help="Load validated 24/7 paper settings from config.")
     parser.add_argument(
         "--settings-file",
@@ -316,11 +454,19 @@ def main() -> None:
     autopilot = PaperAutopilot(enable_paper_execution=not args.disable_paper_execution)
 
     if args.loop:
-        autopilot.run_loop(
-            interval_seconds=max(0, args.interval_seconds),
-            max_cycles=args.max_cycles,
-            heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
-        )
+        if args.disable_single_instance_lock:
+            autopilot.run_loop(
+                interval_seconds=max(0, args.interval_seconds),
+                max_cycles=args.max_cycles,
+                heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
+            )
+        else:
+            with SingleInstanceLock():
+                autopilot.run_loop(
+                    interval_seconds=max(0, args.interval_seconds),
+                    max_cycles=args.max_cycles,
+                    heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
+                )
     else:
         print(autopilot.run_once())
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T14:49:19Z",
+  "generated_at": "2026-06-30T15:22:21Z",
   "mode": "paper",
   "initial_cash_usd": "500.0000",
   "cash_usd": "500.0000",
@@ -18,7 +18,7 @@
     "difference_usd": "0.0000",
     "journal_trade_count": 0,
     "state_daily_filled_trades": 0,
-    "state_updated_at": "2026-06-30T14:49:19Z",
+    "state_updated_at": "2026-06-30T15:22:21Z",
     "reason": "The paper-order journal and active portfolio ledger agree."
   },
   "trade_count": 0,

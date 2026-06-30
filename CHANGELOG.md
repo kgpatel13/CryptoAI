@@ -1,5 +1,11 @@
 # CryptoAI Changelog
 
+## v5.18.1 - Paper Autopilot Guard and Readiness Refresh
+
+- Added a single-instance lock for looped paper autopilot runs to prevent duplicate 24/7 processes from writing overlapping paper evidence.
+- Regenerated execution-cost evidence, wallet preflight, live safety, transaction simulation, live readiness, and report audit during autopilot cycles.
+- Preserves paper-only mode and keeps live trading disabled.
+
 ## v5.18 - Exact Calldata and Base eth_call Simulation
 
 - Implemented exact unsigned swap calldata generation for the approved Base USDC/WETH simulation scope.
