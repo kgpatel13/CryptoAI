@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T12:30:59Z`
+Generated: `2026-06-30T13:26:43Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `0`
 - Max live trade USD: `0`
 - Max daily loss USD: `0`
-- Blocked checks: `13` / `20`
+- Blocked checks: `12` / `20`
 
 ## Checks
 
@@ -31,8 +31,8 @@ Generated: `2026-06-30T12:30:59Z`
 | execution_cost_confidence | PASS | Execution-cost confidence meets policy. |
 | execution_cost_samples | PASS | Execution-cost evidence has enough paper samples. |
 | provider_health | PASS | Provider monitor is OK. |
-| report_audit | BLOCK | Report audit has findings. |
-| execution_realism | BLOCK | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
+| report_audit | BLOCK | Report audit has blocking operational findings. |
+| execution_realism | PASS | Execution realism has shadow-ready evidence and no live approvals. |
 
 ## Notes
 

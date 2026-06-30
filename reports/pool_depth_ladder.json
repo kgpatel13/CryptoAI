@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T12:40:26Z",
+  "generated_at": "2026-06-30T13:27:16Z",
   "mode": "paper",
-  "batch_id": "329cef45-0",
+  "batch_id": "e5204774-c",
   "overall_status": "DEPTH_EVIDENCE_READY",
   "confidence": "MEDIUM",
   "route_count": 2,
@@ -37,8 +37,8 @@
         "pair_address": "0x4676505f75ef3cf95cf30d6e56134e39fe1f4c325ed29e52a5e28e350bee268c",
         "base_token": "BASEMATE",
         "quote_token": "WETH",
-        "liquidity_usd": "118475.4700",
-        "volume_h24_usd": "44366.1800"
+        "liquidity_usd": "121169.9100",
+        "volume_h24_usd": "39914.8000"
       },
       {
         "chain": "base",
@@ -46,8 +46,8 @@
         "pair_address": "0x0FB597D6cFE5bE0d5258A7f017599C2A4Ece34c7",
         "base_token": "PEPE",
         "quote_token": "WETH",
-        "liquidity_usd": "198625.3800",
-        "volume_h24_usd": "3466.4100"
+        "liquidity_usd": "195005.6500",
+        "volume_h24_usd": "3476.3800"
       },
       {
         "chain": "base",
@@ -55,8 +55,8 @@
         "pair_address": "0xbcd27A437eBe92555Cee6b5bBeDdAC639a1b6fcB",
         "base_token": "ALB",
         "quote_token": "WETH",
-        "liquidity_usd": "150650.4700",
-        "volume_h24_usd": "6027.7800"
+        "liquidity_usd": "148027.4100",
+        "volume_h24_usd": "6204.0800"
       },
       {
         "chain": "base",
@@ -64,8 +64,8 @@
         "pair_address": "0x0150e3d89E161518C044ad191c4bdf6b40Df6E83",
         "base_token": "cbMEGA",
         "quote_token": "USDC",
-        "liquidity_usd": "212786.8600",
-        "volume_h24_usd": "866311.4200"
+        "liquidity_usd": "1050830.0800",
+        "volume_h24_usd": "915384.9900"
       },
       {
         "chain": "base",
@@ -73,8 +73,8 @@
         "pair_address": "0xB90fe999Be6869AF0aFC557DCCfBE169EA3403D6",
         "base_token": "cbXRP",
         "quote_token": "WETH",
-        "liquidity_usd": "311252.9900",
-        "volume_h24_usd": "975674.2800"
+        "liquidity_usd": "456846.6400",
+        "volume_h24_usd": "1034060.3900"
       },
       {
         "chain": "base",
@@ -82,8 +82,8 @@
         "pair_address": "0x16905890A1D02b6F824387419319Bf4188B961b0",
         "base_token": "BENJI",
         "quote_token": "WETH",
-        "liquidity_usd": "279417.3500",
-        "volume_h24_usd": "30162.7000"
+        "liquidity_usd": "276964.4000",
+        "volume_h24_usd": "28600.1400"
       },
       {
         "chain": "base",
@@ -91,8 +91,8 @@
         "pair_address": "0x4e962BB3889Bf030368F56810A9c96B83CB3E778",
         "base_token": "cbBTC",
         "quote_token": "USDC",
-        "liquidity_usd": "7709137.5800",
-        "volume_h24_usd": "95961660.4500"
+        "liquidity_usd": "7663390.3900",
+        "volume_h24_usd": "94394213.0000"
       },
       {
         "chain": "base",
@@ -100,8 +100,8 @@
         "pair_address": "0x39a72B1292AAED73B9B5633e14f88fE9a89F400b",
         "base_token": "BTCB",
         "quote_token": "WETH",
-        "liquidity_usd": "210108.5600",
-        "volume_h24_usd": "824.4200"
+        "liquidity_usd": "207143.9500",
+        "volume_h24_usd": "778.0700"
       },
       {
         "chain": "base",
@@ -109,8 +109,8 @@
         "pair_address": "0xFdbAf04326AcC24e3d1788333826b71E3291863a",
         "base_token": "Fartcoin",
         "quote_token": "WETH",
-        "liquidity_usd": "133300.1700",
-        "volume_h24_usd": "619.8900"
+        "liquidity_usd": "132811.1300",
+        "volume_h24_usd": "652.6100"
       }
     ],
     "error": ""
@@ -125,12 +125,12 @@
       "requested_notional_usd": "500.0000",
       "max_usable_notional_usd": "2000.0000",
       "requested_price_impact_pct": "0.0114",
-      "worst_requested_price_impact_pct": "0.0736",
-      "worst_price_impact_pct": "0.3495",
+      "worst_requested_price_impact_pct": "0.0738",
+      "worst_price_impact_pct": "0.3506",
       "selected_depth_venues": [
         {
           "dex": "Uniswap V3",
-          "requested_price_impact_pct": "0.0010"
+          "requested_price_impact_pct": "0.0012"
         },
         {
           "dex": "Aerodrome",
@@ -143,7 +143,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0540",
+          "worst_price_impact_pct": "0.0541",
           "liquidity_usd": "0.0000"
         },
         {
@@ -151,7 +151,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.3495",
+          "worst_price_impact_pct": "0.3506",
           "liquidity_usd": "0.0000"
         },
         {
@@ -159,7 +159,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0045",
+          "worst_price_impact_pct": "0.0055",
           "liquidity_usd": "0.0000"
         }
       ],
@@ -173,17 +173,17 @@
       "healthy_dex_count": 3,
       "requested_notional_usd": "500.0000",
       "max_usable_notional_usd": "2000.0000",
-      "requested_price_impact_pct": "0.0178",
-      "worst_requested_price_impact_pct": "0.1150",
-      "worst_price_impact_pct": "0.5440",
+      "requested_price_impact_pct": "0.0177",
+      "worst_requested_price_impact_pct": "0.1147",
+      "worst_price_impact_pct": "0.5424",
       "selected_depth_venues": [
         {
           "dex": "Uniswap V3",
-          "requested_price_impact_pct": "0.0015"
+          "requested_price_impact_pct": "0.0018"
         },
         {
           "dex": "Aerodrome",
-          "requested_price_impact_pct": "0.0178"
+          "requested_price_impact_pct": "0.0177"
         }
       ],
       "dexes": [
@@ -192,7 +192,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0844",
+          "worst_price_impact_pct": "0.0841",
           "liquidity_usd": "0.0000"
         },
         {
@@ -200,7 +200,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.5440",
+          "worst_price_impact_pct": "0.5424",
           "liquidity_usd": "0.0000"
         },
         {
@@ -208,11 +208,11 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0071",
+          "worst_price_impact_pct": "0.0086",
           "liquidity_usd": "0.0000"
         }
       ],
-      "reason": "WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0178%."
+      "reason": "WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0177%."
     }
   ],
   "findings": [],

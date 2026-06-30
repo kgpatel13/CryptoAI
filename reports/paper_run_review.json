@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-30T12:47:19Z",
+  "generated_at": "2026-06-30T13:27:38Z",
   "mode": "paper",
-  "overall_status": "OPERATIONS_REVIEW",
-  "recommendation": "Refresh operational evidence before shadow review.",
+  "overall_status": "SHADOW_REVIEW_CANDIDATE",
+  "recommendation": "Review sustained paper evidence before any live-trading design decision.",
   "live_decision": "BLOCKED",
-  "shadow_decision": "BLOCKED",
+  "shadow_decision": "REVIEW_READY",
   "paper_profile": "shadow_500",
   "initial_cash_usd": "500.0000",
   "cash_usd": "1679.8276",
@@ -20,9 +20,12 @@
   "pool_depth_ready_route_count": 2,
   "execution_realism_status": "SHADOW_REVIEW_READY",
   "execution_realism_confidence": "MEDIUM",
-  "shadow_ready_count": 2,
+  "shadow_ready_count": 1,
   "live_ready_count": 0,
   "report_audit_findings": 27,
+  "report_audit_blocking_findings": 0,
+  "report_audit_operational_findings": 0,
+  "report_audit_research_findings": 24,
   "gates": [
     {
       "name": "pnl_reconciled",
@@ -52,12 +55,12 @@
     {
       "name": "execution_shadow_ready",
       "status": "PASS",
-      "message": "shadow_ready=2; status=SHADOW_REVIEW_READY"
+      "message": "shadow_ready=1; status=SHADOW_REVIEW_READY"
     },
     {
       "name": "report_audit_clean",
-      "status": "BLOCK",
-      "message": "findings=27"
+      "status": "PASS",
+      "message": "blocking_findings=0; total_findings=27"
     }
   ],
   "findings": [
@@ -66,12 +69,8 @@
       "message": "Paper run is profitable so far: $1179.8276 across 656 closed trade(s)."
     },
     {
-      "severity": "WATCH",
-      "message": "Report audit has 27 finding(s); refresh missing/stale research reports as needed."
-    },
-    {
-      "severity": "SUMMARY",
-      "message": "Blocked gates: report_audit_clean."
+      "severity": "INFO",
+      "message": "Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness."
     }
   ],
   "notes": [

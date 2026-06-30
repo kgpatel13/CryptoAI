@@ -163,6 +163,24 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
 
+    def test_live_parity_500_profile_exports_tiny_live_like_limits(self) -> None:
+        service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
+        settings = service.live_parity_500_profile()
+
+        payload = service.validate(settings)
+        env = payload["runtime_environment"]
+
+        self.assertEqual(payload["status"], "VALID")
+        self.assertEqual(payload["paper_capital_usd"], "500.00")
+        self.assertEqual(settings["paper_profile"], "live_parity_500")
+        self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "500.00")
+        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "50")
+        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "50")
+        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "10.00")
+        self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "10")
+        self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.30")
+        self.assertEqual(settings["evidence_gates"]["min_execution_cost_confidence"], "HIGH")
+
 
 if __name__ == "__main__":
     unittest.main()

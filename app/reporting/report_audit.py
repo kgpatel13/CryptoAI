@@ -24,6 +24,8 @@ class ReportAuditService:
         "execution_realism.md",
         "execution_cost_evidence.json",
         "execution_cost_evidence.md",
+        "live_readiness_checklist.json",
+        "live_readiness_checklist.md",
         "market_intelligence.json",
         "market_intelligence.md",
         "provider_monitor.json",
@@ -40,6 +42,8 @@ class ReportAuditService:
         "paper_trading_settings.md",
         "wallet_preflight.json",
         "wallet_preflight.md",
+        "live_readiness_checklist.json",
+        "live_readiness_checklist.md",
     }
 
     EXPECTED_REPORTS = [
@@ -72,6 +76,8 @@ class ReportAuditService:
         "execution_realism.md",
         "execution_cost_evidence.json",
         "execution_cost_evidence.md",
+        "live_readiness_checklist.json",
+        "live_readiness_checklist.md",
         "optimization_report.json",
         "optimization_report.md",
         "experiment_report.json",

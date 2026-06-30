@@ -99,6 +99,9 @@ class PaperSettingsService:
     def reset(self) -> dict[str, Any]:
         return self.save(self.defaults())
 
+    def save_live_parity_500_profile(self) -> dict[str, Any]:
+        return self.save(self.live_parity_500_profile())
+
     def validate(self, settings: dict[str, Any] | None = None) -> dict[str, Any]:
         payload = self._merge(self.defaults(), settings or self.load())
         findings: list[dict[str, str]] = []
@@ -256,6 +259,31 @@ class PaperSettingsService:
     @classmethod
     def defaults(cls) -> dict[str, Any]:
         return deepcopy(DEFAULT_PAPER_SETTINGS)
+
+    @classmethod
+    def live_parity_500_profile(cls) -> dict[str, Any]:
+        settings = cls.defaults()
+        settings["paper_profile"] = "live_parity_500"
+        settings["operations"]["loop_interval_seconds"] = 0
+        settings["paper_capital"]["initial_capital_eth"] = "0.5"
+        settings["paper_capital"]["eth_reference_usd"] = "1000"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "50"
+        settings["paper_capital"]["max_daily_paper_trades"] = 0
+        settings["paper_capital"]["sizing_mode"] = "full_available_cash"
+        settings["risk"]["max_open_positions"] = 1
+        settings["risk"]["duplicate_position_block"] = True
+        settings["risk"]["cooldown_seconds"] = 0
+        settings["risk"]["max_daily_loss_usd"] = "10"
+        settings["risk"]["kill_switch_enabled"] = True
+        settings["evidence_gates"]["require_report_audit_clean"] = True
+        settings["evidence_gates"]["require_provider_not_critical"] = True
+        settings["evidence_gates"]["min_execution_cost_confidence"] = "HIGH"
+        settings["notes"] = [
+            *settings.get("notes", []),
+            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $50 max trade, $10 daily loss cap, Base ETH routes only.",
+            "This profile is still paper-only and does not approve live trading.",
+        ]
+        return settings
 
     @classmethod
     def _merge(cls, base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:

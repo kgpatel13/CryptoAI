@@ -666,7 +666,7 @@ def render_paper_settings() -> None:
     dataframe_or_info(validation.get("findings", []), "No settings findings.")
 
     with st.form("paper_settings_form"):
-        profile_options = ["standard", "aggressive_paper", "unbounded_paper_lab", "shadow_500"]
+        profile_options = ["standard", "aggressive_paper", "unbounded_paper_lab", "shadow_500", "live_parity_500"]
         selected_profile = str(settings.get("paper_profile", "standard"))
         profile = st.selectbox(
             "Paper profile",
@@ -796,6 +796,15 @@ def render_paper_settings() -> None:
         except Exception as exc:
             show_exception(exc)
 
+    if st.button("Apply Live Parity 500 Profile"):
+        try:
+            profile_settings = service.save_live_parity_500_profile()
+            service.generate_report(profile_settings)
+            st.success("Live parity paper profile saved.")
+            st.rerun()
+        except Exception as exc:
+            show_exception(exc)
+
     st.markdown("### Launch Command")
     st.code(validation.get("launch_command", "python -m app.automation.paper_autopilot --loop --use-settings"), language="bash")
 
@@ -893,6 +902,8 @@ def render_reports() -> None:
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
         ("Paper Run Review", REPORT_DIR / "paper_run_review.md"),
         ("Live Safety", REPORT_DIR / "live_safety.md"),
+        ("Wallet Preflight", REPORT_DIR / "wallet_preflight.md"),
+        ("Live Readiness Checklist", REPORT_DIR / "live_readiness_checklist.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
@@ -1344,6 +1355,23 @@ def render_risk_controls() -> None:
             st.success("Wallet preflight generated.")
             st.json(result)
 
+    if st.button("Generate Live Readiness Checklist"):
+        def task():
+            LiveReadinessChecklistService = import_object("app.execution.live_readiness_checklist_service", "LiveReadinessChecklistService")
+            return LiveReadinessChecklistService().generate()
+
+        result = safe_run("Generating live readiness checklist...", task)
+        if result is not None:
+            st.success("Live readiness checklist generated.")
+            st.json(result)
+
+    st.markdown("### Live Readiness Checklist")
+    readiness_txt = read_text(REPORT_DIR / "live_readiness_checklist.md")
+    if readiness_txt:
+        st.markdown(readiness_txt)
+    else:
+        st.info("No live_readiness_checklist.md found yet. Generate Live Readiness Checklist first.")
+
     st.markdown("### Wallet Preflight Report")
     wallet_txt = read_text(REPORT_DIR / "wallet_preflight.md")
     if wallet_txt:
@@ -1421,6 +1449,8 @@ def render_system_health() -> None:
         REPORT_DIR / "live_safety.md",
         REPORT_DIR / "wallet_preflight.json",
         REPORT_DIR / "wallet_preflight.md",
+        REPORT_DIR / "live_readiness_checklist.json",
+        REPORT_DIR / "live_readiness_checklist.md",
         REPORT_DIR / "portfolio_analytics.json",
         REPORT_DIR / "portfolio_analytics.md",
         DATA_DIR / "strategy_signals.jsonl",
@@ -1527,6 +1557,7 @@ def render_setup() -> None:
         python -m app.reporting.paper_report
         python -m app.execution.live_safety_report
         python -m app.execution.wallet_preflight_service
+        python -m app.execution.live_readiness_checklist_service
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

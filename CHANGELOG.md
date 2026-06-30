@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.16 - Live Readiness Checklist and Paper Parity Profile
+
+- Added `LiveReadinessChecklistService` for one consolidated pre-live review gate.
+- Added `live_readiness_checklist.json` and `live_readiness_checklist.md`.
+- Added a `live_parity_500` paper profile that mirrors the intended tiny-live limits: `$500` wallet, `$50` max trade, `$10` daily loss cap, Base ETH routes only, and `HIGH` execution-cost confidence.
+- Integrated Live Readiness Checklist into Risk & Controls, Reports, and Report Audit.
+- Added tests proving live-parity paper can become review-ready while full-wallet paper trading fails live-cap parity.
+- Kept live trading disabled, live kill switch ON during review, private keys absent, and live approval false.
+
 ## v5.15 - Isolated Wallet Preflight
 
 - Added `WalletPreflightService` for preparation-only checks of the future isolated tiny-live wallet.

@@ -1,6 +1,6 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T12:47:19Z`
+Generated: `2026-06-30T13:26:43Z`
 
 ## Summary
 
@@ -8,17 +8,15 @@ Generated: `2026-06-30T12:47:19Z`
 - Confidence: `MEDIUM`
 - Paper capital USD: `$500.0000`
 - Requested notional USD: `$500.0000`
-- Shadow-ready count: `2`
+- Shadow-ready count: `1`
 - Live-ready count: `0`
 
 ## Latest Opportunity Stress Check
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | SKIP | 0.2868 | -0.0132 | -0.0910 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | BUY | 0.6821 | 0.3821 | 0.3107 | 500.0000 | SHADOW_READY | MEDIUM |
-| WETH/USDC | Uniswap V2 | Uniswap V3 | SKIP | 0.2868 | -0.0132 | -0.0910 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | BUY | 0.6821 | 0.3821 | 0.3107 | 500.0000 | SHADOW_READY | MEDIUM |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | BUY | 0.7258 | 0.4258 | 0.3480 | 500.0000 | SHADOW_READY | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | SKIP | 0.2417 | -0.0583 | -0.1297 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
 
 ## Findings
 

@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 13,
+  "blocked_check_count": 12,
   "check_count": 20,
   "checks": [
     {
@@ -111,19 +111,19 @@
       "severity": "PASS"
     },
     {
-      "detail": "Report audit has findings.",
+      "detail": "Report audit has blocking operational findings.",
       "name": "report_audit",
       "passed": false,
       "severity": "BLOCK"
     },
     {
-      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+      "detail": "Execution realism has shadow-ready evidence and no live approvals.",
       "name": "execution_realism",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     }
   ],
-  "generated_at": "2026-06-30T12:30:59Z",
+  "generated_at": "2026-06-30T13:26:43Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "0",
