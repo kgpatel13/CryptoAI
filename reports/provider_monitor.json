@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-06-30T07:50:16Z",
+  "mode": "paper",
+  "provider_count": 4,
+  "overall_status": "OK",
+  "alert_count": 0,
+  "critical_alert_count": 0,
+  "degraded_alert_count": 0,
+  "stale_after_seconds": 900,
+  "providers": [
+    {
+      "name": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 293.19,
+      "last_observed_age_seconds": 51.37,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Uniswap V2",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 309.01,
+      "last_observed_age_seconds": 52.21,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Uniswap V3",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 655.68,
+      "last_observed_age_seconds": 49.64,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Base:rpc1:https://base-rpc.publicnode.com",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 252.58,
+      "last_observed_age_seconds": 0.52,
+      "last_error": null,
+      "alerts": []
+    }
+  ],
+  "chains": [
+    {
+      "chain": "base",
+      "provider_count": 4,
+      "average_score": 100,
+      "status": "OK",
+      "critical_count": 0,
+      "degraded_count": 0,
+      "watch_count": 0,
+      "required_provider_count": 4
+    }
+  ],
+  "provider_types": [
+    {
+      "provider_type": "dex",
+      "provider_count": 3,
+      "average_score": 100,
+      "status": "OK",
+      "required_provider_count": 3
+    },
+    {
+      "provider_type": "rpc",
+      "provider_count": 1,
+      "average_score": 100,
+      "status": "OK",
+      "required_provider_count": 1
+    }
+  ],
+  "alerts": [],
+  "notes": [
+    "Provider Monitor summarizes existing provider-health observations.",
+    "It does not make network calls or execute trades.",
+    "Missing provider observations should be treated as incomplete operational evidence."
+  ]
+}

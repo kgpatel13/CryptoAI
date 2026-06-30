@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-06-30T07:46:44Z",
+  "mode": "paper",
+  "source_file": "data\\multi_dex_opportunities.jsonl",
+  "include_synthetic": false,
+  "input_row_count": 1076,
+  "deduped_row_count": 932,
+  "real_signal_count": 932,
+  "synthetic_signal_count": 0,
+  "production_cost_buffer_pct": "0.30",
+  "paper_buy_threshold_pct": "0.30",
+  "production_trade_count": 410,
+  "production_total_pnl_usd": "1390.8106",
+  "production_positive_edge_count": 932,
+  "production_positive_edge_total_pnl_usd": "1731.1442",
+  "best_profitable_cost_buffer_pct": "0.20",
+  "best_profitable_trade_count": 932,
+  "best_profitable_total_pnl_usd": "2663.1442",
+  "max_observed_gross_edge_pct": "0.6643101739264392695467323549",
+  "cost_buffer_scenarios": [
+    {
+      "cost_buffer_pct": "0.20",
+      "considered_signals": 932,
+      "trade_count": 932,
+      "skipped_below_threshold": 0,
+      "total_pnl_usd": "2663.1442",
+      "avg_net_edge_pct": "0.2857",
+      "max_net_edge_pct": "0.4643"
+    },
+    {
+      "cost_buffer_pct": "0.25",
+      "considered_signals": 932,
+      "trade_count": 932,
+      "skipped_below_threshold": 0,
+      "total_pnl_usd": "2197.1442",
+      "avg_net_edge_pct": "0.2357",
+      "max_net_edge_pct": "0.4143"
+    },
+    {
+      "cost_buffer_pct": "0.30",
+      "considered_signals": 932,
+      "trade_count": 932,
+      "skipped_below_threshold": 0,
+      "total_pnl_usd": "1731.1442",
+      "avg_net_edge_pct": "0.1857",
+      "max_net_edge_pct": "0.3643"
+    },
+    {
+      "cost_buffer_pct": "0.35",
+      "considered_signals": 932,
+      "trade_count": 596,
+      "skipped_below_threshold": 336,
+      "total_pnl_usd": "1351.7530",
+      "avg_net_edge_pct": "0.2268",
+      "max_net_edge_pct": "0.3143"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "OK",
+      "message": "Production buffer 0.30% and paper BUY threshold 0.30% produced 410 replay trade(s)."
+    }
+  ],
+  "notes": [
+    "Replay Diagnostics replays recorded real opportunities only by default.",
+    "It is explanatory research evidence and does not lower risk thresholds automatically.",
+    "Use it to understand whether the replay blocker is caused by cost assumptions, low edge, or missing data."
+  ]
+}

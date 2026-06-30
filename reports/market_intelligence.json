@@ -1,0 +1,173 @@
+{
+  "generated_at": "2026-06-30T07:50:16Z",
+  "mode": "paper",
+  "chain_count": 4,
+  "pair_candidate_count": 8,
+  "configured_pair_count": 8,
+  "overall_readiness_score": 80,
+  "chains": [
+    {
+      "chain": "base",
+      "name": "Base",
+      "token_count": 3,
+      "dex_count": 3,
+      "configured_pair_count": 2,
+      "generated_pair_count": 2,
+      "provider_count": 4,
+      "provider_score": 100,
+      "registry_score": 100,
+      "readiness_score": 100,
+      "readiness_status": "READY_FOR_PAPER",
+      "notes": [
+        "Registry and provider inputs are sufficient for paper-mode monitoring."
+      ]
+    },
+    {
+      "chain": "polygon",
+      "name": "Polygon",
+      "token_count": 3,
+      "dex_count": 2,
+      "configured_pair_count": 2,
+      "generated_pair_count": 2,
+      "provider_count": 0,
+      "provider_score": 40,
+      "registry_score": 100,
+      "readiness_score": 73,
+      "readiness_status": "WATCH",
+      "notes": [
+        "No provider health observations yet."
+      ]
+    },
+    {
+      "chain": "arbitrum",
+      "name": "Arbitrum One",
+      "token_count": 3,
+      "dex_count": 3,
+      "configured_pair_count": 2,
+      "generated_pair_count": 2,
+      "provider_count": 0,
+      "provider_score": 40,
+      "registry_score": 100,
+      "readiness_score": 73,
+      "readiness_status": "WATCH",
+      "notes": [
+        "No provider health observations yet."
+      ]
+    },
+    {
+      "chain": "ethereum",
+      "name": "Ethereum",
+      "token_count": 3,
+      "dex_count": 3,
+      "configured_pair_count": 2,
+      "generated_pair_count": 2,
+      "provider_count": 0,
+      "provider_score": 40,
+      "registry_score": 100,
+      "readiness_score": 73,
+      "readiness_status": "WATCH",
+      "notes": [
+        "No provider health observations yet."
+      ]
+    }
+  ],
+  "pair_candidates": [
+    {
+      "chain": "arbitrum",
+      "pair": "WETH/USDC",
+      "base_symbol": "WETH",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 1,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "arbitrum",
+      "pair": "WBTC/USDC",
+      "base_symbol": "WBTC",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 2,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "base_symbol": "WETH",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 1,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "base",
+      "pair": "cbBTC/USDC",
+      "base_symbol": "cbBTC",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 2,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "ethereum",
+      "pair": "WETH/USDC",
+      "base_symbol": "WETH",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 1,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "ethereum",
+      "pair": "WBTC/USDC",
+      "base_symbol": "WBTC",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 2,
+      "token_ready": true,
+      "dex_count": 3
+    },
+    {
+      "chain": "polygon",
+      "pair": "WETH/USDC",
+      "base_symbol": "WETH",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 1,
+      "token_ready": true,
+      "dex_count": 2
+    },
+    {
+      "chain": "polygon",
+      "pair": "WBTC/USDC",
+      "base_symbol": "WBTC",
+      "quote_symbol": "USDC",
+      "configured": true,
+      "priority": 2,
+      "token_ready": true,
+      "dex_count": 2
+    }
+  ],
+  "provider_summary": {
+    "provider_count": 4,
+    "by_type": {
+      "dex": 3,
+      "rpc": 1
+    },
+    "by_chain": {
+      "base": 4
+    },
+    "average_score": 100
+  },
+  "notes": [
+    "Market intelligence is paper-mode observability only.",
+    "Readiness scores summarize registry completeness and observed provider health.",
+    "Missing provider observations lower readiness until real health evidence exists.",
+    "Readiness is not a live-trading approval."
+  ]
+}

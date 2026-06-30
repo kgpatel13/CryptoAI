@@ -1,0 +1,126 @@
+{
+  "generated_at": "2026-06-30T07:46:44Z",
+  "mode": "paper",
+  "production_cost_buffer_pct": "0.30",
+  "paper_buy_threshold_pct": "0.30",
+  "buffer_status": "INSUFFICIENT_EVIDENCE",
+  "confidence": "INSUFFICIENT",
+  "observed_total_cost_lower_bound_pct": null,
+  "buffer_surplus_vs_lower_bound_pct": null,
+  "configured_cost_model": {
+    "gas_buffer_pct": "0.08",
+    "fee_slippage_buffer_pct": "0.22",
+    "total_cost_buffer_pct": "0.30",
+    "source": "latest_opportunity_decision"
+  },
+  "paper_execution_evidence": {
+    "sample_count": 0,
+    "total_filled_notional_usd": "0.0000",
+    "avg_slippage_bps": "0.0000",
+    "p95_slippage_bps": "0.0000",
+    "max_slippage_bps": "0.0000",
+    "avg_slippage_pct": "0.0000",
+    "p95_slippage_pct": "0.0000",
+    "max_slippage_pct": "0.0000",
+    "avg_latency_ms": null,
+    "p95_latency_ms": null,
+    "max_latency_ms": null,
+    "execution_quality_counts": {}
+  },
+  "quote_evidence": {
+    "sample_count": 6,
+    "ok_count": 6,
+    "error_count": 0,
+    "invalid_count": 0,
+    "ok_rate_pct": "100.0000",
+    "healthy_dex_count": 3,
+    "healthy_dexes": [
+      "Aerodrome",
+      "Uniswap V2",
+      "Uniswap V3"
+    ],
+    "avg_ok_latency_ms": "0.0700",
+    "p95_ok_latency_ms": "0.0700"
+  },
+  "provider_evidence": {
+    "provider_count": 4,
+    "avg_provider_latency_ms": "382.6000",
+    "avg_provider_score": "100.0000",
+    "providers": [
+      {
+        "name": "Aerodrome",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 304.47,
+        "score": 100,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Uniswap V2",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 305.83,
+        "score": 100,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Uniswap V3",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 661.77,
+        "score": 100,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Base:rpc1:https://base-rpc.publicnode.com",
+        "provider_type": "rpc",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 258.33,
+        "score": 100,
+        "consecutive_failures": 0
+      }
+    ]
+  },
+  "replay_cost_evidence": {
+    "real_signal_count": 932,
+    "avg_gross_edge_pct": "0.4857",
+    "p95_gross_edge_pct": "0.6643",
+    "max_gross_edge_pct": "0.6643",
+    "production_trade_count": 410,
+    "production_required_gross_edge_pct": "0.60",
+    "observed_lower_bound_trade_count": 0,
+    "observed_lower_bound_total_pnl_usd": "0.0000",
+    "replay_notional_usd": "1000"
+  },
+  "assessment": {
+    "buffer_status": "INSUFFICIENT_EVIDENCE",
+    "confidence": "INSUFFICIENT",
+    "production_cost_buffer_pct": "0.30",
+    "observed_total_cost_lower_bound_pct": null,
+    "buffer_surplus_vs_lower_bound_pct": null,
+    "paper_sample_count": 0,
+    "quote_ok_rate_pct": "100.0000",
+    "avg_provider_score": "100.0000",
+    "production_trade_count": 410,
+    "observed_lower_bound_trade_count": 0
+  },
+  "findings": [
+    {
+      "severity": "WATCH",
+      "message": "Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence."
+    },
+    {
+      "severity": "ACTION",
+      "message": "Collect more filled paper executions; current slippage sample is 0 and target is 30+."
+    }
+  ],
+  "notes": [
+    "Execution Cost Evidence measures observed paper/replay/quote evidence only.",
+    "It does not change production cost buffers, risk thresholds, or live-trading eligibility.",
+    "Paper slippage plus configured gas is a measured lower bound, not a complete live execution-cost estimate."
+  ]
+}
