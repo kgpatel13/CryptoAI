@@ -13,42 +13,37 @@
       "source": "tiny_live_pilot"
     },
     {
-      "detail": "Report audit has blocking findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "tiny_live_pilot"
-    },
-    {
       "detail": "Provider monitor must be OK.",
       "name": "provider_ok",
       "severity": "BLOCK",
       "source": "tiny_live_pilot"
     }
   ],
-  "continuous_live_trading_command": null,
-  "continuous_live_trading_status": "NOT_AVAILABLE",
+  "continuous_live_trading_command": "python -m app.execution.live_control_center_service --live-loop --interval 30",
+  "continuous_live_trading_status": "NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR",
   "continuous_monitor_command": "python -m app.execution.live_control_center_service --loop --interval 30",
   "gates": {
     "live_readiness": "LIVE_REVIEW_NOT_READY",
     "live_review_ready": false,
     "live_safety": "LIVE_BLOCKED",
     "provider_monitor": "WATCH",
-    "report_audit_blocking_findings": 2,
-    "tiny_live_blocked_checks": 4,
+    "report_audit_blocking_findings": 0,
+    "tiny_live_blocked_checks": 3,
     "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
     "transaction_simulation": "TX_SIMULATION_ACTION",
     "transaction_simulation_passed": false,
     "wallet_preflight": "WALLET_PREP_READY",
     "wallet_preflight_allowed": true
   },
-  "generated_at": "2026-06-30T19:16:48Z",
+  "generated_at": "2026-06-30T19:36:26Z",
   "mode": "live_control_center",
   "next_action": "Continue paper/live-parity evidence; live readiness is not ready.",
   "next_command": "python -m app.execution.live_readiness_checklist_service",
   "notes": [
     "This control center is read-only and never sends live transactions.",
     "Refreshing safe reports can update wallet, provider, readiness, and simulation evidence, but cannot approve or swap.",
-    "Continuous live arbitrage is not available until exact transaction simulation and live readiness pass.",
+    "The live-loop command exists as the future continuous entrypoint, but currently refuses autonomous execution.",
+    "Continuous live arbitrage is not available until exact transaction simulation, live readiness, and a real live arbitrage executor pass review.",
     "The current live-capable path is a manual tiny smoke pilot only."
   ],
   "overall_status": "BLOCKED_LIVE_READINESS",
@@ -78,20 +73,26 @@
       "source": "live_readiness"
     },
     {
-      "detail": "Report Audit has blocking operational findings.",
-      "name": "report_audit_clean",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
       "name": "transaction_simulation_passed",
       "severity": "ACTION",
       "source": "live_readiness"
     },
     {
+      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+      "name": "paper_live_wallet_parity",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
       "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
       "name": "paper_live_trade_cap_parity",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+      "name": "paper_live_daily_loss_parity",
       "severity": "ACTION",
       "source": "live_readiness"
     }
@@ -131,7 +132,7 @@
     "chain": "base",
     "dex": "Uniswap V3",
     "eth_balance": "0.024148469750380405",
-    "latest_block": 48028830,
+    "latest_block": 48029419,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "smoke_usd": "5",
     "swap_tx_available": true,

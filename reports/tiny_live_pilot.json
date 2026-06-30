@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 4,
+  "blocked_check_count": 3,
   "check_count": 18,
   "checks": [
     {
@@ -63,10 +63,10 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Report audit has blocking findings.",
+      "detail": "Report audit has no blocking findings.",
       "name": "report_audit_clean",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Provider monitor must be OK.",
@@ -115,7 +115,7 @@
     "active_autopilot_processes": [],
     "live_readiness": {
       "action_count": 5,
-      "blocked_check_count": 2,
+      "blocked_check_count": 1,
       "check_count": 22,
       "checks": [
         {
@@ -173,10 +173,10 @@
           "severity": "ACTION"
         },
         {
-          "detail": "Report Audit has blocking operational findings.",
+          "detail": "Report Audit has no blocking operational findings.",
           "name": "report_audit_clean",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Paper orders and analytics trade journal are available.",
@@ -252,7 +252,7 @@
         }
       ],
       "closed_trade_count": 114,
-      "generated_at": "2026-06-30T19:16:45Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "live_review_ready": false,
       "live_trading_approval": false,
       "max_daily_loss_usd": "5",
@@ -268,11 +268,11 @@
       "paper_cash_usd": "520.1636",
       "paper_profile": "live_parity_500",
       "paper_realized_pnl_usd": "20.1636",
-      "pass_count": 15,
+      "pass_count": 16,
       "watch_count": 0
     },
     "live_safety": {
-      "blocked_check_count": 10,
+      "blocked_check_count": 14,
       "check_count": 20,
       "checks": [
         {
@@ -294,28 +294,28 @@
           "severity": "BLOCK"
         },
         {
-          "detail": "Isolated live wallet address is configured.",
+          "detail": "No isolated live wallet address is configured.",
           "name": "isolated_wallet_address",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
-          "detail": "Live wallet is isolated from the configured main wallet.",
+          "detail": "Live wallet matches the configured main wallet; wallet isolation failed.",
           "name": "wallet_isolation",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
-          "detail": "Max live wallet ceiling is within tiny-pilot policy.",
+          "detail": "Max live wallet ceiling must be > $0 and <= $500.",
           "name": "wallet_ceiling",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
-          "detail": "Max live trade size is within tiny-pilot policy.",
+          "detail": "Max live trade size must be > $0 and below wallet and tiny-pilot ceilings.",
           "name": "trade_cap",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
           "detail": "Max daily loss must be > $0 and no larger than max live trade size.",
@@ -396,12 +396,12 @@
           "severity": "BLOCK"
         }
       ],
-      "generated_at": "2026-06-30T18:49:08Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "live_guard_allowed": false,
       "live_guard_reason": "Live trading feature flag is disabled.",
-      "max_daily_loss_usd": "10",
-      "max_live_trade_usd": "5",
-      "max_live_wallet_usd": "500",
+      "max_daily_loss_usd": "5",
+      "max_live_trade_usd": "0",
+      "max_live_wallet_usd": "0",
       "mode": "paper",
       "notes": [
         "Live Safety is a design and evidence gate only; it does not send transactions.",
@@ -428,11 +428,11 @@
         "live_guard_reason": "Live trading feature flag is disabled.",
         "live_kill_switch_enabled": true,
         "live_trading_enabled": false,
-        "live_wallet_configured": true,
+        "live_wallet_configured": false,
         "main_wallet_configured": false,
-        "max_daily_loss_usd": "10",
-        "max_live_trade_usd": "5",
-        "max_live_wallet_usd": "500",
+        "max_daily_loss_usd": "5",
+        "max_live_trade_usd": "0",
+        "max_live_wallet_usd": "0",
         "min_execution_cost_confidence": "HIGH",
         "min_paper_closed_trades": 30,
         "paper_trading_enabled": true,
@@ -448,7 +448,7 @@
       "alerts": [
         {
           "chain": "base",
-          "message": "Provider observation is stale at 3109.83 seconds old.",
+          "message": "Provider observation is stale at 4288.63 seconds old.",
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "severity": "WATCH"
@@ -468,7 +468,7 @@
       ],
       "critical_alert_count": 0,
       "degraded_alert_count": 0,
-      "generated_at": "2026-06-30T19:16:45Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "mode": "paper",
       "notes": [
         "Provider Monitor summarizes existing provider-health observations.",
@@ -496,12 +496,12 @@
       "providers": [
         {
           "alerts": [],
-          "avg_latency_ms": 334.03,
+          "avg_latency_ms": 319.63,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 19.09,
+          "last_observed_age_seconds": 73.32,
           "name": "Aerodrome",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -512,12 +512,12 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 353.36,
+          "avg_latency_ms": 334.28,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 20.06,
+          "last_observed_age_seconds": 74.24,
           "name": "Uniswap V2",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -528,12 +528,12 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 802.18,
+          "avg_latency_ms": 765.75,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 17.3,
+          "last_observed_age_seconds": 71.54,
           "name": "Uniswap V3",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -546,7 +546,7 @@
           "alerts": [
             {
               "chain": "base",
-              "message": "Provider observation is stale at 3109.83 seconds old.",
+              "message": "Provider observation is stale at 4288.63 seconds old.",
               "provider": "Base:rpc2:https://mainnet.base.org",
               "provider_type": "rpc",
               "severity": "WATCH"
@@ -557,7 +557,7 @@
           "consecutive_failures": 0,
           "current_status": "WATCH",
           "last_error": null,
-          "last_observed_age_seconds": 3109.83,
+          "last_observed_age_seconds": 4288.63,
           "name": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "required_for_overall": false,
@@ -568,26 +568,26 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 254.64,
+          "avg_latency_ms": 233.26,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 15.94,
+          "last_observed_age_seconds": 0.83,
           "name": "Base:rpc1:https://base-rpc.publicnode.com",
           "provider_type": "rpc",
           "required_for_overall": true,
           "rolling_status": "OK",
           "score": 99,
           "status": "OK",
-          "success_rate_pct": 99.98
+          "success_rate_pct": 99.99
         }
       ],
       "stale_after_seconds": 900
     },
     "report_audit": {
-      "blocking_finding_count": 2,
-      "finding_count": 27,
+      "blocking_finding_count": 0,
+      "finding_count": 25,
       "findings": [
         {
           "blocks_shadow_review": false,
@@ -681,20 +681,6 @@
           "severity": "WATCH"
         },
         {
-          "blocks_shadow_review": true,
-          "category": "operational",
-          "message": "Report is older than freshness window.",
-          "report": "pool_depth_ladder.json",
-          "severity": "WATCH"
-        },
-        {
-          "blocks_shadow_review": true,
-          "category": "operational",
-          "message": "Report is older than freshness window.",
-          "report": "pool_depth_ladder.md",
-          "severity": "WATCH"
-        },
-        {
           "blocks_shadow_review": false,
           "category": "research",
           "message": "Report is older than freshness window.",
@@ -779,7 +765,7 @@
           "severity": "WATCH"
         }
       ],
-      "generated_at": "2026-06-30T19:16:45Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "invalid_json_count": 0,
       "missing_count": 0,
       "mode": "paper",
@@ -788,8 +774,8 @@
         "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
         "Stale research reports are tracked separately from runtime-critical operational evidence."
       ],
-      "operational_finding_count": 2,
-      "operational_stale_count": 2,
+      "operational_finding_count": 0,
+      "operational_stale_count": 0,
       "report_count": 55,
       "reports": [
         {
@@ -803,46 +789,46 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:29Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "name": "multi_dex_opportunities.md",
-          "size_bytes": 951,
+          "size_bytes": 930,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:29Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "name": "opportunity_explorer.md",
-          "size_bytes": 531,
+          "size_bytes": 510,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "json_valid": true,
           "name": "paper_report.json",
-          "size_bytes": 113417,
+          "size_bytes": 114919,
           "stale": false,
           "summary": {
             "filled_orders": 114,
             "legacy_accounting_warning_count": 0,
             "mode": "paper",
-            "total_orders": 506
+            "total_orders": 910
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "name": "paper_report.md",
-          "size_bytes": 13097,
+          "size_bytes": 14492,
           "stale": false
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:09Z",
+          "generated_at": "2026-06-30T19:36:19Z",
           "json_valid": true,
           "name": "paper_run_review.json",
           "size_bytes": 2868,
@@ -862,7 +848,7 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:09Z",
+          "generated_at": "2026-06-30T19:36:19Z",
           "name": "paper_run_review.md",
           "size_bytes": 1897,
           "stale": false
@@ -870,13 +856,13 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "live_safety.json",
-          "size_bytes": 5100,
+          "size_bytes": 5145,
           "stale": false,
           "summary": {
-            "blocked_check_count": 10,
+            "blocked_check_count": 14,
             "check_count": 20,
             "live_guard_allowed": false,
             "mode": "paper",
@@ -886,15 +872,15 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "live_safety.md",
-          "size_bytes": 2289,
+          "size_bytes": 2332,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "json_valid": true,
           "name": "portfolio_analytics.json",
           "size_bytes": 69393,
@@ -907,7 +893,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "name": "portfolio_analytics.md",
           "size_bytes": 6033,
           "stale": false
@@ -1044,11 +1030,11 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:41:32Z",
+          "generated_at": "2026-06-30T19:34:04Z",
           "json_valid": true,
           "name": "pool_depth_ladder.json",
-          "size_bytes": 6981,
-          "stale": true,
+          "size_bytes": 6977,
+          "stale": false,
           "summary": {
             "confidence": "MEDIUM",
             "depth_ready_route_count": 2,
@@ -1061,18 +1047,18 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:41:32Z",
+          "generated_at": "2026-06-30T19:34:04Z",
           "name": "pool_depth_ladder.md",
-          "size_bytes": 1718,
-          "stale": true
+          "size_bytes": 1717,
+          "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "execution_realism.json",
-          "size_bytes": 3301,
+          "size_bytes": 3294,
           "stale": false,
           "summary": {
             "confidence": "NONE",
@@ -1086,18 +1072,18 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "execution_realism.md",
-          "size_bytes": 1319,
+          "size_bytes": 1314,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "execution_cost_evidence.json",
-          "size_bytes": 3977,
+          "size_bytes": 3978,
           "stale": false,
           "summary": {
             "buffer_status": "CONSERVATIVE",
@@ -1108,40 +1094,40 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "execution_cost_evidence.md",
-          "size_bytes": 1538,
+          "size_bytes": 1539,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "live_readiness_checklist.json",
-          "size_bytes": 5011,
+          "size_bytes": 5012,
           "stale": false,
           "summary": {
-            "blocked_check_count": 2,
+            "blocked_check_count": 1,
             "check_count": 22,
             "closed_trade_count": 114,
             "mode": "paper",
             "overall_status": "LIVE_REVIEW_NOT_READY",
-            "pass_count": 15
+            "pass_count": 16
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "live_readiness_checklist.md",
-          "size_bytes": 3019,
+          "size_bytes": 3021,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "transaction_simulation.json",
           "size_bytes": 2936,
@@ -1157,7 +1143,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "transaction_simulation.md",
           "size_bytes": 1952,
           "stale": false
@@ -1214,7 +1200,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "json_valid": true,
           "name": "market_intelligence.json",
           "size_bytes": 4264,
@@ -1227,7 +1213,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T18:49:08Z",
+          "generated_at": "2026-06-30T19:36:23Z",
           "name": "market_intelligence.md",
           "size_bytes": 1269,
           "stale": false
@@ -1330,10 +1316,10 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:15:49Z",
+          "generated_at": "2026-06-30T19:35:43Z",
           "json_valid": true,
           "name": "paper_trading_settings.json",
-          "size_bytes": 3133,
+          "size_bytes": 3224,
           "stale": false,
           "summary": {
             "error_count": 0,
@@ -1347,15 +1333,15 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:15:49Z",
+          "generated_at": "2026-06-30T19:35:43Z",
           "name": "paper_trading_settings.md",
-          "size_bytes": 1655,
+          "size_bytes": 1694,
           "stale": false
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "wallet_preflight.json",
           "size_bytes": 3469,
@@ -1370,7 +1356,7 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "wallet_preflight.md",
           "size_bytes": 1907,
           "stale": false
@@ -1378,13 +1364,13 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:15Z",
+          "generated_at": "2026-06-30T19:35:54Z",
           "json_valid": true,
           "name": "tiny_live_pilot.json",
-          "size_bytes": 55677,
+          "size_bytes": 53695,
           "stale": false,
           "summary": {
-            "blocked_check_count": 4,
+            "blocked_check_count": 3,
             "check_count": 18,
             "mode": "plan",
             "overall_status": "LIVE_PILOT_BLOCKED"
@@ -1393,15 +1379,15 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:15Z",
+          "generated_at": "2026-06-30T19:35:54Z",
           "name": "tiny_live_pilot.md",
-          "size_bytes": 2590,
+          "size_bytes": 2592,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "json_valid": true,
           "name": "provider_monitor.json",
           "size_bytes": 3851,
@@ -1416,7 +1402,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-06-30T19:16:45Z",
+          "generated_at": "2026-06-30T19:36:24Z",
           "name": "provider_monitor.md",
           "size_bytes": 1181,
           "stale": false
@@ -1424,7 +1410,7 @@
       ],
       "research_finding_count": 24,
       "research_stale_count": 24,
-      "stale_count": 27
+      "stale_count": 25
     },
     "transaction_simulation": {
       "action_count": 4,
@@ -1504,7 +1490,7 @@
           "severity": "ACTION"
         }
       ],
-      "generated_at": "2026-06-30T19:16:45Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "live_trading_approval": false,
       "mode": "paper",
       "notes": [
@@ -1619,7 +1605,7 @@
           "severity": "PASS"
         }
       ],
-      "generated_at": "2026-06-30T19:16:45Z",
+      "generated_at": "2026-06-30T19:36:24Z",
       "live_kill_switch_enabled": true,
       "live_trading_approval": false,
       "live_trading_enabled": false,
@@ -1641,7 +1627,7 @@
       "wallet_preflight_allowed": true
     }
   },
-  "generated_at": "2026-06-30T19:16:48Z",
+  "generated_at": "2026-06-30T19:36:26Z",
   "live_trading_approval": false,
   "mode": "plan",
   "notes": [
@@ -1658,7 +1644,7 @@
     "dex": "Uniswap V3",
     "error": null,
     "eth_balance": "0.024148469750380405",
-    "latest_block": 48028830,
+    "latest_block": 48029419,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "rpc_url": "https://base-rpc.publicnode.com",
     "smoke_usd": "5",

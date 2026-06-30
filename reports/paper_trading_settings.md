@@ -1,6 +1,6 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-30T19:15:49Z`
+Generated: `2026-06-30T19:35:43Z`
 
 ## Summary
 
@@ -21,6 +21,7 @@ Generated: `2026-06-30T19:15:49Z`
 - Loop interval seconds: `0`
 - Initial paper capital ETH: `0.5`
 - Max notional per trade USD: `5`
+- Min notional per trade USD: `5`
 - Paper sizing mode: `full_available_cash`
 - Max daily paper trades: `0`
 - Max open positions: `1`
@@ -44,5 +45,5 @@ Generated: `2026-06-30T19:15:49Z`
 - Live trading remains disabled until live-readiness gates pass.
 - The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.
 - One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.
-- Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 max trade, $5 daily loss cap, Base ETH routes only.
+- Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 min/max trade, $5 daily loss cap, Base ETH routes only.
 - This profile is still paper-only and does not approve live trading.

@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 10,
+  "blocked_check_count": 14,
   "check_count": 20,
   "checks": [
     {
@@ -21,28 +21,28 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Isolated live wallet address is configured.",
+      "detail": "No isolated live wallet address is configured.",
       "name": "isolated_wallet_address",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Live wallet is isolated from the configured main wallet.",
+      "detail": "Live wallet matches the configured main wallet; wallet isolation failed.",
       "name": "wallet_isolation",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Max live wallet ceiling is within tiny-pilot policy.",
+      "detail": "Max live wallet ceiling must be > $0 and <= $500.",
       "name": "wallet_ceiling",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Max live trade size is within tiny-pilot policy.",
+      "detail": "Max live trade size must be > $0 and below wallet and tiny-pilot ceilings.",
       "name": "trade_cap",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Max daily loss must be > $0 and no larger than max live trade size.",
@@ -123,12 +123,12 @@
       "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T18:49:08Z",
+  "generated_at": "2026-06-30T19:36:37Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
-  "max_daily_loss_usd": "10",
-  "max_live_trade_usd": "5",
-  "max_live_wallet_usd": "500",
+  "max_daily_loss_usd": "5",
+  "max_live_trade_usd": "0",
+  "max_live_wallet_usd": "0",
   "mode": "paper",
   "notes": [
     "Live Safety is a design and evidence gate only; it does not send transactions.",
@@ -155,11 +155,11 @@
     "live_guard_reason": "Live trading feature flag is disabled.",
     "live_kill_switch_enabled": true,
     "live_trading_enabled": false,
-    "live_wallet_configured": true,
+    "live_wallet_configured": false,
     "main_wallet_configured": false,
-    "max_daily_loss_usd": "10",
-    "max_live_trade_usd": "5",
-    "max_live_wallet_usd": "500",
+    "max_daily_loss_usd": "5",
+    "max_live_trade_usd": "0",
+    "max_live_wallet_usd": "0",
     "min_execution_cost_confidence": "HIGH",
     "min_paper_closed_trades": 30,
     "paper_trading_enabled": true,

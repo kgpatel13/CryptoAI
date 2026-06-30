@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-06-30T18:41:32Z",
+  "generated_at": "2026-06-30T19:34:04Z",
   "mode": "paper",
-  "batch_id": "49ad6d6d-f",
+  "batch_id": "24b4e941-b",
   "overall_status": "DEPTH_EVIDENCE_READY",
   "confidence": "MEDIUM",
   "route_count": 2,
   "depth_ready_route_count": 2,
   "watch_route_count": 0,
   "notional_steps_usd": [
-    "50.0000",
+    "5.0000",
     "100.0000",
     "250.0000",
     "500.0000",
     "1000.0000",
     "2000.0000"
   ],
-  "requested_notional_usd": "50.0000",
+  "requested_notional_usd": "5.0000",
   "eth_reference_usd": "1000.0000",
   "quote_row_count": 36,
   "ok_quote_row_count": 36,
@@ -38,8 +38,8 @@
         "pair_address": "0x4676505f75ef3cf95cf30d6e56134e39fe1f4c325ed29e52a5e28e350bee268c",
         "base_token": "BASEMATE",
         "quote_token": "WETH",
-        "liquidity_usd": "123296.9400",
-        "volume_h24_usd": "38059.7300"
+        "liquidity_usd": "120447.8300",
+        "volume_h24_usd": "37028.7300"
       },
       {
         "chain": "base",
@@ -47,8 +47,8 @@
         "pair_address": "0x0FB597D6cFE5bE0d5258A7f017599C2A4Ece34c7",
         "base_token": "PEPE",
         "quote_token": "WETH",
-        "liquidity_usd": "196299.4700",
-        "volume_h24_usd": "2415.7100"
+        "liquidity_usd": "197910.7400",
+        "volume_h24_usd": "2427.5400"
       },
       {
         "chain": "base",
@@ -56,8 +56,8 @@
         "pair_address": "0xbcd27A437eBe92555Cee6b5bBeDdAC639a1b6fcB",
         "base_token": "ALB",
         "quote_token": "WETH",
-        "liquidity_usd": "144987.1100",
-        "volume_h24_usd": "5994.9500"
+        "liquidity_usd": "146751.9400",
+        "volume_h24_usd": "6205.4100"
       },
       {
         "chain": "base",
@@ -65,8 +65,8 @@
         "pair_address": "0x0150e3d89E161518C044ad191c4bdf6b40Df6E83",
         "base_token": "cbMEGA",
         "quote_token": "USDC",
-        "liquidity_usd": "203325.8600",
-        "volume_h24_usd": "1028142.4700"
+        "liquidity_usd": "218282.8500",
+        "volume_h24_usd": "1047954.5900"
       },
       {
         "chain": "base",
@@ -74,8 +74,8 @@
         "pair_address": "0xB90fe999Be6869AF0aFC557DCCfBE169EA3403D6",
         "base_token": "cbXRP",
         "quote_token": "WETH",
-        "liquidity_usd": "292374.8600",
-        "volume_h24_usd": "916879.0500"
+        "liquidity_usd": "309293.0000",
+        "volume_h24_usd": "921115.0100"
       },
       {
         "chain": "base",
@@ -83,8 +83,8 @@
         "pair_address": "0x16905890A1D02b6F824387419319Bf4188B961b0",
         "base_token": "BENJI",
         "quote_token": "WETH",
-        "liquidity_usd": "276879.9200",
-        "volume_h24_usd": "32183.5200"
+        "liquidity_usd": "275767.5300",
+        "volume_h24_usd": "33453.9900"
       },
       {
         "chain": "base",
@@ -92,8 +92,8 @@
         "pair_address": "0x4e962BB3889Bf030368F56810A9c96B83CB3E778",
         "base_token": "cbBTC",
         "quote_token": "USDC",
-        "liquidity_usd": "8715697.4500",
-        "volume_h24_usd": "77795060.8900"
+        "liquidity_usd": "8719285.9900",
+        "volume_h24_usd": "77735225.1200"
       },
       {
         "chain": "base",
@@ -110,8 +110,8 @@
         "pair_address": "0x39a72B1292AAED73B9B5633e14f88fE9a89F400b",
         "base_token": "BTCB",
         "quote_token": "WETH",
-        "liquidity_usd": "209174.4700",
-        "volume_h24_usd": "1401.1600"
+        "liquidity_usd": "210310.1900",
+        "volume_h24_usd": "1477.2000"
       }
     ],
     "error": ""
@@ -123,11 +123,11 @@
       "status": "DEPTH_READY",
       "confidence": "MEDIUM",
       "healthy_dex_count": 3,
-      "requested_notional_usd": "50.0000",
+      "requested_notional_usd": "5.0000",
       "max_usable_notional_usd": "2000.0000",
       "requested_price_impact_pct": "0.0000",
       "worst_requested_price_impact_pct": "0.0000",
-      "worst_price_impact_pct": "0.3576",
+      "worst_price_impact_pct": "0.3658",
       "selected_depth_venues": [
         {
           "dex": "Aerodrome",
@@ -144,7 +144,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0552",
+          "worst_price_impact_pct": "0.0565",
           "liquidity_usd": "0.0000"
         },
         {
@@ -152,7 +152,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.3576",
+          "worst_price_impact_pct": "0.3658",
           "liquidity_usd": "0.0000"
         },
         {
@@ -160,7 +160,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0040",
+          "worst_price_impact_pct": "0.0041",
           "liquidity_usd": "0.0000"
         }
       ],
@@ -172,11 +172,11 @@
       "status": "DEPTH_READY",
       "confidence": "MEDIUM",
       "healthy_dex_count": 3,
-      "requested_notional_usd": "50.0000",
+      "requested_notional_usd": "5.0000",
       "max_usable_notional_usd": "2000.0000",
       "requested_price_impact_pct": "0.0000",
       "worst_requested_price_impact_pct": "0.0000",
-      "worst_price_impact_pct": "0.5601",
+      "worst_price_impact_pct": "0.5731",
       "selected_depth_venues": [
         {
           "dex": "Aerodrome",
@@ -193,7 +193,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0869",
+          "worst_price_impact_pct": "0.0889",
           "liquidity_usd": "0.0000"
         },
         {
@@ -201,7 +201,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.5601",
+          "worst_price_impact_pct": "0.5731",
           "liquidity_usd": "0.0000"
         },
         {
@@ -209,7 +209,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0063",
+          "worst_price_impact_pct": "0.0065",
           "liquidity_usd": "0.0000"
         }
       ],

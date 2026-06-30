@@ -1,11 +1,12 @@
 # Live Control Center
 
-Generated: `2026-06-30T19:16:48Z`
+Generated: `2026-06-30T19:36:26Z`
 - Overall status: `BLOCKED_LIVE_READINESS`
 - Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
 - Next command: `python -m app.execution.live_readiness_checklist_service`
 - Continuous monitor: `python -m app.execution.live_control_center_service --loop --interval 30`
-- Continuous live trading: `NOT_AVAILABLE`
+- Continuous live command: `python -m app.execution.live_control_center_service --live-loop --interval 30`
+- Continuous live status: `NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR`
 
 ## Wallet
 
@@ -21,7 +22,7 @@ Generated: `2026-06-30T19:16:48Z`
   "smoke_usd": "5",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48028830
+  "latest_block": 48029419
 }
 ```
 
@@ -36,9 +37,9 @@ Generated: `2026-06-30T19:16:48Z`
   "transaction_simulation": "TX_SIMULATION_ACTION",
   "transaction_simulation_passed": false,
   "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
-  "tiny_live_blocked_checks": 4,
+  "tiny_live_blocked_checks": 3,
   "provider_monitor": "WATCH",
-  "report_audit_blocking_findings": 2,
+  "report_audit_blocking_findings": 0,
   "live_safety": "LIVE_BLOCKED"
 }
 ```
@@ -49,12 +50,12 @@ Generated: `2026-06-30T19:16:48Z`
 |---|---|---|---|
 | tiny_live_pilot | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
 | tiny_live_pilot | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
-| tiny_live_pilot | report_audit_clean | BLOCK | Report audit has blocking findings. |
 | tiny_live_pilot | provider_ok | BLOCK | Provider monitor must be OK. |
 
 ## Notes
 
 - This control center is read-only and never sends live transactions.
 - Refreshing safe reports can update wallet, provider, readiness, and simulation evidence, but cannot approve or swap.
-- Continuous live arbitrage is not available until exact transaction simulation and live readiness pass.
+- The live-loop command exists as the future continuous entrypoint, but currently refuses autonomous execution.
+- Continuous live arbitrage is not available until exact transaction simulation, live readiness, and a real live arbitrage executor pass review.
 - The current live-capable path is a manual tiny smoke pilot only.

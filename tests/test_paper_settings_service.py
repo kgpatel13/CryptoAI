@@ -97,6 +97,7 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "10000.00")
         self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "1000")
         self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "1000")
+        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "25")
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "10.00")
         self.assertEqual(env["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"], "10.00")
         self.assertEqual(env["CRYPTOAI_MAX_DAILY_PAPER_TRADES"], "200")
@@ -127,6 +128,7 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(payload["warning_count"], 0)
         self.assertEqual(payload["paper_capital_usd"], "100000.00")
         self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "100000")
+        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "25")
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
@@ -160,6 +162,7 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(payload["paper_capital_usd"], "500.00")
         self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "500.00")
         self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "500")
+        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "25")
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
 
@@ -174,12 +177,24 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(payload["paper_capital_usd"], "500.00")
         self.assertEqual(settings["paper_profile"], "live_parity_500")
         self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "500.00")
-        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "50")
-        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "50")
-        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "10.00")
-        self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "10")
+        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "5")
+        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "5")
+        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "5")
+        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "1.00")
+        self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "5")
         self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.30")
         self.assertEqual(settings["evidence_gates"]["min_execution_cost_confidence"], "HIGH")
+
+    def test_rejects_min_notional_above_max_notional(self) -> None:
+        service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
+        settings = service.defaults()
+        settings["paper_capital"]["min_notional_usd_per_trade"] = "200"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "100"
+
+        payload = service.validate(settings)
+
+        self.assertEqual(payload["status"], "INVALID")
+        self.assertIn("Minimum per-trade notional must be no larger than max per-trade notional.", [row["message"] for row in payload["findings"]])
 
 
 if __name__ == "__main__":

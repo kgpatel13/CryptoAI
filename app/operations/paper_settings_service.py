@@ -30,6 +30,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
         "initial_capital_eth": "1.0",
         "eth_reference_usd": "3500",
         "max_notional_usd_per_trade": "100",
+        "min_notional_usd_per_trade": "25",
         "max_daily_paper_trades": 24,
         "sizing_mode": "edge_scaled",
     },
@@ -134,6 +135,7 @@ class PaperSettingsService:
         initial_eth = self._decimal(capital.get("initial_capital_eth"), "paper_capital.initial_capital_eth", findings)
         eth_reference = self._decimal(capital.get("eth_reference_usd"), "paper_capital.eth_reference_usd", findings)
         max_notional = self._decimal(capital.get("max_notional_usd_per_trade"), "paper_capital.max_notional_usd_per_trade", findings)
+        min_notional = self._decimal(capital.get("min_notional_usd_per_trade"), "paper_capital.min_notional_usd_per_trade", findings)
         sizing_mode = str(capital.get("sizing_mode", "edge_scaled"))
         self._range_int(capital.get("max_daily_paper_trades"), 0, 100000, "paper_capital.max_daily_paper_trades", findings)
         if initial_eth is not None:
@@ -142,6 +144,10 @@ class PaperSettingsService:
             self._require(eth_reference > Decimal("0"), "paper_capital.eth_reference_usd", "ETH reference price must be greater than 0.", findings)
         if max_notional is not None:
             self._require(max_notional > Decimal("0"), "paper_capital.max_notional_usd_per_trade", "Per-trade notional must be greater than 0.", findings)
+        if min_notional is not None:
+            self._require(min_notional > Decimal("0"), "paper_capital.min_notional_usd_per_trade", "Minimum per-trade notional must be greater than 0.", findings)
+        if min_notional is not None and max_notional is not None:
+            self._require(min_notional <= max_notional, "paper_capital.min_notional_usd_per_trade", "Minimum per-trade notional must be no larger than max per-trade notional.", findings)
         self._require(
             sizing_mode in {"edge_scaled", "full_available_cash"},
             "paper_capital.sizing_mode",
@@ -222,6 +228,7 @@ class PaperSettingsService:
         initial_eth = self._safe_decimal(capital.get("initial_capital_eth"))
         eth_reference = self._safe_decimal(capital.get("eth_reference_usd"))
         max_notional = self._safe_decimal(capital.get("max_notional_usd_per_trade"))
+        min_notional = self._safe_decimal(capital.get("min_notional_usd_per_trade", max_notional))
         paper_capital_usd = initial_eth * eth_reference
         allocation_pct = Decimal("1.00")
         if paper_capital_usd > 0 and max_notional > 0:
@@ -235,6 +242,7 @@ class PaperSettingsService:
             "CRYPTOAI_PAPER_INITIAL_CASH_USD": str(paper_capital_usd.quantize(Decimal("0.01"))),
             "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": str(max_notional),
             "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": str(max_notional),
+            "CRYPTOAI_MIN_PAPER_NOTIONAL_USD": str(min_notional),
             "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": str(allocation_pct),
             "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": str(allocation_pct),
             "CRYPTOAI_PAPER_SIZING_MODE": str(capital.get("sizing_mode", "edge_scaled")),
@@ -267,20 +275,21 @@ class PaperSettingsService:
         settings["operations"]["loop_interval_seconds"] = 0
         settings["paper_capital"]["initial_capital_eth"] = "0.5"
         settings["paper_capital"]["eth_reference_usd"] = "1000"
-        settings["paper_capital"]["max_notional_usd_per_trade"] = "50"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "5"
+        settings["paper_capital"]["min_notional_usd_per_trade"] = "5"
         settings["paper_capital"]["max_daily_paper_trades"] = 0
         settings["paper_capital"]["sizing_mode"] = "full_available_cash"
         settings["risk"]["max_open_positions"] = 1
         settings["risk"]["duplicate_position_block"] = True
         settings["risk"]["cooldown_seconds"] = 0
-        settings["risk"]["max_daily_loss_usd"] = "10"
+        settings["risk"]["max_daily_loss_usd"] = "5"
         settings["risk"]["kill_switch_enabled"] = True
         settings["evidence_gates"]["require_report_audit_clean"] = True
         settings["evidence_gates"]["require_provider_not_critical"] = True
         settings["evidence_gates"]["min_execution_cost_confidence"] = "HIGH"
         settings["notes"] = [
             *settings.get("notes", []),
-            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $50 max trade, $10 daily loss cap, Base ETH routes only.",
+            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 min/max trade, $5 daily loss cap, Base ETH routes only.",
             "This profile is still paper-only and does not approve live trading.",
         ]
         return settings
@@ -350,6 +359,7 @@ class PaperSettingsService:
             f"- Loop interval seconds: `{settings['operations']['loop_interval_seconds']}`",
             f"- Initial paper capital ETH: `{settings['paper_capital']['initial_capital_eth']}`",
             f"- Max notional per trade USD: `{settings['paper_capital']['max_notional_usd_per_trade']}`",
+            f"- Min notional per trade USD: `{settings['paper_capital'].get('min_notional_usd_per_trade', settings['paper_capital']['max_notional_usd_per_trade'])}`",
             f"- Paper sizing mode: `{settings['paper_capital'].get('sizing_mode', 'edge_scaled')}`",
             f"- Max daily paper trades: `{settings['paper_capital']['max_daily_paper_trades']}`",
             f"- Max open positions: `{settings['risk']['max_open_positions']}`",

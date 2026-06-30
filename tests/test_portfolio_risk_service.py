@@ -114,6 +114,21 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         self.assertTrue(decision.approved, decision.reason)
         self.assertEqual(decision.notional_usd, Decimal("500.0000"))
 
+    def test_live_parity_tiny_notional_is_allowed_when_minimum_matches(self) -> None:
+        os.environ["CRYPTOAI_PAPER_SIZING_MODE"] = "full_available_cash"
+        os.environ["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"] = "100"
+        os.environ["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"] = "5"
+        os.environ["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"] = "5"
+        os.environ["CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT"] = "100"
+        svc = self.service()
+
+        decision = svc.assess(chain="base", pair="WETH/USDC", side="BUY", requested_notional_usd=Decimal("5"), now="2026-06-28T00:00:00Z")
+
+        self.assertTrue(decision.approved, decision.reason)
+        self.assertEqual(decision.notional_usd, Decimal("5.0000"))
+
     def test_monitor_positions_closes_take_profit(self) -> None:
         svc = self.service()
         svc.record_filled_order(order_id="tp1", timestamp="2026-06-28T00:00:00Z", strategy_name="test", chain="base", pair="WETH/USDC", side="BUY", notional_usd=Decimal("100"), fill_price_usd=Decimal("2000"), quantity=Decimal("0.05"))

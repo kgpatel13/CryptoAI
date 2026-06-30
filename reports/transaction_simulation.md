@@ -1,6 +1,6 @@
 # Transaction Simulation Report
 
-Generated: `2026-06-30T19:16:45Z`
+Generated: `2026-06-30T19:36:37Z`
 - Overall status: `TX_SIMULATION_ACTION`
 - Transaction simulation passed: `False`
 - Live trading approval: `False`
@@ -11,7 +11,7 @@ Generated: `2026-06-30T19:16:45Z`
 - Calldata status: `NOT_BUILT`
 - eth_call status: `NOT_RUN`
 - Blocked checks: `0`
-- Action checks: `4`
+- Action checks: `6`
 
 ## Checks
 
@@ -20,13 +20,13 @@ Generated: `2026-06-30T19:16:45Z`
 | live_trading_disabled | PASS | Live trading is disabled. |
 | kill_switch_enabled | PASS | Live kill switch is enabled. |
 | private_key_absent | PASS | Private key is absent. |
-| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
+| wallet_preflight_ready | ACTION | Wallet Preflight must be ready before transaction simulation review. |
 | live_readiness_review_ready | ACTION | Live Readiness Checklist must be review-ready before transaction simulation can pass. |
 | shadow_candidate_available | ACTION | No BUY plus SHADOW_READY opportunity is available for simulation. |
 | candidate_scope_allowed | PASS | Simulation candidate is Base USDC/WETH scope. |
 | routers_configured | PASS | Both route routers are configured. |
 | approved_live_dexes | PASS | Simulation candidate DEXes are within the tiny-live allowlist. |
-| live_trade_cap_configured | PASS | Tiny live trade cap is configured. |
+| live_trade_cap_configured | ACTION | Configure a tiny live trade cap before transaction simulation review. |
 | exact_calldata_built | ACTION | Exact router calldata was not built for the selected candidate. |
 | eth_call_simulation_passed | ACTION | Base eth_call simulation has not passed yet. |
 

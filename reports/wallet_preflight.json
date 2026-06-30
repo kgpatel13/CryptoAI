@@ -1,5 +1,5 @@
 {
-  "action_count": 0,
+  "action_count": 5,
   "blocked_check_count": 0,
   "check_count": 15,
   "checks": [
@@ -22,16 +22,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Isolated live wallet public address is configured.",
+      "detail": "Configure the isolated live wallet public address before funding.",
       "name": "isolated_wallet_address",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
-      "detail": "Live wallet is separate from the main wallet.",
+      "detail": "Live wallet must be separate from the main wallet.",
       "name": "wallet_isolation",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Planned chain is Base.",
@@ -64,22 +64,22 @@
       "severity": "PASS"
     },
     {
-      "detail": "Configured wallet ceiling is within tiny-pilot policy.",
+      "detail": "Set CRYPTOAI_MAX_LIVE_WALLET_USD to a value > 0 and <= 500 before any live pilot.",
       "name": "configured_wallet_ceiling",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
-      "detail": "Configured trade cap is within tiny-pilot policy.",
+      "detail": "Set CRYPTOAI_MAX_LIVE_TRADE_USD to a small value, usually $25-$50, before any live pilot.",
       "name": "configured_trade_cap",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
-      "detail": "Configured daily loss cap is within tiny-pilot policy.",
+      "detail": "Set CRYPTOAI_MAX_DAILY_LOSS_USD to a value > $0 and no larger than the live trade cap.",
       "name": "configured_daily_loss",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Manual confirmation is required.",
@@ -94,11 +94,11 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-06-30T19:16:45Z",
+  "generated_at": "2026-06-30T19:36:37Z",
   "live_kill_switch_enabled": true,
   "live_trading_approval": false,
   "live_trading_enabled": false,
-  "live_wallet_configured": true,
+  "live_wallet_configured": false,
   "max_prep_wallet_usd": "500.0000",
   "max_tiny_trade_usd": "100.0000",
   "mode": "paper",
@@ -107,11 +107,11 @@
     "Do not configure private keys until the transaction path, simulation gate, and manual review are complete.",
     "The first real-money pilot should use an isolated wallet on Base with a total wallet ceiling of $500 or less."
   ],
-  "overall_status": "WALLET_PREP_READY",
+  "overall_status": "WALLET_PREP_ACTION",
   "planned_chain": "base",
   "planned_eth_gas_usd": "50.0000",
   "planned_total_usd": "500.0000",
   "planned_usdc_usd": "450.0000",
   "private_key_configured": false,
-  "wallet_preflight_allowed": true
+  "wallet_preflight_allowed": false
 }

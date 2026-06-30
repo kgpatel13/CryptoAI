@@ -1,6 +1,6 @@
 {
-  "action_count": 5,
-  "blocked_check_count": 2,
+  "action_count": 8,
+  "blocked_check_count": 1,
   "check_count": 22,
   "checks": [
     {
@@ -58,10 +58,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Report Audit has blocking operational findings.",
+      "detail": "Report Audit has no blocking operational findings.",
       "name": "report_audit_clean",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Paper orders and analytics trade journal are available.",
@@ -76,10 +76,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight is ready.",
+      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
       "name": "wallet_preflight_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
@@ -112,10 +112,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Paper capital is within the configured live wallet ceiling.",
+      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
       "name": "paper_live_wallet_parity",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
@@ -124,10 +124,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Paper daily loss cap matches the tiny-live policy.",
+      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
       "name": "paper_live_daily_loss_parity",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -137,12 +137,12 @@
     }
   ],
   "closed_trade_count": 114,
-  "generated_at": "2026-06-30T19:16:45Z",
+  "generated_at": "2026-06-30T19:36:37Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "5",
-  "max_live_trade_usd": "5",
-  "max_live_wallet_usd": "500",
+  "max_live_trade_usd": "0",
+  "max_live_wallet_usd": "0",
   "mode": "paper",
   "notes": [
     "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -153,6 +153,6 @@
   "paper_cash_usd": "520.1636",
   "paper_profile": "live_parity_500",
   "paper_realized_pnl_usd": "20.1636",
-  "pass_count": 15,
+  "pass_count": 13,
   "watch_count": 0
 }

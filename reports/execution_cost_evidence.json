@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T18:49:08Z",
+  "generated_at": "2026-06-30T19:36:37Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -42,7 +42,7 @@
   },
   "provider_evidence": {
     "provider_count": 5,
-    "avg_provider_latency_ms": "391.7640",
+    "avg_provider_latency_ms": "372.3440",
     "avg_provider_score": "99.6000",
     "providers": [
       {
@@ -50,7 +50,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 335.29,
+        "avg_latency_ms": 319.63,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -59,7 +59,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 354.41,
+        "avg_latency_ms": 334.28,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -68,7 +68,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 804.97,
+        "avg_latency_ms": 765.75,
         "score": 99,
         "consecutive_failures": 0
       },
@@ -85,22 +85,22 @@
         "name": "Base:rpc1:https://base-rpc.publicnode.com",
         "provider_type": "rpc",
         "chain": "base",
-        "success_rate_pct": 99.98,
-        "avg_latency_ms": 255.01,
+        "success_rate_pct": 99.99,
+        "avg_latency_ms": 232.92,
         "score": 99,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 2200,
+    "real_signal_count": 3812,
     "avg_gross_edge_pct": "0.4851",
-    "p95_gross_edge_pct": "0.6703",
+    "p95_gross_edge_pct": "0.7093",
     "max_gross_edge_pct": "0.7839",
-    "production_trade_count": 485,
+    "production_trade_count": 628,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 2200,
-    "observed_lower_bound_total_pnl_usd": "7812.3634",
+    "observed_lower_bound_trade_count": 3812,
+    "observed_lower_bound_total_pnl_usd": "13538.0841",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -112,8 +112,8 @@
     "paper_sample_count": 114,
     "quote_ok_rate_pct": "0.0000",
     "avg_provider_score": "99.6000",
-    "production_trade_count": 485,
-    "observed_lower_bound_trade_count": 2200
+    "production_trade_count": 628,
+    "observed_lower_bound_trade_count": 3812
   },
   "findings": [
     {
