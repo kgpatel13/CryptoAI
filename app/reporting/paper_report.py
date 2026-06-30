@@ -295,6 +295,8 @@ class PaperReportService:
 
     @staticmethod
     def _legacy_accounting_warning(order: dict) -> bool:
+        if str(order.get("execution_type", "")).upper() == "ARBITRAGE_ROUND_TRIP":
+            return False
         pair = str(order.get("pair", "")).upper()
         quantity = PaperReportService._decimal(order.get("simulated_quantity"))
         fill_price = PaperReportService._decimal(order.get("simulated_fill_price_usd"))

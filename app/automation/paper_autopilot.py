@@ -46,6 +46,16 @@ try:
 except Exception:
     PaperSettingsService = None
 
+try:
+    from app.reporting.paper_report import PaperReportService
+except Exception:
+    PaperReportService = None
+
+try:
+    from app.reporting.report_audit import ReportAuditService
+except Exception:
+    ReportAuditService = None
+
 
 class PaperAutopilot:
     """Safe paper-trading autopilot.
@@ -109,6 +119,12 @@ class PaperAutopilot:
 
     @staticmethod
     def _generate_operations_reports() -> tuple[str | None, int | None]:
+        if PaperReportService is not None:
+            try:
+                PaperReportService().generate()
+            except Exception:
+                pass
+
         provider_monitor_status = None
         if ProviderMonitorService is not None:
             try:
@@ -124,6 +140,12 @@ class PaperAutopilot:
                 market_readiness_score = market_intelligence.get("overall_readiness_score")
             except Exception:
                 market_readiness_score = None
+
+        if ReportAuditService is not None:
+            try:
+                ReportAuditService().generate()
+            except Exception:
+                pass
 
         return provider_monitor_status, market_readiness_score
 

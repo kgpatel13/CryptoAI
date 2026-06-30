@@ -1,13 +1,13 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-30T02:09:19Z`
+Generated: `2026-06-30T02:33:57Z`
 
 ## Summary
 
 - Status: `VALID`
 - Mode: `paper`
 - Paper profile: `unbounded_paper_lab`
-- Paper capital USD: `100000.00`
+- Paper capital USD: `1000.00`
 - Errors: `0`
 - Warnings: `0`
 - Launch command: `python -m app.automation.paper_autopilot --loop --use-settings`
@@ -19,8 +19,8 @@ Generated: `2026-06-30T02:09:19Z`
 - Routes: `WETH/USDC, USDC/WETH`
 - DEXs: `Uniswap V2, Aerodrome, Uniswap V3`
 - Loop interval seconds: `0`
-- Initial paper capital ETH: `10.0`
-- Max notional per trade USD: `100000`
+- Initial paper capital ETH: `1.0`
+- Max notional per trade USD: `1000`
 - Paper sizing mode: `full_available_cash`
 - Max daily paper trades: `0`
 - Max open positions: `1`

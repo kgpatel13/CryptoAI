@@ -1,6 +1,6 @@
 # CryptoAI Provider Monitor
 
-Generated: `2026-06-30T02:09:56Z`
+Generated: `2026-06-30T02:34:04Z`
 
 ## Summary
 
@@ -14,10 +14,10 @@ Generated: `2026-06-30T02:09:56Z`
 
 | Chain | Type | Provider | Score | Current | Rolling | Required | Consecutive Failures | Age Seconds | Error |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| base | dex | Aerodrome | 100 | OK | OK | True | 0 | 34.66 |  |
-| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 35.62 |  |
-| base | dex | Uniswap V3 | 100 | OK | OK | True | 0 | 32.79 |  |
-| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 100 | OK | OK | True | 0 | 0.61 |  |
+| base | dex | Aerodrome | 100 | OK | OK | True | 0 | 4.32 |  |
+| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 5.37 |  |
+| base | dex | Uniswap V3 | 100 | OK | OK | True | 0 | 2.61 |  |
+| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 100 | OK | OK | True | 0 | 0.05 |  |
 
 ## Alerts
 

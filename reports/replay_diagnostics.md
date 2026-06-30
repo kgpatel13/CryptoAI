@@ -1,33 +1,33 @@
 # CryptoAI Replay Diagnostics
 
-Generated: `2026-06-30T02:09:57Z`
+Generated: `2026-06-30T02:31:59Z`
 
 ## Summary
 
 - Source: `data\multi_dex_opportunities.jsonl`
-- Real signals: `20`
+- Real signals: `6`
 - Synthetic signals: `0`
 - Production cost buffer %: `0.30`
 - Paper BUY threshold %: `0.30`
 - Production trades: `0`
 - Production PnL USD: `0.0000`
-- Positive-after-cost signals at production buffer: `20`
+- Positive-after-cost signals at production buffer: `6`
 - Best profitable cost buffer %: `0.20`
-- Best profitable trades: `20`
-- Best profitable PnL USD: `57.0470`
+- Best profitable trades: `6`
+- Best profitable PnL USD: `17.1225`
 
 ## Cost Buffer Scenarios
 
 | Cost Buffer % | Signals | Trades | Skipped | PnL USD | Avg Net % | Max Net % |
 |---:|---:|---:|---:|---:|---:|---:|
-| 0.20 | 20 | 20 | 0 | 57.0470 | 0.2852 | 0.3599 |
-| 0.25 | 20 | 20 | 0 | 47.0470 | 0.2352 | 0.3099 |
-| 0.30 | 20 | 20 | 0 | 37.0470 | 0.1852 | 0.2599 |
-| 0.35 | 20 | 20 | 0 | 27.0470 | 0.1352 | 0.2099 |
+| 0.20 | 6 | 6 | 0 | 17.1225 | 0.2854 | 0.3177 |
+| 0.25 | 6 | 6 | 0 | 14.1225 | 0.2354 | 0.2677 |
+| 0.30 | 6 | 6 | 0 | 11.1225 | 0.1854 | 0.2177 |
+| 0.35 | 6 | 6 | 0 | 8.1225 | 0.1354 | 0.1677 |
 
 ## Findings
 
-- `WATCH` Production buffer 0.30% has 20 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%.
+- `WATCH` Production buffer 0.30% has 6 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%.
 - `ACTION` Collect more execution-cost and closed-paper-trade evidence before considering any threshold change.
 
 ## Notes

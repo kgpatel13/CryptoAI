@@ -1,6 +1,6 @@
 # CryptoAI Strategy Intelligence
 
-Generated: `2026-06-30T02:09:57Z`
+Generated: `2026-06-30T02:31:59Z`
 
 ## Summary
 
@@ -9,10 +9,10 @@ Generated: `2026-06-30T02:09:57Z`
 - Top recommendation: `CONTINUE_RESEARCH`
 - Promotion allowed: `False`
 - Provider status: `OK`
-- Experiment: `RESEARCH_ONLY` with `1` fail / `1` warn
+- Experiment: `RESEARCH_ONLY` with `1` fail / `0` warn
 - Report audit findings: `0`
 - Replay production trades: `0` at `0.30` cost buffer
-- Replay best profitable buffer: `0.20` with `20` trade(s)
+- Replay best profitable buffer: `0.20` with `6` trade(s)
 - Execution cost status: `INSUFFICIENT_EVIDENCE` with `INSUFFICIENT` confidence
 - Observed cost lower bound %: `None`
 - Market primary focus: `base WETH/USDC`

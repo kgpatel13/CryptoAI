@@ -133,6 +133,16 @@ class OperationsRuntimeTests(unittest.TestCase):
                 calls.append("provider")
                 return {"overall_status": "WATCH"}
 
+        class FakePaperReport:
+            def generate(self) -> dict:
+                calls.append("paper")
+                return {"status": "OK"}
+
+        class FakeReportAudit:
+            def generate(self) -> dict:
+                calls.append("audit")
+                return {"finding_count": 0}
+
         class FakeMarketIntelligence:
             def generate(self) -> dict:
                 calls.append("market")
@@ -141,10 +151,12 @@ class OperationsRuntimeTests(unittest.TestCase):
         with patch("app.automation.paper_autopilot.OpportunityExplorerService", FakeOpportunityExplorer):
             with patch("app.automation.paper_autopilot.SchedulerService", FakeScheduler):
                 with patch("app.automation.paper_autopilot.ProviderMonitorService", FakeProviderMonitor):
-                    with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
-                        result = PaperAutopilot().run_once()
+                    with patch("app.automation.paper_autopilot.PaperReportService", FakePaperReport):
+                        with patch("app.automation.paper_autopilot.ReportAuditService", FakeReportAudit):
+                            with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
+                                result = PaperAutopilot().run_once()
 
-        self.assertEqual(calls, ["opportunity", "scheduler", "provider", "market"])
+        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "audit"])
         self.assertEqual(result["provider_monitor_status"], "WATCH")
         self.assertEqual(result["market_readiness_score"], 77)
         self.assertEqual(result["opportunity_decisions"], 1)

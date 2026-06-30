@@ -98,13 +98,15 @@ class ReportAuditTests(unittest.TestCase):
                     {
                         "order_id": "arb1",
                         "timestamp": "2026-06-29T00:00:00Z",
-                        "pair": "WETH/USDC",
+                        "pair": "USDC/WETH",
                         "status": "CLOSED",
                         "execution_type": "ARBITRAGE_ROUND_TRIP",
                         "buy_source": "Uniswap V2",
                         "sell_source": "Uniswap V3",
                         "notional_usd": "10000.0000",
                         "filled_notional_usd": "10000.0000",
+                        "simulated_fill_price_usd": "0.000626",
+                        "simulated_quantity": "15974440.89456869",
                         "realized_pnl_usd": "35.0000",
                         "gross_edge_pct": "0.65",
                         "cost_buffer_pct": "0.30",
@@ -135,6 +137,7 @@ class ReportAuditTests(unittest.TestCase):
             self.assertEqual(report["portfolio"]["open_positions"], 0)
             self.assertEqual(report["portfolio_analytics"]["open_positions"], 0)
             self.assertEqual(report["portfolio_analytics"]["cash_usd"], "10035.0000")
+            self.assertEqual(report["legacy_accounting_warning_count"], 0)
 
 
 if __name__ == "__main__":

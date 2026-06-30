@@ -1,28 +1,28 @@
 # CryptoAI Experiment Report
 
-Generated: `2026-06-30T02:09:57Z`
+Generated: `2026-06-30T02:31:59Z`
 
 ## Latest Experiment
 
-- Experiment ID: `4dc404bddb51`
+- Experiment ID: `0a281674b47f`
 - Label: `default-replay-optimization`
 - Status: `RESEARCH_ONLY`
 - Promotion allowed: `False`
-- Gates: `3 pass / 1 warn / 1 fail`
-- History count: `1`
+- Gates: `4 pass / 0 warn / 1 fail`
+- History count: `2`
 
 ## Summary
 
-- backtest_total_signals: `20`
+- backtest_total_signals: `6`
 - backtest_trades: `0`
 - backtest_pnl_usd: `0.0000`
 - optimization_scenarios: `60`
-- optimization_best_trades: `20`
-- optimization_best_pnl_usd: `57.0470`
+- optimization_best_trades: `6`
+- optimization_best_pnl_usd: `17.1225`
 - optimization_best_cost_buffer_pct: `0.20`
 - provider_status: `OK`
 - provider_alert_count: `0`
-- paper_total_pnl_usd: `None`
+- paper_total_pnl_usd: `0.0000`
 - audit_finding_count: `0`
 - execution_cost_buffer_status: `INSUFFICIENT_EVIDENCE`
 - execution_cost_confidence: `INSUFFICIENT`
@@ -39,9 +39,9 @@ Generated: `2026-06-30T02:09:57Z`
 - production_cost_buffer_pct: `0.30`
 - production_trade_count: `0`
 - best_profitable_cost_buffer_pct: `0.20`
-- best_profitable_trade_count: `20`
-- best_profitable_total_pnl_usd: `57.0470`
-- WATCH: Production buffer 0.30% has 20 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%.
+- best_profitable_trade_count: `6`
+- best_profitable_total_pnl_usd: `17.1225`
+- WATCH: Production buffer 0.30% has 6 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%.
 - ACTION: Collect more execution-cost and closed-paper-trade evidence before considering any threshold change.
 
 ## Execution Cost Evidence
@@ -80,16 +80,17 @@ Generated: `2026-06-30T02:09:57Z`
 | Gate | Status | Message |
 |---|---|---|
 | default_replay_has_positive_trades | FAIL | Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0. |
-| optimization_has_minimum_sample | PASS | Best scenario trades=20, pnl_usd=57.0470, min_trades=5. |
+| optimization_has_minimum_sample | PASS | Best scenario trades=6, pnl_usd=17.1225, min_trades=5. |
 | provider_health_not_critical | PASS | Provider status is OK. |
-| paper_pnl_non_negative | WARN | Paper PnL is unavailable. |
+| paper_pnl_non_negative | PASS | Paper total_pnl_usd=0.0000. |
 | report_audit_has_no_findings | PASS | Report audit has no findings. |
 
 ## Recent Experiments
 
 | Time | ID | Status | Pass | Warn | Fail |
 |---|---|---|---:|---:|---:|
-| 2026-06-30T02:09:57Z | 4dc404bddb51 | RESEARCH_ONLY | 3 | 1 | 1 |
+| 2026-06-30T02:31:34Z | b767cf7aa548 | RESEARCH_ONLY | 3 | 1 | 1 |
+| 2026-06-30T02:31:59Z | 0a281674b47f | RESEARCH_ONLY | 4 | 0 | 1 |
 
 ## Notes
 

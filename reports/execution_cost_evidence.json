@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T02:09:57Z",
+  "generated_at": "2026-06-30T02:31:59Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -39,12 +39,12 @@
       "Uniswap V2",
       "Uniswap V3"
     ],
-    "avg_ok_latency_ms": "0.0800",
-    "p95_ok_latency_ms": "0.0800"
+    "avg_ok_latency_ms": "532.0100",
+    "p95_ok_latency_ms": "532.0100"
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "373.3375",
+    "avg_provider_latency_ms": "301.8175",
     "avg_provider_score": "100.0000",
     "providers": [
       {
@@ -52,7 +52,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 280.62,
+        "avg_latency_ms": 185.78,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -61,7 +61,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 262.01,
+        "avg_latency_ms": 227.72,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -70,7 +70,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 731.48,
+        "avg_latency_ms": 571.5,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -79,17 +79,17 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 219.24,
+        "avg_latency_ms": 222.27,
         "score": 100,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 20,
-    "avg_gross_edge_pct": "0.4852",
-    "p95_gross_edge_pct": "0.5599",
-    "max_gross_edge_pct": "0.5599",
+    "real_signal_count": 6,
+    "avg_gross_edge_pct": "0.4854",
+    "p95_gross_edge_pct": "0.5177",
+    "max_gross_edge_pct": "0.5177",
     "production_trade_count": 0,
     "production_required_gross_edge_pct": "0.60",
     "observed_lower_bound_trade_count": 0,

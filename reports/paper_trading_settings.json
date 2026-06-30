@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-30T02:09:19Z",
+  "generated_at": "2026-06-30T02:33:57Z",
   "mode": "paper",
   "paper_profile": "unbounded_paper_lab",
   "status": "VALID",
   "error_count": 0,
   "warning_count": 0,
-  "paper_capital_usd": "100000.00",
+  "paper_capital_usd": "1000.00",
   "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings",
   "settings": {
     "version": 1,
@@ -34,9 +34,9 @@
       "allow_stale_quotes_for_live": false
     },
     "paper_capital": {
-      "initial_capital_eth": "10.0",
-      "eth_reference_usd": "10000",
-      "max_notional_usd_per_trade": "100000",
+      "initial_capital_eth": "1.0",
+      "eth_reference_usd": "1000",
+      "max_notional_usd_per_trade": "1000",
       "max_daily_paper_trades": 0,
       "sizing_mode": "full_available_cash"
     },
@@ -70,9 +70,9 @@
     ]
   },
   "runtime_environment": {
-    "CRYPTOAI_PAPER_INITIAL_CASH_USD": "100000.00",
-    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "100000",
-    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "100000",
+    "CRYPTOAI_PAPER_INITIAL_CASH_USD": "1000.00",
+    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "1000",
+    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "1000",
     "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "100.00",
     "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "100.00",
     "CRYPTOAI_PAPER_SIZING_MODE": "full_available_cash",

@@ -4,6 +4,7 @@ import importlib
 import json
 import os
 import traceback
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 import pandas as pd
@@ -56,6 +57,21 @@ def read_json(path: Path) -> dict:
         return payload if isinstance(payload, dict) else {}
     except Exception:
         return {}
+
+
+def decimal_or_none(value) -> Decimal | None:
+    if value in (None, ""):
+        return None
+    try:
+        return Decimal(str(value))
+    except (InvalidOperation, ValueError):
+        return None
+
+
+def format_decimal(value: Decimal | None, places: str = "0.0000") -> str:
+    if value is None:
+        return "-"
+    return str(value.quantize(Decimal(places)))
 
 
 def dataframe_or_info(rows: list[dict], message: str) -> None:
@@ -155,6 +171,36 @@ def render_mission_control() -> None:
             strategy_intelligence = {}
 
     analytics = paper.get("portfolio_analytics", {})
+    portfolio_state = read_json(DATA_DIR / "paper_portfolio_state.json")
+    if portfolio_state:
+        cash = decimal_or_none(portfolio_state.get("cash_usd"))
+        initial_cash = decimal_or_none(portfolio_state.get("initial_cash_usd"))
+        realized = decimal_or_none(portfolio_state.get("realized_pnl_usd")) or Decimal("0")
+        unrealized = decimal_or_none(portfolio_state.get("unrealized_pnl_usd")) or Decimal("0")
+        total_pnl = realized + unrealized
+        equity = cash + unrealized if cash is not None else None
+        analytics = {
+            **analytics,
+            "cash_usd": format_decimal(cash),
+            "equity_usd": format_decimal(equity),
+            "realized_pnl_usd": format_decimal(realized),
+            "unrealized_pnl_usd": format_decimal(unrealized),
+            "total_pnl_usd": format_decimal(total_pnl),
+        }
+        paper = {
+            **paper,
+            "portfolio": {
+                **(paper.get("portfolio", {}) if isinstance(paper.get("portfolio"), dict) else {}),
+                "cash_usd": portfolio_state.get("cash_usd", "-"),
+                "initial_cash_usd": portfolio_state.get("initial_cash_usd", "-"),
+                "open_positions": len(portfolio_state.get("positions", []) if isinstance(portfolio_state.get("positions"), list) else []),
+                "daily_filled_trades": portfolio_state.get("daily_filled_trades", 0),
+                "daily_realized_pnl_usd": portfolio_state.get("daily_realized_pnl_usd", "0"),
+                "realized_pnl_usd": portfolio_state.get("realized_pnl_usd", "0"),
+                "updated_at": portfolio_state.get("updated_at", "-"),
+            },
+            "portfolio_analytics": analytics,
+        }
     feature_store = research.get("feature_store", {})
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Equity USD", analytics.get("equity_usd", "-"))
@@ -181,9 +227,20 @@ def render_mission_control() -> None:
         st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
 
     st.markdown("### Last Cycle Decision")
-    latest_opportunities = paper.get("latest_opportunities", []) if isinstance(paper.get("latest_opportunities"), list) else []
-    latest_orders = paper.get("latest_orders", []) if isinstance(paper.get("latest_orders"), list) else []
-    best_opp = latest_opportunities[-1] if latest_opportunities else {}
+    latest_opportunities = read_jsonl(DATA_DIR / "opportunity_decisions.jsonl", limit=100)
+    if not latest_opportunities:
+        latest_opportunities = paper.get("latest_opportunities", []) if isinstance(paper.get("latest_opportunities"), list) else []
+    latest_orders = read_jsonl(DATA_DIR / "paper_orders.jsonl", limit=100)
+    if not latest_orders:
+        latest_orders = paper.get("latest_orders", []) if isinstance(paper.get("latest_orders"), list) else []
+    latest_opportunity_batch = latest_opportunities
+    if latest_opportunities:
+        latest_timestamp = latest_opportunities[-1].get("timestamp")
+        latest_opportunity_batch = [row for row in latest_opportunities if row.get("timestamp") == latest_timestamp] or latest_opportunities
+    best_opp = max(
+        latest_opportunity_batch,
+        key=lambda row: decimal_or_none(row.get("estimated_net_edge_pct") or row.get("net_edge_pct")) or Decimal("-999999"),
+    ) if latest_opportunity_batch else {}
     latest_order = latest_orders[-1] if latest_orders else {}
     quote_snapshot = read_json(DATA_DIR / "quote_snapshot.json")
     quote_rows = quote_snapshot.get("quotes", []) if isinstance(quote_snapshot.get("quotes"), list) else []

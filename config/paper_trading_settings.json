@@ -25,9 +25,9 @@
     "allow_stale_quotes_for_live": false
   },
   "paper_capital": {
-    "initial_capital_eth": "10.0",
-    "eth_reference_usd": "10000",
-    "max_notional_usd_per_trade": "100000",
+    "initial_capital_eth": "1.0",
+    "eth_reference_usd": "1000",
+    "max_notional_usd_per_trade": "1000",
     "max_daily_paper_trades": 0,
     "sizing_mode": "full_available_cash"
   },
