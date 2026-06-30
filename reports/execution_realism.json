@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T22:40:42Z",
+  "generated_at": "2026-06-30T22:41:14Z",
   "mode": "paper",
   "paper_capital_usd": "500.0000",
   "requested_notional_usd": "5.0000",
@@ -17,7 +17,7 @@
   },
   "opportunities": [
     {
-      "timestamp": "2026-06-30T22:40:40Z",
+      "timestamp": "2026-06-30T22:40:49Z",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -43,7 +43,7 @@
       "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
     },
     {
-      "timestamp": "2026-06-30T22:40:40Z",
+      "timestamp": "2026-06-30T22:40:49Z",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",

@@ -1,6 +1,6 @@
 # CryptoAI Paper Run Review
 
-Generated: `2026-06-30T22:40:43Z`
+Generated: `2026-06-30T22:41:15Z`
 
 ## Summary
 
@@ -9,10 +9,10 @@ Generated: `2026-06-30T22:40:43Z`
 - Shadow decision: `BLOCKED`
 - Live decision: `BLOCKED`
 - Initial cash USD: `$500.0000`
-- Cash USD: `$534.5078`
-- Realized PnL USD: `$34.5078`
-- Return %: `6.9016`
-- Closed trades: `882`
+- Cash USD: `$534.5250`
+- Realized PnL USD: `$34.5250`
+- Return %: `6.9050`
+- Closed trades: `883`
 - Losing trades: `0`
 - Open positions: `0`
 - Provider status: `WATCH`
@@ -37,7 +37,7 @@ Generated: `2026-06-30T22:40:43Z`
 
 | Severity | Message |
 |---|---|
-| INFO | Paper run is profitable so far: $34.5078 across 882 closed trade(s). |
+| INFO | Paper run is profitable so far: $34.5250 across 883 closed trade(s). |
 | ACTION | Execution realism has zero shadow-ready opportunities; live trading remains blocked. |
 | INFO | Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness. |
 | SUMMARY | Blocked gates: provider_ok, execution_shadow_ready. |

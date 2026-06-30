@@ -123,7 +123,7 @@
       "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T22:40:42Z",
+  "generated_at": "2026-06-30T22:41:14Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "5",
