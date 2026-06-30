@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.18 - Exact Calldata and Base eth_call Simulation
+
+- Implemented exact unsigned swap calldata generation for the approved Base USDC/WETH simulation scope.
+- Added two-leg arbitrage simulation intents: USDC -> WETH on the buy DEX, then WETH -> USDC on the sell DEX.
+- Added router calldata builders for Uniswap V3 SwapRouter02, Aerodrome-style routers, and Uniswap V2-style routers.
+- Added Base `eth_call` execution against the RPC provider pool with chain-id verification, block evidence, latency, pass/revert/fail status, and redacted RPC URLs.
+- Kept the service evidence-only: no signing, no approvals, no private keys, no transaction sending, and no live-trading approval.
+- Updated transaction simulation tests for pass and revert behavior.
+
 ## v5.17 - Transaction Simulation Evidence Gate
 
 - Added `TransactionSimulationService` for a future tiny-live transaction simulation evidence gate.

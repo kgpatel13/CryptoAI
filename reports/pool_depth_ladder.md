@@ -1,33 +1,33 @@
 # CryptoAI Pool Depth Ladder
 
-Generated: `2026-06-30T13:58:31Z`
+Generated: `2026-06-30T14:49:22Z`
 
 ## Summary
 
 - Overall status: `DEPTH_EVIDENCE_READY`
 - Confidence: `MEDIUM`
-- Requested notional USD: `$500.0000`
+- Requested notional USD: `$50.0000`
 - ETH reference USD: `$1000.0000`
-- Quote rows: `30/30`
+- Quote rows: `36/36`
 - Depth-ready routes: `2`
 
 ## Routes
 
 | Pair | Status | Confidence | DEXes | Max Usable USD | Best-Two Requested Impact % | Worst Requested Impact % | Worst Tested Impact % | Reason |
 |---|---|---|---:|---:|---:|---:|---:|---|
-| USDC/WETH | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0171 | 0.0737 | 0.3500 | USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0171%. |
-| WETH/USDC | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0178 | 0.1149 | 0.5432 | WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0178%. |
+| USDC/WETH | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0000 | 0.0000 | 0.3586 | USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0000%. |
+| WETH/USDC | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0000 | 0.0000 | 0.5585 | WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0000%. |
 
 ## DEX Detail
 
 | Pair | DEX | OK | Tested | Max Tested USD | Worst Impact % | Liquidity USD |
 |---|---|---:|---:|---:|---:|---:|
-| USDC/WETH | Aerodrome | 5 | 5 | 2000.0000 | 0.0540 | 0.0000 |
-| USDC/WETH | Uniswap V2 | 5 | 5 | 2000.0000 | 0.3500 | 0.0000 |
-| USDC/WETH | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0375 | 0.0000 |
-| WETH/USDC | Aerodrome | 5 | 5 | 2000.0000 | 0.0843 | 0.0000 |
-| WETH/USDC | Uniswap V2 | 5 | 5 | 2000.0000 | 0.5432 | 0.0000 |
-| WETH/USDC | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0000 | 0.0000 |
+| USDC/WETH | Aerodrome | 6 | 6 | 2000.0000 | 0.0554 | 0.0000 |
+| USDC/WETH | Uniswap V2 | 6 | 6 | 2000.0000 | 0.3586 | 0.0000 |
+| USDC/WETH | Uniswap V3 | 6 | 6 | 2000.0000 | 0.0041 | 0.0000 |
+| WETH/USDC | Aerodrome | 6 | 6 | 2000.0000 | 0.0866 | 0.0000 |
+| WETH/USDC | Uniswap V2 | 6 | 6 | 2000.0000 | 0.5585 | 0.0000 |
+| WETH/USDC | Uniswap V3 | 6 | 6 | 2000.0000 | 0.0063 | 0.0000 |
 
 ## Findings
 

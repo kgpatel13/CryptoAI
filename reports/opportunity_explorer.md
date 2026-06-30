@@ -1,8 +1,8 @@
 # CryptoAI Opportunity Explorer
 
-Generated: `2026-06-30T13:57:47Z`
+Generated: `2026-06-30T14:59:41Z`
 
 | Pair | Buy | Sell | Gross % | Cost % | Net % | Score | Decision | Reason |
 |---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | 0.6476 | 0.3000 | 0.3476 | 69 | BUY | REAL: Real multi-DEX comparison: net edge 0.3476% is above BUY threshold 0.30%. |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | 0.3209 | 0.3000 | 0.0209 | 4 | SKIP | REAL: Real multi-DEX comparison: net edge 0.0209% is too low after costs. |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | 0.4359 | 0.3000 | 0.1359 | 27 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1359% is positive but below BUY threshold. |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | 0.5333 | 0.3000 | 0.2333 | 46 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2333% is positive but below BUY threshold. |

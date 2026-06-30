@@ -1,6 +1,6 @@
 # Wallet Preflight Report
 
-Generated: `2026-06-30T14:42:30Z`
+Generated: `2026-06-30T14:49:19Z`
 - Overall status: `WALLET_PREP_READY`
 - Wallet preflight allowed: `True`
 - Live trading approval: `False`

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T08:26:16Z",
+  "generated_at": "2026-06-30T14:49:19Z",
   "mode": "paper",
-  "paper_profile": "shadow_500",
+  "paper_profile": "live_parity_500",
   "status": "VALID",
   "error_count": 0,
   "warning_count": 0,
@@ -10,7 +10,7 @@
   "settings": {
     "version": 1,
     "mode": "paper",
-    "paper_profile": "shadow_500",
+    "paper_profile": "live_parity_500",
     "live_trading_enabled": false,
     "operations": {
       "loop_interval_seconds": 0,
@@ -36,7 +36,7 @@
     "paper_capital": {
       "initial_capital_eth": "0.5",
       "eth_reference_usd": "1000",
-      "max_notional_usd_per_trade": "500",
+      "max_notional_usd_per_trade": "50",
       "max_daily_paper_trades": 0,
       "sizing_mode": "full_available_cash"
     },
@@ -51,30 +51,30 @@
       "max_open_positions": 1,
       "duplicate_position_block": true,
       "cooldown_seconds": 0,
-      "max_daily_loss_usd": "0",
+      "max_daily_loss_usd": "10",
       "kill_switch_enabled": true
     },
     "evidence_gates": {
-      "require_report_audit_clean": false,
-      "require_provider_not_critical": false,
-      "min_execution_cost_confidence": "LOW",
+      "require_report_audit_clean": true,
+      "require_provider_not_critical": true,
+      "min_execution_cost_confidence": "HIGH",
       "min_eth_coverage_score": 50
     },
     "notes": [
       "Paper settings are launch controls for continuous simulation only.",
       "Live trading remains disabled until live-readiness gates pass.",
       "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
-      "Shadow 500 profile uses a $500 production-like paper capital ceiling for multi-day validation; live trading remains disabled.",
-      "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.",
-      "Arbitrage paper trades close atomically and must not create long-lived open positions."
+      "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
+      "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $50 max trade, $10 daily loss cap, Base ETH routes only.",
+      "This profile is still paper-only and does not approve live trading."
     ]
   },
   "runtime_environment": {
     "CRYPTOAI_PAPER_INITIAL_CASH_USD": "500.00",
-    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "500",
-    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "500",
-    "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "100.00",
-    "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "100.00",
+    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "50",
+    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "50",
+    "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "10.00",
+    "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "10.00",
     "CRYPTOAI_PAPER_SIZING_MODE": "full_available_cash",
     "CRYPTOAI_MAX_DAILY_PAPER_TRADES": "0",
     "CRYPTOAI_MAX_OPEN_POSITIONS": "1",
@@ -83,7 +83,7 @@
     "CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION": "true",
     "CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT": "100.00",
     "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
-    "CRYPTOAI_MAX_DAILY_LOSS_USD": "0",
+    "CRYPTOAI_MAX_DAILY_LOSS_USD": "10",
     "CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT": "0.30"
   },
   "findings": []

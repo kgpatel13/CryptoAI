@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-06-30T13:27:38Z",
+  "generated_at": "2026-06-30T14:49:39Z",
   "mode": "paper",
-  "overall_status": "SHADOW_REVIEW_CANDIDATE",
-  "recommendation": "Review sustained paper evidence before any live-trading design decision.",
+  "overall_status": "COLLECTING_PAPER_EVIDENCE",
+  "recommendation": "Continue paper run until closed trade evidence exists.",
   "live_decision": "BLOCKED",
-  "shadow_decision": "REVIEW_READY",
-  "paper_profile": "shadow_500",
+  "shadow_decision": "BLOCKED",
+  "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "1679.8276",
-  "realized_pnl_usd": "1179.8276",
-  "return_pct": "235.9655",
-  "closed_trade_count": 656,
+  "cash_usd": "500.0000",
+  "realized_pnl_usd": "0.0000",
+  "return_pct": "0.0000",
+  "closed_trade_count": 0,
   "losing_trade_count": 0,
   "open_position_count": 0,
-  "first_trade_at": "2026-06-30T08:32:29Z",
-  "last_trade_at": "2026-06-30T12:47:18Z",
+  "first_trade_at": null,
+  "last_trade_at": null,
   "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
-  "execution_realism_status": "SHADOW_REVIEW_READY",
-  "execution_realism_confidence": "MEDIUM",
-  "shadow_ready_count": 1,
+  "execution_realism_status": "NO_OPPORTUNITIES",
+  "execution_realism_confidence": "NONE",
+  "shadow_ready_count": 0,
   "live_ready_count": 0,
-  "report_audit_findings": 27,
+  "report_audit_findings": 29,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -54,23 +54,31 @@
     },
     {
       "name": "execution_shadow_ready",
-      "status": "PASS",
-      "message": "shadow_ready=1; status=SHADOW_REVIEW_READY"
+      "status": "BLOCK",
+      "message": "shadow_ready=0; status=NO_OPPORTUNITIES"
     },
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=27"
+      "message": "blocking_findings=0; total_findings=29"
     }
   ],
   "findings": [
     {
-      "severity": "INFO",
-      "message": "Paper run is profitable so far: $1179.8276 across 656 closed trade(s)."
+      "severity": "WATCH",
+      "message": "No closed paper trades yet after fresh reset."
+    },
+    {
+      "severity": "ACTION",
+      "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."
     },
     {
       "severity": "INFO",
       "message": "Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness."
+    },
+    {
+      "severity": "SUMMARY",
+      "message": "Blocked gates: execution_shadow_ready."
     }
   ],
   "notes": [

@@ -1,19 +1,19 @@
 {
-  "action_count": 3,
-  "blocked_check_count": 0,
+  "action_count": 5,
+  "blocked_check_count": 3,
   "check_count": 22,
   "checks": [
     {
-      "detail": "Closed paper trade sample meets the configured minimum.",
+      "detail": "Need at least 30 closed paper trades under the review profile.",
       "name": "stable_paper_trading",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Paper Run Review is ready for shadow review.",
+      "detail": "Paper Run Review must reach REVIEW_READY before live-pilot review.",
       "name": "paper_shadow_review_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Paper report and portfolio analytics PnL are reconciled.",
@@ -28,10 +28,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Recent paper fills are atomic arbitrage round trips.",
+      "detail": "Recent paper fills must be atomic arbitrage round trips.",
       "name": "execution_engine_atomic",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Risk engine evidence is present and losing-trade count is clean.",
@@ -46,16 +46,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Execution-cost evidence confidence is HIGH.",
+      "detail": "Execution-cost evidence confidence must be HIGH.",
       "name": "execution_cost_confidence",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
-      "detail": "Execution realism has shadow-ready evidence and no live approvals.",
+      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
       "name": "execution_realism_shadow_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Report Audit has no blocking operational findings.",
@@ -64,16 +64,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Paper orders and analytics trade journal are available.",
+      "detail": "Paper orders and analytics trade journal must exist for audit trail review.",
       "name": "audit_trail_available",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Trade journal/export evidence is available for tax/accounting records.",
+      "detail": "Trade journal/export evidence must be available for tax/accounting records.",
       "name": "transaction_tax_export_available",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Wallet Preflight is ready.",
@@ -118,16 +118,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
+      "detail": "Paper trade cap and observed fills are within the live trade cap.",
       "name": "paper_live_trade_cap_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+      "detail": "Paper daily loss cap matches the tiny-live policy.",
       "name": "paper_live_daily_loss_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -136,8 +136,8 @@
       "severity": "PASS"
     }
   ],
-  "closed_trade_count": 656,
-  "generated_at": "2026-06-30T14:42:30Z",
+  "closed_trade_count": 0,
+  "generated_at": "2026-06-30T14:59:59Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "10",
@@ -150,9 +150,9 @@
     "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
   ],
   "overall_status": "LIVE_REVIEW_NOT_READY",
-  "paper_cash_usd": "1679.8276",
-  "paper_profile": "shadow_500",
-  "paper_realized_pnl_usd": "1179.8276",
-  "pass_count": 19,
+  "paper_cash_usd": "500.0000",
+  "paper_profile": "live_parity_500",
+  "paper_realized_pnl_usd": "0.0000",
+  "pass_count": 14,
   "watch_count": 0
 }
