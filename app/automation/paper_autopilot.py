@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import argparse
-import ctypes
 import os
+import sys
 import time
 from datetime import UTC, datetime
 from pathlib import Path
@@ -100,30 +100,35 @@ except Exception:
 
 
 class SingleInstanceLock:
-    """Small file lock to prevent concurrent paper autopilot writers."""
+    """OS file lock to prevent concurrent paper autopilot writers."""
 
     def __init__(self, lock_path: Path | str = "data/paper_autopilot.lock") -> None:
         self.lock_path = Path(lock_path)
-        self.fd: int | None = None
+        self.handle = None
 
     def acquire(self) -> None:
         self.lock_path.parent.mkdir(parents=True, exist_ok=True)
-        flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
-        payload = f"pid={os.getpid()}\nstarted_at={PaperAutopilot._utc_now()}\n"
+        self.handle = self.lock_path.open("a+", encoding="utf-8")
         try:
-            self.fd = os.open(str(self.lock_path), flags)
-        except FileExistsError:
-            if self._remove_stale_lock():
-                self.fd = os.open(str(self.lock_path), flags)
-            else:
-                detail = self.lock_path.read_text(encoding="utf-8", errors="replace").strip()
-                raise RuntimeError(f"Paper autopilot is already running; lock={self.lock_path}; {detail}")
-        os.write(self.fd, payload.encode("utf-8"))
+            self._lock_file()
+        except OSError:
+            detail = self._lock_detail()
+            self.handle.close()
+            self.handle = None
+            raise RuntimeError(f"Paper autopilot is already running; lock={self.lock_path}; {detail}")
+        payload = f"pid={os.getpid()}\nstarted_at={PaperAutopilot._utc_now()}\n"
+        self.handle.seek(0)
+        self.handle.truncate()
+        self.handle.write(payload)
+        self.handle.flush()
 
     def release(self) -> None:
-        if self.fd is not None:
-            os.close(self.fd)
-            self.fd = None
+        if self.handle is not None:
+            try:
+                self._unlock_file()
+            finally:
+                self.handle.close()
+                self.handle = None
         try:
             self.lock_path.unlink()
         except FileNotFoundError:
@@ -136,42 +141,40 @@ class SingleInstanceLock:
     def __exit__(self, _exc_type, _exc, _tb) -> None:
         self.release()
 
-    def _remove_stale_lock(self) -> bool:
-        try:
-            text = self.lock_path.read_text(encoding="utf-8", errors="replace")
-        except FileNotFoundError:
-            return True
-        pid = None
-        for line in text.splitlines():
-            if line.startswith("pid="):
-                try:
-                    pid = int(line.split("=", 1)[1])
-                except ValueError:
-                    pid = None
-        if pid is not None and self._pid_running(pid):
-            return False
-        try:
-            self.lock_path.unlink()
-            return True
-        except FileNotFoundError:
-            return True
-
-    @staticmethod
-    def _pid_running(pid: int) -> bool:
-        if pid <= 0:
-            return False
+    def _lock_file(self) -> None:
+        if self.handle is None:
+            raise RuntimeError("Lock file is not open.")
         if os.name == "nt":
-            process_query_limited_information = 0x1000
-            handle = ctypes.windll.kernel32.OpenProcess(process_query_limited_information, False, pid)
-            if not handle:
-                return False
-            ctypes.windll.kernel32.CloseHandle(handle)
-            return True
+            import msvcrt
+
+            self.handle.seek(0)
+            msvcrt.locking(self.handle.fileno(), msvcrt.LK_NBLCK, 1)
+            return
+
+        import fcntl
+
+        fcntl.flock(self.handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+    def _unlock_file(self) -> None:
+        if self.handle is None:
+            return
+        if os.name == "nt":
+            import msvcrt
+
+            self.handle.seek(0)
+            msvcrt.locking(self.handle.fileno(), msvcrt.LK_UNLCK, 1)
+            return
+
+        import fcntl
+
+        fcntl.flock(self.handle.fileno(), fcntl.LOCK_UN)
+
+    def _lock_detail(self) -> str:
         try:
-            os.kill(pid, 0)
-        except OSError:
-            return False
-        return True
+            self.handle.seek(0)
+            return self.handle.read().strip()
+        except Exception:
+            return "active lock"
 
 
 class PaperAutopilot:
@@ -461,12 +464,16 @@ def main() -> None:
                 heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
             )
         else:
-            with SingleInstanceLock():
-                autopilot.run_loop(
-                    interval_seconds=max(0, args.interval_seconds),
-                    max_cycles=args.max_cycles,
-                    heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
-                )
+            try:
+                with SingleInstanceLock():
+                    autopilot.run_loop(
+                        interval_seconds=max(0, args.interval_seconds),
+                        max_cycles=args.max_cycles,
+                        heartbeat_interval_seconds=max(1, args.heartbeat_interval_seconds),
+                    )
+            except RuntimeError as exc:
+                print({"status": "REFUSED", "message": str(exc), "timestamp": PaperAutopilot._utc_now()})
+                sys.exit(2)
     else:
         print(autopilot.run_once())
 

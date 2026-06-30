@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T15:22:41Z",
+  "generated_at": "2026-06-30T15:31:13Z",
   "mode": "paper",
   "report_count": 53,
   "missing_count": 0,
@@ -25,15 +25,15 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 930,
-      "generated_at": "2026-06-30T15:20:52Z",
+      "generated_at": "2026-06-30T15:29:00Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 511,
-      "generated_at": "2026-06-30T15:20:52Z",
+      "size_bytes": 510,
+      "generated_at": "2026-06-30T15:29:00Z",
       "stale": false
     },
     {
@@ -41,7 +41,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4069,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -56,7 +56,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2469,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false
     },
     {
@@ -64,7 +64,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2752,
-      "generated_at": "2026-06-30T15:22:41Z",
+      "generated_at": "2026-06-30T15:31:13Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -84,7 +84,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1817,
-      "generated_at": "2026-06-30T15:22:41Z",
+      "generated_at": "2026-06-30T15:31:13Z",
       "stale": false
     },
     {
@@ -92,7 +92,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5084,
-      "generated_at": "2026-06-30T15:22:40Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -108,7 +108,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2272,
-      "generated_at": "2026-06-30T15:22:40Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false
     },
     {
@@ -116,7 +116,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1938,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -129,7 +129,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1544,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false
     },
     {
@@ -265,8 +265,8 @@
       "name": "pool_depth_ladder.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 6981,
-      "generated_at": "2026-06-30T15:22:22Z",
+      "size_bytes": 6980,
+      "generated_at": "2026-06-30T15:30:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -283,7 +283,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1718,
-      "generated_at": "2026-06-30T15:22:22Z",
+      "generated_at": "2026-06-30T15:30:54Z",
       "stale": false
     },
     {
@@ -291,7 +291,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1070,
-      "generated_at": "2026-06-30T15:22:39Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -308,7 +308,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1048,
-      "generated_at": "2026-06-30T15:22:39Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false
     },
     {
@@ -316,7 +316,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2962,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -330,7 +330,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1721,
-      "generated_at": "2026-06-30T15:22:21Z",
+      "generated_at": "2026-06-30T15:30:53Z",
       "stale": false
     },
     {
@@ -338,7 +338,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5018,
-      "generated_at": "2026-06-30T15:22:41Z",
+      "generated_at": "2026-06-30T15:31:13Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -355,7 +355,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 3025,
-      "generated_at": "2026-06-30T15:22:41Z",
+      "generated_at": "2026-06-30T15:31:13Z",
       "stale": false
     },
     {
@@ -363,7 +363,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2936,
-      "generated_at": "2026-06-30T15:22:40Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -379,7 +379,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1952,
-      "generated_at": "2026-06-30T15:22:40Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false
     },
     {
@@ -436,7 +436,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4264,
-      "generated_at": "2026-06-30T15:16:44Z",
+      "generated_at": "2026-06-30T15:28:48Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -449,7 +449,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1269,
-      "generated_at": "2026-06-30T15:16:44Z",
+      "generated_at": "2026-06-30T15:28:48Z",
       "stale": false
     },
     {
@@ -552,7 +552,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3142,
-      "generated_at": "2026-06-30T15:21:27Z",
+      "generated_at": "2026-06-30T15:30:20Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -569,7 +569,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1659,
-      "generated_at": "2026-06-30T15:21:27Z",
+      "generated_at": "2026-06-30T15:30:20Z",
       "stale": false
     },
     {
@@ -577,7 +577,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3469,
-      "generated_at": "2026-06-30T15:22:39Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -592,15 +592,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1907,
-      "generated_at": "2026-06-30T15:22:39Z",
+      "generated_at": "2026-06-30T15:31:12Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2885,
-      "generated_at": "2026-06-30T15:16:44Z",
+      "size_bytes": 2880,
+      "generated_at": "2026-06-30T15:28:48Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -614,8 +614,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1011,
-      "generated_at": "2026-06-30T15:16:44Z",
+      "size_bytes": 1006,
+      "generated_at": "2026-06-30T15:28:48Z",
       "stale": false
     }
   ],

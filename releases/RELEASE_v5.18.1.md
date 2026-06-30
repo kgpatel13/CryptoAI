@@ -6,9 +6,9 @@ This hotfix protects 24/7 paper evidence from accidental duplicate autopilot pro
 
 ## What Changed
 
-- Added `SingleInstanceLock` for looped paper autopilot runs.
+- Added an OS-level `SingleInstanceLock` for looped paper autopilot runs.
 - Refuses to start a second loop while another paper autopilot lock is active.
-- Cleans stale lock files when no running process owns them.
+- Prints a clean `REFUSED` response instead of a traceback when a duplicate loop is attempted.
 - Refreshes these reports during autopilot cycles:
   - execution-cost evidence
   - execution realism

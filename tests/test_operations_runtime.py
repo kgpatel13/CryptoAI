@@ -34,7 +34,7 @@ class OperationsRuntimeTests(unittest.TestCase):
             try:
                 lock.acquire()
                 self.assertTrue(lock_path.exists())
-                self.assertIn(f"pid=", lock_path.read_text(encoding="utf-8"))
+                self.assertIsNotNone(lock.handle)
             finally:
                 lock.release()
 
