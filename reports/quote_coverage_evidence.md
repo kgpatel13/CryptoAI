@@ -1,6 +1,6 @@
 # CryptoAI Quote Coverage Evidence
 
-Generated: `2026-06-29T23:31:26Z`
+Generated: `2026-06-30T02:09:57Z`
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated: `2026-06-29T23:31:26Z`
 - Active quoted pairs: `1`
 - Provider gap pairs: `6`
 - Quote-test gap pairs: `1`
-- Provider status: `WATCH` with `2` alert(s)
+- Provider status: `OK` with `0` alert(s)
 
 ## Pair Coverage
 
@@ -37,7 +37,6 @@ Generated: `2026-06-29T23:31:26Z`
 - `INFO` 1 configured pair(s) have active two-DEX quote evidence.
 - `ACTION` 7 configured pair(s) still need quote coverage before expansion.
 - `ACTION` Next targeted quote test: base CBBTC/USDC.
-- `WATCH` Provider monitor remains WATCH with 2 alert(s).
 
 ## Notes
 

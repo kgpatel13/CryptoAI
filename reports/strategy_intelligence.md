@@ -1,44 +1,44 @@
 # CryptoAI Strategy Intelligence
 
-Generated: `2026-06-29T23:31:37Z`
+Generated: `2026-06-30T02:09:57Z`
 
 ## Summary
 
 - Mode: `paper`
 - Strategies: `5`
-- Top recommendation: `WATCHLIST`
+- Top recommendation: `CONTINUE_RESEARCH`
 - Promotion allowed: `False`
-- Provider status: `WATCH`
-- Experiment: `WATCHLIST` with `0` fail / `1` warn
+- Provider status: `OK`
+- Experiment: `RESEARCH_ONLY` with `1` fail / `1` warn
 - Report audit findings: `0`
-- Replay production trades: `5` at `0.30` cost buffer
-- Replay best profitable buffer: `0.20` with `99` trade(s)
-- Execution cost status: `CONSERVATIVE` with `LOW` confidence
-- Observed cost lower bound %: `0.1300`
+- Replay production trades: `0` at `0.30` cost buffer
+- Replay best profitable buffer: `0.20` with `20` trade(s)
+- Execution cost status: `INSUFFICIENT_EVIDENCE` with `INSUFFICIENT` confidence
+- Observed cost lower bound %: `None`
 - Market primary focus: `base WETH/USDC`
-- Market universe: `1` active / `0` research / `7` blocked
+- Market universe: `0` active / `1` research / `7` blocked
 - Quote coverage: `1` active / `1` quote-test gaps / `6` provider gaps
 - Next quote target: `base CBBTC/USDC`
 - ETH route decision: `KEEP_0_30_PRODUCTION_RESEARCH_0_20`
 - ETH route buffers: production `0.30` / candidate `0.20`
-- ETH route promotion gates: `4/8`
-- ETH market coverage: `52` / `ETH_COVERAGE_EARLY`
+- ETH route promotion gates: `5/8`
+- ETH market coverage: `53` / `ETH_COVERAGE_EARLY`
 - ETH configured chains: `4/5` with `2` quote-ready route(s)
 
 ## Strategies
 
 | Strategy | Enabled | Score | Recommendation | Filled | Closed | PnL | Win Rate | Blockers |
 |---|---:|---:|---|---:|---:|---:|---:|---|
-| DEX Arbitrage Strategy | True | 100 | WATCHLIST | 12 | 8 | 2.8220 | 50.0000 | Live trading is disabled; this is advisory paper intelligence only.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Momentum Strategy | False | 51 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Mean Reversion Strategy | False | 51 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| Breakout Strategy | False | 51 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
-| AI Ranked Strategy | False | 51 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| DEX Arbitrage Strategy | True | 44 | CONTINUE_RESEARCH | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Execution cost evidence is insufficient.; No active market universe focus has enough quote evidence.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Momentum Strategy | False | 29 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Execution cost evidence is insufficient.; No active market universe focus has enough quote evidence.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Mean Reversion Strategy | False | 29 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Execution cost evidence is insufficient.; No active market universe focus has enough quote evidence.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| Breakout Strategy | False | 29 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Execution cost evidence is insufficient.; No active market universe focus has enough quote evidence.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
+| AI Ranked Strategy | False | 29 | RESEARCH_DISABLED | 0 | 0 | 0.0000 | None | Live trading is disabled; this is advisory paper intelligence only.; Strategy is disabled in the strategy registry.; Experiment evidence has 1 failing gate(s).; Production replay has 0 trades while lower cost-buffer diagnostics are profitable.; Execution cost evidence is insufficient.; No active market universe focus has enough quote evidence.; ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.; ETH Golden Path market coverage is still below developing maturity.; Closed paper-trade sample is below the 10-trade minimum for strategy confidence. |
 
 ## Next Actions
 
 ### DEX Arbitrage Strategy
-- Continue paper cycles and collect more closed-trade evidence before tuning risk upward.
+- Keep production buffer unchanged; collect execution-cost evidence to prove whether 0.20% is realistic.
 
 ### Momentum Strategy
 - Keep disabled until its feature pipeline and validation tests are implemented.

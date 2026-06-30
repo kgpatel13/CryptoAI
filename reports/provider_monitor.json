@@ -1,13 +1,29 @@
 {
-  "generated_at": "2026-06-29T23:57:55Z",
+  "generated_at": "2026-06-30T02:09:56Z",
   "mode": "paper",
-  "provider_count": 5,
-  "overall_status": "WATCH",
-  "alert_count": 2,
+  "provider_count": 4,
+  "overall_status": "OK",
+  "alert_count": 0,
   "critical_alert_count": 0,
   "degraded_alert_count": 0,
   "stale_after_seconds": 900,
   "providers": [
+    {
+      "name": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 280.62,
+      "last_observed_age_seconds": 34.66,
+      "last_error": null,
+      "alerts": []
+    },
     {
       "name": "Uniswap V2",
       "provider_type": "dex",
@@ -19,8 +35,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 303.54,
-      "last_observed_age_seconds": 10.07,
+      "avg_latency_ms": 262.01,
+      "last_observed_age_seconds": 35.62,
       "last_error": null,
       "alerts": []
     },
@@ -35,24 +51,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 720.32,
-      "last_observed_age_seconds": 7.49,
-      "last_error": null,
-      "alerts": []
-    },
-    {
-      "name": "Aerodrome",
-      "provider_type": "dex",
-      "chain": "base",
-      "score": 87,
-      "status": "OK",
-      "current_status": "OK",
-      "rolling_status": "OK",
-      "required_for_overall": true,
-      "success_rate_pct": 87.88,
-      "consecutive_failures": 0,
-      "avg_latency_ms": 312.83,
-      "last_observed_age_seconds": 9.07,
+      "avg_latency_ms": 731.48,
+      "last_observed_age_seconds": 32.79,
       "last_error": null,
       "alerts": []
     },
@@ -60,59 +60,28 @@
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 99,
+      "score": 100,
       "status": "OK",
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 99.26,
+      "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 269.35,
-      "last_observed_age_seconds": 0.21,
+      "avg_latency_ms": 219.24,
+      "last_observed_age_seconds": 0.61,
       "last_error": null,
       "alerts": []
-    },
-    {
-      "name": "Base:rpc2:https://mainnet.base.org",
-      "provider_type": "rpc",
-      "chain": "base",
-      "score": 0,
-      "status": "WATCH",
-      "current_status": "WATCH",
-      "rolling_status": "CRITICAL",
-      "required_for_overall": false,
-      "success_rate_pct": 0.0,
-      "consecutive_failures": 4,
-      "avg_latency_ms": null,
-      "last_observed_age_seconds": 76999.89,
-      "last_error": "BadFunctionCallOutput: Could not transact with/call contract function, is contract deployed correctly and chain synced?",
-      "alerts": [
-        {
-          "severity": "WATCH",
-          "provider": "Base:rpc2:https://mainnet.base.org",
-          "provider_type": "rpc",
-          "chain": "base",
-          "message": "Optional backup provider is unhealthy; same-chain required provider coverage is available."
-        },
-        {
-          "severity": "WATCH",
-          "provider": "Base:rpc2:https://mainnet.base.org",
-          "provider_type": "rpc",
-          "chain": "base",
-          "message": "Provider observation is stale at 76999.89 seconds old."
-        }
-      ]
     }
   ],
   "chains": [
     {
       "chain": "base",
-      "provider_count": 5,
-      "average_score": 77,
-      "status": "WATCH",
+      "provider_count": 4,
+      "average_score": 100,
+      "status": "OK",
       "critical_count": 0,
       "degraded_count": 0,
-      "watch_count": 1,
+      "watch_count": 0,
       "required_provider_count": 4
     }
   ],
@@ -120,34 +89,19 @@
     {
       "provider_type": "dex",
       "provider_count": 3,
-      "average_score": 96,
+      "average_score": 100,
       "status": "OK",
       "required_provider_count": 3
     },
     {
       "provider_type": "rpc",
-      "provider_count": 2,
-      "average_score": 50,
-      "status": "WATCH",
+      "provider_count": 1,
+      "average_score": 100,
+      "status": "OK",
       "required_provider_count": 1
     }
   ],
-  "alerts": [
-    {
-      "severity": "WATCH",
-      "provider": "Base:rpc2:https://mainnet.base.org",
-      "provider_type": "rpc",
-      "chain": "base",
-      "message": "Optional backup provider is unhealthy; same-chain required provider coverage is available."
-    },
-    {
-      "severity": "WATCH",
-      "provider": "Base:rpc2:https://mainnet.base.org",
-      "provider_type": "rpc",
-      "chain": "base",
-      "message": "Provider observation is stale at 76999.89 seconds old."
-    }
-  ],
+  "alerts": [],
   "notes": [
     "Provider Monitor summarizes existing provider-health observations.",
     "It does not make network calls or execute trades.",

@@ -24,14 +24,15 @@
 - v5.7 - 24/7 Paper Launch Settings for dashboard-managed paper parameters, 1 ETH paper capital profile, validated launch command, and unchanged safety thresholds.
 - v5.8 - Verified Base Uniswap V3 Quote Provider for three-venue Base ETH quote diagnostics and market coverage evidence.
 - v5.9 - Aggressive Paper Execution Profile for faster 24/7 paper scans, larger simulated notional, settings-driven risk sizing, and unchanged core safety gates.
+- v5.10 - Unbounded Paper Lab Profile for high-capital paper stress testing, zero-valued paper throttles, and unchanged live-trading locks.
 
 ## Current
 
-- v5.10 - Unbounded Paper Lab Profile for high-capital paper stress testing, zero-valued paper throttles, and unchanged live-trading locks.
+- v5.11 - Arbitrage Execution Refactor for atomic paper round trips, immediate realized PnL, closed-order journals, and consistent portfolio/report/dashboard state.
 
 ## Next
 
-- v5.11 - Market regime awareness, adaptive confidence, and walk-forward explainability.
+- v5.12 - Market regime awareness, adaptive confidence, and walk-forward explainability.
 - v6.0 - Live trading candidate with dedicated wallet, secure signing, smart contract executor, kill switch, and progressive rollout.
 - v7.0 - Multi-exchange, multi-account, and cloud deployment expansion.
 

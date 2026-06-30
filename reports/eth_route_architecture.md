@@ -1,6 +1,6 @@
 # CryptoAI ETH Route Architecture
 
-Generated: `2026-06-29T23:31:24Z`
+Generated: `2026-06-30T02:09:56Z`
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated: `2026-06-29T23:31:24Z`
 - Production buffer %: `0.30`
 - Research candidate buffer %: `0.20`
 - Decision: `KEEP_0_30_PRODUCTION_RESEARCH_0_20`
-- Promotion gates: `4/8`
+- Promotion gates: `5/8`
 
 ## Trusted Venues
 
@@ -23,21 +23,21 @@ Generated: `2026-06-29T23:31:24Z`
 
 | Route | Two-DEX Ready | DEXs | 0.20% Signals | 0.20% PnL | 0.30% Signals | 0.30% PnL | Action |
 |---|---|---|---:|---:|---:|---:|---|
-| WETH/USDC | True | Aerodrome, Uniswap V2, Uniswap V3 | 83 | 43.9792 | 9 | 1.1800 | Keep WETH/USDC in 0.20% research replay; production stays at 0.30%. |
-| USDC/WETH | True | Aerodrome, Uniswap V2, Uniswap V3 | 16 | 24.9963 | 5 | 19.1500 | Keep USDC/WETH in 0.20% research replay; production stays at 0.30%. |
+| WETH/USDC | True | Aerodrome, Uniswap V2, Uniswap V3 | 10 | 21.0610 | 10 | 11.0610 | Keep WETH/USDC on 0.30% production-paper evidence path. |
+| USDC/WETH | True | Aerodrome, Uniswap V2, Uniswap V3 | 10 | 35.9860 | 10 | 25.9860 | Keep USDC/WETH on 0.30% production-paper evidence path. |
 
 ## Buffer Promotion Gates
 
 | Gate | Passed | Observed |
 |---|---|---|
-| execution_cost_confidence_high | False | LOW |
-| paper_slippage_samples_30_plus | False | 6 |
-| quote_ok_rate_90_plus | False | 68.0851 |
+| execution_cost_confidence_high | False | INSUFFICIENT |
+| paper_slippage_samples_30_plus | False | 0 |
+| quote_ok_rate_90_plus | True | 100.0000 |
 | active_two_dex_eth_route | True | 1 |
-| provider_not_critical | True | WATCH |
-| report_audit_clean | False | 24 |
-| candidate_has_30_plus_signals | True | 99 |
-| candidate_avg_net_edge_0_03_plus | True | 0.0697 |
+| provider_not_critical | True | OK |
+| report_audit_clean | True | None |
+| candidate_has_30_plus_signals | False | 20 |
+| candidate_avg_net_edge_0_03_plus | True | 0.2852 |
 
 ## Real Money Architecture
 
@@ -50,7 +50,7 @@ Generated: `2026-06-29T23:31:24Z`
 ## Findings
 
 - `INFO` 2 ETH route direction(s) have two-DEX quote readiness on Base.
-- `WATCH` 0.20% candidate replay has 99 positive signal(s) versus 14 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
+- `WATCH` 0.20% candidate replay has 20 positive signal(s) versus 20 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
 - `ACTION` Keep production buffer at 0.30%; collect missing evidence before any buffer change.
 - `ACTION` Next venue expansion target is sustained three-venue quote evidence for Base ETH routes.
 

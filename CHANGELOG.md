@@ -1,5 +1,15 @@
 # CryptoAI Changelog
 
+## v5.11 - Arbitrage Execution Refactor
+
+- Added a dedicated paper `ArbitrageExecutionEngine` so DEX arbitrage is simulated as an atomic buy/sell round trip.
+- Changed paper arbitrage fills to persist as immediately `CLOSED` orders with buy venue, sell venue, gross edge, cost buffer, net edge, realized PnL, and exit value.
+- Stopped routing arbitrage fills through TP/SL/max-hold position lifecycle logic.
+- Added portfolio ledger support for closed arbitrage trades that updates cash by realized PnL without creating open positions.
+- Updated reports and analytics so `paper_report`, `portfolio_analytics`, dashboard, and raw exports use the same closed-order/portfolio-state source of truth.
+- Restored `max_open_positions = 1` and duplicate-position blocking for the saved paper profile.
+- Added regression tests for immediate close, no open arbitrage positions, no cash/PnL explosion, report consistency, and full-cash sizing without leverage.
+
 ## v5.10 - Unbounded Paper Lab Profile
 
 - Added an explicit `unbounded_paper_lab` profile for stress-testing 24/7 paper execution with larger simulated capital.

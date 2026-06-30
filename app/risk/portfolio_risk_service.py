@@ -43,6 +43,7 @@ class PortfolioRiskService:
         self.min_trade_notional_usd = self._env_decimal("CRYPTOAI_MIN_PAPER_NOTIONAL_USD", "25")
         self.risk_per_trade_pct = self._env_decimal("CRYPTOAI_PAPER_RISK_PER_TRADE_PCT", "1.00")
         self.max_cash_usage_pct = self._env_decimal("CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT", "10.00")
+        self.paper_sizing_mode = os.getenv("CRYPTOAI_PAPER_SIZING_MODE", "edge_scaled").strip().lower()
         self.max_token_exposure_pct = self._env_decimal("CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT", "25.00")
         self.max_chain_exposure_pct = self._env_decimal("CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT", "50.00")
         self.max_open_positions = self._env_int("CRYPTOAI_MAX_OPEN_POSITIONS", 8)
@@ -98,7 +99,10 @@ class PortfolioRiskService:
         portfolio_value = self._portfolio_value(state)
         dynamic_by_risk = portfolio_value * self.risk_per_trade_pct / Decimal("100")
         dynamic_by_cash = cash * self.max_cash_usage_pct / Decimal("100")
-        notional = min(requested_notional_usd, self.max_trade_notional_usd, dynamic_by_risk, dynamic_by_cash, cash)
+        if self.paper_sizing_mode == "full_available_cash":
+            notional = min(dynamic_by_risk, dynamic_by_cash, cash)
+        else:
+            notional = min(requested_notional_usd, self.max_trade_notional_usd, dynamic_by_risk, dynamic_by_cash, cash)
         notional = self._quantize_usd(notional)
 
         if notional < self.min_trade_notional_usd:
@@ -164,6 +168,74 @@ class PortfolioRiskService:
             "order_id": order_id,
             "status": "FILLED",
         })
+        state["signal_history"] = state["signal_history"][-500:]
+        self.save_state(state)
+        return state
+
+    def record_arbitrage_round_trip(
+        self,
+        *,
+        order_id: str,
+        timestamp: str,
+        strategy_name: str,
+        chain: str,
+        pair: str,
+        notional_usd: Decimal,
+        realized_pnl_usd: Decimal,
+        buy_source: str | None = None,
+        sell_source: str | None = None,
+        gross_edge_pct: Decimal | None = None,
+        cost_buffer_pct: Decimal | None = None,
+        net_edge_pct: Decimal | None = None,
+        slippage_bps: Decimal | None = None,
+        latency_ms: int | None = None,
+        execution_quality: str | None = None,
+    ) -> dict[str, Any]:
+        state = self.load_state()
+        self._reset_daily_counters_if_needed(state, timestamp)
+
+        cash = self._decimal(state.get("cash_usd", self.initial_cash_usd))
+        realized = self._quantize_usd(realized_pnl_usd)
+        state["cash_usd"] = str(self._quantize_usd(cash + realized))
+        state["daily_filled_trades"] = int(state.get("daily_filled_trades", 0)) + 1
+        state["daily_realized_pnl_usd"] = str(self._quantize_usd(self._decimal(state.get("daily_realized_pnl_usd", "0")) + realized))
+        state["realized_pnl_usd"] = str(self._quantize_usd(self._decimal(state.get("realized_pnl_usd", "0")) + realized))
+        state["unrealized_pnl_usd"] = "0.0000"
+        state["updated_at"] = timestamp
+        state.setdefault("positions", [])
+        state.setdefault("arbitrage_trades", []).append(
+            {
+                "trade_id": order_id,
+                "order_id": order_id,
+                "timestamp": timestamp,
+                "strategy_name": strategy_name,
+                "chain": chain,
+                "pair": self._normalize_pair(pair),
+                "buy_source": buy_source,
+                "sell_source": sell_source,
+                "notional_usd": str(self._quantize_usd(notional_usd)),
+                "gross_edge_pct": str(gross_edge_pct) if gross_edge_pct is not None else None,
+                "cost_buffer_pct": str(cost_buffer_pct) if cost_buffer_pct is not None else None,
+                "net_edge_pct": str(net_edge_pct) if net_edge_pct is not None else None,
+                "realized_pnl_usd": str(realized),
+                "slippage_bps": str(slippage_bps) if slippage_bps is not None else None,
+                "latency_ms": latency_ms,
+                "execution_quality": execution_quality,
+                "status": "CLOSED",
+                "reason": "Atomic paper arbitrage round trip.",
+            }
+        )
+        state["arbitrage_trades"] = state["arbitrage_trades"][-1000:]
+        state.setdefault("signal_history", []).append(
+            {
+                "pair": self._normalize_pair(pair),
+                "side": "ARBITRAGE",
+                "chain": chain,
+                "timestamp": timestamp,
+                "order_id": order_id,
+                "status": "CLOSED",
+            }
+        )
         state["signal_history"] = state["signal_history"][-500:]
         self.save_state(state)
         return state
@@ -283,6 +355,7 @@ class PortfolioRiskService:
             "daily_realized_pnl_usd": "0",
             "realized_pnl_usd": "0",
             "positions": [],
+            "arbitrage_trades": [],
             "signal_history": [],
             "created_at": now,
             "updated_at": now,
@@ -299,6 +372,7 @@ class PortfolioRiskService:
         state.setdefault("daily_realized_pnl_usd", "0")
         state.setdefault("realized_pnl_usd", "0")
         state.setdefault("positions", [])
+        state.setdefault("arbitrage_trades", [])
         state.setdefault("signal_history", [])
         state.setdefault("created_at", self._utc_now())
         state.setdefault("updated_at", state.get("created_at"))

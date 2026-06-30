@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T23:31:24Z",
+  "generated_at": "2026-06-30T02:09:56Z",
   "mode": "paper",
   "focus_chain": "base",
   "focus_routes": [
@@ -49,197 +49,206 @@
       "candidate_0_20": {
         "buffer_pct": "0.20",
         "replay_notional_usd": "1000",
-        "considered_signals": 94,
-        "positive_after_buffer_count": 83,
-        "total_pnl_usd": "43.9792",
-        "avg_net_edge_pct": "0.0530",
-        "max_net_edge_pct": "0.1367",
+        "considered_signals": 10,
+        "positive_after_buffer_count": 10,
+        "total_pnl_usd": "21.0610",
+        "avg_net_edge_pct": "0.2106",
+        "max_net_edge_pct": "0.2106",
         "recent_trades": [
           {
-            "timestamp": "2026-06-29T23:26:41Z",
-            "route": "WETH/USDC",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2307554460948594412494321133",
-            "net_edge_pct": "0.0308",
-            "pnl_usd": "0.3076"
-          },
-          {
-            "timestamp": "2026-06-29T23:26:44Z",
-            "route": "WETH/USDC",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2307554460948594412494321133",
-            "net_edge_pct": "0.0308",
-            "pnl_usd": "0.3076"
-          },
-          {
-            "timestamp": "2026-06-29T23:26:45Z",
-            "route": "WETH/USDC",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2307554460948594412494321133",
-            "net_edge_pct": "0.0308",
-            "pnl_usd": "0.3076"
-          },
-          {
-            "timestamp": "2026-06-29T23:26:48Z",
-            "route": "WETH/USDC",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2307554460948594412494321133",
-            "net_edge_pct": "0.0308",
-            "pnl_usd": "0.3076"
-          },
-          {
-            "timestamp": "2026-06-29T23:26:50Z",
-            "route": "WETH/USDC",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2307554460948594412494321133",
-            "net_edge_pct": "0.0308",
-            "pnl_usd": "0.3076"
-          },
-          {
-            "timestamp": "2026-06-29T23:30:32Z",
+            "timestamp": "2026-06-30T02:09:23Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.2908345008474206464783613072",
-            "net_edge_pct": "0.0908",
-            "pnl_usd": "0.9083"
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
           },
           {
-            "timestamp": "2026-06-29T23:30:33Z",
+            "timestamp": "2026-06-30T02:09:24Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.2908345008474206464783613072",
-            "net_edge_pct": "0.0908",
-            "pnl_usd": "0.9083"
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
           },
           {
-            "timestamp": "2026-06-29T23:31:15Z",
+            "timestamp": "2026-06-30T02:09:25Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.2908345008474206464783613072",
-            "net_edge_pct": "0.0908",
-            "pnl_usd": "0.9083"
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
           },
           {
-            "timestamp": "2026-06-29T23:31:18Z",
+            "timestamp": "2026-06-30T02:09:26Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.2908345008474206464783613072",
-            "net_edge_pct": "0.0908",
-            "pnl_usd": "0.9083"
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
           },
           {
-            "timestamp": "2026-06-29T23:31:21Z",
+            "timestamp": "2026-06-30T02:09:28Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.2908345008474206464783613072",
-            "net_edge_pct": "0.0908",
-            "pnl_usd": "0.9083"
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:29Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:30Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:51Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:53Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:55Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.2106",
+            "pnl_usd": "2.1061"
           }
         ]
       },
       "production_0_30": {
         "buffer_pct": "0.30",
         "replay_notional_usd": "1000",
-        "considered_signals": 94,
-        "positive_after_buffer_count": 9,
-        "total_pnl_usd": "1.1800",
-        "avg_net_edge_pct": "0.0131",
-        "max_net_edge_pct": "0.0367",
+        "considered_signals": 10,
+        "positive_after_buffer_count": 10,
+        "total_pnl_usd": "11.0610",
+        "avg_net_edge_pct": "0.1106",
+        "max_net_edge_pct": "0.1106",
         "recent_trades": [
           {
-            "timestamp": "2026-06-29T17:49:08Z",
+            "timestamp": "2026-06-30T02:09:23Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3035451216502074820379041918",
-            "net_edge_pct": "0.0035",
-            "pnl_usd": "0.0355"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:05:33Z",
+            "timestamp": "2026-06-30T02:09:24Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3366812934780021846957308582",
-            "net_edge_pct": "0.0367",
-            "pnl_usd": "0.3668"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:17:59Z",
+            "timestamp": "2026-06-30T02:09:25Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:01Z",
+            "timestamp": "2026-06-30T02:09:26Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:04Z",
+            "timestamp": "2026-06-30T02:09:28Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:06Z",
+            "timestamp": "2026-06-30T02:09:29Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:07Z",
+            "timestamp": "2026-06-30T02:09:30Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:08Z",
+            "timestamp": "2026-06-30T02:09:51Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           },
           {
-            "timestamp": "2026-06-29T18:18:37Z",
+            "timestamp": "2026-06-30T02:09:53Z",
             "route": "WETH/USDC",
             "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.3111071078041971530481190535",
-            "net_edge_pct": "0.0111",
-            "pnl_usd": "0.1111"
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:55Z",
+            "route": "WETH/USDC",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4106092052245993244268447881",
+            "net_edge_pct": "0.1106",
+            "pnl_usd": "1.1061"
           }
         ]
       },
-      "recommended_action": "Keep WETH/USDC in 0.20% research replay; production stays at 0.30%."
+      "recommended_action": "Keep WETH/USDC on 0.30% production-paper evidence path."
     },
     {
       "chain": "base",
@@ -254,363 +263,408 @@
       "candidate_0_20": {
         "buffer_pct": "0.20",
         "replay_notional_usd": "1000",
-        "considered_signals": 94,
-        "positive_after_buffer_count": 16,
-        "total_pnl_usd": "24.9963",
-        "avg_net_edge_pct": "0.1562",
-        "max_net_edge_pct": "0.4830",
+        "considered_signals": 10,
+        "positive_after_buffer_count": 10,
+        "total_pnl_usd": "35.9860",
+        "avg_net_edge_pct": "0.3599",
+        "max_net_edge_pct": "0.3599",
         "recent_trades": [
           {
-            "timestamp": "2026-06-29T14:12:09Z",
-            "route": "USDC/WETH",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2117813154483428172127576981",
-            "net_edge_pct": "0.0118",
-            "pnl_usd": "0.1178"
-          },
-          {
-            "timestamp": "2026-06-29T14:12:10Z",
-            "route": "USDC/WETH",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2117813154483428172127576981",
-            "net_edge_pct": "0.0118",
-            "pnl_usd": "0.1178"
-          },
-          {
-            "timestamp": "2026-06-29T14:12:21Z",
-            "route": "USDC/WETH",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2117813154483428172127576981",
-            "net_edge_pct": "0.0118",
-            "pnl_usd": "0.1178"
-          },
-          {
-            "timestamp": "2026-06-29T14:12:56Z",
-            "route": "USDC/WETH",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2117813154483428172127576981",
-            "net_edge_pct": "0.0118",
-            "pnl_usd": "0.1178"
-          },
-          {
-            "timestamp": "2026-06-29T14:12:57Z",
-            "route": "USDC/WETH",
-            "buy_dex": "Uniswap V2",
-            "sell_dex": "Aerodrome",
-            "gross_edge_pct": "0.2117813154483428172127576981",
-            "net_edge_pct": "0.0118",
-            "pnl_usd": "0.1178"
-          },
-          {
-            "timestamp": "2026-06-29T23:30:32Z",
+            "timestamp": "2026-06-30T02:09:23Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.4830",
-            "pnl_usd": "4.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
           },
           {
-            "timestamp": "2026-06-29T23:30:33Z",
+            "timestamp": "2026-06-30T02:09:24Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.4830",
-            "pnl_usd": "4.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:15Z",
+            "timestamp": "2026-06-30T02:09:25Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.4830",
-            "pnl_usd": "4.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:18Z",
+            "timestamp": "2026-06-30T02:09:26Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.4830",
-            "pnl_usd": "4.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:21Z",
+            "timestamp": "2026-06-30T02:09:28Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.4830",
-            "pnl_usd": "4.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:29Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:30Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:51Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:53Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:55Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.3599",
+            "pnl_usd": "3.5986"
           }
         ]
       },
       "production_0_30": {
         "buffer_pct": "0.30",
         "replay_notional_usd": "1000",
-        "considered_signals": 94,
-        "positive_after_buffer_count": 5,
-        "total_pnl_usd": "19.1500",
-        "avg_net_edge_pct": "0.3830",
-        "max_net_edge_pct": "0.3830",
+        "considered_signals": 10,
+        "positive_after_buffer_count": 10,
+        "total_pnl_usd": "25.9860",
+        "avg_net_edge_pct": "0.2599",
+        "max_net_edge_pct": "0.2599",
         "recent_trades": [
           {
-            "timestamp": "2026-06-29T23:30:32Z",
+            "timestamp": "2026-06-30T02:09:23Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.3830",
-            "pnl_usd": "3.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
           },
           {
-            "timestamp": "2026-06-29T23:30:33Z",
+            "timestamp": "2026-06-30T02:09:24Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.3830",
-            "pnl_usd": "3.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:15Z",
+            "timestamp": "2026-06-30T02:09:25Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.3830",
-            "pnl_usd": "3.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:18Z",
+            "timestamp": "2026-06-30T02:09:26Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.3830",
-            "pnl_usd": "3.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
           },
           {
-            "timestamp": "2026-06-29T23:31:21Z",
+            "timestamp": "2026-06-30T02:09:28Z",
             "route": "USDC/WETH",
             "buy_dex": "Uniswap V2",
             "sell_dex": "Uniswap V3",
-            "gross_edge_pct": "0.6830010159406717421808796956",
-            "net_edge_pct": "0.3830",
-            "pnl_usd": "3.8300"
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:29Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:30Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:51Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:53Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
+          },
+          {
+            "timestamp": "2026-06-30T02:09:55Z",
+            "route": "USDC/WETH",
+            "buy_dex": "Uniswap V2",
+            "sell_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5598556123843567556185077586",
+            "net_edge_pct": "0.2599",
+            "pnl_usd": "2.5986"
           }
         ]
       },
-      "recommended_action": "Keep USDC/WETH in 0.20% research replay; production stays at 0.30%."
+      "recommended_action": "Keep USDC/WETH on 0.30% production-paper evidence path."
     }
   ],
   "combined_buffer_scenarios": {
     "candidate_0_20": {
       "buffer_pct": "0.20",
       "replay_notional_usd": "1000",
-      "considered_signals": 188,
-      "positive_after_buffer_count": 99,
-      "total_pnl_usd": "68.9755",
-      "avg_net_edge_pct": "0.0697",
-      "max_net_edge_pct": "0.4830",
+      "considered_signals": 20,
+      "positive_after_buffer_count": 20,
+      "total_pnl_usd": "57.0470",
+      "avg_net_edge_pct": "0.2852",
+      "max_net_edge_pct": "0.3599",
       "recent_trades": [
         {
-          "timestamp": "2026-06-29T23:30:32Z",
+          "timestamp": "2026-06-30T02:09:29Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.2908345008474206464783613072",
-          "net_edge_pct": "0.0908",
-          "pnl_usd": "0.9083"
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.2106",
+          "pnl_usd": "2.1061"
         },
         {
-          "timestamp": "2026-06-29T23:30:32Z",
+          "timestamp": "2026-06-30T02:09:29Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.4830",
-          "pnl_usd": "4.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.3599",
+          "pnl_usd": "3.5986"
         },
         {
-          "timestamp": "2026-06-29T23:30:33Z",
+          "timestamp": "2026-06-30T02:09:30Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.2908345008474206464783613072",
-          "net_edge_pct": "0.0908",
-          "pnl_usd": "0.9083"
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.2106",
+          "pnl_usd": "2.1061"
         },
         {
-          "timestamp": "2026-06-29T23:30:33Z",
+          "timestamp": "2026-06-30T02:09:30Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.4830",
-          "pnl_usd": "4.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.3599",
+          "pnl_usd": "3.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:15Z",
+          "timestamp": "2026-06-30T02:09:51Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.2908345008474206464783613072",
-          "net_edge_pct": "0.0908",
-          "pnl_usd": "0.9083"
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.2106",
+          "pnl_usd": "2.1061"
         },
         {
-          "timestamp": "2026-06-29T23:31:15Z",
+          "timestamp": "2026-06-30T02:09:51Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.4830",
-          "pnl_usd": "4.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.3599",
+          "pnl_usd": "3.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:18Z",
+          "timestamp": "2026-06-30T02:09:53Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.2908345008474206464783613072",
-          "net_edge_pct": "0.0908",
-          "pnl_usd": "0.9083"
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.2106",
+          "pnl_usd": "2.1061"
         },
         {
-          "timestamp": "2026-06-29T23:31:18Z",
+          "timestamp": "2026-06-30T02:09:53Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.4830",
-          "pnl_usd": "4.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.3599",
+          "pnl_usd": "3.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:21Z",
+          "timestamp": "2026-06-30T02:09:55Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.2908345008474206464783613072",
-          "net_edge_pct": "0.0908",
-          "pnl_usd": "0.9083"
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.2106",
+          "pnl_usd": "2.1061"
         },
         {
-          "timestamp": "2026-06-29T23:31:21Z",
+          "timestamp": "2026-06-30T02:09:55Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.4830",
-          "pnl_usd": "4.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.3599",
+          "pnl_usd": "3.5986"
         }
       ]
     },
     "production_0_30": {
       "buffer_pct": "0.30",
       "replay_notional_usd": "1000",
-      "considered_signals": 188,
-      "positive_after_buffer_count": 14,
-      "total_pnl_usd": "20.3300",
-      "avg_net_edge_pct": "0.1452",
-      "max_net_edge_pct": "0.3830",
+      "considered_signals": 20,
+      "positive_after_buffer_count": 20,
+      "total_pnl_usd": "37.0470",
+      "avg_net_edge_pct": "0.1852",
+      "max_net_edge_pct": "0.2599",
       "recent_trades": [
         {
-          "timestamp": "2026-06-29T18:18:04Z",
+          "timestamp": "2026-06-30T02:09:29Z",
           "route": "WETH/USDC",
           "buy_dex": "Uniswap V2",
-          "sell_dex": "Aerodrome",
-          "gross_edge_pct": "0.3111071078041971530481190535",
-          "net_edge_pct": "0.0111",
-          "pnl_usd": "0.1111"
+          "sell_dex": "Uniswap V3",
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.1106",
+          "pnl_usd": "1.1061"
         },
         {
-          "timestamp": "2026-06-29T18:18:06Z",
-          "route": "WETH/USDC",
-          "buy_dex": "Uniswap V2",
-          "sell_dex": "Aerodrome",
-          "gross_edge_pct": "0.3111071078041971530481190535",
-          "net_edge_pct": "0.0111",
-          "pnl_usd": "0.1111"
-        },
-        {
-          "timestamp": "2026-06-29T18:18:07Z",
-          "route": "WETH/USDC",
-          "buy_dex": "Uniswap V2",
-          "sell_dex": "Aerodrome",
-          "gross_edge_pct": "0.3111071078041971530481190535",
-          "net_edge_pct": "0.0111",
-          "pnl_usd": "0.1111"
-        },
-        {
-          "timestamp": "2026-06-29T18:18:08Z",
-          "route": "WETH/USDC",
-          "buy_dex": "Uniswap V2",
-          "sell_dex": "Aerodrome",
-          "gross_edge_pct": "0.3111071078041971530481190535",
-          "net_edge_pct": "0.0111",
-          "pnl_usd": "0.1111"
-        },
-        {
-          "timestamp": "2026-06-29T18:18:37Z",
-          "route": "WETH/USDC",
-          "buy_dex": "Uniswap V2",
-          "sell_dex": "Aerodrome",
-          "gross_edge_pct": "0.3111071078041971530481190535",
-          "net_edge_pct": "0.0111",
-          "pnl_usd": "0.1111"
-        },
-        {
-          "timestamp": "2026-06-29T23:30:32Z",
+          "timestamp": "2026-06-30T02:09:29Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.3830",
-          "pnl_usd": "3.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.2599",
+          "pnl_usd": "2.5986"
         },
         {
-          "timestamp": "2026-06-29T23:30:33Z",
+          "timestamp": "2026-06-30T02:09:30Z",
+          "route": "WETH/USDC",
+          "buy_dex": "Uniswap V2",
+          "sell_dex": "Uniswap V3",
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.1106",
+          "pnl_usd": "1.1061"
+        },
+        {
+          "timestamp": "2026-06-30T02:09:30Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.3830",
-          "pnl_usd": "3.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.2599",
+          "pnl_usd": "2.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:15Z",
+          "timestamp": "2026-06-30T02:09:51Z",
+          "route": "WETH/USDC",
+          "buy_dex": "Uniswap V2",
+          "sell_dex": "Uniswap V3",
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.1106",
+          "pnl_usd": "1.1061"
+        },
+        {
+          "timestamp": "2026-06-30T02:09:51Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.3830",
-          "pnl_usd": "3.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.2599",
+          "pnl_usd": "2.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:18Z",
+          "timestamp": "2026-06-30T02:09:53Z",
+          "route": "WETH/USDC",
+          "buy_dex": "Uniswap V2",
+          "sell_dex": "Uniswap V3",
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.1106",
+          "pnl_usd": "1.1061"
+        },
+        {
+          "timestamp": "2026-06-30T02:09:53Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.3830",
-          "pnl_usd": "3.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.2599",
+          "pnl_usd": "2.5986"
         },
         {
-          "timestamp": "2026-06-29T23:31:21Z",
+          "timestamp": "2026-06-30T02:09:55Z",
+          "route": "WETH/USDC",
+          "buy_dex": "Uniswap V2",
+          "sell_dex": "Uniswap V3",
+          "gross_edge_pct": "0.4106092052245993244268447881",
+          "net_edge_pct": "0.1106",
+          "pnl_usd": "1.1061"
+        },
+        {
+          "timestamp": "2026-06-30T02:09:55Z",
           "route": "USDC/WETH",
           "buy_dex": "Uniswap V2",
           "sell_dex": "Uniswap V3",
-          "gross_edge_pct": "0.6830010159406717421808796956",
-          "net_edge_pct": "0.3830",
-          "pnl_usd": "3.8300"
+          "gross_edge_pct": "0.5598556123843567556185077586",
+          "net_edge_pct": "0.2599",
+          "pnl_usd": "2.5986"
         }
       ]
     }
@@ -619,23 +673,23 @@
     "decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20",
     "current_production_buffer_pct": "0.30",
     "research_candidate_buffer_pct": "0.20",
-    "passed_gate_count": 4,
+    "passed_gate_count": 5,
     "gate_count": 8,
     "gates": [
       {
         "name": "execution_cost_confidence_high",
         "passed": false,
-        "observed": "LOW"
+        "observed": "INSUFFICIENT"
       },
       {
         "name": "paper_slippage_samples_30_plus",
         "passed": false,
-        "observed": 6
+        "observed": 0
       },
       {
         "name": "quote_ok_rate_90_plus",
-        "passed": false,
-        "observed": "68.0851"
+        "passed": true,
+        "observed": "100.0000"
       },
       {
         "name": "active_two_dex_eth_route",
@@ -645,22 +699,22 @@
       {
         "name": "provider_not_critical",
         "passed": true,
-        "observed": "WATCH"
+        "observed": "OK"
       },
       {
         "name": "report_audit_clean",
-        "passed": false,
-        "observed": 24
+        "passed": true,
+        "observed": null
       },
       {
         "name": "candidate_has_30_plus_signals",
-        "passed": true,
-        "observed": 99
+        "passed": false,
+        "observed": 20
       },
       {
         "name": "candidate_avg_net_edge_0_03_plus",
         "passed": true,
-        "observed": "0.0697"
+        "observed": "0.2852"
       }
     ],
     "next_action": "Keep production buffer at 0.30%; collect missing evidence before any buffer change."
@@ -726,7 +780,7 @@
     },
     {
       "severity": "WATCH",
-      "message": "0.20% candidate replay has 99 positive signal(s) versus 14 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20."
+      "message": "0.20% candidate replay has 20 positive signal(s) versus 20 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20."
     },
     {
       "severity": "ACTION",

@@ -4,7 +4,7 @@ Multi-chain AI trading research and paper-execution platform.
 
 ## Current Version
 
-**v5.10 - Unbounded Paper Lab Profile**
+**v5.11 - Arbitrage Execution Refactor**
 
 CryptoAI is currently paper-trading only. Live trading is disabled by default and should remain disabled until long-duration paper validation and live-readiness gates are satisfied.
 

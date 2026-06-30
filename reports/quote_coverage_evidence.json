@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-29T23:31:26Z",
+  "generated_at": "2026-06-30T02:09:57Z",
   "mode": "paper",
   "implemented_provider_count": 3,
   "configured_pair_count": 8,
   "active_pair_count": 1,
   "provider_gap_count": 6,
   "quote_gap_count": 1,
-  "provider_status": "WATCH",
-  "provider_alert_count": 2,
+  "provider_status": "OK",
+  "provider_alert_count": 0,
   "pair_coverage": [
     {
       "chain": "base",
@@ -128,8 +128,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 22,
-      "inverse_ok_count": 22,
+      "direct_ok_count": 1,
+      "inverse_ok_count": 1,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -158,8 +158,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 9,
-      "inverse_ok_count": 9,
+      "direct_ok_count": 1,
+      "inverse_ok_count": 1,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -499,10 +499,6 @@
     {
       "severity": "ACTION",
       "message": "Next targeted quote test: base CBBTC/USDC."
-    },
-    {
-      "severity": "WATCH",
-      "message": "Provider monitor remains WATCH with 2 alert(s)."
     }
   ],
   "notes": [

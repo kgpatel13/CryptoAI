@@ -39,8 +39,8 @@
     "min_quote_ok_rate_pct": "90"
   },
   "risk": {
-    "max_open_positions": 0,
-    "duplicate_position_block": false,
+    "max_open_positions": 1,
+    "duplicate_position_block": true,
     "cooldown_seconds": 0,
     "max_daily_loss_usd": "0",
     "kill_switch_enabled": true
@@ -56,6 +56,7 @@
     "Live trading remains disabled until live-readiness gates pass.",
     "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
     "Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.",
-    "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill."
+    "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.",
+    "Arbitrage paper trades close atomically and must not create long-lived open positions."
   ]
 }

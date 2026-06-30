@@ -1,39 +1,39 @@
 {
-  "generated_at": "2026-06-29T23:31:26Z",
+  "generated_at": "2026-06-30T02:09:57Z",
   "mode": "paper",
-  "status": "WATCHLIST",
+  "status": "RESEARCH_ONLY",
   "gate_count": 5,
-  "pass_count": 4,
+  "pass_count": 3,
   "warn_count": 1,
-  "fail_count": 0,
+  "fail_count": 1,
   "latest_experiment": {
-    "experiment_id": "e17d62fc9e0f",
-    "generated_at": "2026-06-29T23:31:26Z",
+    "experiment_id": "4dc404bddb51",
+    "generated_at": "2026-06-30T02:09:57Z",
     "mode": "paper",
     "label": "default-replay-optimization",
-    "status": "WATCHLIST",
+    "status": "RESEARCH_ONLY",
     "promotion_allowed": false,
     "gate_count": 5,
-    "pass_count": 4,
+    "pass_count": 3,
     "warn_count": 1,
-    "fail_count": 0,
+    "fail_count": 1,
     "summary": {
-      "backtest_total_signals": 195,
-      "backtest_trades": 5,
-      "backtest_pnl_usd": "19.1500",
+      "backtest_total_signals": 20,
+      "backtest_trades": 0,
+      "backtest_pnl_usd": "0.0000",
       "optimization_scenarios": 60,
-      "optimization_best_trades": 99,
-      "optimization_best_pnl_usd": "68.9755",
+      "optimization_best_trades": 20,
+      "optimization_best_pnl_usd": "57.0470",
       "optimization_best_cost_buffer_pct": "0.20",
-      "provider_status": "WATCH",
-      "provider_alert_count": 2,
-      "paper_total_pnl_usd": "2.8220",
+      "provider_status": "OK",
+      "provider_alert_count": 0,
+      "paper_total_pnl_usd": null,
       "audit_finding_count": 0,
-      "execution_cost_buffer_status": "CONSERVATIVE",
-      "execution_cost_confidence": "LOW",
-      "observed_total_cost_lower_bound_pct": "0.1300",
+      "execution_cost_buffer_status": "INSUFFICIENT_EVIDENCE",
+      "execution_cost_confidence": "INSUFFICIENT",
+      "observed_total_cost_lower_bound_pct": null,
       "market_primary_focus": "base WETH/USDC",
-      "market_active_focus_count": 1,
+      "market_active_focus_count": 0,
       "market_blocked_count": 7,
       "quote_active_pair_count": 1,
       "quote_provider_gap_count": 6,
@@ -41,53 +41,49 @@
     },
     "replay_diagnostics": {
       "production_cost_buffer_pct": "0.30",
-      "production_trade_count": 5,
+      "production_trade_count": 0,
       "best_profitable_cost_buffer_pct": "0.20",
-      "best_profitable_trade_count": 99,
-      "best_profitable_total_pnl_usd": "68.9755",
+      "best_profitable_trade_count": 20,
+      "best_profitable_total_pnl_usd": "57.0470",
       "findings": [
         {
-          "severity": "OK",
-          "message": "Production buffer 0.30% and paper BUY threshold 0.30% produced 5 replay trade(s)."
+          "severity": "WATCH",
+          "message": "Production buffer 0.30% has 20 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
+        },
+        {
+          "severity": "ACTION",
+          "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
         }
       ]
     },
     "execution_cost_evidence": {
-      "buffer_status": "CONSERVATIVE",
-      "confidence": "LOW",
+      "buffer_status": "INSUFFICIENT_EVIDENCE",
+      "confidence": "INSUFFICIENT",
       "production_cost_buffer_pct": "0.30",
-      "observed_total_cost_lower_bound_pct": "0.1300",
-      "buffer_surplus_vs_lower_bound_pct": "0.1700",
+      "observed_total_cost_lower_bound_pct": null,
+      "buffer_surplus_vs_lower_bound_pct": null,
       "findings": [
         {
-          "severity": "INFO",
-          "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
+          "severity": "WATCH",
+          "message": "Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence."
         },
         {
           "severity": "ACTION",
-          "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
+          "message": "Collect more filled paper executions; current slippage sample is 0 and target is 30+."
         }
       ]
     },
     "market_universe_evidence": {
       "primary_focus": "base WETH/USDC",
-      "active_focus_count": 1,
-      "research_target_count": 0,
+      "active_focus_count": 0,
+      "research_target_count": 1,
       "blocked_count": 7,
-      "provider_status": "WATCH",
-      "provider_alert_count": 2,
+      "provider_status": "OK",
+      "provider_alert_count": 0,
       "findings": [
-        {
-          "severity": "INFO",
-          "message": "Primary research focus is base WETH/USDC."
-        },
         {
           "severity": "ACTION",
           "message": "7 configured pair(s) need quote-provider evidence before expansion."
-        },
-        {
-          "severity": "WATCH",
-          "message": "Provider monitor remains WATCH with 2 alert(s)."
         },
         {
           "severity": "INFO",
@@ -112,33 +108,29 @@
         {
           "severity": "ACTION",
           "message": "Next targeted quote test: base CBBTC/USDC."
-        },
-        {
-          "severity": "WATCH",
-          "message": "Provider monitor remains WATCH with 2 alert(s)."
         }
       ]
     },
     "gates": [
       {
         "name": "default_replay_has_positive_trades",
-        "status": "PASS",
-        "message": "Default replay trades=5, pnl_usd=19.1500."
+        "status": "FAIL",
+        "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
       },
       {
         "name": "optimization_has_minimum_sample",
         "status": "PASS",
-        "message": "Best scenario trades=99, pnl_usd=68.9755, min_trades=5."
+        "message": "Best scenario trades=20, pnl_usd=57.0470, min_trades=5."
       },
       {
         "name": "provider_health_not_critical",
-        "status": "WARN",
-        "message": "Provider status is WATCH with 2 alert(s)."
+        "status": "PASS",
+        "message": "Provider status is OK."
       },
       {
         "name": "paper_pnl_non_negative",
-        "status": "PASS",
-        "message": "Paper total_pnl_usd=2.8220."
+        "status": "WARN",
+        "message": "Paper PnL is unavailable."
       },
       {
         "name": "report_audit_has_no_findings",
@@ -152,126 +144,12 @@
       "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
     ]
   },
-  "experiment_count": 19,
+  "experiment_count": 1,
   "history_file": "data\\experiments.jsonl",
   "recent_experiments": [
     {
-      "experiment_id": "2c3933e93ba2",
-      "generated_at": "2026-06-29T12:56:41Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 1,
-      "fail_count": 2,
-      "summary": {
-        "backtest_total_signals": 33,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 13,
-        "optimization_best_pnl_usd": "6.9470",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "CRITICAL",
-        "provider_alert_count": 4,
-        "paper_total_pnl_usd": "1.3939",
-        "audit_finding_count": 2
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0.0000."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=13, pnl_usd=6.9470, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "FAIL",
-          "message": "Provider status is CRITICAL with 4 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=1.3939."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "WARN",
-          "message": "Report audit has 2 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "8ecb1e84cc66",
-      "generated_at": "2026-06-29T12:58:10Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 1,
-      "fail_count": 2,
-      "summary": {
-        "backtest_total_signals": 37,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 15,
-        "optimization_best_pnl_usd": "7.6008",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "CRITICAL",
-        "provider_alert_count": 4,
-        "paper_total_pnl_usd": "1.3939",
-        "audit_finding_count": 2
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=15, pnl_usd=7.6008, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "FAIL",
-          "message": "Provider status is CRITICAL with 4 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=1.3939."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "WARN",
-          "message": "Report audit has 2 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "6da896c5d39b",
-      "generated_at": "2026-06-29T13:25:42Z",
+      "experiment_id": "4dc404bddb51",
+      "generated_at": "2026-06-30T02:09:57Z",
       "mode": "paper",
       "label": "default-replay-optimization",
       "status": "RESEARCH_ONLY",
@@ -281,1111 +159,22 @@
       "warn_count": 1,
       "fail_count": 1,
       "summary": {
-        "backtest_total_signals": 45,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 19,
-        "optimization_best_pnl_usd": "9.6452",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 3,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=19, pnl_usd=9.6452, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 3 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "56a7c49964ba",
-      "generated_at": "2026-06-29T14:07:59Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 53,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 23,
-        "optimization_best_pnl_usd": "11.5049",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 3,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 23,
-        "best_profitable_total_pnl_usd": "11.5049",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 23 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=23, pnl_usd=11.5049, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 3 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "0bee65006c9d",
-      "generated_at": "2026-06-29T14:08:45Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 2,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 63,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 28,
-        "optimization_best_pnl_usd": "11.6444",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 3,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 17
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 28,
-        "best_profitable_total_pnl_usd": "11.6444",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 28 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=28, pnl_usd=11.6444, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 3 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "WARN",
-          "message": "Report audit has 17 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "745bcc6fd902",
-      "generated_at": "2026-06-29T14:12:38Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 71,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 32,
-        "optimization_best_pnl_usd": "12.1156",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 32,
-        "best_profitable_total_pnl_usd": "12.1156",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 32 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=32, pnl_usd=12.1156, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "17711d33a07b",
-      "generated_at": "2026-06-29T14:15:00Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 79,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 36,
-        "optimization_best_pnl_usd": "13.1480",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 36,
-        "best_profitable_total_pnl_usd": "13.1480",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 36 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=36, pnl_usd=13.1480, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "d73ce71a262a",
-      "generated_at": "2026-06-29T17:44:52Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 2,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 89,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 41,
-        "optimization_best_pnl_usd": "15.9420",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 19,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300"
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 41,
-        "best_profitable_total_pnl_usd": "15.9420",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 41 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=41, pnl_usd=15.9420, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "WARN",
-          "message": "Report audit has 19 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "6dec8e85e081",
-      "generated_at": "2026-06-29T17:45:21Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 99,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 46,
-        "optimization_best_pnl_usd": "18.1815",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300"
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 46,
-        "best_profitable_total_pnl_usd": "18.1815",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 46 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=46, pnl_usd=18.1815, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "47ebec9a0ff1",
-      "generated_at": "2026-06-29T17:48:56Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 103,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 48,
-        "optimization_best_pnl_usd": "19.0773",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300"
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 48,
-        "best_profitable_total_pnl_usd": "19.0773",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% produced 0 trades; buffer 0.20% produced 48 trade(s)."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect execution-cost evidence before considering any lower paper threshold."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=48, pnl_usd=19.0773, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "9d4ee66aa17c",
-      "generated_at": "2026-06-29T18:01:22Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 105,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 48,
-        "optimization_best_trades": 49,
-        "optimization_best_pnl_usd": "20.1128",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300"
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 1,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 49,
-        "best_profitable_total_pnl_usd": "20.1128",
-        "findings": [
-          {
-            "severity": "OK",
-            "message": "Production buffer 0.30% produced 1 replay trade(s)."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=49, pnl_usd=20.1128, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "2f673ca40870",
-      "generated_at": "2026-06-29T18:03:26Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 105,
+        "backtest_total_signals": 20,
         "backtest_trades": 0,
         "backtest_pnl_usd": "0.0000",
         "optimization_scenarios": 60,
-        "optimization_best_trades": 49,
-        "optimization_best_pnl_usd": "20.1128",
+        "optimization_best_trades": 20,
+        "optimization_best_pnl_usd": "57.0470",
         "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
+        "provider_status": "OK",
+        "provider_alert_count": 0,
+        "paper_total_pnl_usd": null,
         "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300"
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 49,
-        "best_profitable_total_pnl_usd": "20.1128",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 1 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=49, pnl_usd=20.1128, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "d56ed9cd2945",
-      "generated_at": "2026-06-29T18:04:59Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 105,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 49,
-        "optimization_best_pnl_usd": "20.1128",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
+        "execution_cost_buffer_status": "INSUFFICIENT_EVIDENCE",
+        "execution_cost_confidence": "INSUFFICIENT",
+        "observed_total_cost_lower_bound_pct": null,
         "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 49,
-        "best_profitable_total_pnl_usd": "20.1128",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 1 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production-buffer replay has positive evidence; continue paper validation at unchanged settings."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=49, pnl_usd=20.1128, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "f4f2f7f812a9",
-      "generated_at": "2026-06-29T18:05:19Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 105,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 49,
-        "optimization_best_pnl_usd": "20.1128",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 49,
-        "best_profitable_total_pnl_usd": "20.1128",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 1 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=49, pnl_usd=20.1128, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "338976846b29",
-      "generated_at": "2026-06-29T18:16:07Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 2,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 107,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 50,
-        "optimization_best_pnl_usd": "21.4796",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 15,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
+        "market_active_focus_count": 0,
         "market_blocked_count": 7,
         "quote_active_pair_count": 1,
         "quote_provider_gap_count": 6,
@@ -1395,12 +184,12 @@
         "production_cost_buffer_pct": "0.30",
         "production_trade_count": 0,
         "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 50,
-        "best_profitable_total_pnl_usd": "21.4796",
+        "best_profitable_trade_count": 20,
+        "best_profitable_total_pnl_usd": "57.0470",
         "findings": [
           {
             "severity": "WATCH",
-            "message": "Production buffer 0.30% has 2 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
+            "message": "Production buffer 0.30% has 20 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
           },
           {
             "severity": "ACTION",
@@ -1409,45 +198,33 @@
         ]
       },
       "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
+        "buffer_status": "INSUFFICIENT_EVIDENCE",
+        "confidence": "INSUFFICIENT",
         "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
+        "observed_total_cost_lower_bound_pct": null,
+        "buffer_surplus_vs_lower_bound_pct": null,
         "findings": [
           {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
+            "severity": "WATCH",
+            "message": "Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence."
           },
           {
             "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
+            "message": "Collect more filled paper executions; current slippage sample is 0 and target is 30+."
           }
         ]
       },
       "market_universe_evidence": {
         "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
+        "active_focus_count": 0,
+        "research_target_count": 1,
         "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
+        "provider_status": "OK",
+        "provider_alert_count": 0,
         "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
           {
             "severity": "ACTION",
             "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
           },
           {
             "severity": "INFO",
@@ -1472,10 +249,6 @@
           {
             "severity": "ACTION",
             "message": "Next targeted quote test: base CBBTC/USDC."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
           }
         ]
       },
@@ -1488,625 +261,17 @@
         {
           "name": "optimization_has_minimum_sample",
           "status": "PASS",
-          "message": "Best scenario trades=50, pnl_usd=21.4796, min_trades=5."
+          "message": "Best scenario trades=20, pnl_usd=57.0470, min_trades=5."
         },
         {
           "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
+          "status": "PASS",
+          "message": "Provider status is OK."
         },
         {
           "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
           "status": "WARN",
-          "message": "Report audit has 15 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "82206b3eb776",
-      "generated_at": "2026-06-29T18:18:11Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 119,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 56,
-        "optimization_best_pnl_usd": "28.1462",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7,
-        "quote_active_pair_count": 1,
-        "quote_provider_gap_count": 6,
-        "quote_gap_count": 1
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 56,
-        "best_profitable_total_pnl_usd": "28.1462",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 8 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
-          }
-        ]
-      },
-      "quote_coverage_evidence": {
-        "active_pair_count": 1,
-        "provider_gap_count": 6,
-        "quote_gap_count": 1,
-        "next_target": "base CBBTC/USDC",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "1 configured pair(s) have active two-DEX quote evidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) still need quote coverage before expansion."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Next targeted quote test: base CBBTC/USDC."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=56, pnl_usd=28.1462, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "de3bc654289c",
-      "generated_at": "2026-06-29T21:16:03Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 2,
-      "warn_count": 2,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 135,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 64,
-        "optimization_best_pnl_usd": "31.9204",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 19,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7,
-        "quote_active_pair_count": 1,
-        "quote_provider_gap_count": 6,
-        "quote_gap_count": 1
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 64,
-        "best_profitable_total_pnl_usd": "31.9204",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 9 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
-          }
-        ]
-      },
-      "quote_coverage_evidence": {
-        "active_pair_count": 1,
-        "provider_gap_count": 6,
-        "quote_gap_count": 1,
-        "next_target": "base CBBTC/USDC",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "1 configured pair(s) have active two-DEX quote evidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) still need quote coverage before expansion."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Next targeted quote test: base CBBTC/USDC."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=64, pnl_usd=31.9204, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "WARN",
-          "message": "Report audit has 19 finding(s). Review before tuning."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "f236334b0ef6",
-      "generated_at": "2026-06-29T22:59:36Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "RESEARCH_ONLY",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 3,
-      "warn_count": 1,
-      "fail_count": 1,
-      "summary": {
-        "backtest_total_signals": 147,
-        "backtest_trades": 0,
-        "backtest_pnl_usd": "0.0000",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 70,
-        "optimization_best_pnl_usd": "33.3502",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7,
-        "quote_active_pair_count": 1,
-        "quote_provider_gap_count": 6,
-        "quote_gap_count": 1
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 0,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 70,
-        "best_profitable_total_pnl_usd": "33.3502",
-        "findings": [
-          {
-            "severity": "WATCH",
-            "message": "Production buffer 0.30% has 9 positive-after-cost signal(s), but 0 pass the paper BUY threshold 0.30%."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more execution-cost and closed-paper-trade evidence before considering any threshold change."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Replay has trades under measured lower-bound costs but none under the production buffer; do not lower thresholds until gas, fee, and slippage evidence is stronger."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
-          }
-        ]
-      },
-      "quote_coverage_evidence": {
-        "active_pair_count": 1,
-        "provider_gap_count": 6,
-        "quote_gap_count": 1,
-        "next_target": "base CBBTC/USDC",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "1 configured pair(s) have active two-DEX quote evidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) still need quote coverage before expansion."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Next targeted quote test: base CBBTC/USDC."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "FAIL",
-          "message": "Default replay did not produce positive production-buffer evidence. Default replay trades=0, pnl_usd=0."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=70, pnl_usd=33.3502, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
-        },
-        {
-          "name": "report_audit_has_no_findings",
-          "status": "PASS",
-          "message": "Report audit has no findings."
-        }
-      ],
-      "notes": [
-        "Experiment tracking records research evidence only.",
-        "promotion_allowed is always false until separate live-readiness gates are implemented and approved.",
-        "A PAPER_EVIDENCE_CANDIDATE status is not live-trading approval."
-      ]
-    },
-    {
-      "experiment_id": "e17d62fc9e0f",
-      "generated_at": "2026-06-29T23:31:26Z",
-      "mode": "paper",
-      "label": "default-replay-optimization",
-      "status": "WATCHLIST",
-      "promotion_allowed": false,
-      "gate_count": 5,
-      "pass_count": 4,
-      "warn_count": 1,
-      "fail_count": 0,
-      "summary": {
-        "backtest_total_signals": 195,
-        "backtest_trades": 5,
-        "backtest_pnl_usd": "19.1500",
-        "optimization_scenarios": 60,
-        "optimization_best_trades": 99,
-        "optimization_best_pnl_usd": "68.9755",
-        "optimization_best_cost_buffer_pct": "0.20",
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "paper_total_pnl_usd": "2.8220",
-        "audit_finding_count": 0,
-        "execution_cost_buffer_status": "CONSERVATIVE",
-        "execution_cost_confidence": "LOW",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "market_primary_focus": "base WETH/USDC",
-        "market_active_focus_count": 1,
-        "market_blocked_count": 7,
-        "quote_active_pair_count": 1,
-        "quote_provider_gap_count": 6,
-        "quote_gap_count": 1
-      },
-      "replay_diagnostics": {
-        "production_cost_buffer_pct": "0.30",
-        "production_trade_count": 5,
-        "best_profitable_cost_buffer_pct": "0.20",
-        "best_profitable_trade_count": 99,
-        "best_profitable_total_pnl_usd": "68.9755",
-        "findings": [
-          {
-            "severity": "OK",
-            "message": "Production buffer 0.30% and paper BUY threshold 0.30% produced 5 replay trade(s)."
-          }
-        ]
-      },
-      "execution_cost_evidence": {
-        "buffer_status": "CONSERVATIVE",
-        "confidence": "LOW",
-        "production_cost_buffer_pct": "0.30",
-        "observed_total_cost_lower_bound_pct": "0.1300",
-        "buffer_surplus_vs_lower_bound_pct": "0.1700",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Collect more filled paper executions; current slippage sample is 6 and target is 30+."
-          }
-        ]
-      },
-      "market_universe_evidence": {
-        "primary_focus": "base WETH/USDC",
-        "active_focus_count": 1,
-        "research_target_count": 0,
-        "blocked_count": 7,
-        "provider_status": "WATCH",
-        "provider_alert_count": 2,
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "Primary research focus is base WETH/USDC."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) need quote-provider evidence before expansion."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          },
-          {
-            "severity": "INFO",
-            "message": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
-          }
-        ]
-      },
-      "quote_coverage_evidence": {
-        "active_pair_count": 1,
-        "provider_gap_count": 6,
-        "quote_gap_count": 1,
-        "next_target": "base CBBTC/USDC",
-        "findings": [
-          {
-            "severity": "INFO",
-            "message": "1 configured pair(s) have active two-DEX quote evidence."
-          },
-          {
-            "severity": "ACTION",
-            "message": "7 configured pair(s) still need quote coverage before expansion."
-          },
-          {
-            "severity": "ACTION",
-            "message": "Next targeted quote test: base CBBTC/USDC."
-          },
-          {
-            "severity": "WATCH",
-            "message": "Provider monitor remains WATCH with 2 alert(s)."
-          }
-        ]
-      },
-      "gates": [
-        {
-          "name": "default_replay_has_positive_trades",
-          "status": "PASS",
-          "message": "Default replay trades=5, pnl_usd=19.1500."
-        },
-        {
-          "name": "optimization_has_minimum_sample",
-          "status": "PASS",
-          "message": "Best scenario trades=99, pnl_usd=68.9755, min_trades=5."
-        },
-        {
-          "name": "provider_health_not_critical",
-          "status": "WARN",
-          "message": "Provider status is WATCH with 2 alert(s)."
-        },
-        {
-          "name": "paper_pnl_non_negative",
-          "status": "PASS",
-          "message": "Paper total_pnl_usd=2.8220."
+          "message": "Paper PnL is unavailable."
         },
         {
           "name": "report_audit_has_no_findings",

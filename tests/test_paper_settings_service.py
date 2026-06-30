@@ -113,8 +113,8 @@ class PaperSettingsServiceTests(unittest.TestCase):
         settings["paper_capital"]["max_notional_usd_per_trade"] = "100000"
         settings["paper_capital"]["max_daily_paper_trades"] = 0
         settings["paper_capital"]["sizing_mode"] = "full_available_cash"
-        settings["risk"]["max_open_positions"] = 0
-        settings["risk"]["duplicate_position_block"] = False
+        settings["risk"]["max_open_positions"] = 1
+        settings["risk"]["duplicate_position_block"] = True
         settings["risk"]["cooldown_seconds"] = 0
         settings["risk"]["max_daily_loss_usd"] = "0"
         settings["evidence_gates"]["require_report_audit_clean"] = False
@@ -131,10 +131,10 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(env["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
         self.assertEqual(env["CRYPTOAI_MAX_DAILY_PAPER_TRADES"], "0")
-        self.assertEqual(env["CRYPTOAI_MAX_OPEN_POSITIONS"], "0")
+        self.assertEqual(env["CRYPTOAI_MAX_OPEN_POSITIONS"], "1")
         self.assertEqual(env["CRYPTOAI_TRADE_COOLDOWN_SECONDS"], "0")
         self.assertEqual(env["CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS"], "0")
-        self.assertEqual(env["CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION"], "false")
+        self.assertEqual(env["CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION"], "true")
         self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "0")
 
 

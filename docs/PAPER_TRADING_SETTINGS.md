@@ -39,8 +39,8 @@ The saved runtime profile is currently `unbounded_paper_lab`.
 - Max paper notional per trade: `$100000`.
 - Sizing mode: `full_available_cash`.
 - Max daily paper trades: `0` for unlimited paper trades.
-- Max open positions: `0` for unlimited paper positions.
-- Duplicate position blocking: disabled.
+- Max open positions: `1`.
+- Duplicate position blocking: enabled.
 - Loop interval: `0` for continuous scan after each cycle completes.
 - Heartbeat interval: `60` seconds.
 - Cooldown: `0` for no cooldown.
@@ -49,7 +49,9 @@ The saved runtime profile is currently `unbounded_paper_lab`.
 
 `0` is a special paper-only value for loop interval, daily trades, open positions, cooldown, and daily-loss stop. It means continuous, unlimited, or disabled depending on the field.
 
-`full_available_cash` means the strategy risk layer requests the configured max trade size for an approved signal. Portfolio risk then caps the actual paper fill to available simulated cash.
+`full_available_cash` means portfolio risk sizes an approved paper trade from the current available simulated cash balance. No leverage or margin is implied.
+
+Arbitrage paper trades are atomic round trips. They must close immediately and should normally leave open positions at `0`.
 
 ## Standard Safe Defaults
 

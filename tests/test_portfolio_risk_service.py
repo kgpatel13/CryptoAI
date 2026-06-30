@@ -23,6 +23,7 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         os.environ["CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS"] = "900"
         os.environ["CRYPTOAI_MAX_DAILY_PAPER_TRADES"] = "2"
         os.environ["CRYPTOAI_MAX_OPEN_POSITIONS"] = "3"
+        os.environ["CRYPTOAI_PAPER_SIZING_MODE"] = "edge_scaled"
 
     def tearDown(self) -> None:
         os.environ.clear()
@@ -81,6 +82,20 @@ class PortfolioRiskServiceTests(unittest.TestCase):
 
         self.assertTrue(decision.approved, decision.reason)
         self.assertEqual(decision.notional_usd, Decimal("100.0000"))
+
+    def test_full_available_cash_mode_uses_current_cash_without_leverage(self) -> None:
+        os.environ["CRYPTOAI_PAPER_SIZING_MODE"] = "full_available_cash"
+        os.environ["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"] = "100"
+        os.environ["CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"] = "1000000"
+        os.environ["CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT"] = "100"
+        os.environ["CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT"] = "100"
+        svc = self.service()
+
+        decision = svc.assess(chain="base", pair="WETH/USDC", side="BUY", requested_notional_usd=Decimal("1000000"), now="2026-06-28T00:00:00Z")
+
+        self.assertTrue(decision.approved, decision.reason)
+        self.assertEqual(decision.notional_usd, Decimal("1000.0000"))
 
     def test_monitor_positions_closes_take_profit(self) -> None:
         svc = self.service()

@@ -7,6 +7,7 @@ from decimal import Decimal
 from pathlib import Path
 from uuid import uuid4
 
+from app.execution.arbitrage_execution_engine import ArbitrageExecutionEngine
 from app.execution.execution_simulator import ExecutionSimulator
 from app.execution.models import PaperExecutionBatch, PaperOrder, PaperOrderSide, PaperOrderStatus
 from app.portfolio.accounting import PaperAccounting
@@ -40,13 +41,20 @@ class PaperExecutionService:
     deterministic broker-like simulator before recording a paper position.
     """
 
-    def __init__(self) -> None:
-        self.data_dir = Path("data")
+    def __init__(
+        self,
+        data_dir: Path | str = "data",
+        portfolio_risk=None,
+        execution_simulator: ExecutionSimulator | None = None,
+        arbitrage_engine: ArbitrageExecutionEngine | None = None,
+    ) -> None:
+        self.data_dir = Path(data_dir)
         self.data_dir.mkdir(exist_ok=True)
         self.order_file = self.data_dir / "paper_orders.jsonl"
         self.multi_dex_file = self.data_dir / "multi_dex_opportunities.jsonl"
-        self.portfolio_risk = PortfolioRiskService() if PortfolioRiskService is not None else None
-        self.execution_simulator = ExecutionSimulator()
+        self.portfolio_risk = portfolio_risk if portfolio_risk is not None else (PortfolioRiskService() if PortfolioRiskService is not None else None)
+        self.execution_simulator = execution_simulator or ExecutionSimulator()
+        self.arbitrage_engine = arbitrage_engine or ArbitrageExecutionEngine(data_dir=self.data_dir, execution_simulator=self.execution_simulator)
 
     def run_once(self) -> PaperExecutionBatch:
         timestamp = self._utc_now()
@@ -54,10 +62,6 @@ class PaperExecutionService:
         prices = self._load_prices()
         monitored_positions = 0
         closed_positions = 0
-        if self.portfolio_risk is not None:
-            monitor = self.portfolio_risk.monitor_positions(prices=prices, now=timestamp)
-            monitored_positions = monitor.monitored_positions
-            closed_positions = monitor.closed_positions
 
         orders: list[PaperOrder] = []
         for assessment in assessments:
@@ -87,47 +91,36 @@ class PaperExecutionService:
                     continue
                 requested_notional = portfolio_decision.notional_usd
 
-            execution = self.execution_simulator.simulate_entry_order(timestamp=timestamp, pair=pair, side=PaperOrderSide.BUY.value, requested_notional_usd=requested_notional, reference_price_usd=reference_price, expected_edge_pct=expected_edge)
-            order = PaperOrder(
-                order_id=execution.order_id,
+            order = self.arbitrage_engine.execute(
                 timestamp=timestamp,
                 strategy_name=strategy_name,
                 chain=chain,
                 pair=pair,
-                side=PaperOrderSide.BUY,
-                notional_usd=execution.filled_notional_usd,
-                requested_notional_usd=execution.requested_notional_usd,
-                filled_notional_usd=execution.filled_notional_usd,
-                estimated_edge_pct=expected_edge,
-                simulated_fill_price_usd=execution.fill_price_usd,
-                simulated_quantity=execution.quantity,
-                status=execution.status,
-                reason=execution.reason,
-                slippage_bps=execution.slippage_bps,
-                latency_ms=execution.latency_ms,
-                execution_quality=execution.execution_quality,
-                lifecycle_events=execution.lifecycle_events,
+                requested_notional_usd=requested_notional,
+                expected_edge_pct=expected_edge,
             )
             orders.append(order)
 
-            if self.portfolio_risk is not None and order.status in {PaperOrderStatus.FILLED, PaperOrderStatus.PARTIAL_FILL} and order.simulated_fill_price_usd is not None and order.simulated_quantity is not None and order.notional_usd > 0:
-                self.portfolio_risk.record_filled_order(
+            if self.portfolio_risk is not None and order.status == PaperOrderStatus.CLOSED and order.notional_usd > 0:
+                self.portfolio_risk.record_arbitrage_round_trip(
                     order_id=order.order_id,
                     timestamp=timestamp,
                     strategy_name=strategy_name,
                     chain=chain,
                     pair=pair,
-                    side=PaperOrderSide.BUY.value,
                     notional_usd=order.notional_usd,
-                    fill_price_usd=order.simulated_fill_price_usd,
-                    quantity=order.simulated_quantity,
-                    estimated_edge_pct=expected_edge,
+                    realized_pnl_usd=order.realized_pnl_usd or Decimal("0"),
+                    buy_source=order.buy_source,
+                    sell_source=order.sell_source,
+                    gross_edge_pct=order.gross_edge_pct,
+                    cost_buffer_pct=order.cost_buffer_pct,
+                    net_edge_pct=order.net_edge_pct,
                     slippage_bps=order.slippage_bps,
                     latency_ms=order.latency_ms,
                     execution_quality=order.execution_quality,
                 )
 
-        filled_statuses = {PaperOrderStatus.FILLED, PaperOrderStatus.PARTIAL_FILL}
+        filled_statuses = {PaperOrderStatus.CLOSED}
         batch = PaperExecutionBatch(
             timestamp=timestamp,
             total_candidates=len(assessments),

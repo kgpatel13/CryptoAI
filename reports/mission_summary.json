@@ -5,11 +5,11 @@
   "last_error": null,
   "live_trading_enabled": false,
   "mode": "PAPER",
-  "run_id": "720764bb-7d7",
+  "run_id": "94829c81-b6e",
   "service_name": "paper_autopilot",
-  "started_at": "2026-06-29T23:57:43Z",
+  "started_at": "2026-06-30T02:09:19Z",
   "status": "STOPPED",
   "stop_reason": "max_cycles_reached",
-  "updated_at": "2026-06-29T23:57:55Z",
-  "uptime_seconds": 11.58
+  "updated_at": "2026-06-30T02:09:30Z",
+  "uptime_seconds": 11.13
 }

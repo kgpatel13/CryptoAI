@@ -40,6 +40,16 @@ class PaperOrder:
     simulated_quantity: Decimal | None
     status: PaperOrderStatus
     reason: str
+    execution_type: str = "POSITION"
+    buy_source: str | None = None
+    sell_source: str | None = None
+    buy_price_usd: Decimal | None = None
+    sell_price_usd: Decimal | None = None
+    gross_edge_pct: Decimal | None = None
+    cost_buffer_pct: Decimal | None = None
+    net_edge_pct: Decimal | None = None
+    realized_pnl_usd: Decimal | None = None
+    exit_value_usd: Decimal | None = None
     requested_notional_usd: Decimal | None = None
     filled_notional_usd: Decimal | None = None
     slippage_bps: Decimal | None = None

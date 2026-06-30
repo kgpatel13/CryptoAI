@@ -48,6 +48,16 @@ def read_text(path: Path) -> str | None:
         return f"Failed reading {path}: {exc}"
 
 
+def read_json(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+        return payload if isinstance(payload, dict) else {}
+    except Exception:
+        return {}
+
+
 def dataframe_or_info(rows: list[dict], message: str) -> None:
     if rows:
         st.dataframe(pd.DataFrame(rows), width="stretch")
@@ -169,6 +179,29 @@ def render_mission_control() -> None:
         st.json(mission_summary)
     else:
         st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
+
+    st.markdown("### Last Cycle Decision")
+    latest_opportunities = paper.get("latest_opportunities", []) if isinstance(paper.get("latest_opportunities"), list) else []
+    latest_orders = paper.get("latest_orders", []) if isinstance(paper.get("latest_orders"), list) else []
+    best_opp = latest_opportunities[-1] if latest_opportunities else {}
+    latest_order = latest_orders[-1] if latest_orders else {}
+    quote_snapshot = read_json(DATA_DIR / "quote_snapshot.json")
+    quote_rows = quote_snapshot.get("quotes", []) if isinstance(quote_snapshot.get("quotes"), list) else []
+    healthy_quotes = len([row for row in quote_rows if not row.get("error")])
+    d1, d2, d3, d4 = st.columns(4)
+    d1.metric("Last Scan", best_opp.get("timestamp", latest_order.get("timestamp", "-")))
+    d2.metric("Healthy Quotes", healthy_quotes if quote_rows else "-")
+    d3.metric("Best Net Edge %", best_opp.get("estimated_net_edge_pct", "-"))
+    d4.metric("Threshold %", "0.30")
+    d5, d6, d7, d8 = st.columns(4)
+    d5.metric("Decision", best_opp.get("decision", latest_order.get("status", "-")))
+    d6.metric("Order Created", "YES" if latest_order.get("status") == "CLOSED" else "NO")
+    d7.metric("Order Status", latest_order.get("status", "-"))
+    d8.metric("Realized PnL", latest_order.get("realized_pnl_usd", "-"))
+    if best_opp:
+        st.caption(str(best_opp.get("reason", "-")))
+    if latest_order:
+        st.caption(str(latest_order.get("reason", "-")))
 
     st.markdown("### Market Intelligence")
     m1, m2, m3, m4 = st.columns(4)
@@ -483,6 +516,9 @@ def render_paper_settings() -> None:
     service = PaperSettingsService()
     settings = service.load()
     validation = service.validate(settings)
+    latest_report_validation = read_json(REPORT_DIR / "paper_trading_settings.json")
+    if latest_report_validation.get("settings") == settings:
+        validation = latest_report_validation
 
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Status", validation.get("status", "-"))
@@ -947,9 +983,13 @@ def render_paper_portfolio() -> None:
     st.markdown("### Open Positions")
     dataframe_or_info(positions, "No open paper positions.")
 
+    st.markdown("### Closed Arbitrage Trades")
+    dataframe_or_info(state.get("arbitrage_trades", [])[-100:], "No closed arbitrage trades in state yet.")
+
     st.markdown("### Risk State")
     safe_state = dict(state)
     safe_state["positions"] = f"{len(state.get('positions', []))} row(s)"
+    safe_state["arbitrage_trades"] = f"{len(state.get('arbitrage_trades', []))} row(s)"
     safe_state["signal_history"] = f"{len(state.get('signal_history', []))} row(s)"
     st.json(safe_state)
 

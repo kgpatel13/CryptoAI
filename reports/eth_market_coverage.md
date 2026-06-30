@@ -1,12 +1,12 @@
 # CryptoAI ETH Market Coverage
 
-Generated: `2026-06-29T23:31:25Z`
+Generated: `2026-06-30T02:09:56Z`
 
 ## Summary
 
 - Asset focus: `ETH`
 - Coverage model: `ETH_GOLDEN_PATH`
-- Overall score: `52`
+- Overall score: `53`
 - Overall status: `ETH_COVERAGE_EARLY`
 - Target chains: `5`
 - Configured target chains: `4`
@@ -18,7 +18,7 @@ Generated: `2026-06-29T23:31:25Z`
 
 | Chain | Stage | Score | Status | Tokens | DEXs | Quote Routes | Providers | Next Action |
 |---|---|---:|---|---:|---:|---:|---:|---|
-| Base | reference | 82 | DEVELOPING | 2/4 | 3/3 | 2 | 5 | Improve sustained three-venue quote OK rate and paper execution samples before expanding beyond Base ETH. |
+| Base | reference | 83 | DEVELOPING | 2/4 | 3/3 | 2 | 4 | Improve sustained three-venue quote OK rate and paper execution samples before expanding beyond Base ETH. |
 | Ethereum | planned | 19 | TARGET_ONLY | 2/4 | 3/4 | 0 | 0 | Add verified token metadata for ethereum: USDT, DAI. |
 | Arbitrum One | planned | 23 | TARGET_ONLY | 2/4 | 3/3 | 0 | 0 | Add verified token metadata for arbitrum: USDT, DAI. |
 | Optimism | planned_next | 0 | TARGET_ONLY | 0/4 | 0/2 | 0 | 0 | Add verified token metadata for optimism: WETH, USDC, USDT, DAI. |
@@ -33,8 +33,8 @@ Generated: `2026-06-29T23:31:25Z`
 
 ## Findings
 
-- `INFO` ETH Golden Path overall coverage score is 52.
-- `ACTION` Base reference coverage score is 82 with status DEVELOPING.
+- `INFO` ETH Golden Path overall coverage score is 53.
+- `ACTION` Base reference coverage score is 83 with status DEVELOPING.
 - `ACTION` 4 target chain(s) still have target-only or near-empty evidence coverage.
 
 ## Notes

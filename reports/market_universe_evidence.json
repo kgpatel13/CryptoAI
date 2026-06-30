@@ -1,13 +1,32 @@
 {
-  "generated_at": "2026-06-29T23:31:26Z",
+  "generated_at": "2026-06-30T02:09:57Z",
   "mode": "paper",
-  "active_focus_count": 1,
-  "research_target_count": 0,
+  "active_focus_count": 0,
+  "research_target_count": 1,
   "blocked_count": 7,
   "primary_focus": {
     "chain": "base",
     "pair": "WETH/USDC",
-    "score": 85
+    "configured": true,
+    "priority": 1,
+    "dex_count": 3,
+    "chain_readiness_status": "READY_FOR_PAPER",
+    "chain_readiness_score": 100,
+    "quote_sample_count": 3,
+    "quote_ok_rate_pct": "100.0000",
+    "healthy_dex_count": 3,
+    "healthy_dexes": [
+      "Aerodrome",
+      "Uniswap V2",
+      "Uniswap V3"
+    ],
+    "real_signal_count": 10,
+    "max_gross_edge_pct": "0.4106",
+    "production_trade_count": 0,
+    "lower_bound_trade_count": 0,
+    "score": 80,
+    "classification": "RESEARCH_TARGET",
+    "next_action": "Add deeper quote/execution evidence before considering paper optimization."
   },
   "universe": [
     {
@@ -17,22 +36,22 @@
       "priority": 1,
       "dex_count": 3,
       "chain_readiness_status": "READY_FOR_PAPER",
-      "chain_readiness_score": 90,
-      "quote_sample_count": 47,
-      "quote_ok_rate_pct": "68.0851",
+      "chain_readiness_score": 100,
+      "quote_sample_count": 3,
+      "quote_ok_rate_pct": "100.0000",
       "healthy_dex_count": 3,
       "healthy_dexes": [
         "Aerodrome",
         "Uniswap V2",
         "Uniswap V3"
       ],
-      "real_signal_count": 94,
-      "max_gross_edge_pct": "0.3367",
+      "real_signal_count": 10,
+      "max_gross_edge_pct": "0.4106",
       "production_trade_count": 0,
-      "lower_bound_trade_count": 94,
-      "score": 85,
-      "classification": "ACTIVE_FOCUS",
-      "next_action": "Continue paper monitoring and collect execution-cost samples at unchanged production thresholds."
+      "lower_bound_trade_count": 0,
+      "score": 80,
+      "classification": "RESEARCH_TARGET",
+      "next_action": "Add deeper quote/execution evidence before considering paper optimization."
     },
     {
       "chain": "polygon",
@@ -101,7 +120,7 @@
       "priority": 2,
       "dex_count": 3,
       "chain_readiness_status": "READY_FOR_PAPER",
-      "chain_readiness_score": 90,
+      "chain_readiness_score": 100,
       "quote_sample_count": 0,
       "quote_ok_rate_pct": "0.0000",
       "healthy_dex_count": 0,
@@ -177,25 +196,25 @@
   ],
   "settings_evidence": {
     "production_cost_buffer_pct": "0.30",
-    "production_buffer_status": "CONSERVATIVE",
-    "execution_cost_confidence": "LOW",
-    "observed_cost_lower_bound_pct": "0.1300",
+    "production_buffer_status": "INSUFFICIENT_EVIDENCE",
+    "execution_cost_confidence": "INSUFFICIENT",
+    "observed_cost_lower_bound_pct": "None",
     "best_overall_research_scenario": {
       "cost_buffer_pct": "0.20",
       "min_net_edge_pct": "0.00",
       "notional_usd": "1000",
-      "trade_count": 99,
-      "total_pnl_usd": "68.9755",
-      "avg_net_edge_pct": "0.0697",
+      "trade_count": 20,
+      "total_pnl_usd": "57.0470",
+      "avg_net_edge_pct": "0.2852",
       "max_drawdown_usd": "0.0000"
     },
     "best_production_buffer_scenario": {
       "cost_buffer_pct": "0.30",
       "min_net_edge_pct": "0.00",
       "notional_usd": "1000",
-      "trade_count": 14,
-      "total_pnl_usd": "20.3300",
-      "avg_net_edge_pct": "0.1452",
+      "trade_count": 20,
+      "total_pnl_usd": "37.0470",
+      "avg_net_edge_pct": "0.1852",
       "max_drawdown_usd": "0.0000"
     },
     "top_research_candidates": [
@@ -203,64 +222,56 @@
         "cost_buffer_pct": "0.20",
         "min_net_edge_pct": "0.00",
         "notional_usd": "1000",
-        "trade_count": 99,
-        "total_pnl_usd": "68.9755",
-        "avg_net_edge_pct": "0.0697",
+        "trade_count": 20,
+        "total_pnl_usd": "57.0470",
+        "avg_net_edge_pct": "0.2852",
         "max_drawdown_usd": "0.0000"
       },
       {
         "cost_buffer_pct": "0.20",
         "min_net_edge_pct": "0.05",
         "notional_usd": "1000",
-        "trade_count": 35,
-        "total_pnl_usd": "48.6037",
-        "avg_net_edge_pct": "0.1389",
+        "trade_count": 20,
+        "total_pnl_usd": "57.0470",
+        "avg_net_edge_pct": "0.2852",
         "max_drawdown_usd": "0.0000"
       },
       {
         "cost_buffer_pct": "0.20",
         "min_net_edge_pct": "0.10",
         "notional_usd": "1000",
-        "trade_count": 14,
-        "total_pnl_usd": "34.3300",
-        "avg_net_edge_pct": "0.2452",
+        "trade_count": 20,
+        "total_pnl_usd": "57.0470",
+        "avg_net_edge_pct": "0.2852",
+        "max_drawdown_usd": "0.0000"
+      },
+      {
+        "cost_buffer_pct": "0.20",
+        "min_net_edge_pct": "0.20",
+        "notional_usd": "1000",
+        "trade_count": 20,
+        "total_pnl_usd": "57.0470",
+        "avg_net_edge_pct": "0.2852",
         "max_drawdown_usd": "0.0000"
       },
       {
         "cost_buffer_pct": "0.25",
         "min_net_edge_pct": "0.00",
         "notional_usd": "1000",
-        "trade_count": 35,
-        "total_pnl_usd": "31.1037",
-        "avg_net_edge_pct": "0.0889",
-        "max_drawdown_usd": "0.0000"
-      },
-      {
-        "cost_buffer_pct": "0.25",
-        "min_net_edge_pct": "0.05",
-        "notional_usd": "1000",
-        "trade_count": 14,
-        "total_pnl_usd": "27.3300",
-        "avg_net_edge_pct": "0.1952",
+        "trade_count": 20,
+        "total_pnl_usd": "47.0470",
+        "avg_net_edge_pct": "0.2352",
         "max_drawdown_usd": "0.0000"
       }
     ],
     "recommendation": "Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient."
   },
-  "provider_status": "WATCH",
-  "provider_alert_count": 2,
+  "provider_status": "OK",
+  "provider_alert_count": 0,
   "findings": [
-    {
-      "severity": "INFO",
-      "message": "Primary research focus is base WETH/USDC."
-    },
     {
       "severity": "ACTION",
       "message": "7 configured pair(s) need quote-provider evidence before expansion."
-    },
-    {
-      "severity": "WATCH",
-      "message": "Provider monitor remains WATCH with 2 alert(s)."
     },
     {
       "severity": "INFO",

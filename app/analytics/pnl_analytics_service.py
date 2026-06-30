@@ -23,6 +23,11 @@ class TradeJournalEntry:
     latency_ms: Decimal | None
     execution_quality: str
     reason: str
+    buy_source: str = "-"
+    sell_source: str = "-"
+    gross_edge_pct: Decimal | None = None
+    cost_buffer_pct: Decimal | None = None
+    net_edge_pct: Decimal | None = None
 
     def to_dict(self) -> dict[str, Any]:
         row = asdict(self)
@@ -95,6 +100,11 @@ class PnLAnalyticsService:
                     latency_ms=self._optional_decimal(order.get("latency_ms")),
                     execution_quality=str(order.get("execution_quality") or "UNKNOWN"),
                     reason=str(order.get("reason", "")),
+                    buy_source=str(order.get("buy_source") or "-"),
+                    sell_source=str(order.get("sell_source") or "-"),
+                    gross_edge_pct=self._optional_decimal(order.get("gross_edge_pct")),
+                    cost_buffer_pct=self._optional_decimal(order.get("cost_buffer_pct")),
+                    net_edge_pct=self._optional_decimal(order.get("net_edge_pct")),
                 )
             )
 
@@ -137,7 +147,7 @@ class PnLAnalyticsService:
             "total_pnl_usd": str(total_pnl),
             "total_return_pct": str(total_return_pct),
             "trade_count": len(journal),
-            "closed_trade_count": len(closed_or_pnl_trades),
+            "closed_trade_count": len([t for t in journal if t.status == "CLOSED"]),
             "open_positions": len([p for p in state.get("positions", []) if str(p.get("status", "OPEN")).upper() == "OPEN"]),
             "closed_positions": len([p for p in state.get("positions", []) if str(p.get("status", "")).upper() == "CLOSED"]),
             "win_count": len(wins),
@@ -331,11 +341,17 @@ class PnLAnalyticsService:
         lines += ["", "## Recent Trade Journal", ""]
         journal = analytics.get("trade_journal", [])[-20:]
         if journal:
-            lines.append("| Time | Pair | Status | Notional | Realized PnL | Quality | Reason |")
-            lines.append("|---|---|---|---:|---:|---|---|")
+            lines.append("| Time | Pair | Buy | Sell | Status | Notional | Net % | Realized PnL | Quality | Reason |")
+            lines.append("|---|---|---|---|---|---:|---:|---:|---|---|")
             for row in journal:
                 reason = str(row.get("reason", "")).replace("|", "/")
-                lines.append(f"| {row.get('timestamp', '-')} | {row.get('pair', '-')} | {row.get('status', '-')} | {row.get('notional_usd', '-')} | {row.get('realized_pnl_usd', '-')} | {row.get('execution_quality', '-')} | {reason} |")
+                lines.append(
+                    f"| {row.get('timestamp', '-')} | {row.get('pair', '-')} | "
+                    f"{row.get('buy_source', '-')} | {row.get('sell_source', '-')} | "
+                    f"{row.get('status', '-')} | {row.get('notional_usd', '-')} | "
+                    f"{row.get('net_edge_pct', '-')} | {row.get('realized_pnl_usd', '-')} | "
+                    f"{row.get('execution_quality', '-')} | {reason} |"
+                )
         else:
             lines.append("No trade journal rows yet.")
 

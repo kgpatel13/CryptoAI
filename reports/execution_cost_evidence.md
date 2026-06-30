@@ -1,15 +1,15 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-29T23:31:26Z`
+Generated: `2026-06-30T02:09:57Z`
 
 ## Summary
 
 - Production cost buffer %: `0.30`
 - Paper BUY threshold %: `0.30`
-- Buffer status: `CONSERVATIVE`
-- Confidence: `LOW`
-- Observed total cost lower bound %: `0.1300`
-- Buffer surplus vs lower bound %: `0.1700`
+- Buffer status: `INSUFFICIENT_EVIDENCE`
+- Confidence: `INSUFFICIENT`
+- Observed total cost lower bound %: `None`
+- Buffer surplus vs lower bound %: `None`
 
 ## Configured Cost Model
 
@@ -20,35 +20,35 @@ Generated: `2026-06-29T23:31:26Z`
 
 ## Paper Execution Evidence
 
-- Filled execution samples: `6`
-- Avg slippage bps: `5.0000`
-- P95 slippage bps: `5.0000`
-- Max slippage bps: `5.0000`
-- Avg latency ms: `250.0000`
-- P95 latency ms: `250.0000`
+- Filled execution samples: `0`
+- Avg slippage bps: `0.0000`
+- P95 slippage bps: `0.0000`
+- Max slippage bps: `0.0000`
+- Avg latency ms: `None`
+- P95 latency ms: `None`
 
 ## Quote And Provider Evidence
 
-- Quote samples: `94`
-- Quote OK rate %: `68.0851`
+- Quote samples: `6`
+- Quote OK rate %: `100.0000`
 - Healthy DEX count: `3`
-- Avg OK quote latency ms: `1145.9578`
-- Provider count: `5`
-- Avg provider score: `76.6000`
+- Avg OK quote latency ms: `0.0800`
+- Provider count: `4`
+- Avg provider score: `100.0000`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `188`
-- Max gross edge %: `0.6830`
-- Production-buffer trades: `5`
+- Real replay signals: `20`
+- Max gross edge %: `0.5599`
+- Production-buffer trades: `0`
 - Production required gross edge %: `0.60`
-- Lower-bound cost trades: `171`
-- Lower-bound replay PnL USD: `164.1083`
+- Lower-bound cost trades: `0`
+- Lower-bound replay PnL USD: `0.0000`
 
 ## Findings
 
-- `INFO` Production buffer assessment is CONSERVATIVE with LOW paper-cost confidence.
-- `ACTION` Collect more filled paper executions; current slippage sample is 6 and target is 30+.
+- `WATCH` Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence.
+- `ACTION` Collect more filled paper executions; current slippage sample is 0 and target is 30+.
 
 ## Notes
 

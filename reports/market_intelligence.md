@@ -1,11 +1,11 @@
 # CryptoAI Market Intelligence
 
-Generated: `2026-06-29T23:57:55Z`
+Generated: `2026-06-30T02:09:55Z`
 
 ## Summary
 
 - Mode: `paper`
-- Overall readiness score: `77`
+- Overall readiness score: `80`
 - Chains: `4`
 - Pair candidates: `8`
 - Configured pairs: `8`
@@ -14,7 +14,7 @@ Generated: `2026-06-29T23:57:55Z`
 
 | Chain | Tokens | DEXs | Pairs | Provider Score | Registry Score | Readiness | Status |
 |---|---:|---:|---:|---:|---:|---:|---|
-| Base | 3 | 3 | 2 | 77 | 100 | 90 | READY_FOR_PAPER |
+| Base | 3 | 3 | 2 | 100 | 100 | 100 | READY_FOR_PAPER |
 | Polygon | 3 | 2 | 2 | 40 | 100 | 73 | WATCH |
 | Arbitrum One | 3 | 3 | 2 | 40 | 100 | 73 | WATCH |
 | Ethereum | 3 | 3 | 2 | 40 | 100 | 73 | WATCH |

@@ -1,58 +1,38 @@
 # CryptoAI Portfolio Analytics Report
 
-Generated: `2026-06-29T23:58:05Z`
+Generated: `2026-06-30T02:09:57Z`
 
 ## Summary
 
 - Mode: `paper`
-- Initial cash USD: `$10000.0000`
-- Cash USD: `$9902.7938`
-- Equity USD: `$10002.8220`
-- Realized PnL USD: `$2.8220`
+- Initial cash USD: `$100000.0000`
+- Cash USD: `$100000.0000`
+- Equity USD: `$100000.0000`
+- Realized PnL USD: `$0.0000`
 - Unrealized PnL USD: `$0.0000`
-- Total PnL USD: `$2.8220`
-- Total return %: `0.0282`
-- Trade count: `13`
-- Closed/PnL trade count: `5`
-- Win rate %: `80.0000`
-- Profit factor: `103.2464`
-- Expectancy USD: `$0.5644`
+- Total PnL USD: `$0.0000`
+- Total return %: `0.0000`
+- Trade count: `0`
+- Closed/PnL trade count: `0`
+- Win rate %: `0.0000`
+- Profit factor: `N/A`
+- Expectancy USD: `$0.0000`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
-- Avg slippage bps: `5.0000`
-- Avg latency ms: `250.0000`
+- Avg slippage bps: `-`
+- Avg latency ms: `-`
 
 ## Daily PnL
 
-| Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
-|---|---:|---:|---:|---:|---:|
-| 2026-06-28 | 8 | 825.0135 | 2.8220 | 2.8220 | 0.0282 |
-| 2026-06-29 | 5 | 500.0844 | 0.0000 | 2.8220 | 0.0000 |
+No filled paper trades yet.
 
 ## Performance by Pair
 
-| Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
-|---|---:|---:|---:|---:|
-| USDC/WETH | 4 | 400.0598 | 0.3500 | 100.0000 |
-| WETH/USDC | 9 | 925.0381 | 2.4720 | 75.0000 |
+No pair-level performance yet.
 
 ## Recent Trade Journal
 
-| Time | Pair | Status | Notional | Realized PnL | Quality | Reason |
-|---|---|---|---:|---:|---|---|
-| 2026-06-28T16:34:07Z | WETH/USDC | FILLED | 105.0000 | 0.6518 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:42:36Z | WETH/USDC | FILLED | 105.0000 | 0.4197 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:59:13Z | WETH/USDC | FILLED | 105.0000 | -0.0276 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T16:59:35Z | WETH/USDC | FILLED | 105.0000 | 1.4281 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T17:02:19Z | WETH/USDC | FILLED | 105.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate. |
-| 2026-06-28T17:22:57Z | WETH/USDC | FILLED | 100.0000 | 0.0000 | UNKNOWN | Simulated paper fill created from risk-approved candidate after portfolio risk checks. |
-| 2026-06-28T17:52:15Z | USDC/WETH | FILLED | 100.0035 | 0.3500 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-28T18:14:25Z | WETH/USDC | FILLED | 100.0100 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T01:11:32Z | WETH/USDC | FILLED | 100.0142 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T01:11:32Z | USDC/WETH | FILLED | 100.0142 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T02:12:42Z | WETH/USDC | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T02:12:42Z | USDC/WETH | FILLED | 100.0139 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
-| 2026-06-29T23:31:55Z | USDC/WETH | FILLED | 100.0282 | 0.0000 | GOOD | Simulated paper execution completed through professional order lifecycle. |
+No trade journal rows yet.
 
 ## Notes
 

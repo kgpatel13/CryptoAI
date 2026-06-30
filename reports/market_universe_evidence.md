@@ -1,28 +1,28 @@
 # CryptoAI Market Universe Evidence
 
-Generated: `2026-06-29T23:31:26Z`
+Generated: `2026-06-30T02:09:57Z`
 
 ## Summary
 
 - Primary focus: `base` `WETH/USDC`
-- Active focus count: `1`
-- Research target count: `0`
+- Active focus count: `0`
+- Research target count: `1`
 - Blocked count: `7`
-- Provider status: `WATCH` with `2` alert(s)
+- Provider status: `OK` with `0` alert(s)
 
 ## Settings Evidence
 
 - Production cost buffer %: `0.30`
-- Production buffer status: `CONSERVATIVE`
-- Execution-cost confidence: `LOW`
-- Observed cost lower bound %: `0.1300`
+- Production buffer status: `INSUFFICIENT_EVIDENCE`
+- Execution-cost confidence: `INSUFFICIENT`
+- Observed cost lower bound %: `None`
 - Recommendation: Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient.
 
 ## Universe Ranking
 
 | Class | Chain | Pair | Score | Quote OK % | Healthy DEXs | Real Signals | Prod Trades | Lower-Bound Trades | Next Action |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| ACTIVE_FOCUS | base | WETH/USDC | 85 | 68.0851 | 3 | 94 | 0 | 94 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
+| RESEARCH_TARGET | base | WETH/USDC | 80 | 100.0000 | 3 | 10 | 0 | 0 | Add deeper quote/execution evidence before considering paper optimization. |
 | BLOCKED_NEEDS_QUOTES | polygon | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for polygon WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | ethereum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for ethereum WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | arbitrum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for arbitrum WETH/USDC before treating it as tradeable. |
@@ -33,9 +33,7 @@ Generated: `2026-06-29T23:31:26Z`
 
 ## Findings
 
-- `INFO` Primary research focus is base WETH/USDC.
 - `ACTION` 7 configured pair(s) need quote-provider evidence before expansion.
-- `WATCH` Provider monitor remains WATCH with 2 alert(s).
 - `INFO` Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient.
 
 ## Notes

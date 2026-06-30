@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T23:57:43Z",
+  "generated_at": "2026-06-30T02:09:19Z",
   "mode": "paper",
   "paper_profile": "unbounded_paper_lab",
   "status": "VALID",
@@ -48,8 +48,8 @@
       "min_quote_ok_rate_pct": "90"
     },
     "risk": {
-      "max_open_positions": 0,
-      "duplicate_position_block": false,
+      "max_open_positions": 1,
+      "duplicate_position_block": true,
       "cooldown_seconds": 0,
       "max_daily_loss_usd": "0",
       "kill_switch_enabled": true
@@ -65,7 +65,8 @@
       "Live trading remains disabled until live-readiness gates pass.",
       "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
       "Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.",
-      "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill."
+      "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.",
+      "Arbitrage paper trades close atomically and must not create long-lived open positions."
     ]
   },
   "runtime_environment": {
@@ -76,10 +77,10 @@
     "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "100.00",
     "CRYPTOAI_PAPER_SIZING_MODE": "full_available_cash",
     "CRYPTOAI_MAX_DAILY_PAPER_TRADES": "0",
-    "CRYPTOAI_MAX_OPEN_POSITIONS": "0",
+    "CRYPTOAI_MAX_OPEN_POSITIONS": "1",
     "CRYPTOAI_TRADE_COOLDOWN_SECONDS": "0",
     "CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS": "0",
-    "CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION": "false",
+    "CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION": "true",
     "CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT": "100.00",
     "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
     "CRYPTOAI_MAX_DAILY_LOSS_USD": "0",

@@ -1,62 +1,62 @@
 # CryptoAI Research Dashboard
 
-Generated: `2026-06-29T23:31:22Z`
+Generated: `2026-06-30T02:09:55Z`
 
 ## Mission Control
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Portfolio equity USD: `$10002.8220`
-- Total PnL USD: `$2.8220`
-- Total return %: `0.0282`
-- Feature vectors: `639`
-- Tradeable or filled records: `190`
+- Portfolio equity USD: `$-`
+- Total PnL USD: `$-`
+- Total return %: `-`
+- Feature vectors: `44`
+- Tradeable or filled records: `0`
 - Strategies: `1/5 active`
 
 ## Feature Store
 
-- Feature vectors: `639`
-- Average net edge %: `0.0495`
-- Max net edge %: `0.3830`
+- Feature vectors: `44`
+- Average net edge %: `0.1852`
+- Max net edge %: `0.2599`
 
 ### Source Counts
 
-- `opportunity_decision`: 269
-- `multi_dex_opportunity`: 277
-- `paper_order`: 67
-- `strategy_signal`: 26
+- `opportunity_decision`: 18
+- `multi_dex_opportunity`: 20
+- `paper_order`: 4
+- `strategy_signal`: 2
 
 ### Top Pairs
 
 | Pair | Count |
 |---|---:|
-| WETH/USDC | 302 |
-| USDC/WETH | 296 |
+| WETH/USDC | 22 |
+| USDC/WETH | 22 |
 
 ## Recent Features
 
 | Time | Source | Pair | Decision | Edge % | Reason |
 |---|---|---|---|---:|---|
-| 2026-06-29T23:31:21Z | strategy_signal | WETH/USDC | SKIP | -0.0091654991525793535216386928 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0092% is too low after costs. |
-| 2026-06-29T23:31:21Z | strategy_signal | USDC/WETH | READY_FOR_PAPER | 0.3830010159406717421808796956 | Opportunity Explorer BUY: net edge 0.3830% >= threshold 0.30%. |
-| 2026-06-29T22:59:28Z | strategy_signal | USDC/WETH | SKIP | -0.1234196220513873443362474363 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1234% is too low after costs. |
-| 2026-06-29T22:59:28Z | strategy_signal | WETH/USDC | SKIP | -0.0761681979172122764045773608 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0762% is too low after costs. |
-| 2026-06-29T18:18:04Z | strategy_signal | USDC/WETH | SKIP | -0.2103086317172912901719613480 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.2103% is too low after costs. |
-| 2026-06-29T18:18:04Z | strategy_signal | WETH/USDC | SKIP | 0.0111071078041971530481190535 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge 0.0111% is too low after costs. |
-| 2026-06-29T17:45:18Z | strategy_signal | USDC/WETH | SKIP | -0.1441080874515027154139680131 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1441% is too low after costs. |
-| 2026-06-29T17:45:18Z | strategy_signal | WETH/USDC | SKIP | -0.0552147966416534495753429694 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0552% is too low after costs. |
-| 2026-06-29T14:12:21Z | strategy_signal | USDC/WETH | SKIP | -0.0882186845516571827872423019 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0882% is too low after costs. |
-| 2026-06-29T14:12:21Z | strategy_signal | WETH/USDC | SKIP | -0.1128390759035909960434897425 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1128% is too low after costs. |
-| 2026-06-29T14:08:37Z | strategy_signal | USDC/WETH | SKIP | -0.0972099073325391546686591745 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0972% is too low after costs. |
-| 2026-06-29T14:08:37Z | strategy_signal | WETH/USDC | SKIP | -0.1038540157994195894303357355 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1039% is too low after costs. |
-| 2026-06-29T13:34:59Z | strategy_signal | USDC/WETH | SKIP | -0.1475851574587660361695146862 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1476% is too low after costs. |
-| 2026-06-29T13:34:59Z | strategy_signal | WETH/USDC | SKIP | -0.0530589499588809716230039761 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0531% is too low after costs. |
-| 2026-06-29T13:25:18Z | strategy_signal | USDC/WETH | SKIP | -0.1516396104383123414073092587 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1516% is too low after costs. |
-| 2026-06-29T13:25:18Z | strategy_signal | WETH/USDC | SKIP | -0.0488922657387659179562356805 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0489% is too low after costs. |
-| 2026-06-29T12:47:14Z | strategy_signal | USDC/WETH | SKIP | -0.1379511013551796416279028826 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.1380% is too low after costs. |
-| 2026-06-29T12:47:14Z | strategy_signal | WETH/USDC | SKIP | -0.0627867526571790265828422155 | Opportunity Explorer SKIP: REAL: Real multi-DEX comparison: net edge -0.0628% is too low after costs. |
-| 2026-06-29T02:29:02Z | strategy_signal | USDC/WETH | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
-| 2026-06-29T02:29:02Z | strategy_signal | WETH/USDC | READY_FOR_PAPER | 0.3500 | Opportunity Explorer BUY: net edge 0.3500% >= threshold 0.30%. |
+| 2026-06-30T02:09:55Z | strategy_signal | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Opportunity Explorer WATCH: net edge 0.1106% is positive but below BUY threshold 0.30%. |
+| 2026-06-30T02:09:55Z | strategy_signal | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Opportunity Explorer WATCH: net edge 0.2599% is positive but below BUY threshold 0.30%. |
+| 2026-06-30T02:09:29Z | paper_order | WETH/USDC | SKIPPED | 0.1106092052245993244268447881 | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1106% is below paper threshold 0.30%. |
+| 2026-06-30T02:09:29Z | paper_order | USDC/WETH | SKIPPED | 0.2598556123843567556185077586 | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2599% is below paper threshold 0.30%. |
+| 2026-06-30T02:09:25Z | paper_order | WETH/USDC | SKIPPED | 0.1106092052245993244268447881 | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1106% is below paper threshold 0.30%. |
+| 2026-06-30T02:09:25Z | paper_order | USDC/WETH | SKIPPED | 0.2598556123843567556185077586 | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2599% is below paper threshold 0.30%. |
+| 2026-06-30T02:09:55Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:55Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:53Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:53Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:51Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:51Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:30Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:30Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:29Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:29Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:28Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:28Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
+| 2026-06-30T02:09:26Z | multi_dex_opportunity | USDC/WETH | WATCH | 0.2598556123843567556185077586 | Real multi-DEX comparison: net edge 0.2599% is positive but below BUY threshold. |
+| 2026-06-30T02:09:26Z | multi_dex_opportunity | WETH/USDC | WATCH | 0.1106092052245993244268447881 | Real multi-DEX comparison: net edge 0.1106% is positive but below BUY threshold. |
 
 ## Notes
 

@@ -1,6 +1,6 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-29T23:57:43Z`
+Generated: `2026-06-30T02:09:19Z`
 
 ## Summary
 
@@ -23,8 +23,8 @@ Generated: `2026-06-29T23:57:43Z`
 - Max notional per trade USD: `100000`
 - Paper sizing mode: `full_available_cash`
 - Max daily paper trades: `0`
-- Max open positions: `0`
-- Duplicate position block: `False`
+- Max open positions: `1`
+- Duplicate position block: `True`
 - Cooldown seconds: `0`
 - Max daily loss USD: `0`
 - Production buffer %: `0.30`
@@ -45,3 +45,4 @@ Generated: `2026-06-29T23:57:43Z`
 - The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.
 - Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.
 - Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.
+- Arbitrage paper trades close atomically and must not create long-lived open positions.

@@ -24,7 +24,7 @@ class PaperReportService:
         orders = self._read_jsonl(self.paper_orders_file)
         opportunities = self._read_jsonl(self.opportunity_file)
 
-        filled = [o for o in orders if str(o.get("status", "")).upper() in {"FILLED", "PARTIAL_FILL"}]
+        filled = [o for o in orders if str(o.get("status", "")).upper() in {"FILLED", "PARTIAL_FILL", "CLOSED"}]
         skipped = [o for o in orders if str(o.get("status", "")).upper() == "SKIPPED"]
         rejected = [o for o in orders if str(o.get("status", "")).upper() in {"REJECTED", "CANCELLED", "EXPIRED"}]
         risk_rejected = [o for o in orders if str(o.get("status", "")).upper() == "RISK_REJECTED"]
@@ -56,6 +56,7 @@ class PaperReportService:
             "rejected_orders": len(rejected),
             "risk_rejected_orders": len(risk_rejected),
             "total_filled_notional_usd": str(total_notional),
+            "total_realized_pnl_usd": str(sum(self._decimal(o.get("realized_pnl_usd", "0")) for o in filled)),
             "skip_reasons": skip_reasons,
             "risk_rejection_reasons": self._reason_counts(risk_rejected),
             "execution_quality_counts": self._value_counts(filled, "execution_quality"),
@@ -100,6 +101,7 @@ class PaperReportService:
             f"- Rejected orders: `{report['rejected_orders']}`",
             f"- Portfolio risk rejections: `{report['risk_rejected_orders']}`",
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
+            f"- Total realized PnL USD: `${report['total_realized_pnl_usd']}`",
             f"- Paper portfolio cash USD: `${report['portfolio'].get('cash_usd', '-')}`",
             f"- Open paper positions: `{report['portfolio'].get('open_positions', 0)}`",
             f"- Closed paper positions: `{report['portfolio'].get('closed_positions', 0)}`",
@@ -211,14 +213,17 @@ class PaperReportService:
         lines += ["", "## Latest Orders", ""]
         orders = report["latest_orders"]
         if orders:
-            lines.append("| Time | Pair | Status | Notional | Edge % | Slip bps | Quality | Reason |")
-            lines.append("|---|---|---|---:|---:|---:|---|---|")
+            lines.append("| Time | Pair | Buy | Sell | Status | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |")
+            lines.append("|---|---|---|---|---|---:|---:|---:|---:|---:|---|---|")
             for order in orders:
                 reason = str(order.get("reason", "-")).replace("|", "/")
                 lines.append(
                     f"| {order.get('timestamp', '-')} | {order.get('pair', '-')} | "
+                    f"{order.get('buy_source', '-')} | {order.get('sell_source', '-')} | "
                     f"{order.get('status', '-')} | {order.get('notional_usd', '-')} | "
-                    f"{order.get('estimated_edge_pct', '-')} | {order.get('slippage_bps', '-')} | "
+                    f"{order.get('gross_edge_pct', '-')} | {order.get('cost_buffer_pct', '-')} | "
+                    f"{order.get('net_edge_pct', order.get('estimated_edge_pct', '-'))} | "
+                    f"{order.get('realized_pnl_usd', '-')} | "
                     f"{order.get('execution_quality', '-')} | {reason} |"
                 )
         else:

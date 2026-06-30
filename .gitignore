@@ -19,6 +19,7 @@ env/
 
 # Runtime data
 data/
+archive/
 logs/
 streamlit_*.log
 *.db

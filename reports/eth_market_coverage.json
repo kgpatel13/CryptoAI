@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-29T23:31:25Z",
+  "generated_at": "2026-06-30T02:09:56Z",
   "mode": "paper",
   "asset_focus": "ETH",
   "coverage_model": "ETH_GOLDEN_PATH",
-  "overall_coverage_score": 52,
+  "overall_coverage_score": 53,
   "overall_status": "ETH_COVERAGE_EARLY",
   "target_chain_count": 5,
   "configured_target_chain_count": 4,
@@ -52,16 +52,16 @@
       ],
       "quote_ready_route_count": 2,
       "active_quote_coverage": true,
-      "provider_count": 5,
-      "provider_score": "76.6000",
-      "coverage_score": 82,
+      "provider_count": 4,
+      "provider_score": "100.0000",
+      "coverage_score": 83,
       "score_parts": {
         "token_registry": 8,
         "dex_registry": 15,
         "quote_provider": 20,
         "quote_evidence": 20,
-        "provider_health": 11,
-        "execution_cost_evidence": 3,
+        "provider_health": 15,
+        "execution_cost_evidence": 0,
         "route_architecture": 5
       },
       "coverage_status": "DEVELOPING",
@@ -285,11 +285,11 @@
   "findings": [
     {
       "severity": "INFO",
-      "message": "ETH Golden Path overall coverage score is 52."
+      "message": "ETH Golden Path overall coverage score is 53."
     },
     {
       "severity": "ACTION",
-      "message": "Base reference coverage score is 82 with status DEVELOPING."
+      "message": "Base reference coverage score is 83 with status DEVELOPING."
     },
     {
       "severity": "ACTION",
