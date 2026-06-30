@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from app.dashboard.time_format import localize_timestamps
 from app.realtime.market_data_service import RealtimeMarketDataService
 
 
@@ -28,6 +29,6 @@ def render_realtime_market_panel() -> None:
     st.markdown("### Recent Stored Ticks")
     rows = service.recent_ticks()
     if rows:
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(localize_timestamps(rows)), use_container_width=True)
     else:
         st.info("No stored real-time ticks yet.")

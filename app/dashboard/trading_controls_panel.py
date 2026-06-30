@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from app.dashboard.time_format import localize_timestamps
 from app.execution.trading_controls_service import TradingControlsService
 
 
@@ -19,10 +20,10 @@ def render_trading_controls_panel() -> None:
     c4.metric("Live Guard", "Allowed" if status["live_guard_allowed"] else "Blocked")
 
     st.markdown("### Safety Checklist")
-    st.dataframe(pd.DataFrame(service.checklist()), use_container_width=True)
+    st.dataframe(pd.DataFrame(localize_timestamps(service.checklist())), use_container_width=True)
 
     st.markdown("### Runtime Flags")
-    st.json(status)
+    st.json(localize_timestamps(status))
 
     st.warning(
         "Live trading must remain blocked until scanner, backtesting, paper execution, "

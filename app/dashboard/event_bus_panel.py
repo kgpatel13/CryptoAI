@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from app.dashboard.time_format import localize_timestamps
 from app.events.event_service import EventBusService
 
 
@@ -30,4 +31,4 @@ def render_event_bus_panel() -> None:
             }
         )
 
-    st.dataframe(pd.DataFrame(display_rows), use_container_width=True)
+    st.dataframe(pd.DataFrame(localize_timestamps(display_rows)), use_container_width=True)

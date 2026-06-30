@@ -6,9 +6,12 @@ import os
 import traceback
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import streamlit as st
+
+from app.dashboard.time_format import format_eastern_datetime, localize_timestamps, localize_timestamps_in_text
 
 
 st.set_page_config(page_title="CryptoAI", page_icon="📊", layout="wide")
@@ -44,7 +47,7 @@ def read_text(path: Path) -> str | None:
     if not path.exists():
         return None
     try:
-        return path.read_text(encoding="utf-8", errors="replace")
+        return localize_timestamps_in_text(path.read_text(encoding="utf-8", errors="replace"))
     except Exception as exc:
         return f"Failed reading {path}: {exc}"
 
@@ -74,9 +77,13 @@ def format_decimal(value: Decimal | None, places: str = "0.0000") -> str:
     return str(value.quantize(Decimal(places)))
 
 
+def show_json(payload: Any) -> None:
+    st.json(localize_timestamps(payload))
+
+
 def dataframe_or_info(rows: list[dict], message: str) -> None:
     if rows:
-        st.dataframe(pd.DataFrame(rows), width="stretch")
+        st.dataframe(pd.DataFrame(localize_timestamps(rows)), width="stretch")
     else:
         st.info(message)
 
@@ -246,7 +253,7 @@ def render_mission_control() -> None:
     o4.metric("Heartbeat", heartbeat.get("status", "-"))
 
     if mission_summary:
-        st.json(mission_summary)
+        show_json(mission_summary)
     else:
         st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
 
@@ -288,7 +295,7 @@ def render_mission_control() -> None:
     quote_rows = quote_snapshot.get("quotes", []) if isinstance(quote_snapshot.get("quotes"), list) else []
     healthy_quotes = len([row for row in quote_rows if not row.get("error")])
     d1, d2, d3, d4 = st.columns(4)
-    d1.metric("Last Scan", best_opp.get("timestamp", latest_order.get("timestamp", "-")))
+    d1.metric("Last Scan", format_eastern_datetime(best_opp.get("timestamp", latest_order.get("timestamp", "-"))))
     d2.metric("Healthy Quotes", healthy_quotes if quote_rows else "-")
     d3.metric("Best Net Edge %", best_opp.get("estimated_net_edge_pct", "-"))
     d4.metric("Threshold %", "0.30")
@@ -368,7 +375,7 @@ def render_mission_control() -> None:
     st.success("Paper trading only. Live execution remains disabled.")
     if feature_store:
         st.markdown("### Research Data Quality")
-        st.json(feature_store.get("data_quality", {}))
+        show_json(feature_store.get("data_quality", {}))
     else:
         st.info("Research dashboard not generated yet. Run Research Dashboard from the Research page.")
 
@@ -383,7 +390,7 @@ def render_research_dashboard() -> None:
         result = safe_run("Building feature store and research dashboard...", task)
         if result is not None:
             st.success("Research dashboard generated.")
-            st.json(result)
+            show_json(result)
 
     feature_json = REPORT_DIR / "feature_store.json"
     research_json = REPORT_DIR / "research_dashboard.json"
@@ -398,7 +405,7 @@ def render_research_dashboard() -> None:
             st.markdown("### Top Pairs")
             dataframe_or_info(payload.get("top_pairs", []), "No pair feature data yet.")
             st.markdown("### Source Counts")
-            st.json(payload.get("source_counts", {}))
+            show_json(payload.get("source_counts", {}))
         except Exception as exc:
             st.error(f"Could not read feature store report: {exc}")
     else:
@@ -425,7 +432,7 @@ def render_market_intelligence() -> None:
         result = safe_run("Generating market intelligence...", task)
         if result is not None:
             st.success("Market intelligence generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Universe Evidence"):
         def task():
@@ -435,7 +442,7 @@ def render_market_intelligence() -> None:
         result = safe_run("Generating market universe evidence...", task)
         if result is not None:
             st.success("Market universe evidence generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Quote Coverage"):
         def task():
@@ -445,7 +452,7 @@ def render_market_intelligence() -> None:
         result = safe_run("Generating quote coverage evidence...", task)
         if result is not None:
             st.success("Quote coverage evidence generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate ETH Route Architecture"):
         def task():
@@ -455,7 +462,7 @@ def render_market_intelligence() -> None:
         result = safe_run("Generating ETH route architecture evidence...", task)
         if result is not None:
             st.success("ETH route architecture evidence generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate ETH Market Coverage"):
         def task():
@@ -465,7 +472,7 @@ def render_market_intelligence() -> None:
         result = safe_run("Generating ETH market coverage evidence...", task)
         if result is not None:
             st.success("ETH market coverage evidence generated.")
-            st.json(result)
+            show_json(result)
 
     report_json = REPORT_DIR / "market_intelligence.json"
     if report_json.exists():
@@ -489,7 +496,7 @@ def render_market_intelligence() -> None:
             dataframe_or_info(payload.get("pair_candidates", []), "No pair candidates yet.")
 
             st.markdown("### Provider Summary")
-            st.json(payload.get("provider_summary", {}))
+            show_json(payload.get("provider_summary", {}))
     else:
         st.info("No market_intelligence.json yet. Generate Market Intelligence or run paper autopilot.")
 
@@ -591,7 +598,7 @@ def render_provider_monitor() -> None:
         result = safe_run("Generating provider monitor...", task)
         if result is not None:
             st.success("Provider monitor generated.")
-            st.json(result)
+            show_json(result)
 
     report_json = REPORT_DIR / "provider_monitor.json"
     if report_json.exists():
@@ -637,7 +644,7 @@ def render_paper_autopilot() -> None:
         result = safe_run("Running paper autopilot...", task)
         if result is not None:
             st.success("Paper autopilot completed.")
-            st.json(result)
+            show_json(result)
 
     st.markdown("### 24/7 Launch Command")
     st.code("python -m app.automation.paper_autopilot --loop --use-settings", language="bash")
@@ -893,7 +900,7 @@ def render_reports() -> None:
         result = safe_run("Generating paper report...", task)
         if result is not None:
             st.success("Paper report generated.")
-            st.json(result)
+            show_json(result)
 
     for title, path in [
         ("Quote Diagnostics", REPORT_DIR / "quote_diagnostics.md"),
@@ -1118,7 +1125,7 @@ def render_paper_orders() -> None:
             status = str(row.get("status", "UNKNOWN"))
             status_counts[status] = status_counts.get(status, 0) + 1
         st.markdown("### Status Counts")
-        st.json(status_counts)
+        show_json(status_counts)
 
 
 def render_paper_portfolio() -> None:
@@ -1152,7 +1159,7 @@ def render_paper_portfolio() -> None:
                 "Paper-order history differs from active portfolio state. "
                 "Cash and Daily PnL below use paper_portfolio_state.json."
             )
-        st.json(reconciliation)
+        show_json(reconciliation)
 
     st.markdown("### Open Positions")
     dataframe_or_info(positions, "No open paper positions.")
@@ -1165,7 +1172,7 @@ def render_paper_portfolio() -> None:
     safe_state["positions"] = f"{len(state.get('positions', []))} row(s)"
     safe_state["arbitrage_trades"] = f"{len(state.get('arbitrage_trades', []))} row(s)"
     safe_state["signal_history"] = f"{len(state.get('signal_history', []))} row(s)"
-    st.json(safe_state)
+    show_json(safe_state)
 
 
 def render_portfolio_analytics() -> None:
@@ -1179,7 +1186,7 @@ def render_portfolio_analytics() -> None:
         result = safe_run("Generating portfolio analytics...", task)
         if result is not None:
             st.success("Portfolio analytics generated.")
-            st.json(result)
+            show_json(result)
 
     analytics_path = REPORT_DIR / "portfolio_analytics.json"
     if analytics_path.exists():
@@ -1212,7 +1219,7 @@ def render_portfolio_analytics() -> None:
                         "Historical paper-order journal differs from active portfolio state. "
                         "Analytics totals, Daily PnL, and equity curve use the active portfolio ledger."
                     )
-                st.json(reconciliation)
+                show_json(reconciliation)
 
             st.markdown("### Daily PnL")
             dataframe_or_info(analytics.get("daily_pnl", []), "No daily PnL rows yet.")
@@ -1254,7 +1261,7 @@ def render_strategy_center() -> None:
         result = safe_run("Generating strategy center...", task)
         if result is not None:
             st.success("Strategy Center generated.")
-            st.json(result)
+            show_json(result)
 
     strategy_json = REPORT_DIR / "strategy_center.json"
     if strategy_json.exists():
@@ -1294,7 +1301,7 @@ def render_strategy_intelligence() -> None:
         result = safe_run("Generating strategy intelligence...", task)
         if result is not None:
             st.success("Strategy intelligence generated.")
-            st.json(result)
+            show_json(result)
 
     report_json = REPORT_DIR / "strategy_intelligence.json"
     if report_json.exists():
@@ -1310,7 +1317,7 @@ def render_strategy_intelligence() -> None:
             c3.metric("Promotion Allowed", payload.get("promotion_allowed", "-"))
             c4.metric("Mode", payload.get("mode", "-"))
             st.markdown("### Context")
-            st.json(payload.get("context", {}))
+            show_json(payload.get("context", {}))
             st.markdown("### Strategy Scores")
             dataframe_or_info(payload.get("strategies", []), "No strategy intelligence rows yet.")
     else:
@@ -1345,7 +1352,7 @@ def render_risk_controls() -> None:
         result = safe_run("Generating live safety report...", task)
         if result is not None:
             st.success("Live safety report generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Wallet Preflight"):
         def task():
@@ -1355,7 +1362,7 @@ def render_risk_controls() -> None:
         result = safe_run("Generating wallet preflight...", task)
         if result is not None:
             st.success("Wallet preflight generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Live Readiness Checklist"):
         def task():
@@ -1365,7 +1372,7 @@ def render_risk_controls() -> None:
         result = safe_run("Generating live readiness checklist...", task)
         if result is not None:
             st.success("Live readiness checklist generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Transaction Simulation"):
         def task():
@@ -1375,7 +1382,7 @@ def render_risk_controls() -> None:
         result = safe_run("Generating transaction simulation evidence...", task)
         if result is not None:
             st.success("Transaction simulation report generated.")
-            st.json(result)
+            show_json(result)
 
     if st.button("Generate Tiny Live Pilot Plan"):
         def task():
@@ -1385,7 +1392,7 @@ def render_risk_controls() -> None:
         result = safe_run("Generating tiny live pilot plan...", task)
         if result is not None:
             st.success("Tiny live pilot plan generated.")
-            st.json(result)
+            show_json(result)
 
     st.markdown("### Tiny Live Pilot Plan")
     tiny_live_txt = read_text(REPORT_DIR / "tiny_live_pilot.md")
@@ -1454,7 +1461,7 @@ def render_risk_controls() -> None:
         "CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS": os.getenv("CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS", "900"),
         "CRYPTOAI_MAX_OPEN_POSITIONS": os.getenv("CRYPTOAI_MAX_OPEN_POSITIONS", "8"),
     }
-    st.json(flags)
+    show_json(flags)
 
     if flags["CRYPTOAI_LIVE_TRADING_ENABLED"].lower() in {"1", "true", "yes", "on"}:
         st.error("Live trading flag is ON. Turn it OFF during paper testing.")
@@ -1549,7 +1556,7 @@ def render_system_health() -> None:
                 "size_bytes": path.stat().st_size if path.exists() and path.is_file() else None,
             }
         )
-    st.dataframe(pd.DataFrame(rows), width="stretch")
+    st.dataframe(pd.DataFrame(localize_timestamps(rows)), width="stretch")
 
     st.markdown("### Provider Health")
     provider_health_path = DATA_DIR / "provider_health.json"
@@ -1558,7 +1565,7 @@ def render_system_health() -> None:
             payload = json.loads(provider_health_path.read_text(encoding="utf-8", errors="replace"))
             providers = payload.get("providers", [])
             if providers:
-                st.dataframe(pd.DataFrame(providers), width="stretch")
+                st.dataframe(pd.DataFrame(localize_timestamps(providers)), width="stretch")
             else:
                 st.info("Provider health file exists but has no provider rows yet.")
         except Exception as exc:
@@ -1572,7 +1579,7 @@ def render_system_health() -> None:
         try:
             payload = json.loads(snapshot_path.read_text(encoding="utf-8", errors="replace"))
             saved_at = payload.get("saved_at")
-            st.json({"saved_at_epoch": saved_at, "quote_count": len(payload.get("quotes", []))})
+            show_json({"saved_at_epoch": saved_at, "quote_count": len(payload.get("quotes", []))})
         except Exception as exc:
             st.error(f"Could not read quote snapshot: {exc}")
     else:

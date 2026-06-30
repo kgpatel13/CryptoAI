@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from app.dashboard.time_format import localize_timestamps
 from app.database.state_service import StateService
 
 
@@ -20,6 +21,6 @@ def render_database_panel() -> None:
     st.markdown("### Recent Portfolio Snapshots")
     rows = service.recent_portfolio_snapshots()
     if rows:
-        st.dataframe(pd.DataFrame(rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(localize_timestamps(rows)), use_container_width=True)
     else:
         st.info("No portfolio snapshots saved yet.")

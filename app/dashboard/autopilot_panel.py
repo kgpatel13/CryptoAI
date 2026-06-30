@@ -4,6 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from app.automation.paper_autopilot import PaperAutopilot
+from app.dashboard.time_format import localize_timestamps
 
 
 def render_autopilot_panel() -> None:
@@ -21,8 +22,8 @@ def render_autopilot_panel() -> None:
 
         steps = result.get("steps", [])
         if steps:
-            st.dataframe(pd.DataFrame(steps), use_container_width=True)
+            st.dataframe(pd.DataFrame(localize_timestamps(steps)), use_container_width=True)
 
-        st.json(result)
+        st.json(localize_timestamps(result))
 
     st.warning("This panel is paper-only. It refuses to run if live trading is enabled.")
