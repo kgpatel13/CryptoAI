@@ -3,10 +3,10 @@
 - Service: paper_autopilot
 - Status: STOPPED
 - Mode: PAPER
-- Run ID: 3d3cb314-dc8
-- Started At: 2026-06-30T15:28:37Z
-- Updated At: 2026-06-30T15:28:49Z
-- Uptime Seconds: 12.01
+- Run ID: ecf93dc5-19b
+- Started At: 2026-06-30T17:36:32Z
+- Updated At: 2026-06-30T17:36:48Z
+- Uptime Seconds: 16.23
 - Cycles Completed: 2
 - Cycles Failed: 0
 - Last Cycle Status: OK
@@ -16,6 +16,6 @@
 ## Operational Metrics
 
 - Heartbeats Emitted: 4
-- Last Cycle Latency ms: 4556.54
-- Average Cycle Latency ms: 6000.68
+- Last Cycle Latency ms: 6088.22
+- Average Cycle Latency ms: 8106.05
 - Scheduler Status Counts: {'OK': 2}

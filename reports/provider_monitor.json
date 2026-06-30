@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T15:28:48Z",
+  "generated_at": "2026-06-30T17:36:47Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "OK",
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 255.65,
-      "last_observed_age_seconds": 9.14,
+      "avg_latency_ms": 321.85,
+      "last_observed_age_seconds": 12.18,
       "last_error": null,
       "alerts": []
     },
@@ -35,8 +35,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 254.97,
-      "last_observed_age_seconds": 10.02,
+      "avg_latency_ms": 316.94,
+      "last_observed_age_seconds": 13.18,
       "last_error": null,
       "alerts": []
     },
@@ -44,15 +44,15 @@
       "name": "Uniswap V3",
       "provider_type": "dex",
       "chain": "base",
-      "score": 100,
+      "score": 99,
       "status": "OK",
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 639.94,
-      "last_observed_age_seconds": 7.42,
+      "avg_latency_ms": 757.28,
+      "last_observed_age_seconds": 10.55,
       "last_error": null,
       "alerts": []
     },
@@ -67,8 +67,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 213.53,
-      "last_observed_age_seconds": 0.32,
+      "avg_latency_ms": 223.89,
+      "last_observed_age_seconds": 0.46,
       "last_error": null,
       "alerts": []
     }

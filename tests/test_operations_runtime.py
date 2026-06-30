@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from app.automation.paper_autopilot import PaperAutopilot, SingleInstanceLock
+from app.automation.paper_autopilot import PaperAutopilot, SingleInstanceLock, refuse_if_autopilot_already_running
 from app.operations.models import RuntimeStatus
 from app.operations.runtime import OperationsRuntime
 
@@ -37,6 +37,14 @@ class OperationsRuntimeTests(unittest.TestCase):
                 self.assertIsNotNone(lock.handle)
             finally:
                 lock.release()
+
+    def test_process_guard_refuses_existing_autopilot_process(self) -> None:
+        with patch(
+            "app.automation.paper_autopilot.active_autopilot_processes",
+            return_value=[{"pid": "123", "parent_pid": "1", "command_line": "python -m app.automation.paper_autopilot"}],
+        ):
+            with self.assertRaisesRegex(RuntimeError, "already running"):
+                refuse_if_autopilot_already_running()
 
     def test_runtime_writes_heartbeat_state_metrics_and_summary(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

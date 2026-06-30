@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import subprocess
 import sys
 import time
 from datetime import UTC, datetime
@@ -175,6 +176,63 @@ class SingleInstanceLock:
             return self.handle.read().strip()
         except Exception:
             return "active lock"
+
+
+def active_autopilot_processes(current_pid: int | None = None) -> list[dict[str, str]]:
+    """Return already-running paper autopilot processes excluding this process."""
+
+    current = current_pid if current_pid is not None else os.getpid()
+    if os.name == "nt":
+        command = (
+            "Get-CimInstance Win32_Process | "
+            "Where-Object { $_.Name -match 'python' -and $_.CommandLine -match 'app\\\\.automation\\\\.paper_autopilot' } | "
+            "Select-Object ProcessId,ParentProcessId,CommandLine | ConvertTo-Json -Compress"
+        )
+        try:
+            result = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", command],
+                capture_output=True,
+                text=True,
+                timeout=5,
+                check=False,
+            )
+        except Exception:
+            return []
+        if result.returncode != 0 or not result.stdout.strip():
+            return []
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError:
+            return []
+        rows = payload if isinstance(payload, list) else [payload]
+        processes = []
+        for row in rows:
+            try:
+                pid = int(row.get("ProcessId"))
+            except (TypeError, ValueError):
+                continue
+            if pid == current:
+                continue
+            processes.append(
+                {
+                    "pid": str(pid),
+                    "parent_pid": str(row.get("ParentProcessId", "")),
+                    "command_line": str(row.get("CommandLine", "")),
+                }
+            )
+        return processes
+
+    return []
+
+
+def refuse_if_autopilot_already_running() -> None:
+    running = active_autopilot_processes()
+    if not running:
+        return
+    raise RuntimeError(
+        "Paper autopilot is already running; active_processes="
+        + ", ".join(f"pid={row['pid']} parent={row['parent_pid']}" for row in running)
+    )
 
 
 class PaperAutopilot:
@@ -465,6 +523,7 @@ def main() -> None:
             )
         else:
             try:
+                refuse_if_autopilot_already_running()
                 with SingleInstanceLock():
                     autopilot.run_loop(
                         interval_seconds=max(0, args.interval_seconds),

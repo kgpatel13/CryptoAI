@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T15:31:12Z`
+Generated: `2026-06-30T17:37:45Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `500`
 - Max live trade USD: `50`
 - Max daily loss USD: `10`
-- Blocked checks: `10` / `20`
+- Blocked checks: `9` / `20`
 
 ## Checks
 
@@ -27,7 +27,7 @@ Generated: `2026-06-30T15:31:12Z`
 | token_allowlist | PASS | Live token allowlist is restricted to approved tokens. |
 | transaction_simulation | BLOCK | Transaction simulation is required and has not passed. |
 | paper_shadow_review | BLOCK | Paper run is not yet ready for shadow review. |
-| paper_closed_trades | BLOCK | Fresh paper run needs at least 30 closed trades. |
+| paper_closed_trades | PASS | Fresh paper run has enough closed trades. |
 | execution_cost_confidence | BLOCK | Execution-cost confidence is INSUFFICIENT; required HIGH. |
 | execution_cost_samples | BLOCK | Execution-cost evidence needs at least 30 paper samples. |
 | provider_health | PASS | Provider monitor is OK. |

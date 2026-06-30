@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 10,
+  "blocked_check_count": 9,
   "check_count": 20,
   "checks": [
     {
@@ -87,10 +87,10 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Fresh paper run needs at least 30 closed trades.",
+      "detail": "Fresh paper run has enough closed trades.",
       "name": "paper_closed_trades",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Execution-cost confidence is INSUFFICIENT; required HIGH.",
@@ -123,7 +123,7 @@
       "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T15:31:12Z",
+  "generated_at": "2026-06-30T17:37:45Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "10",
