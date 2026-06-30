@@ -666,7 +666,7 @@ def render_paper_settings() -> None:
     dataframe_or_info(validation.get("findings", []), "No settings findings.")
 
     with st.form("paper_settings_form"):
-        profile_options = ["standard", "aggressive_paper", "unbounded_paper_lab"]
+        profile_options = ["standard", "aggressive_paper", "unbounded_paper_lab", "shadow_500"]
         selected_profile = str(settings.get("paper_profile", "standard"))
         profile = st.selectbox(
             "Paper profile",
@@ -892,6 +892,7 @@ def render_reports() -> None:
         ("Opportunity Explorer", REPORT_DIR / "opportunity_explorer.md"),
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
         ("Paper Run Review", REPORT_DIR / "paper_run_review.md"),
+        ("Live Safety", REPORT_DIR / "live_safety.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),
@@ -1310,12 +1311,56 @@ def render_strategy_intelligence() -> None:
 
 def render_risk_controls() -> None:
     st.subheader("Risk & Trading Controls")
+    TradingControlsService = import_object("app.execution.trading_controls_service", "TradingControlsService")
+    service = TradingControlsService()
+    status = service.get_status()
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Live Trading", "ON" if status["live_trading_enabled"] else "OFF")
+    c2.metric("Kill Switch", "ON" if status["live_kill_switch_enabled"] else "OFF")
+    c3.metric("Live Guard", "Allowed" if status["live_guard_allowed"] else "Blocked")
+    c4.metric("Max Wallet USD", status.get("max_live_wallet_usd", "0"))
+
+    st.markdown("### Live Safety Checklist")
+    dataframe_or_info(service.checklist(), "No live safety checks available.")
+
+    if st.button("Generate Live Safety Report"):
+        def task():
+            LiveSafetyReportService = import_object("app.execution.live_safety_report", "LiveSafetyReportService")
+            return LiveSafetyReportService().generate()
+
+        result = safe_run("Generating live safety report...", task)
+        if result is not None:
+            st.success("Live safety report generated.")
+            st.json(result)
+
+    st.markdown("### Live Safety Report")
+    txt = read_text(REPORT_DIR / "live_safety.md")
+    if txt:
+        st.markdown(txt)
+    else:
+        st.info("No live_safety.md found yet. Generate the Live Safety Report first.")
+
+    st.markdown("### Runtime Flags")
     flags = {
         "CRYPTOAI_LIVE_TRADING_ENABLED": os.getenv("CRYPTOAI_LIVE_TRADING_ENABLED", "false"),
         "CRYPTOAI_PAPER_TRADING_ENABLED": os.getenv("CRYPTOAI_PAPER_TRADING_ENABLED", "true"),
+        "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": os.getenv("CRYPTOAI_LIVE_KILL_SWITCH_ENABLED", "true"),
         "CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION": os.getenv("CRYPTOAI_REQUIRE_MANUAL_CONFIRMATION", "true"),
+        "CRYPTOAI_LIVE_WALLET_ADDRESS": "PRESENT" if os.getenv("CRYPTOAI_LIVE_WALLET_ADDRESS") else "ABSENT",
+        "CRYPTOAI_MAIN_WALLET_ADDRESS": "PRESENT" if os.getenv("CRYPTOAI_MAIN_WALLET_ADDRESS") else "ABSENT",
+        "CRYPTOAI_MAX_LIVE_WALLET_USD": os.getenv("CRYPTOAI_MAX_LIVE_WALLET_USD", "0"),
         "CRYPTOAI_MAX_LIVE_TRADE_USD": os.getenv("CRYPTOAI_MAX_LIVE_TRADE_USD", "0"),
         "CRYPTOAI_MAX_DAILY_LOSS_USD": os.getenv("CRYPTOAI_MAX_DAILY_LOSS_USD", "0"),
+        "CRYPTOAI_LIVE_ALLOWED_CHAINS": os.getenv("CRYPTOAI_LIVE_ALLOWED_CHAINS", "base"),
+        "CRYPTOAI_LIVE_ALLOWED_DEXES": os.getenv("CRYPTOAI_LIVE_ALLOWED_DEXES", "Uniswap V3,Aerodrome"),
+        "CRYPTOAI_LIVE_ALLOWED_TOKENS": os.getenv("CRYPTOAI_LIVE_ALLOWED_TOKENS", "WETH,USDC"),
+        "CRYPTOAI_REQUIRE_TX_SIMULATION": os.getenv("CRYPTOAI_REQUIRE_TX_SIMULATION", "true"),
+        "CRYPTOAI_TX_SIMULATION_PASSED": os.getenv("CRYPTOAI_TX_SIMULATION_PASSED", "false"),
+        "CRYPTOAI_REQUIRE_PAPER_EVIDENCE": os.getenv("CRYPTOAI_REQUIRE_PAPER_EVIDENCE", "true"),
+        "CRYPTOAI_MIN_PAPER_CLOSED_TRADES": os.getenv("CRYPTOAI_MIN_PAPER_CLOSED_TRADES", "30"),
+        "CRYPTOAI_MIN_EXECUTION_COST_CONFIDENCE": os.getenv("CRYPTOAI_MIN_EXECUTION_COST_CONFIDENCE", "HIGH"),
+        "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD": os.getenv("CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD", "100"),
         "CRYPTOAI_PRIVATE_KEY": "PRESENT" if os.getenv("CRYPTOAI_PRIVATE_KEY") else "ABSENT",
         "CRYPTOAI_PAPER_INITIAL_CASH_USD": os.getenv("CRYPTOAI_PAPER_INITIAL_CASH_USD", "10000"),
         "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": os.getenv("CRYPTOAI_PAPER_RISK_PER_TRADE_PCT", "1.00"),
@@ -1355,6 +1400,8 @@ def render_system_health() -> None:
         REPORT_DIR / "multi_dex_opportunities.md",
         REPORT_DIR / "opportunity_explorer.md",
         REPORT_DIR / "paper_report.md",
+        REPORT_DIR / "live_safety.json",
+        REPORT_DIR / "live_safety.md",
         REPORT_DIR / "portfolio_analytics.json",
         REPORT_DIR / "portfolio_analytics.md",
         DATA_DIR / "strategy_signals.jsonl",
@@ -1459,6 +1506,7 @@ def render_setup() -> None:
         python -m app.opportunities.opportunity_explorer
         python -m app.automation.paper_autopilot --once
         python -m app.reporting.paper_report
+        python -m app.execution.live_safety_report
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

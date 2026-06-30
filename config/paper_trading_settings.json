@@ -1,7 +1,7 @@
 {
   "version": 1,
   "mode": "paper",
-  "paper_profile": "unbounded_paper_lab",
+  "paper_profile": "shadow_500",
   "live_trading_enabled": false,
   "operations": {
     "loop_interval_seconds": 0,
@@ -25,9 +25,9 @@
     "allow_stale_quotes_for_live": false
   },
   "paper_capital": {
-    "initial_capital_eth": "1.0",
+    "initial_capital_eth": "0.5",
     "eth_reference_usd": "1000",
-    "max_notional_usd_per_trade": "1000",
+    "max_notional_usd_per_trade": "500",
     "max_daily_paper_trades": 0,
     "sizing_mode": "full_available_cash"
   },
@@ -55,7 +55,7 @@
     "Paper settings are launch controls for continuous simulation only.",
     "Live trading remains disabled until live-readiness gates pass.",
     "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
-    "Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.",
+    "Shadow 500 profile uses a $500 production-like paper capital ceiling for multi-day validation; live trading remains disabled.",
     "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.",
     "Arbitrage paper trades close atomically and must not create long-lived open positions."
   ]

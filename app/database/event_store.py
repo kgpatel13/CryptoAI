@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, is_dataclass
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
 from enum import Enum
 from typing import Any
@@ -17,7 +17,7 @@ class EventStore:
         initialize_database()
 
     def record_event(self, event_type: str, source: str, payload: Any) -> None:
-        created_at = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        created_at = datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
         payload_json = json.dumps(self._serialize(payload))
 
         with get_connection() as conn:

@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-06-30T07:34:52Z",
+  "generated_at": "2026-06-30T08:03:41Z",
   "mode": "paper",
-  "paper_profile": "unbounded_paper_lab",
+  "paper_profile": "shadow_500",
   "status": "VALID",
   "error_count": 0,
   "warning_count": 0,
-  "paper_capital_usd": "1000.00",
+  "paper_capital_usd": "500.00",
   "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings",
   "settings": {
     "version": 1,
     "mode": "paper",
-    "paper_profile": "unbounded_paper_lab",
+    "paper_profile": "shadow_500",
     "live_trading_enabled": false,
     "operations": {
       "loop_interval_seconds": 0,
@@ -34,9 +34,9 @@
       "allow_stale_quotes_for_live": false
     },
     "paper_capital": {
-      "initial_capital_eth": "1.0",
+      "initial_capital_eth": "0.5",
       "eth_reference_usd": "1000",
-      "max_notional_usd_per_trade": "1000",
+      "max_notional_usd_per_trade": "500",
       "max_daily_paper_trades": 0,
       "sizing_mode": "full_available_cash"
     },
@@ -64,15 +64,15 @@
       "Paper settings are launch controls for continuous simulation only.",
       "Live trading remains disabled until live-readiness gates pass.",
       "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
-      "Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.",
+      "Shadow 500 profile uses a $500 production-like paper capital ceiling for multi-day validation; live trading remains disabled.",
       "Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.",
       "Arbitrage paper trades close atomically and must not create long-lived open positions."
     ]
   },
   "runtime_environment": {
-    "CRYPTOAI_PAPER_INITIAL_CASH_USD": "1000.00",
-    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "1000",
-    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "1000",
+    "CRYPTOAI_PAPER_INITIAL_CASH_USD": "500.00",
+    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "500",
+    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "500",
     "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "100.00",
     "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "100.00",
     "CRYPTOAI_PAPER_SIZING_MODE": "full_available_cash",

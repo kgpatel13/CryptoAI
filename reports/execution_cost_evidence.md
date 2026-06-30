@@ -1,6 +1,6 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-30T07:46:44Z`
+Generated: `2026-06-30T08:03:42Z`
 
 ## Summary
 
@@ -38,9 +38,9 @@ Generated: `2026-06-30T07:46:44Z`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `932`
+- Real replay signals: `1280`
 - Max gross edge %: `0.6643`
-- Production-buffer trades: `410`
+- Production-buffer trades: `463`
 - Production required gross edge %: `0.60`
 - Lower-bound cost trades: `0`
 - Lower-bound replay PnL USD: `0.0000`

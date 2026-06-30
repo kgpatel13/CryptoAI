@@ -1,13 +1,13 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-30T07:34:52Z`
+Generated: `2026-06-30T08:03:41Z`
 
 ## Summary
 
 - Status: `VALID`
 - Mode: `paper`
-- Paper profile: `unbounded_paper_lab`
-- Paper capital USD: `1000.00`
+- Paper profile: `shadow_500`
+- Paper capital USD: `500.00`
 - Errors: `0`
 - Warnings: `0`
 - Launch command: `python -m app.automation.paper_autopilot --loop --use-settings`
@@ -19,8 +19,8 @@ Generated: `2026-06-30T07:34:52Z`
 - Routes: `WETH/USDC, USDC/WETH`
 - DEXs: `Uniswap V2, Aerodrome, Uniswap V3`
 - Loop interval seconds: `0`
-- Initial paper capital ETH: `1.0`
-- Max notional per trade USD: `1000`
+- Initial paper capital ETH: `0.5`
+- Max notional per trade USD: `500`
 - Paper sizing mode: `full_available_cash`
 - Max daily paper trades: `0`
 - Max open positions: `1`
@@ -43,6 +43,6 @@ Generated: `2026-06-30T07:34:52Z`
 - Paper settings are launch controls for continuous simulation only.
 - Live trading remains disabled until live-readiness gates pass.
 - The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.
-- Unbounded paper lab removes paper-only throttles for stress testing; live trading remains disabled.
+- Shadow 500 profile uses a $500 production-like paper capital ceiling for multi-day validation; live trading remains disabled.
 - Full available cash sizing lets approved paper trades request the configured max trade size, then portfolio cash caps the actual fill.
 - Arbitrage paper trades close atomically and must not create long-lived open positions.

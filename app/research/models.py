@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
 from uuid import uuid4
 
 
 def utc_now() -> str:
-    return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 @dataclass(frozen=True)
@@ -153,4 +153,4 @@ def _parse_dt(value: str) -> datetime:
     try:
         return datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
     except Exception:
-        return datetime.utcnow()
+        return datetime.now(UTC).replace(tzinfo=None)

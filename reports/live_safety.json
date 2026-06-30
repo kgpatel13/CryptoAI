@@ -1,0 +1,172 @@
+{
+  "blocked_check_count": 14,
+  "check_count": 20,
+  "checks": [
+    {
+      "detail": "Live trading feature flag is disabled.",
+      "name": "live_feature_flag",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live kill switch is ON.",
+      "name": "kill_switch",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "No private key is configured. Live trading remains blocked.",
+      "name": "private_key",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "No isolated live wallet address is configured.",
+      "name": "isolated_wallet_address",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live wallet matches the configured main wallet; wallet isolation failed.",
+      "name": "wallet_isolation",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Max live wallet ceiling must be > $0 and <= $500.",
+      "name": "wallet_ceiling",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Max live trade size must be > $0 and below wallet and tiny-pilot ceilings.",
+      "name": "trade_cap",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Max daily loss must be > $0 and no larger than max live trade size.",
+      "name": "daily_loss_cap",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Manual confirmation is required; autonomous live execution is blocked.",
+      "name": "manual_confirmation",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live chain allowlist is restricted to approved chains.",
+      "name": "chain_allowlist",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live DEX allowlist is restricted to approved DEXs.",
+      "name": "dex_allowlist",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live token allowlist is restricted to approved tokens.",
+      "name": "token_allowlist",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Transaction simulation is required and has not passed.",
+      "name": "transaction_simulation",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Paper run is not yet ready for shadow review.",
+      "name": "paper_shadow_review",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Fresh paper run needs at least 30 closed trades.",
+      "name": "paper_closed_trades",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Execution-cost confidence is INSUFFICIENT; required HIGH.",
+      "name": "execution_cost_confidence",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Execution-cost evidence needs at least 30 paper samples.",
+      "name": "execution_cost_samples",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Provider monitor is OK.",
+      "name": "provider_health",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Report audit is clean.",
+      "name": "report_audit",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Execution realism has shadow-ready evidence and no live approvals.",
+      "name": "execution_realism",
+      "passed": true,
+      "severity": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-30T08:12:13Z",
+  "live_guard_allowed": false,
+  "live_guard_reason": "Live trading feature flag is disabled.",
+  "max_daily_loss_usd": "0",
+  "max_live_trade_usd": "0",
+  "max_live_wallet_usd": "0",
+  "mode": "paper",
+  "notes": [
+    "Live Safety is a design and evidence gate only; it does not send transactions.",
+    "The current platform remains paper/shadow only.",
+    "The first real-money pilot should use a dedicated wallet with $500 or less total capital and a smaller per-trade cap."
+  ],
+  "overall_status": "LIVE_BLOCKED",
+  "runtime_status": {
+    "guard_max_daily_loss_usd": "0",
+    "guard_max_trade_usd": "0",
+    "guard_max_wallet_usd": "0",
+    "live_allowed_chains": [
+      "base"
+    ],
+    "live_allowed_dexes": [
+      "Uniswap V3",
+      "Aerodrome"
+    ],
+    "live_allowed_tokens": [
+      "WETH",
+      "USDC"
+    ],
+    "live_guard_allowed": false,
+    "live_guard_reason": "Live trading feature flag is disabled.",
+    "live_kill_switch_enabled": true,
+    "live_trading_enabled": false,
+    "live_wallet_configured": false,
+    "main_wallet_configured": false,
+    "max_daily_loss_usd": "0",
+    "max_live_trade_usd": "0",
+    "max_live_wallet_usd": "0",
+    "min_execution_cost_confidence": "HIGH",
+    "min_paper_closed_trades": 30,
+    "paper_trading_enabled": true,
+    "private_key_configured": false,
+    "require_manual_confirmation": true,
+    "require_paper_evidence": true,
+    "require_transaction_simulation": true,
+    "transaction_simulation_passed": false
+  }
+}

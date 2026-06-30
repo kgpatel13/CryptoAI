@@ -136,6 +136,55 @@ class ExecutionCostEvidenceServiceTests(unittest.TestCase):
             self.assertEqual(payload["assessment"]["buffer_status"], "INSUFFICIENT_EVIDENCE")
             self.assertEqual(payload["assessment"]["confidence"], "INSUFFICIENT")
 
+    def test_closed_arbitrage_round_trips_count_as_execution_cost_samples(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp) / "data"
+            reports = Path(tmp) / "reports"
+            data.mkdir()
+            reports.mkdir()
+
+            (data / "paper_orders.jsonl").write_text(
+                "\n".join(
+                    json.dumps(
+                        {
+                            "timestamp": f"2026-06-29T00:{minute:02d}:00Z",
+                            "status": "CLOSED",
+                            "execution_type": "ARBITRAGE_ROUND_TRIP",
+                            "filled_notional_usd": "500",
+                            "slippage_bps": "5",
+                            "latency_ms": 250,
+                            "execution_quality": "GOOD",
+                        }
+                    )
+                    for minute in range(12)
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            (data / "opportunity_decisions.jsonl").write_text(
+                json.dumps(
+                    {
+                        "timestamp": "2026-06-29T00:00:00Z",
+                        "gas_buffer_pct": "0.08",
+                        "fee_slippage_buffer_pct": "0.22",
+                        "total_cost_buffer_pct": "0.30",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            (data / "quote_diagnostics.jsonl").write_text(
+                "\n".join(json.dumps({"status": "OK", "dex": "Uniswap V3", "latency_ms": 100}) for _ in range(12))
+                + "\n",
+                encoding="utf-8",
+            )
+
+            payload = ExecutionCostEvidenceService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(payload["paper_execution_evidence"]["sample_count"], 12)
+            self.assertEqual(payload["assessment"]["confidence"], "MEDIUM")
+            self.assertEqual(payload["assessment"]["observed_total_cost_lower_bound_pct"], "0.1300")
+
     def test_high_confidence_lower_bound_can_identify_too_high_buffer(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             data = Path(tmp) / "data"

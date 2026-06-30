@@ -126,7 +126,7 @@ class ExecutionCostEvidenceService:
         filled = [
             row
             for row in orders
-            if str(row.get("status", "")).upper() in {"FILLED", "PARTIAL_FILL"}
+            if str(row.get("status", "")).upper() in {"FILLED", "PARTIAL_FILL", "CLOSED"}
             and self._to_decimal(row.get("slippage_bps")) is not None
         ]
         slippage_bps = [self._decimal(row.get("slippage_bps")) for row in filled]

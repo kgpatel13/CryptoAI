@@ -1,18 +1,18 @@
 # CryptoAI Paper Run Review
 
-Generated: `2026-06-30T07:52:23Z`
+Generated: `2026-06-30T08:03:43Z`
 
 ## Summary
 
-- Overall status: `SHADOW_REVIEW_CANDIDATE`
-- Recommendation: `Review sustained paper evidence before any live-trading design decision.`
-- Shadow decision: `REVIEW_READY`
+- Overall status: `COLLECTING_PAPER_EVIDENCE`
+- Recommendation: `Continue paper run until closed trade evidence exists.`
+- Shadow decision: `BLOCKED`
 - Live decision: `BLOCKED`
-- Initial cash USD: `$1000.0000`
-- Cash USD: `$1422.5483`
-- Realized PnL USD: `$422.5483`
-- Return %: `42.2548`
-- Closed trades: `105`
+- Initial cash USD: `$500.0000`
+- Cash USD: `$500.0000`
+- Realized PnL USD: `$0.0000`
+- Return %: `0.0000`
+- Closed trades: `0`
 - Losing trades: `0`
 - Open positions: `0`
 - Provider status: `OK`
@@ -28,14 +28,14 @@ Generated: `2026-06-30T07:52:23Z`
 | no_losing_closed_trades | PASS | losing_trades=0 |
 | provider_ok | PASS | provider_status=OK |
 | pool_depth_ready | PASS | depth_ready_routes=2; status=DEPTH_EVIDENCE_READY |
-| execution_shadow_ready | PASS | shadow_ready=2; status=SHADOW_REVIEW_READY |
+| execution_shadow_ready | PASS | shadow_ready=1; status=SHADOW_REVIEW_READY |
 | report_audit_clean | PASS | findings=0 |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| INFO | Paper run is profitable so far: $422.5483 across 105 closed trade(s). |
+| WATCH | No closed paper trades yet after fresh reset. |
 
 ## Notes
 

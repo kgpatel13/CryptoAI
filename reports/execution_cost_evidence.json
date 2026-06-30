@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T07:46:44Z",
+  "generated_at": "2026-06-30T08:03:42Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -44,7 +44,7 @@
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "382.6000",
+    "avg_provider_latency_ms": "383.0025",
     "avg_provider_score": "100.0000",
     "providers": [
       {
@@ -52,7 +52,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 304.47,
+        "avg_latency_ms": 295.15,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -61,7 +61,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 305.83,
+        "avg_latency_ms": 321.26,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -70,7 +70,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 661.77,
+        "avg_latency_ms": 658.04,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -79,18 +79,18 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 258.33,
+        "avg_latency_ms": 257.56,
         "score": 100,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 932,
+    "real_signal_count": 1280,
     "avg_gross_edge_pct": "0.4857",
     "p95_gross_edge_pct": "0.6643",
     "max_gross_edge_pct": "0.6643",
-    "production_trade_count": 410,
+    "production_trade_count": 463,
     "production_required_gross_edge_pct": "0.60",
     "observed_lower_bound_trade_count": 0,
     "observed_lower_bound_total_pnl_usd": "0.0000",
@@ -105,7 +105,7 @@
     "paper_sample_count": 0,
     "quote_ok_rate_pct": "100.0000",
     "avg_provider_score": "100.0000",
-    "production_trade_count": 410,
+    "production_trade_count": 463,
     "observed_lower_bound_trade_count": 0
   },
   "findings": [

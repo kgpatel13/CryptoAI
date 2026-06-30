@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T07:52:23Z",
+  "generated_at": "2026-06-30T08:12:13Z",
   "mode": "paper",
-  "report_count": 45,
+  "report_count": 47,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 0,
@@ -17,81 +17,103 @@
     {
       "name": "multi_dex_opportunities.md",
       "exists": true,
-      "size_bytes": 942,
-      "generated_at": "2026-06-30T07:50:47Z",
+      "size_bytes": 951,
+      "generated_at": "2026-06-30T08:11:21Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "exists": true,
-      "size_bytes": 522,
-      "generated_at": "2026-06-30T07:50:47Z",
+      "size_bytes": 531,
+      "generated_at": "2026-06-30T08:11:21Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "exists": true,
-      "size_bytes": 125430,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 18248,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "total_orders": 294,
-        "filled_orders": 105,
+        "total_orders": 0,
+        "filled_orders": 0,
         "legacy_accounting_warning_count": 0
       }
     },
     {
       "name": "paper_report.md",
       "exists": true,
-      "size_bytes": 11697,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 5423,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false
     },
     {
       "name": "paper_run_review.json",
       "exists": true,
-      "size_bytes": 2276,
-      "generated_at": "2026-06-30T07:52:23Z",
+      "size_bytes": 2180,
+      "generated_at": "2026-06-30T08:03:43Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "SHADOW_REVIEW_CANDIDATE",
-        "recommendation": "Review sustained paper evidence before any live-trading design decision.",
-        "shadow_decision": "REVIEW_READY",
+        "overall_status": "COLLECTING_PAPER_EVIDENCE",
+        "recommendation": "Continue paper run until closed trade evidence exists.",
+        "shadow_decision": "BLOCKED",
         "live_decision": "BLOCKED",
-        "closed_trade_count": 105,
+        "closed_trade_count": 0,
         "losing_trade_count": 0,
-        "shadow_ready_count": 2,
+        "shadow_ready_count": 1,
         "live_ready_count": 0
       }
     },
     {
       "name": "paper_run_review.md",
       "exists": true,
-      "size_bytes": 1497,
-      "generated_at": "2026-06-30T07:52:23Z",
+      "size_bytes": 1446,
+      "generated_at": "2026-06-30T08:03:43Z",
+      "stale": false
+    },
+    {
+      "name": "live_safety.json",
+      "exists": true,
+      "size_bytes": 5119,
+      "generated_at": "2026-06-30T08:12:13Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "LIVE_BLOCKED",
+        "live_guard_allowed": false,
+        "blocked_check_count": 14,
+        "check_count": 20
+      }
+    },
+    {
+      "name": "live_safety.md",
+      "exists": true,
+      "size_bytes": 2306,
+      "generated_at": "2026-06-30T08:12:13Z",
       "stale": false
     },
     {
       "name": "portfolio_analytics.json",
       "exists": true,
-      "size_bytes": 69436,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 1938,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "closed_trade_count": 105
+        "closed_trade_count": 0
       }
     },
     {
       "name": "portfolio_analytics.md",
       "exists": true,
-      "size_bytes": 6040,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 1544,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false
     },
     {
@@ -214,8 +236,8 @@
     {
       "name": "pool_depth_ladder.json",
       "exists": true,
-      "size_bytes": 6969,
-      "generated_at": "2026-06-30T07:52:07Z",
+      "size_bytes": 6966,
+      "generated_at": "2026-06-30T08:02:55Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -230,38 +252,38 @@
     {
       "name": "pool_depth_ladder.md",
       "exists": true,
-      "size_bytes": 1720,
-      "generated_at": "2026-06-30T07:52:07Z",
+      "size_bytes": 1719,
+      "generated_at": "2026-06-30T08:02:55Z",
       "stale": false
     },
     {
       "name": "execution_realism.json",
       "exists": true,
-      "size_bytes": 7375,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 5379,
+      "generated_at": "2026-06-30T08:03:11Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "SHADOW_REVIEW_READY",
-        "paper_capital_usd": "1000.0000",
+        "paper_capital_usd": "500.0000",
         "confidence": "MEDIUM",
-        "shadow_ready_count": 2,
+        "shadow_ready_count": 1,
         "live_ready_count": 0
       }
     },
     {
       "name": "execution_realism.md",
       "exists": true,
-      "size_bytes": 1387,
-      "generated_at": "2026-06-30T07:52:22Z",
+      "size_bytes": 1151,
+      "generated_at": "2026-06-30T08:03:11Z",
       "stale": false
     },
     {
       "name": "execution_cost_evidence.json",
       "exists": true,
-      "size_bytes": 3918,
-      "generated_at": "2026-06-30T07:46:44Z",
+      "size_bytes": 3919,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -273,8 +295,8 @@
     {
       "name": "execution_cost_evidence.md",
       "exists": true,
-      "size_bytes": 1651,
-      "generated_at": "2026-06-30T07:46:44Z",
+      "size_bytes": 1652,
+      "generated_at": "2026-06-30T08:03:42Z",
       "stale": false
     },
     {
@@ -431,14 +453,14 @@
     {
       "name": "paper_trading_settings.json",
       "exists": true,
-      "size_bytes": 3172,
-      "generated_at": "2026-06-30T07:34:52Z",
+      "size_bytes": 3175,
+      "generated_at": "2026-06-30T08:03:41Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "status": "VALID",
-        "paper_capital_usd": "1000.00",
+        "paper_capital_usd": "500.00",
         "error_count": 0,
         "warning_count": 0,
         "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings"
@@ -447,8 +469,8 @@
     {
       "name": "paper_trading_settings.md",
       "exists": true,
-      "size_bytes": 1678,
-      "generated_at": "2026-06-30T07:34:52Z",
+      "size_bytes": 1693,
+      "generated_at": "2026-06-30T08:03:41Z",
       "stale": false
     },
     {

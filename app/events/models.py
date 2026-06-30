@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from enum import Enum
 from uuid import uuid4
 from typing import Any
@@ -38,6 +38,6 @@ def create_event(
         event_id=str(uuid4())[:12],
         event_type=event_type,
         source=source,
-        created_at=datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        created_at=datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z"),
         payload=payload or {},
     )
