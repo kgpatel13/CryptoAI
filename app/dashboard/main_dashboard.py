@@ -1564,7 +1564,7 @@ def render_live_control_center() -> None:
         commands = engine.get("commands", {}) if isinstance(engine.get("commands"), dict) else {}
         st.code(commands.get("live_execution_monitor", "python -m app.execution.live_execution_engine_service --loop --interval 30"), language="powershell")
         st.caption("Live autopilot command mirrors paper autopilot, but currently journals decisions and refuses transaction sends until the reviewed live adapter exists.")
-        st.code("python -m app.execution.live_autopilot --loop --interval-seconds 30", language="powershell")
+        st.code("python -m app.execution.live_autopilot --loop --interval-seconds 0", language="powershell")
         next_allowed = engine.get("next_allowed_command")
         if next_allowed:
             st.caption("Next allowed live command. Run only after reviewing the status above.")
@@ -1732,7 +1732,7 @@ def render_setup() -> None:
         python -m app.execution.live_control_center_service --live-loop --interval 30
         python -m app.execution.live_execution_engine_service
         python -m app.execution.live_execution_engine_service --loop --interval 30
-        python -m app.execution.live_autopilot --loop --interval-seconds 30
+        python -m app.execution.live_autopilot --loop --interval-seconds 0
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service

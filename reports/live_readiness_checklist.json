@@ -1,6 +1,6 @@
 {
-  "action_count": 6,
-  "blocked_check_count": 1,
+  "action_count": 5,
+  "blocked_check_count": 2,
   "check_count": 22,
   "checks": [
     {
@@ -58,10 +58,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Report Audit has no blocking operational findings.",
+      "detail": "Report Audit has blocking operational findings.",
       "name": "report_audit_clean",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Paper orders and analytics trade journal are available.",
@@ -124,10 +124,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+      "detail": "Paper daily loss cap matches the tiny-live policy.",
       "name": "paper_live_daily_loss_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -137,7 +137,7 @@
     }
   ],
   "closed_trade_count": 114,
-  "generated_at": "2026-06-30T19:10:54Z",
+  "generated_at": "2026-06-30T19:16:45Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "5",

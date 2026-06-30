@@ -117,7 +117,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="CryptoAI live autopilot runner")
     parser.add_argument("--once", action="store_true", help="Run one live readiness cycle.")
     parser.add_argument("--loop", action="store_true", help="Run continuous live readiness cycles.")
-    parser.add_argument("--interval-seconds", type=int, default=int(os.getenv("CRYPTOAI_LIVE_AUTOPILOT_INTERVAL_SECONDS", "30")))
+    parser.add_argument("--interval-seconds", type=int, default=int(os.getenv("CRYPTOAI_LIVE_AUTOPILOT_INTERVAL_SECONDS", "0")))
     parser.add_argument("--max-cycles", type=int, default=None)
     parser.add_argument("--disable-single-instance-lock", action="store_true")
     args = parser.parse_args()

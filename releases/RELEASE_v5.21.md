@@ -16,7 +16,7 @@ Adds a paper-like live autopilot command that continuously evaluates live execut
 ## Command
 
 ```powershell
-python -m app.execution.live_autopilot --loop --interval-seconds 30
+python -m app.execution.live_autopilot --loop --interval-seconds 0
 ```
 
 This is currently a live-readiness runner only. It does not approve, swap, or trade.
