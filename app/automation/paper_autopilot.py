@@ -58,6 +58,11 @@ except Exception:
     ReportAuditService = None
 
 try:
+    from app.reporting.paper_run_review import PaperRunReviewService
+except Exception:
+    PaperRunReviewService = None
+
+try:
     from app.execution.execution_realism_service import ExecutionRealismService
 except Exception:
     ExecutionRealismService = None
@@ -161,6 +166,12 @@ class PaperAutopilot:
         if ExecutionRealismService is not None:
             try:
                 ExecutionRealismService().generate()
+            except Exception:
+                pass
+
+        if PaperRunReviewService is not None:
+            try:
+                PaperRunReviewService().generate()
             except Exception:
                 pass
 

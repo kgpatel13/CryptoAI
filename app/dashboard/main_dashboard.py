@@ -114,6 +114,7 @@ def render_mission_control() -> None:
     eth_market_coverage_report = REPORT_DIR / "eth_market_coverage.json"
     pool_depth_report = REPORT_DIR / "pool_depth_ladder.json"
     execution_realism_report = REPORT_DIR / "execution_realism.json"
+    paper_run_review_report = REPORT_DIR / "paper_run_review.json"
 
     paper = {}
     research = {}
@@ -126,6 +127,7 @@ def render_mission_control() -> None:
     eth_market_coverage = {}
     pool_depth = {}
     execution_realism = {}
+    paper_run_review = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -179,6 +181,12 @@ def render_mission_control() -> None:
             execution_realism = json.loads(execution_realism_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             execution_realism = {}
+
+    if paper_run_review_report.exists():
+        try:
+            paper_run_review = json.loads(paper_run_review_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            paper_run_review = {}
 
     if strategy_intelligence_report.exists():
         try:
@@ -241,6 +249,24 @@ def render_mission_control() -> None:
         st.json(mission_summary)
     else:
         st.info("No mission summary yet. Start paper autopilot with --loop to publish operations state.")
+
+    st.markdown("### Paper Run Review")
+    pr1, pr2, pr3, pr4 = st.columns(4)
+    pr1.metric("Run Status", paper_run_review.get("overall_status", "-"))
+    pr2.metric("Shadow Decision", paper_run_review.get("shadow_decision", "-"))
+    pr3.metric("Closed Trades", paper_run_review.get("closed_trade_count", "-"))
+    pr4.metric("Losing Trades", paper_run_review.get("losing_trade_count", "-"))
+    pr5, pr6, pr7, pr8 = st.columns(4)
+    pr5.metric("Run PnL USD", paper_run_review.get("realized_pnl_usd", "-"))
+    pr6.metric("Run Return %", paper_run_review.get("return_pct", "-"))
+    pr7.metric("Depth Ready", paper_run_review.get("pool_depth_ready_route_count", "-"))
+    pr8.metric("Live Decision", paper_run_review.get("live_decision", "-"))
+    if paper_run_review:
+        st.caption(str(paper_run_review.get("recommendation", "-")))
+        blocked = [gate for gate in paper_run_review.get("gates", []) if gate.get("status") != "PASS"]
+        dataframe_or_info(blocked[:10], "No blocked review gates.")
+    else:
+        st.info("No paper_run_review.json yet. Paper autopilot will create it on the next cycle.")
 
     st.markdown("### Last Cycle Decision")
     latest_opportunities = read_jsonl(DATA_DIR / "opportunity_decisions.jsonl", limit=100)
@@ -865,6 +891,7 @@ def render_reports() -> None:
         ("Multi-DEX Opportunities", REPORT_DIR / "multi_dex_opportunities.md"),
         ("Opportunity Explorer", REPORT_DIR / "opportunity_explorer.md"),
         ("Paper Trading", REPORT_DIR / "paper_report.md"),
+        ("Paper Run Review", REPORT_DIR / "paper_run_review.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
         ("Strategy Center", REPORT_DIR / "strategy_center.md"),
         ("Strategy Intelligence", REPORT_DIR / "strategy_intelligence.md"),

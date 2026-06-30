@@ -143,6 +143,11 @@ class OperationsRuntimeTests(unittest.TestCase):
                 calls.append("audit")
                 return {"finding_count": 0}
 
+        class FakePaperRunReview:
+            def generate(self) -> dict:
+                calls.append("run_review")
+                return {"overall_status": "PAPER_PROFIT_NOT_SHADOW_READY"}
+
         class FakeExecutionRealism:
             def generate(self) -> dict:
                 calls.append("realism")
@@ -163,13 +168,14 @@ class OperationsRuntimeTests(unittest.TestCase):
                 with patch("app.automation.paper_autopilot.ProviderMonitorService", FakeProviderMonitor):
                     with patch("app.automation.paper_autopilot.PaperReportService", FakePaperReport):
                         with patch("app.automation.paper_autopilot.ReportAuditService", FakeReportAudit):
-                            with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
-                                with patch("app.automation.paper_autopilot.ExecutionRealismService", FakeExecutionRealism):
-                                    with patch("app.automation.paper_autopilot.PoolDepthLadderService", FakePoolDepthLadder):
-                                        with patch("app.automation.paper_autopilot.PaperAutopilot._report_missing_or_stale", return_value=True):
-                                            result = PaperAutopilot().run_once()
+                            with patch("app.automation.paper_autopilot.PaperRunReviewService", FakePaperRunReview):
+                                with patch("app.automation.paper_autopilot.MarketIntelligenceService", FakeMarketIntelligence):
+                                    with patch("app.automation.paper_autopilot.ExecutionRealismService", FakeExecutionRealism):
+                                        with patch("app.automation.paper_autopilot.PoolDepthLadderService", FakePoolDepthLadder):
+                                            with patch("app.automation.paper_autopilot.PaperAutopilot._report_missing_or_stale", return_value=True):
+                                                result = PaperAutopilot().run_once()
 
-        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "pool_depth", "realism", "audit"])
+        self.assertEqual(calls, ["opportunity", "scheduler", "paper", "provider", "market", "pool_depth", "realism", "run_review", "audit"])
         self.assertEqual(result["provider_monitor_status"], "WATCH")
         self.assertEqual(result["market_readiness_score"], 77)
         self.assertEqual(result["opportunity_decisions"], 1)
