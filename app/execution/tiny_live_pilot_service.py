@@ -66,7 +66,7 @@ class TinyLivePilotService:
     pass. Approvals and swaps are separate explicit modes.
     """
 
-    MAX_SMOKE_TRADE_USD = Decimal("10")
+    MAX_SMOKE_TRADE_USD = Decimal("20")
     CONFIRM_PHRASE = "LIVE_PILOT_APPROVED"
 
     def __init__(
@@ -147,7 +147,7 @@ class TinyLivePilotService:
 
     def _prepare(self, flags: Any) -> "PilotPreparation":
         wallet = flags.live_wallet_address
-        smoke_usd = min(self._decimal_env("CRYPTOAI_TINY_LIVE_SMOKE_USD", "5"), self.MAX_SMOKE_TRADE_USD)
+        smoke_usd = min(self._decimal_env("CRYPTOAI_TINY_LIVE_SMOKE_USD", "20"), self.MAX_SMOKE_TRADE_USD)
         if flags.max_live_trade_usd > 0:
             smoke_usd = min(smoke_usd, flags.max_live_trade_usd)
 
@@ -249,7 +249,7 @@ class TinyLivePilotService:
             self._check("provider_ok", provider.get("overall_status") == "OK", "Provider monitor must be OK.", "Provider monitor is OK."),
             self._check("pilot_plan_prepared", prepared.error is None, prepared.error or "Tiny live pilot plan could not be prepared.", "Tiny live pilot plan is prepared."),
             self._check("chain_id_base", prepared.chain_id in {None, 8453}, "Prepared transaction must be on Base chain ID 8453.", "Prepared transaction is on Base or not yet prepared."),
-            self._check("smoke_size_cap", Decimal("0") < prepared.smoke_usd <= self.MAX_SMOKE_TRADE_USD, "Smoke test size must be > $0 and <= $10.", "Smoke test size is within cap."),
+            self._check("smoke_size_cap", Decimal("0") < prepared.smoke_usd <= self.MAX_SMOKE_TRADE_USD, "Smoke test size must be > $0 and <= $20.", "Smoke test size is within cap."),
             self._check("usdc_balance", prepared.usdc_balance_units >= amount_units, "USDC balance is below smoke-test amount.", "USDC balance covers smoke-test amount."),
             self._check("allowance_for_swap", mode != "swap" or prepared.allowance_sufficient, "USDC allowance is insufficient; run approve mode first.", "USDC allowance is sufficient or not needed for this mode."),
             self._check("atomic_arbitrage_blocked", mode != "swap" or self._bool_env("CRYPTOAI_ALLOW_ONE_LEG_SMOKE_SWAP", False), "Swap mode is only a one-leg smoke test; set CRYPTOAI_ALLOW_ONE_LEG_SMOKE_SWAP=true to acknowledge this is not arbitrage.", "One-leg smoke swap acknowledgement is present or not swapping."),

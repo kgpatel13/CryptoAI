@@ -1,6 +1,6 @@
 {
-  "action_count": 8,
-  "blocked_check_count": 1,
+  "action_count": 5,
+  "blocked_check_count": 0,
   "check_count": 22,
   "checks": [
     {
@@ -40,10 +40,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Provider Monitor must be OK.",
+      "detail": "Provider Monitor is OK.",
       "name": "provider_health_ok",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Execution-cost evidence confidence must be HIGH.",
@@ -76,10 +76,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
+      "detail": "Wallet Preflight is ready.",
       "name": "wallet_preflight_ready",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
@@ -112,10 +112,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+      "detail": "Paper capital is within the configured live wallet ceiling.",
       "name": "paper_live_wallet_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
@@ -124,10 +124,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+      "detail": "Paper daily loss cap matches the tiny-live policy.",
       "name": "paper_live_daily_loss_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -137,12 +137,12 @@
     }
   ],
   "closed_trade_count": 883,
-  "generated_at": "2026-06-30T22:41:15Z",
+  "generated_at": "2026-06-30T22:45:47Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "5",
-  "max_live_trade_usd": "0",
-  "max_live_wallet_usd": "0",
+  "max_live_trade_usd": "20",
+  "max_live_wallet_usd": "500",
   "mode": "paper",
   "notes": [
     "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -153,6 +153,6 @@
   "paper_cash_usd": "534.5250",
   "paper_profile": "live_parity_500",
   "paper_realized_pnl_usd": "34.5250",
-  "pass_count": 13,
+  "pass_count": 17,
   "watch_count": 0
 }

@@ -27,8 +27,8 @@
   "paper_capital": {
     "initial_capital_eth": "0.5",
     "eth_reference_usd": "1000",
-    "max_notional_usd_per_trade": "5",
-    "min_notional_usd_per_trade": "5",
+    "max_notional_usd_per_trade": "20",
+    "min_notional_usd_per_trade": "20",
     "max_daily_paper_trades": 0,
     "sizing_mode": "full_available_cash"
   },
@@ -57,7 +57,7 @@
     "Live trading remains disabled until live-readiness gates pass.",
     "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
     "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
-    "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 min/max trade, $5 daily loss cap, Base ETH routes only.",
+    "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
     "This profile is still paper-only and does not approve live trading."
   ]
 }

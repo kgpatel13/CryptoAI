@@ -299,7 +299,7 @@ class LiveExecutionEngineService:
     @staticmethod
     def _unblock_path() -> list[dict[str, str]]:
         return [
-            {"step": "1", "name": "Live-parity paper profile", "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $5 for the tiny pilot."},
+            {"step": "1", "name": "Live-parity paper profile", "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $20 for the tiny pilot."},
             {"step": "2", "name": "Execution evidence", "detail": "Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities."},
             {"step": "3", "name": "Transaction simulation", "detail": "Build exact Base calldata and pass eth_call for the selected USDC/WETH route."},
             {"step": "4", "name": "Manual tiny live pilot", "detail": "Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP."},

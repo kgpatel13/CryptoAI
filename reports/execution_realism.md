@@ -1,13 +1,13 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T22:41:14Z`
+Generated: `2026-06-30T22:45:46Z`
 
 ## Summary
 
 - Overall status: `NOT_SHADOW_READY`
 - Confidence: `NONE`
 - Paper capital USD: `$500.0000`
-- Requested notional USD: `$5.0000`
+- Requested notional USD: `$20.0000`
 - Shadow-ready count: `0`
 - Live-ready count: `0`
 
@@ -15,8 +15,8 @@ Generated: `2026-06-30T22:41:14Z`
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | SKIP | 0.3250 | 0.0250 | -1.6471 | 5.0000 | NOT_EXECUTABLE | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | BUY | 0.6448 | 0.3448 | -1.1217 | 5.0000 | NOT_EXECUTABLE | MEDIUM |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | SKIP | 0.3250 | 0.0250 | -0.8971 | 20.0000 | NOT_EXECUTABLE | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | BUY | 0.6448 | 0.3448 | -0.3717 | 20.0000 | NOT_EXECUTABLE | MEDIUM |
 
 ## Findings
 

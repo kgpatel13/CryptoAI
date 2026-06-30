@@ -91,7 +91,7 @@ class TinyLivePilotServiceTests(unittest.TestCase):
             "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "true",
             "CRYPTOAI_LIVE_WALLET_ADDRESS": "0x1111111111111111111111111111111111111111",
             "CRYPTOAI_MAX_LIVE_WALLET_USD": "500",
-            "CRYPTOAI_MAX_LIVE_TRADE_USD": "5",
+            "CRYPTOAI_MAX_LIVE_TRADE_USD": "20",
             "CRYPTOAI_MAX_DAILY_LOSS_USD": "5",
         }
 
@@ -109,19 +109,19 @@ class TinyLivePilotServiceTests(unittest.TestCase):
 
     @staticmethod
     def _prepared(wallet: str = "0x1111111111111111111111111111111111111111", allowance: bool = False) -> PilotPreparation:
-        approval_tx = PreparedTx("approve", {"to": "0x2222222222222222222222222222222222222222"}, 5_000_000, "5")
-        swap_tx = PreparedTx("swap", {"to": "0x3333333333333333333333333333333333333333"}, 5_000_000, "5")
+        approval_tx = PreparedTx("approve", {"to": "0x2222222222222222222222222222222222222222"}, 20_000_000, "20")
+        swap_tx = PreparedTx("swap", {"to": "0x3333333333333333333333333333333333333333"}, 20_000_000, "20")
         return PilotPreparation(
-            smoke_usd=Decimal("5"),
+            smoke_usd=Decimal("20"),
             wallet_address=wallet,
             dex="Uniswap V3",
             router_address="0x3333333333333333333333333333333333333333",
             chain_id=8453,
             latest_block=1,
-            usdc_balance_units=5_000_000,
-            usdc_balance="5",
+            usdc_balance_units=20_000_000,
+            usdc_balance="20",
             eth_balance="0.01",
-            allowance_units=5_000_000 if allowance else 0,
+            allowance_units=20_000_000 if allowance else 0,
             allowance_sufficient=allowance,
             approval_tx=approval_tx,
             swap_tx=swap_tx,

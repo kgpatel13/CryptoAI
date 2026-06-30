@@ -275,8 +275,8 @@ class PaperSettingsService:
         settings["operations"]["loop_interval_seconds"] = 0
         settings["paper_capital"]["initial_capital_eth"] = "0.5"
         settings["paper_capital"]["eth_reference_usd"] = "1000"
-        settings["paper_capital"]["max_notional_usd_per_trade"] = "5"
-        settings["paper_capital"]["min_notional_usd_per_trade"] = "5"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "20"
+        settings["paper_capital"]["min_notional_usd_per_trade"] = "20"
         settings["paper_capital"]["max_daily_paper_trades"] = 0
         settings["paper_capital"]["sizing_mode"] = "full_available_cash"
         settings["risk"]["max_open_positions"] = 1
@@ -289,7 +289,7 @@ class PaperSettingsService:
         settings["evidence_gates"]["min_execution_cost_confidence"] = "HIGH"
         settings["notes"] = [
             *settings.get("notes", []),
-            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 min/max trade, $5 daily loss cap, Base ETH routes only.",
+            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
             "This profile is still paper-only and does not approve live trading.",
         ]
         return settings

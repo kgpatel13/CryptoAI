@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T19:37:33Z",
+  "generated_at": "2026-06-30T22:44:24Z",
   "mode": "paper",
   "paper_profile": "live_parity_500",
   "status": "VALID",
@@ -36,8 +36,8 @@
     "paper_capital": {
       "initial_capital_eth": "0.5",
       "eth_reference_usd": "1000",
-      "max_notional_usd_per_trade": "5",
-      "min_notional_usd_per_trade": "5",
+      "max_notional_usd_per_trade": "20",
+      "min_notional_usd_per_trade": "20",
       "max_daily_paper_trades": 0,
       "sizing_mode": "full_available_cash"
     },
@@ -66,17 +66,17 @@
       "Live trading remains disabled until live-readiness gates pass.",
       "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
       "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
-      "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $5 min/max trade, $5 daily loss cap, Base ETH routes only.",
+      "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
       "This profile is still paper-only and does not approve live trading."
     ]
   },
   "runtime_environment": {
     "CRYPTOAI_PAPER_INITIAL_CASH_USD": "500.00",
-    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "5",
-    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "5",
-    "CRYPTOAI_MIN_PAPER_NOTIONAL_USD": "5",
-    "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "1.00",
-    "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "1.00",
+    "CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD": "20",
+    "CRYPTOAI_MAX_PAPER_NOTIONAL_USD": "20",
+    "CRYPTOAI_MIN_PAPER_NOTIONAL_USD": "20",
+    "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": "4.00",
+    "CRYPTOAI_PAPER_MAX_CASH_USAGE_PCT": "4.00",
     "CRYPTOAI_PAPER_SIZING_MODE": "full_available_cash",
     "CRYPTOAI_MAX_DAILY_PAPER_TRADES": "0",
     "CRYPTOAI_MAX_OPEN_POSITIONS": "1",
