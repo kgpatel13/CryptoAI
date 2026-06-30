@@ -44,6 +44,8 @@ class ReportAuditService:
         "paper_trading_settings.md",
         "wallet_preflight.json",
         "wallet_preflight.md",
+        "tiny_live_pilot.json",
+        "tiny_live_pilot.md",
         "live_readiness_checklist.json",
         "live_readiness_checklist.md",
         "transaction_simulation.json",
@@ -102,6 +104,8 @@ class ReportAuditService:
         "paper_trading_settings.md",
         "wallet_preflight.json",
         "wallet_preflight.md",
+        "tiny_live_pilot.json",
+        "tiny_live_pilot.md",
         "provider_monitor.json",
         "provider_monitor.md",
     ]

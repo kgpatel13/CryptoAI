@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-30T17:37:45Z",
+  "generated_at": "2026-06-30T17:53:08Z",
   "mode": "paper",
   "paper_capital_usd": "500.0000",
   "requested_notional_usd": "50.0000",
-  "overall_status": "NO_OPPORTUNITIES",
+  "overall_status": "NOT_SHADOW_READY",
   "confidence": "NONE",
   "shadow_ready_count": 0,
   "live_ready_count": 0,
@@ -15,15 +15,72 @@
     "healthy_pairs": [],
     "quotes": []
   },
-  "opportunities": [],
-  "findings": [
+  "opportunities": [
     {
-      "severity": "WATCH",
-      "message": "No opportunity decisions are available for realism assessment."
+      "timestamp": "2026-06-30T17:52:45Z",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "source_decision": "WATCH",
+      "gross_edge_pct": "0.4228",
+      "configured_cost_buffer_pct": "0.3000",
+      "reported_net_edge_pct": "0.1228",
+      "estimated_price_impact_pct": "0.5593",
+      "estimated_gas_usd": "0.0500",
+      "estimated_gas_pct": "0.1000",
+      "mev_risk": "HIGH",
+      "mev_risk_buffer_pct": "0.1000",
+      "stress_total_cost_pct": "1.0593",
+      "stress_net_edge_pct": "-0.6365",
+      "requested_notional_usd": "50.0000",
+      "max_executable_notional_usd": "50.0000",
+      "executable_ratio_pct": "100.0000",
+      "depth_model": "POOL_DEPTH_LADDER",
+      "pool_depth_status": "DEPTH_READY",
+      "confidence": "MEDIUM",
+      "realism_status": "NOT_EXECUTABLE",
+      "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
     },
+    {
+      "timestamp": "2026-06-30T17:52:45Z",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "source_decision": "WATCH",
+      "gross_edge_pct": "0.5467",
+      "configured_cost_buffer_pct": "0.3000",
+      "reported_net_edge_pct": "0.2467",
+      "estimated_price_impact_pct": "0.3581",
+      "estimated_gas_usd": "0.0500",
+      "estimated_gas_pct": "0.1000",
+      "mev_risk": "HIGH",
+      "mev_risk_buffer_pct": "0.1000",
+      "stress_total_cost_pct": "0.8581",
+      "stress_net_edge_pct": "-0.3114",
+      "requested_notional_usd": "50.0000",
+      "max_executable_notional_usd": "50.0000",
+      "executable_ratio_pct": "100.0000",
+      "depth_model": "POOL_DEPTH_LADDER",
+      "pool_depth_status": "DEPTH_READY",
+      "confidence": "MEDIUM",
+      "realism_status": "NOT_EXECUTABLE",
+      "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+    }
+  ],
+  "findings": [
     {
       "severity": "ACTION",
       "message": "Need at least two healthy DEX quote venues for real arbitrage realism."
+    },
+    {
+      "severity": "INFO",
+      "message": "Latest opportunities are not realistic execution candidates after stress checks."
+    },
+    {
+      "severity": "INFO",
+      "message": "Pool-depth ladder evidence is available for at least one latest opportunity."
     }
   ],
   "notes": [

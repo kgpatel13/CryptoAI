@@ -1,31 +1,31 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-30T17:37:21Z`
+Generated: `2026-06-30T17:53:08Z`
 
 ## Summary
 
 - Production cost buffer %: `0.30`
 - Paper BUY threshold %: `0.30`
-- Buffer status: `INSUFFICIENT_EVIDENCE`
-- Confidence: `INSUFFICIENT`
-- Observed total cost lower bound %: `None`
-- Buffer surplus vs lower bound %: `None`
+- Buffer status: `CONSERVATIVE`
+- Confidence: `MEDIUM`
+- Observed total cost lower bound %: `0.1300`
+- Buffer surplus vs lower bound %: `0.1700`
 
 ## Configured Cost Model
 
 - Gas buffer %: `0.08`
 - Fee/slippage buffer %: `0.22`
 - Total cost buffer %: `0.30`
-- Source: `fallback_defaults`
+- Source: `latest_opportunity_decision`
 
 ## Paper Execution Evidence
 
-- Filled execution samples: `0`
-- Avg slippage bps: `0.0000`
-- P95 slippage bps: `0.0000`
-- Max slippage bps: `0.0000`
-- Avg latency ms: `None`
-- P95 latency ms: `None`
+- Filled execution samples: `31`
+- Avg slippage bps: `5.0000`
+- P95 slippage bps: `5.0000`
+- Max slippage bps: `5.0000`
+- Avg latency ms: `250.0000`
+- P95 latency ms: `250.0000`
 
 ## Quote And Provider Evidence
 
@@ -33,23 +33,21 @@ Generated: `2026-06-30T17:37:21Z`
 - Quote OK rate %: `0.0000`
 - Healthy DEX count: `0`
 - Avg OK quote latency ms: `None`
-- Provider count: `0`
-- Avg provider score: `None`
+- Provider count: `4`
+- Avg provider score: `99.7500`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `0`
-- Max gross edge %: `0.0000`
-- Production-buffer trades: `0`
+- Real replay signals: `764`
+- Max gross edge %: `0.6225`
+- Production-buffer trades: `143`
 - Production required gross edge %: `0.60`
-- Lower-bound cost trades: `0`
-- Lower-bound replay PnL USD: `0.0000`
+- Lower-bound cost trades: `764`
+- Lower-bound replay PnL USD: `2713.5798`
 
 ## Findings
 
-- `WATCH` Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence.
-- `ACTION` Collect more filled paper executions; current slippage sample is 0 and target is 30+.
-- `WATCH` Provider cost context is incomplete because provider health evidence is missing.
+- `INFO` Production buffer assessment is CONSERVATIVE with MEDIUM paper-cost confidence.
 
 ## Notes
 

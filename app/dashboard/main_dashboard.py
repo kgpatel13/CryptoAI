@@ -903,6 +903,7 @@ def render_reports() -> None:
         ("Paper Run Review", REPORT_DIR / "paper_run_review.md"),
         ("Live Safety", REPORT_DIR / "live_safety.md"),
         ("Wallet Preflight", REPORT_DIR / "wallet_preflight.md"),
+        ("Tiny Live Pilot", REPORT_DIR / "tiny_live_pilot.md"),
         ("Live Readiness Checklist", REPORT_DIR / "live_readiness_checklist.md"),
         ("Transaction Simulation", REPORT_DIR / "transaction_simulation.md"),
         ("Portfolio Analytics", REPORT_DIR / "portfolio_analytics.md"),
@@ -1376,6 +1377,23 @@ def render_risk_controls() -> None:
             st.success("Transaction simulation report generated.")
             st.json(result)
 
+    if st.button("Generate Tiny Live Pilot Plan"):
+        def task():
+            TinyLivePilotService = import_object("app.execution.tiny_live_pilot_service", "TinyLivePilotService")
+            return TinyLivePilotService().generate(mode="plan")
+
+        result = safe_run("Generating tiny live pilot plan...", task)
+        if result is not None:
+            st.success("Tiny live pilot plan generated.")
+            st.json(result)
+
+    st.markdown("### Tiny Live Pilot Plan")
+    tiny_live_txt = read_text(REPORT_DIR / "tiny_live_pilot.md")
+    if tiny_live_txt:
+        st.markdown(tiny_live_txt)
+    else:
+        st.info("No tiny_live_pilot.md found yet. Generate the Tiny Live Pilot Plan first.")
+
     st.markdown("### Transaction Simulation Report")
     tx_sim_txt = read_text(REPORT_DIR / "transaction_simulation.md")
     if tx_sim_txt:
@@ -1424,6 +1442,10 @@ def render_risk_controls() -> None:
         "CRYPTOAI_MIN_PAPER_CLOSED_TRADES": os.getenv("CRYPTOAI_MIN_PAPER_CLOSED_TRADES", "30"),
         "CRYPTOAI_MIN_EXECUTION_COST_CONFIDENCE": os.getenv("CRYPTOAI_MIN_EXECUTION_COST_CONFIDENCE", "HIGH"),
         "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD": os.getenv("CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD", "100"),
+        "CRYPTOAI_ENABLE_TINY_LIVE_PILOT": os.getenv("CRYPTOAI_ENABLE_TINY_LIVE_PILOT", "false"),
+        "CRYPTOAI_TINY_LIVE_SMOKE_USD": os.getenv("CRYPTOAI_TINY_LIVE_SMOKE_USD", "5"),
+        "CRYPTOAI_TINY_LIVE_DEX": os.getenv("CRYPTOAI_TINY_LIVE_DEX", "Uniswap V3"),
+        "CRYPTOAI_ALLOW_ONE_LEG_SMOKE_SWAP": os.getenv("CRYPTOAI_ALLOW_ONE_LEG_SMOKE_SWAP", "false"),
         "CRYPTOAI_PRIVATE_KEY": "PRESENT" if os.getenv("CRYPTOAI_PRIVATE_KEY") else "ABSENT",
         "CRYPTOAI_PAPER_INITIAL_CASH_USD": os.getenv("CRYPTOAI_PAPER_INITIAL_CASH_USD", "10000"),
         "CRYPTOAI_PAPER_RISK_PER_TRADE_PCT": os.getenv("CRYPTOAI_PAPER_RISK_PER_TRADE_PCT", "1.00"),
@@ -1467,6 +1489,8 @@ def render_system_health() -> None:
         REPORT_DIR / "live_safety.md",
         REPORT_DIR / "wallet_preflight.json",
         REPORT_DIR / "wallet_preflight.md",
+        REPORT_DIR / "tiny_live_pilot.json",
+        REPORT_DIR / "tiny_live_pilot.md",
         REPORT_DIR / "live_readiness_checklist.json",
         REPORT_DIR / "live_readiness_checklist.md",
         REPORT_DIR / "transaction_simulation.json",

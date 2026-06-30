@@ -1,10 +1,10 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T17:37:45Z`
+Generated: `2026-06-30T17:53:08Z`
 
 ## Summary
 
-- Overall status: `NO_OPPORTUNITIES`
+- Overall status: `NOT_SHADOW_READY`
 - Confidence: `NONE`
 - Paper capital USD: `$500.0000`
 - Requested notional USD: `$50.0000`
@@ -15,14 +15,16 @@ Generated: `2026-06-30T17:37:45Z`
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| - | - | - | - | - | - | - | - | NO_OPPORTUNITIES | NONE |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | WATCH | 0.4228 | 0.1228 | -0.6365 | 50.0000 | NOT_EXECUTABLE | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | WATCH | 0.5467 | 0.2467 | -0.3114 | 50.0000 | NOT_EXECUTABLE | MEDIUM |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| WATCH | No opportunity decisions are available for realism assessment. |
 | ACTION | Need at least two healthy DEX quote venues for real arbitrage realism. |
+| INFO | Latest opportunities are not realistic execution candidates after stress checks. |
+| INFO | Pool-depth ladder evidence is available for at least one latest opportunity. |
 
 ## Notes
 

@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T17:37:45Z`
+Generated: `2026-06-30T17:54:38Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `500`
-- Max live trade USD: `50`
-- Max daily loss USD: `10`
-- Blocked checks: `9` / `20`
+- Max live trade USD: `5`
+- Max daily loss USD: `5`
+- Blocked checks: `8` / `20`
 
 ## Checks
 
@@ -28,8 +28,8 @@ Generated: `2026-06-30T17:37:45Z`
 | transaction_simulation | BLOCK | Transaction simulation is required and has not passed. |
 | paper_shadow_review | BLOCK | Paper run is not yet ready for shadow review. |
 | paper_closed_trades | PASS | Fresh paper run has enough closed trades. |
-| execution_cost_confidence | BLOCK | Execution-cost confidence is INSUFFICIENT; required HIGH. |
-| execution_cost_samples | BLOCK | Execution-cost evidence needs at least 30 paper samples. |
+| execution_cost_confidence | BLOCK | Execution-cost confidence is MEDIUM; required HIGH. |
+| execution_cost_samples | PASS | Execution-cost evidence has enough paper samples. |
 | provider_health | PASS | Provider monitor is OK. |
 | report_audit | PASS | Report audit has no blocking operational findings. |
 | execution_realism | BLOCK | Execution realism must have shadow-ready evidence and zero live-ready approvals. |

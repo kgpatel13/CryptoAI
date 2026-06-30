@@ -1,5 +1,13 @@
 # CryptoAI Changelog
 
+## v5.19 - Tiny Live Pilot Harness
+
+- Added a guarded tiny live pilot harness for manual Base USDC->WETH smoke testing.
+- Supports `plan`, `approve`, and `swap` modes with hard checks for live flags, kill switch, wallet/private-key match, paper readiness, transaction simulation, provider health, report audit, balance, allowance, and manual confirmation.
+- Keeps live arbitrage blocked until an atomic cross-DEX executor exists; the swap mode is explicitly a one-leg smoke test, not a profit-seeking arbitrage run.
+- Added `tiny_live_pilot.json` and `tiny_live_pilot.md`, plus dashboard/report-audit integration.
+- Added tests proving plan mode never sends, approve mode requires gates and confirmation, and swap mode requires explicit one-leg smoke-test acknowledgement.
+
 ## v5.18.1 - Paper Autopilot Guard and Readiness Refresh
 
 - Added an OS-level single-instance lock for looped paper autopilot runs to prevent duplicate 24/7 processes from writing overlapping paper evidence.

@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 9,
+  "blocked_check_count": 8,
   "check_count": 20,
   "checks": [
     {
@@ -93,16 +93,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Execution-cost confidence is INSUFFICIENT; required HIGH.",
+      "detail": "Execution-cost confidence is MEDIUM; required HIGH.",
       "name": "execution_cost_confidence",
       "passed": false,
       "severity": "BLOCK"
     },
     {
-      "detail": "Execution-cost evidence needs at least 30 paper samples.",
+      "detail": "Execution-cost evidence has enough paper samples.",
       "name": "execution_cost_samples",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Provider monitor is OK.",
@@ -123,11 +123,11 @@
       "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T17:37:45Z",
+  "generated_at": "2026-06-30T17:54:38Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
-  "max_daily_loss_usd": "10",
-  "max_live_trade_usd": "50",
+  "max_daily_loss_usd": "5",
+  "max_live_trade_usd": "5",
   "max_live_wallet_usd": "500",
   "mode": "paper",
   "notes": [
@@ -157,8 +157,8 @@
     "live_trading_enabled": false,
     "live_wallet_configured": true,
     "main_wallet_configured": false,
-    "max_daily_loss_usd": "10",
-    "max_live_trade_usd": "50",
+    "max_daily_loss_usd": "5",
+    "max_live_trade_usd": "5",
     "max_live_wallet_usd": "500",
     "min_execution_cost_confidence": "HIGH",
     "min_paper_closed_trades": 30,

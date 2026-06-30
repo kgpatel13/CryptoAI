@@ -1,6 +1,6 @@
 # Transaction Simulation Report
 
-Generated: `2026-06-30T17:37:47Z`
+Generated: `2026-06-30T17:54:40Z`
 - Overall status: `TX_SIMULATION_ACTION`
 - Transaction simulation passed: `False`
 - Live trading approval: `False`

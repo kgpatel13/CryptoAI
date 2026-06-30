@@ -1,31 +1,33 @@
 {
-  "generated_at": "2026-06-30T17:37:21Z",
+  "generated_at": "2026-06-30T17:53:08Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
-  "buffer_status": "INSUFFICIENT_EVIDENCE",
-  "confidence": "INSUFFICIENT",
-  "observed_total_cost_lower_bound_pct": null,
-  "buffer_surplus_vs_lower_bound_pct": null,
+  "buffer_status": "CONSERVATIVE",
+  "confidence": "MEDIUM",
+  "observed_total_cost_lower_bound_pct": "0.1300",
+  "buffer_surplus_vs_lower_bound_pct": "0.1700",
   "configured_cost_model": {
     "gas_buffer_pct": "0.08",
     "fee_slippage_buffer_pct": "0.22",
     "total_cost_buffer_pct": "0.30",
-    "source": "fallback_defaults"
+    "source": "latest_opportunity_decision"
   },
   "paper_execution_evidence": {
-    "sample_count": 0,
-    "total_filled_notional_usd": "0.0000",
-    "avg_slippage_bps": "0.0000",
-    "p95_slippage_bps": "0.0000",
-    "max_slippage_bps": "0.0000",
-    "avg_slippage_pct": "0.0000",
-    "p95_slippage_pct": "0.0000",
-    "max_slippage_pct": "0.0000",
-    "avg_latency_ms": null,
-    "p95_latency_ms": null,
-    "max_latency_ms": null,
-    "execution_quality_counts": {}
+    "sample_count": 31,
+    "total_filled_notional_usd": "1550.0000",
+    "avg_slippage_bps": "5.0000",
+    "p95_slippage_bps": "5.0000",
+    "max_slippage_bps": "5.0000",
+    "avg_slippage_pct": "0.0500",
+    "p95_slippage_pct": "0.0500",
+    "max_slippage_pct": "0.0500",
+    "avg_latency_ms": "250.0000",
+    "p95_latency_ms": "250.0000",
+    "max_latency_ms": "250.0000",
+    "execution_quality_counts": {
+      "GOOD": 31
+    }
   },
   "quote_evidence": {
     "sample_count": 0,
@@ -39,46 +41,75 @@
     "p95_ok_latency_ms": null
   },
   "provider_evidence": {
-    "provider_count": 0,
-    "avg_provider_latency_ms": null,
-    "avg_provider_score": null,
-    "providers": []
+    "provider_count": 4,
+    "avg_provider_latency_ms": "464.2400",
+    "avg_provider_score": "99.7500",
+    "providers": [
+      {
+        "name": "Aerodrome",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 353.3,
+        "score": 100,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Uniswap V2",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 379.28,
+        "score": 100,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Uniswap V3",
+        "provider_type": "dex",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 821.24,
+        "score": 99,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Base:rpc1:https://base-rpc.publicnode.com",
+        "provider_type": "rpc",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 303.14,
+        "score": 100,
+        "consecutive_failures": 0
+      }
+    ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 0,
-    "avg_gross_edge_pct": "0.0000",
-    "p95_gross_edge_pct": "0.0000",
-    "max_gross_edge_pct": "0.0000",
-    "production_trade_count": 0,
+    "real_signal_count": 764,
+    "avg_gross_edge_pct": "0.4852",
+    "p95_gross_edge_pct": "0.6225",
+    "max_gross_edge_pct": "0.6225",
+    "production_trade_count": 143,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 0,
-    "observed_lower_bound_total_pnl_usd": "0.0000",
+    "observed_lower_bound_trade_count": 764,
+    "observed_lower_bound_total_pnl_usd": "2713.5798",
     "replay_notional_usd": "1000"
   },
   "assessment": {
-    "buffer_status": "INSUFFICIENT_EVIDENCE",
-    "confidence": "INSUFFICIENT",
+    "buffer_status": "CONSERVATIVE",
+    "confidence": "MEDIUM",
     "production_cost_buffer_pct": "0.30",
-    "observed_total_cost_lower_bound_pct": null,
-    "buffer_surplus_vs_lower_bound_pct": null,
-    "paper_sample_count": 0,
+    "observed_total_cost_lower_bound_pct": "0.1300",
+    "buffer_surplus_vs_lower_bound_pct": "0.1700",
+    "paper_sample_count": 31,
     "quote_ok_rate_pct": "0.0000",
-    "avg_provider_score": null,
-    "production_trade_count": 0,
-    "observed_lower_bound_trade_count": 0
+    "avg_provider_score": "99.7500",
+    "production_trade_count": 143,
+    "observed_lower_bound_trade_count": 764
   },
   "findings": [
     {
-      "severity": "WATCH",
-      "message": "Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence."
-    },
-    {
-      "severity": "ACTION",
-      "message": "Collect more filled paper executions; current slippage sample is 0 and target is 30+."
-    },
-    {
-      "severity": "WATCH",
-      "message": "Provider cost context is incomplete because provider health evidence is missing."
+      "severity": "INFO",
+      "message": "Production buffer assessment is CONSERVATIVE with MEDIUM paper-cost confidence."
     }
   ],
   "notes": [

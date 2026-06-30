@@ -1,0 +1,1625 @@
+{
+  "blocked_check_count": 2,
+  "check_count": 18,
+  "checks": [
+    {
+      "detail": "Tiny live pilot flag is enabled or mode is plan.",
+      "name": "pilot_enabled",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live trading flag is enabled or mode is plan.",
+      "name": "live_feature_flag",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Kill switch is off for send mode or mode is plan.",
+      "name": "kill_switch_off_for_send",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Manual confirmation phrase is present or mode is plan.",
+      "name": "manual_confirmation",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Private key is available for send mode or not required.",
+      "name": "private_key_available",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Private key matches isolated live wallet or not required.",
+      "name": "private_key_matches_wallet",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "No paper autopilot process is running.",
+      "name": "no_paper_autopilot_running",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Wallet preflight is ready.",
+      "name": "wallet_preflight_ready",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live readiness checklist must be LIVE_REVIEW_READY.",
+      "name": "live_readiness_ready",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Transaction simulation must pass before live pilot.",
+      "name": "transaction_simulation_passed",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Report audit has no blocking findings.",
+      "name": "report_audit_clean",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Provider monitor is OK.",
+      "name": "provider_ok",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Tiny live pilot plan is prepared.",
+      "name": "pilot_plan_prepared",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Prepared transaction is on Base or not yet prepared.",
+      "name": "chain_id_base",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Smoke test size is within cap.",
+      "name": "smoke_size_cap",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC balance covers smoke-test amount.",
+      "name": "usdc_balance",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC allowance is sufficient or not needed for this mode.",
+      "name": "allowance_for_swap",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "One-leg smoke swap acknowledgement is present or not swapping.",
+      "name": "atomic_arbitrage_blocked",
+      "passed": true,
+      "severity": "PASS"
+    }
+  ],
+  "context": {
+    "active_autopilot_processes": [],
+    "live_readiness": {
+      "action_count": 6,
+      "blocked_check_count": 0,
+      "check_count": 22,
+      "checks": [
+        {
+          "detail": "Closed paper trade sample meets the configured minimum.",
+          "name": "stable_paper_trading",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Paper Run Review must reach REVIEW_READY before live-pilot review.",
+          "name": "paper_shadow_review_ready",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Paper report and portfolio analytics PnL are reconciled.",
+          "name": "paper_pnl_reconciled",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "No open paper positions.",
+          "name": "no_open_positions",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Recent paper fills are atomic arbitrage round trips.",
+          "name": "execution_engine_atomic",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Risk engine evidence is present and losing-trade count is clean.",
+          "name": "risk_engine_validated",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Provider Monitor is OK.",
+          "name": "provider_health_ok",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Execution-cost evidence confidence must be HIGH.",
+          "name": "execution_cost_confidence",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+          "name": "execution_realism_shadow_ready",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Report Audit has no blocking operational findings.",
+          "name": "report_audit_clean",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Paper orders and analytics trade journal are available.",
+          "name": "audit_trail_available",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Trade journal/export evidence is available for tax/accounting records.",
+          "name": "transaction_tax_export_available",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Wallet Preflight is ready.",
+          "name": "wallet_preflight_ready",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
+          "name": "transaction_simulation_passed",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Live Safety remains blocked during readiness review.",
+          "name": "live_safety_blocked",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live feature flag is off.",
+          "name": "live_feature_off",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live and paper kill switches are on.",
+          "name": "kill_switch_on",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Private key is absent.",
+          "name": "private_key_absent",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Paper capital is within the configured live wallet ceiling.",
+          "name": "paper_live_wallet_parity",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
+          "name": "paper_live_trade_cap_parity",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+          "name": "paper_live_daily_loss_parity",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Readiness review is restricted to Base ETH approved routes.",
+          "name": "base_eth_scope_only",
+          "passed": true,
+          "severity": "PASS"
+        }
+      ],
+      "closed_trade_count": 31,
+      "generated_at": "2026-06-30T17:54:40Z",
+      "live_review_ready": false,
+      "live_trading_approval": false,
+      "max_daily_loss_usd": "5",
+      "max_live_trade_usd": "5",
+      "max_live_wallet_usd": "500",
+      "mode": "paper",
+      "notes": [
+        "Live Readiness Checklist is a human review gate and never enables live trading.",
+        "Paper can use the same limits as the intended tiny-live pilot, but it cannot exactly reproduce gas spikes, failed transactions, MEV, mempool ordering, RPC outages, nonce issues, wallet signing, or pool movement between legs.",
+        "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
+      ],
+      "overall_status": "LIVE_REVIEW_NOT_READY",
+      "paper_cash_usd": "504.9764",
+      "paper_profile": "live_parity_500",
+      "paper_realized_pnl_usd": "4.9764",
+      "pass_count": 16,
+      "watch_count": 0
+    },
+    "live_safety": {
+      "blocked_check_count": 8,
+      "check_count": 20,
+      "checks": [
+        {
+          "detail": "Live trading feature flag is disabled.",
+          "name": "live_feature_flag",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Live kill switch is ON.",
+          "name": "kill_switch",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "No private key is configured. Live trading remains blocked.",
+          "name": "private_key",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Isolated live wallet address is configured.",
+          "name": "isolated_wallet_address",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live wallet is isolated from the configured main wallet.",
+          "name": "wallet_isolation",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Max live wallet ceiling is within tiny-pilot policy.",
+          "name": "wallet_ceiling",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Max live trade size is within tiny-pilot policy.",
+          "name": "trade_cap",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Max daily loss cap is configured.",
+          "name": "daily_loss_cap",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Manual confirmation is required; autonomous live execution is blocked.",
+          "name": "manual_confirmation",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Live chain allowlist is restricted to approved chains.",
+          "name": "chain_allowlist",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live DEX allowlist is restricted to approved DEXs.",
+          "name": "dex_allowlist",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live token allowlist is restricted to approved tokens.",
+          "name": "token_allowlist",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Transaction simulation is required and has not passed.",
+          "name": "transaction_simulation",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Paper run is not yet ready for shadow review.",
+          "name": "paper_shadow_review",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Fresh paper run has enough closed trades.",
+          "name": "paper_closed_trades",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Execution-cost confidence is MEDIUM; required HIGH.",
+          "name": "execution_cost_confidence",
+          "passed": false,
+          "severity": "BLOCK"
+        },
+        {
+          "detail": "Execution-cost evidence has enough paper samples.",
+          "name": "execution_cost_samples",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Provider monitor is OK.",
+          "name": "provider_health",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Report audit has no blocking operational findings.",
+          "name": "report_audit",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+          "name": "execution_realism",
+          "passed": false,
+          "severity": "BLOCK"
+        }
+      ],
+      "generated_at": "2026-06-30T17:54:38Z",
+      "live_guard_allowed": false,
+      "live_guard_reason": "Live trading feature flag is disabled.",
+      "max_daily_loss_usd": "5",
+      "max_live_trade_usd": "5",
+      "max_live_wallet_usd": "500",
+      "mode": "paper",
+      "notes": [
+        "Live Safety is a design and evidence gate only; it does not send transactions.",
+        "The current platform remains paper/shadow only.",
+        "The first real-money pilot should use a dedicated wallet with $500 or less total capital and a smaller per-trade cap."
+      ],
+      "overall_status": "LIVE_BLOCKED",
+      "runtime_status": {
+        "guard_max_daily_loss_usd": "0",
+        "guard_max_trade_usd": "0",
+        "guard_max_wallet_usd": "0",
+        "live_allowed_chains": [
+          "base"
+        ],
+        "live_allowed_dexes": [
+          "Uniswap V3",
+          "Aerodrome"
+        ],
+        "live_allowed_tokens": [
+          "WETH",
+          "USDC"
+        ],
+        "live_guard_allowed": false,
+        "live_guard_reason": "Live trading feature flag is disabled.",
+        "live_kill_switch_enabled": true,
+        "live_trading_enabled": false,
+        "live_wallet_configured": true,
+        "main_wallet_configured": false,
+        "max_daily_loss_usd": "5",
+        "max_live_trade_usd": "5",
+        "max_live_wallet_usd": "500",
+        "min_execution_cost_confidence": "HIGH",
+        "min_paper_closed_trades": 30,
+        "paper_trading_enabled": true,
+        "private_key_configured": false,
+        "require_manual_confirmation": true,
+        "require_paper_evidence": true,
+        "require_transaction_simulation": true,
+        "transaction_simulation_passed": false
+      }
+    },
+    "provider_monitor": {
+      "alert_count": 0,
+      "alerts": [],
+      "chains": [
+        {
+          "average_score": 100,
+          "chain": "base",
+          "critical_count": 0,
+          "degraded_count": 0,
+          "provider_count": 4,
+          "required_provider_count": 4,
+          "status": "OK",
+          "watch_count": 0
+        }
+      ],
+      "critical_alert_count": 0,
+      "degraded_alert_count": 0,
+      "generated_at": "2026-06-30T17:52:45Z",
+      "mode": "paper",
+      "notes": [
+        "Provider Monitor summarizes existing provider-health observations.",
+        "It does not make network calls or execute trades.",
+        "Missing provider observations should be treated as incomplete operational evidence."
+      ],
+      "overall_status": "OK",
+      "provider_count": 4,
+      "provider_types": [
+        {
+          "average_score": 100,
+          "provider_count": 3,
+          "provider_type": "dex",
+          "required_provider_count": 3,
+          "status": "OK"
+        },
+        {
+          "average_score": 100,
+          "provider_count": 1,
+          "provider_type": "rpc",
+          "required_provider_count": 1,
+          "status": "OK"
+        }
+      ],
+      "providers": [
+        {
+          "alerts": [],
+          "avg_latency_ms": 348.29,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 13.62,
+          "name": "Aerodrome",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 393.24,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 14.92,
+          "name": "Uniswap V2",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 797.83,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 11.91,
+          "name": "Uniswap V3",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 99,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 297.9,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 0.44,
+          "name": "Base:rpc1:https://base-rpc.publicnode.com",
+          "provider_type": "rpc",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        }
+      ],
+      "stale_after_seconds": 900
+    },
+    "report_audit": {
+      "blocking_finding_count": 0,
+      "finding_count": 25,
+      "findings": [
+        {
+          "blocks_shadow_review": false,
+          "category": "review",
+          "message": "Report is older than freshness window.",
+          "report": "quote_diagnostics.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "strategy_center.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "strategy_center.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "strategy_intelligence.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "strategy_intelligence.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "feature_store.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "feature_store.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "research_dashboard.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "research_dashboard.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "backtest_report.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "backtest_report.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "replay_diagnostics.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "replay_diagnostics.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "optimization_report.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "optimization_report.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "experiment_report.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "experiment_report.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "market_universe_evidence.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "market_universe_evidence.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "quote_coverage_evidence.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "quote_coverage_evidence.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "eth_route_architecture.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "eth_route_architecture.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "eth_market_coverage.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "research",
+          "message": "Report is older than freshness window.",
+          "report": "eth_market_coverage.md",
+          "severity": "WATCH"
+        }
+      ],
+      "generated_at": "2026-06-30T17:53:19Z",
+      "invalid_json_count": 0,
+      "missing_count": 0,
+      "mode": "paper",
+      "notes": [
+        "Report Audit is a review aid for paper-mode operations.",
+        "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
+        "Stale research reports are tracked separately from runtime-critical operational evidence."
+      ],
+      "operational_finding_count": 0,
+      "operational_stale_count": 0,
+      "report_count": 55,
+      "reports": [
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T14:50:11Z",
+          "name": "quote_diagnostics.md",
+          "size_bytes": 925,
+          "stale": true
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "multi_dex_opportunities.md",
+          "size_bytes": 951,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "opportunity_explorer.md",
+          "size_bytes": 531,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "json_valid": true,
+          "name": "paper_report.json",
+          "size_bytes": 73923,
+          "stale": false,
+          "summary": {
+            "filled_orders": 31,
+            "legacy_accounting_warning_count": 0,
+            "mode": "paper",
+            "total_orders": 162
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "paper_report.md",
+          "size_bytes": 11658,
+          "stale": false
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:09Z",
+          "json_valid": true,
+          "name": "paper_run_review.json",
+          "size_bytes": 2844,
+          "stale": false,
+          "summary": {
+            "closed_trade_count": 31,
+            "live_decision": "BLOCKED",
+            "live_ready_count": 0,
+            "losing_trade_count": 0,
+            "mode": "paper",
+            "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
+            "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
+            "shadow_decision": "BLOCKED",
+            "shadow_ready_count": 0
+          }
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:09Z",
+          "name": "paper_run_review.md",
+          "size_bytes": 1873,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "json_valid": true,
+          "name": "live_safety.json",
+          "size_bytes": 5141,
+          "stale": false,
+          "summary": {
+            "blocked_check_count": 13,
+            "check_count": 20,
+            "live_guard_allowed": false,
+            "mode": "paper",
+            "overall_status": "LIVE_BLOCKED"
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "name": "live_safety.md",
+          "size_bytes": 2328,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "json_valid": true,
+          "name": "portfolio_analytics.json",
+          "size_bytes": 23175,
+          "stale": false,
+          "summary": {
+            "closed_trade_count": 31,
+            "mode": "paper"
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "portfolio_analytics.md",
+          "size_bytes": 5971,
+          "stale": false
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:41Z",
+          "json_valid": true,
+          "name": "strategy_center.json",
+          "size_bytes": 6967,
+          "stale": true,
+          "summary": {
+            "mode": "paper",
+            "strategy_count": 5
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:41Z",
+          "name": "strategy_center.md",
+          "size_bytes": 1712,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:46Z",
+          "json_valid": true,
+          "name": "strategy_intelligence.json",
+          "size_bytes": 10599,
+          "stale": true,
+          "summary": {
+            "mode": "paper",
+            "strategy_count": 5,
+            "top_recommendation": "HOLD_FIX_OPERATIONS"
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:46Z",
+          "name": "strategy_intelligence.md",
+          "size_bytes": 4993,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:42Z",
+          "json_valid": true,
+          "name": "feature_store.json",
+          "size_bytes": 1584,
+          "stale": true,
+          "summary": {
+            "feature_count": 2072,
+            "mode": "paper"
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:42Z",
+          "name": "feature_store.md",
+          "size_bytes": 1040,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:42Z",
+          "json_valid": true,
+          "name": "research_dashboard.json",
+          "size_bytes": 17995,
+          "stale": true,
+          "summary": {
+            "mode": "paper"
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:42Z",
+          "name": "research_dashboard.md",
+          "size_bytes": 5066,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:43Z",
+          "json_valid": true,
+          "name": "backtest_report.json",
+          "size_bytes": 245879,
+          "stale": true,
+          "summary": {
+            "simulated_trades": 410,
+            "total_signals": 930
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:43Z",
+          "name": "backtest_report.md",
+          "size_bytes": 9462,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:44Z",
+          "json_valid": true,
+          "name": "replay_diagnostics.json",
+          "size_bytes": 2269,
+          "stale": true,
+          "summary": {
+            "best_profitable_trade_count": 932,
+            "deduped_row_count": 932,
+            "input_row_count": 1076,
+            "mode": "paper",
+            "production_trade_count": 410
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:44Z",
+          "name": "replay_diagnostics.md",
+          "size_bytes": 1258,
+          "stale": true
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "json_valid": true,
+          "name": "pool_depth_ladder.json",
+          "size_bytes": 6981,
+          "stale": false,
+          "summary": {
+            "confidence": "MEDIUM",
+            "depth_ready_route_count": 2,
+            "mode": "paper",
+            "overall_status": "DEPTH_EVIDENCE_READY",
+            "route_count": 2,
+            "watch_route_count": 0
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "pool_depth_ladder.md",
+          "size_bytes": 1718,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "json_valid": true,
+          "name": "execution_realism.json",
+          "size_bytes": 3301,
+          "stale": false,
+          "summary": {
+            "confidence": "NONE",
+            "live_ready_count": 0,
+            "mode": "paper",
+            "overall_status": "NOT_SHADOW_READY",
+            "paper_capital_usd": "500.0000",
+            "shadow_ready_count": 0
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "name": "execution_realism.md",
+          "size_bytes": 1319,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "json_valid": true,
+          "name": "execution_cost_evidence.json",
+          "size_bytes": 3709,
+          "stale": false,
+          "summary": {
+            "buffer_status": "CONSERVATIVE",
+            "confidence": "MEDIUM",
+            "mode": "paper"
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "name": "execution_cost_evidence.md",
+          "size_bytes": 1535,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:09Z",
+          "json_valid": true,
+          "name": "live_readiness_checklist.json",
+          "size_bytes": 5131,
+          "stale": false,
+          "summary": {
+            "blocked_check_count": 0,
+            "check_count": 22,
+            "closed_trade_count": 31,
+            "mode": "paper",
+            "overall_status": "LIVE_REVIEW_NOT_READY",
+            "pass_count": 14
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:09Z",
+          "name": "live_readiness_checklist.md",
+          "size_bytes": 3138,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "json_valid": true,
+          "name": "transaction_simulation.json",
+          "size_bytes": 3019,
+          "stale": false,
+          "summary": {
+            "blocked_check_count": 0,
+            "check_count": 12,
+            "mode": "paper",
+            "overall_status": "TX_SIMULATION_ACTION",
+            "pass_count": 6
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "name": "transaction_simulation.md",
+          "size_bytes": 2033,
+          "stale": false
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:43Z",
+          "json_valid": true,
+          "name": "optimization_report.json",
+          "size_bytes": 541825,
+          "stale": true,
+          "summary": {
+            "deduped_row_count": 930,
+            "input_row_count": 1074,
+            "mode": "paper",
+            "scenario_count": 60
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:43Z",
+          "name": "optimization_report.md",
+          "size_bytes": 2210,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:44Z",
+          "json_valid": true,
+          "name": "experiment_report.json",
+          "size_bytes": 9949,
+          "stale": true,
+          "summary": {
+            "experiment_count": 1,
+            "fail_count": 0,
+            "gate_count": 5,
+            "mode": "paper",
+            "pass_count": 4,
+            "status": "WATCHLIST",
+            "warn_count": 1
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:44Z",
+          "name": "experiment_report.md",
+          "size_bytes": 3439,
+          "stale": true
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "json_valid": true,
+          "name": "market_intelligence.json",
+          "size_bytes": 4264,
+          "stale": false,
+          "summary": {
+            "mode": "paper",
+            "overall_readiness_score": 80
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "market_intelligence.md",
+          "size_bytes": 1269,
+          "stale": false
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "json_valid": true,
+          "name": "market_universe_evidence.json",
+          "size_bytes": 8885,
+          "stale": true,
+          "summary": {
+            "active_focus_count": 1,
+            "blocked_count": 7,
+            "mode": "paper",
+            "research_target_count": 0
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "name": "market_universe_evidence.md",
+          "size_bytes": 2694,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "json_valid": true,
+          "name": "quote_coverage_evidence.json",
+          "size_bytes": 16283,
+          "stale": true,
+          "summary": {
+            "active_pair_count": 1,
+            "implemented_provider_count": 3,
+            "mode": "paper",
+            "provider_gap_count": 6,
+            "quote_gap_count": 1
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "name": "quote_coverage_evidence.md",
+          "size_bytes": 2665,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "json_valid": true,
+          "name": "eth_route_architecture.json",
+          "size_bytes": 27781,
+          "stale": true,
+          "summary": {
+            "candidate_buffer_pct": "0.20",
+            "mode": "paper",
+            "production_buffer_pct": "0.30",
+            "route_architecture_decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20"
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:45Z",
+          "name": "eth_route_architecture.md",
+          "size_bytes": 3986,
+          "stale": true
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:46Z",
+          "json_valid": true,
+          "name": "eth_market_coverage.json",
+          "size_bytes": 8684,
+          "stale": true,
+          "summary": {
+            "configured_target_chain_count": 4,
+            "mode": "paper",
+            "overall_coverage_score": 53,
+            "overall_status": "ETH_COVERAGE_EARLY",
+            "quote_ready_route_count": 2,
+            "target_chain_count": 5
+          }
+        },
+        {
+          "category": "research",
+          "exists": true,
+          "generated_at": "2026-06-30T07:46:46Z",
+          "name": "eth_market_coverage.md",
+          "size_bytes": 2124,
+          "stale": true
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:41:58Z",
+          "json_valid": true,
+          "name": "paper_trading_settings.json",
+          "size_bytes": 3142,
+          "stale": false,
+          "summary": {
+            "error_count": 0,
+            "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings",
+            "mode": "paper",
+            "paper_capital_usd": "500.00",
+            "status": "VALID",
+            "warning_count": 0
+          }
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:41:58Z",
+          "name": "paper_trading_settings.md",
+          "size_bytes": 1659,
+          "stale": false
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "json_valid": true,
+          "name": "wallet_preflight.json",
+          "size_bytes": 3606,
+          "stale": false,
+          "summary": {
+            "blocked_check_count": 0,
+            "check_count": 15,
+            "mode": "paper",
+            "overall_status": "WALLET_PREP_ACTION"
+          }
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:08Z",
+          "name": "wallet_preflight.md",
+          "size_bytes": 2038,
+          "stale": false
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:18Z",
+          "json_valid": true,
+          "name": "tiny_live_pilot.json",
+          "size_bytes": 52240,
+          "stale": false,
+          "summary": {
+            "blocked_check_count": 3,
+            "check_count": 18,
+            "mode": "plan",
+            "overall_status": "LIVE_PILOT_BLOCKED"
+          }
+        },
+        {
+          "category": "review",
+          "exists": true,
+          "generated_at": "2026-06-30T17:53:18Z",
+          "name": "tiny_live_pilot.md",
+          "size_bytes": 2592,
+          "stale": false
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "json_valid": true,
+          "name": "provider_monitor.json",
+          "size_bytes": 2880,
+          "stale": false,
+          "summary": {
+            "alert_count": 0,
+            "mode": "paper",
+            "overall_status": "OK",
+            "provider_count": 4
+          }
+        },
+        {
+          "category": "operational",
+          "exists": true,
+          "generated_at": "2026-06-30T17:52:45Z",
+          "name": "provider_monitor.md",
+          "size_bytes": 1007,
+          "stale": false
+        }
+      ],
+      "research_finding_count": 24,
+      "research_stale_count": 24,
+      "stale_count": 25
+    },
+    "transaction_simulation": {
+      "action_count": 4,
+      "blocked_check_count": 0,
+      "check_count": 12,
+      "checks": [
+        {
+          "detail": "Live trading is disabled.",
+          "name": "live_trading_disabled",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live kill switch is enabled.",
+          "name": "kill_switch_enabled",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Private key is absent.",
+          "name": "private_key_absent",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Wallet Preflight is ready.",
+          "name": "wallet_preflight_ready",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live Readiness Checklist must be review-ready before transaction simulation can pass.",
+          "name": "live_readiness_review_ready",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "No BUY plus SHADOW_READY opportunity is available for simulation.",
+          "name": "shadow_candidate_available",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Simulation candidate is Base USDC/WETH scope.",
+          "name": "candidate_scope_allowed",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Both route routers are configured.",
+          "name": "routers_configured",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Simulation candidate DEXes are within the tiny-live allowlist.",
+          "name": "approved_live_dexes",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Tiny live trade cap is configured.",
+          "name": "live_trade_cap_configured",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Exact router calldata was not built for the selected candidate.",
+          "name": "exact_calldata_built",
+          "passed": false,
+          "severity": "ACTION"
+        },
+        {
+          "detail": "Base eth_call simulation has not passed yet.",
+          "name": "eth_call_simulation_passed",
+          "passed": false,
+          "severity": "ACTION"
+        }
+      ],
+      "generated_at": "2026-06-30T17:54:40Z",
+      "live_trading_approval": false,
+      "mode": "paper",
+      "notes": [
+        "Transaction Simulation is evidence-only and never sends a transaction.",
+        "The gate remains non-passing until exact calldata is built, Base eth_call simulation succeeds for both arbitrage legs, and the surrounding readiness checks pass.",
+        "Private keys must remain absent while developing this report."
+      ],
+      "overall_status": "TX_SIMULATION_ACTION",
+      "pass_count": 8,
+      "selected_candidate": {},
+      "simulation_intent": {
+        "calldata_status": "NOT_BUILT",
+        "eth_call_status": "NOT_RUN",
+        "reason": "No latest BUY plus SHADOW_READY opportunity is available.",
+        "status": "NO_CANDIDATE"
+      },
+      "transaction_simulation_passed": false
+    },
+    "wallet_preflight": {
+      "action_count": 0,
+      "blocked_check_count": 0,
+      "check_count": 15,
+      "checks": [
+        {
+          "detail": "Live trading feature flag is disabled.",
+          "name": "live_trading_disabled",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live kill switch is enabled.",
+          "name": "kill_switch_enabled",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "No private key is configured.",
+          "name": "private_key_absent",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Isolated live wallet public address is configured.",
+          "name": "isolated_wallet_address",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live wallet is separate from the main wallet.",
+          "name": "wallet_isolation",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Planned chain is Base.",
+          "name": "planned_chain_base",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live chain allowlist is restricted to Base.",
+          "name": "chain_allowlist_base",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Live token allowlist includes USDC and WETH.",
+          "name": "token_allowlist_usdc_weth",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Planned funding is within the $500 tiny-pilot ceiling.",
+          "name": "planned_wallet_ceiling",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Planned ETH gas budget is within preparation range.",
+          "name": "planned_gas_budget",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Configured wallet ceiling is within tiny-pilot policy.",
+          "name": "configured_wallet_ceiling",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Configured trade cap is within tiny-pilot policy.",
+          "name": "configured_trade_cap",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Configured daily loss cap is within tiny-pilot policy.",
+          "name": "configured_daily_loss",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Manual confirmation is required.",
+          "name": "manual_confirmation_required",
+          "passed": true,
+          "severity": "PASS"
+        },
+        {
+          "detail": "Transaction simulation is required.",
+          "name": "transaction_simulation_required",
+          "passed": true,
+          "severity": "PASS"
+        }
+      ],
+      "generated_at": "2026-06-30T17:54:38Z",
+      "live_kill_switch_enabled": true,
+      "live_trading_approval": false,
+      "live_trading_enabled": false,
+      "live_wallet_configured": true,
+      "max_prep_wallet_usd": "500.0000",
+      "max_tiny_trade_usd": "100.0000",
+      "mode": "paper",
+      "notes": [
+        "Wallet Preflight is preparation-only and never approves live trading.",
+        "Do not configure private keys until the transaction path, simulation gate, and manual review are complete.",
+        "The first real-money pilot should use an isolated wallet on Base with a total wallet ceiling of $500 or less."
+      ],
+      "overall_status": "WALLET_PREP_READY",
+      "planned_chain": "base",
+      "planned_eth_gas_usd": "50.0000",
+      "planned_total_usd": "500.0000",
+      "planned_usdc_usd": "450.0000",
+      "private_key_configured": false,
+      "wallet_preflight_allowed": true
+    }
+  },
+  "generated_at": "2026-06-30T17:54:45Z",
+  "live_trading_approval": false,
+  "mode": "plan",
+  "notes": [
+    "Tiny Live Pilot is a manual smoke-test harness, not an autonomous trading loop.",
+    "It supports a capped one-leg USDC->WETH live test only; cross-DEX arbitrage still requires an atomic executor contract before production live trading.",
+    "Never paste a private key into chat. Configure it only in your local environment when intentionally running approve/swap mode."
+  ],
+  "overall_status": "LIVE_PILOT_BLOCKED",
+  "pilot_plan": {
+    "allowance_sufficient": false,
+    "allowance_units": "0",
+    "approval_tx_available": true,
+    "chain_id": 8453,
+    "dex": "Uniswap V3",
+    "error": null,
+    "eth_balance": "0.024148469750380405",
+    "latest_block": 48026368,
+    "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+    "rpc_url": "https://base-rpc.publicnode.com",
+    "smoke_usd": "5",
+    "swap_tx_available": true,
+    "usdc_balance": "449.998478",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "send_attempted": false,
+  "send_result": null
+}
