@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-30T02:31:59Z",
+  "generated_at": "2026-06-30T02:54:58Z",
   "mode": "paper",
   "strategy_count": 5,
   "top_recommendation": "CONTINUE_RESEARCH",
   "promotion_allowed": false,
   "context": {
-    "feature_count": 12,
-    "tradeable_or_filled_count": 0,
+    "feature_count": 3374,
+    "tradeable_or_filled_count": 502,
     "optimization_best_trades": 6,
     "optimization_best_pnl_usd": "17.1225",
     "optimization_best_cost_buffer_pct": "0.20",
@@ -48,9 +48,9 @@
     "provider_status": "OK",
     "provider_alert_count": 0,
     "audit_finding_count": 0,
-    "paper_total_pnl_usd": "0.0000",
-    "paper_total_return_pct": "0.0000",
-    "paper_filled_orders": 0
+    "paper_total_pnl_usd": "237.2180",
+    "paper_total_return_pct": "23.7218",
+    "paper_filled_orders": 66
   },
   "strategies": [
     {
@@ -66,7 +66,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 44,
+      "intelligence_score": 54,
       "recommendation": "CONTINUE_RESEARCH",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -86,7 +86,7 @@
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
         "+7 report audit clean",
-        "+0 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -106,7 +106,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 29,
+      "intelligence_score": 39,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -127,7 +127,7 @@
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
         "+7 report audit clean",
-        "+0 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -147,7 +147,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 29,
+      "intelligence_score": 39,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -168,7 +168,7 @@
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
         "+7 report audit clean",
-        "+0 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -188,7 +188,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 29,
+      "intelligence_score": 39,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -209,7 +209,7 @@
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
         "+7 report audit clean",
-        "+0 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [
@@ -229,7 +229,7 @@
       "win_rate_pct": "None",
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
-      "intelligence_score": 29,
+      "intelligence_score": 39,
       "recommendation": "RESEARCH_DISABLED",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
@@ -250,7 +250,7 @@
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
         "+7 report audit clean",
-        "+0 feature-store depth",
+        "+10 feature-store depth",
         "-15 experiment gate failure"
       ],
       "next_actions": [

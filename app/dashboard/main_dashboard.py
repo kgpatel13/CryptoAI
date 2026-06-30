@@ -112,6 +112,7 @@ def render_mission_control() -> None:
     market_intelligence_report = REPORT_DIR / "market_intelligence.json"
     provider_monitor_report = REPORT_DIR / "provider_monitor.json"
     eth_market_coverage_report = REPORT_DIR / "eth_market_coverage.json"
+    execution_realism_report = REPORT_DIR / "execution_realism.json"
 
     paper = {}
     research = {}
@@ -122,6 +123,7 @@ def render_mission_control() -> None:
     market_intelligence = {}
     provider_monitor = {}
     eth_market_coverage = {}
+    execution_realism = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -163,6 +165,12 @@ def render_mission_control() -> None:
             eth_market_coverage = json.loads(eth_market_coverage_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             eth_market_coverage = {}
+
+    if execution_realism_report.exists():
+        try:
+            execution_realism = json.loads(execution_realism_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            execution_realism = {}
 
     if strategy_intelligence_report.exists():
         try:
@@ -259,6 +267,23 @@ def render_mission_control() -> None:
         st.caption(str(best_opp.get("reason", "-")))
     if latest_order:
         st.caption(str(latest_order.get("reason", "-")))
+
+    st.markdown("### Execution Realism")
+    r1, r2, r3, r4 = st.columns(4)
+    r1.metric("Realism Status", execution_realism.get("overall_status", "-"))
+    r2.metric("Confidence", execution_realism.get("confidence", "-"))
+    r3.metric("Shadow Ready", execution_realism.get("shadow_ready_count", "-"))
+    r4.metric("Live Ready", execution_realism.get("live_ready_count", "-"))
+    realism_rows = execution_realism.get("opportunities", []) if isinstance(execution_realism.get("opportunities"), list) else []
+    if realism_rows:
+        best_realism = realism_rows[0]
+        st.caption(
+            f"Stress net edge: {best_realism.get('stress_net_edge_pct', '-')}%, "
+            f"executable size: ${best_realism.get('max_executable_notional_usd', '-')}, "
+            f"status: {best_realism.get('realism_status', '-')}"
+        )
+    else:
+        st.caption("No execution realism report yet.")
 
     st.markdown("### Market Intelligence")
     m1, m2, m3, m4 = st.columns(4)
@@ -824,6 +849,7 @@ def render_reports() -> None:
         ("ETH Market Coverage", REPORT_DIR / "eth_market_coverage.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
+        ("Execution Realism", REPORT_DIR / "execution_realism.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization", REPORT_DIR / "optimization_report.md"),
         ("Experiment Evidence", REPORT_DIR / "experiment_report.md"),
@@ -991,6 +1017,7 @@ def render_backtesting() -> None:
     for title, path in [
         ("Backtest Report", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics Report", REPORT_DIR / "replay_diagnostics.md"),
+        ("Execution Realism Report", REPORT_DIR / "execution_realism.md"),
         ("Execution Cost Evidence Report", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization Report", REPORT_DIR / "optimization_report.md"),
         ("Experiment Report", REPORT_DIR / "experiment_report.md"),
@@ -1350,6 +1377,7 @@ def render_setup() -> None:
         python -m app.operations.provider_monitor
         python -m app.backtesting.backtest_service
         python -m app.backtesting.replay_diagnostics_service
+        python -m app.execution.execution_realism_service
         python -m app.execution.execution_cost_evidence_service
         python -m app.backtesting.optimization_service
         python -m app.research.market_universe_evidence_service

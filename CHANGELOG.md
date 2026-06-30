@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.12 - Execution Realism Evidence Engine
+
+- Added `ExecutionRealismService` to stress-check paper opportunities against route quote coverage, requested notional, gas, price-impact heuristics, and MEV risk buffers.
+- Added `execution_realism.json` and `execution_realism.md` reports.
+- Integrated Execution Realism into Mission Control, report views, Report Audit, and paper autopilot report generation.
+- Added conservative statuses such as `PAPER_ONLY_NEEDS_DEPTH`, `SHADOW_ONLY`, `NEGATIVE_AFTER_STRESS`, and `NOT_EXECUTABLE`.
+- Kept live trading disabled, paper BUY threshold unchanged at `0.30%`, and production cost buffer unchanged at `0.30%`.
+- Added regression tests for shadow-only BUY candidates, non-executable single-route opportunities, and autopilot report ordering.
+
 ## v5.11 - Arbitrage Execution Refactor
 
 - Added a dedicated paper `ArbitrageExecutionEngine` so DEX arbitrage is simulated as an atomic buy/sell round trip.

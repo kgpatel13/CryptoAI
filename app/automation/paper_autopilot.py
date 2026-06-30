@@ -56,6 +56,11 @@ try:
 except Exception:
     ReportAuditService = None
 
+try:
+    from app.execution.execution_realism_service import ExecutionRealismService
+except Exception:
+    ExecutionRealismService = None
+
 
 class PaperAutopilot:
     """Safe paper-trading autopilot.
@@ -140,6 +145,12 @@ class PaperAutopilot:
                 market_readiness_score = market_intelligence.get("overall_readiness_score")
             except Exception:
                 market_readiness_score = None
+
+        if ExecutionRealismService is not None:
+            try:
+                ExecutionRealismService().generate()
+            except Exception:
+                pass
 
         if ReportAuditService is not None:
             try:

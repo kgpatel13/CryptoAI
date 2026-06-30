@@ -1,6 +1,6 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-30T02:34:04Z`
+Generated: `2026-06-30T02:56:25Z`
 
 ## Summary
 
@@ -21,20 +21,20 @@ Generated: `2026-06-30T02:34:04Z`
 | Report | Exists | Generated | Stale | Size |
 |---|---|---|---|---:|
 | quote_diagnostics.md | True | 2026-06-30T02:31:27Z | False | 929 |
-| multi_dex_opportunities.md | True | 2026-06-30T02:34:04Z | False | 951 |
-| opportunity_explorer.md | True | 2026-06-30T02:34:04Z | False | 531 |
-| paper_report.json | True | 2026-06-30T02:34:04Z | False | 11125 |
-| paper_report.md | True | 2026-06-30T02:34:04Z | False | 3716 |
-| portfolio_analytics.json | True | 2026-06-30T02:34:04Z | False | 1150 |
-| portfolio_analytics.md | True | 2026-06-30T02:34:04Z | False | 965 |
+| multi_dex_opportunities.md | True | 2026-06-30T02:56:24Z | False | 928 |
+| opportunity_explorer.md | True | 2026-06-30T02:56:24Z | False | 507 |
+| paper_report.json | True | 2026-06-30T02:56:25Z | False | 108770 |
+| paper_report.md | True | 2026-06-30T02:56:25Z | False | 11509 |
+| portfolio_analytics.json | True | 2026-06-30T02:56:25Z | False | 53908 |
+| portfolio_analytics.md | True | 2026-06-30T02:56:25Z | False | 5446 |
 | strategy_center.json | True | 2026-06-30T02:31:32Z | False | 5876 |
 | strategy_center.md | True | 2026-06-30T02:31:32Z | False | 1710 |
-| strategy_intelligence.json | True | 2026-06-30T02:31:59Z | False | 10836 |
-| strategy_intelligence.md | True | 2026-06-30T02:31:59Z | False | 5304 |
-| feature_store.json | True | 2026-06-30T02:31:59Z | False | 1391 |
-| feature_store.md | True | 2026-06-30T02:31:59Z | False | 941 |
-| research_dashboard.json | True | 2026-06-30T02:31:59Z | False | 9513 |
-| research_dashboard.md | True | 2026-06-30T02:31:59Z | False | 3233 |
+| strategy_intelligence.json | True | 2026-06-30T02:54:58Z | False | 10849 |
+| strategy_intelligence.md | True | 2026-06-30T02:54:58Z | False | 5304 |
+| feature_store.json | True | 2026-06-30T02:54:58Z | False | 1589 |
+| feature_store.md | True | 2026-06-30T02:54:58Z | False | 1043 |
+| research_dashboard.json | True | 2026-06-30T02:54:58Z | False | 17571 |
+| research_dashboard.md | True | 2026-06-30T02:54:58Z | False | 4708 |
 | backtest_report.json | True | 2026-06-30T02:31:59Z | False | 683 |
 | backtest_report.md | True | 2026-06-30T02:31:59Z | False | 730 |
 | replay_diagnostics.json | True | 2026-06-30T02:31:59Z | False | 2409 |
@@ -45,8 +45,8 @@ Generated: `2026-06-30T02:34:04Z`
 | optimization_report.md | True | 2026-06-30T02:31:59Z | False | 2039 |
 | experiment_report.json | True | 2026-06-30T02:31:59Z | False | 15196 |
 | experiment_report.md | True | 2026-06-30T02:31:59Z | False | 3607 |
-| market_intelligence.json | True | 2026-06-30T02:34:04Z | False | 4264 |
-| market_intelligence.md | True | 2026-06-30T02:34:04Z | False | 1269 |
+| market_intelligence.json | True | 2026-06-30T02:56:25Z | False | 4264 |
+| market_intelligence.md | True | 2026-06-30T02:56:25Z | False | 1269 |
 | market_universe_evidence.json | True | 2026-06-30T02:31:59Z | False | 9344 |
 | market_universe_evidence.md | True | 2026-06-30T02:31:59Z | False | 2618 |
 | quote_coverage_evidence.json | True | 2026-06-30T02:31:59Z | False | 16283 |
@@ -55,7 +55,7 @@ Generated: `2026-06-30T02:34:04Z`
 | eth_route_architecture.md | True | 2026-06-30T02:31:34Z | False | 3964 |
 | eth_market_coverage.json | True | 2026-06-30T02:31:34Z | False | 8684 |
 | eth_market_coverage.md | True | 2026-06-30T02:31:34Z | False | 2124 |
-| paper_trading_settings.json | True | 2026-06-30T02:33:57Z | False | 3172 |
-| paper_trading_settings.md | True | 2026-06-30T02:33:57Z | False | 1678 |
-| provider_monitor.json | True | 2026-06-30T02:34:04Z | False | 2879 |
-| provider_monitor.md | True | 2026-06-30T02:34:04Z | False | 1005 |
+| paper_trading_settings.json | True | 2026-06-30T02:36:43Z | False | 3172 |
+| paper_trading_settings.md | True | 2026-06-30T02:36:43Z | False | 1678 |
+| provider_monitor.json | True | 2026-06-30T02:56:25Z | False | 2880 |
+| provider_monitor.md | True | 2026-06-30T02:56:25Z | False | 1007 |
