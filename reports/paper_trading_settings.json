@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T22:52:16Z",
+  "generated_at": "2026-06-30T23:16:53Z",
   "mode": "paper",
   "paper_profile": "live_parity_500",
   "status": "VALID",
@@ -58,6 +58,7 @@
     "evidence_gates": {
       "require_report_audit_clean": true,
       "require_provider_not_critical": true,
+      "require_live_shadow_eligible_for_paper": true,
       "min_execution_cost_confidence": "HIGH",
       "min_eth_coverage_score": 50
     },
@@ -67,6 +68,7 @@
       "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
       "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
       "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
+      "Paper fills require live-shadow eligibility in this profile, so paper profit means more than paper-only edge.",
       "This profile is still paper-only and does not approve live trading."
     ]
   },
@@ -86,7 +88,8 @@
     "CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT": "100.00",
     "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
     "CRYPTOAI_MAX_DAILY_LOSS_USD": "5",
-    "CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT": "0.30"
+    "CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT": "0.30",
+    "CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE": "true"
   },
   "findings": []
 }

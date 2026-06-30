@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T23:05:20Z",
+  "generated_at": "2026-06-30T23:16:55Z",
   "mode": "paper",
-  "report_count": 55,
+  "report_count": 57,
   "missing_count": 0,
   "invalid_json_count": 0,
   "stale_count": 25,
@@ -40,8 +40,8 @@
       "name": "paper_report.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 143376,
-      "generated_at": "2026-06-30T23:05:18Z",
+      "size_bytes": 143665,
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -55,16 +55,16 @@
       "name": "paper_report.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 29174,
-      "generated_at": "2026-06-30T23:05:18Z",
+      "size_bytes": 29535,
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false
     },
     {
       "name": "paper_run_review.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 2848,
-      "generated_at": "2026-06-30T23:05:20Z",
+      "size_bytes": 3307,
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -83,8 +83,8 @@
       "name": "paper_run_review.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 1877,
-      "generated_at": "2026-06-30T23:05:20Z",
+      "size_bytes": 2212,
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false
     },
     {
@@ -116,7 +116,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 69357,
-      "generated_at": "2026-06-30T23:05:18Z",
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -129,7 +129,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6038,
-      "generated_at": "2026-06-30T23:05:18Z",
+      "generated_at": "2026-06-30T23:16:54Z",
       "stale": false
     },
     {
@@ -309,6 +309,27 @@
       "exists": true,
       "size_bytes": 1317,
       "generated_at": "2026-06-30T23:05:19Z",
+      "stale": false
+    },
+    {
+      "name": "live_shadow_gate.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 109654,
+      "generated_at": "2026-06-30T23:16:53Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "NO_SHADOW_ELIGIBLE_TRADES"
+      }
+    },
+    {
+      "name": "live_shadow_gate.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 5051,
+      "generated_at": "2026-06-30T23:16:53Z",
       "stale": false
     },
     {
@@ -551,8 +572,8 @@
       "name": "paper_trading_settings.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 3230,
-      "generated_at": "2026-06-30T22:52:16Z",
+      "size_bytes": 3465,
+      "generated_at": "2026-06-30T23:16:53Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -568,8 +589,8 @@
       "name": "paper_trading_settings.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 1697,
-      "generated_at": "2026-06-30T22:52:16Z",
+      "size_bytes": 1862,
+      "generated_at": "2026-06-30T23:16:53Z",
       "stale": false
     },
     {

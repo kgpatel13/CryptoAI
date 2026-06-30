@@ -80,6 +80,11 @@ except Exception:
     LiveReadinessChecklistService = None
 
 try:
+    from app.execution.live_shadow_gate_service import LiveShadowGateService
+except Exception:
+    LiveShadowGateService = None
+
+try:
     from app.execution.live_safety_report import LiveSafetyReportService
 except Exception:
     LiveSafetyReportService = None
@@ -334,6 +339,12 @@ class PaperAutopilot:
         if ExecutionRealismService is not None:
             try:
                 ExecutionRealismService().generate()
+            except Exception:
+                pass
+
+        if LiveShadowGateService is not None:
+            try:
+                LiveShadowGateService().generate()
             except Exception:
                 pass
 

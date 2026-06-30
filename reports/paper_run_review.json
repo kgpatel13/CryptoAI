@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T23:05:20Z",
+  "generated_at": "2026-06-30T23:16:54Z",
   "mode": "paper",
   "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
   "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
@@ -21,6 +21,9 @@
   "execution_realism_status": "NOT_SHADOW_READY",
   "execution_realism_confidence": "NONE",
   "shadow_ready_count": 0,
+  "live_shadow_gate_status": "NO_SHADOW_ELIGIBLE_TRADES",
+  "live_shadow_eligible_count": 0,
+  "paper_only_count": 200,
   "live_ready_count": 0,
   "report_audit_findings": 25,
   "report_audit_blocking_findings": 0,
@@ -58,6 +61,11 @@
       "message": "shadow_ready=0; status=NOT_SHADOW_READY"
     },
     {
+      "name": "live_shadow_eligible",
+      "status": "BLOCK",
+      "message": "shadow_eligible=0; status=NO_SHADOW_ELIGIBLE_TRADES"
+    },
+    {
       "name": "report_audit_clean",
       "status": "PASS",
       "message": "blocking_findings=0; total_findings=25"
@@ -73,12 +81,16 @@
       "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."
     },
     {
+      "severity": "ACTION",
+      "message": "Live Shadow Gate has zero shadow-eligible paper trades; current paper PnL is paper-only evidence."
+    },
+    {
       "severity": "INFO",
       "message": "Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness."
     },
     {
       "severity": "SUMMARY",
-      "message": "Blocked gates: execution_shadow_ready."
+      "message": "Blocked gates: execution_shadow_ready, live_shadow_eligible."
     }
   ],
   "notes": [

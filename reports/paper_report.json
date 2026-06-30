@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T23:05:18Z",
+  "generated_at": "2026-06-30T23:16:54Z",
   "mode": "paper",
   "live_trading": "disabled",
   "total_opportunity_decisions": 19344,
@@ -13,6 +13,11 @@
   "skipped_orders": 2880,
   "rejected_orders": 0,
   "risk_rejected_orders": 36,
+  "live_shadow_eligible_filled_orders": 0,
+  "paper_only_filled_orders": 0,
+  "live_shadow_decision_counts": {
+    "UNKNOWN": 3858
+  },
   "total_filled_notional_usd": "10725.0000",
   "total_realized_pnl_usd": "39.0745",
   "portfolio_realized_pnl_usd": "39.0745",
@@ -212,7 +217,7 @@
     "updated_at": "2026-06-30T23:05:16Z"
   },
   "portfolio_analytics": {
-    "generated_at": "2026-06-30T23:05:18Z",
+    "generated_at": "2026-06-30T23:16:54Z",
     "mode": "paper",
     "initial_cash_usd": "500.0000",
     "cash_usd": "539.0745",
@@ -3525,6 +3530,7 @@
     "No real wallet or exchange order was used.",
     "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
     "Portfolio cash and realized PnL are reconciled to paper_portfolio_state.json.",
+    "Live-shadow eligible fills are the subset of paper fills that passed live-style evidence gates before wallet/transaction-simulation review.",
     "Order-file realized PnL is retained as historical execution evidence and may include rows from earlier paper sessions.",
     "Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis."
   ]

@@ -183,6 +183,8 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "4.00")
         self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "5")
         self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.30")
+        self.assertEqual(env["CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE"], "true")
+        self.assertTrue(settings["evidence_gates"]["require_live_shadow_eligible_for_paper"])
         self.assertEqual(settings["evidence_gates"]["min_execution_cost_confidence"], "HIGH")
 
     def test_rejects_min_notional_above_max_notional(self) -> None:

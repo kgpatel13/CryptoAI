@@ -132,6 +132,10 @@ class PaperRunReviewServiceTests(unittest.TestCase):
             (reports / "provider_monitor.json").write_text(json.dumps({"overall_status": "OK"}), encoding="utf-8")
             (reports / "pool_depth_ladder.json").write_text(json.dumps({"depth_ready_route_count": 1, "overall_status": "DEPTH_EVIDENCE_READY"}), encoding="utf-8")
             (reports / "execution_realism.json").write_text(json.dumps({"shadow_ready_count": 1, "live_ready_count": 0, "confidence": "MEDIUM"}), encoding="utf-8")
+            (reports / "live_shadow_gate.json").write_text(
+                json.dumps({"overall_status": "SHADOW_ELIGIBLE_EVIDENCE", "shadow_eligible_count": 1, "paper_only_count": 0}),
+                encoding="utf-8",
+            )
             (reports / "report_audit.json").write_text(
                 json.dumps(
                     {

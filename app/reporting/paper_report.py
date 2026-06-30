@@ -28,6 +28,8 @@ class PaperReportService:
         skipped = [o for o in orders if str(o.get("status", "")).upper() == "SKIPPED"]
         rejected = [o for o in orders if str(o.get("status", "")).upper() in {"REJECTED", "CANCELLED", "EXPIRED"}]
         risk_rejected = [o for o in orders if str(o.get("status", "")).upper() == "RISK_REJECTED"]
+        shadow_eligible = [o for o in filled if str(o.get("live_shadow_decision", "")).upper() == "SHADOW_ELIGIBLE"]
+        paper_only_filled = [o for o in filled if str(o.get("live_shadow_decision", "")).upper() == "PAPER_ONLY"]
 
         total_notional = sum(self._decimal(o.get("notional_usd", "0")) for o in filled)
         portfolio_state = self._read_json(self.portfolio_state_file)
@@ -63,6 +65,9 @@ class PaperReportService:
             "skipped_orders": len(skipped),
             "rejected_orders": len(rejected),
             "risk_rejected_orders": len(risk_rejected),
+            "live_shadow_eligible_filled_orders": len(shadow_eligible),
+            "paper_only_filled_orders": len(paper_only_filled),
+            "live_shadow_decision_counts": self._value_counts(orders, "live_shadow_decision"),
             "total_filled_notional_usd": str(total_notional),
             "total_realized_pnl_usd": str(portfolio_realized_pnl),
             "portfolio_realized_pnl_usd": str(portfolio_realized_pnl),
@@ -83,6 +88,7 @@ class PaperReportService:
                 "No real wallet or exchange order was used.",
             "If filled_orders is zero, inspect opportunity_decision_counts and skip_reasons.",
             "Portfolio cash and realized PnL are reconciled to paper_portfolio_state.json.",
+            "Live-shadow eligible fills are the subset of paper fills that passed live-style evidence gates before wallet/transaction-simulation review.",
             "Order-file realized PnL is retained as historical execution evidence and may include rows from earlier paper sessions.",
             "Rows with legacy_accounting_warning came from pre-repair paper-order records and should not be used for sizing analysis.",
             ],
@@ -113,6 +119,8 @@ class PaperReportService:
             f"- Skipped orders: `{report['skipped_orders']}`",
             f"- Rejected orders: `{report['rejected_orders']}`",
             f"- Portfolio risk rejections: `{report['risk_rejected_orders']}`",
+            f"- Live-shadow eligible filled orders: `{report.get('live_shadow_eligible_filled_orders', 0)}`",
+            f"- Paper-only filled orders: `{report.get('paper_only_filled_orders', 0)}`",
             f"- Total filled notional USD: `${report['total_filled_notional_usd']}`",
             f"- Total realized PnL USD: `${report['total_realized_pnl_usd']}`",
             f"- Order-file realized PnL USD: `${report.get('order_file_realized_pnl_usd', '-')}`",
@@ -160,6 +168,13 @@ class PaperReportService:
                 lines.append(f"- `{quality}`: {count}")
         else:
             lines.append("- No filled execution-quality records yet.")
+
+        lines += ["", "## Live Shadow Decisions", ""]
+        if report.get("live_shadow_decision_counts"):
+            for decision, count in report["live_shadow_decision_counts"].items():
+                lines.append(f"- `{decision}`: {count}")
+        else:
+            lines.append("- No live-shadow decisions recorded yet.")
 
         lines += ["", "## Paper Portfolio", ""]
         portfolio = report.get("portfolio", {})
@@ -241,14 +256,15 @@ class PaperReportService:
         lines += ["", "## Latest Orders", ""]
         orders = report["latest_orders"]
         if orders:
-            lines.append("| Time | Pair | Buy | Sell | Status | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |")
-            lines.append("|---|---|---|---|---|---:|---:|---:|---:|---:|---|---|")
+            lines.append("| Time | Pair | Buy | Sell | Status | Shadow | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |")
+            lines.append("|---|---|---|---|---|---|---:|---:|---:|---:|---:|---|---|")
             for order in orders:
                 reason = str(order.get("reason", "-")).replace("|", "/")
                 lines.append(
                     f"| {order.get('timestamp', '-')} | {order.get('pair', '-')} | "
                     f"{order.get('buy_source', '-')} | {order.get('sell_source', '-')} | "
-                    f"{order.get('status', '-')} | {order.get('notional_usd', '-')} | "
+                    f"{order.get('status', '-')} | {order.get('live_shadow_decision', '-')} | "
+                    f"{order.get('notional_usd', '-')} | "
                     f"{order.get('gross_edge_pct', '-')} | {order.get('cost_buffer_pct', '-')} | "
                     f"{order.get('net_edge_pct', order.get('estimated_edge_pct', '-'))} | "
                     f"{order.get('realized_pnl_usd', '-')} | "

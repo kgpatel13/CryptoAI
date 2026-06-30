@@ -55,6 +55,13 @@ class PaperOrder:
     slippage_bps: Decimal | None = None
     latency_ms: int | None = None
     execution_quality: str | None = None
+    paper_decision: str | None = None
+    live_shadow_decision: str | None = None
+    live_shadow_reason: str | None = None
+    live_shadow_stress_net_edge_pct: Decimal | None = None
+    live_shadow_status: str | None = None
+    live_shadow_checked_at: str | None = None
+    live_shadow_blockers: list[dict] = field(default_factory=list)
     lifecycle_events: list[dict] = field(default_factory=list)
 
 

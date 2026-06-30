@@ -1,6 +1,6 @@
 # CryptoAI Paper Trading Settings
 
-Generated: `2026-06-30T22:52:16Z`
+Generated: `2026-06-30T23:16:53Z`
 
 ## Summary
 
@@ -31,6 +31,7 @@ Generated: `2026-06-30T22:52:16Z`
 - Production buffer %: `0.30`
 - Research candidate buffer %: `0.20`
 - Paper BUY threshold %: `0.30`
+- Require live-shadow eligible paper fills: `True`
 
 ## Findings
 
@@ -46,4 +47,5 @@ Generated: `2026-06-30T22:52:16Z`
 - The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.
 - One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.
 - Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.
+- Paper fills require live-shadow eligibility in this profile, so paper profit means more than paper-only edge.
 - This profile is still paper-only and does not approve live trading.

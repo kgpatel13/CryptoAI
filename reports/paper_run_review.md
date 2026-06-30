@@ -1,6 +1,6 @@
 # CryptoAI Paper Run Review
 
-Generated: `2026-06-30T23:05:20Z`
+Generated: `2026-06-30T23:16:54Z`
 
 ## Summary
 
@@ -18,6 +18,9 @@ Generated: `2026-06-30T23:05:20Z`
 - Provider status: `OK`
 - Pool depth status: `DEPTH_EVIDENCE_READY`
 - Execution realism: `NOT_SHADOW_READY` / `NONE`
+- Live shadow gate: `NO_SHADOW_ELIGIBLE_TRADES`
+- Live-shadow eligible trades: `0`
+- Paper-only trades: `200`
 - Report audit blocking findings: `0`
 - Report audit research findings: `24`
 
@@ -31,6 +34,7 @@ Generated: `2026-06-30T23:05:20Z`
 | provider_ok | PASS | provider_status=OK |
 | pool_depth_ready | PASS | depth_ready_routes=2; status=DEPTH_EVIDENCE_READY |
 | execution_shadow_ready | BLOCK | shadow_ready=0; status=NOT_SHADOW_READY |
+| live_shadow_eligible | BLOCK | shadow_eligible=0; status=NO_SHADOW_ELIGIBLE_TRADES |
 | report_audit_clean | PASS | blocking_findings=0; total_findings=25 |
 
 ## Findings
@@ -39,8 +43,9 @@ Generated: `2026-06-30T23:05:20Z`
 |---|---|
 | INFO | Paper run is profitable so far: $39.0745 across 942 closed trade(s). |
 | ACTION | Execution realism has zero shadow-ready opportunities; live trading remains blocked. |
+| ACTION | Live Shadow Gate has zero shadow-eligible paper trades; current paper PnL is paper-only evidence. |
 | INFO | Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness. |
-| SUMMARY | Blocked gates: execution_shadow_ready. |
+| SUMMARY | Blocked gates: execution_shadow_ready, live_shadow_eligible. |
 
 ## Notes
 

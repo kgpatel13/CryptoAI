@@ -51,6 +51,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
     "evidence_gates": {
         "require_report_audit_clean": True,
         "require_provider_not_critical": True,
+        "require_live_shadow_eligible_for_paper": False,
         "min_execution_cost_confidence": "LOW",
         "min_eth_coverage_score": 50,
     },
@@ -194,6 +195,7 @@ class PaperSettingsService:
         gates = payload["evidence_gates"]
         self._require(isinstance(gates.get("require_report_audit_clean"), bool), "evidence_gates.require_report_audit_clean", "Report Audit clean gate must be true or false.", findings)
         self._require(isinstance(gates.get("require_provider_not_critical"), bool), "evidence_gates.require_provider_not_critical", "Provider critical gate must be true or false.", findings)
+        self._require(isinstance(gates.get("require_live_shadow_eligible_for_paper"), bool), "evidence_gates.require_live_shadow_eligible_for_paper", "Live-shadow paper gate must be true or false.", findings)
         confidence = str(gates.get("min_execution_cost_confidence", "")).upper()
         self._require(confidence in self.CONFIDENCE_LEVELS, "evidence_gates.min_execution_cost_confidence", "Execution-cost confidence must be NONE, LOW, MEDIUM, or HIGH.", findings)
         self._range_int(gates.get("min_eth_coverage_score"), 0, 100, "evidence_gates.min_eth_coverage_score", findings)
@@ -255,6 +257,7 @@ class PaperSettingsService:
             "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
             "CRYPTOAI_MAX_DAILY_LOSS_USD": str(self._safe_decimal(risk.get("max_daily_loss_usd"))),
             "CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT": str(opportunity.get("paper_buy_threshold_pct", "0.30")),
+            "CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE": "true" if bool(payload["evidence_gates"].get("require_live_shadow_eligible_for_paper", False)) else "false",
         }
 
     def generate_report(self, settings: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -286,10 +289,12 @@ class PaperSettingsService:
         settings["risk"]["kill_switch_enabled"] = True
         settings["evidence_gates"]["require_report_audit_clean"] = True
         settings["evidence_gates"]["require_provider_not_critical"] = True
+        settings["evidence_gates"]["require_live_shadow_eligible_for_paper"] = True
         settings["evidence_gates"]["min_execution_cost_confidence"] = "HIGH"
         settings["notes"] = [
             *settings.get("notes", []),
             "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
+            "Paper fills require live-shadow eligibility in this profile, so paper profit means more than paper-only edge.",
             "This profile is still paper-only and does not approve live trading.",
         ]
         return settings
@@ -369,6 +374,7 @@ class PaperSettingsService:
             f"- Production buffer %: `{settings['opportunity']['production_cost_buffer_pct']}`",
             f"- Research candidate buffer %: `{settings['opportunity']['research_candidate_buffer_pct']}`",
             f"- Paper BUY threshold %: `{settings['opportunity']['paper_buy_threshold_pct']}`",
+            f"- Require live-shadow eligible paper fills: `{settings['evidence_gates'].get('require_live_shadow_eligible_for_paper', False)}`",
             "",
             "## Findings",
             "",

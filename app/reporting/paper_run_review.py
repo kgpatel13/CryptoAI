@@ -25,6 +25,7 @@ class PaperRunReviewService:
         analytics = self._read_json(self.report_dir / "portfolio_analytics.json")
         pool_depth = self._read_json(self.report_dir / "pool_depth_ladder.json")
         execution_realism = self._read_json(self.report_dir / "execution_realism.json")
+        live_shadow_gate = self._read_json(self.report_dir / "live_shadow_gate.json")
         provider_monitor = self._read_json(self.report_dir / "provider_monitor.json")
         report_audit = self._read_json(self.report_dir / "report_audit.json")
         settings = self._read_json(self.report_dir / "paper_trading_settings.json")
@@ -47,6 +48,7 @@ class PaperRunReviewService:
             analytics=analytics,
             pool_depth=pool_depth,
             execution_realism=execution_realism,
+            live_shadow_gate=live_shadow_gate,
             provider_monitor=provider_monitor,
             report_audit=report_audit,
             losing_orders=losing_orders,
@@ -61,6 +63,7 @@ class PaperRunReviewService:
             losing_trade_count=len(losing_orders),
             pool_depth=pool_depth,
             execution_realism=execution_realism,
+            live_shadow_gate=live_shadow_gate,
             report_audit=report_audit,
         )
 
@@ -87,6 +90,9 @@ class PaperRunReviewService:
             "execution_realism_status": execution_realism.get("overall_status", "MISSING"),
             "execution_realism_confidence": execution_realism.get("confidence", "UNKNOWN"),
             "shadow_ready_count": self._int(execution_realism.get("shadow_ready_count")),
+            "live_shadow_gate_status": live_shadow_gate.get("overall_status", "MISSING"),
+            "live_shadow_eligible_count": self._int(live_shadow_gate.get("shadow_eligible_count")),
+            "paper_only_count": self._int(live_shadow_gate.get("paper_only_count")),
             "live_ready_count": self._int(execution_realism.get("live_ready_count")),
             "report_audit_findings": self._int(report_audit.get("finding_count")),
             "report_audit_blocking_findings": self._audit_blocking_findings(report_audit),
@@ -111,6 +117,7 @@ class PaperRunReviewService:
         analytics: dict[str, Any],
         pool_depth: dict[str, Any],
         execution_realism: dict[str, Any],
+        live_shadow_gate: dict[str, Any],
         provider_monitor: dict[str, Any],
         report_audit: dict[str, Any],
         losing_orders: list[dict[str, Any]],
@@ -139,6 +146,11 @@ class PaperRunReviewService:
                 "execution_shadow_ready",
                 self._int(execution_realism.get("shadow_ready_count")) > 0,
                 f"shadow_ready={self._int(execution_realism.get('shadow_ready_count'))}; status={execution_realism.get('overall_status', 'MISSING')}",
+            ),
+            self._gate(
+                "live_shadow_eligible",
+                self._int(live_shadow_gate.get("shadow_eligible_count")) > 0,
+                f"shadow_eligible={self._int(live_shadow_gate.get('shadow_eligible_count'))}; status={live_shadow_gate.get('overall_status', 'MISSING')}",
             ),
             self._gate(
                 "report_audit_clean",
@@ -178,6 +190,12 @@ class PaperRunReviewService:
                 "shadow_decision": "BLOCKED",
                 "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
             }
+        if "live_shadow_eligible" in blocked:
+            return {
+                "overall_status": "PAPER_PROFIT_NOT_LIVE_SHADOW_ELIGIBLE" if realized > 0 else "PAPER_ONLY_NOT_LIVE_SHADOW_ELIGIBLE",
+                "shadow_decision": "BLOCKED",
+                "recommendation": "Continue paper trading under live-shadow gates until at least one paper trade is shadow eligible.",
+            }
         if "provider_ok" in blocked or "report_audit_clean" in blocked:
             return {
                 "overall_status": "OPERATIONS_REVIEW",
@@ -200,6 +218,7 @@ class PaperRunReviewService:
         losing_trade_count: int,
         pool_depth: dict[str, Any],
         execution_realism: dict[str, Any],
+        live_shadow_gate: dict[str, Any],
         report_audit: dict[str, Any],
     ) -> list[dict[str, str]]:
         findings: list[dict[str, str]] = []
@@ -215,6 +234,8 @@ class PaperRunReviewService:
             findings.append({"severity": "ACTION", "message": "Pool-depth ladder has zero depth-ready routes; paper profit is not executable-size evidence yet."})
         if self._int(execution_realism.get("shadow_ready_count")) == 0:
             findings.append({"severity": "ACTION", "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."})
+        if self._int(live_shadow_gate.get("shadow_eligible_count")) == 0:
+            findings.append({"severity": "ACTION", "message": "Live Shadow Gate has zero shadow-eligible paper trades; current paper PnL is paper-only evidence."})
         blocking_findings = self._audit_blocking_findings(report_audit)
         research_findings = self._int(report_audit.get("research_finding_count"))
         total_findings = self._int(report_audit.get("finding_count"))
@@ -317,6 +338,9 @@ class PaperRunReviewService:
             f"- Provider status: `{payload['provider_status']}`",
             f"- Pool depth status: `{payload['pool_depth_status']}`",
             f"- Execution realism: `{payload['execution_realism_status']}` / `{payload['execution_realism_confidence']}`",
+            f"- Live shadow gate: `{payload['live_shadow_gate_status']}`",
+            f"- Live-shadow eligible trades: `{payload['live_shadow_eligible_count']}`",
+            f"- Paper-only trades: `{payload['paper_only_count']}`",
             f"- Report audit blocking findings: `{payload['report_audit_blocking_findings']}`",
             f"- Report audit research findings: `{payload['report_audit_research_findings']}`",
             "",

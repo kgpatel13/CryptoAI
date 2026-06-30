@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import asdict
+from dataclasses import replace
 from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
@@ -11,6 +13,7 @@ from app.execution.arbitrage_execution_engine import ArbitrageExecutionEngine
 from app.execution.execution_simulator import ExecutionSimulator
 from app.execution.models import PaperExecutionBatch, PaperOrder, PaperOrderSide, PaperOrderStatus
 from app.portfolio.accounting import PaperAccounting
+from app.execution.live_shadow_gate_service import LiveShadowGateService
 
 try:
     from app.database.db import get_connection, initialize_database
@@ -47,6 +50,7 @@ class PaperExecutionService:
         portfolio_risk=None,
         execution_simulator: ExecutionSimulator | None = None,
         arbitrage_engine: ArbitrageExecutionEngine | None = None,
+        live_shadow_gate: LiveShadowGateService | None = None,
     ) -> None:
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(exist_ok=True)
@@ -55,6 +59,7 @@ class PaperExecutionService:
         self.portfolio_risk = portfolio_risk if portfolio_risk is not None else (PortfolioRiskService() if PortfolioRiskService is not None else None)
         self.execution_simulator = execution_simulator or ExecutionSimulator()
         self.arbitrage_engine = arbitrage_engine or ArbitrageExecutionEngine(data_dir=self.data_dir, execution_simulator=self.execution_simulator)
+        self.live_shadow_gate = live_shadow_gate or LiveShadowGateService(data_dir=self.data_dir)
 
     def run_once(self) -> PaperExecutionBatch:
         timestamp = self._utc_now()
@@ -99,6 +104,40 @@ class PaperExecutionService:
                 requested_notional_usd=requested_notional,
                 expected_edge_pct=expected_edge,
             )
+            order = self._apply_live_shadow_gate(order)
+            if self._require_live_shadow_eligible() and order.live_shadow_decision != LiveShadowGateService.ELIGIBLE:
+                orders.append(
+                    PaperOrder(
+                        order_id=order.order_id,
+                        timestamp=timestamp,
+                        strategy_name=strategy_name,
+                        chain=chain,
+                        pair=pair,
+                        side=PaperOrderSide.BUY,
+                        notional_usd=Decimal("0"),
+                        estimated_edge_pct=expected_edge,
+                        simulated_fill_price_usd=None,
+                        simulated_quantity=None,
+                        status=PaperOrderStatus.SKIPPED,
+                        reason=f"Live-shadow gate blocked paper fill: {order.live_shadow_reason}",
+                        execution_type="ARBITRAGE_ROUND_TRIP",
+                        buy_source=order.buy_source,
+                        sell_source=order.sell_source,
+                        buy_price_usd=order.buy_price_usd,
+                        sell_price_usd=order.sell_price_usd,
+                        gross_edge_pct=order.gross_edge_pct,
+                        cost_buffer_pct=order.cost_buffer_pct,
+                        net_edge_pct=order.net_edge_pct,
+                        paper_decision="PAPER_SKIP",
+                        live_shadow_decision=order.live_shadow_decision,
+                        live_shadow_reason=order.live_shadow_reason,
+                        live_shadow_stress_net_edge_pct=order.live_shadow_stress_net_edge_pct,
+                        live_shadow_status=order.live_shadow_status,
+                        live_shadow_checked_at=order.live_shadow_checked_at,
+                        live_shadow_blockers=order.live_shadow_blockers,
+                    )
+                )
+                continue
             orders.append(order)
 
             if self.portfolio_risk is not None and order.status == PaperOrderStatus.CLOSED and order.notional_usd > 0:
@@ -134,7 +173,39 @@ class PaperExecutionService:
         )
         self._persist_orders_jsonl(orders)
         self._persist_orders_db(orders)
+        try:
+            self.live_shadow_gate.generate()
+        except Exception:
+            pass
         return batch
+
+    def _apply_live_shadow_gate(self, order: PaperOrder) -> PaperOrder:
+        try:
+            verdict = self.live_shadow_gate.evaluate_order(self._serialize_order(order))
+        except Exception as exc:
+            verdict = {
+                "checked_at": self._utc_now(),
+                "paper_decision": "PAPER_BUY" if order.status == PaperOrderStatus.CLOSED else "PAPER_SKIP",
+                "live_shadow_decision": LiveShadowGateService.PAPER_ONLY,
+                "live_shadow_reason": f"Live-shadow gate unavailable: {type(exc).__name__}: {exc}",
+                "live_shadow_stress_net_edge_pct": None,
+                "live_shadow_status": "ERROR",
+                "live_shadow_blockers": [{"name": "live_shadow_gate_error", "severity": "BLOCK", "detail": str(exc)}],
+            }
+        return replace(
+            order,
+            paper_decision=str(verdict.get("paper_decision") or ("PAPER_BUY" if order.status == PaperOrderStatus.CLOSED else "PAPER_SKIP")),
+            live_shadow_decision=str(verdict.get("live_shadow_decision") or LiveShadowGateService.PAPER_ONLY),
+            live_shadow_reason=str(verdict.get("live_shadow_reason") or ""),
+            live_shadow_stress_net_edge_pct=self._to_decimal(verdict.get("live_shadow_stress_net_edge_pct")),
+            live_shadow_status=str(verdict.get("live_shadow_status") or ""),
+            live_shadow_checked_at=str(verdict.get("checked_at") or self._utc_now()),
+            live_shadow_blockers=list(verdict.get("live_shadow_blockers") or []),
+        )
+
+    @staticmethod
+    def _require_live_shadow_eligible() -> bool:
+        return os.getenv("CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE", "false").strip().lower() in {"1", "true", "yes", "on"}
 
     def recent_orders(self, limit: int = 50) -> list[dict]:
         if not self.order_file.exists():

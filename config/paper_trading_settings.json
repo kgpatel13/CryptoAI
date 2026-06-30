@@ -49,6 +49,7 @@
   "evidence_gates": {
     "require_report_audit_clean": true,
     "require_provider_not_critical": true,
+    "require_live_shadow_eligible_for_paper": true,
     "min_execution_cost_confidence": "HIGH",
     "min_eth_coverage_score": 50
   },
@@ -58,6 +59,7 @@
     "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
     "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
     "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
+    "Paper fills require live-shadow eligibility in this profile, so paper profit means more than paper-only edge.",
     "This profile is still paper-only and does not approve live trading."
   ]
 }
