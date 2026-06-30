@@ -1,5 +1,5 @@
 {
-  "action_count": 4,
+  "action_count": 5,
   "blocked_check_count": 0,
   "check_count": 12,
   "checks": [
@@ -22,10 +22,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight is ready.",
+      "detail": "Wallet Preflight must be ready before transaction simulation review.",
       "name": "wallet_preflight_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Live Readiness Checklist must be review-ready before transaction simulation can pass.",
@@ -76,7 +76,7 @@
       "severity": "ACTION"
     }
   ],
-  "generated_at": "2026-06-30T17:54:40Z",
+  "generated_at": "2026-06-30T18:49:08Z",
   "live_trading_approval": false,
   "mode": "paper",
   "notes": [
@@ -85,7 +85,7 @@
     "Private keys must remain absent while developing this report."
   ],
   "overall_status": "TX_SIMULATION_ACTION",
-  "pass_count": 8,
+  "pass_count": 7,
   "selected_candidate": {},
   "simulation_intent": {
     "calldata_status": "NOT_BUILT",

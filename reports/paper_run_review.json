@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T17:53:09Z",
+  "generated_at": "2026-06-30T18:49:09Z",
   "mode": "paper",
   "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
   "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
@@ -7,15 +7,15 @@
   "shadow_decision": "BLOCKED",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "504.9764",
-  "realized_pnl_usd": "4.9764",
-  "return_pct": "0.9953",
-  "closed_trade_count": 31,
+  "cash_usd": "520.1636",
+  "realized_pnl_usd": "20.1636",
+  "return_pct": "4.0327",
+  "closed_trade_count": 114,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-06-30T17:52:24Z",
-  "provider_status": "OK",
+  "last_trade_at": "2026-06-30T18:47:32Z",
+  "provider_status": "WATCH",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
   "execution_realism_status": "NOT_SHADOW_READY",
@@ -44,8 +44,8 @@
     },
     {
       "name": "provider_ok",
-      "status": "PASS",
-      "message": "provider_status=OK"
+      "status": "BLOCK",
+      "message": "provider_status=WATCH"
     },
     {
       "name": "pool_depth_ready",
@@ -66,7 +66,7 @@
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $4.9764 across 31 closed trade(s)."
+      "message": "Paper run is profitable so far: $20.1636 across 114 closed trade(s)."
     },
     {
       "severity": "ACTION",
@@ -78,7 +78,7 @@
     },
     {
       "severity": "SUMMARY",
-      "message": "Blocked gates: execution_shadow_ready."
+      "message": "Blocked gates: provider_ok, execution_shadow_ready."
     }
   ],
   "notes": [

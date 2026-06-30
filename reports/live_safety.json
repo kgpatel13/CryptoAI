@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 8,
+  "blocked_check_count": 10,
   "check_count": 20,
   "checks": [
     {
@@ -45,10 +45,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Max daily loss cap is configured.",
+      "detail": "Max daily loss must be > $0 and no larger than max live trade size.",
       "name": "daily_loss_cap",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Manual confirmation is required; autonomous live execution is blocked.",
@@ -105,10 +105,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Provider monitor is OK.",
+      "detail": "Provider monitor is not OK.",
       "name": "provider_health",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Report audit has no blocking operational findings.",
@@ -123,10 +123,10 @@
       "severity": "BLOCK"
     }
   ],
-  "generated_at": "2026-06-30T17:54:38Z",
+  "generated_at": "2026-06-30T18:49:08Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
-  "max_daily_loss_usd": "5",
+  "max_daily_loss_usd": "10",
   "max_live_trade_usd": "5",
   "max_live_wallet_usd": "500",
   "mode": "paper",
@@ -157,7 +157,7 @@
     "live_trading_enabled": false,
     "live_wallet_configured": true,
     "main_wallet_configured": false,
-    "max_daily_loss_usd": "5",
+    "max_daily_loss_usd": "10",
     "max_live_trade_usd": "5",
     "max_live_wallet_usd": "500",
     "min_execution_cost_confidence": "HIGH",

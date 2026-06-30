@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-30T17:52:45Z",
+  "generated_at": "2026-06-30T18:49:08Z",
   "mode": "paper",
-  "provider_count": 4,
-  "overall_status": "OK",
-  "alert_count": 0,
+  "provider_count": 5,
+  "overall_status": "WATCH",
+  "alert_count": 1,
   "critical_alert_count": 0,
   "degraded_alert_count": 0,
   "stale_after_seconds": 900,
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 348.29,
-      "last_observed_age_seconds": 13.62,
+      "avg_latency_ms": 335.29,
+      "last_observed_age_seconds": 89.54,
       "last_error": null,
       "alerts": []
     },
@@ -35,8 +35,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 393.24,
-      "last_observed_age_seconds": 14.92,
+      "avg_latency_ms": 354.41,
+      "last_observed_age_seconds": 90.41,
       "last_error": null,
       "alerts": []
     },
@@ -51,24 +51,48 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 797.83,
-      "last_observed_age_seconds": 11.91,
+      "avg_latency_ms": 804.97,
+      "last_observed_age_seconds": 87.9,
       "last_error": null,
       "alerts": []
+    },
+    {
+      "name": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 100,
+      "status": "WATCH",
+      "current_status": "WATCH",
+      "rolling_status": "OK",
+      "required_for_overall": false,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 209.14,
+      "last_observed_age_seconds": 1452.85,
+      "last_error": null,
+      "alerts": [
+        {
+          "severity": "WATCH",
+          "provider": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "chain": "base",
+          "message": "Provider observation is stale at 1452.85 seconds old."
+        }
+      ]
     },
     {
       "name": "Base:rpc1:https://base-rpc.publicnode.com",
       "provider_type": "rpc",
       "chain": "base",
-      "score": 100,
+      "score": 99,
       "status": "OK",
       "current_status": "OK",
       "rolling_status": "OK",
       "required_for_overall": true,
-      "success_rate_pct": 100.0,
+      "success_rate_pct": 99.98,
       "consecutive_failures": 0,
-      "avg_latency_ms": 297.9,
-      "last_observed_age_seconds": 0.44,
+      "avg_latency_ms": 255.01,
+      "last_observed_age_seconds": 0.25,
       "last_error": null,
       "alerts": []
     }
@@ -76,12 +100,12 @@
   "chains": [
     {
       "chain": "base",
-      "provider_count": 4,
+      "provider_count": 5,
       "average_score": 100,
-      "status": "OK",
+      "status": "WATCH",
       "critical_count": 0,
       "degraded_count": 0,
-      "watch_count": 0,
+      "watch_count": 1,
       "required_provider_count": 4
     }
   ],
@@ -95,13 +119,21 @@
     },
     {
       "provider_type": "rpc",
-      "provider_count": 1,
+      "provider_count": 2,
       "average_score": 100,
-      "status": "OK",
+      "status": "WATCH",
       "required_provider_count": 1
     }
   ],
-  "alerts": [],
+  "alerts": [
+    {
+      "severity": "WATCH",
+      "provider": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider observation is stale at 1452.85 seconds old."
+    }
+  ],
   "notes": [
     "Provider Monitor summarizes existing provider-health observations.",
     "It does not make network calls or execute trades.",

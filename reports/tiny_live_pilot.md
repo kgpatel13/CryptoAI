@@ -1,10 +1,10 @@
 # Tiny Live Pilot
 
-Generated: `2026-06-30T17:54:45Z`
+Generated: `2026-06-30T18:47:21Z`
 - Mode: `plan`
 - Overall status: `LIVE_PILOT_BLOCKED`
 - Send attempted: `False`
-- Blocked checks: `2` / `18`
+- Blocked checks: `3` / `18`
 
 ## Checks
 
@@ -21,7 +21,7 @@ Generated: `2026-06-30T17:54:45Z`
 | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
 | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
 | report_audit_clean | PASS | Report audit has no blocking findings. |
-| provider_ok | PASS | Provider monitor is OK. |
+| provider_ok | BLOCK | Provider monitor must be OK. |
 | pilot_plan_prepared | PASS | Tiny live pilot plan is prepared. |
 | chain_id_base | PASS | Prepared transaction is on Base or not yet prepared. |
 | smoke_size_cap | PASS | Smoke test size is within cap. |
@@ -38,7 +38,7 @@ Generated: `2026-06-30T17:54:45Z`
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
   "chain_id": 8453,
-  "latest_block": 48026368,
+  "latest_block": 48027946,
   "rpc_url": "https://base-rpc.publicnode.com",
   "usdc_balance": "449.998478",
   "eth_balance": "0.024148469750380405",

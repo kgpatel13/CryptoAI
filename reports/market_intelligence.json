@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T17:52:45Z",
+  "generated_at": "2026-06-30T18:49:08Z",
   "mode": "paper",
   "chain_count": 4,
   "pair_candidate_count": 8,
@@ -13,7 +13,7 @@
       "dex_count": 3,
       "configured_pair_count": 2,
       "generated_pair_count": 2,
-      "provider_count": 4,
+      "provider_count": 5,
       "provider_score": 100,
       "registry_score": 100,
       "readiness_score": 100,
@@ -154,13 +154,13 @@
     }
   ],
   "provider_summary": {
-    "provider_count": 4,
+    "provider_count": 5,
     "by_type": {
       "dex": 3,
-      "rpc": 1
+      "rpc": 2
     },
     "by_chain": {
-      "base": 4
+      "base": 5
     },
     "average_score": 100
   },

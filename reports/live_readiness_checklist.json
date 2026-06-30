@@ -1,6 +1,6 @@
 {
-  "action_count": 6,
-  "blocked_check_count": 0,
+  "action_count": 7,
+  "blocked_check_count": 1,
   "check_count": 22,
   "checks": [
     {
@@ -40,10 +40,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Provider Monitor is OK.",
+      "detail": "Provider Monitor must be OK.",
       "name": "provider_health_ok",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Execution-cost evidence confidence must be HIGH.",
@@ -76,10 +76,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight is ready.",
+      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
       "name": "wallet_preflight_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
@@ -136,11 +136,11 @@
       "severity": "PASS"
     }
   ],
-  "closed_trade_count": 31,
-  "generated_at": "2026-06-30T17:54:40Z",
+  "closed_trade_count": 114,
+  "generated_at": "2026-06-30T18:49:09Z",
   "live_review_ready": false,
   "live_trading_approval": false,
-  "max_daily_loss_usd": "5",
+  "max_daily_loss_usd": "10",
   "max_live_trade_usd": "5",
   "max_live_wallet_usd": "500",
   "mode": "paper",
@@ -150,9 +150,9 @@
     "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
   ],
   "overall_status": "LIVE_REVIEW_NOT_READY",
-  "paper_cash_usd": "504.9764",
+  "paper_cash_usd": "520.1636",
   "paper_profile": "live_parity_500",
-  "paper_realized_pnl_usd": "4.9764",
-  "pass_count": 16,
+  "paper_realized_pnl_usd": "20.1636",
+  "pass_count": 14,
   "watch_count": 0
 }

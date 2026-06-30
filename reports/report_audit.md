@@ -1,6 +1,6 @@
 # CryptoAI Report Audit
 
-Generated: `2026-06-30T17:54:47Z`
+Generated: `2026-06-30T18:49:09Z`
 
 ## Summary
 
@@ -48,16 +48,16 @@ Generated: `2026-06-30T17:54:47Z`
 | Report | Category | Exists | Generated | Stale | Size |
 |---|---|---|---|---|---:|
 | quote_diagnostics.md | review | True | 2026-06-30T14:50:11Z | True | 925 |
-| multi_dex_opportunities.md | operational | True | 2026-06-30T17:54:20Z | False | 951 |
-| opportunity_explorer.md | operational | True | 2026-06-30T17:54:20Z | False | 531 |
-| paper_report.json | operational | True | 2026-06-30T17:52:45Z | False | 73923 |
-| paper_report.md | operational | True | 2026-06-30T17:52:45Z | False | 11658 |
-| paper_run_review.json | review | True | 2026-06-30T17:53:09Z | False | 2844 |
-| paper_run_review.md | review | True | 2026-06-30T17:53:09Z | False | 1873 |
-| live_safety.json | operational | True | 2026-06-30T17:54:38Z | False | 5055 |
-| live_safety.md | operational | True | 2026-06-30T17:54:38Z | False | 2247 |
-| portfolio_analytics.json | operational | True | 2026-06-30T17:52:45Z | False | 23175 |
-| portfolio_analytics.md | operational | True | 2026-06-30T17:52:45Z | False | 5971 |
+| multi_dex_opportunities.md | operational | True | 2026-06-30T18:49:08Z | False | 951 |
+| opportunity_explorer.md | operational | True | 2026-06-30T18:49:08Z | False | 531 |
+| paper_report.json | operational | True | 2026-06-30T18:49:08Z | False | 113417 |
+| paper_report.md | operational | True | 2026-06-30T18:49:08Z | False | 13097 |
+| paper_run_review.json | review | True | 2026-06-30T18:49:09Z | False | 2868 |
+| paper_run_review.md | review | True | 2026-06-30T18:49:09Z | False | 1897 |
+| live_safety.json | operational | True | 2026-06-30T18:49:08Z | False | 5100 |
+| live_safety.md | operational | True | 2026-06-30T18:49:08Z | False | 2289 |
+| portfolio_analytics.json | operational | True | 2026-06-30T18:49:08Z | False | 69393 |
+| portfolio_analytics.md | operational | True | 2026-06-30T18:49:08Z | False | 6033 |
 | strategy_center.json | research | True | 2026-06-30T07:46:41Z | True | 6967 |
 | strategy_center.md | research | True | 2026-06-30T07:46:41Z | True | 1712 |
 | strategy_intelligence.json | research | True | 2026-06-30T07:46:46Z | True | 10599 |
@@ -70,22 +70,22 @@ Generated: `2026-06-30T17:54:47Z`
 | backtest_report.md | research | True | 2026-06-30T07:46:43Z | True | 9462 |
 | replay_diagnostics.json | research | True | 2026-06-30T07:46:44Z | True | 2269 |
 | replay_diagnostics.md | research | True | 2026-06-30T07:46:44Z | True | 1258 |
-| pool_depth_ladder.json | operational | True | 2026-06-30T17:52:45Z | False | 6981 |
-| pool_depth_ladder.md | operational | True | 2026-06-30T17:52:45Z | False | 1718 |
-| execution_realism.json | operational | True | 2026-06-30T17:53:08Z | False | 3301 |
-| execution_realism.md | operational | True | 2026-06-30T17:53:08Z | False | 1319 |
-| execution_cost_evidence.json | operational | True | 2026-06-30T17:53:08Z | False | 3709 |
-| execution_cost_evidence.md | operational | True | 2026-06-30T17:53:08Z | False | 1535 |
-| live_readiness_checklist.json | operational | True | 2026-06-30T17:54:40Z | False | 5046 |
-| live_readiness_checklist.md | operational | True | 2026-06-30T17:54:40Z | False | 3055 |
-| transaction_simulation.json | operational | True | 2026-06-30T17:54:40Z | False | 2936 |
-| transaction_simulation.md | operational | True | 2026-06-30T17:54:40Z | False | 1952 |
+| pool_depth_ladder.json | operational | True | 2026-06-30T18:41:32Z | False | 6981 |
+| pool_depth_ladder.md | operational | True | 2026-06-30T18:41:32Z | False | 1718 |
+| execution_realism.json | operational | True | 2026-06-30T18:49:08Z | False | 3301 |
+| execution_realism.md | operational | True | 2026-06-30T18:49:08Z | False | 1319 |
+| execution_cost_evidence.json | operational | True | 2026-06-30T18:49:08Z | False | 3977 |
+| execution_cost_evidence.md | operational | True | 2026-06-30T18:49:08Z | False | 1538 |
+| live_readiness_checklist.json | operational | True | 2026-06-30T18:49:09Z | False | 5115 |
+| live_readiness_checklist.md | operational | True | 2026-06-30T18:49:09Z | False | 3122 |
+| transaction_simulation.json | operational | True | 2026-06-30T18:49:08Z | False | 2981 |
+| transaction_simulation.md | operational | True | 2026-06-30T18:49:08Z | False | 1996 |
 | optimization_report.json | research | True | 2026-06-30T07:46:43Z | True | 541825 |
 | optimization_report.md | research | True | 2026-06-30T07:46:43Z | True | 2210 |
 | experiment_report.json | research | True | 2026-06-30T07:46:44Z | True | 9949 |
 | experiment_report.md | research | True | 2026-06-30T07:46:44Z | True | 3439 |
-| market_intelligence.json | operational | True | 2026-06-30T17:52:45Z | False | 4264 |
-| market_intelligence.md | operational | True | 2026-06-30T17:52:45Z | False | 1269 |
+| market_intelligence.json | operational | True | 2026-06-30T18:49:08Z | False | 4264 |
+| market_intelligence.md | operational | True | 2026-06-30T18:49:08Z | False | 1269 |
 | market_universe_evidence.json | research | True | 2026-06-30T07:46:45Z | True | 8885 |
 | market_universe_evidence.md | research | True | 2026-06-30T07:46:45Z | True | 2694 |
 | quote_coverage_evidence.json | research | True | 2026-06-30T07:46:45Z | True | 16283 |
@@ -94,11 +94,11 @@ Generated: `2026-06-30T17:54:47Z`
 | eth_route_architecture.md | research | True | 2026-06-30T07:46:45Z | True | 3986 |
 | eth_market_coverage.json | research | True | 2026-06-30T07:46:46Z | True | 8684 |
 | eth_market_coverage.md | research | True | 2026-06-30T07:46:46Z | True | 2124 |
-| paper_trading_settings.json | review | True | 2026-06-30T17:41:58Z | False | 3142 |
-| paper_trading_settings.md | review | True | 2026-06-30T17:41:58Z | False | 1659 |
-| wallet_preflight.json | review | True | 2026-06-30T17:54:38Z | False | 3469 |
-| wallet_preflight.md | review | True | 2026-06-30T17:54:38Z | False | 1907 |
-| tiny_live_pilot.json | review | True | 2026-06-30T17:54:45Z | False | 52530 |
-| tiny_live_pilot.md | review | True | 2026-06-30T17:54:45Z | False | 2586 |
-| provider_monitor.json | operational | True | 2026-06-30T17:52:45Z | False | 2880 |
-| provider_monitor.md | operational | True | 2026-06-30T17:52:45Z | False | 1007 |
+| paper_trading_settings.json | review | True | 2026-06-30T18:41:23Z | False | 3142 |
+| paper_trading_settings.md | review | True | 2026-06-30T18:41:23Z | False | 1659 |
+| wallet_preflight.json | review | True | 2026-06-30T18:49:08Z | False | 3506 |
+| wallet_preflight.md | review | True | 2026-06-30T18:49:08Z | False | 1943 |
+| tiny_live_pilot.json | review | True | 2026-06-30T18:47:21Z | False | 53700 |
+| tiny_live_pilot.md | review | True | 2026-06-30T18:47:21Z | False | 2592 |
+| provider_monitor.json | operational | True | 2026-06-30T18:49:08Z | False | 3850 |
+| provider_monitor.md | operational | True | 2026-06-30T18:49:08Z | False | 1180 |

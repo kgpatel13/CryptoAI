@@ -1,38 +1,38 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-30T17:52:45Z`
+Generated: `2026-06-30T18:49:08Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `814`
-- Total orders: `162`
-- Filled orders: `31`
-- Skipped orders: `131`
+- Opportunity decisions: `2552`
+- Total orders: `506`
+- Filled orders: `114`
+- Skipped orders: `392`
 - Rejected orders: `0`
 - Portfolio risk rejections: `0`
-- Total filled notional USD: `$1550.0000`
-- Total realized PnL USD: `$4.9764`
-- Order-file realized PnL USD: `$4.9764`
+- Total filled notional USD: `$5700.0000`
+- Total realized PnL USD: `$20.1636`
+- Order-file realized PnL USD: `$20.1636`
 - PnL reconciliation: `RECONCILED`
-- Paper portfolio cash USD: `$504.9764`
+- Paper portfolio cash USD: `$520.1636`
 - Open paper positions: `0`
 - Closed paper positions: `0`
 - Avg execution slippage bps: `5.0000`
 - Avg execution latency ms: `250.0000`
-- Equity USD: `$504.9764`
-- Total PnL USD: `$4.9764`
-- Total return %: `0.9953`
+- Equity USD: `$520.1636`
+- Total PnL USD: `$20.1636`
+- Total return %: `4.0327`
 - Win rate %: `100.0000`
 - Max drawdown %: `0.0000`
 - Legacy accounting warnings: `0`
 
 ## Opportunity Decision Counts
 
-- `WATCH`: 584
-- `BUY`: 155
-- `SKIP`: 75
+- `WATCH`: 1601
+- `BUY`: 576
+- `SKIP`: 375
 
 ## Skip Reasons
 
@@ -46,6 +46,20 @@ Generated: `2026-06-30T17:52:45Z`
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%.`: 15
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2467% is below paper threshold 0.30%.`: 2
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1228% is below paper threshold 0.30%.`: 2
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2962% is below paper threshold 0.30%.`: 11
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0733% is below paper threshold 0.30%.`: 11
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2768% is below paper threshold 0.30%.`: 15
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0928% is below paper threshold 0.30%.`: 15
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1100% is below paper threshold 0.30%.`: 15
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2776% is below paper threshold 0.30%.`: 23
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0921% is below paper threshold 0.30%.`: 23
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2787% is below paper threshold 0.30%.`: 22
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0910% is below paper threshold 0.30%.`: 22
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0003% is below paper threshold 0.30%.`: 20
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0264% is below paper threshold 0.30%.`: 24
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0585% is below paper threshold 0.30%.`: 24
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%.`: 18
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%.`: 18
 
 ## Portfolio Risk Rejection Reasons
 
@@ -53,18 +67,18 @@ Generated: `2026-06-30T17:52:45Z`
 
 ## Execution Quality
 
-- `GOOD`: 31
+- `GOOD`: 114
 
 ## Paper Portfolio
 
-- Cash USD: `$504.9764`
+- Cash USD: `$520.1636`
 - Initial cash USD: `$500.00`
-- Portfolio realized PnL USD: `$4.9764`
+- Portfolio realized PnL USD: `$20.1636`
 - Open positions: `0`
 - Closed positions: `0`
-- Daily realized PnL USD: `$4.9764`
+- Daily realized PnL USD: `$20.1636`
 - Unrealized PnL USD: `$0.0000`
-- Daily filled trades: `31`
+- Daily filled trades: `114`
 - Exposure by chain: `{}`
 - Exposure by token: `{}`
 
@@ -72,19 +86,19 @@ Generated: `2026-06-30T17:52:45Z`
 
 - Source of truth: `paper_portfolio_state.json`
 - Status: `RECONCILED`
-- Portfolio realized PnL USD: `$4.9764`
-- Order-file realized PnL USD: `$4.9764`
+- Portfolio realized PnL USD: `$20.1636`
+- Order-file realized PnL USD: `$20.1636`
 - Difference USD: `$0.0000`
 - Note: The active portfolio ledger and paper-order history agree.
 
 ## Portfolio Analytics
 
-- Equity USD: `$504.9764`
-- Total PnL USD: `$4.9764`
-- Total return %: `0.9953`
+- Equity USD: `$520.1636`
+- Total PnL USD: `$20.1636`
+- Total return %: `4.0327`
 - Win rate %: `100.0000`
 - Profit factor: `N/A`
-- Expectancy USD: `$0.1605`
+- Expectancy USD: `$0.1769`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 
@@ -92,63 +106,64 @@ Generated: `2026-06-30T17:52:45Z`
 
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
-| 2026-06-30 | 31 | 1550.0000 | 4.9764 | 4.9764 | 0.9953 |
+| 2026-06-30 | 114 | 5700.0000 | 20.1636 | 20.1636 | 4.0327 |
 
 ### Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 31 | 1550.0000 | 4.9764 | 100.0000 |
+| USDC/WETH | 99 | 4950.0000 | 16.5336 | 100.0000 |
+| WETH/USDC | 15 | 750.0000 | 3.6300 | 100.0000 |
 
 ## Latest Opportunities
 
 | Pair | Net % | Score | Decision | Reason |
 |---|---:|---:|---|---|
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
-| WETH/USDC | 0.1228093858534850860762778531 | 24 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1228% is positive but below BUY threshold. |
-| USDC/WETH | 0.2467229146147952837230929691 | 49 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2467% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
+| WETH/USDC | 0.0976208814042496996106218734 | 19 | WATCH | REAL: Real multi-DEX comparison: net edge 0.0976% is positive but below BUY threshold. |
+| USDC/WETH | 0.2720482268602011040445053515 | 54 | WATCH | REAL: Real multi-DEX comparison: net edge 0.2720% is positive but below BUY threshold. |
 
 ## Latest Orders
 
 | Time | Pair | Buy | Sell | Status | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |
 |---|---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| 2026-06-30T17:51:28Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:51:28Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:51:34Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:51:34Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:51:43Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:51:43Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:51:51Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:51:51Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:51:59Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:51:59Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:08Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:52:08Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:16Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:52:16Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:24Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 50.0000 | 0.6224853467041875265562730937 | 0.30 | 0.3224853467041875265562730937 | 0.1612 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T17:52:24Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0472% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:37Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2467% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:37Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1228% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:44Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2467% is below paper threshold 0.30%. |
-| 2026-06-30T17:52:44Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1228% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:22Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:22Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:28Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:28Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:33Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:33Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:38Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:38Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:43Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:43Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:48Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:48Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:53Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:53Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:58Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:48:58Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:49:03Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:49:03Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
+| 2026-06-30T18:49:07Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2720% is below paper threshold 0.30%. |
+| 2026-06-30T18:49:07Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0976% is below paper threshold 0.30%. |
 
 ## Notes
 

@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-06-30T17:54:38Z`
+Generated: `2026-06-30T18:49:08Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
 - Max live wallet USD: `500`
 - Max live trade USD: `5`
-- Max daily loss USD: `5`
-- Blocked checks: `8` / `20`
+- Max daily loss USD: `10`
+- Blocked checks: `10` / `20`
 
 ## Checks
 
@@ -20,7 +20,7 @@ Generated: `2026-06-30T17:54:38Z`
 | wallet_isolation | PASS | Live wallet is isolated from the configured main wallet. |
 | wallet_ceiling | PASS | Max live wallet ceiling is within tiny-pilot policy. |
 | trade_cap | PASS | Max live trade size is within tiny-pilot policy. |
-| daily_loss_cap | PASS | Max daily loss cap is configured. |
+| daily_loss_cap | BLOCK | Max daily loss must be > $0 and no larger than max live trade size. |
 | manual_confirmation | BLOCK | Manual confirmation is required; autonomous live execution is blocked. |
 | chain_allowlist | PASS | Live chain allowlist is restricted to approved chains. |
 | dex_allowlist | PASS | Live DEX allowlist is restricted to approved DEXs. |
@@ -30,7 +30,7 @@ Generated: `2026-06-30T17:54:38Z`
 | paper_closed_trades | PASS | Fresh paper run has enough closed trades. |
 | execution_cost_confidence | BLOCK | Execution-cost confidence is MEDIUM; required HIGH. |
 | execution_cost_samples | PASS | Execution-cost evidence has enough paper samples. |
-| provider_health | PASS | Provider monitor is OK. |
+| provider_health | BLOCK | Provider monitor is not OK. |
 | report_audit | PASS | Report audit has no blocking operational findings. |
 | execution_realism | BLOCK | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
 

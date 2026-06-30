@@ -1469,6 +1469,72 @@ def render_risk_controls() -> None:
         st.success("Live trading is disabled.")
 
 
+def render_live_control_center() -> None:
+    st.subheader("Live Control Center")
+    st.caption("Read-only live pilot status with real Base wallet data. This page never sends transactions.")
+
+    if st.button("Refresh Live Control Center"):
+        def task():
+            LiveControlCenterService = import_object("app.execution.live_control_center_service", "LiveControlCenterService")
+            return LiveControlCenterService().generate(refresh_plan=True)
+
+        result = safe_run("Refreshing live control center...", task)
+        if result is not None:
+            st.success("Live control center refreshed.")
+            show_json(result)
+
+    control = read_json(REPORT_DIR / "live_control_center.json")
+    if not control:
+        st.info("No live_control_center.json yet. Refresh this page or run the live control center command.")
+        st.code("python -m app.execution.live_control_center_service", language="powershell")
+        return
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Live Status", control.get("overall_status", "-"))
+    c2.metric("Next Action", control.get("next_action", "-"))
+    c3.metric("Continuous Live", control.get("continuous_live_trading_status", "-"))
+    c4.metric("Generated", format_eastern_datetime(control.get("generated_at", "-")))
+
+    wallet = control.get("wallet", {}) if isinstance(control.get("wallet"), dict) else {}
+    w1, w2, w3, w4 = st.columns(4)
+    w1.metric("Base USDC", wallet.get("usdc_balance", "-"))
+    w2.metric("Base ETH", wallet.get("eth_balance", "-"))
+    w3.metric("Smoke USD", wallet.get("smoke_usd", "-"))
+    w4.metric("Allowance", "YES" if wallet.get("allowance_sufficient") else "NO")
+
+    gates = control.get("gates", {}) if isinstance(control.get("gates"), dict) else {}
+    g1, g2, g3, g4 = st.columns(4)
+    g1.metric("Wallet", gates.get("wallet_preflight", "-"))
+    g2.metric("Readiness", gates.get("live_readiness", "-"))
+    g3.metric("Tx Simulation", gates.get("transaction_simulation", "-"))
+    g4.metric("Tiny Pilot", gates.get("tiny_live_pilot", "-"))
+
+    st.markdown("### Commands")
+    st.caption("Continuous monitor is safe and read-only. It does not approve, swap, or trade.")
+    st.code(control.get("continuous_monitor_command", "python -m app.execution.live_control_center_service --loop --interval 30"), language="powershell")
+    next_command = control.get("next_command")
+    if next_command:
+        st.caption("Next command is informational. Only run it when the status says READY_FOR_APPROVAL or READY_FOR_TINY_SWAP.")
+        st.code(next_command, language="powershell")
+    else:
+        st.info("No live send command is available.")
+
+    st.markdown("### Blocking Checks")
+    blocking = control.get("blocking_checks", []) if isinstance(control.get("blocking_checks"), list) else []
+    if not blocking:
+        blocking = control.get("readiness_actions", []) if isinstance(control.get("readiness_actions"), list) else []
+    if not blocking:
+        blocking = control.get("transaction_simulation_actions", []) if isinstance(control.get("transaction_simulation_actions"), list) else []
+    dataframe_or_info(blocking, "No blocking checks.")
+
+    st.markdown("### Recent Live Pilot Orders")
+    orders = control.get("recent_live_pilot_orders", []) if isinstance(control.get("recent_live_pilot_orders"), list) else []
+    dataframe_or_info(orders, "No live pilot order journal rows yet.")
+
+    st.markdown("### Full Control Report")
+    show_json(control)
+
+
 def render_system_health() -> None:
     st.subheader("System Health")
 
@@ -1498,6 +1564,8 @@ def render_system_health() -> None:
         REPORT_DIR / "wallet_preflight.md",
         REPORT_DIR / "tiny_live_pilot.json",
         REPORT_DIR / "tiny_live_pilot.md",
+        REPORT_DIR / "live_control_center.json",
+        REPORT_DIR / "live_control_center.md",
         REPORT_DIR / "live_readiness_checklist.json",
         REPORT_DIR / "live_readiness_checklist.md",
         REPORT_DIR / "transaction_simulation.json",
@@ -1610,6 +1678,8 @@ def render_setup() -> None:
         python -m app.execution.wallet_preflight_service
         python -m app.execution.live_readiness_checklist_service
         python -m app.execution.transaction_simulation_service
+        python -m app.execution.live_control_center_service
+        python -m app.execution.live_control_center_service --loop --interval 30
         python -m app.strategy.strategy_center
         python -m app.research.research_report
         python -m app.market_intelligence.market_intelligence_service
@@ -1652,10 +1722,11 @@ PAGES = {
     "13 Market Intelligence": render_market_intelligence,
     "14 Provider Monitor": render_provider_monitor,
     "15 Research Dashboard": render_research_dashboard,
-    "16 Risk & Controls": render_risk_controls,
-    "17 Paper Settings": render_paper_settings,
-    "18 System Health": render_system_health,
-    "19 Setup / Roadmap": render_setup,
+    "16 Live Control Center": render_live_control_center,
+    "17 Risk & Controls": render_risk_controls,
+    "18 Paper Settings": render_paper_settings,
+    "19 System Health": render_system_health,
+    "20 Setup / Roadmap": render_setup,
 }
 
 

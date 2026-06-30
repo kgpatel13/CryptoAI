@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T17:53:08Z",
+  "generated_at": "2026-06-30T18:49:08Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -14,8 +14,8 @@
     "source": "latest_opportunity_decision"
   },
   "paper_execution_evidence": {
-    "sample_count": 31,
-    "total_filled_notional_usd": "1550.0000",
+    "sample_count": 114,
+    "total_filled_notional_usd": "5700.0000",
     "avg_slippage_bps": "5.0000",
     "p95_slippage_bps": "5.0000",
     "max_slippage_bps": "5.0000",
@@ -26,7 +26,7 @@
     "p95_latency_ms": "250.0000",
     "max_latency_ms": "250.0000",
     "execution_quality_counts": {
-      "GOOD": 31
+      "GOOD": 114
     }
   },
   "quote_evidence": {
@@ -41,16 +41,16 @@
     "p95_ok_latency_ms": null
   },
   "provider_evidence": {
-    "provider_count": 4,
-    "avg_provider_latency_ms": "464.2400",
-    "avg_provider_score": "99.7500",
+    "provider_count": 5,
+    "avg_provider_latency_ms": "391.7640",
+    "avg_provider_score": "99.6000",
     "providers": [
       {
         "name": "Aerodrome",
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 353.3,
+        "avg_latency_ms": 335.29,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -59,7 +59,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 379.28,
+        "avg_latency_ms": 354.41,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -68,30 +68,39 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 821.24,
+        "avg_latency_ms": 804.97,
         "score": 99,
+        "consecutive_failures": 0
+      },
+      {
+        "name": "Base:rpc2:https://mainnet.base.org",
+        "provider_type": "rpc",
+        "chain": "base",
+        "success_rate_pct": 100.0,
+        "avg_latency_ms": 209.14,
+        "score": 100,
         "consecutive_failures": 0
       },
       {
         "name": "Base:rpc1:https://base-rpc.publicnode.com",
         "provider_type": "rpc",
         "chain": "base",
-        "success_rate_pct": 100.0,
-        "avg_latency_ms": 303.14,
-        "score": 100,
+        "success_rate_pct": 99.98,
+        "avg_latency_ms": 255.01,
+        "score": 99,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 764,
-    "avg_gross_edge_pct": "0.4852",
-    "p95_gross_edge_pct": "0.6225",
-    "max_gross_edge_pct": "0.6225",
-    "production_trade_count": 143,
+    "real_signal_count": 2200,
+    "avg_gross_edge_pct": "0.4851",
+    "p95_gross_edge_pct": "0.6703",
+    "max_gross_edge_pct": "0.7839",
+    "production_trade_count": 485,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 764,
-    "observed_lower_bound_total_pnl_usd": "2713.5798",
+    "observed_lower_bound_trade_count": 2200,
+    "observed_lower_bound_total_pnl_usd": "7812.3634",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -100,11 +109,11 @@
     "production_cost_buffer_pct": "0.30",
     "observed_total_cost_lower_bound_pct": "0.1300",
     "buffer_surplus_vs_lower_bound_pct": "0.1700",
-    "paper_sample_count": 31,
+    "paper_sample_count": 114,
     "quote_ok_rate_pct": "0.0000",
-    "avg_provider_score": "99.7500",
-    "production_trade_count": 143,
-    "observed_lower_bound_trade_count": 764
+    "avg_provider_score": "99.6000",
+    "production_trade_count": 485,
+    "observed_lower_bound_trade_count": 2200
   },
   "findings": [
     {
