@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T23:05:19Z",
+  "generated_at": "2026-06-30T23:30:07Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -42,7 +42,7 @@
   },
   "provider_evidence": {
     "provider_count": 5,
-    "avg_provider_latency_ms": "374.4000",
+    "avg_provider_latency_ms": "376.8720",
     "avg_provider_score": "99.6000",
     "providers": [
       {
@@ -50,7 +50,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 324.06,
+        "avg_latency_ms": 325.09,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -59,7 +59,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 326.3,
+        "avg_latency_ms": 328.53,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -68,7 +68,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 776.09,
+        "avg_latency_ms": 783.98,
         "score": 99,
         "consecutive_failures": 0
       },
@@ -86,21 +86,21 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 236.41,
+        "avg_latency_ms": 237.62,
         "score": 99,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 15912,
+    "real_signal_count": 16408,
     "avg_gross_edge_pct": "0.4854",
     "p95_gross_edge_pct": "0.7132",
     "max_gross_edge_pct": "0.7891",
     "production_trade_count": 4056,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 15912,
-    "observed_lower_bound_total_pnl_usd": "56551.7561",
+    "observed_lower_bound_trade_count": 16408,
+    "observed_lower_bound_total_pnl_usd": "58310.1978",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -113,7 +113,7 @@
     "quote_ok_rate_pct": "0.0000",
     "avg_provider_score": "99.6000",
     "production_trade_count": 4056,
-    "observed_lower_bound_trade_count": 15912
+    "observed_lower_bound_trade_count": 16408
   },
   "findings": [
     {

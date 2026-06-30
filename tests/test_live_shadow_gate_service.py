@@ -9,6 +9,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from app.execution.live_shadow_gate_service import LiveShadowGateService
+from app.execution.models import PaperOrder, PaperOrderSide, PaperOrderStatus
 from app.execution.paper_execution_service import PaperExecutionService
 from app.risk.portfolio_risk_service import PortfolioRiskService
 
@@ -74,6 +75,63 @@ class LiveShadowGateServiceTests(unittest.TestCase):
             self.assertEqual(orders[0]["status"], "SKIPPED")
             self.assertEqual(orders[0]["live_shadow_decision"], "PAPER_ONLY")
             self.assertIn("Live-shadow gate blocked paper fill", orders[0]["reason"])
+
+    def test_strict_paper_mode_converts_missing_shadow_verdict_closed_order_to_skip(self) -> None:
+        os.environ["CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE"] = "true"
+        service = PaperExecutionService(data_dir=Path(tempfile.mkdtemp()), portfolio_risk=None)
+
+        order = PaperOrder(
+            order_id="leak1",
+            timestamp="2026-06-30T00:00:00Z",
+            strategy_name="DEX Arbitrage Strategy",
+            chain="base",
+            pair="USDC/WETH",
+            side=PaperOrderSide.BUY,
+            notional_usd=Decimal("20"),
+            estimated_edge_pct=Decimal("0.35"),
+            simulated_fill_price_usd=Decimal("1"),
+            simulated_quantity=Decimal("20"),
+            status=PaperOrderStatus.CLOSED,
+            reason="Atomic paper arbitrage round trip completed and closed immediately.",
+        )
+
+        blocked = service._enforce_live_shadow_if_required(
+            order,
+            timestamp=order.timestamp,
+            strategy_name=order.strategy_name,
+            chain=order.chain,
+            pair=order.pair,
+            expected_edge=order.estimated_edge_pct,
+        )
+
+        self.assertEqual(blocked.status, PaperOrderStatus.SKIPPED)
+        self.assertEqual(blocked.notional_usd, Decimal("0"))
+        self.assertEqual(blocked.live_shadow_decision, "PAPER_ONLY")
+        self.assertIn("Missing live-shadow verdict", blocked.reason)
+
+    def test_risk_skips_are_marked_not_evaluated_for_shadow_review(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            service = PaperExecutionService(data_dir=data, portfolio_risk=None)
+            service._load_risk_assessments = lambda: [  # type: ignore[method-assign]
+                SimpleNamespace(
+                    decision="WATCHLIST",
+                    pair="USDC/WETH",
+                    expected_edge_pct=Decimal("0.10"),
+                    chain="base",
+                    strategy_name="DEX Arbitrage Strategy",
+                    reason="Expected edge is below paper threshold.",
+                )
+            ]
+
+            batch = service.run_once()
+            orders = self._read_jsonl(data / "paper_orders.jsonl")
+
+            self.assertEqual(batch.filled_orders, 0)
+            self.assertEqual(orders[0]["status"], "SKIPPED")
+            self.assertEqual(orders[0]["paper_decision"], "PAPER_SKIP")
+            self.assertEqual(orders[0]["live_shadow_decision"], "NOT_EVALUATED")
+            self.assertIn("Risk gate skipped", orders[0]["live_shadow_reason"])
 
     @staticmethod
     def _write_green_reports(reports: Path) -> None:

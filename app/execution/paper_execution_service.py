@@ -78,7 +78,27 @@ class PaperExecutionService:
             strategy_name = str(getattr(assessment, "strategy_name", "Strategy"))
 
             if decision_value != "APPROVED_FOR_PAPER":
-                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.SKIPPED, reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}"))
+                orders.append(
+                    PaperOrder(
+                        order_id=str(uuid4())[:8],
+                        timestamp=timestamp,
+                        strategy_name=strategy_name,
+                        chain=chain,
+                        pair=pair,
+                        side=PaperOrderSide.BUY,
+                        notional_usd=Decimal("0"),
+                        estimated_edge_pct=expected_edge,
+                        simulated_fill_price_usd=None,
+                        simulated_quantity=None,
+                        status=PaperOrderStatus.SKIPPED,
+                        reason=f"Risk decision is {decision_value}; paper order not created. {getattr(assessment, 'reason', '')}",
+                        paper_decision="PAPER_SKIP",
+                        live_shadow_decision=LiveShadowGateService.NOT_EVALUATED,
+                        live_shadow_reason="Risk gate skipped before live-shadow evaluation.",
+                        live_shadow_status="NOT_EVALUATED",
+                        live_shadow_checked_at=timestamp,
+                    )
+                )
                 continue
 
             raw_reference_price = self._fill_price_for(pair, prices)
@@ -86,13 +106,53 @@ class PaperExecutionService:
             reference_price = PaperAccounting.raw_pair_price_to_base_usd(pair=pair, raw_price=raw_reference_price, prices=prices)
 
             if reference_price <= 0 or requested_notional <= 0:
-                orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=requested_notional, estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.REJECTED, reason="Missing fill price or notional for simulated fill."))
+                orders.append(
+                    PaperOrder(
+                        order_id=str(uuid4())[:8],
+                        timestamp=timestamp,
+                        strategy_name=strategy_name,
+                        chain=chain,
+                        pair=pair,
+                        side=PaperOrderSide.BUY,
+                        notional_usd=requested_notional,
+                        estimated_edge_pct=expected_edge,
+                        simulated_fill_price_usd=None,
+                        simulated_quantity=None,
+                        status=PaperOrderStatus.REJECTED,
+                        reason="Missing fill price or notional for simulated fill.",
+                        paper_decision="PAPER_SKIP",
+                        live_shadow_decision=LiveShadowGateService.NOT_EVALUATED,
+                        live_shadow_reason="Rejected before live-shadow evaluation.",
+                        live_shadow_status="NOT_EVALUATED",
+                        live_shadow_checked_at=timestamp,
+                    )
+                )
                 continue
 
             if self.portfolio_risk is not None:
                 portfolio_decision = self.portfolio_risk.assess(chain=chain, pair=pair, side=PaperOrderSide.BUY.value, requested_notional_usd=requested_notional, expected_edge_pct=expected_edge, now=timestamp)
                 if not portfolio_decision.approved:
-                    orders.append(PaperOrder(order_id=str(uuid4())[:8], timestamp=timestamp, strategy_name=strategy_name, chain=chain, pair=pair, side=PaperOrderSide.BUY, notional_usd=Decimal("0"), estimated_edge_pct=expected_edge, simulated_fill_price_usd=None, simulated_quantity=None, status=PaperOrderStatus.RISK_REJECTED, reason=portfolio_decision.reason))
+                    orders.append(
+                        PaperOrder(
+                            order_id=str(uuid4())[:8],
+                            timestamp=timestamp,
+                            strategy_name=strategy_name,
+                            chain=chain,
+                            pair=pair,
+                            side=PaperOrderSide.BUY,
+                            notional_usd=Decimal("0"),
+                            estimated_edge_pct=expected_edge,
+                            simulated_fill_price_usd=None,
+                            simulated_quantity=None,
+                            status=PaperOrderStatus.RISK_REJECTED,
+                            reason=portfolio_decision.reason,
+                            paper_decision="PAPER_SKIP",
+                            live_shadow_decision=LiveShadowGateService.NOT_EVALUATED,
+                            live_shadow_reason="Portfolio risk gate rejected before live-shadow evaluation.",
+                            live_shadow_status="NOT_EVALUATED",
+                            live_shadow_checked_at=timestamp,
+                        )
+                    )
                     continue
                 requested_notional = portfolio_decision.notional_usd
 
@@ -105,39 +165,14 @@ class PaperExecutionService:
                 expected_edge_pct=expected_edge,
             )
             order = self._apply_live_shadow_gate(order)
-            if self._require_live_shadow_eligible() and order.live_shadow_decision != LiveShadowGateService.ELIGIBLE:
-                orders.append(
-                    PaperOrder(
-                        order_id=order.order_id,
-                        timestamp=timestamp,
-                        strategy_name=strategy_name,
-                        chain=chain,
-                        pair=pair,
-                        side=PaperOrderSide.BUY,
-                        notional_usd=Decimal("0"),
-                        estimated_edge_pct=expected_edge,
-                        simulated_fill_price_usd=None,
-                        simulated_quantity=None,
-                        status=PaperOrderStatus.SKIPPED,
-                        reason=f"Live-shadow gate blocked paper fill: {order.live_shadow_reason}",
-                        execution_type="ARBITRAGE_ROUND_TRIP",
-                        buy_source=order.buy_source,
-                        sell_source=order.sell_source,
-                        buy_price_usd=order.buy_price_usd,
-                        sell_price_usd=order.sell_price_usd,
-                        gross_edge_pct=order.gross_edge_pct,
-                        cost_buffer_pct=order.cost_buffer_pct,
-                        net_edge_pct=order.net_edge_pct,
-                        paper_decision="PAPER_SKIP",
-                        live_shadow_decision=order.live_shadow_decision,
-                        live_shadow_reason=order.live_shadow_reason,
-                        live_shadow_stress_net_edge_pct=order.live_shadow_stress_net_edge_pct,
-                        live_shadow_status=order.live_shadow_status,
-                        live_shadow_checked_at=order.live_shadow_checked_at,
-                        live_shadow_blockers=order.live_shadow_blockers,
-                    )
-                )
-                continue
+            order = self._enforce_live_shadow_if_required(
+                order,
+                timestamp=timestamp,
+                strategy_name=strategy_name,
+                chain=chain,
+                pair=pair,
+                expected_edge=expected_edge,
+            )
             orders.append(order)
 
             if self.portfolio_risk is not None and order.status == PaperOrderStatus.CLOSED and order.notional_usd > 0:
@@ -178,6 +213,54 @@ class PaperExecutionService:
         except Exception:
             pass
         return batch
+
+    def _enforce_live_shadow_if_required(
+        self,
+        order: PaperOrder,
+        *,
+        timestamp: str,
+        strategy_name: str,
+        chain: str,
+        pair: str,
+        expected_edge: Decimal | None,
+    ) -> PaperOrder:
+        if not self._require_live_shadow_eligible():
+            return order
+        if order.status != PaperOrderStatus.CLOSED:
+            return order
+        if order.live_shadow_decision == LiveShadowGateService.ELIGIBLE:
+            return order
+
+        reason = order.live_shadow_reason or "Missing live-shadow verdict."
+        return PaperOrder(
+            order_id=order.order_id,
+            timestamp=timestamp,
+            strategy_name=strategy_name,
+            chain=chain,
+            pair=pair,
+            side=PaperOrderSide.BUY,
+            notional_usd=Decimal("0"),
+            estimated_edge_pct=expected_edge,
+            simulated_fill_price_usd=None,
+            simulated_quantity=None,
+            status=PaperOrderStatus.SKIPPED,
+            reason=f"Live-shadow gate blocked paper fill: {reason}",
+            execution_type="ARBITRAGE_ROUND_TRIP",
+            buy_source=order.buy_source,
+            sell_source=order.sell_source,
+            buy_price_usd=order.buy_price_usd,
+            sell_price_usd=order.sell_price_usd,
+            gross_edge_pct=order.gross_edge_pct,
+            cost_buffer_pct=order.cost_buffer_pct,
+            net_edge_pct=order.net_edge_pct,
+            paper_decision="PAPER_SKIP",
+            live_shadow_decision=order.live_shadow_decision or LiveShadowGateService.PAPER_ONLY,
+            live_shadow_reason=reason,
+            live_shadow_stress_net_edge_pct=order.live_shadow_stress_net_edge_pct,
+            live_shadow_status=order.live_shadow_status or "MISSING",
+            live_shadow_checked_at=order.live_shadow_checked_at or self._utc_now(),
+            live_shadow_blockers=order.live_shadow_blockers,
+        )
 
     def _apply_live_shadow_gate(self, order: PaperOrder) -> PaperOrder:
         try:

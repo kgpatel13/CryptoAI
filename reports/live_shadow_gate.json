@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T23:17:40Z",
+  "generated_at": "2026-06-30T23:30:10Z",
   "mode": "paper",
   "overall_status": "NO_SHADOW_ELIGIBLE_TRADES",
   "recent_order_count": 200,
@@ -7,66 +7,12 @@
   "paper_only_count": 200,
   "latest_decisions": [
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "560e2337",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -81,7 +27,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.7152%."
         },
         {
           "name": "execution_cost_not_high",
@@ -90,22 +36,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
         "pair": "WETH/USDC",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -115,71 +61,17 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "80877359",
+      "order_id": "9c721b07",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "43dcb79b",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -194,7 +86,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -203,22 +95,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -228,71 +120,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "25c5c27f",
+      "order_id": "3a740241",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "01f14251",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "a6d821dd",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -307,7 +204,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -316,22 +213,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -341,71 +238,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "ae14b59a",
+      "order_id": "8ba56b09",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "2e3a5b7e",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "8247f3ef",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -420,7 +322,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -429,22 +331,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -454,71 +356,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "3ed2e9f1",
+      "order_id": "ea17db92",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "94e23800",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "3ee84223",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -533,7 +440,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -542,22 +449,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -567,71 +474,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "77ff6013",
+      "order_id": "440e85ab",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "fcaa79bc",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "c2a85e33",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -646,7 +558,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -655,22 +567,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -680,71 +592,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "4ac186b0",
+      "order_id": "0632dcc0",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "74434c09",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "2c1601ea",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -759,7 +676,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -768,22 +685,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -793,71 +710,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "5e0854bb",
+      "order_id": "3f766551",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "3cfb3c05",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "9e7a314d",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -872,7 +794,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -881,22 +803,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -906,71 +828,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "4713bcea",
+      "order_id": "9e08e2aa",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "6c92fbd9",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "650fe112",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -985,7 +912,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -994,22 +921,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1019,71 +946,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "6a3e2fd6",
+      "order_id": "1717683a",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "d1cfb073",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "b686e1fa",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1098,7 +1030,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1107,22 +1039,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1132,71 +1064,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "6406d1f6",
+      "order_id": "4dd0624d",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "518ec56d",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "6add2a4d",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1211,7 +1148,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1220,22 +1157,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1245,71 +1182,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "6ebc6128",
+      "order_id": "c23ec2ee",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "5f5a7188",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "5267bb80",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1324,7 +1266,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1333,22 +1275,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1358,71 +1300,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "9ea74bc1",
+      "order_id": "f4e14df6",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "8c24905b",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "f30fc9e2",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1437,7 +1384,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1446,22 +1393,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1471,71 +1418,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "09aad8cd",
+      "order_id": "ed567184",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "ec07adee",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "ee921891",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1550,7 +1502,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1559,22 +1511,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1584,71 +1536,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "e9cac9a0",
+      "order_id": "20be0185",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "e60ddaf4",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "b7607497",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1663,7 +1620,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1672,22 +1629,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1697,71 +1654,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "68cdfcf5",
+      "order_id": "a1ca3882",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "5a101112",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "b1490796",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1776,7 +1738,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1785,22 +1747,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1810,71 +1772,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "b91579d4",
+      "order_id": "b324179b",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "b488c705",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "0db39a12",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -1889,7 +1856,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -1898,22 +1865,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -1923,71 +1890,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "27cfcbb7",
+      "order_id": "143fc944",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "024fdbed",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "1845cd1b",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2002,7 +1974,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2011,22 +1983,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2036,71 +2008,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "4d721340",
+      "order_id": "b4cce578",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "7aeb95c5",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "2902829e",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2115,7 +2092,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2124,22 +2101,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2149,71 +2126,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "b8434931",
+      "order_id": "e88a313b",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "669863ec",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "e2118786",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2228,7 +2210,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2237,22 +2219,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2262,71 +2244,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "b131382d",
+      "order_id": "f2e1c351",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "9546e4a2",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "47f45038",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2341,7 +2328,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2350,22 +2337,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2375,71 +2362,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "a5b275bb",
+      "order_id": "b88bd1fb",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "83a81a1f",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "ae152a3c",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2454,7 +2446,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2463,22 +2455,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2488,71 +2480,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "12a71194",
+      "order_id": "f92bdbd5",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "83c1e50f",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "dfd53495",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2567,7 +2564,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2576,22 +2573,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2601,71 +2598,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "5a1722ef",
+      "order_id": "8e18e5fc",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "5ecfaab3",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "6cdd7dcd",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2680,7 +2682,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2689,22 +2691,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2714,71 +2716,76 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "ce591663",
+      "order_id": "a1fa2709",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "6af61d87",
       "pair": "WETH/USDC",
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-06-30T23:17:40Z",
-      "paper_decision": "PAPER_BUY",
-      "live_shadow_decision": "PAPER_ONLY",
-      "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.3235",
-      "live_shadow_blockers": [
-        {
-          "name": "execution_realism_not_shadow_ready",
-          "severity": "BLOCK",
-          "detail": "Realism status is NOT_EXECUTABLE."
-        },
-        {
-          "name": "stress_net_not_positive",
-          "severity": "BLOCK",
-          "detail": "Stress net edge is -0.3235%."
-        },
-        {
-          "name": "execution_cost_not_high",
-          "severity": "BLOCK",
-          "detail": "Execution-cost confidence is MEDIUM."
-        }
-      ],
-      "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
-        "chain": "base",
-        "pair": "USDC/WETH",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "source_decision": "BUY",
-        "gross_edge_pct": "0.6902",
-        "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "0.3902",
-        "estimated_price_impact_pct": "0.3637",
-        "estimated_gas_usd": "0.0500",
-        "estimated_gas_pct": "0.2500",
-        "mev_risk": "HIGH",
-        "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.0137",
-        "stress_net_edge_pct": "-0.3235",
-        "requested_notional_usd": "20.0000",
-        "max_executable_notional_usd": "20.0000",
-        "executable_ratio_pct": "100.0000",
-        "depth_model": "POOL_DEPTH_LADDER",
-        "pool_depth_status": "DEPTH_READY",
-        "confidence": "MEDIUM",
-        "realism_status": "NOT_EXECUTABLE",
-        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
-      },
-      "order_id": "cca8af96",
-      "pair": "USDC/WETH",
-      "status": "CLOSED"
-    },
-    {
-      "checked_at": "2026-06-30T23:17:40Z",
+      "checked_at": "2026-06-30T23:30:10Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "NOT_EXECUTABLE",
-      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM.",
-      "live_shadow_stress_net_edge_pct": "-0.9350",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
       "live_shadow_blockers": [
         {
           "name": "paper_order_not_filled",
@@ -2793,7 +2800,7 @@
         {
           "name": "stress_net_not_positive",
           "severity": "BLOCK",
-          "detail": "Stress net edge is -0.9350%."
+          "detail": "Stress net edge is -0.5463%."
         },
         {
           "name": "execution_cost_not_high",
@@ -2802,22 +2809,22 @@
         }
       ],
       "matched_realism": {
-        "timestamp": "2026-06-30T23:05:17Z",
+        "timestamp": "2026-06-30T23:29:59Z",
         "chain": "base",
-        "pair": "WETH/USDC",
+        "pair": "USDC/WETH",
         "buy_source": "Uniswap V2",
         "sell_source": "Uniswap V3",
-        "source_decision": "SKIP",
-        "gross_edge_pct": "0.2828",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
         "configured_cost_buffer_pct": "0.3000",
-        "reported_net_edge_pct": "-0.0172",
-        "estimated_price_impact_pct": "0.5678",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
         "estimated_gas_usd": "0.0500",
         "estimated_gas_pct": "0.2500",
         "mev_risk": "HIGH",
         "mev_risk_buffer_pct": "0.1000",
-        "stress_total_cost_pct": "1.2178",
-        "stress_net_edge_pct": "-0.9350",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
         "requested_notional_usd": "20.0000",
         "max_executable_notional_usd": "20.0000",
         "executable_ratio_pct": "100.0000",
@@ -2827,8 +2834,126 @@
         "realism_status": "NOT_EXECUTABLE",
         "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
       },
-      "order_id": "d225e370",
+      "order_id": "cdbcc2ad",
+      "pair": "USDC/WETH",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.7152",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.7152%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "WETH/USDC",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.5019",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.2019",
+        "estimated_price_impact_pct": "0.5671",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.2171",
+        "stress_net_edge_pct": "-0.7152",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "d9e724e6",
       "pair": "WETH/USDC",
+      "status": "SKIPPED"
+    },
+    {
+      "checked_at": "2026-06-30T23:30:10Z",
+      "paper_decision": "PAPER_SKIP",
+      "live_shadow_decision": "PAPER_ONLY",
+      "live_shadow_status": "NOT_EXECUTABLE",
+      "live_shadow_reason": "Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM.",
+      "live_shadow_stress_net_edge_pct": "-0.5463",
+      "live_shadow_blockers": [
+        {
+          "name": "paper_order_not_filled",
+          "severity": "BLOCK",
+          "detail": "Paper status is SKIPPED."
+        },
+        {
+          "name": "execution_realism_not_shadow_ready",
+          "severity": "BLOCK",
+          "detail": "Realism status is NOT_EXECUTABLE."
+        },
+        {
+          "name": "stress_net_not_positive",
+          "severity": "BLOCK",
+          "detail": "Stress net edge is -0.5463%."
+        },
+        {
+          "name": "execution_cost_not_high",
+          "severity": "BLOCK",
+          "detail": "Execution-cost confidence is MEDIUM."
+        }
+      ],
+      "matched_realism": {
+        "timestamp": "2026-06-30T23:29:59Z",
+        "chain": "base",
+        "pair": "USDC/WETH",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "source_decision": "WATCH",
+        "gross_edge_pct": "0.4672",
+        "configured_cost_buffer_pct": "0.3000",
+        "reported_net_edge_pct": "0.1672",
+        "estimated_price_impact_pct": "0.3635",
+        "estimated_gas_usd": "0.0500",
+        "estimated_gas_pct": "0.2500",
+        "mev_risk": "HIGH",
+        "mev_risk_buffer_pct": "0.1000",
+        "stress_total_cost_pct": "1.0135",
+        "stress_net_edge_pct": "-0.5463",
+        "requested_notional_usd": "20.0000",
+        "max_executable_notional_usd": "20.0000",
+        "executable_ratio_pct": "100.0000",
+        "depth_model": "POOL_DEPTH_LADDER",
+        "pool_depth_status": "DEPTH_READY",
+        "confidence": "MEDIUM",
+        "realism_status": "NOT_EXECUTABLE",
+        "reason": "Need two healthy route quotes and nonzero executable size; healthy route DEXes=0, executable ratio=1.0000."
+      },
+      "order_id": "7120afe8",
+      "pair": "USDC/WETH",
       "status": "SKIPPED"
     }
   ],

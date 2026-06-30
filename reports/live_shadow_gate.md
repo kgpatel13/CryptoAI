@@ -1,6 +1,6 @@
 # Live Shadow Gate
 
-Generated: `2026-06-30T23:17:40Z`
+Generated: `2026-06-30T23:30:10Z`
 - Overall status: `NO_SHADOW_ELIGIBLE_TRADES`
 - Recent orders: `200`
 - Shadow eligible: `0`
@@ -10,31 +10,31 @@ Generated: `2026-06-30T23:17:40Z`
 
 | Order | Pair | Paper Status | Shadow Decision | Stress Net % | Reason |
 |---|---|---|---|---:|---|
-| 09aad8cd | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| ee921891 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| e9cac9a0 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| b7607497 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| 68cdfcf5 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| b1490796 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| b91579d4 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| 0db39a12 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| 27cfcbb7 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| 1845cd1b | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| 4d721340 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| 2902829e | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| b8434931 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| e2118786 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| b131382d | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| 47f45038 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| a5b275bb | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| ae152a3c | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| 12a71194 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| dfd53495 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| 5a1722ef | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| 6cdd7dcd | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| ce591663 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
-| cca8af96 | USDC/WETH | CLOSED | PAPER_ONLY | -0.3235 | Realism status is NOT_EXECUTABLE.; Stress net edge is -0.3235%.; Execution-cost confidence is MEDIUM. |
-| d225e370 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.9350 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.9350%.; Execution-cost confidence is MEDIUM. |
+| 20be0185 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| e60ddaf4 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| a1ca3882 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 5a101112 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| b324179b | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| b488c705 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| 143fc944 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 024fdbed | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| b4cce578 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 7aeb95c5 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| e88a313b | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 669863ec | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| f2e1c351 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 9546e4a2 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| b88bd1fb | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 83a81a1f | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| f92bdbd5 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 83c1e50f | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| 8e18e5fc | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 5ecfaab3 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| a1fa2709 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| 6af61d87 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| cdbcc2ad | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
+| d9e724e6 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.7152 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.7152%.; Execution-cost confidence is MEDIUM. |
+| 7120afe8 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.5463 | Paper status is SKIPPED.; Realism status is NOT_EXECUTABLE.; Stress net edge is -0.5463%.; Execution-cost confidence is MEDIUM. |
 
 ## Notes
 

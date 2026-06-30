@@ -17,6 +17,7 @@ class LiveShadowGateService:
 
     ELIGIBLE = "SHADOW_ELIGIBLE"
     PAPER_ONLY = "PAPER_ONLY"
+    NOT_EVALUATED = "NOT_EVALUATED"
 
     def __init__(self, data_dir: Path | str = "data", report_dir: Path | str = "reports") -> None:
         self.data_dir = Path(data_dir)
