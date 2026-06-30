@@ -228,8 +228,6 @@ class ProviderMonitorService:
             return "DEGRADED"
         if "WATCH" in statuses:
             return "WATCH"
-        if any(row.status == "WATCH" for row in rows):
-            return "WATCH"
         return "OK"
 
     @staticmethod

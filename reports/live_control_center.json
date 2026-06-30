@@ -35,7 +35,7 @@
     "wallet_preflight": "WALLET_PREP_READY",
     "wallet_preflight_allowed": true
   },
-  "generated_at": "2026-06-30T19:36:26Z",
+  "generated_at": "2026-06-30T22:40:30Z",
   "mode": "live_control_center",
   "next_action": "Continue paper/live-parity evidence; live readiness is not ready.",
   "next_command": "python -m app.execution.live_readiness_checklist_service",
@@ -79,20 +79,8 @@
       "source": "live_readiness"
     },
     {
-      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
-      "name": "paper_live_wallet_parity",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
       "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
       "name": "paper_live_trade_cap_parity",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
-      "name": "paper_live_daily_loss_parity",
       "severity": "ACTION",
       "source": "live_readiness"
     }
@@ -132,7 +120,7 @@
     "chain": "base",
     "dex": "Uniswap V3",
     "eth_balance": "0.024148469750380405",
-    "latest_block": 48029419,
+    "latest_block": 48034941,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "smoke_usd": "5",
     "swap_tx_available": true,

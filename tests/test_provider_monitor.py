@@ -167,7 +167,7 @@ class ProviderMonitorTests(unittest.TestCase):
             ).generate()
 
             rows = {row["name"]: row for row in payload["providers"]}
-            self.assertEqual(payload["overall_status"], "WATCH")
+            self.assertEqual(payload["overall_status"], "OK")
             self.assertEqual(payload["critical_alert_count"], 0)
             self.assertEqual(rows["Base:rpc2:https://mainnet.base.org"]["status"], "WATCH")
             self.assertFalse(rows["Base:rpc2:https://mainnet.base.org"]["required_for_overall"])

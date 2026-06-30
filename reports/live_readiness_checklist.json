@@ -136,8 +136,8 @@
       "severity": "PASS"
     }
   ],
-  "closed_trade_count": 114,
-  "generated_at": "2026-06-30T19:36:37Z",
+  "closed_trade_count": 882,
+  "generated_at": "2026-06-30T22:40:43Z",
   "live_review_ready": false,
   "live_trading_approval": false,
   "max_daily_loss_usd": "5",
@@ -150,9 +150,9 @@
     "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
   ],
   "overall_status": "LIVE_REVIEW_NOT_READY",
-  "paper_cash_usd": "520.1636",
+  "paper_cash_usd": "534.5078",
   "paper_profile": "live_parity_500",
-  "paper_realized_pnl_usd": "20.1636",
+  "paper_realized_pnl_usd": "34.5078",
   "pass_count": 13,
   "watch_count": 0
 }

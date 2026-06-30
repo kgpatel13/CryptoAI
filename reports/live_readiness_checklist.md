@@ -1,13 +1,13 @@
 # Live Readiness Checklist
 
-Generated: `2026-06-30T19:36:37Z`
+Generated: `2026-06-30T22:40:43Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
-- Closed paper trades: `114`
-- Paper cash USD: `$520.1636`
-- Paper realized PnL USD: `$20.1636`
+- Closed paper trades: `882`
+- Paper cash USD: `$534.5078`
+- Paper realized PnL USD: `$34.5078`
 - Max live wallet USD: `$0`
 - Max live trade USD: `$0`
 - Max daily loss USD: `$5`

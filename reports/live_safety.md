@@ -1,6 +1,6 @@
 # Live Safety Report
 
-Generated: `2026-06-30T19:36:37Z`
+Generated: `2026-06-30T22:40:42Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`

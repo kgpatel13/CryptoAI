@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T19:36:37Z",
+  "generated_at": "2026-06-30T22:40:43Z",
   "mode": "paper",
   "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
   "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
@@ -7,14 +7,14 @@
   "shadow_decision": "BLOCKED",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "520.1636",
-  "realized_pnl_usd": "20.1636",
-  "return_pct": "4.0327",
-  "closed_trade_count": 114,
+  "cash_usd": "534.5078",
+  "realized_pnl_usd": "34.5078",
+  "return_pct": "6.9016",
+  "closed_trade_count": 882,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-06-30T18:47:32Z",
+  "last_trade_at": "2026-06-30T22:40:39Z",
   "provider_status": "WATCH",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
@@ -22,7 +22,7 @@
   "execution_realism_confidence": "NONE",
   "shadow_ready_count": 0,
   "live_ready_count": 0,
-  "report_audit_findings": 25,
+  "report_audit_findings": 27,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -60,13 +60,13 @@
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=25"
+      "message": "blocking_findings=0; total_findings=27"
     }
   ],
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $20.1636 across 114 closed trade(s)."
+      "message": "Paper run is profitable so far: $34.5078 across 882 closed trade(s)."
     },
     {
       "severity": "ACTION",

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-30T19:34:04Z",
+  "generated_at": "2026-06-30T22:38:58Z",
   "mode": "paper",
-  "batch_id": "24b4e941-b",
+  "batch_id": "0c5dc429-f",
   "overall_status": "DEPTH_EVIDENCE_READY",
   "confidence": "MEDIUM",
   "route_count": 2,
@@ -38,8 +38,8 @@
         "pair_address": "0x4676505f75ef3cf95cf30d6e56134e39fe1f4c325ed29e52a5e28e350bee268c",
         "base_token": "BASEMATE",
         "quote_token": "WETH",
-        "liquidity_usd": "120447.8300",
-        "volume_h24_usd": "37028.7300"
+        "liquidity_usd": "123284.4000",
+        "volume_h24_usd": "31359.8200"
       },
       {
         "chain": "base",
@@ -47,17 +47,8 @@
         "pair_address": "0x0FB597D6cFE5bE0d5258A7f017599C2A4Ece34c7",
         "base_token": "PEPE",
         "quote_token": "WETH",
-        "liquidity_usd": "197910.7400",
-        "volume_h24_usd": "2427.5400"
-      },
-      {
-        "chain": "base",
-        "dex_id": "alien-base",
-        "pair_address": "0xbcd27A437eBe92555Cee6b5bBeDdAC639a1b6fcB",
-        "base_token": "ALB",
-        "quote_token": "WETH",
-        "liquidity_usd": "146751.9400",
-        "volume_h24_usd": "6205.4100"
+        "liquidity_usd": "196678.8500",
+        "volume_h24_usd": "2505.1500"
       },
       {
         "chain": "base",
@@ -65,8 +56,17 @@
         "pair_address": "0x0150e3d89E161518C044ad191c4bdf6b40Df6E83",
         "base_token": "cbMEGA",
         "quote_token": "USDC",
-        "liquidity_usd": "218282.8500",
-        "volume_h24_usd": "1047954.5900"
+        "liquidity_usd": "200598.6600",
+        "volume_h24_usd": "1169478.6400"
+      },
+      {
+        "chain": "base",
+        "dex_id": "alien-base",
+        "pair_address": "0xbcd27A437eBe92555Cee6b5bBeDdAC639a1b6fcB",
+        "base_token": "ALB",
+        "quote_token": "WETH",
+        "liquidity_usd": "146257.9000",
+        "volume_h24_usd": "5940.3200"
       },
       {
         "chain": "base",
@@ -74,8 +74,8 @@
         "pair_address": "0xB90fe999Be6869AF0aFC557DCCfBE169EA3403D6",
         "base_token": "cbXRP",
         "quote_token": "WETH",
-        "liquidity_usd": "309293.0000",
-        "volume_h24_usd": "921115.0100"
+        "liquidity_usd": "544586.5900",
+        "volume_h24_usd": "877397.6600"
       },
       {
         "chain": "base",
@@ -83,8 +83,8 @@
         "pair_address": "0x16905890A1D02b6F824387419319Bf4188B961b0",
         "base_token": "BENJI",
         "quote_token": "WETH",
-        "liquidity_usd": "275767.5300",
-        "volume_h24_usd": "33453.9900"
+        "liquidity_usd": "276288.8400",
+        "volume_h24_usd": "33595.1500"
       },
       {
         "chain": "base",
@@ -92,17 +92,8 @@
         "pair_address": "0x4e962BB3889Bf030368F56810A9c96B83CB3E778",
         "base_token": "cbBTC",
         "quote_token": "USDC",
-        "liquidity_usd": "8719285.9900",
-        "volume_h24_usd": "77735225.1200"
-      },
-      {
-        "chain": "base",
-        "dex_id": "uniswap",
-        "pair_address": "0xFdbAf04326AcC24e3d1788333826b71E3291863a",
-        "base_token": "Fartcoin",
-        "quote_token": "WETH",
-        "liquidity_usd": "134092.4000",
-        "volume_h24_usd": "1550.6800"
+        "liquidity_usd": "8699817.6300",
+        "volume_h24_usd": "77495172.5400"
       },
       {
         "chain": "base",
@@ -110,8 +101,17 @@
         "pair_address": "0x39a72B1292AAED73B9B5633e14f88fE9a89F400b",
         "base_token": "BTCB",
         "quote_token": "WETH",
-        "liquidity_usd": "210310.1900",
-        "volume_h24_usd": "1477.2000"
+        "liquidity_usd": "210522.6200",
+        "volume_h24_usd": "1958.0500"
+      },
+      {
+        "chain": "base",
+        "dex_id": "uniswap",
+        "pair_address": "0xFdbAf04326AcC24e3d1788333826b71E3291863a",
+        "base_token": "Fartcoin",
+        "quote_token": "WETH",
+        "liquidity_usd": "133933.5700",
+        "volume_h24_usd": "1564.6000"
       }
     ],
     "error": ""
@@ -127,7 +127,7 @@
       "max_usable_notional_usd": "2000.0000",
       "requested_price_impact_pct": "0.0000",
       "worst_requested_price_impact_pct": "0.0000",
-      "worst_price_impact_pct": "0.3658",
+      "worst_price_impact_pct": "0.3665",
       "selected_depth_venues": [
         {
           "dex": "Aerodrome",
@@ -144,7 +144,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0565",
+          "worst_price_impact_pct": "0.0566",
           "liquidity_usd": "0.0000"
         },
         {
@@ -152,7 +152,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.3658",
+          "worst_price_impact_pct": "0.3665",
           "liquidity_usd": "0.0000"
         },
         {
@@ -176,7 +176,7 @@
       "max_usable_notional_usd": "2000.0000",
       "requested_price_impact_pct": "0.0000",
       "worst_requested_price_impact_pct": "0.0000",
-      "worst_price_impact_pct": "0.5731",
+      "worst_price_impact_pct": "0.5721",
       "selected_depth_venues": [
         {
           "dex": "Aerodrome",
@@ -193,7 +193,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0889",
+          "worst_price_impact_pct": "0.0887",
           "liquidity_usd": "0.0000"
         },
         {
@@ -201,7 +201,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.5731",
+          "worst_price_impact_pct": "0.5721",
           "liquidity_usd": "0.0000"
         },
         {
@@ -209,7 +209,7 @@
           "ok_count": 6,
           "tested_count": 6,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0065",
+          "worst_price_impact_pct": "0.0000",
           "liquidity_usd": "0.0000"
         }
       ],
