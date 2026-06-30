@@ -1,6 +1,6 @@
 # Live Readiness Checklist
 
-Generated: `2026-06-30T13:59:04Z`
+Generated: `2026-06-30T14:42:30Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
@@ -8,11 +8,11 @@ Generated: `2026-06-30T13:59:04Z`
 - Closed paper trades: `656`
 - Paper cash USD: `$1679.8276`
 - Paper realized PnL USD: `$1179.8276`
-- Max live wallet USD: `$0`
-- Max live trade USD: `$0`
-- Max daily loss USD: `$0`
+- Max live wallet USD: `$500`
+- Max live trade USD: `$50`
+- Max daily loss USD: `$10`
 - Blocked checks: `0`
-- Action checks: `5`
+- Action checks: `3`
 - Watch checks: `0`
 
 ## Checks
@@ -31,13 +31,13 @@ Generated: `2026-06-30T13:59:04Z`
 | report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
-| wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
+| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
 | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 | live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
 | live_feature_off | PASS | Live feature flag is off. |
 | kill_switch_on | PASS | Live and paper kill switches are on. |
 | private_key_absent | PASS | Private key is absent. |
-| paper_live_wallet_parity | ACTION | Paper capital should be > $0 and no larger than the configured live wallet ceiling. |
+| paper_live_wallet_parity | PASS | Paper capital is within the configured live wallet ceiling. |
 | paper_live_trade_cap_parity | ACTION | Paper max notional and observed fills should be no larger than the configured live trade cap. |
 | paper_live_daily_loss_parity | ACTION | Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap. |
 | base_eth_scope_only | PASS | Readiness review is restricted to Base ETH approved routes. |
