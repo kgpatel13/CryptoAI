@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-06-30T07:50:16Z",
+  "generated_at": "2026-06-30T07:52:22Z",
   "mode": "paper",
   "live_trading": "disabled",
-  "total_opportunity_decisions": 1446,
+  "total_opportunity_decisions": 1476,
   "opportunity_decision_counts": {
-    "BUY": 514,
+    "BUY": 529,
     "SKIP": 388,
-    "WATCH": 544
+    "WATCH": 559
   },
-  "total_orders": 288,
-  "filled_orders": 102,
-  "skipped_orders": 186,
+  "total_orders": 294,
+  "filled_orders": 105,
+  "skipped_orders": 189,
   "rejected_orders": 0,
   "risk_rejected_orders": 0,
-  "total_filled_notional_usd": "122030.3575",
-  "total_realized_pnl_usd": "409.4418",
-  "portfolio_realized_pnl_usd": "409.4418",
-  "order_file_realized_pnl_usd": "409.4418",
+  "total_filled_notional_usd": "126271.7625",
+  "total_realized_pnl_usd": "422.5483",
+  "portfolio_realized_pnl_usd": "422.5483",
+  "order_file_realized_pnl_usd": "422.5483",
   "pnl_reconciliation": {
     "source_of_truth": "paper_portfolio_state.json",
     "status": "RECONCILED",
-    "portfolio_realized_pnl_usd": "409.4418",
-    "order_file_realized_pnl_usd": "409.4418",
+    "portfolio_realized_pnl_usd": "422.5483",
+    "order_file_realized_pnl_usd": "422.5483",
     "difference_usd": "0.0000",
-    "filled_order_count": 102,
-    "state_updated_at": "2026-06-30T07:50:15Z",
+    "filled_order_count": 105,
+    "state_updated_at": "2026-06-30T07:50:47Z",
     "reason": "The active portfolio ledger and paper-order history agree."
   },
   "skip_reasons": {
@@ -37,64 +37,64 @@
     "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0774% is below paper threshold 0.30%.": 19,
     "Risk decision is WATCHLIST; paper order not created. Expected edge 0.2774% is below paper threshold 0.30%.": 23,
     "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0932% is below paper threshold 0.30%.": 23,
-    "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.": 9
+    "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.": 12
   },
   "risk_rejection_reasons": {},
   "execution_quality_counts": {
-    "GOOD": 102
+    "GOOD": 105
   },
   "avg_slippage_bps": "5.0000",
   "avg_latency_ms": "250.0000",
   "portfolio": {
-    "cash_usd": "1409.4418",
+    "cash_usd": "1422.5483",
     "initial_cash_usd": "1000.00",
     "open_positions": 0,
     "closed_positions": 0,
-    "daily_filled_trades": 102,
-    "daily_realized_pnl_usd": "409.4418",
-    "realized_pnl_usd": "409.4418",
+    "daily_filled_trades": 105,
+    "daily_realized_pnl_usd": "422.5483",
+    "realized_pnl_usd": "422.5483",
     "unrealized_pnl_usd": "0.0000",
     "exposure_by_chain": {},
     "exposure_by_token": {},
-    "updated_at": "2026-06-30T07:50:15Z"
+    "updated_at": "2026-06-30T07:50:47Z"
   },
   "portfolio_analytics": {
-    "generated_at": "2026-06-30T07:50:16Z",
+    "generated_at": "2026-06-30T07:52:22Z",
     "mode": "paper",
     "initial_cash_usd": "1000.0000",
-    "cash_usd": "1409.4418",
+    "cash_usd": "1422.5483",
     "open_position_notional_usd": "0.0000",
-    "equity_usd": "1409.4418",
-    "realized_pnl_usd": "409.4418",
-    "journal_realized_pnl_usd": "409.4418",
+    "equity_usd": "1422.5483",
+    "realized_pnl_usd": "422.5483",
+    "journal_realized_pnl_usd": "422.5483",
     "unrealized_pnl_usd": "0.0000",
-    "total_pnl_usd": "409.4418",
-    "total_return_pct": "40.9442",
+    "total_pnl_usd": "422.5483",
+    "total_return_pct": "42.2548",
     "pnl_reconciliation": {
       "source_of_truth": "paper_portfolio_state.json",
       "status": "RECONCILED",
-      "portfolio_realized_pnl_usd": "409.4418",
-      "journal_realized_pnl_usd": "409.4418",
+      "portfolio_realized_pnl_usd": "422.5483",
+      "journal_realized_pnl_usd": "422.5483",
       "difference_usd": "0.0000",
-      "journal_trade_count": 102,
-      "state_daily_filled_trades": 102,
-      "state_updated_at": "2026-06-30T07:50:15Z",
+      "journal_trade_count": 105,
+      "state_daily_filled_trades": 105,
+      "state_updated_at": "2026-06-30T07:50:47Z",
       "reason": "The paper-order journal and active portfolio ledger agree."
     },
-    "trade_count": 102,
-    "closed_trade_count": 102,
+    "trade_count": 105,
+    "closed_trade_count": 105,
     "open_positions": 0,
     "closed_positions": 0,
-    "win_count": 102,
+    "win_count": 105,
     "loss_count": 0,
     "breakeven_or_open_trade_count": 0,
     "win_rate_pct": "100.0000",
-    "gross_profit_usd": "409.4418",
+    "gross_profit_usd": "422.5483",
     "gross_loss_usd": "0.0000",
-    "journal_gross_profit_usd": "409.4418",
+    "journal_gross_profit_usd": "422.5483",
     "journal_gross_loss_usd": "0.0000",
     "profit_factor": "N/A",
-    "expectancy_usd": "4.0141",
+    "expectancy_usd": "4.0243",
     "max_drawdown_usd": "0.0000",
     "max_drawdown_pct": "0.0000",
     "avg_slippage_bps": "5.0000",
@@ -102,87 +102,30 @@
     "daily_pnl": [
       {
         "date": "2026-06-30",
-        "trades": "102",
-        "filled_notional_usd": "122030.3575",
-        "realized_pnl_usd": "409.4418",
-        "cumulative_realized_pnl_usd": "409.4418",
-        "daily_return_pct": "40.9442"
+        "trades": "105",
+        "filled_notional_usd": "126271.7625",
+        "realized_pnl_usd": "422.5483",
+        "cumulative_realized_pnl_usd": "422.5483",
+        "daily_return_pct": "42.2548"
       }
     ],
     "equity_curve": [
       {
         "date": "2026-06-30",
-        "equity_usd": "1409.4418",
-        "return_from_start_pct": "40.9442"
+        "equity_usd": "1422.5483",
+        "return_from_start_pct": "42.2548"
       }
     ],
     "performance_by_pair": [
       {
         "pair": "WETH/USDC",
-        "trades": "102",
-        "filled_notional_usd": "122030.3575",
-        "realized_pnl_usd": "409.4418",
+        "trades": "105",
+        "filled_notional_usd": "126271.7625",
+        "realized_pnl_usd": "422.5483",
         "win_rate_pct": "100.0000"
       }
     ],
     "trade_journal": [
-      {
-        "order_id": "28bb4d70",
-        "timestamp": "2026-06-30T07:35:27Z",
-        "date": "2026-06-30",
-        "pair": "WETH/USDC",
-        "side": "BUY",
-        "status": "CLOSED",
-        "notional_usd": "1006.7010",
-        "realized_pnl_usd": "3.3673",
-        "slippage_bps": "5",
-        "latency_ms": "250",
-        "execution_quality": "GOOD",
-        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "gross_edge_pct": "0.6344864929272154757282038738",
-        "cost_buffer_pct": "0.30",
-        "net_edge_pct": "0.3344864929272154757282038738"
-      },
-      {
-        "order_id": "be09be60",
-        "timestamp": "2026-06-30T07:35:33Z",
-        "date": "2026-06-30",
-        "pair": "WETH/USDC",
-        "side": "BUY",
-        "status": "CLOSED",
-        "notional_usd": "1010.0683",
-        "realized_pnl_usd": "3.3785",
-        "slippage_bps": "5",
-        "latency_ms": "250",
-        "execution_quality": "GOOD",
-        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "gross_edge_pct": "0.6344864929272154757282038738",
-        "cost_buffer_pct": "0.30",
-        "net_edge_pct": "0.3344864929272154757282038738"
-      },
-      {
-        "order_id": "dd3d8d98",
-        "timestamp": "2026-06-30T07:35:39Z",
-        "date": "2026-06-30",
-        "pair": "WETH/USDC",
-        "side": "BUY",
-        "status": "CLOSED",
-        "notional_usd": "1013.4468",
-        "realized_pnl_usd": "3.3898",
-        "slippage_bps": "5",
-        "latency_ms": "250",
-        "execution_quality": "GOOD",
-        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
-        "buy_source": "Uniswap V2",
-        "sell_source": "Uniswap V3",
-        "gross_edge_pct": "0.6344864929272154757282038738",
-        "cost_buffer_pct": "0.30",
-        "net_edge_pct": "0.3344864929272154757282038738"
-      },
       {
         "order_id": "601eb801",
         "timestamp": "2026-06-30T07:35:43Z",
@@ -2025,6 +1968,63 @@
         "gross_edge_pct": "0.6090134766069292481369913453",
         "cost_buffer_pct": "0.30",
         "net_edge_pct": "0.3090134766069292481369913453"
+      },
+      {
+        "order_id": "721287fb",
+        "timestamp": "2026-06-30T07:50:38Z",
+        "date": "2026-06-30",
+        "pair": "WETH/USDC",
+        "side": "BUY",
+        "status": "CLOSED",
+        "notional_usd": "1409.4418",
+        "realized_pnl_usd": "4.3554",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "gross_edge_pct": "0.6090134766069292481369913453",
+        "cost_buffer_pct": "0.30",
+        "net_edge_pct": "0.3090134766069292481369913453"
+      },
+      {
+        "order_id": "ef8a4f15",
+        "timestamp": "2026-06-30T07:50:42Z",
+        "date": "2026-06-30",
+        "pair": "WETH/USDC",
+        "side": "BUY",
+        "status": "CLOSED",
+        "notional_usd": "1413.7972",
+        "realized_pnl_usd": "4.3688",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "gross_edge_pct": "0.6090134766069292481369913453",
+        "cost_buffer_pct": "0.30",
+        "net_edge_pct": "0.3090134766069292481369913453"
+      },
+      {
+        "order_id": "4cb6c8bf",
+        "timestamp": "2026-06-30T07:50:47Z",
+        "date": "2026-06-30",
+        "pair": "WETH/USDC",
+        "side": "BUY",
+        "status": "CLOSED",
+        "notional_usd": "1418.1660",
+        "realized_pnl_usd": "4.3823",
+        "slippage_bps": "5",
+        "latency_ms": "250",
+        "execution_quality": "GOOD",
+        "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+        "buy_source": "Uniswap V2",
+        "sell_source": "Uniswap V3",
+        "gross_edge_pct": "0.6090134766069292481369913453",
+        "cost_buffer_pct": "0.30",
+        "net_edge_pct": "0.3090134766069292481369913453"
       }
     ],
     "notes": [
@@ -2037,7 +2037,7 @@
   },
   "latest_opportunities": [
     {
-      "opportunity_id": "57d6daa5-f",
+      "opportunity_id": "9eace039-f",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2052,10 +2052,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:05Z"
+      "timestamp": "2026-06-30T07:50:40Z"
     },
     {
-      "opportunity_id": "d905c6ab-2",
+      "opportunity_id": "74459663-5",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2070,10 +2070,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:05Z"
+      "timestamp": "2026-06-30T07:50:40Z"
     },
     {
-      "opportunity_id": "146f970d-1",
+      "opportunity_id": "45ffcbbd-d",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2088,10 +2088,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:06Z"
+      "timestamp": "2026-06-30T07:50:41Z"
     },
     {
-      "opportunity_id": "25b9bb9e-7",
+      "opportunity_id": "7f638413-4",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2106,10 +2106,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:06Z"
+      "timestamp": "2026-06-30T07:50:41Z"
     },
     {
-      "opportunity_id": "8a7cca05-9",
+      "opportunity_id": "f6d66867-a",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2124,10 +2124,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:07Z"
+      "timestamp": "2026-06-30T07:50:41Z"
     },
     {
-      "opportunity_id": "a9f55328-f",
+      "opportunity_id": "43f888c1-1",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2142,10 +2142,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:07Z"
+      "timestamp": "2026-06-30T07:50:41Z"
     },
     {
-      "opportunity_id": "e6a057fb-6",
+      "opportunity_id": "1725eacb-f",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2160,10 +2160,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:07Z"
+      "timestamp": "2026-06-30T07:50:42Z"
     },
     {
-      "opportunity_id": "de8d87af-2",
+      "opportunity_id": "158ef15c-6",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2178,10 +2178,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:07Z"
+      "timestamp": "2026-06-30T07:50:42Z"
     },
     {
-      "opportunity_id": "91ec08ac-9",
+      "opportunity_id": "c96f3ba4-c",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2196,10 +2196,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:09Z"
+      "timestamp": "2026-06-30T07:50:43Z"
     },
     {
-      "opportunity_id": "f24470ce-4",
+      "opportunity_id": "026475f1-e",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2214,10 +2214,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:09Z"
+      "timestamp": "2026-06-30T07:50:43Z"
     },
     {
-      "opportunity_id": "1af7ca22-9",
+      "opportunity_id": "52830574-a",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2232,10 +2232,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:11Z"
+      "timestamp": "2026-06-30T07:50:44Z"
     },
     {
-      "opportunity_id": "6098d544-2",
+      "opportunity_id": "cda2add5-0",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2250,10 +2250,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:11Z"
+      "timestamp": "2026-06-30T07:50:44Z"
     },
     {
-      "opportunity_id": "ef0d0f55-4",
+      "opportunity_id": "a3f250e3-f",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2268,10 +2268,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:13Z"
+      "timestamp": "2026-06-30T07:50:45Z"
     },
     {
-      "opportunity_id": "620add34-d",
+      "opportunity_id": "69262feb-5",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2286,10 +2286,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:13Z"
+      "timestamp": "2026-06-30T07:50:45Z"
     },
     {
-      "opportunity_id": "be69929c-c",
+      "opportunity_id": "6d20855c-5",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2304,10 +2304,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:14Z"
+      "timestamp": "2026-06-30T07:50:46Z"
     },
     {
-      "opportunity_id": "d4eb3e7f-9",
+      "opportunity_id": "43299faa-f",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2322,10 +2322,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:14Z"
+      "timestamp": "2026-06-30T07:50:46Z"
     },
     {
-      "opportunity_id": "06a9132e-c",
+      "opportunity_id": "8330ab1f-2",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2340,10 +2340,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:15Z"
+      "timestamp": "2026-06-30T07:50:47Z"
     },
     {
-      "opportunity_id": "555a370f-9",
+      "opportunity_id": "9d0f5067-7",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2358,10 +2358,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:15Z"
+      "timestamp": "2026-06-30T07:50:47Z"
     },
     {
-      "opportunity_id": "b6e0db50-2",
+      "opportunity_id": "3e3994ba-3",
       "chain": "base",
       "pair": "WETH/USDC",
       "buy_source": "Uniswap V2",
@@ -2376,10 +2376,10 @@
       "readiness_score": 61,
       "decision": "BUY",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.3090% is above BUY threshold 0.30%.",
-      "timestamp": "2026-06-30T07:50:16Z"
+      "timestamp": "2026-06-30T07:50:47Z"
     },
     {
-      "opportunity_id": "56cb1099-d",
+      "opportunity_id": "1243809d-2",
       "chain": "base",
       "pair": "USDC/WETH",
       "buy_source": "Uniswap V2",
@@ -2394,262 +2394,10 @@
       "readiness_score": 12,
       "decision": "WATCH",
       "reason": "REAL: Real multi-DEX comparison: net edge 0.0616% is positive but below BUY threshold.",
-      "timestamp": "2026-06-30T07:50:16Z"
+      "timestamp": "2026-06-30T07:50:47Z"
     }
   ],
   "latest_orders": [
-    {
-      "order_id": "1c3e96d4",
-      "timestamp": "2026-06-30T07:49:19Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "side": "BUY",
-      "notional_usd": "0",
-      "estimated_edge_pct": "0.2774179668851666928489914258",
-      "simulated_fill_price_usd": null,
-      "simulated_quantity": null,
-      "status": "SKIPPED",
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.2774% is below paper threshold 0.30%.",
-      "execution_type": "POSITION",
-      "buy_source": null,
-      "sell_source": null,
-      "buy_price_usd": null,
-      "sell_price_usd": null,
-      "gross_edge_pct": null,
-      "cost_buffer_pct": null,
-      "net_edge_pct": null,
-      "realized_pnl_usd": null,
-      "exit_value_usd": null,
-      "requested_notional_usd": null,
-      "filled_notional_usd": null,
-      "slippage_bps": null,
-      "latency_ms": null,
-      "execution_quality": null,
-      "lifecycle_events": []
-    },
-    {
-      "order_id": "a2df6227",
-      "timestamp": "2026-06-30T07:49:19Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "side": "BUY",
-      "notional_usd": "0",
-      "estimated_edge_pct": "0.0931602764395361605343225432",
-      "simulated_fill_price_usd": null,
-      "simulated_quantity": null,
-      "status": "SKIPPED",
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0932% is below paper threshold 0.30%.",
-      "execution_type": "POSITION",
-      "buy_source": null,
-      "sell_source": null,
-      "buy_price_usd": null,
-      "sell_price_usd": null,
-      "gross_edge_pct": null,
-      "cost_buffer_pct": null,
-      "net_edge_pct": null,
-      "realized_pnl_usd": null,
-      "exit_value_usd": null,
-      "requested_notional_usd": null,
-      "filled_notional_usd": null,
-      "slippage_bps": null,
-      "latency_ms": null,
-      "execution_quality": null,
-      "lifecycle_events": []
-    },
-    {
-      "order_id": "31410c3c",
-      "timestamp": "2026-06-30T07:49:28Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "side": "BUY",
-      "notional_usd": "1370.8424",
-      "estimated_edge_pct": "0.3090134766069292481369913453",
-      "simulated_fill_price_usd": "1581.023784834000000000",
-      "simulated_quantity": "0.8670599475794299649313532460",
-      "status": "CLOSED",
-      "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
-      "execution_type": "ARBITRAGE_ROUND_TRIP",
-      "buy_source": "Uniswap V2",
-      "sell_source": "Uniswap V3",
-      "buy_price_usd": "1580.233668",
-      "sell_price_usd": "1589.857504",
-      "gross_edge_pct": "0.6090134766069292481369913453",
-      "cost_buffer_pct": "0.30",
-      "net_edge_pct": "0.3090134766069292481369913453",
-      "realized_pnl_usd": "4.2361",
-      "exit_value_usd": "1375.0785",
-      "requested_notional_usd": "1370.8424",
-      "filled_notional_usd": "1370.8424",
-      "slippage_bps": "5",
-      "latency_ms": 250,
-      "execution_quality": "GOOD",
-      "lifecycle_events": [
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "NEW",
-          "message": "Order candidate created."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "VALIDATED",
-          "message": "Portfolio and quote gates passed."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "SUBMITTED",
-          "message": "Paper order submitted to execution simulator."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "PENDING",
-          "message": "Simulated routing latency 250ms."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "FILLED",
-          "message": "Filled $1370.8424 at 1581.023784834000000000 with 5bps simulated slippage."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "SELL_LEG",
-          "message": "Paper arbitrage sell leg simulated on Uniswap V3."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:28Z",
-          "status": "CLOSED",
-          "message": "Atomic paper arbitrage round trip closed with realized PnL $4.2361."
-        }
-      ]
-    },
-    {
-      "order_id": "f6f841c6",
-      "timestamp": "2026-06-30T07:49:28Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "side": "BUY",
-      "notional_usd": "0",
-      "estimated_edge_pct": "0.0616317488636955489586508439",
-      "simulated_fill_price_usd": null,
-      "simulated_quantity": null,
-      "status": "SKIPPED",
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.",
-      "execution_type": "POSITION",
-      "buy_source": null,
-      "sell_source": null,
-      "buy_price_usd": null,
-      "sell_price_usd": null,
-      "gross_edge_pct": null,
-      "cost_buffer_pct": null,
-      "net_edge_pct": null,
-      "realized_pnl_usd": null,
-      "exit_value_usd": null,
-      "requested_notional_usd": null,
-      "filled_notional_usd": null,
-      "slippage_bps": null,
-      "latency_ms": null,
-      "execution_quality": null,
-      "lifecycle_events": []
-    },
-    {
-      "order_id": "2f246e05",
-      "timestamp": "2026-06-30T07:49:34Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "WETH/USDC",
-      "side": "BUY",
-      "notional_usd": "1375.0785",
-      "estimated_edge_pct": "0.3090134766069292481369913453",
-      "simulated_fill_price_usd": "1581.023784834000000000",
-      "simulated_quantity": "0.8697392874101364146840350317",
-      "status": "CLOSED",
-      "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
-      "execution_type": "ARBITRAGE_ROUND_TRIP",
-      "buy_source": "Uniswap V2",
-      "sell_source": "Uniswap V3",
-      "buy_price_usd": "1580.233668",
-      "sell_price_usd": "1589.857504",
-      "gross_edge_pct": "0.6090134766069292481369913453",
-      "cost_buffer_pct": "0.30",
-      "net_edge_pct": "0.3090134766069292481369913453",
-      "realized_pnl_usd": "4.2492",
-      "exit_value_usd": "1379.3277",
-      "requested_notional_usd": "1375.0785",
-      "filled_notional_usd": "1375.0785",
-      "slippage_bps": "5",
-      "latency_ms": 250,
-      "execution_quality": "GOOD",
-      "lifecycle_events": [
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "NEW",
-          "message": "Order candidate created."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "VALIDATED",
-          "message": "Portfolio and quote gates passed."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "SUBMITTED",
-          "message": "Paper order submitted to execution simulator."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "PENDING",
-          "message": "Simulated routing latency 250ms."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "FILLED",
-          "message": "Filled $1375.0785 at 1581.023784834000000000 with 5bps simulated slippage."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "SELL_LEG",
-          "message": "Paper arbitrage sell leg simulated on Uniswap V3."
-        },
-        {
-          "timestamp": "2026-06-30T07:49:34Z",
-          "status": "CLOSED",
-          "message": "Atomic paper arbitrage round trip closed with realized PnL $4.2492."
-        }
-      ]
-    },
-    {
-      "order_id": "aabc819e",
-      "timestamp": "2026-06-30T07:49:34Z",
-      "strategy_name": "DEX Arbitrage Strategy",
-      "chain": "base",
-      "pair": "USDC/WETH",
-      "side": "BUY",
-      "notional_usd": "0",
-      "estimated_edge_pct": "0.0616317488636955489586508439",
-      "simulated_fill_price_usd": null,
-      "simulated_quantity": null,
-      "status": "SKIPPED",
-      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.",
-      "execution_type": "POSITION",
-      "buy_source": null,
-      "sell_source": null,
-      "buy_price_usd": null,
-      "sell_price_usd": null,
-      "gross_edge_pct": null,
-      "cost_buffer_pct": null,
-      "net_edge_pct": null,
-      "realized_pnl_usd": null,
-      "exit_value_usd": null,
-      "requested_notional_usd": null,
-      "filled_notional_usd": null,
-      "slippage_bps": null,
-      "latency_ms": null,
-      "execution_quality": null,
-      "lifecycle_events": []
-    },
     {
       "order_id": "03c46850",
       "timestamp": "2026-06-30T07:49:41Z",
@@ -3295,6 +3043,294 @@
     {
       "order_id": "bc64150b",
       "timestamp": "2026-06-30T07:50:15Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "side": "BUY",
+      "notional_usd": "0",
+      "estimated_edge_pct": "0.0616317488636955489586508439",
+      "simulated_fill_price_usd": null,
+      "simulated_quantity": null,
+      "status": "SKIPPED",
+      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.",
+      "execution_type": "POSITION",
+      "buy_source": null,
+      "sell_source": null,
+      "buy_price_usd": null,
+      "sell_price_usd": null,
+      "gross_edge_pct": null,
+      "cost_buffer_pct": null,
+      "net_edge_pct": null,
+      "realized_pnl_usd": null,
+      "exit_value_usd": null,
+      "requested_notional_usd": null,
+      "filled_notional_usd": null,
+      "slippage_bps": null,
+      "latency_ms": null,
+      "execution_quality": null,
+      "lifecycle_events": []
+    },
+    {
+      "order_id": "721287fb",
+      "timestamp": "2026-06-30T07:50:38Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "side": "BUY",
+      "notional_usd": "1409.4418",
+      "estimated_edge_pct": "0.3090134766069292481369913453",
+      "simulated_fill_price_usd": "1581.023784834000000000",
+      "simulated_quantity": "0.8914741280429153728734852347",
+      "status": "CLOSED",
+      "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+      "execution_type": "ARBITRAGE_ROUND_TRIP",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "buy_price_usd": "1580.233668",
+      "sell_price_usd": "1589.857504",
+      "gross_edge_pct": "0.6090134766069292481369913453",
+      "cost_buffer_pct": "0.30",
+      "net_edge_pct": "0.3090134766069292481369913453",
+      "realized_pnl_usd": "4.3554",
+      "exit_value_usd": "1413.7972",
+      "requested_notional_usd": "1409.4418",
+      "filled_notional_usd": "1409.4418",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "FILLED",
+          "message": "Filled $1409.4418 at 1581.023784834000000000 with 5bps simulated slippage."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "SELL_LEG",
+          "message": "Paper arbitrage sell leg simulated on Uniswap V3."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:38Z",
+          "status": "CLOSED",
+          "message": "Atomic paper arbitrage round trip closed with realized PnL $4.3554."
+        }
+      ]
+    },
+    {
+      "order_id": "4a69bdaf",
+      "timestamp": "2026-06-30T07:50:38Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "side": "BUY",
+      "notional_usd": "0",
+      "estimated_edge_pct": "0.0616317488636955489586508439",
+      "simulated_fill_price_usd": null,
+      "simulated_quantity": null,
+      "status": "SKIPPED",
+      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.",
+      "execution_type": "POSITION",
+      "buy_source": null,
+      "sell_source": null,
+      "buy_price_usd": null,
+      "sell_price_usd": null,
+      "gross_edge_pct": null,
+      "cost_buffer_pct": null,
+      "net_edge_pct": null,
+      "realized_pnl_usd": null,
+      "exit_value_usd": null,
+      "requested_notional_usd": null,
+      "filled_notional_usd": null,
+      "slippage_bps": null,
+      "latency_ms": null,
+      "execution_quality": null,
+      "lifecycle_events": []
+    },
+    {
+      "order_id": "ef8a4f15",
+      "timestamp": "2026-06-30T07:50:42Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "side": "BUY",
+      "notional_usd": "1413.7972",
+      "estimated_edge_pct": "0.3090134766069292481369913453",
+      "simulated_fill_price_usd": "1581.023784834000000000",
+      "simulated_quantity": "0.8942289253089522632332100404",
+      "status": "CLOSED",
+      "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+      "execution_type": "ARBITRAGE_ROUND_TRIP",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "buy_price_usd": "1580.233668",
+      "sell_price_usd": "1589.857504",
+      "gross_edge_pct": "0.6090134766069292481369913453",
+      "cost_buffer_pct": "0.30",
+      "net_edge_pct": "0.3090134766069292481369913453",
+      "realized_pnl_usd": "4.3688",
+      "exit_value_usd": "1418.1660",
+      "requested_notional_usd": "1413.7972",
+      "filled_notional_usd": "1413.7972",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "FILLED",
+          "message": "Filled $1413.7972 at 1581.023784834000000000 with 5bps simulated slippage."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "SELL_LEG",
+          "message": "Paper arbitrage sell leg simulated on Uniswap V3."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:42Z",
+          "status": "CLOSED",
+          "message": "Atomic paper arbitrage round trip closed with realized PnL $4.3688."
+        }
+      ]
+    },
+    {
+      "order_id": "a8483d73",
+      "timestamp": "2026-06-30T07:50:42Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "side": "BUY",
+      "notional_usd": "0",
+      "estimated_edge_pct": "0.0616317488636955489586508439",
+      "simulated_fill_price_usd": null,
+      "simulated_quantity": null,
+      "status": "SKIPPED",
+      "reason": "Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.",
+      "execution_type": "POSITION",
+      "buy_source": null,
+      "sell_source": null,
+      "buy_price_usd": null,
+      "sell_price_usd": null,
+      "gross_edge_pct": null,
+      "cost_buffer_pct": null,
+      "net_edge_pct": null,
+      "realized_pnl_usd": null,
+      "exit_value_usd": null,
+      "requested_notional_usd": null,
+      "filled_notional_usd": null,
+      "slippage_bps": null,
+      "latency_ms": null,
+      "execution_quality": null,
+      "lifecycle_events": []
+    },
+    {
+      "order_id": "4cb6c8bf",
+      "timestamp": "2026-06-30T07:50:47Z",
+      "strategy_name": "DEX Arbitrage Strategy",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "side": "BUY",
+      "notional_usd": "1418.1660",
+      "estimated_edge_pct": "0.3090134766069292481369913453",
+      "simulated_fill_price_usd": "1581.023784834000000000",
+      "simulated_quantity": "0.8969921980958058166619572808",
+      "status": "CLOSED",
+      "reason": "Atomic paper arbitrage round trip completed and closed immediately.",
+      "execution_type": "ARBITRAGE_ROUND_TRIP",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "buy_price_usd": "1580.233668",
+      "sell_price_usd": "1589.857504",
+      "gross_edge_pct": "0.6090134766069292481369913453",
+      "cost_buffer_pct": "0.30",
+      "net_edge_pct": "0.3090134766069292481369913453",
+      "realized_pnl_usd": "4.3823",
+      "exit_value_usd": "1422.5483",
+      "requested_notional_usd": "1418.1660",
+      "filled_notional_usd": "1418.1660",
+      "slippage_bps": "5",
+      "latency_ms": 250,
+      "execution_quality": "GOOD",
+      "lifecycle_events": [
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "NEW",
+          "message": "Order candidate created."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "VALIDATED",
+          "message": "Portfolio and quote gates passed."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "SUBMITTED",
+          "message": "Paper order submitted to execution simulator."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "PENDING",
+          "message": "Simulated routing latency 250ms."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "FILLED",
+          "message": "Filled $1418.1660 at 1581.023784834000000000 with 5bps simulated slippage."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "SELL_LEG",
+          "message": "Paper arbitrage sell leg simulated on Uniswap V3."
+        },
+        {
+          "timestamp": "2026-06-30T07:50:47Z",
+          "status": "CLOSED",
+          "message": "Atomic paper arbitrage round trip closed with realized PnL $4.3823."
+        }
+      ]
+    },
+    {
+      "order_id": "02eb3162",
+      "timestamp": "2026-06-30T07:50:47Z",
       "strategy_name": "DEX Arbitrage Strategy",
       "chain": "base",
       "pair": "USDC/WETH",

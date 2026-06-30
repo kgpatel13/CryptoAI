@@ -1,38 +1,38 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-06-30T07:50:16Z`
+Generated: `2026-06-30T07:52:22Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `1446`
-- Total orders: `288`
-- Filled orders: `102`
-- Skipped orders: `186`
+- Opportunity decisions: `1476`
+- Total orders: `294`
+- Filled orders: `105`
+- Skipped orders: `189`
 - Rejected orders: `0`
 - Portfolio risk rejections: `0`
-- Total filled notional USD: `$122030.3575`
-- Total realized PnL USD: `$409.4418`
-- Order-file realized PnL USD: `$409.4418`
+- Total filled notional USD: `$126271.7625`
+- Total realized PnL USD: `$422.5483`
+- Order-file realized PnL USD: `$422.5483`
 - PnL reconciliation: `RECONCILED`
-- Paper portfolio cash USD: `$1409.4418`
+- Paper portfolio cash USD: `$1422.5483`
 - Open paper positions: `0`
 - Closed paper positions: `0`
 - Avg execution slippage bps: `5.0000`
 - Avg execution latency ms: `250.0000`
-- Equity USD: `$1409.4418`
-- Total PnL USD: `$409.4418`
-- Total return %: `40.9442`
+- Equity USD: `$1422.5483`
+- Total PnL USD: `$422.5483`
+- Total return %: `42.2548`
 - Win rate %: `100.0000`
 - Max drawdown %: `0.0000`
 - Legacy accounting warnings: `0`
 
 ## Opportunity Decision Counts
 
-- `BUY`: 514
+- `BUY`: 529
 - `SKIP`: 388
-- `WATCH`: 544
+- `WATCH`: 559
 
 ## Skip Reasons
 
@@ -45,7 +45,7 @@ Generated: `2026-06-30T07:50:16Z`
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0774% is below paper threshold 0.30%.`: 19
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2774% is below paper threshold 0.30%.`: 23
 - `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0932% is below paper threshold 0.30%.`: 23
-- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%.`: 12
 
 ## Portfolio Risk Rejection Reasons
 
@@ -53,18 +53,18 @@ Generated: `2026-06-30T07:50:16Z`
 
 ## Execution Quality
 
-- `GOOD`: 102
+- `GOOD`: 105
 
 ## Paper Portfolio
 
-- Cash USD: `$1409.4418`
+- Cash USD: `$1422.5483`
 - Initial cash USD: `$1000.00`
-- Portfolio realized PnL USD: `$409.4418`
+- Portfolio realized PnL USD: `$422.5483`
 - Open positions: `0`
 - Closed positions: `0`
-- Daily realized PnL USD: `$409.4418`
+- Daily realized PnL USD: `$422.5483`
 - Unrealized PnL USD: `$0.0000`
-- Daily filled trades: `102`
+- Daily filled trades: `105`
 - Exposure by chain: `{}`
 - Exposure by token: `{}`
 
@@ -72,19 +72,19 @@ Generated: `2026-06-30T07:50:16Z`
 
 - Source of truth: `paper_portfolio_state.json`
 - Status: `RECONCILED`
-- Portfolio realized PnL USD: `$409.4418`
-- Order-file realized PnL USD: `$409.4418`
+- Portfolio realized PnL USD: `$422.5483`
+- Order-file realized PnL USD: `$422.5483`
 - Difference USD: `$0.0000`
 - Note: The active portfolio ledger and paper-order history agree.
 
 ## Portfolio Analytics
 
-- Equity USD: `$1409.4418`
-- Total PnL USD: `$409.4418`
-- Total return %: `40.9442`
+- Equity USD: `$1422.5483`
+- Total PnL USD: `$422.5483`
+- Total return %: `42.2548`
 - Win rate %: `100.0000`
 - Profit factor: `N/A`
-- Expectancy USD: `$4.0141`
+- Expectancy USD: `$4.0243`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 
@@ -92,13 +92,13 @@ Generated: `2026-06-30T07:50:16Z`
 
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
-| 2026-06-30 | 102 | 122030.3575 | 409.4418 | 409.4418 | 40.9442 |
+| 2026-06-30 | 105 | 126271.7625 | 422.5483 | 422.5483 | 42.2548 |
 
 ### Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| WETH/USDC | 102 | 122030.3575 | 409.4418 | 100.0000 |
+| WETH/USDC | 105 | 126271.7625 | 422.5483 | 100.0000 |
 
 ## Latest Opportunities
 
@@ -129,12 +129,6 @@ Generated: `2026-06-30T07:50:16Z`
 
 | Time | Pair | Buy | Sell | Status | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |
 |---|---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| 2026-06-30T07:49:19Z | WETH/USDC | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2774% is below paper threshold 0.30%. |
-| 2026-06-30T07:49:19Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0932% is below paper threshold 0.30%. |
-| 2026-06-30T07:49:28Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1370.8424 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.2361 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T07:49:28Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
-| 2026-06-30T07:49:34Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1375.0785 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.2492 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-06-30T07:49:34Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
 | 2026-06-30T07:49:41Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1379.3277 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.2623 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-06-30T07:49:41Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
 | 2026-06-30T07:49:47Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1383.5900 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.2755 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
@@ -149,6 +143,12 @@ Generated: `2026-06-30T07:50:16Z`
 | 2026-06-30T07:50:08Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
 | 2026-06-30T07:50:15Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1405.0999 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.3419 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-06-30T07:50:15Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
+| 2026-06-30T07:50:38Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1409.4418 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.3554 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-06-30T07:50:38Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
+| 2026-06-30T07:50:42Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1413.7972 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.3688 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-06-30T07:50:42Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
+| 2026-06-30T07:50:47Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | 1418.1660 | 0.6090134766069292481369913453 | 0.30 | 0.3090134766069292481369913453 | 4.3823 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-06-30T07:50:47Z | USDC/WETH | None | None | SKIPPED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0616% is below paper threshold 0.30%. |
 
 ## Notes
 

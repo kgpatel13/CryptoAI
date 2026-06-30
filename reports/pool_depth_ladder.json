@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-30T07:35:00Z",
+  "generated_at": "2026-06-30T07:52:07Z",
   "mode": "paper",
-  "batch_id": "ede20376-7",
-  "overall_status": "DEPTH_EVIDENCE_WATCH",
-  "confidence": "LOW",
+  "batch_id": "176df6da-2",
+  "overall_status": "DEPTH_EVIDENCE_READY",
+  "confidence": "MEDIUM",
   "route_count": 2,
-  "depth_ready_route_count": 0,
-  "watch_route_count": 2,
+  "depth_ready_route_count": 2,
+  "watch_route_count": 0,
   "notional_steps_usd": [
     "100.0000",
     "250.0000",
@@ -37,8 +37,8 @@
         "pair_address": "0x4676505f75ef3cf95cf30d6e56134e39fe1f4c325ed29e52a5e28e350bee268c",
         "base_token": "BASEMATE",
         "quote_token": "WETH",
-        "liquidity_usd": "121442.5700",
-        "volume_h24_usd": "44599.8200"
+        "liquidity_usd": "122504.4000",
+        "volume_h24_usd": "43752.0600"
       },
       {
         "chain": "base",
@@ -55,8 +55,8 @@
         "pair_address": "0xbcd27A437eBe92555Cee6b5bBeDdAC639a1b6fcB",
         "base_token": "ALB",
         "quote_token": "WETH",
-        "liquidity_usd": "156935.1400",
-        "volume_h24_usd": "4200.3000"
+        "liquidity_usd": "150865.8000",
+        "volume_h24_usd": "5615.7600"
       },
       {
         "chain": "base",
@@ -64,8 +64,8 @@
         "pair_address": "0xB90fe999Be6869AF0aFC557DCCfBE169EA3403D6",
         "base_token": "cbXRP",
         "quote_token": "WETH",
-        "liquidity_usd": "294525.1400",
-        "volume_h24_usd": "1011053.6100"
+        "liquidity_usd": "279991.7700",
+        "volume_h24_usd": "998630.1600"
       },
       {
         "chain": "base",
@@ -73,8 +73,8 @@
         "pair_address": "0x0150e3d89E161518C044ad191c4bdf6b40Df6E83",
         "base_token": "cbMEGA",
         "quote_token": "USDC",
-        "liquidity_usd": "220840.0200",
-        "volume_h24_usd": "767436.6500"
+        "liquidity_usd": "223495.2600",
+        "volume_h24_usd": "791435.0500"
       },
       {
         "chain": "base",
@@ -82,8 +82,8 @@
         "pair_address": "0x16905890A1D02b6F824387419319Bf4188B961b0",
         "base_token": "BENJI",
         "quote_token": "WETH",
-        "liquidity_usd": "281127.6000",
-        "volume_h24_usd": "37181.7200"
+        "liquidity_usd": "285234.5300",
+        "volume_h24_usd": "36459.1700"
       },
       {
         "chain": "base",
@@ -91,8 +91,8 @@
         "pair_address": "0x4e962BB3889Bf030368F56810A9c96B83CB3E778",
         "base_token": "cbBTC",
         "quote_token": "USDC",
-        "liquidity_usd": "7828840.0400",
-        "volume_h24_usd": "110045287.1700"
+        "liquidity_usd": "7826177.4100",
+        "volume_h24_usd": "110148986.3000"
       },
       {
         "chain": "base",
@@ -101,7 +101,7 @@
         "base_token": "BTCB",
         "quote_token": "WETH",
         "liquidity_usd": "211247.9700",
-        "volume_h24_usd": "764.6700"
+        "volume_h24_usd": "763.2600"
       },
       {
         "chain": "base",
@@ -119,20 +119,31 @@
     {
       "chain": "base",
       "pair": "USDC/WETH",
-      "status": "DEPTH_WATCH",
-      "confidence": "LOW",
+      "status": "DEPTH_READY",
+      "confidence": "MEDIUM",
       "healthy_dex_count": 3,
       "requested_notional_usd": "1000.0000",
       "max_usable_notional_usd": "2000.0000",
-      "requested_price_impact_pct": "0.1643",
+      "requested_price_impact_pct": "0.0254",
+      "worst_requested_price_impact_pct": "0.1643",
       "worst_price_impact_pct": "0.3468",
+      "selected_depth_venues": [
+        {
+          "dex": "Uniswap V3",
+          "requested_price_impact_pct": "0.0017"
+        },
+        {
+          "dex": "Aerodrome",
+          "requested_price_impact_pct": "0.0254"
+        }
+      ],
       "dexes": [
         {
           "dex": "Aerodrome",
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0536",
+          "worst_price_impact_pct": "0.0535",
           "liquidity_usd": "0.0000"
         },
         {
@@ -148,22 +159,33 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0037",
+          "worst_price_impact_pct": "0.0036",
           "liquidity_usd": "0.0000"
         }
       ],
-      "reason": "USDC/WETH has two DEX ladders at requested size, but price impact needs review."
+      "reason": "USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0254%."
     },
     {
       "chain": "base",
       "pair": "WETH/USDC",
-      "status": "DEPTH_WATCH",
-      "confidence": "LOW",
+      "status": "DEPTH_READY",
+      "confidence": "MEDIUM",
       "healthy_dex_count": 3,
       "requested_notional_usd": "1000.0000",
       "max_usable_notional_usd": "2000.0000",
-      "requested_price_impact_pct": "0.2605",
-      "worst_price_impact_pct": "0.5483",
+      "requested_price_impact_pct": "0.0403",
+      "worst_requested_price_impact_pct": "0.2604",
+      "worst_price_impact_pct": "0.5482",
+      "selected_depth_venues": [
+        {
+          "dex": "Uniswap V3",
+          "requested_price_impact_pct": "0.0171"
+        },
+        {
+          "dex": "Aerodrome",
+          "requested_price_impact_pct": "0.0403"
+        }
+      ],
       "dexes": [
         {
           "dex": "Aerodrome",
@@ -178,7 +200,7 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.5483",
+          "worst_price_impact_pct": "0.5482",
           "liquidity_usd": "0.0000"
         },
         {
@@ -186,19 +208,14 @@
           "ok_count": 5,
           "tested_count": 5,
           "max_tested_notional_usd": "2000.0000",
-          "worst_price_impact_pct": "0.0059",
+          "worst_price_impact_pct": "0.0201",
           "liquidity_usd": "0.0000"
         }
       ],
-      "reason": "WETH/USDC has two DEX ladders at requested size, but price impact needs review."
+      "reason": "WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0403%."
     }
   ],
-  "findings": [
-    {
-      "severity": "ACTION",
-      "message": "No route has medium-confidence depth evidence at requested paper size."
-    }
-  ],
+  "findings": [],
   "notes": [
     "Pool-depth ladder evidence is research-only and does not change trade thresholds.",
     "Quote-size ladder impact is measured from provider quotes at increasing notional sizes.",

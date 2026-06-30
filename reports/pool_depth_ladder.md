@@ -1,39 +1,39 @@
 # CryptoAI Pool Depth Ladder
 
-Generated: `2026-06-30T07:35:00Z`
+Generated: `2026-06-30T07:52:07Z`
 
 ## Summary
 
-- Overall status: `DEPTH_EVIDENCE_WATCH`
-- Confidence: `LOW`
+- Overall status: `DEPTH_EVIDENCE_READY`
+- Confidence: `MEDIUM`
 - Requested notional USD: `$1000.0000`
 - ETH reference USD: `$1000.0000`
 - Quote rows: `30/30`
-- Depth-ready routes: `0`
+- Depth-ready routes: `2`
 
 ## Routes
 
-| Pair | Status | Confidence | DEXes | Max Usable USD | Requested Impact % | Worst Tested Impact % | Reason |
-|---|---|---|---:|---:|---:|---:|---|
-| USDC/WETH | DEPTH_WATCH | LOW | 3 | 2000.0000 | 0.1643 | 0.3468 | USDC/WETH has two DEX ladders at requested size, but price impact needs review. |
-| WETH/USDC | DEPTH_WATCH | LOW | 3 | 2000.0000 | 0.2605 | 0.5483 | WETH/USDC has two DEX ladders at requested size, but price impact needs review. |
+| Pair | Status | Confidence | DEXes | Max Usable USD | Best-Two Requested Impact % | Worst Requested Impact % | Worst Tested Impact % | Reason |
+|---|---|---|---:|---:|---:|---:|---:|---|
+| USDC/WETH | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0254 | 0.1643 | 0.3468 | USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0254%. |
+| WETH/USDC | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0403 | 0.2604 | 0.5482 | WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0403%. |
 
 ## DEX Detail
 
 | Pair | DEX | OK | Tested | Max Tested USD | Worst Impact % | Liquidity USD |
 |---|---|---:|---:|---:|---:|---:|
-| USDC/WETH | Aerodrome | 5 | 5 | 2000.0000 | 0.0536 | 0.0000 |
+| USDC/WETH | Aerodrome | 5 | 5 | 2000.0000 | 0.0535 | 0.0000 |
 | USDC/WETH | Uniswap V2 | 5 | 5 | 2000.0000 | 0.3468 | 0.0000 |
-| USDC/WETH | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0037 | 0.0000 |
+| USDC/WETH | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0036 | 0.0000 |
 | WETH/USDC | Aerodrome | 5 | 5 | 2000.0000 | 0.0850 | 0.0000 |
-| WETH/USDC | Uniswap V2 | 5 | 5 | 2000.0000 | 0.5483 | 0.0000 |
-| WETH/USDC | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0059 | 0.0000 |
+| WETH/USDC | Uniswap V2 | 5 | 5 | 2000.0000 | 0.5482 | 0.0000 |
+| WETH/USDC | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0201 | 0.0000 |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| ACTION | No route has medium-confidence depth evidence at requested paper size. |
+| OK | No pool-depth ladder findings. |
 
 ## Notes
 
