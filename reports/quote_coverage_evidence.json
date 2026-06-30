@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T02:31:59Z",
+  "generated_at": "2026-06-30T03:09:38Z",
   "mode": "paper",
   "implemented_provider_count": 3,
   "configured_pair_count": 8,
@@ -128,8 +128,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 1,
-      "inverse_ok_count": 1,
+      "direct_ok_count": 2,
+      "inverse_ok_count": 2,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -143,8 +143,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 1,
-      "inverse_ok_count": 1,
+      "direct_ok_count": 2,
+      "inverse_ok_count": 2,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."
@@ -158,8 +158,8 @@
       "token_ready": true,
       "router_configured": true,
       "provider_implemented": true,
-      "direct_ok_count": 1,
-      "inverse_ok_count": 1,
+      "direct_ok_count": 2,
+      "inverse_ok_count": 2,
       "recent_quote_ready": true,
       "coverage_status": "QUOTE_OK",
       "next_action": "Recent direct OK quote exists."

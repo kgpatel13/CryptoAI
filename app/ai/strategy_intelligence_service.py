@@ -28,6 +28,7 @@ class StrategyIntelligenceService:
         quote_coverage = self._read_json("quote_coverage_evidence.json")
         eth_route = self._read_json("eth_route_architecture.json")
         eth_market_coverage = self._read_json("eth_market_coverage.json")
+        pool_depth = self._read_json("pool_depth_ladder.json")
         experiment = self._read_json("experiment_report.json")
         provider = self._read_json("provider_monitor.json")
         paper = self._read_json("paper_report.json")
@@ -46,6 +47,7 @@ class StrategyIntelligenceService:
             quote_coverage=quote_coverage,
             eth_route=eth_route,
             eth_market_coverage=eth_market_coverage,
+            pool_depth=pool_depth,
             experiment=experiment,
             provider=provider,
             paper=paper,
@@ -83,6 +85,7 @@ class StrategyIntelligenceService:
         quote_coverage: dict[str, Any],
         eth_route: dict[str, Any],
         eth_market_coverage: dict[str, Any],
+        pool_depth: dict[str, Any],
         experiment: dict[str, Any],
         provider: dict[str, Any],
         paper: dict[str, Any],
@@ -149,6 +152,11 @@ class StrategyIntelligenceService:
             "eth_market_target_chain_count": self._int(eth_market_coverage.get("target_chain_count")),
             "eth_market_configured_chain_count": self._int(eth_market_coverage.get("configured_target_chain_count")),
             "eth_market_quote_ready_route_count": self._int(eth_market_coverage.get("quote_ready_route_count")),
+            "pool_depth_available": bool(pool_depth),
+            "pool_depth_status": str(pool_depth.get("overall_status", "UNKNOWN")),
+            "pool_depth_confidence": str(pool_depth.get("confidence", "UNKNOWN")),
+            "pool_depth_ready_route_count": self._int(pool_depth.get("depth_ready_route_count")),
+            "pool_depth_route_count": self._int(pool_depth.get("route_count")),
             "experiment_status": str(latest_experiment.get("status", experiment.get("status", "UNKNOWN"))),
             "experiment_fail_count": self._int(latest_experiment.get("fail_count", experiment.get("fail_count"))),
             "experiment_warn_count": self._int(latest_experiment.get("warn_count", experiment.get("warn_count"))),
@@ -290,6 +298,8 @@ class StrategyIntelligenceService:
             blockers.append("ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.")
         if context["eth_market_coverage_available"] and context["eth_market_coverage_score"] < 60:
             blockers.append("ETH Golden Path market coverage is still below developing maturity.")
+        if context["pool_depth_available"] and context["pool_depth_ready_route_count"] == 0:
+            blockers.append("Pool-depth ladder evidence has no depth-ready route at requested paper size.")
         if self._int(strategy.get("closed_positions")) < 10:
             blockers.append("Closed paper-trade sample is below the 10-trade minimum for strategy confidence.")
         return blockers
@@ -313,6 +323,8 @@ class StrategyIntelligenceService:
         if recommendation == "HOLD_FIX_OPERATIONS":
             return ["Fix provider/audit findings, regenerate reports, and rerun experiment evidence."]
         if recommendation == "CONTINUE_RESEARCH":
+            if context.get("pool_depth_available") and context.get("pool_depth_ready_route_count") == 0:
+                return ["Collect pool-depth and quote-size ladder evidence until at least one ETH route is depth-ready at requested paper size."]
             if context.get("execution_cost_buffer_status") == "TOO_HIGH":
                 return [
                     (
@@ -377,6 +389,7 @@ class StrategyIntelligenceService:
             f"- ETH route promotion gates: `{context['eth_promotion_passed_gates']}/{context['eth_promotion_gate_count']}`",
             f"- ETH market coverage: `{context['eth_market_coverage_score']}` / `{context['eth_market_coverage_status']}`",
             f"- ETH configured chains: `{context['eth_market_configured_chain_count']}/{context['eth_market_target_chain_count']}` with `{context['eth_market_quote_ready_route_count']}` quote-ready route(s)",
+            f"- Pool depth ladder: `{context['pool_depth_status']}` with `{context['pool_depth_confidence']}` confidence and `{context['pool_depth_ready_route_count']}/{context['pool_depth_route_count']}` ready route(s)",
             "",
             "## Strategies",
             "",

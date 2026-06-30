@@ -1,6 +1,6 @@
 # CryptoAI ETH Route Architecture
 
-Generated: `2026-06-30T02:31:34Z`
+Generated: `2026-06-30T03:09:36Z`
 
 ## Summary
 
@@ -23,8 +23,8 @@ Generated: `2026-06-30T02:31:34Z`
 
 | Route | Two-DEX Ready | DEXs | 0.20% Signals | 0.20% PnL | 0.30% Signals | 0.30% PnL | Action |
 |---|---|---|---:|---:|---:|---:|---|
-| WETH/USDC | True | Aerodrome, Uniswap V2, Uniswap V3 | 3 | 9.5313 | 3 | 6.5313 | Keep WETH/USDC on 0.30% production-paper evidence path. |
-| USDC/WETH | True | Aerodrome, Uniswap V2, Uniswap V3 | 3 | 7.5912 | 3 | 4.5912 | Keep USDC/WETH on 0.30% production-paper evidence path. |
+| WETH/USDC | True | Aerodrome, Uniswap V2, Uniswap V3 | 500 | 2082.5381 | 500 | 1582.5381 | Keep WETH/USDC on 0.30% production-paper evidence path. |
+| USDC/WETH | True | Aerodrome, Uniswap V2, Uniswap V3 | 500 | 769.9902 | 500 | 269.9902 | Keep USDC/WETH on 0.30% production-paper evidence path. |
 
 ## Buffer Promotion Gates
 
@@ -35,9 +35,9 @@ Generated: `2026-06-30T02:31:34Z`
 | quote_ok_rate_90_plus | True | 100.0000 |
 | active_two_dex_eth_route | True | 1 |
 | provider_not_critical | True | OK |
-| report_audit_clean | True | None |
-| candidate_has_30_plus_signals | False | 6 |
-| candidate_avg_net_edge_0_03_plus | True | 0.2854 |
+| report_audit_clean | False | 23 |
+| candidate_has_30_plus_signals | True | 1000 |
+| candidate_avg_net_edge_0_03_plus | True | 0.2853 |
 
 ## Real Money Architecture
 
@@ -50,7 +50,7 @@ Generated: `2026-06-30T02:31:34Z`
 ## Findings
 
 - `INFO` 2 ETH route direction(s) have two-DEX quote readiness on Base.
-- `WATCH` 0.20% candidate replay has 6 positive signal(s) versus 6 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
+- `WATCH` 0.20% candidate replay has 1000 positive signal(s) versus 1000 at 0.30%, but promotion decision is KEEP_0_30_PRODUCTION_RESEARCH_0_20.
 - `ACTION` Keep production buffer at 0.30%; collect missing evidence before any buffer change.
 - `ACTION` Next venue expansion target is sustained three-venue quote evidence for Base ETH routes.
 

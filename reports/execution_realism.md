@@ -1,10 +1,10 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T02:54:57Z`
+Generated: `2026-06-30T03:09:35Z`
 
 ## Summary
 
-- Overall status: `PAPER_ONLY_NEEDS_DEPTH`
+- Overall status: `NOT_SHADOW_READY`
 - Confidence: `LOW`
 - Paper capital USD: `$1000.0000`
 - Requested notional USD: `$1000.0000`
@@ -15,14 +15,14 @@ Generated: `2026-06-30T02:54:57Z`
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | BUY | 0.6319 | 0.3319 | 0.2569 | 1000.0000 | SHADOW_ONLY | LOW |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | SKIP | 0.3387 | 0.0387 | -0.0363 | 1000.0000 | NEGATIVE_AFTER_STRESS | LOW |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | WATCH | 0.5541 | 0.2541 | -0.0614 | 1000.0000 | NEGATIVE_AFTER_STRESS | LOW |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | WATCH | 0.4163 | 0.1163 | -0.1030 | 1000.0000 | NEGATIVE_AFTER_STRESS | LOW |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| ACTION | Add pool-depth evidence to replace quote-probe executable-size heuristics. |
+| INFO | Latest opportunities are not realistic execution candidates after stress checks. |
 
 ## Notes
 

@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-06-30T02:54:58Z",
+  "generated_at": "2026-06-30T03:09:39Z",
   "mode": "paper",
   "strategy_count": 5,
-  "top_recommendation": "CONTINUE_RESEARCH",
+  "top_recommendation": "HOLD_FIX_OPERATIONS",
   "promotion_allowed": false,
   "context": {
-    "feature_count": 3374,
-    "tradeable_or_filled_count": 502,
-    "optimization_best_trades": 6,
-    "optimization_best_pnl_usd": "17.1225",
+    "feature_count": 4192,
+    "tradeable_or_filled_count": 783,
+    "optimization_best_trades": 1000,
+    "optimization_best_pnl_usd": "2852.5283",
     "optimization_best_cost_buffer_pct": "0.20",
     "replay_production_cost_buffer_pct": "0.30",
-    "replay_production_trade_count": 0,
+    "replay_production_trade_count": 391,
     "replay_best_profitable_cost_buffer_pct": "0.20",
-    "replay_best_profitable_trade_count": 6,
-    "replay_best_profitable_total_pnl_usd": "17.1225",
+    "replay_best_profitable_trade_count": 1000,
+    "replay_best_profitable_total_pnl_usd": "2852.5283",
     "execution_cost_buffer_status": "INSUFFICIENT_EVIDENCE",
     "execution_cost_confidence": "INSUFFICIENT",
     "execution_cost_lower_bound_pct": "None",
     "execution_cost_buffer_surplus_pct": "None",
     "market_primary_focus": "base WETH/USDC",
-    "market_active_focus_count": 0,
-    "market_research_target_count": 1,
+    "market_active_focus_count": 1,
+    "market_research_target_count": 0,
     "market_blocked_count": 7,
     "quote_coverage_available": true,
     "quote_active_pair_count": 1,
@@ -34,23 +34,28 @@
     "eth_production_buffer_pct": "0.30",
     "eth_promotion_passed_gates": 5,
     "eth_promotion_gate_count": 8,
-    "eth_candidate_positive_count": 6,
-    "eth_production_positive_count": 6,
+    "eth_candidate_positive_count": 1000,
+    "eth_production_positive_count": 1000,
     "eth_market_coverage_available": true,
     "eth_market_coverage_score": 53,
     "eth_market_coverage_status": "ETH_COVERAGE_EARLY",
     "eth_market_target_chain_count": 5,
     "eth_market_configured_chain_count": 4,
     "eth_market_quote_ready_route_count": 2,
-    "experiment_status": "RESEARCH_ONLY",
-    "experiment_fail_count": 1,
-    "experiment_warn_count": 0,
+    "pool_depth_available": true,
+    "pool_depth_status": "DEPTH_EVIDENCE_WATCH",
+    "pool_depth_confidence": "LOW",
+    "pool_depth_ready_route_count": 0,
+    "pool_depth_route_count": 2,
+    "experiment_status": "WATCHLIST",
+    "experiment_fail_count": 0,
+    "experiment_warn_count": 1,
     "provider_status": "OK",
     "provider_alert_count": 0,
-    "audit_finding_count": 0,
-    "paper_total_pnl_usd": "237.2180",
-    "paper_total_return_pct": "23.7218",
-    "paper_filled_orders": 66
+    "audit_finding_count": 23,
+    "paper_total_pnl_usd": "308.9559",
+    "paper_total_return_pct": "30.8956",
+    "paper_filled_orders": 83
   },
   "strategies": [
     {
@@ -58,7 +63,7 @@
       "strategy_name": "DEX Arbitrage Strategy",
       "enabled": true,
       "health": "ACTIVE",
-      "orders": 0,
+      "orders": 418,
       "filled_orders": 0,
       "closed_positions": 0,
       "risk_rejected_orders": 0,
@@ -67,15 +72,14 @@
       "avg_slippage_bps": null,
       "avg_latency_ms": null,
       "intelligence_score": 54,
-      "recommendation": "CONTINUE_RESEARCH",
+      "recommendation": "HOLD_FIX_OPERATIONS",
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
-        "Experiment evidence has 1 failing gate(s).",
-        "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
+        "Report audit has 23 finding(s).",
         "Execution cost evidence is insufficient.",
-        "No active market universe focus has enough quote evidence.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
         "ETH Golden Path market coverage is still below developing maturity.",
+        "Pool-depth ladder evidence has no depth-ready route at requested paper size.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -85,12 +89,12 @@
         "+15 optimization has positive sample",
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
-        "+7 report audit clean",
+        "-10 report audit findings",
         "+10 feature-store depth",
-        "-15 experiment gate failure"
+        "+2 experiment watchlist"
       ],
       "next_actions": [
-        "Keep production buffer unchanged; collect execution-cost evidence to prove whether 0.20% is realistic."
+        "Fix provider/audit findings, regenerate reports, and rerun experiment evidence."
       ]
     },
     {
@@ -111,12 +115,11 @@
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
         "Strategy is disabled in the strategy registry.",
-        "Experiment evidence has 1 failing gate(s).",
-        "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
+        "Report audit has 23 finding(s).",
         "Execution cost evidence is insufficient.",
-        "No active market universe focus has enough quote evidence.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
         "ETH Golden Path market coverage is still below developing maturity.",
+        "Pool-depth ladder evidence has no depth-ready route at requested paper size.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -126,9 +129,9 @@
         "+15 optimization has positive sample",
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
-        "+7 report audit clean",
+        "-10 report audit findings",
         "+10 feature-store depth",
-        "-15 experiment gate failure"
+        "+2 experiment watchlist"
       ],
       "next_actions": [
         "Keep disabled until its feature pipeline and validation tests are implemented."
@@ -152,12 +155,11 @@
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
         "Strategy is disabled in the strategy registry.",
-        "Experiment evidence has 1 failing gate(s).",
-        "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
+        "Report audit has 23 finding(s).",
         "Execution cost evidence is insufficient.",
-        "No active market universe focus has enough quote evidence.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
         "ETH Golden Path market coverage is still below developing maturity.",
+        "Pool-depth ladder evidence has no depth-ready route at requested paper size.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -167,9 +169,9 @@
         "+15 optimization has positive sample",
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
-        "+7 report audit clean",
+        "-10 report audit findings",
         "+10 feature-store depth",
-        "-15 experiment gate failure"
+        "+2 experiment watchlist"
       ],
       "next_actions": [
         "Keep disabled until its feature pipeline and validation tests are implemented."
@@ -193,12 +195,11 @@
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
         "Strategy is disabled in the strategy registry.",
-        "Experiment evidence has 1 failing gate(s).",
-        "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
+        "Report audit has 23 finding(s).",
         "Execution cost evidence is insufficient.",
-        "No active market universe focus has enough quote evidence.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
         "ETH Golden Path market coverage is still below developing maturity.",
+        "Pool-depth ladder evidence has no depth-ready route at requested paper size.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -208,9 +209,9 @@
         "+15 optimization has positive sample",
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
-        "+7 report audit clean",
+        "-10 report audit findings",
         "+10 feature-store depth",
-        "-15 experiment gate failure"
+        "+2 experiment watchlist"
       ],
       "next_actions": [
         "Keep disabled until its feature pipeline and validation tests are implemented."
@@ -234,12 +235,11 @@
       "blockers": [
         "Live trading is disabled; this is advisory paper intelligence only.",
         "Strategy is disabled in the strategy registry.",
-        "Experiment evidence has 1 failing gate(s).",
-        "Production replay has 0 trades while lower cost-buffer diagnostics are profitable.",
+        "Report audit has 23 finding(s).",
         "Execution cost evidence is insufficient.",
-        "No active market universe focus has enough quote evidence.",
         "ETH route evidence keeps 0.20% buffer research-only; production buffer remains 0.30%.",
         "ETH Golden Path market coverage is still below developing maturity.",
+        "Pool-depth ladder evidence has no depth-ready route at requested paper size.",
         "Closed paper-trade sample is below the 10-trade minimum for strategy confidence."
       ],
       "score_factors": [
@@ -249,9 +249,9 @@
         "+15 optimization has positive sample",
         "+8 paper portfolio PnL non-negative",
         "+8 provider status OK",
-        "+7 report audit clean",
+        "-10 report audit findings",
         "+10 feature-store depth",
-        "-15 experiment gate failure"
+        "+2 experiment watchlist"
       ],
       "next_actions": [
         "Keep disabled until its feature pipeline and validation tests are implemented."

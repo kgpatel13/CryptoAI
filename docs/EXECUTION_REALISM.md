@@ -10,6 +10,7 @@ It does not place trades, approve live trading, or change thresholds.
 - `data/quote_diagnostics.jsonl`
 - `data/paper_portfolio_state.json`
 - `reports/paper_trading_settings.json`
+- `reports/pool_depth_ladder.json` when available
 
 ## Outputs
 
@@ -30,7 +31,8 @@ For the latest opportunity batch, the service measures:
 - stress total cost,
 - stress net edge.
 
-The current depth model is intentionally conservative and labeled `QUOTE_PROBE_HEURISTIC`.
+When Pool Depth Ladder evidence exists, Execution Realism uses `POOL_DEPTH_LADDER`.
+Otherwise, it falls back to the intentionally conservative `QUOTE_PROBE_HEURISTIC`.
 
 ## Statuses
 
@@ -45,4 +47,3 @@ The current depth model is intentionally conservative and labeled `QUOTE_PROBE_H
 `SHADOW_ONLY` and `PAPER_ONLY_NEEDS_DEPTH` are not live approvals.
 
 Live trading remains blocked until pool-depth evidence, execution-cost confidence, provider health, paper stability, audit cleanliness, and rollout controls all pass dedicated gates.
-

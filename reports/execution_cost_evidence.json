@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T02:31:59Z",
+  "generated_at": "2026-06-30T03:09:38Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -28,8 +28,8 @@
     "execution_quality_counts": {}
   },
   "quote_evidence": {
-    "sample_count": 6,
-    "ok_count": 6,
+    "sample_count": 12,
+    "ok_count": 12,
     "error_count": 0,
     "invalid_count": 0,
     "ok_rate_pct": "100.0000",
@@ -39,12 +39,12 @@
       "Uniswap V2",
       "Uniswap V3"
     ],
-    "avg_ok_latency_ms": "532.0100",
-    "p95_ok_latency_ms": "532.0100"
+    "avg_ok_latency_ms": "569.2800",
+    "p95_ok_latency_ms": "606.5500"
   },
   "provider_evidence": {
     "provider_count": 4,
-    "avg_provider_latency_ms": "301.8175",
+    "avg_provider_latency_ms": "405.4175",
     "avg_provider_score": "100.0000",
     "providers": [
       {
@@ -52,7 +52,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 185.78,
+        "avg_latency_ms": 293.56,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -61,7 +61,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 227.72,
+        "avg_latency_ms": 315.17,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -70,7 +70,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 571.5,
+        "avg_latency_ms": 745.98,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -79,18 +79,18 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 222.27,
+        "avg_latency_ms": 266.96,
         "score": 100,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 6,
-    "avg_gross_edge_pct": "0.4854",
-    "p95_gross_edge_pct": "0.5177",
-    "max_gross_edge_pct": "0.5177",
-    "production_trade_count": 0,
+    "real_signal_count": 1886,
+    "avg_gross_edge_pct": "0.4852",
+    "p95_gross_edge_pct": "0.6319",
+    "max_gross_edge_pct": "0.6322",
+    "production_trade_count": 391,
     "production_required_gross_edge_pct": "0.60",
     "observed_lower_bound_trade_count": 0,
     "observed_lower_bound_total_pnl_usd": "0.0000",
@@ -105,7 +105,7 @@
     "paper_sample_count": 0,
     "quote_ok_rate_pct": "100.0000",
     "avg_provider_score": "100.0000",
-    "production_trade_count": 0,
+    "production_trade_count": 391,
     "observed_lower_bound_trade_count": 0
   },
   "findings": [

@@ -1,6 +1,6 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-30T02:31:59Z`
+Generated: `2026-06-30T03:09:38Z`
 
 ## Summary
 
@@ -29,18 +29,18 @@ Generated: `2026-06-30T02:31:59Z`
 
 ## Quote And Provider Evidence
 
-- Quote samples: `6`
+- Quote samples: `12`
 - Quote OK rate %: `100.0000`
 - Healthy DEX count: `3`
-- Avg OK quote latency ms: `532.0100`
+- Avg OK quote latency ms: `569.2800`
 - Provider count: `4`
 - Avg provider score: `100.0000`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `6`
-- Max gross edge %: `0.5177`
-- Production-buffer trades: `0`
+- Real replay signals: `1886`
+- Max gross edge %: `0.6322`
+- Production-buffer trades: `391`
 - Production required gross edge %: `0.60`
 - Lower-bound cost trades: `0`
 - Lower-bound replay PnL USD: `0.0000`

@@ -84,6 +84,45 @@ class ExecutionRealismServiceTests(unittest.TestCase):
             self.assertEqual(payload["opportunities"][0]["confidence"], "NONE")
             self.assertEqual(payload["overall_status"], "NOT_SHADOW_READY")
 
+    def test_pool_depth_ladder_can_promote_buy_to_shadow_ready(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data, reports = self._dirs(tmp)
+            self._write_settings(reports)
+            self._write_portfolio(data)
+            self._write_pool_depth(reports)
+            self._write_quotes(
+                data,
+                [
+                    {"timestamp": "2026-06-30T00:00:00Z", "chain": "base", "dex": "Uniswap V2", "pair": "WETH/USDC", "amount_in": "1", "price": "1000", "status": "OK"},
+                    {"timestamp": "2026-06-30T00:00:00Z", "chain": "base", "dex": "Uniswap V3", "pair": "WETH/USDC", "amount_in": "1", "price": "1008", "status": "OK"},
+                ],
+            )
+            self._write_opportunities(
+                data,
+                [
+                    {
+                        "timestamp": "2026-06-30T00:00:01Z",
+                        "chain": "base",
+                        "pair": "WETH/USDC",
+                        "buy_source": "Uniswap V2",
+                        "sell_source": "Uniswap V3",
+                        "gross_spread_pct": "0.80",
+                        "total_cost_buffer_pct": "0.30",
+                        "estimated_net_edge_pct": "0.50",
+                        "decision": "BUY",
+                    }
+                ],
+            )
+
+            payload = ExecutionRealismService(data_dir=data, report_dir=reports).generate()
+
+            row = payload["opportunities"][0]
+            self.assertEqual(row["depth_model"], "POOL_DEPTH_LADDER")
+            self.assertEqual(row["confidence"], "MEDIUM")
+            self.assertEqual(row["realism_status"], "SHADOW_READY")
+            self.assertEqual(payload["overall_status"], "SHADOW_REVIEW_READY")
+            self.assertEqual(payload["live_ready_count"], 0)
+
     @staticmethod
     def _dirs(tmp: str) -> tuple[Path, Path]:
         root = Path(tmp)
@@ -113,6 +152,28 @@ class ExecutionRealismServiceTests(unittest.TestCase):
     def _write_portfolio(data: Path) -> None:
         (data / "paper_portfolio_state.json").write_text(
             json.dumps({"initial_cash_usd": "1000.00", "cash_usd": "1000.00", "positions": []}),
+            encoding="utf-8",
+        )
+
+    @staticmethod
+    def _write_pool_depth(reports: Path) -> None:
+        (reports / "pool_depth_ladder.json").write_text(
+            json.dumps(
+                {
+                    "overall_status": "DEPTH_EVIDENCE_READY",
+                    "confidence": "MEDIUM",
+                    "routes": [
+                        {
+                            "chain": "base",
+                            "pair": "WETH/USDC",
+                            "status": "DEPTH_READY",
+                            "confidence": "MEDIUM",
+                            "max_usable_notional_usd": "1000.0000",
+                            "worst_price_impact_pct": "0.0500",
+                        }
+                    ],
+                }
+            ),
             encoding="utf-8",
         )
 

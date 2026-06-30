@@ -112,6 +112,7 @@ def render_mission_control() -> None:
     market_intelligence_report = REPORT_DIR / "market_intelligence.json"
     provider_monitor_report = REPORT_DIR / "provider_monitor.json"
     eth_market_coverage_report = REPORT_DIR / "eth_market_coverage.json"
+    pool_depth_report = REPORT_DIR / "pool_depth_ladder.json"
     execution_realism_report = REPORT_DIR / "execution_realism.json"
 
     paper = {}
@@ -123,6 +124,7 @@ def render_mission_control() -> None:
     market_intelligence = {}
     provider_monitor = {}
     eth_market_coverage = {}
+    pool_depth = {}
     execution_realism = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
@@ -165,6 +167,12 @@ def render_mission_control() -> None:
             eth_market_coverage = json.loads(eth_market_coverage_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             eth_market_coverage = {}
+
+    if pool_depth_report.exists():
+        try:
+            pool_depth = json.loads(pool_depth_report.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            pool_depth = {}
 
     if execution_realism_report.exists():
         try:
@@ -267,6 +275,23 @@ def render_mission_control() -> None:
         st.caption(str(best_opp.get("reason", "-")))
     if latest_order:
         st.caption(str(latest_order.get("reason", "-")))
+
+    st.markdown("### Pool Depth Ladder")
+    l1, l2, l3, l4 = st.columns(4)
+    l1.metric("Depth Status", pool_depth.get("overall_status", "-"))
+    l2.metric("Depth Confidence", pool_depth.get("confidence", "-"))
+    l3.metric("Depth Ready Routes", pool_depth.get("depth_ready_route_count", "-"))
+    l4.metric("Requested Size", pool_depth.get("requested_notional_usd", "-"))
+    depth_routes = pool_depth.get("routes", []) if isinstance(pool_depth.get("routes"), list) else []
+    if depth_routes:
+        best_depth = depth_routes[0]
+        st.caption(
+            f"{best_depth.get('pair', '-')}: max usable ${best_depth.get('max_usable_notional_usd', '-')}, "
+            f"worst impact {best_depth.get('worst_price_impact_pct', '-')}%, "
+            f"status {best_depth.get('status', '-')}"
+        )
+    else:
+        st.caption("No pool-depth ladder report yet.")
 
     st.markdown("### Execution Realism")
     r1, r2, r3, r4 = st.columns(4)
@@ -849,6 +874,7 @@ def render_reports() -> None:
         ("ETH Market Coverage", REPORT_DIR / "eth_market_coverage.md"),
         ("Backtest", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics", REPORT_DIR / "replay_diagnostics.md"),
+        ("Pool Depth Ladder", REPORT_DIR / "pool_depth_ladder.md"),
         ("Execution Realism", REPORT_DIR / "execution_realism.md"),
         ("Execution Cost Evidence", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization", REPORT_DIR / "optimization_report.md"),
@@ -924,6 +950,15 @@ def render_backtesting() -> None:
             result = safe_run("Recording experiment evidence...", task)
             if result is not None:
                 st.success("Experiment report generated.")
+
+    if st.button("Run Pool Depth Ladder"):
+        def task():
+            PoolDepthLadderService = import_object("app.research.pool_depth_ladder_service", "PoolDepthLadderService")
+            return PoolDepthLadderService().generate()
+
+        result = safe_run("Running pool-depth ladder probes...", task)
+        if result is not None:
+            st.success("Pool-depth ladder generated.")
 
     backtest_json = REPORT_DIR / "backtest_report.json"
     if backtest_json.exists():
@@ -1017,6 +1052,7 @@ def render_backtesting() -> None:
     for title, path in [
         ("Backtest Report", REPORT_DIR / "backtest_report.md"),
         ("Replay Diagnostics Report", REPORT_DIR / "replay_diagnostics.md"),
+        ("Pool Depth Ladder Report", REPORT_DIR / "pool_depth_ladder.md"),
         ("Execution Realism Report", REPORT_DIR / "execution_realism.md"),
         ("Execution Cost Evidence Report", REPORT_DIR / "execution_cost_evidence.md"),
         ("Optimization Report", REPORT_DIR / "optimization_report.md"),
@@ -1377,6 +1413,7 @@ def render_setup() -> None:
         python -m app.operations.provider_monitor
         python -m app.backtesting.backtest_service
         python -m app.backtesting.replay_diagnostics_service
+        python -m app.research.pool_depth_ladder_service
         python -m app.execution.execution_realism_service
         python -m app.execution.execution_cost_evidence_service
         python -m app.backtesting.optimization_service

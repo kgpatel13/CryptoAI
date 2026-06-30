@@ -38,6 +38,7 @@ class ExecutionRealismService:
         self.quote_file = self.data_dir / "quote_diagnostics.jsonl"
         self.portfolio_file = self.data_dir / "paper_portfolio_state.json"
         self.settings_report = self.report_dir / "paper_trading_settings.json"
+        self.pool_depth_report = self.report_dir / "pool_depth_ladder.json"
         self.output_json = self.report_dir / "execution_realism.json"
         self.output_md = self.report_dir / "execution_realism.md"
 
@@ -46,6 +47,7 @@ class ExecutionRealismService:
         quote_rows = self._read_jsonl(self.quote_file)
         portfolio = self._read_json(self.portfolio_file)
         settings = self._read_json(self.settings_report)
+        pool_depth = self._read_json(self.pool_depth_report)
 
         latest_batch = self._latest_batch(opportunities)
         quote_evidence = self._quote_evidence(quote_rows)
@@ -57,6 +59,7 @@ class ExecutionRealismService:
             self._assess_opportunity(
                 row,
                 quote_evidence=quote_evidence,
+                pool_depth=pool_depth,
                 requested_notional_usd=requested_notional,
             )
             for row in latest_batch
@@ -90,6 +93,7 @@ class ExecutionRealismService:
         row: dict[str, Any],
         *,
         quote_evidence: dict[str, Any],
+        pool_depth: dict[str, Any],
         requested_notional_usd: Decimal,
     ) -> dict[str, Any]:
         chain = str(row.get("chain", "base")).lower()
@@ -103,8 +107,20 @@ class ExecutionRealismService:
         route_quotes = self._route_quotes(quote_evidence, chain=chain, pair=pair, buy_source=buy_source, sell_source=sell_source)
         healthy_dex_count = len({quote["dex"] for quote in route_quotes if quote.get("status") == "OK"})
         probe_notional = self._probe_notional_usd(route_quotes, pair=pair)
-        executable_notional = min(requested_notional_usd, probe_notional) if probe_notional > 0 else Decimal("0")
-        price_impact = self._estimated_price_impact_pct(requested_notional_usd, probe_notional)
+        pool_route = self._pool_depth_route(pool_depth, chain=chain, pair=pair)
+        pool_usable_notional = self._decimal(pool_route.get("max_usable_notional_usd")) if pool_route else None
+        if pool_usable_notional is not None and pool_usable_notional > 0:
+            executable_notional = min(requested_notional_usd, pool_usable_notional)
+            price_impact = (
+                self._decimal(pool_route.get("requested_price_impact_pct"))
+                or self._decimal(pool_route.get("worst_price_impact_pct"))
+                or self._estimated_price_impact_pct(requested_notional_usd, probe_notional)
+            )
+            depth_model = "POOL_DEPTH_LADDER"
+        else:
+            executable_notional = min(requested_notional_usd, probe_notional) if probe_notional > 0 else Decimal("0")
+            price_impact = self._estimated_price_impact_pct(requested_notional_usd, probe_notional)
+            depth_model = "QUOTE_PROBE_HEURISTIC"
         gas_usd = self.CHAIN_GAS_USD.get(chain, Decimal("0.10"))
         gas_pct = (gas_usd / requested_notional_usd * Decimal("100")) if requested_notional_usd > 0 else Decimal("0")
         mev_risk = self._mev_risk(chain=chain, healthy_dex_count=healthy_dex_count)
@@ -117,7 +133,7 @@ class ExecutionRealismService:
             stress_net = gross - stress_cost
 
         executable_ratio = executable_notional / requested_notional_usd if requested_notional_usd > 0 else Decimal("0")
-        confidence = self._confidence(route_quotes, executable_ratio)
+        confidence = self._confidence(route_quotes, executable_ratio, pool_route)
         status = self._status(
             source_decision=str(row.get("decision", "-")),
             healthy_dex_count=healthy_dex_count,
@@ -146,7 +162,8 @@ class ExecutionRealismService:
             "requested_notional_usd": self._fmt_usd(requested_notional_usd),
             "max_executable_notional_usd": self._fmt_usd(executable_notional),
             "executable_ratio_pct": self._fmt(executable_ratio * Decimal("100")),
-            "depth_model": "QUOTE_PROBE_HEURISTIC",
+            "depth_model": depth_model,
+            "pool_depth_status": pool_route.get("status") if pool_route else None,
             "confidence": confidence,
             "realism_status": status,
             "reason": self._reason(status, stress_net, executable_ratio, healthy_dex_count, confidence),
@@ -208,7 +225,9 @@ class ExecutionRealismService:
         return "MEDIUM"
 
     @staticmethod
-    def _confidence(route_quotes: list[dict[str, Any]], executable_ratio: Decimal) -> str:
+    def _confidence(route_quotes: list[dict[str, Any]], executable_ratio: Decimal, pool_route: dict[str, Any] | None = None) -> str:
+        if pool_route and pool_route.get("status") == "DEPTH_READY" and executable_ratio >= Decimal("1"):
+            return "MEDIUM"
         if len(route_quotes) < 2:
             return "NONE"
         if executable_ratio >= Decimal("1"):
@@ -274,7 +293,19 @@ class ExecutionRealismService:
             findings.append({"severity": "INFO", "message": "Latest opportunities are not realistic execution candidates after stress checks."})
         if rows and any(row.get("depth_model") == "QUOTE_PROBE_HEURISTIC" for row in rows):
             findings.append({"severity": "ACTION", "message": "Add pool-depth evidence to replace quote-probe executable-size heuristics."})
+        if rows and any(row.get("depth_model") == "POOL_DEPTH_LADDER" and row.get("confidence") == "MEDIUM" for row in rows):
+            findings.append({"severity": "INFO", "message": "Pool-depth ladder evidence is available for at least one latest opportunity."})
         return findings
+
+    @staticmethod
+    def _pool_depth_route(pool_depth: dict[str, Any], *, chain: str, pair: str) -> dict[str, Any]:
+        routes = pool_depth.get("routes", []) if isinstance(pool_depth.get("routes"), list) else []
+        for row in routes:
+            if not isinstance(row, dict):
+                continue
+            if str(row.get("chain", "base")).lower() == chain and str(row.get("pair")) == pair:
+                return row
+        return {}
 
     def _paper_capital_usd(self, settings: dict[str, Any], portfolio: dict[str, Any]) -> Decimal:
         capital = self._decimal(settings.get("paper_capital_usd"))

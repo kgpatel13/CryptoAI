@@ -4,6 +4,7 @@ import argparse
 import os
 import time
 from datetime import UTC, datetime
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -60,6 +61,11 @@ try:
     from app.execution.execution_realism_service import ExecutionRealismService
 except Exception:
     ExecutionRealismService = None
+
+try:
+    from app.research.pool_depth_ladder_service import PoolDepthLadderService
+except Exception:
+    PoolDepthLadderService = None
 
 
 class PaperAutopilot:
@@ -146,6 +152,12 @@ class PaperAutopilot:
             except Exception:
                 market_readiness_score = None
 
+        if PoolDepthLadderService is not None and PaperAutopilot._report_missing_or_stale("pool_depth_ladder.json", max_age_seconds=900):
+            try:
+                PoolDepthLadderService().generate()
+            except Exception:
+                pass
+
         if ExecutionRealismService is not None:
             try:
                 ExecutionRealismService().generate()
@@ -159,6 +171,16 @@ class PaperAutopilot:
                 pass
 
         return provider_monitor_status, market_readiness_score
+
+    @staticmethod
+    def _report_missing_or_stale(name: str, max_age_seconds: int) -> bool:
+        path = Path("reports") / name
+        if not path.exists():
+            return True
+        try:
+            return time.time() - path.stat().st_mtime > max_age_seconds
+        except Exception:
+            return True
 
     def run_loop(
         self,

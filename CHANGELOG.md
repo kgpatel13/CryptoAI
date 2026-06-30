@@ -1,5 +1,14 @@
 # CryptoAI Changelog
 
+## v5.13 - Pool Depth and Quote-Size Ladder Evidence
+
+- Added `PoolDepthLadderService` to probe Base ETH routes at increasing quote sizes and measure requested-size price impact.
+- Added `quote_size_ladder.jsonl`, `pool_depth_ladder.json`, and `pool_depth_ladder.md`.
+- Integrated pool-depth evidence into Execution Realism so latest opportunities can use `POOL_DEPTH_LADDER` instead of quote-probe heuristics.
+- Added Mission Control, Reports, Replay / Backtesting, Report Audit, and Strategy Intelligence integration for pool-depth status.
+- Kept live trading disabled, paper BUY threshold unchanged at `0.30%`, and production cost buffer unchanged at `0.30%`.
+- Added regression tests for depth-ready routes, size-limited routes, and depth-aware realism promotion.
+
 ## v5.12 - Execution Realism Evidence Engine
 
 - Added `ExecutionRealismService` to stress-check paper opportunities against route quote coverage, requested notional, gas, price-impact heuristics, and MEV risk buffers.

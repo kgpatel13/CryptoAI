@@ -1,12 +1,12 @@
 # CryptoAI Market Universe Evidence
 
-Generated: `2026-06-30T02:31:59Z`
+Generated: `2026-06-30T03:09:38Z`
 
 ## Summary
 
 - Primary focus: `base` `WETH/USDC`
-- Active focus count: `0`
-- Research target count: `1`
+- Active focus count: `1`
+- Research target count: `0`
 - Blocked count: `7`
 - Provider status: `OK` with `0` alert(s)
 
@@ -22,7 +22,7 @@ Generated: `2026-06-30T02:31:59Z`
 
 | Class | Chain | Pair | Score | Quote OK % | Healthy DEXs | Real Signals | Prod Trades | Lower-Bound Trades | Next Action |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| RESEARCH_TARGET | base | WETH/USDC | 80 | 100.0000 | 3 | 3 | 0 | 0 | Add deeper quote/execution evidence before considering paper optimization. |
+| ACTIVE_FOCUS | base | WETH/USDC | 100 | 100.0000 | 3 | 943 | 391 | 0 | Continue paper monitoring and collect execution-cost samples at unchanged production thresholds. |
 | BLOCKED_NEEDS_QUOTES | polygon | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for polygon WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | ethereum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for ethereum WETH/USDC before treating it as tradeable. |
 | BLOCKED_NEEDS_QUOTES | arbitrum | WETH/USDC | 39 | 0.0000 | 0 | 0 | 0 | 0 | Implement or validate quote providers for arbitrum WETH/USDC before treating it as tradeable. |
@@ -33,6 +33,7 @@ Generated: `2026-06-30T02:31:59Z`
 
 ## Findings
 
+- `INFO` Primary research focus is base WETH/USDC.
 - `ACTION` 7 configured pair(s) need quote-provider evidence before expansion.
 - `INFO` Production cost-buffer has positive-after-cost evidence, but paper BUY threshold evidence is still insufficient.
 
