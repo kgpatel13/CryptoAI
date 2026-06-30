@@ -1,6 +1,6 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T08:03:11Z`
+Generated: `2026-06-30T08:24:31Z`
 
 ## Summary
 
@@ -15,8 +15,8 @@ Generated: `2026-06-30T08:03:11Z`
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | BUY | 0.6045 | 0.3045 | 0.2266 | 500.0000 | SHADOW_READY | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | WATCH | 0.3661 | 0.0661 | -0.0052 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | SKIP | 0.3377 | 0.0377 | -0.0402 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | BUY | 0.6330 | 0.3330 | 0.2617 | 500.0000 | SHADOW_READY | MEDIUM |
 
 ## Findings
 

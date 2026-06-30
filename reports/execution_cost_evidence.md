@@ -1,15 +1,15 @@
 # CryptoAI Execution Cost Evidence
 
-Generated: `2026-06-30T08:03:42Z`
+Generated: `2026-06-30T08:23:13Z`
 
 ## Summary
 
 - Production cost buffer %: `0.30`
 - Paper BUY threshold %: `0.30`
-- Buffer status: `INSUFFICIENT_EVIDENCE`
-- Confidence: `INSUFFICIENT`
-- Observed total cost lower bound %: `None`
-- Buffer surplus vs lower bound %: `None`
+- Buffer status: `CONSERVATIVE`
+- Confidence: `HIGH`
+- Observed total cost lower bound %: `0.1300`
+- Buffer surplus vs lower bound %: `0.1700`
 
 ## Configured Cost Model
 
@@ -20,12 +20,12 @@ Generated: `2026-06-30T08:03:42Z`
 
 ## Paper Execution Evidence
 
-- Filled execution samples: `0`
-- Avg slippage bps: `0.0000`
-- P95 slippage bps: `0.0000`
-- Max slippage bps: `0.0000`
-- Avg latency ms: `None`
-- P95 latency ms: `None`
+- Filled execution samples: `40`
+- Avg slippage bps: `5.0000`
+- P95 slippage bps: `5.0000`
+- Max slippage bps: `5.0000`
+- Avg latency ms: `250.0000`
+- P95 latency ms: `250.0000`
 
 ## Quote And Provider Evidence
 
@@ -38,17 +38,16 @@ Generated: `2026-06-30T08:03:42Z`
 
 ## Replay Cost Evidence
 
-- Real replay signals: `1280`
+- Real replay signals: `1636`
 - Max gross edge %: `0.6643`
-- Production-buffer trades: `463`
+- Production-buffer trades: `639`
 - Production required gross edge %: `0.60`
-- Lower-bound cost trades: `0`
-- Lower-bound replay PnL USD: `0.0000`
+- Lower-bound cost trades: `1636`
+- Lower-bound replay PnL USD: `5818.3967`
 
 ## Findings
 
-- `WATCH` Production buffer assessment is INSUFFICIENT_EVIDENCE with INSUFFICIENT paper-cost confidence.
-- `ACTION` Collect more filled paper executions; current slippage sample is 0 and target is 30+.
+- `INFO` Production buffer assessment is CONSERVATIVE with HIGH paper-cost confidence.
 
 ## Notes
 

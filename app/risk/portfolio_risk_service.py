@@ -100,7 +100,7 @@ class PortfolioRiskService:
         dynamic_by_risk = portfolio_value * self.risk_per_trade_pct / Decimal("100")
         dynamic_by_cash = cash * self.max_cash_usage_pct / Decimal("100")
         if self.paper_sizing_mode == "full_available_cash":
-            notional = min(dynamic_by_risk, dynamic_by_cash, cash)
+            notional = min(requested_notional_usd, self.max_trade_notional_usd, dynamic_by_risk, dynamic_by_cash, cash)
         else:
             notional = min(requested_notional_usd, self.max_trade_notional_usd, dynamic_by_risk, dynamic_by_cash, cash)
         notional = self._quantize_usd(notional)

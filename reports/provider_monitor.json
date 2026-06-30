@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T07:50:48Z",
+  "generated_at": "2026-06-30T08:24:31Z",
   "mode": "paper",
   "provider_count": 4,
   "overall_status": "OK",
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 314.19,
-      "last_observed_age_seconds": 19.65,
+      "avg_latency_ms": 291.64,
+      "last_observed_age_seconds": 79.92,
       "last_error": null,
       "alerts": []
     },
@@ -35,8 +35,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 340.38,
-      "last_observed_age_seconds": 17.07,
+      "avg_latency_ms": 312.0,
+      "last_observed_age_seconds": 80.84,
       "last_error": null,
       "alerts": []
     },
@@ -51,8 +51,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 676.61,
-      "last_observed_age_seconds": 12.92,
+      "avg_latency_ms": 664.7,
+      "last_observed_age_seconds": 77.78,
       "last_error": null,
       "alerts": []
     },
@@ -67,8 +67,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 254.04,
-      "last_observed_age_seconds": 0.37,
+      "avg_latency_ms": 253.11,
+      "last_observed_age_seconds": 0.33,
       "last_error": null,
       "alerts": []
     }
