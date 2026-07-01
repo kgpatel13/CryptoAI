@@ -1,13 +1,13 @@
 # Live Safety Report
 
-Generated: `2026-07-01T03:34:22Z`
+Generated: `2026-07-01T05:30:04Z`
 - Overall status: `LIVE_BLOCKED`
 - Guard allowed: `False`
 - Guard reason: `Live trading feature flag is disabled.`
-- Max live wallet USD: `0`
-- Max live trade USD: `0`
+- Max live wallet USD: `500`
+- Max live trade USD: `20`
 - Max daily loss USD: `5`
-- Blocked checks: `10` / `20`
+- Blocked checks: `5` / `20`
 
 ## Checks
 
@@ -16,11 +16,11 @@ Generated: `2026-07-01T03:34:22Z`
 | live_feature_flag | BLOCK | Live trading feature flag is disabled. |
 | kill_switch | BLOCK | Live kill switch is ON. |
 | private_key | BLOCK | No private key is configured. Live trading remains blocked. |
-| isolated_wallet_address | BLOCK | No isolated live wallet address is configured. |
-| wallet_isolation | BLOCK | Live wallet matches the configured main wallet; wallet isolation failed. |
-| wallet_ceiling | BLOCK | Max live wallet ceiling must be > $0 and <= $500. |
-| trade_cap | BLOCK | Max live trade size must be > $0 and below wallet and tiny-pilot ceilings. |
-| daily_loss_cap | BLOCK | Max daily loss must be > $0 and no larger than max live trade size. |
+| isolated_wallet_address | PASS | Isolated live wallet address is configured. |
+| wallet_isolation | PASS | Live wallet is isolated from the configured main wallet. |
+| wallet_ceiling | PASS | Max live wallet ceiling is within tiny-pilot policy. |
+| trade_cap | PASS | Max live trade size is within tiny-pilot policy. |
+| daily_loss_cap | PASS | Max daily loss cap is configured. |
 | manual_confirmation | BLOCK | Manual confirmation is required; autonomous live execution is blocked. |
 | chain_allowlist | PASS | Live chain allowlist is restricted to approved chains. |
 | dex_allowlist | PASS | Live DEX allowlist is restricted to approved DEXs. |

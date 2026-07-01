@@ -7,6 +7,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from web3 import Web3
+
+from app.blockchain.chains import SUPPORTED_CHAINS
+from app.blockchain.rpc_client import RpcClient
+from app.execution.atomic_arbitrage_execution_service import AtomicArbitrageExecutionService
+
 
 _TRUE_VALUES = {"1", "true", "yes", "on"}
 
@@ -25,7 +31,8 @@ class AtomicLiveExecutionAdapter:
     report_dir: Path | str = "reports"
 
     def execute(self, engine: dict[str, Any]) -> dict[str, Any]:
-        checks = self._checks(engine)
+        atomic_report = AtomicArbitrageExecutionService(report_dir=self.report_dir, refresh_transaction_simulation=False).generate()
+        checks = self._checks(engine, atomic_report=atomic_report)
         blockers = [row for row in checks if not row["passed"]]
         executor_address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
         if blockers:
@@ -35,21 +42,30 @@ class AtomicLiveExecutionAdapter:
                 "reason": blockers[0]["detail"],
                 "executor_address": executor_address or None,
                 "checks": checks,
+                "atomic_report_status": atomic_report.get("overall_status"),
+            }
+        if not self._bool_env("CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED"):
+            return {
+                "status": "REFUSED_ATOMIC_SEND_FLAG_DISABLED",
+                "transaction_sent": False,
+                "reason": "Set CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED=true only after reviewing the passing atomic eth_call report.",
+                "executor_address": executor_address,
+                "checks": checks,
+                "atomic_report_status": atomic_report.get("overall_status"),
             }
 
+        sent = self._send_atomic_transaction(atomic_report)
         return {
-            "status": "REFUSED_ATOMIC_EXECUTOR_CALLDATA_MISSING",
-            "transaction_sent": False,
-            "reason": (
-                "Reviewed atomic executor configuration is present, but this adapter has no reviewed "
-                "atomic calldata builder/ABI. Continuous live arbitrage remains blocked until that "
-                "implementation is added and tested."
-            ),
+            "status": "ATOMIC_LIVE_SENT",
+            "transaction_sent": True,
+            "reason": "Atomic live arbitrage transaction was sent after all live gates and atomic simulation checks passed.",
             "executor_address": executor_address,
             "checks": checks,
+            "atomic_report_status": atomic_report.get("overall_status"),
+            "send_result": sent,
         }
 
-    def _checks(self, engine: dict[str, Any]) -> list[dict[str, Any]]:
+    def _checks(self, engine: dict[str, Any], *, atomic_report: dict[str, Any]) -> list[dict[str, Any]]:
         reconciliation = self._read_json("live_pilot_reconciliation.json")
         gates = engine.get("gates", {}) if isinstance(engine.get("gates"), dict) else {}
         executor_address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
@@ -94,7 +110,52 @@ class AtomicLiveExecutionAdapter:
                 reconciliation.get("overall_status") == "LIVE_PILOT_RECONCILED",
                 "Live pilot reconciliation must be LIVE_PILOT_RECONCILED.",
             ),
+            self._check(
+                "atomic_route_simulation_passed",
+                atomic_report.get("atomic_route_simulation_passed") is True,
+                "Atomic route report must pass exact executor calldata plus eth_call simulation.",
+            ),
         ]
+
+    @staticmethod
+    def _send_atomic_transaction(atomic_report: dict[str, Any]) -> dict[str, Any]:
+        private_key = os.getenv("CRYPTOAI_PRIVATE_KEY", "").strip()
+        if not private_key:
+            raise RuntimeError("CRYPTOAI_PRIVATE_KEY is not configured.")
+        route = atomic_report.get("atomic_route", {}) if isinstance(atomic_report.get("atomic_route"), dict) else {}
+        call = route.get("eth_call", {}) if isinstance(route.get("eth_call"), dict) else {}
+        if not call.get("to") or not call.get("data"):
+            raise RuntimeError("Atomic route report does not include transaction calldata.")
+
+        client = RpcClient(SUPPORTED_CHAINS["base"])
+        web3 = client.web3
+        wallet = Web3.to_checksum_address(str(call["from"]))
+        latest = web3.eth.get_block("latest")
+        base_fee = int(latest.get("baseFeePerGas") or web3.eth.gas_price)
+        priority_fee = int(os.getenv("CRYPTOAI_LIVE_MAX_PRIORITY_FEE_WEI", str(Web3.to_wei(0.01, "gwei"))))
+        max_fee = int(os.getenv("CRYPTOAI_LIVE_MAX_FEE_WEI", str(base_fee * 2 + priority_fee)))
+        tx = {
+            "chainId": 8453,
+            "from": wallet,
+            "to": Web3.to_checksum_address(str(call["to"])),
+            "data": str(call["data"]),
+            "value": 0,
+            "nonce": web3.eth.get_transaction_count(wallet, "pending"),
+            "maxFeePerGas": max_fee,
+            "maxPriorityFeePerGas": priority_fee,
+            "type": 2,
+        }
+        gas = web3.eth.estimate_gas(tx)
+        tx["gas"] = min(int(gas * 1.2), int(os.getenv("CRYPTOAI_ATOMIC_LIVE_GAS_LIMIT_CAP", "900000")))
+        signed = web3.eth.account.sign_transaction(tx, private_key=private_key)
+        tx_hash = web3.eth.send_raw_transaction(signed.raw_transaction)
+        receipt = web3.eth.wait_for_transaction_receipt(tx_hash, timeout=int(os.getenv("CRYPTOAI_LIVE_RECEIPT_TIMEOUT_SECONDS", "120")))
+        return {
+            "tx_hash": tx_hash.hex(),
+            "receipt_status": int(receipt.get("status", 0)),
+            "block_number": int(receipt.get("blockNumber", 0)),
+            "gas_used": int(receipt.get("gasUsed", 0)),
+        }
 
     @staticmethod
     def _check(name: str, passed: bool, detail: str) -> dict[str, Any]:

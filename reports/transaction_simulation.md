@@ -1,6 +1,6 @@
 # Transaction Simulation Report
 
-Generated: `2026-07-01T04:12:54Z`
+Generated: `2026-07-01T05:30:04Z`
 - Overall status: `TX_SIMULATION_ACTION`
 - Transaction simulation passed: `False`
 - Live trading approval: `False`
@@ -11,7 +11,7 @@ Generated: `2026-07-01T04:12:54Z`
 - Calldata status: `BUILT`
 - eth_call status: `REVERT`
 - Blocked checks: `0`
-- Action checks: `2`
+- Action checks: `1`
 
 ## Checks
 
@@ -21,7 +21,7 @@ Generated: `2026-07-01T04:12:54Z`
 | kill_switch_enabled | PASS | Live kill switch is enabled. |
 | private_key_absent | PASS | Private key is absent. |
 | wallet_preflight_ready | PASS | Wallet Preflight is ready. |
-| live_readiness_preconditions_ready | ACTION | Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass. |
+| live_readiness_preconditions_ready | PASS | Live Readiness Checklist has no blocking checks. |
 | shadow_candidate_available | PASS | A simulation route is available. |
 | candidate_scope_allowed | PASS | Simulation candidate is Base USDC/WETH scope. |
 | routers_configured | PASS | Both route routers are configured. |
@@ -82,7 +82,7 @@ Generated: `2026-07-01T04:12:54Z`
       "token_out_address": "0x4200000000000000000000000000000000000006",
       "amount_in_units": "20000000",
       "amount_out_min_units": "1",
-      "deadline": 1782879293,
+      "deadline": 1782883924,
       "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
       "calldata_bytes": 228,
       "eth_call": {
@@ -99,7 +99,7 @@ Generated: `2026-07-01T04:12:54Z`
         "status": "REVERT",
         "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
         "rpc_url": "https://base-rpc.publicnode.com",
-        "latency_ms": 550.05,
+        "latency_ms": 352.74,
         "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')"
       }
     }

@@ -59,6 +59,7 @@ class LiveExecutionEngineServiceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             service = LiveExecutionEngineService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
             self._write_all_green(service, allowance_sufficient=True, swap_available=True)
+            self._write_json(service.report_dir / "atomic_live_arbitrage.json", {"atomic_route_simulation_passed": True})
             with patch.dict(
                 "os.environ",
                 {

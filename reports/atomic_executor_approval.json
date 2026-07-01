@@ -1,0 +1,124 @@
+{
+  "approval_plan": {
+    "allowance_sufficient": true,
+    "amount_units": "20000000",
+    "approval_tx_available": true,
+    "approval_usd": "20",
+    "chain_id": 8453,
+    "error": null,
+    "executor_address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "executor_code_bytes": 6029,
+    "latest_block": 48046903,
+    "rpc_url": "https://base-rpc.publicnode.com",
+    "usdc_allowance": "20",
+    "usdc_allowance_units": "20000000",
+    "usdc_balance": "429.998478",
+    "usdc_balance_units": "429998478",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "atomic_report_status": "ATOMIC_ROUTE_ACTION",
+  "blocked_check_count": 0,
+  "check_count": 15,
+  "checks": [
+    {
+      "detail": "Atomic approval flag is enabled or mode is plan.",
+      "name": "approval_enabled",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live trading flag is enabled or mode is plan.",
+      "name": "live_feature_flag",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Kill switch is off for send mode or mode is plan.",
+      "name": "kill_switch_off_for_send",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Manual confirmation phrase is present or mode is plan.",
+      "name": "manual_confirmation",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Private key is available for send mode or not required.",
+      "name": "private_key_available",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Private key matches isolated wallet or not required.",
+      "name": "private_key_matches_wallet",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor enabled flag is set.",
+      "name": "executor_enabled",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor review flag is set.",
+      "name": "executor_reviewed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic approval plan is prepared.",
+      "name": "plan_prepared",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Approval transaction is on Base or not yet prepared.",
+      "name": "chain_id_base",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor bytecode exists.",
+      "name": "executor_deployed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic approval amount is capped.",
+      "name": "approval_size_cap",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC balance covers approval amount.",
+      "name": "usdc_balance",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Approval is needed or mode is plan.",
+      "name": "approval_needed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic report is evidence-only.",
+      "name": "atomic_report_not_live_approval",
+      "passed": true,
+      "severity": "PASS"
+    }
+  ],
+  "generated_at": "2026-07-01T05:19:13Z",
+  "mode": "plan",
+  "notes": [
+    "Atomic executor approval is a real Base transaction in approve mode.",
+    "It approves a capped USDC amount to the atomic executor, not to a router.",
+    "Approval does not start trading. Atomic route simulation must still pass before live autopilot can send arbitrage."
+  ],
+  "overall_status": "ATOMIC_APPROVAL_READY",
+  "send_attempted": false,
+  "send_result": null
+}

@@ -1,12 +1,12 @@
 # Live Execution Engine
 
-Generated: `2026-06-30T23:03:41Z`
-- Overall status: `BLOCKED_LIVE_READINESS`
-- Execution stage: `LIVE_READINESS`
+Generated: `2026-07-01T05:21:33Z`
+- Overall status: `BLOCKED_PREFLIGHT`
+- Execution stage: `WALLET_PREFLIGHT`
 - Can send approval: `False`
 - Can send smoke swap: `False`
 - Can run continuous live: `False`
-- Next unblock step: `Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work.`
+- Next unblock step: `Wallet preflight is not ready for the isolated Base wallet.`
 
 ## Commands
 
@@ -24,7 +24,7 @@ Generated: `2026-06-30T23:03:41Z`
 
 ```json
 {
-  "wallet_preflight_allowed": true,
+  "wallet_preflight_allowed": false,
   "live_review_ready": false,
   "transaction_simulation_passed": false,
   "provider_monitor_ok": true,
@@ -35,7 +35,21 @@ Generated: `2026-06-30T23:03:41Z`
   "swap_tx_available": true,
   "live_safety_report_present": true,
   "live_control_center_present": true,
-  "atomic_executor_ready": false
+  "atomic_executor_ready": true,
+  "atomic_route_simulation_passed": false
+}
+```
+
+## Atomic Executor
+
+```json
+{
+  "enabled": true,
+  "address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+  "address_valid": true,
+  "reviewed": true,
+  "adapter_selected": true,
+  "ready": true
 }
 ```
 
@@ -43,23 +57,31 @@ Generated: `2026-06-30T23:03:41Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
+| live_execution_engine | wallet_preflight_allowed | BLOCK | Wallet preflight is not ready for the isolated Base wallet. |
 | live_execution_engine | live_review_ready | BLOCK | Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work. |
 | live_execution_engine | transaction_simulation_passed | BLOCK | Exact calldata plus Base eth_call transaction simulation has not passed. |
 | live_execution_engine | tiny_live_pilot_ready | BLOCK | Tiny live pilot plan is blocked. |
-| live_control_center | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
-| live_control_center | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
+| live_control_center | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
+| live_control_center | provider_ok | BLOCK | Provider monitor must be OK. |
 | live_readiness | paper_shadow_review_ready | ACTION | Paper Run Review must reach REVIEW_READY before live-pilot review. |
-| live_readiness | execution_cost_confidence | ACTION | Execution-cost evidence confidence must be HIGH. |
+| live_readiness | provider_health_ok | BLOCK | Provider Monitor must be OK. |
 | live_readiness | execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
+| live_readiness | wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
 | live_readiness | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
-| live_readiness | paper_live_trade_cap_parity | ACTION | Paper max notional and observed fills should be no larger than the configured live trade cap. |
-| transaction_simulation | live_readiness_review_ready | ACTION | Live Readiness Checklist must be review-ready before transaction simulation can pass. |
-| transaction_simulation | shadow_candidate_available | ACTION | No BUY plus SHADOW_READY opportunity is available for simulation. |
-| transaction_simulation | exact_calldata_built | ACTION | Exact router calldata was not built for the selected candidate. |
+| live_readiness | live_feature_off | BLOCK | Live feature flag must remain off until the final reviewed pilot. |
+| live_readiness | kill_switch_on | BLOCK | Live and paper kill switches must remain on during readiness review. |
+| live_readiness | private_key_absent | BLOCK | Private key must not be configured during readiness review. |
+| live_readiness | paper_live_wallet_parity | ACTION | Paper capital should be > $0 and no larger than the configured live wallet ceiling. |
+| live_readiness | paper_live_daily_loss_parity | ACTION | Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap. |
+| transaction_simulation | live_trading_disabled | BLOCK | Live trading must remain disabled during transaction simulation development. |
+| transaction_simulation | kill_switch_enabled | BLOCK | Live kill switch must remain enabled during transaction simulation development. |
+| transaction_simulation | private_key_absent | BLOCK | Private key must not be configured for simulation report generation. |
+| transaction_simulation | wallet_preflight_ready | ACTION | Wallet Preflight must be ready before transaction simulation review. |
+| transaction_simulation | live_readiness_preconditions_ready | ACTION | Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass. |
 | transaction_simulation | eth_call_simulation_passed | ACTION | Base eth_call simulation has not passed yet. |
-| tiny_live_pilot | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
-| tiny_live_pilot | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
-| live_execution_engine | atomic_executor_ready | ACTION | Continuous live arbitrage is blocked until an atomic route executor or equivalent single-transaction execution path is implemented and reviewed. |
+| tiny_live_pilot | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
+| tiny_live_pilot | provider_ok | BLOCK | Provider monitor must be OK. |
+| live_execution_engine | atomic_route_simulation_passed | ACTION | Run python -m app.execution.atomic_arbitrage_execution_service --generate until the atomic executor calldata eth_call passes. |
 
 ## Unblock Path
 
@@ -69,7 +91,7 @@ Generated: `2026-06-30T23:03:41Z`
 | 2 | Execution evidence | Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities. |
 | 3 | Transaction simulation | Build exact Base calldata and pass eth_call for the selected USDC/WETH route. |
 | 4 | Manual tiny live pilot | Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP. |
-| 5 | Atomic live executor | Implement and review single-transaction arbitrage execution, then inject the reviewed adapter into live_autopilot before continuous live trading is allowed. |
+| 5 | Atomic live executor | Deploy/review the single-transaction arbitrage executor, approve USDC to that executor, and pass the atomic executor eth_call report before continuous live trading is allowed. |
 
 ## Notes
 

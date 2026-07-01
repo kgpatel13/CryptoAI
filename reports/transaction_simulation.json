@@ -1,5 +1,5 @@
 {
-  "action_count": 2,
+  "action_count": 1,
   "blocked_check_count": 0,
   "check_count": 12,
   "checks": [
@@ -28,10 +28,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+      "detail": "Live Readiness Checklist has no blocking checks.",
       "name": "live_readiness_preconditions_ready",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "A simulation route is available.",
@@ -76,7 +76,7 @@
       "severity": "ACTION"
     }
   ],
-  "generated_at": "2026-07-01T04:12:54Z",
+  "generated_at": "2026-07-01T05:30:04Z",
   "live_trading_approval": false,
   "mode": "paper",
   "notes": [
@@ -85,7 +85,7 @@
     "Private keys must remain absent while developing this report."
   ],
   "overall_status": "TX_SIMULATION_ACTION",
-  "pass_count": 10,
+  "pass_count": 11,
   "selected_candidate": {},
   "simulation_intent": {
     "buy_dex": "Uniswap V3",
@@ -121,7 +121,7 @@
         "amount_out_min_units": "1",
         "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
         "calldata_bytes": 228,
-        "deadline": 1782879293,
+        "deadline": 1782883924,
         "dex": "Uniswap V3",
         "eth_call": {
           "data": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
@@ -131,7 +131,7 @@
         },
         "eth_call_result": {
           "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
-          "latency_ms": 550.05,
+          "latency_ms": 352.74,
           "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
           "rpc_url": "https://base-rpc.publicnode.com",
           "status": "REVERT"

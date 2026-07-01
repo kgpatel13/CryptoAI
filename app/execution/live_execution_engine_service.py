@@ -52,6 +52,7 @@ class LiveExecutionEngineService:
         provider = self._read_json("provider_monitor.json")
         audit = self._read_json("report_audit.json")
         safety = self._read_json("live_safety.json")
+        atomic = self._read_json("atomic_live_arbitrage.json")
 
         state = self._state(
             control=control,
@@ -62,6 +63,7 @@ class LiveExecutionEngineService:
             provider=provider,
             audit=audit,
             safety=safety,
+            atomic=atomic,
         )
         payload = {
             "generated_at": self._utc_now(),
@@ -140,6 +142,7 @@ class LiveExecutionEngineService:
         provider: dict[str, Any],
         audit: dict[str, Any],
         safety: dict[str, Any],
+        atomic: dict[str, Any],
     ) -> dict[str, Any]:
         pilot_plan = pilot.get("pilot_plan", {}) if isinstance(pilot.get("pilot_plan"), dict) else {}
         gates = {
@@ -155,6 +158,7 @@ class LiveExecutionEngineService:
             "live_safety_report_present": bool(safety),
             "live_control_center_present": bool(control),
             "atomic_executor_ready": self._atomic_executor_details()["ready"],
+            "atomic_route_simulation_passed": atomic.get("atomic_route_simulation_passed") is True,
         }
         blockers = self._blockers(
             control=control,
@@ -175,7 +179,7 @@ class LiveExecutionEngineService:
         )
         can_send_approval = prerequisite_ready and gates["approval_tx_available"] and not gates["allowance_sufficient"]
         can_send_smoke_swap = prerequisite_ready and gates["allowance_sufficient"] and gates["swap_tx_available"]
-        can_run_continuous_live = prerequisite_ready and gates["atomic_executor_ready"] and can_send_smoke_swap
+        can_run_continuous_live = prerequisite_ready and gates["atomic_executor_ready"] and gates["atomic_route_simulation_passed"] and can_send_smoke_swap
 
         if can_run_continuous_live:
             status = "READY_FOR_CONTINUOUS_LIVE"
@@ -201,6 +205,9 @@ class LiveExecutionEngineService:
         elif not gates["atomic_executor_ready"]:
             status = "BLOCKED_ATOMIC_EXECUTOR_MISSING"
             stage = "ATOMIC_ARBITRAGE_EXECUTOR"
+        elif not gates["atomic_route_simulation_passed"]:
+            status = "BLOCKED_ATOMIC_ROUTE_SIMULATION"
+            stage = "ATOMIC_ARBITRAGE_ETH_CALL"
         else:
             status = "BLOCKED_LIVE_AUTOMATION"
             stage = "LIVE_AUTOMATION_REVIEW"
@@ -277,6 +284,15 @@ class LiveExecutionEngineService:
                     "detail": "Continuous live arbitrage is blocked until an atomic route executor is deployed, reviewed, selected as the live adapter, and backed by reviewed calldata.",
                 }
             )
+        if not gates.get("atomic_route_simulation_passed", False):
+            rows.append(
+                {
+                    "source": "live_execution_engine",
+                    "name": "atomic_route_simulation_passed",
+                    "severity": "ACTION",
+                    "detail": "Run python -m app.execution.atomic_arbitrage_execution_service --generate until the atomic executor calldata eth_call passes.",
+                }
+            )
         return rows[:50]
 
     @staticmethod
@@ -298,6 +314,14 @@ class LiveExecutionEngineService:
                     "detail": "Need a SHADOW_READY Base USDC/WETH opportunity with exact calldata built and eth_call PASS.",
                 }
             )
+        if not gates.get("atomic_route_simulation_passed", False):
+            rows.append(
+                {
+                    "component": "atomic_executor_eth_call_pass",
+                    "status": "ACTION",
+                    "detail": "Need one passing eth_call for the exact atomic executor transaction before continuous live can run.",
+                }
+            )
         return rows
 
     @staticmethod
@@ -307,7 +331,7 @@ class LiveExecutionEngineService:
             {"step": "2", "name": "Execution evidence", "detail": "Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities."},
             {"step": "3", "name": "Transaction simulation", "detail": "Build exact Base calldata and pass eth_call for the selected USDC/WETH route."},
             {"step": "4", "name": "Manual tiny live pilot", "detail": "Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP."},
-            {"step": "5", "name": "Atomic live executor", "detail": "Implement and review single-transaction arbitrage execution, then inject the reviewed adapter into live_autopilot before continuous live trading is allowed."},
+            {"step": "5", "name": "Atomic live executor", "detail": "Deploy/review the single-transaction arbitrage executor, approve USDC to that executor, and pass the atomic executor eth_call report before continuous live trading is allowed."},
         ]
 
     @staticmethod

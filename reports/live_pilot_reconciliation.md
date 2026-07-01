@@ -1,6 +1,6 @@
 # Live Pilot Reconciliation
 
-Generated: `2026-07-01T04:12:56Z`
+Generated: `2026-07-01T05:21:32Z`
 - Overall status: `LIVE_PILOT_RECONCILED`
 - Wallet: `0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7`
 - Journal rows: `2`
@@ -17,8 +17,8 @@ Generated: `2026-07-01T04:12:56Z`
   "status": "OK",
   "USDC": "429.998478",
   "WETH": "0.012568442636912582",
-  "ETH": "0.02414560934206512",
-  "block_number": "48044914"
+  "ETH": "0.024122272765898439",
+  "block_number": "48046972"
 }
 ```
 

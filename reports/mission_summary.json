@@ -1,15 +1,15 @@
 {
-  "cycles_completed": 527,
+  "cycles_completed": 131,
   "cycles_failed": 0,
   "last_cycle_status": "OK",
   "last_error": null,
   "live_trading_enabled": false,
   "mode": "PAPER",
-  "run_id": "615f7651-c49",
+  "run_id": "e7835b60-6da",
   "service_name": "paper_autopilot",
-  "started_at": "2026-07-01T01:32:11Z",
-  "status": "STOPPED",
-  "stop_reason": "signal_2",
-  "updated_at": "2026-07-01T03:34:23Z",
-  "uptime_seconds": 7331.96
+  "started_at": "2026-07-01T05:05:24Z",
+  "status": "RUNNING",
+  "stop_reason": null,
+  "updated_at": "2026-07-01T05:30:05Z",
+  "uptime_seconds": 1481.51
 }

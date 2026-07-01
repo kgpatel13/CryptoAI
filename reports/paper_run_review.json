@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T03:34:22Z",
+  "generated_at": "2026-07-01T05:30:05Z",
   "mode": "paper",
   "overall_status": "SHADOW_REVIEW_CANDIDATE",
   "recommendation": "Review sustained paper evidence before any live-trading design decision.",
@@ -7,14 +7,14 @@
   "shadow_decision": "REVIEW_READY",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "800.8089",
-  "realized_pnl_usd": "300.8089",
-  "return_pct": "60.1618",
-  "closed_trade_count": 1088,
+  "cash_usd": "828.1685",
+  "realized_pnl_usd": "328.1685",
+  "return_pct": "65.6337",
+  "closed_trade_count": 1104,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-07-01T03:33:43Z",
+  "last_trade_at": "2026-07-01T05:29:57Z",
   "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
@@ -22,10 +22,10 @@
   "execution_realism_confidence": "MEDIUM",
   "shadow_ready_count": 1,
   "live_shadow_gate_status": "SHADOW_ELIGIBLE_EVIDENCE",
-  "live_shadow_eligible_count": 7,
-  "paper_only_count": 193,
+  "live_shadow_eligible_count": 14,
+  "paper_only_count": 186,
   "live_ready_count": 0,
-  "report_audit_findings": 28,
+  "report_audit_findings": 24,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -63,18 +63,18 @@
     {
       "name": "live_shadow_eligible",
       "status": "PASS",
-      "message": "shadow_eligible=7; status=SHADOW_ELIGIBLE_EVIDENCE"
+      "message": "shadow_eligible=14; status=SHADOW_ELIGIBLE_EVIDENCE"
     },
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=28"
+      "message": "blocking_findings=0; total_findings=24"
     }
   ],
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $300.8089 across 1088 closed trade(s)."
+      "message": "Paper run is profitable so far: $328.1685 across 1104 closed trade(s)."
     },
     {
       "severity": "INFO",

@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from contextlib import contextmanager
 from pathlib import Path
+from unittest.mock import patch
 
 from app.execution.atomic_live_adapter import AtomicLiveExecutionAdapter, is_valid_evm_address
 
@@ -24,7 +25,7 @@ class AtomicLiveExecutionAdapterTests(unittest.TestCase):
         self.assertEqual(result["status"], "REFUSED_ATOMIC_EXECUTOR_NOT_READY")
         self.assertFalse(result["transaction_sent"])
 
-    def test_refuses_when_configured_but_reviewed_calldata_builder_is_missing(self) -> None:
+    def test_refuses_when_configured_but_atomic_send_flag_is_disabled(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             report_dir = Path(tmp)
             (report_dir / "live_pilot_reconciliation.json").write_text(
@@ -41,15 +42,19 @@ class AtomicLiveExecutionAdapterTests(unittest.TestCase):
                     "CRYPTOAI_PRIVATE_KEY": "test-key",
                 }
             ):
-                result = adapter.execute(
-                    {
-                        "overall_status": "READY_FOR_CONTINUOUS_LIVE",
-                        "can_run_continuous_live": True,
-                        "gates": {"transaction_simulation_passed": True},
-                    }
-                )
+                with patch(
+                    "app.execution.atomic_live_adapter.AtomicArbitrageExecutionService.generate",
+                    return_value={"overall_status": "ATOMIC_ROUTE_SIMULATION_PASSED", "atomic_route_simulation_passed": True},
+                ):
+                    result = adapter.execute(
+                        {
+                            "overall_status": "READY_FOR_CONTINUOUS_LIVE",
+                            "can_run_continuous_live": True,
+                            "gates": {"transaction_simulation_passed": True},
+                        }
+                    )
 
-        self.assertEqual(result["status"], "REFUSED_ATOMIC_EXECUTOR_CALLDATA_MISSING")
+        self.assertEqual(result["status"], "REFUSED_ATOMIC_SEND_FLAG_DISABLED")
         self.assertFalse(result["transaction_sent"])
 
     @contextmanager

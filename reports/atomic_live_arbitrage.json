@@ -1,0 +1,85 @@
+{
+  "action_count": 3,
+  "atomic_route": {
+    "reason": "Atomic arbitrage requires a two-leg SHADOW_READY arbitrage candidate, not the one-leg smoke route.",
+    "status": "BLOCKED"
+  },
+  "atomic_route_simulation_passed": false,
+  "blocked_check_count": 1,
+  "check_count": 8,
+  "checks": [
+    {
+      "detail": "Two-leg router calldata simulation must pass first.",
+      "name": "two_leg_transaction_simulation_passed",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Atomic live arbitrage cannot use the one-leg smoke route.",
+      "name": "not_one_leg_smoke",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Atomic executor address is configured.",
+      "name": "executor_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor bytecode exists on Base.",
+      "name": "executor_deployed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor review flag is present.",
+      "name": "executor_reviewed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC allowance to atomic executor is sufficient or no executable route is ready.",
+      "name": "executor_usdc_allowance",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor calldata was not built.",
+      "name": "atomic_calldata_built",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Atomic executor eth_call did not pass.",
+      "name": "atomic_eth_call_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "executor_preflight": {
+    "allowance_sufficient": false,
+    "executor_address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "executor_code_bytes": 6029,
+    "required_amount_units": "0",
+    "rpc_url": "https://base-rpc.publicnode.com",
+    "status": "READY",
+    "usdc_allowance": "20",
+    "usdc_allowance_units": "20000000",
+    "usdc_balance": "429.998478",
+    "usdc_balance_units": "429998478",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "generated_at": "2026-07-01T05:21:27Z",
+  "live_trading_approval": false,
+  "mode": "atomic_live_arbitrage_simulation",
+  "notes": [
+    "This report is the final evidence gate for atomic live arbitrage.",
+    "It builds one executor transaction and simulates it with eth_call only.",
+    "No transaction is signed or broadcast by this service.",
+    "The wallet must approve USDC to the atomic executor, not just to an individual router."
+  ],
+  "overall_status": "ATOMIC_ROUTE_ACTION",
+  "pass_count": 4,
+  "transaction_simulation_status": "TX_SIMULATION_ACTION"
+}

@@ -1,19 +1,19 @@
 # Live Readiness Checklist
 
-Generated: `2026-07-01T04:12:54Z`
+Generated: `2026-07-01T05:30:05Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
-- Closed paper trades: `1088`
+- Closed paper trades: `1104`
 - Live-cap closed paper trades: `828`
-- Paper cash USD: `$800.8089`
-- Paper realized PnL USD: `$300.8089`
+- Paper cash USD: `$828.1685`
+- Paper realized PnL USD: `$328.1685`
 - Max live wallet USD: `$500`
 - Max live trade USD: `$20`
-- Max daily loss USD: `$20`
-- Blocked checks: `1`
-- Action checks: `2`
+- Max daily loss USD: `$5`
+- Blocked checks: `0`
+- Action checks: `1`
 - Watch checks: `0`
 
 ## Checks
@@ -28,8 +28,8 @@ Generated: `2026-07-01T04:12:54Z`
 | risk_engine_validated | PASS | Risk engine evidence is present and losing-trade count is clean. |
 | provider_health_ok | PASS | Provider Monitor is OK. |
 | execution_cost_confidence | PASS | Execution-cost evidence confidence is HIGH. |
-| execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
-| report_audit_clean | BLOCK | Report Audit has blocking operational findings. |
+| execution_realism_shadow_ready | PASS | Execution realism has shadow-ready evidence and no live approvals. |
+| report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
 | wallet_preflight_ready | PASS | Wallet Preflight is ready. |
