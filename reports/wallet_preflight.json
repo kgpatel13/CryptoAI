@@ -1,19 +1,19 @@
 {
   "action_count": 0,
-  "blocked_check_count": 0,
+  "blocked_check_count": 2,
   "check_count": 15,
   "checks": [
     {
-      "detail": "Live trading feature flag is disabled.",
+      "detail": "Live trading feature flag must stay disabled during wallet preparation.",
       "name": "live_trading_disabled",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Live kill switch is enabled.",
+      "detail": "Live kill switch must stay enabled during wallet preparation.",
       "name": "kill_switch_enabled",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "No private key is configured.",
@@ -94,10 +94,10 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-07-01T06:04:33Z",
-  "live_kill_switch_enabled": true,
+  "generated_at": "2026-07-01T06:24:49Z",
+  "live_kill_switch_enabled": false,
   "live_trading_approval": false,
-  "live_trading_enabled": false,
+  "live_trading_enabled": true,
   "live_wallet_configured": true,
   "max_prep_wallet_usd": "500.0000",
   "max_tiny_trade_usd": "100.0000",
@@ -107,11 +107,11 @@
     "Do not configure private keys until the transaction path, simulation gate, and manual review are complete.",
     "The first real-money pilot should use an isolated wallet on Base with a total wallet ceiling of $500 or less."
   ],
-  "overall_status": "WALLET_PREP_READY",
+  "overall_status": "WALLET_PREP_ACTION",
   "planned_chain": "base",
   "planned_eth_gas_usd": "50.0000",
-  "planned_total_usd": "499.0000",
-  "planned_usdc_usd": "449.0000",
+  "planned_total_usd": "500.0000",
+  "planned_usdc_usd": "450.0000",
   "private_key_configured": false,
-  "wallet_preflight_allowed": true
+  "wallet_preflight_allowed": false
 }

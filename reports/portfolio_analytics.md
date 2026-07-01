@@ -1,24 +1,24 @@
 # CryptoAI Portfolio Analytics Report
 
-Generated: `2026-07-01T06:04:41Z`
+Generated: `2026-07-01T06:07:55Z`
 
 ## Summary
 
 - Mode: `paper`
 - Initial cash USD: `$500.0000`
-- Cash USD: `$888.5945`
-- Equity USD: `$888.5945`
-- Realized PnL USD: `$388.5945`
+- Cash USD: `$894.5618`
+- Equity USD: `$894.5618`
+- Realized PnL USD: `$394.5618`
 - Unrealized PnL USD: `$0.0000`
-- Total PnL USD: `$388.5945`
-- Total return %: `77.7189`
+- Total PnL USD: `$394.5618`
+- Total return %: `78.9124`
 - PnL reconciliation: `RECONCILED`
-- Journal realized PnL USD: `$388.5945`
-- Trade count: `1136`
-- Closed/PnL trade count: `1136`
+- Journal realized PnL USD: `$394.5618`
+- Trade count: `1139`
+- Closed/PnL trade count: `1139`
 - Win rate %: `100.0000`
 - Profit factor: `N/A`
-- Expectancy USD: `$0.3421`
+- Expectancy USD: `$0.3464`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 - Avg slippage bps: `5.0000`
@@ -29,14 +29,14 @@ Generated: `2026-07-01T06:04:41Z`
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
 | 2026-06-30 | 942 | 10725.0000 | 39.0745 | 39.0745 | 7.8149 |
-| 2026-07-01 | 194 | 97000.0000 | 349.5200 | 388.5945 | 69.9040 |
+| 2026-07-01 | 197 | 98500.0000 | 355.4873 | 394.5618 | 71.0975 |
 
 ## PnL Reconciliation
 
 - Source of truth: `paper_portfolio_state.json`
 - Status: `RECONCILED`
-- Portfolio realized PnL USD: `$388.5945`
-- Journal realized PnL USD: `$388.5945`
+- Portfolio realized PnL USD: `$394.5618`
+- Journal realized PnL USD: `$394.5618`
 - Difference USD: `$0.0000`
 - Note: The paper-order journal and active portfolio ledger agree.
 
@@ -44,16 +44,13 @@ Generated: `2026-07-01T06:04:41Z`
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 644 | 55585.0000 | 192.4895 | 100.0000 |
+| USDC/WETH | 647 | 57085.0000 | 198.4568 | 100.0000 |
 | WETH/USDC | 492 | 52140.0000 | 196.1050 | 100.0000 |
 
 ## Recent Trade Journal
 
 | Time | Pair | Buy | Sell | Status | Notional | Net % | Realized PnL | Quality | Reason |
 |---|---|---|---|---|---:|---:|---:|---|---|
-| 2026-07-01T05:43:36Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3741302499046195154393197427 | 1.8707 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T05:44:37Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3741302499046195154393197427 | 1.8707 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T05:45:50Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3649600040069186932174764527 | 1.8248 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-07-01T05:47:03Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3649600040069186932174764527 | 1.8248 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-07-01T05:47:51Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3655247630260414102798996560 | 1.8276 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-07-01T05:49:01Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3655247630260414102798996560 | 1.8276 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
@@ -71,6 +68,9 @@ Generated: `2026-07-01T06:04:41Z`
 | 2026-07-01T06:01:49Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3651935458320697391124150080 | 1.8260 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-07-01T06:02:53Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3848776193580460226806325550 | 1.9244 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 | 2026-07-01T06:04:04Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3848776193580460226806325550 | 1.9244 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-07-01T06:05:03Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3976828215905347750109789718 | 1.9884 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-07-01T06:06:15Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3976828215905347750109789718 | 1.9884 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-07-01T06:07:00Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | 500.0000 | 0.3980954451338857431993231990 | 1.9905 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
 
 ## Notes
 

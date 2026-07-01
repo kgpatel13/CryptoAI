@@ -1,19 +1,19 @@
 # Live Readiness Checklist
 
-Generated: `2026-07-01T06:04:34Z`
+Generated: `2026-07-01T06:24:50Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
-- Closed paper trades: `1136`
+- Closed paper trades: `1139`
 - Live-cap closed paper trades: `828`
-- Paper cash USD: `$888.5945`
-- Paper realized PnL USD: `$388.5945`
+- Paper cash USD: `$894.5618`
+- Paper realized PnL USD: `$394.5618`
 - Max live wallet USD: `$500`
 - Max live trade USD: `$20`
-- Max daily loss USD: `$5`
-- Blocked checks: `0`
-- Action checks: `1`
+- Max daily loss USD: `$20`
+- Blocked checks: `2`
+- Action checks: `2`
 - Watch checks: `0`
 
 ## Checks
@@ -32,11 +32,11 @@ Generated: `2026-07-01T06:04:34Z`
 | report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
-| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
+| wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
 | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 | live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
-| live_feature_off | PASS | Live feature flag is off. |
-| kill_switch_on | PASS | Live and paper kill switches are on. |
+| live_feature_off | BLOCK | Live feature flag must remain off until the final reviewed pilot. |
+| kill_switch_on | BLOCK | Live and paper kill switches must remain on during readiness review. |
 | private_key_absent | PASS | Private key is absent. |
 | paper_live_wallet_parity | PASS | Paper capital is within the configured live wallet ceiling. |
 | paper_live_trade_cap_parity | PASS | Paper has sufficient live-cap-sized evidence for the configured live trade cap. |

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T06:04:34Z",
+  "generated_at": "2026-07-01T06:24:50Z",
   "mode": "paper",
   "report_count": 57,
   "missing_count": 0,
@@ -16,38 +16,38 @@
       "name": "quote_diagnostics.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 917,
-      "generated_at": "2026-07-01T06:04:32Z",
+      "size_bytes": 929,
+      "generated_at": "2026-07-01T06:22:47Z",
       "stale": false
     },
     {
       "name": "multi_dex_opportunities.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 928,
-      "generated_at": "2026-07-01T06:04:27Z",
+      "size_bytes": 930,
+      "generated_at": "2026-07-01T06:22:55Z",
       "stale": false
     },
     {
       "name": "opportunity_explorer.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 507,
-      "generated_at": "2026-07-01T06:04:27Z",
+      "size_bytes": 510,
+      "generated_at": "2026-07-01T06:22:55Z",
       "stale": false
     },
     {
       "name": "paper_report.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 181754,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "size_bytes": 182023,
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "total_orders": 6702,
-        "filled_orders": 1136,
+        "total_orders": 6738,
+        "filled_orders": 1139,
         "legacy_accounting_warning_count": 0
       }
     },
@@ -55,8 +55,8 @@
       "name": "paper_report.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 67004,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "size_bytes": 67278,
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false
     },
     {
@@ -64,7 +64,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2867,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "generated_at": "2026-07-01T06:07:58Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -73,9 +73,9 @@
         "recommendation": "Review sustained paper evidence before any live-trading design decision.",
         "shadow_decision": "REVIEW_READY",
         "live_decision": "BLOCKED",
-        "closed_trade_count": 1136,
+        "closed_trade_count": 1139,
         "losing_trade_count": 0,
-        "shadow_ready_count": 2,
+        "shadow_ready_count": 1,
         "live_ready_count": 0
       }
     },
@@ -84,7 +84,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 1922,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "generated_at": "2026-07-01T06:07:58Z",
       "stale": false
     },
     {
@@ -92,7 +92,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 5017,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "generated_at": "2026-07-01T06:07:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -108,7 +108,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 2211,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "generated_at": "2026-07-01T06:07:57Z",
       "stale": false
     },
     {
@@ -116,12 +116,12 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 69871,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "generated_at": "2026-07-01T06:07:55Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "closed_trade_count": 1136
+        "closed_trade_count": 1139
       }
     },
     {
@@ -129,7 +129,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6137,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "generated_at": "2026-07-01T06:07:55Z",
       "stale": false
     },
     {
@@ -265,8 +265,8 @@
       "name": "pool_depth_ladder.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 6968,
-      "generated_at": "2026-07-01T05:51:39Z",
+      "size_bytes": 6948,
+      "generated_at": "2026-07-01T06:07:07Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -283,15 +283,15 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1719,
-      "generated_at": "2026-07-01T05:51:39Z",
+      "generated_at": "2026-07-01T06:07:07Z",
       "stale": false
     },
     {
       "name": "execution_realism.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 7689,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 5534,
+      "generated_at": "2026-07-01T06:07:57Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -299,7 +299,7 @@
         "overall_status": "SHADOW_REVIEW_READY",
         "paper_capital_usd": "500.0000",
         "confidence": "MEDIUM",
-        "shadow_ready_count": 2,
+        "shadow_ready_count": 1,
         "live_ready_count": 0
       }
     },
@@ -307,29 +307,29 @@
       "name": "execution_realism.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1379,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 1151,
+      "generated_at": "2026-07-01T06:07:57Z",
       "stale": false
     },
     {
       "name": "live_shadow_gate.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 96799,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 2570,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "SHADOW_ELIGIBLE_EVIDENCE"
+        "overall_status": "NO_SHADOW_ELIGIBLE_TRADES"
       }
     },
     {
       "name": "live_shadow_gate.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3890,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 777,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false
     },
     {
@@ -337,7 +337,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4065,
-      "generated_at": "2026-07-01T06:04:31Z",
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -351,56 +351,56 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1545,
-      "generated_at": "2026-07-01T06:04:31Z",
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false
     },
     {
       "name": "live_readiness_checklist.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 4980,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "size_bytes": 5116,
+      "generated_at": "2026-07-01T06:24:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_REVIEW_NOT_READY",
-        "blocked_check_count": 0,
+        "blocked_check_count": 2,
         "check_count": 22,
-        "closed_trade_count": 1136,
-        "pass_count": 21
+        "closed_trade_count": 1139,
+        "pass_count": 18
       }
     },
     {
       "name": "live_readiness_checklist.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 2994,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "size_bytes": 3127,
+      "generated_at": "2026-07-01T06:24:50Z",
       "stale": false
     },
     {
       "name": "transaction_simulation.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 6237,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "size_bytes": 10087,
+      "generated_at": "2026-07-01T06:24:50Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "TX_SIMULATION_ACTION",
-        "blocked_check_count": 0,
+        "blocked_check_count": 2,
         "check_count": 12,
-        "pass_count": 11
+        "pass_count": 7
       }
     },
     {
       "name": "transaction_simulation.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5132,
-      "generated_at": "2026-07-01T06:04:34Z",
+      "size_bytes": 7907,
+      "generated_at": "2026-07-01T06:24:50Z",
       "stale": false
     },
     {
@@ -457,7 +457,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 4264,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -470,7 +470,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1269,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "generated_at": "2026-07-01T06:07:56Z",
       "stale": false
     },
     {
@@ -597,14 +597,14 @@
       "name": "wallet_preflight.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 3469,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 3541,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
-        "overall_status": "WALLET_PREP_READY",
-        "blocked_check_count": 0,
+        "overall_status": "WALLET_PREP_ACTION",
+        "blocked_check_count": 2,
         "check_count": 15
       }
     },
@@ -612,22 +612,22 @@
       "name": "wallet_preflight.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 1907,
-      "generated_at": "2026-07-01T06:04:33Z",
+      "size_bytes": 1977,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false
     },
     {
       "name": "tiny_live_pilot.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 58038,
-      "generated_at": "2026-07-01T05:58:08Z",
+      "size_bytes": 62374,
+      "generated_at": "2026-07-01T06:23:43Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "plan",
-        "overall_status": "LIVE_PILOT_READY",
-        "blocked_check_count": 0,
+        "overall_status": "LIVE_PILOT_BLOCKED",
+        "blocked_check_count": 1,
         "check_count": 18
       }
     },
@@ -635,16 +635,16 @@
       "name": "tiny_live_pilot.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 2636,
-      "generated_at": "2026-07-01T05:58:08Z",
+      "size_bytes": 2645,
+      "generated_at": "2026-07-01T06:23:43Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3845,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "size_bytes": 3849,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -658,8 +658,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1180,
-      "generated_at": "2026-07-01T06:04:30Z",
+      "size_bytes": 1184,
+      "generated_at": "2026-07-01T06:24:49Z",
       "stale": false
     }
   ],

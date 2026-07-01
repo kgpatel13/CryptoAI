@@ -1,10 +1,10 @@
 # Tiny Live Pilot
 
-Generated: `2026-07-01T05:58:08Z`
+Generated: `2026-07-01T06:24:52Z`
 - Mode: `plan`
-- Overall status: `LIVE_PILOT_READY`
+- Overall status: `LIVE_PILOT_BLOCKED`
 - Send attempted: `False`
-- Blocked checks: `0` / `18`
+- Blocked checks: `1` / `18`
 
 ## Checks
 
@@ -17,7 +17,7 @@ Generated: `2026-07-01T05:58:08Z`
 | private_key_available | PASS | Private key is available for send mode or not required. |
 | private_key_matches_wallet | PASS | Private key matches isolated live wallet or not required. |
 | no_paper_autopilot_running | PASS | No paper autopilot process is running. |
-| wallet_preflight_ready | PASS | Wallet preflight is ready. |
+| wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
 | live_readiness_ready | PASS | Live readiness checklist is ready or the simulated smoke swap has no hard readiness blockers. |
 | transaction_simulation_passed | PASS | Transaction simulation passed or is not required for this mode. |
 | report_audit_clean | PASS | Report audit has no blocking findings. |
@@ -33,12 +33,12 @@ Generated: `2026-07-01T05:58:08Z`
 
 ```json
 {
-  "smoke_usd": "5",
+  "smoke_usd": "20",
   "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
   "chain_id": 8453,
-  "latest_block": 48048070,
+  "latest_block": 48048872,
   "rpc_url": "https://base-rpc.publicnode.com",
   "usdc_balance": "429.998478",
   "eth_balance": "0.024121785224852599",

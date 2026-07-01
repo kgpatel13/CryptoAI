@@ -166,13 +166,16 @@ class LiveExecutionEngineService:
             tx_sim=tx_sim,
             pilot=pilot,
             gates=gates,
+            atomic=atomic,
         )
         missing_components = self._missing_components(gates)
+        atomic_attempted = atomic.get("overall_status") == "ATOMIC_ROUTE_ACTION" and bool(atomic.get("atomic_route"))
+        atomic_profit_blocked = atomic_attempted and atomic.get("atomic_route_simulation_passed") is not True
 
         prerequisite_ready = (
             gates["wallet_preflight_allowed"]
             and gates["live_review_ready"]
-            and gates["transaction_simulation_passed"]
+            and (gates["transaction_simulation_passed"] or gates["atomic_route_simulation_passed"])
             and gates["provider_monitor_ok"]
             and gates["report_audit_clean"]
             and gates["tiny_live_pilot_ready"]
@@ -190,13 +193,16 @@ class LiveExecutionEngineService:
         elif can_send_approval:
             status = "READY_FOR_MANUAL_APPROVAL"
             stage = "TOKEN_ALLOWANCE_APPROVAL"
+        elif atomic_profit_blocked:
+            status = "BLOCKED_ATOMIC_ROUTE_SIMULATION"
+            stage = "ATOMIC_ARBITRAGE_ETH_CALL"
         elif not gates["wallet_preflight_allowed"]:
             status = "BLOCKED_PREFLIGHT"
             stage = "WALLET_PREFLIGHT"
         elif not gates["live_review_ready"]:
             status = "BLOCKED_LIVE_READINESS"
             stage = "LIVE_READINESS"
-        elif not gates["transaction_simulation_passed"]:
+        elif not gates["transaction_simulation_passed"] and not gates["atomic_route_simulation_passed"]:
             status = "BLOCKED_TRANSACTION_SIMULATION"
             stage = "EXACT_CALLDATA_ETH_CALL"
         elif not gates["tiny_live_pilot_ready"]:
@@ -240,12 +246,33 @@ class LiveExecutionEngineService:
         tx_sim: dict[str, Any],
         pilot: dict[str, Any],
         gates: dict[str, bool],
+        atomic: dict[str, Any],
     ) -> list[dict[str, str]]:
         rows: list[dict[str, str]] = []
+        atomic_route = atomic.get("atomic_route", {}) if isinstance(atomic.get("atomic_route"), dict) else {}
+        decoded_error = atomic_route.get("eth_call_decoded_error", {}) if isinstance(atomic_route.get("eth_call_decoded_error"), dict) else {}
+        reconciliation = atomic.get("profit_reconciliation", {}) if isinstance(atomic.get("profit_reconciliation"), dict) else {}
+        if atomic.get("overall_status") == "ATOMIC_ROUTE_ACTION" and atomic.get("atomic_route_simulation_passed") is not True:
+            detail = "Atomic executor eth_call did not pass."
+            if decoded_error.get("name") == "ProfitTooLow":
+                detail = (
+                    "Atomic executor rejected the route as ProfitTooLow: "
+                    f"simulated output {decoded_error.get('amount_out_usdc')} USDC, "
+                    f"required {decoded_error.get('required_out_usdc')} USDC."
+                )
+            elif reconciliation.get("status"):
+                detail = f"Atomic route reconciliation status: {reconciliation.get('status')}."
+            rows.append(
+                {
+                    "source": "atomic_live_arbitrage",
+                    "name": "atomic_route_simulation_passed",
+                    "severity": "BLOCK",
+                    "detail": detail,
+                }
+            )
         gate_details = [
             ("wallet_preflight_allowed", "Wallet preflight is not ready for the isolated Base wallet."),
             ("live_review_ready", "Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work."),
-            ("transaction_simulation_passed", "Exact calldata plus Base eth_call transaction simulation has not passed."),
             ("provider_monitor_ok", "Provider monitor must be OK before any live send."),
             ("report_audit_clean", "Report audit still has blocking findings."),
             ("tiny_live_pilot_ready", "Tiny live pilot plan is blocked."),
@@ -253,6 +280,15 @@ class LiveExecutionEngineService:
         for name, detail in gate_details:
             if not gates[name]:
                 rows.append({"source": "live_execution_engine", "name": name, "severity": "BLOCK", "detail": detail})
+        if not gates["transaction_simulation_passed"] and not gates.get("atomic_route_simulation_passed", False):
+            rows.append(
+                {
+                    "source": "live_execution_engine",
+                    "name": "transaction_or_atomic_simulation_passed",
+                    "severity": "BLOCK",
+                    "detail": "Either standalone transaction simulation or atomic executor eth_call simulation must pass.",
+                }
+            )
 
         for source_name, payload, key in [
             ("live_control_center", control, "blocking_checks"),
@@ -306,7 +342,7 @@ class LiveExecutionEngineService:
                     "detail": "Required before continuous live arbitrage; manual tiny smoke swap is only one-leg execution.",
                 }
             )
-        if not gates["transaction_simulation_passed"]:
+        if not gates["transaction_simulation_passed"] and not gates.get("atomic_route_simulation_passed", False):
             rows.append(
                 {
                     "component": "exact_calldata_eth_call_pass",

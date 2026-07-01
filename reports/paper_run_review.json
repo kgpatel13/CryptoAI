@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T06:04:34Z",
+  "generated_at": "2026-07-01T06:07:58Z",
   "mode": "paper",
   "overall_status": "SHADOW_REVIEW_CANDIDATE",
   "recommendation": "Review sustained paper evidence before any live-trading design decision.",
@@ -7,23 +7,23 @@
   "shadow_decision": "REVIEW_READY",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "888.5945",
-  "realized_pnl_usd": "388.5945",
-  "return_pct": "77.7189",
-  "closed_trade_count": 1136,
+  "cash_usd": "894.5618",
+  "realized_pnl_usd": "394.5618",
+  "return_pct": "78.9124",
+  "closed_trade_count": 1139,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-07-01T06:04:04Z",
+  "last_trade_at": "2026-07-01T06:07:00Z",
   "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
   "execution_realism_status": "SHADOW_REVIEW_READY",
   "execution_realism_confidence": "MEDIUM",
-  "shadow_ready_count": 2,
+  "shadow_ready_count": 1,
   "live_shadow_gate_status": "SHADOW_ELIGIBLE_EVIDENCE",
-  "live_shadow_eligible_count": 19,
-  "paper_only_count": 181,
+  "live_shadow_eligible_count": 18,
+  "paper_only_count": 182,
   "live_ready_count": 0,
   "report_audit_findings": 26,
   "report_audit_blocking_findings": 0,
@@ -58,12 +58,12 @@
     {
       "name": "execution_shadow_ready",
       "status": "PASS",
-      "message": "shadow_ready=2; status=SHADOW_REVIEW_READY"
+      "message": "shadow_ready=1; status=SHADOW_REVIEW_READY"
     },
     {
       "name": "live_shadow_eligible",
       "status": "PASS",
-      "message": "shadow_eligible=19; status=SHADOW_ELIGIBLE_EVIDENCE"
+      "message": "shadow_eligible=18; status=SHADOW_ELIGIBLE_EVIDENCE"
     },
     {
       "name": "report_audit_clean",
@@ -74,7 +74,7 @@
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $388.5945 across 1136 closed trade(s)."
+      "message": "Paper run is profitable so far: $394.5618 across 1139 closed trade(s)."
     },
     {
       "severity": "INFO",

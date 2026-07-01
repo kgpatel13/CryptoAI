@@ -83,6 +83,7 @@ class AtomicArbitrageExecutionService:
         intent = tx_sim.get("simulation_intent", {}) if isinstance(tx_sim.get("simulation_intent"), dict) else {}
         diagnostics = self._route_diagnostics(tx_sim=tx_sim, intent=intent)
         route = self._build_atomic_route(intent)
+        reconciliation = self._profit_reconciliation(diagnostics=diagnostics, route=route)
         executor_preflight = self._executor_preflight(route)
         checks = self._checks(tx_sim=tx_sim, intent=intent, route=route, executor_preflight=executor_preflight)
         blockers = [row for row in checks if row["severity"] == "BLOCK"]
@@ -96,6 +97,7 @@ class AtomicArbitrageExecutionService:
             "live_trading_approval": False,
             "transaction_simulation_status": tx_sim.get("overall_status"),
             "route_diagnostics": diagnostics,
+            "profit_reconciliation": reconciliation,
             "executor_preflight": executor_preflight,
             "atomic_route": route,
             "check_count": len(checks),
@@ -242,6 +244,48 @@ class AtomicArbitrageExecutionService:
             "shadow_ready_count": len(shadow_ready),
             "latest_opportunities": route_rows,
             "failed_transaction_simulation_checks": failed_tx_checks,
+        }
+
+    def _profit_reconciliation(self, *, diagnostics: dict[str, Any], route: dict[str, Any]) -> dict[str, Any]:
+        selected = diagnostics.get("selected_candidate", {}) if isinstance(diagnostics.get("selected_candidate"), dict) else {}
+        amount_in = self._decimal_units(route.get("amount_in_units"), 6)
+        decoded = route.get("eth_call_decoded_error", {}) if isinstance(route.get("eth_call_decoded_error"), dict) else {}
+        simulated_out = self._decimal(decoded.get("amount_out_usdc"))
+        required_out = self._decimal(decoded.get("required_out_usdc"))
+        if simulated_out <= 0 and route.get("eth_call_status") == "PASS":
+            simulated_out = None
+
+        gross_edge_pct = self._decimal(selected.get("gross_edge_pct"))
+        reported_net_pct = self._decimal(selected.get("reported_net_edge_pct"))
+        stress_net_pct = self._decimal(selected.get("stress_net_edge_pct"))
+        estimated_gross_out = amount_in * (Decimal("1") + gross_edge_pct / Decimal("100")) if amount_in > 0 else Decimal("0")
+        estimated_net_out = amount_in * (Decimal("1") + reported_net_pct / Decimal("100")) if amount_in > 0 else Decimal("0")
+        estimated_stress_out = amount_in * (Decimal("1") + stress_net_pct / Decimal("100")) if amount_in > 0 else Decimal("0")
+        simulated_net_pct = ((simulated_out - amount_in) / amount_in * Decimal("100")) if simulated_out is not None and amount_in > 0 else None
+        divergence_pct = (stress_net_pct - simulated_net_pct) if simulated_net_pct is not None else None
+
+        findings: list[str] = []
+        if simulated_net_pct is not None and simulated_net_pct < Decimal("0"):
+            findings.append("Atomic eth_call shows the selected route loses money after real router execution.")
+        if divergence_pct is not None and abs(divergence_pct) > Decimal("0.10"):
+            findings.append("Opportunity stress estimate and atomic eth_call differ by more than 0.10 percentage points.")
+        if selected.get("requested_notional_usd") and amount_in > 0 and self._decimal(selected.get("requested_notional_usd")) > amount_in:
+            findings.append("Atomic simulation used live trade cap while opportunity evidence was assessed at a larger paper notional.")
+        if route.get("eth_call_decoded_error", {}).get("name") == "ProfitTooLow":
+            findings.append("Executor profit guard is working; do not send live until atomic eth_call passes.")
+
+        return {
+            "status": "LOSS_AFTER_ATOMIC_SIMULATION" if simulated_net_pct is not None and simulated_net_pct < 0 else "PENDING_OR_PASS",
+            "amount_in_usdc": str(amount_in) if amount_in > 0 else None,
+            "estimated_gross_out_usdc": self._fmt_decimal(estimated_gross_out),
+            "estimated_net_out_usdc": self._fmt_decimal(estimated_net_out),
+            "estimated_stress_out_usdc": self._fmt_decimal(estimated_stress_out),
+            "simulated_atomic_out_usdc": str(simulated_out) if simulated_out is not None else None,
+            "required_out_usdc": str(required_out) if required_out > 0 else None,
+            "estimated_stress_net_pct": str(stress_net_pct),
+            "simulated_atomic_net_pct": str(simulated_net_pct.quantize(Decimal("0.0001"))) if simulated_net_pct is not None else None,
+            "stress_vs_atomic_divergence_pct": str(divergence_pct.quantize(Decimal("0.0001"))) if divergence_pct is not None else None,
+            "findings": findings,
         }
 
     def _diagnose_opportunity(self, row: dict[str, Any]) -> dict[str, Any]:
@@ -435,11 +479,24 @@ class AtomicArbitrageExecutionService:
         return int((value * Decimal(10**decimals)).to_integral_value(rounding="ROUND_DOWN"))
 
     @staticmethod
+    def _decimal_units(value: Any, decimals: int) -> Decimal:
+        try:
+            return Decimal(str(value or 0)) / Decimal(10**decimals)
+        except (InvalidOperation, TypeError, ValueError):
+            return Decimal("0")
+
+    @staticmethod
     def _int(value: Any) -> int:
         try:
             return int(value or 0)
         except (TypeError, ValueError):
             return 0
+
+    @staticmethod
+    def _fmt_decimal(value: Decimal) -> str | None:
+        if value <= 0:
+            return None
+        return str(value.quantize(Decimal("0.000001")))
 
     @staticmethod
     def _redact_url(url: str) -> str:
@@ -458,6 +515,7 @@ class AtomicArbitrageExecutionService:
             f"- Executor preflight: `{payload.get('executor_preflight', {}).get('status', '-')}`",
             f"- eth_call status: `{route.get('eth_call_status', '-')}`",
             f"- Route blocker: `{payload.get('route_diagnostics', {}).get('blocker_type', '-')}`",
+            f"- Profit reconciliation: `{payload.get('profit_reconciliation', {}).get('status', '-')}`",
             f"- Blocked checks: `{payload['blocked_check_count']}`",
             f"- Action checks: `{payload['action_count']}`",
             "",
@@ -481,6 +539,12 @@ class AtomicArbitrageExecutionService:
                 "",
                 "```json",
                 json.dumps(route, indent=2),
+                "```",
+                "",
+                "## Profit Reconciliation",
+                "",
+                "```json",
+                json.dumps(payload.get("profit_reconciliation", {}), indent=2),
                 "```",
                 "",
                 "## Notes",

@@ -96,6 +96,36 @@ class LiveExecutionEngineServiceTests(unittest.TestCase):
         self.assertFalse(payload["can_run_continuous_live"])
         self.assertFalse(payload["atomic_executor"]["address_valid"])
 
+    def test_atomic_profit_too_low_is_visible_before_generic_wallet_stage(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            service = LiveExecutionEngineService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
+            self._write_json(service.report_dir / "wallet_preflight.json", {"wallet_preflight_allowed": False})
+            self._write_json(service.report_dir / "live_readiness_checklist.json", {"live_review_ready": False, "checks": []})
+            self._write_json(service.report_dir / "transaction_simulation.json", {"transaction_simulation_passed": False, "checks": []})
+            self._write_json(service.report_dir / "provider_monitor.json", {"overall_status": "OK"})
+            self._write_json(service.report_dir / "report_audit.json", {"blocking_finding_count": 0})
+            self._write_json(service.report_dir / "tiny_live_pilot.json", {"overall_status": "LIVE_PILOT_BLOCKED", "checks": [], "pilot_plan": {}})
+            self._write_json(
+                service.report_dir / "atomic_live_arbitrage.json",
+                {
+                    "overall_status": "ATOMIC_ROUTE_ACTION",
+                    "atomic_route_simulation_passed": False,
+                    "atomic_route": {
+                        "eth_call_decoded_error": {
+                            "name": "ProfitTooLow",
+                            "amount_out_usdc": "19.77522",
+                            "required_out_usdc": "20.01",
+                        }
+                    },
+                },
+            )
+
+            payload = service.generate(refresh_control=False)
+
+        self.assertEqual(payload["overall_status"], "BLOCKED_ATOMIC_ROUTE_SIMULATION")
+        self.assertEqual(payload["execution_stage"], "ATOMIC_ARBITRAGE_ETH_CALL")
+        self.assertIn("ProfitTooLow", payload["next_unblock_step"])
+
     def test_loop_is_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             service = LiveExecutionEngineService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")

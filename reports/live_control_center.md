@@ -1,9 +1,9 @@
 # Live Control Center
 
-Generated: `2026-07-01T05:58:08Z`
-- Overall status: `BLOCKED_LIVE_READINESS`
-- Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
-- Next command: `python -m app.execution.live_readiness_checklist_service`
+Generated: `2026-07-01T06:24:52Z`
+- Overall status: `BLOCKED_WALLET_PREFLIGHT`
+- Next action: `Run wallet preflight in safe mode until it is WALLET_PREP_READY.`
+- Next command: `python -m app.execution.wallet_preflight_service`
 - Continuous monitor: `python -m app.execution.live_control_center_service --loop --interval 30`
 - Continuous live command: `python -m app.execution.live_control_center_service --live-loop --interval 30`
 - Continuous live status: `NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR`
@@ -19,10 +19,10 @@ Generated: `2026-07-01T05:58:08Z`
   "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
-  "smoke_usd": "5",
+  "smoke_usd": "20",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48048070
+  "latest_block": 48048872
 }
 ```
 
@@ -41,7 +41,7 @@ Generated: `2026-07-01T05:58:08Z`
     "ETH": "0.024121785224852599",
     "USDC": "429.998478",
     "WETH": "0.012568442636912582",
-    "block_number": "48048070",
+    "block_number": "48048872",
     "status": "OK"
   },
   "latest_swap": {
@@ -62,14 +62,14 @@ Generated: `2026-07-01T05:58:08Z`
 
 ```json
 {
-  "wallet_preflight": "WALLET_PREP_READY",
-  "wallet_preflight_allowed": true,
+  "wallet_preflight": "WALLET_PREP_ACTION",
+  "wallet_preflight_allowed": false,
   "live_readiness": "LIVE_REVIEW_NOT_READY",
   "live_review_ready": false,
   "transaction_simulation": "TX_SIMULATION_ACTION",
   "transaction_simulation_passed": false,
-  "tiny_live_pilot": "LIVE_PILOT_READY",
-  "tiny_live_blocked_checks": 0,
+  "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
+  "tiny_live_blocked_checks": 1,
   "provider_monitor": "OK",
   "report_audit_blocking_findings": 0,
   "live_safety": "LIVE_BLOCKED",
@@ -81,7 +81,7 @@ Generated: `2026-07-01T05:58:08Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
-| live_readiness | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
+| tiny_live_pilot | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
 
 ## Notes
 

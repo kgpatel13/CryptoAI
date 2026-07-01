@@ -149,6 +149,32 @@ class AtomicArbitrageExecutionServiceTests(unittest.TestCase):
         self.assertEqual(decoded["required_out_usdc"], "20.01")
         self.assertEqual(decoded["shortfall_usdc"], "0.174172")
 
+    def test_profit_reconciliation_compares_estimate_to_atomic_result(self) -> None:
+        service = AtomicArbitrageExecutionService()
+        diagnostics = {
+            "selected_candidate": {
+                "gross_edge_pct": "0.6981",
+                "reported_net_edge_pct": "0.3981",
+                "stress_net_edge_pct": "0.3268",
+                "requested_notional_usd": "500.0000",
+            }
+        }
+        route = {
+            "amount_in_units": "19000000",
+            "eth_call_decoded_error": {
+                "name": "ProfitTooLow",
+                "amount_out_usdc": "18.820366",
+                "required_out_usdc": "19.0095",
+            },
+        }
+
+        result = service._profit_reconciliation(diagnostics=diagnostics, route=route)
+
+        self.assertEqual(result["status"], "LOSS_AFTER_ATOMIC_SIMULATION")
+        self.assertEqual(result["amount_in_usdc"], "19")
+        self.assertEqual(result["simulated_atomic_net_pct"], "-0.9454")
+        self.assertIn("Executor profit guard is working", " ".join(result["findings"]))
+
     @staticmethod
     def _write_base_reports(reports: Path) -> None:
         (reports / "wallet_preflight.json").write_text(json.dumps({"wallet_preflight_allowed": True}), encoding="utf-8")

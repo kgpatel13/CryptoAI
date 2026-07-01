@@ -1,6 +1,6 @@
 {
-  "action_count": 1,
-  "blocked_check_count": 0,
+  "action_count": 2,
+  "blocked_check_count": 2,
   "check_count": 22,
   "checks": [
     {
@@ -76,10 +76,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight is ready.",
+      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
       "name": "wallet_preflight_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
@@ -94,16 +94,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Live feature flag is off.",
+      "detail": "Live feature flag must remain off until the final reviewed pilot.",
       "name": "live_feature_off",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Live and paper kill switches are on.",
+      "detail": "Live and paper kill switches must remain on during readiness review.",
       "name": "kill_switch_on",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Private key is absent.",
@@ -136,12 +136,12 @@
       "severity": "PASS"
     }
   ],
-  "closed_trade_count": 1136,
-  "generated_at": "2026-07-01T06:04:34Z",
+  "closed_trade_count": 1139,
+  "generated_at": "2026-07-01T06:24:50Z",
   "live_cap_closed_trade_count": 828,
   "live_review_ready": false,
   "live_trading_approval": false,
-  "max_daily_loss_usd": "5",
+  "max_daily_loss_usd": "20",
   "max_live_trade_usd": "20",
   "max_live_wallet_usd": "500",
   "mode": "paper",
@@ -151,9 +151,9 @@
     "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
   ],
   "overall_status": "LIVE_REVIEW_NOT_READY",
-  "paper_cash_usd": "888.5945",
+  "paper_cash_usd": "894.5618",
   "paper_profile": "live_parity_500",
-  "paper_realized_pnl_usd": "388.5945",
-  "pass_count": 21,
+  "paper_realized_pnl_usd": "394.5618",
+  "pass_count": 18,
   "watch_count": 0
 }

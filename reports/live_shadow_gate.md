@@ -1,40 +1,40 @@
 # Live Shadow Gate
 
-Generated: `2026-07-01T06:04:40Z`
+Generated: `2026-07-01T06:24:55Z`
 - Overall status: `SHADOW_ELIGIBLE_EVIDENCE`
 - Recent orders: `200`
-- Shadow eligible: `19`
-- Paper only: `181`
+- Shadow eligible: `18`
+- Paper only: `182`
 
 ## Latest Decisions
 
 | Order | Pair | Paper Status | Shadow Decision | Stress Net % | Reason |
 |---|---|---|---|---:|---|
-| 4b67770e | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 709b3604 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| f911d905 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 3d83ece9 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| d6847f29 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 89246f2c | USDC/WETH | CLOSED | SHADOW_ELIGIBLE | 0.3136 | Paper order passed live-style shadow gates. |
-| 42c8c195 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| aec84dd4 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 3d56fd8a | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| ae7b90e3 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 5a084b4c | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| ec1ec01a | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 4f9c0c87 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| b8ea6656 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| d55ff005 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 8901f436 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 62a50ba4 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| cf8470c5 | USDC/WETH | CLOSED | SHADOW_ELIGIBLE | 0.3136 | Paper order passed live-style shadow gates. |
-| 1d6d9e82 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 0fd04aec | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 5edbebcb | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| f927ddd1 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| f4b27762 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
-| 14b2d7d9 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3136 | Paper status is RISK_REJECTED. |
-| 53cf1d0e | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0779 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0779%. |
+| bd7f9203 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 5a12b400 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 42082fb0 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 3f48793c | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 4dd5bca2 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| c4da2030 | USDC/WETH | CLOSED | SHADOW_ELIGIBLE | 0.3268 | Paper order passed live-style shadow gates. |
+| d110837a | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| d85fefb6 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| c2b93867 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 7769bce9 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 40bec19b | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| e9082f1a | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 417add4d | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 3bbe1019 | USDC/WETH | CLOSED | SHADOW_ELIGIBLE | 0.3268 | Paper order passed live-style shadow gates. |
+| 2ce8aa75 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 0e5ab5b1 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 169bc30d | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 96ca5b70 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| a8cf9827 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 638e74c5 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 5a67798f | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 6ce569a2 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 72b76e20 | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
+| 2113609b | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.3268 | Paper status is RISK_REJECTED. |
+| 61463e9d | WETH/USDC | SKIPPED | PAPER_ONLY | -0.0943 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.0943%. |
 
 ## Notes
 
