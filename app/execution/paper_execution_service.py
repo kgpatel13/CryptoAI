@@ -156,6 +156,42 @@ class PaperExecutionService:
                     continue
                 requested_notional = portfolio_decision.notional_usd
 
+            context = self.arbitrage_engine.latest_context(pair)
+            signal_fingerprint = self._arbitrage_signal_fingerprint(chain=chain, context=context)
+            signal_timestamp = getattr(context, "timestamp", None) if context is not None else None
+            if self.portfolio_risk is not None and hasattr(self.portfolio_risk, "duplicate_arbitrage_signal_reason"):
+                duplicate_reason = self.portfolio_risk.duplicate_arbitrage_signal_reason(
+                    chain=chain,
+                    pair=pair,
+                    signal_fingerprint=signal_fingerprint,
+                    now=timestamp,
+                )
+                if duplicate_reason:
+                    orders.append(
+                        PaperOrder(
+                            order_id=str(uuid4())[:8],
+                            timestamp=timestamp,
+                            strategy_name=strategy_name,
+                            chain=chain,
+                            pair=pair,
+                            side=PaperOrderSide.BUY,
+                            notional_usd=Decimal("0"),
+                            estimated_edge_pct=expected_edge,
+                            simulated_fill_price_usd=None,
+                            simulated_quantity=None,
+                            status=PaperOrderStatus.RISK_REJECTED,
+                            reason=duplicate_reason,
+                            paper_decision="PAPER_SKIP",
+                            live_shadow_decision=LiveShadowGateService.NOT_EVALUATED,
+                            live_shadow_reason="Duplicate arbitrage signal rejected before live-shadow evaluation.",
+                            live_shadow_status="NOT_EVALUATED",
+                            live_shadow_checked_at=timestamp,
+                            signal_fingerprint=signal_fingerprint,
+                            signal_timestamp=signal_timestamp,
+                        )
+                    )
+                    continue
+
             order = self.arbitrage_engine.execute(
                 timestamp=timestamp,
                 strategy_name=strategy_name,
@@ -164,6 +200,7 @@ class PaperExecutionService:
                 requested_notional_usd=requested_notional,
                 expected_edge_pct=expected_edge,
             )
+            order = replace(order, signal_fingerprint=signal_fingerprint, signal_timestamp=signal_timestamp)
             order = self._apply_live_shadow_gate(order)
             order = self._enforce_live_shadow_if_required(
                 order,
@@ -192,6 +229,8 @@ class PaperExecutionService:
                     slippage_bps=order.slippage_bps,
                     latency_ms=order.latency_ms,
                     execution_quality=order.execution_quality,
+                    signal_fingerprint=signal_fingerprint,
+                    signal_timestamp=signal_timestamp,
                 )
 
         filled_statuses = {PaperOrderStatus.CLOSED}
@@ -285,6 +324,22 @@ class PaperExecutionService:
             live_shadow_checked_at=str(verdict.get("checked_at") or self._utc_now()),
             live_shadow_blockers=list(verdict.get("live_shadow_blockers") or []),
         )
+
+    @staticmethod
+    def _arbitrage_signal_fingerprint(*, chain: str, context) -> str | None:
+        if context is None:
+            return None
+        parts = [
+            str(chain).lower(),
+            str(getattr(context, "pair", "")),
+            str(getattr(context, "buy_source", "")),
+            str(getattr(context, "sell_source", "")),
+            str(getattr(context, "buy_price", "")),
+            str(getattr(context, "sell_price", "")),
+            str(getattr(context, "gross_edge_pct", "")),
+            str(getattr(context, "net_edge_pct", "")),
+        ]
+        return "|".join(parts)
 
     @staticmethod
     def _require_live_shadow_eligible() -> bool:

@@ -52,7 +52,20 @@ class PaperSettingsServiceTests(unittest.TestCase):
         messages = [row["message"] for row in payload["findings"]]
         self.assertEqual(payload["status"], "INVALID")
         self.assertIn("Production cost buffer cannot be below 0.30%.", messages)
-        self.assertIn("Paper BUY threshold cannot be below 0.30%.", messages)
+        self.assertIn("Paper BUY threshold cannot be below 0.30% for this profile.", messages)
+
+    def test_allows_025_threshold_only_when_live_shadow_gate_is_required(self) -> None:
+        service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
+        settings = service.defaults()
+        settings["opportunity"]["paper_buy_threshold_pct"] = "0.25"
+
+        standard_payload = service.validate(settings)
+        self.assertEqual(standard_payload["status"], "INVALID")
+
+        settings["evidence_gates"]["require_live_shadow_eligible_for_paper"] = True
+        shadow_payload = service.validate(settings)
+        self.assertEqual(shadow_payload["status"], "VALID")
+        self.assertEqual(shadow_payload["runtime_environment"]["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.25")
 
     def test_warns_when_trade_size_exceeds_ten_percent_of_paper_capital(self) -> None:
         service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
@@ -166,7 +179,7 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_PAPER_SIZING_MODE"], "full_available_cash")
 
-    def test_live_parity_500_profile_exports_tiny_live_like_limits(self) -> None:
+    def test_live_parity_500_profile_exports_full_wallet_probe_limits(self) -> None:
         service = PaperSettingsService(settings_path="missing.json", report_dir="reports")
         settings = service.live_parity_500_profile()
 
@@ -177,12 +190,13 @@ class PaperSettingsServiceTests(unittest.TestCase):
         self.assertEqual(payload["paper_capital_usd"], "500.00")
         self.assertEqual(settings["paper_profile"], "live_parity_500")
         self.assertEqual(env["CRYPTOAI_PAPER_INITIAL_CASH_USD"], "500.00")
-        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "20")
-        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "20")
-        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "20")
-        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "4.00")
+        self.assertEqual(env["CRYPTOAI_MAX_PAPER_NOTIONAL_USD"], "500")
+        self.assertEqual(env["CRYPTOAI_DEFAULT_PAPER_NOTIONAL_USD"], "500")
+        self.assertEqual(env["CRYPTOAI_MIN_PAPER_NOTIONAL_USD"], "500")
+        self.assertEqual(env["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"], "100.00")
         self.assertEqual(env["CRYPTOAI_MAX_DAILY_LOSS_USD"], "5")
-        self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.30")
+        self.assertEqual(env["CRYPTOAI_ARBITRAGE_SIGNAL_FINGERPRINT_WINDOW_SECONDS"], "60")
+        self.assertEqual(env["CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT"], "0.25")
         self.assertEqual(env["CRYPTOAI_PAPER_REQUIRE_LIVE_SHADOW_ELIGIBLE"], "true")
         self.assertTrue(settings["evidence_gates"]["require_live_shadow_eligible_for_paper"])
         self.assertEqual(settings["evidence_gates"]["min_execution_cost_confidence"], "HIGH")

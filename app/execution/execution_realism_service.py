@@ -36,6 +36,7 @@ class ExecutionRealismService:
         self.report_dir.mkdir(parents=True, exist_ok=True)
         self.opportunity_file = self.data_dir / "opportunity_decisions.jsonl"
         self.quote_file = self.data_dir / "quote_diagnostics.jsonl"
+        self.quote_snapshot_file = self.data_dir / "quote_snapshot.json"
         self.portfolio_file = self.data_dir / "paper_portfolio_state.json"
         self.settings_report = self.report_dir / "paper_trading_settings.json"
         self.pool_depth_report = self.report_dir / "pool_depth_ladder.json"
@@ -45,6 +46,8 @@ class ExecutionRealismService:
     def generate(self) -> dict[str, Any]:
         opportunities = self._read_jsonl(self.opportunity_file)
         quote_rows = self._read_jsonl(self.quote_file)
+        if not quote_rows:
+            quote_rows = self._quote_rows_from_snapshot()
         portfolio = self._read_json(self.portfolio_file)
         settings = self._read_json(self.settings_report)
         pool_depth = self._read_json(self.pool_depth_report)
@@ -183,6 +186,41 @@ class ExecutionRealismService:
             "healthy_pairs": sorted({str(row.get("pair")) for row in ok if row.get("pair")}),
             "quotes": latest_rows,
         }
+
+    def _quote_rows_from_snapshot(self) -> list[dict[str, Any]]:
+        snapshot = self._read_json(self.quote_snapshot_file)
+        quotes = snapshot.get("quotes", []) if isinstance(snapshot.get("quotes"), list) else []
+        if not quotes:
+            return []
+        timestamp = self._snapshot_timestamp(snapshot.get("saved_at"))
+        rows: list[dict[str, Any]] = []
+        for quote in quotes:
+            if not isinstance(quote, dict):
+                continue
+            token_in = str(quote.get("token_in", "-"))
+            token_out = str(quote.get("token_out", "-"))
+            price = self._decimal(quote.get("price"))
+            amount_out = self._decimal(quote.get("amount_out"))
+            error = str(quote.get("error") or "")
+            status = "OK" if not error and price is not None and price > 0 and amount_out is not None and amount_out > 0 else "ERROR"
+            rows.append(
+                {
+                    "timestamp": timestamp,
+                    "chain": str(quote.get("chain", "base")),
+                    "dex": str(quote.get("dex", "-")),
+                    "pair": f"{token_in}/{token_out}",
+                    "token_in": token_in,
+                    "token_out": token_out,
+                    "amount_in": str(quote.get("amount_in", "0")),
+                    "amount_out": str(quote.get("amount_out")) if quote.get("amount_out") is not None else None,
+                    "price": str(quote.get("price")) if quote.get("price") is not None else None,
+                    "latency_ms": None,
+                    "status": status,
+                    "error": error,
+                    "source": "quote_snapshot",
+                }
+            )
+        return rows
 
     def _route_quotes(self, quote_evidence: dict[str, Any], *, chain: str, pair: str, buy_source: str, sell_source: str) -> list[dict[str, Any]]:
         sources = {buy_source, sell_source}
@@ -353,6 +391,13 @@ class ExecutionRealismService:
             return payload if isinstance(payload, dict) else {}
         except Exception:
             return {}
+
+    @staticmethod
+    def _snapshot_timestamp(value: Any) -> str:
+        try:
+            return datetime.fromtimestamp(float(value), UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+        except Exception:
+            return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
 
     @staticmethod
     def _decimal(value) -> Decimal | None:

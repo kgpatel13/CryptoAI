@@ -1,18 +1,18 @@
 # Live Readiness Checklist
 
-Generated: `2026-06-30T23:29:53Z`
+Generated: `2026-07-01T01:29:59Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
-- Closed paper trades: `942`
-- Paper cash USD: `$539.0745`
-- Paper realized PnL USD: `$39.0745`
+- Closed paper trades: `997`
+- Paper cash USD: `$638.6686`
+- Paper realized PnL USD: `$138.6686`
 - Max live wallet USD: `$0`
 - Max live trade USD: `$0`
-- Max daily loss USD: `$5`
+- Max daily loss USD: `$0`
 - Blocked checks: `0`
-- Action checks: `8`
+- Action checks: `5`
 - Watch checks: `0`
 
 ## Checks
@@ -20,14 +20,14 @@ Generated: `2026-06-30T23:29:53Z`
 | Check | Status | Detail |
 |---|---|---|
 | stable_paper_trading | PASS | Closed paper trade sample meets the configured minimum. |
-| paper_shadow_review_ready | ACTION | Paper Run Review must reach REVIEW_READY before live-pilot review. |
+| paper_shadow_review_ready | PASS | Paper Run Review is ready for shadow review. |
 | paper_pnl_reconciled | PASS | Paper report and portfolio analytics PnL are reconciled. |
 | no_open_positions | PASS | No open paper positions. |
 | execution_engine_atomic | PASS | Recent paper fills are atomic arbitrage round trips. |
 | risk_engine_validated | PASS | Risk engine evidence is present and losing-trade count is clean. |
 | provider_health_ok | PASS | Provider Monitor is OK. |
-| execution_cost_confidence | ACTION | Execution-cost evidence confidence must be HIGH. |
-| execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
+| execution_cost_confidence | PASS | Execution-cost evidence confidence is HIGH. |
+| execution_realism_shadow_ready | PASS | Execution realism has shadow-ready evidence and no live approvals. |
 | report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |

@@ -122,6 +122,7 @@ def render_mission_control() -> None:
     pool_depth_report = REPORT_DIR / "pool_depth_ladder.json"
     execution_realism_report = REPORT_DIR / "execution_realism.json"
     paper_run_review_report = REPORT_DIR / "paper_run_review.json"
+    paper_settings_report = REPORT_DIR / "paper_trading_settings.json"
 
     paper = {}
     research = {}
@@ -135,6 +136,7 @@ def render_mission_control() -> None:
     pool_depth = {}
     execution_realism = {}
     paper_run_review = {}
+    paper_settings = {}
     for target, name in [(paper_report, "paper"), (research_report, "research"), (strategy_report, "strategy")]:
         if target.exists():
             try:
@@ -194,6 +196,11 @@ def render_mission_control() -> None:
             paper_run_review = json.loads(paper_run_review_report.read_text(encoding="utf-8", errors="replace"))
         except Exception:
             paper_run_review = {}
+    if paper_settings_report.exists():
+        try:
+            paper_settings = json.loads(paper_settings_report.read_text(encoding="utf-8", errors="replace")).get("settings", {})
+        except Exception:
+            paper_settings = {}
 
     if strategy_intelligence_report.exists():
         try:
@@ -298,7 +305,7 @@ def render_mission_control() -> None:
     d1.metric("Last Scan", format_eastern_datetime(best_opp.get("timestamp", latest_order.get("timestamp", "-"))))
     d2.metric("Healthy Quotes", healthy_quotes if quote_rows else "-")
     d3.metric("Best Net Edge %", best_opp.get("estimated_net_edge_pct", "-"))
-    d4.metric("Threshold %", "0.30")
+    d4.metric("Threshold %", paper_settings.get("opportunity", {}).get("paper_buy_threshold_pct", "0.30"))
     d5, d6, d7, d8 = st.columns(4)
     d5.metric("Decision", best_opp.get("decision", latest_order.get("status", "-")))
     d6.metric("Order Created", "YES" if latest_order.get("status") == "CLOSED" else "NO")

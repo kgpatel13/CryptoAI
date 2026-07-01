@@ -45,6 +45,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
         "max_open_positions": 1,
         "duplicate_position_block": True,
         "cooldown_seconds": 900,
+        "arbitrage_signal_fingerprint_window_seconds": 0,
         "max_daily_loss_usd": "25",
         "kill_switch_enabled": True,
     },
@@ -58,7 +59,7 @@ DEFAULT_PAPER_SETTINGS: dict[str, Any] = {
     "notes": [
         "Paper settings are launch controls for continuous simulation only.",
         "Live trading remains disabled until live-readiness gates pass.",
-        "The 0.20% buffer is research-only; production and paper BUY gates remain at 0.30%.",
+        "The 0.20% buffer is research-only; production buffer remains at 0.30%.",
         "One ETH is treated as a paper capital profile and future live ceiling, not an all-in per-trade size.",
     ],
 }
@@ -178,7 +179,13 @@ class PaperSettingsService:
         if research_buffer is not None and production_buffer is not None:
             self._require(research_buffer <= production_buffer, "opportunity.research_candidate_buffer_pct", "Research buffer must not exceed production buffer.", findings)
         if buy_threshold is not None:
-            self._require(buy_threshold >= Decimal("0.30"), "opportunity.paper_buy_threshold_pct", "Paper BUY threshold cannot be below 0.30%.", findings)
+            min_buy_threshold = Decimal("0.25") if bool(payload["evidence_gates"].get("require_live_shadow_eligible_for_paper", False)) else Decimal("0.30")
+            self._require(
+                buy_threshold >= min_buy_threshold,
+                "opportunity.paper_buy_threshold_pct",
+                f"Paper BUY threshold cannot be below {min_buy_threshold}% for this profile.",
+                findings,
+            )
         if watch_threshold is not None:
             self._require(Decimal("0") <= watch_threshold <= Decimal("0.30"), "opportunity.watch_threshold_pct", "Watch threshold must stay between 0 and 0.30%.", findings)
         if quote_ok is not None:
@@ -188,6 +195,7 @@ class PaperSettingsService:
         self._range_int(risk.get("max_open_positions"), 0, 100000, "risk.max_open_positions", findings)
         self._range_int(risk.get("cooldown_seconds"), 0, 86400, "risk.cooldown_seconds", findings)
         max_daily_loss = self._decimal(risk.get("max_daily_loss_usd"), "risk.max_daily_loss_usd", findings)
+        self._range_int(risk.get("arbitrage_signal_fingerprint_window_seconds", 0), 0, 86400, "risk.arbitrage_signal_fingerprint_window_seconds", findings)
         if max_daily_loss is not None:
             self._require(max_daily_loss >= Decimal("0"), "risk.max_daily_loss_usd", "Max daily loss must be 0 or greater.", findings)
         self._require(risk.get("kill_switch_enabled") is True, "risk.kill_switch_enabled", "Kill switch must stay enabled.", findings)
@@ -252,6 +260,7 @@ class PaperSettingsService:
             "CRYPTOAI_MAX_OPEN_POSITIONS": str(int(risk.get("max_open_positions", 1))),
             "CRYPTOAI_TRADE_COOLDOWN_SECONDS": str(cooldown),
             "CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS": str(cooldown),
+            "CRYPTOAI_ARBITRAGE_SIGNAL_FINGERPRINT_WINDOW_SECONDS": str(int(risk.get("arbitrage_signal_fingerprint_window_seconds", 0))),
             "CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION": "true" if bool(risk.get("duplicate_position_block", True)) else "false",
             "CRYPTOAI_MAX_TOKEN_EXPOSURE_PCT": "100.00",
             "CRYPTOAI_MAX_CHAIN_EXPOSURE_PCT": "100.00",
@@ -278,23 +287,28 @@ class PaperSettingsService:
         settings["operations"]["loop_interval_seconds"] = 0
         settings["paper_capital"]["initial_capital_eth"] = "0.5"
         settings["paper_capital"]["eth_reference_usd"] = "1000"
-        settings["paper_capital"]["max_notional_usd_per_trade"] = "20"
-        settings["paper_capital"]["min_notional_usd_per_trade"] = "20"
+        settings["paper_capital"]["max_notional_usd_per_trade"] = "500"
+        settings["paper_capital"]["min_notional_usd_per_trade"] = "500"
         settings["paper_capital"]["max_daily_paper_trades"] = 0
         settings["paper_capital"]["sizing_mode"] = "full_available_cash"
         settings["risk"]["max_open_positions"] = 1
         settings["risk"]["duplicate_position_block"] = True
         settings["risk"]["cooldown_seconds"] = 0
+        settings["risk"]["arbitrage_signal_fingerprint_window_seconds"] = 60
         settings["risk"]["max_daily_loss_usd"] = "5"
         settings["risk"]["kill_switch_enabled"] = True
+        settings["opportunity"]["paper_buy_threshold_pct"] = "0.25"
         settings["evidence_gates"]["require_report_audit_clean"] = True
         settings["evidence_gates"]["require_provider_not_critical"] = True
         settings["evidence_gates"]["require_live_shadow_eligible_for_paper"] = True
         settings["evidence_gates"]["min_execution_cost_confidence"] = "HIGH"
         settings["notes"] = [
             *settings.get("notes", []),
-            "Live parity 500 profile mirrors the intended tiny-live pilot: $500 wallet ceiling, $20 min/max trade, $5 daily loss cap, Base ETH routes only.",
+            "Live parity 500 profile uses a paper-only $500 notional probe against a $500 wallet ceiling; live trading remains disabled.",
             "Paper fills require live-shadow eligibility in this profile, so paper profit means more than paper-only edge.",
+            "Paper BUY threshold is temporarily set to 0.25% for edge-probe testing only; live-shadow gates still block non-executable fills.",
+            "$500 paper notional is an experiment to measure gas percentage, price impact, and stress net edge at full paper-wallet size.",
+            "A 60-second arbitrage signal fingerprint guard blocks repeated identical route/price snapshots while allowing continuous scanning.",
             "This profile is still paper-only and does not approve live trading.",
         ]
         return settings
@@ -370,6 +384,7 @@ class PaperSettingsService:
             f"- Max open positions: `{settings['risk']['max_open_positions']}`",
             f"- Duplicate position block: `{settings['risk']['duplicate_position_block']}`",
             f"- Cooldown seconds: `{settings['risk']['cooldown_seconds']}`",
+            f"- Arbitrage signal fingerprint window seconds: `{settings['risk'].get('arbitrage_signal_fingerprint_window_seconds', 0)}`",
             f"- Max daily loss USD: `{settings['risk']['max_daily_loss_usd']}`",
             f"- Production buffer %: `{settings['opportunity']['production_cost_buffer_pct']}`",
             f"- Research candidate buffer %: `{settings['opportunity']['research_candidate_buffer_pct']}`",

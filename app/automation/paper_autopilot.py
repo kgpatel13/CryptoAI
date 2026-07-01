@@ -86,6 +86,11 @@ except Exception:
     LiveShadowGateService = None
 
 try:
+    from app.diagnostics.quote_diagnostics import QuoteDiagnosticsService
+except Exception:
+    QuoteDiagnosticsService = None
+
+try:
     from app.execution.live_safety_report import LiveSafetyReportService
 except Exception:
     LiveSafetyReportService = None
@@ -334,6 +339,12 @@ class PaperAutopilot:
         if ExecutionCostEvidenceService is not None:
             try:
                 ExecutionCostEvidenceService().generate()
+            except Exception:
+                pass
+
+        if QuoteDiagnosticsService is not None:
+            try:
+                QuoteDiagnosticsService().run()
             except Exception:
                 pass
 

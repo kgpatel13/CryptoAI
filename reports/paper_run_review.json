@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-06-30T23:30:11Z",
+  "generated_at": "2026-07-01T01:29:36Z",
   "mode": "paper",
-  "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
-  "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
+  "overall_status": "SHADOW_REVIEW_CANDIDATE",
+  "recommendation": "Review sustained paper evidence before any live-trading design decision.",
   "live_decision": "BLOCKED",
-  "shadow_decision": "BLOCKED",
+  "shadow_decision": "REVIEW_READY",
   "paper_profile": "live_parity_500",
   "initial_cash_usd": "500.0000",
-  "cash_usd": "539.0745",
-  "realized_pnl_usd": "39.0745",
-  "return_pct": "7.8149",
-  "closed_trade_count": 942,
+  "cash_usd": "638.6686",
+  "realized_pnl_usd": "138.6686",
+  "return_pct": "27.7337",
+  "closed_trade_count": 997,
   "losing_trade_count": 0,
   "open_position_count": 0,
   "first_trade_at": "2026-06-30T17:48:23Z",
-  "last_trade_at": "2026-06-30T23:05:16Z",
+  "last_trade_at": "2026-07-01T01:29:02Z",
   "provider_status": "OK",
   "pool_depth_status": "DEPTH_EVIDENCE_READY",
   "pool_depth_ready_route_count": 2,
-  "execution_realism_status": "NOT_SHADOW_READY",
-  "execution_realism_confidence": "NONE",
-  "shadow_ready_count": 0,
-  "live_shadow_gate_status": "NO_SHADOW_ELIGIBLE_TRADES",
-  "live_shadow_eligible_count": 0,
-  "paper_only_count": 200,
+  "execution_realism_status": "SHADOW_REVIEW_READY",
+  "execution_realism_confidence": "MEDIUM",
+  "shadow_ready_count": 1,
+  "live_shadow_gate_status": "SHADOW_ELIGIBLE_EVIDENCE",
+  "live_shadow_eligible_count": 35,
+  "paper_only_count": 165,
   "live_ready_count": 0,
-  "report_audit_findings": 25,
+  "report_audit_findings": 26,
   "report_audit_blocking_findings": 0,
   "report_audit_operational_findings": 0,
   "report_audit_research_findings": 24,
@@ -57,40 +57,28 @@
     },
     {
       "name": "execution_shadow_ready",
-      "status": "BLOCK",
-      "message": "shadow_ready=0; status=NOT_SHADOW_READY"
+      "status": "PASS",
+      "message": "shadow_ready=1; status=SHADOW_REVIEW_READY"
     },
     {
       "name": "live_shadow_eligible",
-      "status": "BLOCK",
-      "message": "shadow_eligible=0; status=NO_SHADOW_ELIGIBLE_TRADES"
+      "status": "PASS",
+      "message": "shadow_eligible=35; status=SHADOW_ELIGIBLE_EVIDENCE"
     },
     {
       "name": "report_audit_clean",
       "status": "PASS",
-      "message": "blocking_findings=0; total_findings=25"
+      "message": "blocking_findings=0; total_findings=26"
     }
   ],
   "findings": [
     {
       "severity": "INFO",
-      "message": "Paper run is profitable so far: $39.0745 across 942 closed trade(s)."
-    },
-    {
-      "severity": "ACTION",
-      "message": "Execution realism has zero shadow-ready opportunities; live trading remains blocked."
-    },
-    {
-      "severity": "ACTION",
-      "message": "Live Shadow Gate has zero shadow-eligible paper trades; current paper PnL is paper-only evidence."
+      "message": "Paper run is profitable so far: $138.6686 across 997 closed trade(s)."
     },
     {
       "severity": "INFO",
       "message": "Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness."
-    },
-    {
-      "severity": "SUMMARY",
-      "message": "Blocked gates: execution_shadow_ready, live_shadow_eligible."
     }
   ],
   "notes": [

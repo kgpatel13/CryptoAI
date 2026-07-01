@@ -1,14 +1,14 @@
 # Transaction Simulation Report
 
-Generated: `2026-06-30T23:30:10Z`
+Generated: `2026-07-01T01:29:36Z`
 - Overall status: `TX_SIMULATION_ACTION`
 - Transaction simulation passed: `False`
 - Live trading approval: `False`
-- Candidate pair: `-`
-- Buy DEX: `-`
-- Sell DEX: `-`
-- Notional USD: `$-`
-- Calldata status: `NOT_BUILT`
+- Candidate pair: `WETH/USDC`
+- Buy DEX: `Uniswap V2`
+- Sell DEX: `Uniswap V3`
+- Notional USD: `$500.0000`
+- Calldata status: `BLOCKED`
 - eth_call status: `NOT_RUN`
 - Blocked checks: `0`
 - Action checks: `6`
@@ -22,10 +22,10 @@ Generated: `2026-06-30T23:30:10Z`
 | private_key_absent | PASS | Private key is absent. |
 | wallet_preflight_ready | ACTION | Wallet Preflight must be ready before transaction simulation review. |
 | live_readiness_review_ready | ACTION | Live Readiness Checklist must be review-ready before transaction simulation can pass. |
-| shadow_candidate_available | ACTION | No BUY plus SHADOW_READY opportunity is available for simulation. |
+| shadow_candidate_available | PASS | A BUY plus SHADOW_READY opportunity is available. |
 | candidate_scope_allowed | PASS | Simulation candidate is Base USDC/WETH scope. |
 | routers_configured | PASS | Both route routers are configured. |
-| approved_live_dexes | PASS | Simulation candidate DEXes are within the tiny-live allowlist. |
+| approved_live_dexes | ACTION | Simulation candidate uses a DEX outside the tiny-live allowlist. |
 | live_trade_cap_configured | ACTION | Configure a tiny live trade cap before transaction simulation review. |
 | exact_calldata_built | ACTION | Exact router calldata was not built for the selected candidate. |
 | eth_call_simulation_passed | ACTION | Base eth_call simulation has not passed yet. |
@@ -34,10 +34,47 @@ Generated: `2026-06-30T23:30:10Z`
 
 ```json
 {
-  "status": "NO_CANDIDATE",
-  "calldata_status": "NOT_BUILT",
+  "status": "INTENT_READY",
+  "chain": "base",
+  "chain_id": 8453,
+  "wallet_address": null,
+  "pair": "WETH/USDC",
+  "buy_dex": "Uniswap V2",
+  "sell_dex": "Uniswap V3",
+  "notional_usd": "500.0000",
+  "max_slippage_bps": "50",
+  "deadline_seconds": "120",
+  "tokens": [
+    {
+      "symbol": "WETH",
+      "address": "0x4200000000000000000000000000000000000006",
+      "decimals": 18,
+      "configured": true
+    },
+    {
+      "symbol": "USDC",
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "decimals": 6,
+      "configured": true
+    }
+  ],
+  "routers": [
+    {
+      "dex": "Uniswap V2",
+      "router_address": "0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24",
+      "dex_type": "v2",
+      "configured": true
+    },
+    {
+      "dex": "Uniswap V3",
+      "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+      "dex_type": "v3",
+      "configured": true
+    }
+  ],
+  "calldata_status": "BLOCKED",
   "eth_call_status": "NOT_RUN",
-  "reason": "No latest BUY plus SHADOW_READY opportunity is available."
+  "reason": "A valid isolated wallet address is required."
 }
 ```
 

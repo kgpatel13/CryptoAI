@@ -13,6 +13,8 @@ from app.execution.models import PaperOrder, PaperOrderSide, PaperOrderStatus
 
 @dataclass(frozen=True)
 class ArbitrageOpportunityContext:
+    opportunity_id: str | None
+    timestamp: str | None
     pair: str
     buy_source: str
     sell_source: str
@@ -161,6 +163,8 @@ class ArbitrageExecutionEngine:
             if str(row.get("decision", "")).upper() != "BUY":
                 continue
             return ArbitrageOpportunityContext(
+                opportunity_id=str(row.get("opportunity_id")) if row.get("opportunity_id") is not None else None,
+                timestamp=str(row.get("timestamp")) if row.get("timestamp") is not None else None,
                 pair=pair,
                 buy_source=str(row.get("buy_source", "-")),
                 sell_source=str(row.get("sell_source", "-")),
@@ -176,6 +180,8 @@ class ArbitrageExecutionEngine:
     @staticmethod
     def _fallback_context(pair: str, expected_edge_pct: Decimal | None) -> ArbitrageOpportunityContext:
         return ArbitrageOpportunityContext(
+            opportunity_id=None,
+            timestamp=None,
             pair=pair,
             buy_source="-",
             sell_source="-",

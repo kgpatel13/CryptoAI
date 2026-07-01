@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-06-30T23:30:07Z",
+  "generated_at": "2026-07-01T01:29:34Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
   "buffer_status": "CONSERVATIVE",
-  "confidence": "MEDIUM",
+  "confidence": "HIGH",
   "observed_total_cost_lower_bound_pct": "0.1300",
   "buffer_surplus_vs_lower_bound_pct": "0.1700",
   "configured_cost_model": {
@@ -14,8 +14,8 @@
     "source": "latest_opportunity_decision"
   },
   "paper_execution_evidence": {
-    "sample_count": 942,
-    "total_filled_notional_usd": "10725.0000",
+    "sample_count": 997,
+    "total_filled_notional_usd": "38225.0000",
     "avg_slippage_bps": "5.0000",
     "p95_slippage_bps": "5.0000",
     "max_slippage_bps": "5.0000",
@@ -26,23 +26,27 @@
     "p95_latency_ms": "250.0000",
     "max_latency_ms": "250.0000",
     "execution_quality_counts": {
-      "GOOD": 942
+      "GOOD": 997
     }
   },
   "quote_evidence": {
-    "sample_count": 0,
-    "ok_count": 0,
+    "sample_count": 200,
+    "ok_count": 200,
     "error_count": 0,
     "invalid_count": 0,
-    "ok_rate_pct": "0.0000",
-    "healthy_dex_count": 0,
-    "healthy_dexes": [],
-    "avg_ok_latency_ms": null,
-    "p95_ok_latency_ms": null
+    "ok_rate_pct": "100.0000",
+    "healthy_dex_count": 3,
+    "healthy_dexes": [
+      "Aerodrome",
+      "Uniswap V2",
+      "Uniswap V3"
+    ],
+    "avg_ok_latency_ms": "0.0057",
+    "p95_ok_latency_ms": "0.0600"
   },
   "provider_evidence": {
     "provider_count": 5,
-    "avg_provider_latency_ms": "376.8720",
+    "avg_provider_latency_ms": "381.9880",
     "avg_provider_score": "99.6000",
     "providers": [
       {
@@ -50,7 +54,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 325.09,
+        "avg_latency_ms": 334.68,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -59,7 +63,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 328.53,
+        "avg_latency_ms": 331.95,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -68,7 +72,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 783.98,
+        "avg_latency_ms": 793.2,
         "score": 99,
         "consecutive_failures": 0
       },
@@ -86,39 +90,39 @@
         "provider_type": "rpc",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 237.62,
+        "avg_latency_ms": 240.97,
         "score": 99,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 16408,
-    "avg_gross_edge_pct": "0.4854",
-    "p95_gross_edge_pct": "0.7132",
-    "max_gross_edge_pct": "0.7891",
-    "production_trade_count": 4056,
+    "real_signal_count": 20978,
+    "avg_gross_edge_pct": "0.4851",
+    "p95_gross_edge_pct": "0.7198",
+    "max_gross_edge_pct": "0.8447",
+    "production_trade_count": 5242,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 16408,
-    "observed_lower_bound_total_pnl_usd": "58310.1978",
+    "observed_lower_bound_trade_count": 20978,
+    "observed_lower_bound_total_pnl_usd": "74500.0516",
     "replay_notional_usd": "1000"
   },
   "assessment": {
     "buffer_status": "CONSERVATIVE",
-    "confidence": "MEDIUM",
+    "confidence": "HIGH",
     "production_cost_buffer_pct": "0.30",
     "observed_total_cost_lower_bound_pct": "0.1300",
     "buffer_surplus_vs_lower_bound_pct": "0.1700",
-    "paper_sample_count": 942,
-    "quote_ok_rate_pct": "0.0000",
+    "paper_sample_count": 997,
+    "quote_ok_rate_pct": "100.0000",
     "avg_provider_score": "99.6000",
-    "production_trade_count": 4056,
-    "observed_lower_bound_trade_count": 16408
+    "production_trade_count": 5242,
+    "observed_lower_bound_trade_count": 20978
   },
   "findings": [
     {
       "severity": "INFO",
-      "message": "Production buffer assessment is CONSERVATIVE with MEDIUM paper-cost confidence."
+      "message": "Production buffer assessment is CONSERVATIVE with HIGH paper-cost confidence."
     }
   ],
   "notes": [

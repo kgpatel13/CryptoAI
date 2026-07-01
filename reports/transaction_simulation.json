@@ -34,10 +34,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "No BUY plus SHADOW_READY opportunity is available for simulation.",
+      "detail": "A BUY plus SHADOW_READY opportunity is available.",
       "name": "shadow_candidate_available",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Simulation candidate is Base USDC/WETH scope.",
@@ -52,10 +52,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Simulation candidate DEXes are within the tiny-live allowlist.",
+      "detail": "Simulation candidate uses a DEX outside the tiny-live allowlist.",
       "name": "approved_live_dexes",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Configure a tiny live trade cap before transaction simulation review.",
@@ -76,7 +76,7 @@
       "severity": "ACTION"
     }
   ],
-  "generated_at": "2026-06-30T23:30:10Z",
+  "generated_at": "2026-07-01T01:29:36Z",
   "live_trading_approval": false,
   "mode": "paper",
   "notes": [
@@ -86,12 +86,74 @@
   ],
   "overall_status": "TX_SIMULATION_ACTION",
   "pass_count": 6,
-  "selected_candidate": {},
+  "selected_candidate": {
+    "buy_source": "Uniswap V2",
+    "chain": "base",
+    "confidence": "MEDIUM",
+    "configured_cost_buffer_pct": "0.3000",
+    "depth_model": "POOL_DEPTH_LADDER",
+    "estimated_gas_pct": "0.0100",
+    "estimated_gas_usd": "0.0500",
+    "estimated_price_impact_pct": "0.0178",
+    "executable_ratio_pct": "100.0000",
+    "gross_edge_pct": "0.7207",
+    "max_executable_notional_usd": "500.0000",
+    "mev_risk": "MEDIUM",
+    "mev_risk_buffer_pct": "0.0500",
+    "pair": "WETH/USDC",
+    "pool_depth_status": "DEPTH_READY",
+    "realism_status": "SHADOW_READY",
+    "reason": "Opportunity passed current realism screen.",
+    "reported_net_edge_pct": "0.4207",
+    "requested_notional_usd": "500.0000",
+    "sell_source": "Uniswap V3",
+    "source_decision": "BUY",
+    "stress_net_edge_pct": "0.3429",
+    "stress_total_cost_pct": "0.3778",
+    "timestamp": "2026-07-01T01:29:15Z"
+  },
   "simulation_intent": {
-    "calldata_status": "NOT_BUILT",
+    "buy_dex": "Uniswap V2",
+    "calldata_status": "BLOCKED",
+    "chain": "base",
+    "chain_id": 8453,
+    "deadline_seconds": "120",
     "eth_call_status": "NOT_RUN",
-    "reason": "No latest BUY plus SHADOW_READY opportunity is available.",
-    "status": "NO_CANDIDATE"
+    "max_slippage_bps": "50",
+    "notional_usd": "500.0000",
+    "pair": "WETH/USDC",
+    "reason": "A valid isolated wallet address is required.",
+    "routers": [
+      {
+        "configured": true,
+        "dex": "Uniswap V2",
+        "dex_type": "v2",
+        "router_address": "0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24"
+      },
+      {
+        "configured": true,
+        "dex": "Uniswap V3",
+        "dex_type": "v3",
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481"
+      }
+    ],
+    "sell_dex": "Uniswap V3",
+    "status": "INTENT_READY",
+    "tokens": [
+      {
+        "address": "0x4200000000000000000000000000000000000006",
+        "configured": true,
+        "decimals": 18,
+        "symbol": "WETH"
+      },
+      {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "configured": true,
+        "decimals": 6,
+        "symbol": "USDC"
+      }
+    ],
+    "wallet_address": null
   },
   "transaction_simulation_passed": false
 }

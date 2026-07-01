@@ -114,6 +114,31 @@ class PortfolioRiskServiceTests(unittest.TestCase):
         self.assertTrue(decision.approved, decision.reason)
         self.assertEqual(decision.notional_usd, Decimal("500.0000"))
 
+    def test_arbitrage_signal_fingerprint_blocks_repeat_snapshot(self) -> None:
+        os.environ["CRYPTOAI_ARBITRAGE_SIGNAL_FINGERPRINT_WINDOW_SECONDS"] = "60"
+        svc = self.service()
+        svc.record_arbitrage_round_trip(
+            order_id="arb1",
+            timestamp="2026-06-28T00:00:00Z",
+            strategy_name="test",
+            chain="base",
+            pair="USDC/WETH",
+            notional_usd=Decimal("500"),
+            realized_pnl_usd=Decimal("1.25"),
+            signal_fingerprint="base|USDC/WETH|Uniswap V2|Uniswap V3|1|2|0.6|0.3",
+            signal_timestamp="2026-06-28T00:00:00Z",
+        )
+
+        reason = svc.duplicate_arbitrage_signal_reason(
+            chain="base",
+            pair="USDC/WETH",
+            signal_fingerprint="base|USDC/WETH|Uniswap V2|Uniswap V3|1|2|0.6|0.3",
+            now="2026-06-28T00:00:30Z",
+        )
+
+        self.assertIsNotNone(reason)
+        self.assertIn("duplicate arbitrage signal fingerprint", reason.lower())
+
     def test_live_parity_tiny_notional_is_allowed_when_minimum_matches(self) -> None:
         os.environ["CRYPTOAI_PAPER_SIZING_MODE"] = "full_available_cash"
         os.environ["CRYPTOAI_PAPER_RISK_PER_TRADE_PCT"] = "100"

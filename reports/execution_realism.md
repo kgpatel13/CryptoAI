@@ -1,29 +1,27 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-06-30T23:30:08Z`
+Generated: `2026-07-01T01:29:58Z`
 
 ## Summary
 
-- Overall status: `NOT_SHADOW_READY`
-- Confidence: `NONE`
+- Overall status: `SHADOW_REVIEW_READY`
+- Confidence: `MEDIUM`
 - Paper capital USD: `$500.0000`
-- Requested notional USD: `$20.0000`
-- Shadow-ready count: `0`
+- Requested notional USD: `$500.0000`
+- Shadow-ready count: `1`
 - Live-ready count: `0`
 
 ## Latest Opportunity Stress Check
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | WATCH | 0.5019 | 0.2019 | -0.7152 | 20.0000 | NOT_EXECUTABLE | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | WATCH | 0.4672 | 0.1672 | -0.5463 | 20.0000 | NOT_EXECUTABLE | MEDIUM |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | BUY | 0.7207 | 0.4207 | 0.3429 | 500.0000 | SHADOW_READY | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | SKIP | 0.2487 | -0.0513 | -0.1227 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| ACTION | Need at least two healthy DEX quote venues for real arbitrage realism. |
-| INFO | Latest opportunities are not realistic execution candidates after stress checks. |
 | INFO | Pool-depth ladder evidence is available for at least one latest opportunity. |
 
 ## Notes

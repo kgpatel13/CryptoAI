@@ -84,6 +84,41 @@ class ExecutionRealismServiceTests(unittest.TestCase):
             self.assertEqual(payload["opportunities"][0]["confidence"], "NONE")
             self.assertEqual(payload["overall_status"], "NOT_SHADOW_READY")
 
+    def test_quote_snapshot_fallback_proves_route_when_diagnostics_are_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data, reports = self._dirs(tmp)
+            self._write_settings(reports)
+            self._write_portfolio(data)
+            self._write_quote_snapshot(
+                data,
+                [
+                    {"chain": "base", "dex": "Uniswap V2", "token_in": "WETH", "token_out": "USDC", "amount_in": "1", "amount_out": "1000", "price": "1000", "error": None},
+                    {"chain": "base", "dex": "Uniswap V3", "token_in": "WETH", "token_out": "USDC", "amount_in": "1", "amount_out": "1008", "price": "1008", "error": None},
+                ],
+            )
+            self._write_opportunities(
+                data,
+                [
+                    {
+                        "timestamp": "2026-06-30T00:00:01Z",
+                        "chain": "base",
+                        "pair": "WETH/USDC",
+                        "buy_source": "Uniswap V2",
+                        "sell_source": "Uniswap V3",
+                        "gross_spread_pct": "0.80",
+                        "total_cost_buffer_pct": "0.30",
+                        "estimated_net_edge_pct": "0.50",
+                        "decision": "BUY",
+                    }
+                ],
+            )
+
+            payload = ExecutionRealismService(data_dir=data, report_dir=reports).generate()
+
+            self.assertEqual(payload["quote_evidence"]["healthy_dex_count"], 2)
+            self.assertEqual(payload["opportunities"][0]["realism_status"], "SHADOW_ONLY")
+            self.assertNotIn("healthy route DEXes=0", payload["opportunities"][0]["reason"])
+
     def test_pool_depth_ladder_can_promote_buy_to_shadow_ready(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             data, reports = self._dirs(tmp)
@@ -181,6 +216,13 @@ class ExecutionRealismServiceTests(unittest.TestCase):
     def _write_quotes(data: Path, rows: list[dict]) -> None:
         (data / "quote_diagnostics.jsonl").write_text(
             "\n".join(json.dumps(row) for row in rows) + "\n",
+            encoding="utf-8",
+        )
+
+    @staticmethod
+    def _write_quote_snapshot(data: Path, rows: list[dict]) -> None:
+        (data / "quote_snapshot.json").write_text(
+            json.dumps({"saved_at": 1782867545.0, "quotes": rows}),
             encoding="utf-8",
         )
 

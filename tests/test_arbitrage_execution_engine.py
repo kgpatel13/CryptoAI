@@ -82,6 +82,26 @@ class ArbitrageExecutionEngineTests(unittest.TestCase):
             expected_cash = Decimal("10000") + Decimal(orders[0]["realized_pnl_usd"]) + Decimal(orders[1]["realized_pnl_usd"])
             self.assertEqual(Decimal(state["cash_usd"]), expected_cash.quantize(Decimal("0.0000")))
 
+    def test_duplicate_arbitrage_signal_fingerprint_blocks_second_identical_trade(self) -> None:
+        os.environ["CRYPTOAI_ARBITRAGE_SIGNAL_FINGERPRINT_WINDOW_SECONDS"] = "60"
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp) / "data"
+            data.mkdir()
+            self._write_buy_opportunity(data)
+            portfolio = PortfolioRiskService(state_path=data / "paper_portfolio_state.json")
+            service = PaperExecutionService(data_dir=data, portfolio_risk=portfolio)
+            service._load_risk_assessments = lambda: [self._assessment(), self._assessment()]  # type: ignore[method-assign]
+
+            batch = service.run_once()
+            orders = self._read_jsonl(data / "paper_orders.jsonl")
+
+            self.assertEqual(batch.filled_orders, 1)
+            self.assertEqual(orders[0]["status"], "CLOSED")
+            self.assertEqual(orders[1]["status"], "RISK_REJECTED")
+            self.assertEqual(orders[0]["signal_fingerprint"], orders[1]["signal_fingerprint"])
+            self.assertEqual(orders[0]["signal_timestamp"], "2026-06-29T00:00:00Z")
+            self.assertIn("duplicate arbitrage signal fingerprint", orders[1]["reason"].lower())
+
     @staticmethod
     def _assessment() -> SimpleNamespace:
         return SimpleNamespace(

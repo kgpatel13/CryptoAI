@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from decimal import Decimal
@@ -56,7 +57,7 @@ class MultiDexOpportunityEngine:
         self.report_file = self.report_dir / "multi_dex_opportunities.md"
 
         self.cost_buffer_pct = Decimal("0.30")
-        self.buy_threshold_pct = Decimal("0.30")
+        self.buy_threshold_pct = self._env_decimal("CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT", Decimal("0.30"))
         self.watch_threshold_pct = Decimal("0.05")
 
         # Paper-only synthetic edge to validate downstream execution when only
@@ -331,6 +332,13 @@ class MultiDexOpportunityEngine:
             return Decimal(str(value))
         except Exception:
             return None
+
+    @staticmethod
+    def _env_decimal(name: str, default: Decimal) -> Decimal:
+        try:
+            return Decimal(os.getenv(name, str(default)))
+        except Exception:
+            return default
 
     @staticmethod
     def _utc_now() -> str:

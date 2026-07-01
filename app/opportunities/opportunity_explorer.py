@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import asdict
 from datetime import UTC, datetime
 from decimal import Decimal
@@ -31,7 +32,7 @@ class OpportunityExplorerService:
 
         self.gas_buffer_pct = Decimal("0.08")
         self.fee_slippage_buffer_pct = Decimal("0.22")
-        self.min_buy_net_edge_pct = Decimal("0.30")
+        self.min_buy_net_edge_pct = self._env_decimal("CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT", Decimal("0.30"))
         self.watch_net_edge_pct = Decimal("0.05")
 
     def scan(self) -> list[OpportunityDecision]:
@@ -274,6 +275,13 @@ class OpportunityExplorerService:
             return Decimal(str(value))
         except Exception:
             return None
+
+    @staticmethod
+    def _env_decimal(name: str, default: Decimal) -> Decimal:
+        try:
+            return Decimal(os.getenv(name, str(default)))
+        except Exception:
+            return default
 
     def _persist(self, decisions: list[OpportunityDecision]) -> None:
         with self.decision_file.open("a", encoding="utf-8") as fh:

@@ -50,6 +50,7 @@ class PortfolioRiskService:
         self.max_daily_trades = self._env_int("CRYPTOAI_MAX_DAILY_PAPER_TRADES", 8)
         self.cooldown_seconds = self._env_int("CRYPTOAI_TRADE_COOLDOWN_SECONDS", 900)
         self.duplicate_window_seconds = self._env_int("CRYPTOAI_DUPLICATE_SIGNAL_WINDOW_SECONDS", 900)
+        self.arbitrage_signal_fingerprint_window_seconds = self._env_int("CRYPTOAI_ARBITRAGE_SIGNAL_FINGERPRINT_WINDOW_SECONDS", 0)
         self.block_same_pair_open_position = self._env_bool("CRYPTOAI_BLOCK_SAME_PAIR_OPEN_POSITION", True)
         self.max_daily_loss_usd = self._env_decimal("CRYPTOAI_MAX_DAILY_LOSS_USD", "0")
 
@@ -190,6 +191,8 @@ class PortfolioRiskService:
         slippage_bps: Decimal | None = None,
         latency_ms: int | None = None,
         execution_quality: str | None = None,
+        signal_fingerprint: str | None = None,
+        signal_timestamp: str | None = None,
     ) -> dict[str, Any]:
         state = self.load_state()
         self._reset_daily_counters_if_needed(state, timestamp)
@@ -223,6 +226,8 @@ class PortfolioRiskService:
                 "execution_quality": execution_quality,
                 "status": "CLOSED",
                 "reason": "Atomic paper arbitrage round trip.",
+                "signal_fingerprint": signal_fingerprint,
+                "signal_timestamp": signal_timestamp,
             }
         )
         state["arbitrage_trades"] = state["arbitrage_trades"][-1000:]
@@ -234,11 +239,44 @@ class PortfolioRiskService:
                 "timestamp": timestamp,
                 "order_id": order_id,
                 "status": "CLOSED",
+                "signal_fingerprint": signal_fingerprint,
+                "signal_timestamp": signal_timestamp,
             }
         )
         state["signal_history"] = state["signal_history"][-500:]
         self.save_state(state)
         return state
+
+    def duplicate_arbitrage_signal_reason(
+        self,
+        *,
+        chain: str,
+        pair: str,
+        signal_fingerprint: str | None,
+        now: str | None = None,
+    ) -> str | None:
+        if self.arbitrage_signal_fingerprint_window_seconds <= 0 or not signal_fingerprint:
+            return None
+        timestamp = now or self._utc_now()
+        normalized_pair = self._normalize_pair(pair)
+        state = self.load_state()
+        for row in reversed(state.get("signal_history", [])):
+            if str(row.get("side", "")).upper() != "ARBITRAGE":
+                continue
+            if str(row.get("chain", "")).lower() != str(chain).lower():
+                continue
+            if str(row.get("pair", "")) != normalized_pair:
+                continue
+            if str(row.get("signal_fingerprint", "")) != signal_fingerprint:
+                continue
+            age = self._age_seconds(row.get("timestamp"), timestamp)
+            if age <= self.arbitrage_signal_fingerprint_window_seconds:
+                return (
+                    "Portfolio risk rejected: duplicate arbitrage signal fingerprint "
+                    f"for {normalized_pair} within {self.arbitrage_signal_fingerprint_window_seconds}s "
+                    f"window (age {age}s)."
+                )
+        return None
 
     def monitor_positions(self, *, prices: dict[str, Decimal] | None = None, now: str | None = None) -> PositionMonitorResult:
         timestamp = now or self._utc_now()
@@ -309,6 +347,7 @@ class PortfolioRiskService:
                 "max_daily_trades": self.max_daily_trades,
                 "trade_cooldown_seconds": self.cooldown_seconds,
                 "duplicate_signal_window_seconds": self.duplicate_window_seconds,
+                "arbitrage_signal_fingerprint_window_seconds": self.arbitrage_signal_fingerprint_window_seconds,
                 "block_same_pair_open_position": self.block_same_pair_open_position,
                 "max_trade_notional_usd": str(self.max_trade_notional_usd),
                 "risk_per_trade_pct": str(self.risk_per_trade_pct),
