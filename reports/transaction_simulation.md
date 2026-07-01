@@ -1,17 +1,17 @@
 # Transaction Simulation Report
 
-Generated: `2026-07-01T03:57:09Z`
-- Overall status: `TX_SIMULATION_READY`
-- Transaction simulation passed: `True`
+Generated: `2026-07-01T04:12:54Z`
+- Overall status: `TX_SIMULATION_ACTION`
+- Transaction simulation passed: `False`
 - Live trading approval: `False`
 - Candidate pair: `USDC/WETH`
 - Buy DEX: `Uniswap V3`
 - Sell DEX: `None`
 - Notional USD: `$20.0000`
 - Calldata status: `BUILT`
-- eth_call status: `PASS`
+- eth_call status: `REVERT`
 - Blocked checks: `0`
-- Action checks: `0`
+- Action checks: `2`
 
 ## Checks
 
@@ -21,20 +21,20 @@ Generated: `2026-07-01T03:57:09Z`
 | kill_switch_enabled | PASS | Live kill switch is enabled. |
 | private_key_absent | PASS | Private key is absent. |
 | wallet_preflight_ready | PASS | Wallet Preflight is ready. |
-| live_readiness_preconditions_ready | PASS | Live Readiness Checklist has no blocking checks. |
+| live_readiness_preconditions_ready | ACTION | Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass. |
 | shadow_candidate_available | PASS | A simulation route is available. |
 | candidate_scope_allowed | PASS | Simulation candidate is Base USDC/WETH scope. |
 | routers_configured | PASS | Both route routers are configured. |
 | approved_live_dexes | PASS | Simulation candidate DEXes are within the tiny-live allowlist. |
 | live_trade_cap_configured | PASS | Tiny live trade cap is configured. |
 | exact_calldata_built | PASS | Exact router calldata is built. |
-| eth_call_simulation_passed | PASS | Base eth_call simulation passed. |
+| eth_call_simulation_passed | ACTION | Base eth_call simulation has not passed yet. |
 
 ## Intent
 
 ```json
 {
-  "status": "SIMULATION_READY",
+  "status": "SIMULATION_ATTEMPTED",
   "simulation_type": "TINY_LIVE_SMOKE",
   "chain": "base",
   "chain_id": 8453,
@@ -68,7 +68,7 @@ Generated: `2026-07-01T03:57:09Z`
     }
   ],
   "calldata_status": "BUILT",
-  "eth_call_status": "PASS",
+  "eth_call_status": "REVERT",
   "reason": "No approved two-leg arbitrage candidate is available; simulating the configured one-leg tiny live smoke swap.",
   "swap_legs": [
     {
@@ -82,7 +82,7 @@ Generated: `2026-07-01T03:57:09Z`
       "token_out_address": "0x4200000000000000000000000000000000000006",
       "amount_in_units": "20000000",
       "amount_out_min_units": "1",
-      "deadline": 1782878349,
+      "deadline": 1782879293,
       "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
       "calldata_bytes": 228,
       "eth_call": {
@@ -96,20 +96,18 @@ Generated: `2026-07-01T03:57:09Z`
         "sqrt_price_limit_x96": 0
       },
       "eth_call_result": {
-        "status": "PASS",
+        "status": "REVERT",
         "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
         "rpc_url": "https://base-rpc.publicnode.com",
-        "chain_id": 8453,
-        "block_number": 48044441,
-        "latency_ms": 279.9,
-        "result": "000000000000000000000000000000000000000000000000002c8efdbff52c30"
+        "latency_ms": 550.05,
+        "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')"
       }
     }
   ],
   "eth_call_summary": {
     "leg_count": 1,
-    "pass_count": 1,
-    "revert_count": 0,
+    "pass_count": 0,
+    "revert_count": 1,
     "fail_count": 0
   }
 }

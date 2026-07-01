@@ -8,6 +8,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from app.execution.atomic_live_adapter import is_valid_evm_address, reviewed_atomic_adapter_selected
 from app.execution.live_control_center_service import LiveControlCenterService
 
 
@@ -81,6 +82,7 @@ class LiveExecutionEngineService:
             },
             "refresh_errors": refresh_errors,
             "gates": state["gates"],
+            "atomic_executor": state["atomic_executor"],
             "blockers": state["blockers"],
             "missing_components": state["missing_components"],
             "unblock_path": self._unblock_path(),
@@ -152,7 +154,7 @@ class LiveExecutionEngineService:
             "swap_tx_available": pilot_plan.get("swap_tx_available") is True,
             "live_safety_report_present": bool(safety),
             "live_control_center_present": bool(control),
-            "atomic_executor_ready": self._atomic_executor_ready(),
+            "atomic_executor_ready": self._atomic_executor_details()["ready"],
         }
         blockers = self._blockers(
             control=control,
@@ -218,6 +220,7 @@ class LiveExecutionEngineService:
             "next_unblock_step": blockers[0]["detail"] if blockers else ("Manual tiny smoke swap is the next reviewed step." if can_send_smoke_swap else "No blocker detected."),
             "next_allowed_command": next_command,
             "gates": gates,
+            "atomic_executor": self._atomic_executor_details(),
             "blockers": blockers,
             "missing_components": missing_components,
         }
@@ -271,7 +274,7 @@ class LiveExecutionEngineService:
                     "source": "live_execution_engine",
                     "name": "atomic_executor_ready",
                     "severity": "ACTION",
-                    "detail": "Continuous live arbitrage is blocked until an atomic route executor or equivalent single-transaction execution path is implemented and reviewed.",
+                    "detail": "Continuous live arbitrage is blocked until an atomic route executor is deployed, reviewed, selected as the live adapter, and backed by reviewed calldata.",
                 }
             )
         return rows[:50]
@@ -309,9 +312,23 @@ class LiveExecutionEngineService:
 
     @staticmethod
     def _atomic_executor_ready() -> bool:
+        return LiveExecutionEngineService._atomic_executor_details()["ready"]
+
+    @staticmethod
+    def _atomic_executor_details() -> dict[str, Any]:
         enabled = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ENABLED", "").strip().lower() in {"1", "true", "yes", "on"}
+        reviewed = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_REVIEWED", "").strip().lower() in {"1", "true", "yes", "on"}
         address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
-        return enabled and bool(address)
+        address_valid = is_valid_evm_address(address)
+        adapter_selected = reviewed_atomic_adapter_selected()
+        return {
+            "enabled": enabled,
+            "address": address or None,
+            "address_valid": address_valid,
+            "reviewed": reviewed,
+            "adapter_selected": adapter_selected,
+            "ready": enabled and address_valid and reviewed and adapter_selected,
+        }
 
     def _read_json(self, name: str) -> dict[str, Any]:
         path = self.report_dir / name
@@ -345,6 +362,12 @@ class LiveExecutionEngineService:
             "",
             "```json",
             json.dumps(payload["gates"], indent=2),
+            "```",
+            "",
+            "## Atomic Executor",
+            "",
+            "```json",
+            json.dumps(payload["atomic_executor"], indent=2),
             "```",
             "",
             "## Blockers",

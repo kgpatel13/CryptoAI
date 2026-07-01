@@ -918,6 +918,7 @@ def render_reports() -> None:
         ("Live Safety", REPORT_DIR / "live_safety.md"),
         ("Wallet Preflight", REPORT_DIR / "wallet_preflight.md"),
         ("Tiny Live Pilot", REPORT_DIR / "tiny_live_pilot.md"),
+        ("Live Pilot Reconciliation", REPORT_DIR / "live_pilot_reconciliation.md"),
         ("Live Control Center", REPORT_DIR / "live_control_center.md"),
         ("Live Execution Engine", REPORT_DIR / "live_execution_engine.md"),
         ("Live Shadow Gate", REPORT_DIR / "live_shadow_gate.md"),
@@ -1483,11 +1484,13 @@ def render_live_control_center() -> None:
     st.subheader("Live Control Center")
     st.caption("Read-only live pilot status with real Base wallet data. This page never sends transactions.")
 
-    b1, b2 = st.columns(2)
+    b1, b2, b3 = st.columns(3)
     with b1:
         refresh_control = st.button("Refresh Live Control Center")
     with b2:
         refresh_engine = st.button("Refresh Live Execution Engine")
+    with b3:
+        refresh_reconciliation = st.button("Refresh Live Reconciliation")
 
     if refresh_control:
         def task():
@@ -1507,6 +1510,16 @@ def render_live_control_center() -> None:
         result = safe_run("Refreshing live execution engine...", task)
         if result is not None:
             st.success("Live execution engine refreshed.")
+            show_json(result)
+
+    if refresh_reconciliation:
+        def task():
+            LivePilotReconciliationService = import_object("app.execution.live_pilot_reconciliation_service", "LivePilotReconciliationService")
+            return LivePilotReconciliationService().generate()
+
+        result = safe_run("Refreshing live pilot reconciliation...", task)
+        if result is not None:
+            st.success("Live pilot reconciliation refreshed.")
             show_json(result)
 
     control = read_json(REPORT_DIR / "live_control_center.json")
@@ -1558,6 +1571,28 @@ def render_live_control_center() -> None:
     st.markdown("### Recent Live Pilot Orders")
     orders = control.get("recent_live_pilot_orders", []) if isinstance(control.get("recent_live_pilot_orders"), list) else []
     dataframe_or_info(orders, "No live pilot order journal rows yet.")
+
+    st.markdown("### Live Pilot Reconciliation")
+    reconciliation = read_json(REPORT_DIR / "live_pilot_reconciliation.json")
+    if reconciliation:
+        r1, r2, r3, r4 = st.columns(4)
+        r1.metric("Reconciliation", reconciliation.get("overall_status", "-"))
+        r2.metric("Swaps", reconciliation.get("swap_count", "-"))
+        r3.metric("Failed Tx", reconciliation.get("failed_transaction_count", "-"))
+        r4.metric("Gas Used", reconciliation.get("total_gas_used", "-"))
+        balances = reconciliation.get("current_balances", {}) if isinstance(reconciliation.get("current_balances"), dict) else {}
+        b1, b2, b3 = st.columns(3)
+        b1.metric("USDC", balances.get("USDC", "-"))
+        b2.metric("WETH", balances.get("WETH", "-"))
+        b3.metric("ETH", balances.get("ETH", "-"))
+        latest_swap = reconciliation.get("latest_swap")
+        if latest_swap:
+            st.markdown("#### Latest Swap")
+            show_json(latest_swap)
+        findings = reconciliation.get("findings", []) if isinstance(reconciliation.get("findings"), list) else []
+        dataframe_or_info(findings, "No reconciliation findings.")
+    else:
+        st.info("No live_pilot_reconciliation.json yet. Refresh Live Reconciliation after a live pilot transaction.")
 
     st.markdown("### Live Execution Engine")
     engine = read_json(REPORT_DIR / "live_execution_engine.json")

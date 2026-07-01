@@ -1,6 +1,6 @@
 # Live Readiness Checklist
 
-Generated: `2026-07-01T03:57:09Z`
+Generated: `2026-07-01T04:12:54Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
@@ -12,8 +12,8 @@ Generated: `2026-07-01T03:57:09Z`
 - Max live wallet USD: `$500`
 - Max live trade USD: `$20`
 - Max daily loss USD: `$20`
-- Blocked checks: `0`
-- Action checks: `1`
+- Blocked checks: `1`
+- Action checks: `2`
 - Watch checks: `0`
 
 ## Checks
@@ -29,11 +29,11 @@ Generated: `2026-07-01T03:57:09Z`
 | provider_health_ok | PASS | Provider Monitor is OK. |
 | execution_cost_confidence | PASS | Execution-cost evidence confidence is HIGH. |
 | execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
-| report_audit_clean | PASS | Report Audit has no blocking operational findings. |
+| report_audit_clean | BLOCK | Report Audit has blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
 | wallet_preflight_ready | PASS | Wallet Preflight is ready. |
-| transaction_simulation_passed | PASS | Transaction Simulation passed exact calldata and eth_call checks. |
+| transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 | live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
 | live_feature_off | PASS | Live feature flag is off. |
 | kill_switch_on | PASS | Live and paper kill switches are on. |

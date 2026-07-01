@@ -1,6 +1,6 @@
 {
-  "action_count": 1,
-  "blocked_check_count": 0,
+  "action_count": 2,
+  "blocked_check_count": 1,
   "check_count": 22,
   "checks": [
     {
@@ -58,10 +58,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Report Audit has no blocking operational findings.",
+      "detail": "Report Audit has blocking operational findings.",
       "name": "report_audit_clean",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Paper orders and analytics trade journal are available.",
@@ -82,10 +82,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Transaction Simulation passed exact calldata and eth_call checks.",
+      "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
       "name": "transaction_simulation_passed",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Live Safety remains blocked during readiness review.",
@@ -137,7 +137,7 @@
     }
   ],
   "closed_trade_count": 1088,
-  "generated_at": "2026-07-01T03:57:09Z",
+  "generated_at": "2026-07-01T04:12:54Z",
   "live_cap_closed_trade_count": 828,
   "live_review_ready": false,
   "live_trading_approval": false,
@@ -154,6 +154,6 @@
   "paper_cash_usd": "800.8089",
   "paper_profile": "live_parity_500",
   "paper_realized_pnl_usd": "300.8089",
-  "pass_count": 21,
+  "pass_count": 19,
   "watch_count": 0
 }

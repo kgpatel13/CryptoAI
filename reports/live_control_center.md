@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-07-01T03:57:12Z`
+Generated: `2026-07-01T04:12:59Z`
 - Overall status: `BLOCKED_LIVE_READINESS`
 - Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
 - Next command: `python -m app.execution.live_readiness_checklist_service`
@@ -14,15 +14,47 @@ Generated: `2026-07-01T03:57:12Z`
 {
   "address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
   "chain": "base",
-  "usdc_balance": "449.998478",
-  "eth_balance": "0.024147637570439412",
-  "allowance_sufficient": true,
+  "usdc_balance": "429.998478",
+  "eth_balance": "0.02414560934206512",
+  "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
   "smoke_usd": "20",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48044442
+  "latest_block": 48044915
+}
+```
+
+## Live Pilot Reconciliation
+
+```json
+{
+  "overall_status": "LIVE_PILOT_RECONCILED",
+  "journal_count": 2,
+  "approval_count": 1,
+  "swap_count": 1,
+  "failed_transaction_count": 0,
+  "total_swap_usd": "20.0000",
+  "total_gas_used": 190594,
+  "current_balances": {
+    "ETH": "0.02414560934206512",
+    "USDC": "429.998478",
+    "WETH": "0.012568442636912582",
+    "block_number": "48044914",
+    "status": "OK"
+  },
+  "latest_swap": {
+    "block_number": 48044575,
+    "dex": "Uniswap V3",
+    "gas_used": 135157,
+    "mode": "swap",
+    "receipt_status": 1,
+    "smoke_usd": "20",
+    "timestamp": "2026-07-01T04:01:37Z",
+    "tx_hash": "376d68575e8e0b9adcea06a10f5ce484daa64f67f78ef241b93512b9ee2bb4ad",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  }
 }
 ```
 
@@ -34,13 +66,14 @@ Generated: `2026-07-01T03:57:12Z`
   "wallet_preflight_allowed": true,
   "live_readiness": "LIVE_REVIEW_NOT_READY",
   "live_review_ready": false,
-  "transaction_simulation": "TX_SIMULATION_READY",
-  "transaction_simulation_passed": true,
-  "tiny_live_pilot": "LIVE_PILOT_READY",
-  "tiny_live_blocked_checks": 0,
+  "transaction_simulation": "TX_SIMULATION_ACTION",
+  "transaction_simulation_passed": false,
+  "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
+  "tiny_live_blocked_checks": 1,
   "provider_monitor": "OK",
-  "report_audit_blocking_findings": 0,
-  "live_safety": "LIVE_BLOCKED"
+  "report_audit_blocking_findings": 12,
+  "live_safety": "LIVE_BLOCKED",
+  "live_pilot_reconciliation": "LIVE_PILOT_RECONCILED"
 }
 ```
 
@@ -48,7 +81,7 @@ Generated: `2026-07-01T03:57:12Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
-| live_readiness | execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
+| tiny_live_pilot | report_audit_clean | BLOCK | Report audit has blocking findings. |
 
 ## Notes
 

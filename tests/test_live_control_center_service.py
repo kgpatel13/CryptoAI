@@ -42,6 +42,33 @@ class LiveControlCenterServiceTests(unittest.TestCase):
         self.assertEqual(payload["overall_status"], "READY_FOR_APPROVAL")
         self.assertIn("--mode approve", payload["next_command"])
 
+    def test_includes_live_pilot_reconciliation_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            service = LiveControlCenterService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
+            self._write_json(service.report_dir / "wallet_preflight.json", {"overall_status": "WALLET_PREP_READY", "wallet_preflight_allowed": True})
+            self._write_json(service.report_dir / "live_readiness_checklist.json", {"overall_status": "LIVE_REVIEW_NOT_READY", "live_review_ready": False})
+            self._write_json(service.report_dir / "transaction_simulation.json", {"overall_status": "TX_SIMULATION_ACTION", "transaction_simulation_passed": False})
+            self._write_json(service.report_dir / "tiny_live_pilot.json", {"overall_status": "LIVE_PILOT_BLOCKED", "pilot_plan": {"usdc_balance": "429"}})
+            self._write_json(
+                service.report_dir / "live_pilot_reconciliation.json",
+                {
+                    "overall_status": "LIVE_PILOT_RECONCILED",
+                    "journal_count": 2,
+                    "approval_count": 1,
+                    "swap_count": 1,
+                    "failed_transaction_count": 0,
+                    "total_swap_usd": "20.0000",
+                    "total_gas_used": 190594,
+                    "current_balances": {"USDC": "429"},
+                    "latest_swap": {"tx_hash": "0xabc"},
+                },
+            )
+
+            payload = service.generate(refresh_plan=False)
+
+        self.assertEqual(payload["live_pilot_reconciliation"]["overall_status"], "LIVE_PILOT_RECONCILED")
+        self.assertEqual(payload["live_pilot_reconciliation"]["swap_count"], 1)
+
     def test_loop_uses_read_only_generate(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             service = LiveControlCenterService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")

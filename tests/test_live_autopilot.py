@@ -7,7 +7,8 @@ from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
 
-from app.execution.live_autopilot import LiveAutopilot
+from app.execution.atomic_live_adapter import AtomicLiveExecutionAdapter
+from app.execution.live_autopilot import LiveAutopilot, build_live_execution_adapter
 
 
 class LiveAutopilotTests(unittest.TestCase):
@@ -95,6 +96,12 @@ class LiveAutopilotTests(unittest.TestCase):
         self.assertEqual(payload["status"], "REFUSED")
         self.assertFalse(payload["transaction_sent"])
 
+    def test_build_live_execution_adapter_selects_atomic_adapter_when_reviewed(self) -> None:
+        with self._env({"CRYPTOAI_LIVE_EXECUTION_ADAPTER": "atomic"}):
+            adapter = build_live_execution_adapter()
+
+        self.assertIsInstance(adapter, AtomicLiveExecutionAdapter)
+
     def test_loop_is_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             autopilot = LiveAutopilot(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
@@ -111,7 +118,7 @@ class LiveAutopilotTests(unittest.TestCase):
 
     @contextmanager
     def _env(self, values: dict[str, str]):
-        keys = {"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED"}
+        keys = {"CRYPTOAI_LIVE_AUTOPILOT_SEND_ENABLED", "CRYPTOAI_LIVE_EXECUTION_ADAPTER", "CRYPTOAI_REVIEWED_LIVE_ADAPTER"}
         previous = {key: os.environ.get(key) for key in keys}
         try:
             for key in keys:

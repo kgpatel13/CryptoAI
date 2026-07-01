@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from app.execution.live_pilot_reconciliation_service import LivePilotReconciliationService
 from app.execution.tiny_live_pilot_service import TinyLivePilotService
 
 
@@ -31,6 +32,10 @@ class LiveControlCenterService:
         if refresh_plan:
             refresh_errors.extend(self._refresh_safe_reports())
             try:
+                LivePilotReconciliationService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+            except Exception as exc:
+                refresh_errors.append(f"live_pilot_reconciliation: {type(exc).__name__}: {exc}")
+            try:
                 TinyLivePilotService(data_dir=self.data_dir, report_dir=self.report_dir).generate(mode="plan")
             except Exception as exc:
                 refresh_errors.append(f"tiny_live_pilot: {type(exc).__name__}: {exc}")
@@ -42,6 +47,7 @@ class LiveControlCenterService:
         provider = self._read_json("provider_monitor.json")
         audit = self._read_json("report_audit.json")
         live_safety = self._read_json("live_safety.json")
+        reconciliation = self._read_json("live_pilot_reconciliation.json")
         live_orders = self._read_jsonl(self.data_dir / "live_pilot_orders.jsonl", limit=20)
 
         pilot_plan = pilot.get("pilot_plan", {}) if isinstance(pilot.get("pilot_plan"), dict) else {}
@@ -119,6 +125,18 @@ class LiveControlCenterService:
                 "provider_monitor": provider.get("overall_status", "-"),
                 "report_audit_blocking_findings": audit.get("blocking_finding_count", "-"),
                 "live_safety": live_safety.get("overall_status", "-"),
+                "live_pilot_reconciliation": reconciliation.get("overall_status", "-"),
+            },
+            "live_pilot_reconciliation": {
+                "overall_status": reconciliation.get("overall_status", "-"),
+                "journal_count": reconciliation.get("journal_count", 0),
+                "approval_count": reconciliation.get("approval_count", 0),
+                "swap_count": reconciliation.get("swap_count", 0),
+                "failed_transaction_count": reconciliation.get("failed_transaction_count", 0),
+                "total_swap_usd": reconciliation.get("total_swap_usd", "0.0000"),
+                "total_gas_used": reconciliation.get("total_gas_used", 0),
+                "current_balances": reconciliation.get("current_balances", {}),
+                "latest_swap": reconciliation.get("latest_swap"),
             },
             "blocking_checks": blocking_checks[:20],
             "readiness_actions": readiness_actions[:20],
@@ -311,6 +329,12 @@ class LiveControlCenterService:
             "",
             "```json",
             json.dumps(payload["wallet"], indent=2),
+            "```",
+            "",
+            "## Live Pilot Reconciliation",
+            "",
+            "```json",
+            json.dumps(payload["live_pilot_reconciliation"], indent=2),
             "```",
             "",
             "## Gates",

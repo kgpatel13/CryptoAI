@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T03:54:27Z",
+  "generated_at": "2026-07-01T04:18:36Z",
   "mode": "paper",
   "overall_status": "NO_SHADOW_ELIGIBLE_TRADES",
   "recent_order_count": 200,
@@ -7,7 +7,7 @@
   "paper_only_count": 200,
   "latest_decisions": [
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -58,7 +58,7 @@
       "status": "RISK_REJECTED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -109,7 +109,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -160,7 +160,7 @@
       "status": "RISK_REJECTED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -211,7 +211,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -262,7 +262,7 @@
       "status": "RISK_REJECTED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -313,7 +313,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -364,7 +364,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -415,7 +415,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -466,7 +466,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -517,7 +517,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -568,7 +568,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -619,7 +619,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -670,7 +670,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -721,7 +721,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -772,7 +772,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -823,7 +823,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -874,7 +874,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -925,7 +925,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -976,7 +976,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1027,7 +1027,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1078,7 +1078,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1129,7 +1129,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1180,7 +1180,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1231,7 +1231,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1282,7 +1282,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1333,7 +1333,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1384,7 +1384,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1435,7 +1435,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1486,7 +1486,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1537,7 +1537,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1588,7 +1588,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1639,7 +1639,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1690,7 +1690,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1741,7 +1741,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1792,7 +1792,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1843,7 +1843,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1894,7 +1894,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1945,7 +1945,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -1996,7 +1996,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2047,7 +2047,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2098,7 +2098,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2149,7 +2149,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2200,7 +2200,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2251,7 +2251,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_BUY",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2297,7 +2297,7 @@
       "status": "CLOSED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2348,7 +2348,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2399,7 +2399,7 @@
       "status": "RISK_REJECTED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2450,7 +2450,7 @@
       "status": "SKIPPED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",
@@ -2501,7 +2501,7 @@
       "status": "RISK_REJECTED"
     },
     {
-      "checked_at": "2026-07-01T03:54:27Z",
+      "checked_at": "2026-07-01T04:18:36Z",
       "paper_decision": "PAPER_SKIP",
       "live_shadow_decision": "PAPER_ONLY",
       "live_shadow_status": "WATCH_ONLY",

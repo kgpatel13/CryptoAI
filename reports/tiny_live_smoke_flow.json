@@ -1,0 +1,43 @@
+{
+  "blocked_check_count": 0,
+  "blockers": [],
+  "generated_at": "2026-07-01T04:01:37Z",
+  "mode": "run",
+  "notes": [
+    "Tiny Live Smoke Flow is a capped one-leg smoke test only.",
+    "It does not enable autonomous live arbitrage or continuous trading.",
+    "One explicit confirmation phrase is required before any real-money send."
+  ],
+  "overall_status": "LIVE_SMOKE_FLOW_SENT",
+  "send_attempted": true,
+  "steps": [
+    {
+      "action_count": null,
+      "blocked_check_count": null,
+      "name": "safe_reports_before",
+      "overall_status": null,
+      "send_attempted": false
+    },
+    {
+      "action_count": null,
+      "blocked_check_count": 0,
+      "name": "plan_before",
+      "overall_status": "LIVE_PILOT_READY",
+      "send_attempted": false
+    },
+    {
+      "action_count": null,
+      "blocked_check_count": null,
+      "name": "safe_reports_after_approval",
+      "overall_status": null,
+      "send_attempted": false
+    },
+    {
+      "action_count": null,
+      "blocked_check_count": 0,
+      "name": "swap",
+      "overall_status": "LIVE_PILOT_SENT",
+      "send_attempted": true
+    }
+  ]
+}

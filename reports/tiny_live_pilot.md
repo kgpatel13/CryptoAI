@@ -1,10 +1,10 @@
 # Tiny Live Pilot
 
-Generated: `2026-07-01T03:57:12Z`
+Generated: `2026-07-01T04:12:59Z`
 - Mode: `plan`
-- Overall status: `LIVE_PILOT_READY`
+- Overall status: `LIVE_PILOT_BLOCKED`
 - Send attempted: `False`
-- Blocked checks: `0` / `18`
+- Blocked checks: `1` / `18`
 
 ## Checks
 
@@ -20,7 +20,7 @@ Generated: `2026-07-01T03:57:12Z`
 | wallet_preflight_ready | PASS | Wallet preflight is ready. |
 | live_readiness_ready | PASS | Live readiness checklist is ready or the simulated smoke swap has no hard readiness blockers. |
 | transaction_simulation_passed | PASS | Transaction simulation passed or is not required for this mode. |
-| report_audit_clean | PASS | Report audit has no blocking findings. |
+| report_audit_clean | BLOCK | Report audit has blocking findings. |
 | provider_ok | PASS | Provider monitor is OK. |
 | pilot_plan_prepared | PASS | Tiny live pilot plan is prepared. |
 | chain_id_base | PASS | Prepared transaction is on Base or not yet prepared. |
@@ -38,12 +38,12 @@ Generated: `2026-07-01T03:57:12Z`
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
   "chain_id": 8453,
-  "latest_block": 48044442,
+  "latest_block": 48044915,
   "rpc_url": "https://base-rpc.publicnode.com",
-  "usdc_balance": "449.998478",
-  "eth_balance": "0.024147637570439412",
-  "allowance_units": "20000000",
-  "allowance_sufficient": true,
+  "usdc_balance": "429.998478",
+  "eth_balance": "0.02414560934206512",
+  "allowance_units": "0",
+  "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
   "error": null

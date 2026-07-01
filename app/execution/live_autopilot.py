@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from app.automation.paper_autopilot import SingleInstanceLock, active_autopilot_processes
+from app.execution.atomic_live_adapter import AtomicLiveExecutionAdapter, reviewed_atomic_adapter_selected
 from app.execution.live_execution_engine_service import LiveExecutionEngineService
 
 
@@ -33,6 +34,12 @@ class MissingLiveExecutionAdapter:
         }
 
 
+def build_live_execution_adapter(report_dir: Path | str = "reports") -> LiveExecutionAdapter:
+    if reviewed_atomic_adapter_selected():
+        return AtomicLiveExecutionAdapter(report_dir=report_dir)
+    return MissingLiveExecutionAdapter()
+
+
 class LiveAutopilot:
     """Paper-like continuous live runner shell.
 
@@ -54,7 +61,7 @@ class LiveAutopilot:
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.report_dir.mkdir(parents=True, exist_ok=True)
         self.journal_file = self.data_dir / "live_autopilot_decisions.jsonl"
-        self.execution_adapter = execution_adapter or MissingLiveExecutionAdapter()
+        self.execution_adapter = execution_adapter or build_live_execution_adapter(report_dir=self.report_dir)
 
     def run_once(self) -> dict[str, Any]:
         engine = LiveExecutionEngineService(data_dir=self.data_dir, report_dir=self.report_dir).generate(refresh_control=True)

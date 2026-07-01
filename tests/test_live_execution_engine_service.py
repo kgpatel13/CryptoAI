@@ -55,19 +55,45 @@ class LiveExecutionEngineServiceTests(unittest.TestCase):
         self.assertFalse(payload["can_run_continuous_live"])
         self.assertIn("atomic_live_arbitrage_executor", {row["component"] for row in payload["missing_components"]})
 
-    def test_continuous_live_requires_atomic_executor_flag_and_address(self) -> None:
+    def test_continuous_live_requires_reviewed_atomic_executor_configuration(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             service = LiveExecutionEngineService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
             self._write_all_green(service, allowance_sufficient=True, swap_available=True)
             with patch.dict(
                 "os.environ",
-                {"CRYPTOAI_ATOMIC_EXECUTOR_ENABLED": "true", "CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS": "0xabc"},
+                {
+                    "CRYPTOAI_ATOMIC_EXECUTOR_ENABLED": "true",
+                    "CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS": "0x1111111111111111111111111111111111111111",
+                    "CRYPTOAI_ATOMIC_EXECUTOR_REVIEWED": "true",
+                    "CRYPTOAI_LIVE_EXECUTION_ADAPTER": "atomic",
+                },
                 clear=False,
             ):
                 payload = service.generate(refresh_control=False)
 
         self.assertEqual(payload["overall_status"], "READY_FOR_CONTINUOUS_LIVE")
         self.assertTrue(payload["can_run_continuous_live"])
+        self.assertTrue(payload["atomic_executor"]["ready"])
+
+    def test_continuous_live_blocks_invalid_atomic_executor_address(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            service = LiveExecutionEngineService(data_dir=Path(tmp) / "data", report_dir=Path(tmp) / "reports")
+            self._write_all_green(service, allowance_sufficient=True, swap_available=True)
+            with patch.dict(
+                "os.environ",
+                {
+                    "CRYPTOAI_ATOMIC_EXECUTOR_ENABLED": "true",
+                    "CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS": "0xabc",
+                    "CRYPTOAI_ATOMIC_EXECUTOR_REVIEWED": "true",
+                    "CRYPTOAI_LIVE_EXECUTION_ADAPTER": "atomic",
+                },
+                clear=False,
+            ):
+                payload = service.generate(refresh_control=False)
+
+        self.assertEqual(payload["overall_status"], "READY_FOR_MANUAL_SMOKE_SWAP")
+        self.assertFalse(payload["can_run_continuous_live"])
+        self.assertFalse(payload["atomic_executor"]["address_valid"])
 
     def test_loop_is_read_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
