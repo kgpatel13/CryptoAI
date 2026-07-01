@@ -1,40 +1,40 @@
 # Live Shadow Gate
 
-Generated: `2026-07-01T01:29:58Z`
-- Overall status: `SHADOW_ELIGIBLE_EVIDENCE`
+Generated: `2026-07-01T03:54:27Z`
+- Overall status: `NO_SHADOW_ELIGIBLE_TRADES`
 - Recent orders: `200`
-- Shadow eligible: `35`
-- Paper only: `165`
+- Shadow eligible: `0`
+- Paper only: `200`
 
 ## Latest Decisions
 
 | Order | Pair | Paper Status | Shadow Decision | Stress Net % | Reason |
 |---|---|---|---|---:|---|
-| 4fa319fd | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 7c22a874 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 98f8f258 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 95a04849 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 573bf1e3 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| e343171d | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 6cedd225 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 77932773 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 49c905bb | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 17fc2d5c | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 765fe4a1 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 000d9005 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 047c37d6 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| f0b6a1c4 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| d2eff728 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 93f2cc94 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 82fa297d | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 4cca9c81 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| dd7f2690 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 455e4ae4 | WETH/USDC | RISK_REJECTED | PAPER_ONLY | 0.3429 | Paper status is RISK_REJECTED. |
-| 0e8ccda9 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| f1f9ea04 | WETH/USDC | CLOSED | SHADOW_ELIGIBLE | 0.3429 | Paper order passed live-style shadow gates. |
-| 80bf5739 | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
-| 580b1901 | WETH/USDC | RISK_REJECTED | PAPER_ONLY | 0.3429 | Paper status is RISK_REJECTED. |
-| ec5cc75f | USDC/WETH | SKIPPED | PAPER_ONLY | -0.1227 | Paper status is SKIPPED.; Realism status is NEGATIVE_AFTER_STRESS.; Stress net edge is -0.1227%. |
+| f59e1d52 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| fb62f0aa | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 78af94a4 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| a48b4c46 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 69007df1 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 9d4bc237 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| bcdef217 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 142a976d | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| cdf7e1f6 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 4d019bd9 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 0ab0b051 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| c026b53c | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 935954d0 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| b0d31d56 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| e8928f14 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 28ff24e7 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 5cf60889 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| eee2e5f6 | USDC/WETH | SKIPPED | PAPER_ONLY | 0.0513 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 24af3f0d | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| fa8e360b | USDC/WETH | CLOSED | PAPER_ONLY | 0.0513 | Realism status is WATCH_ONLY. |
+| c5445511 | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| d0abeb40 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.0513 | Paper status is RISK_REJECTED.; Realism status is WATCH_ONLY. |
+| 263a626f | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
+| 5b063ad6 | USDC/WETH | RISK_REJECTED | PAPER_ONLY | 0.0513 | Paper status is RISK_REJECTED.; Realism status is WATCH_ONLY. |
+| 5d35d42e | WETH/USDC | SKIPPED | PAPER_ONLY | 0.1683 | Paper status is SKIPPED.; Realism status is WATCH_ONLY. |
 
 ## Notes
 

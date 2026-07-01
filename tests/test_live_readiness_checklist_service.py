@@ -56,6 +56,43 @@ class LiveReadinessChecklistServiceTests(unittest.TestCase):
         self.assertIn("paper_live_trade_cap_parity", actions)
         self.assertIn("paper_live_daily_loss_parity", actions)
 
+    def test_historical_live_cap_sized_fills_can_satisfy_trade_cap_parity(self) -> None:
+        env = {
+            "CRYPTOAI_LIVE_TRADING_ENABLED": "false",
+            "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "true",
+            "CRYPTOAI_MAX_LIVE_WALLET_USD": "500",
+            "CRYPTOAI_MAX_LIVE_TRADE_USD": "20",
+            "CRYPTOAI_MAX_DAILY_LOSS_USD": "10",
+            "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD": "100",
+            "CRYPTOAI_MIN_PAPER_CLOSED_TRADES": "30",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_ready_fixture(root, paper_trade_cap="500", paper_daily_loss="10", order_notional="500")
+            with (root / "data" / "paper_orders.jsonl").open("a", encoding="utf-8") as handle:
+                for i in range(30):
+                    handle.write(
+                        json.dumps(
+                            {
+                                "order_id": f"tiny{i}",
+                                "timestamp": "2026-06-30T01:00:00Z",
+                                "status": "CLOSED",
+                                "execution_type": "ARBITRAGE_ROUND_TRIP",
+                                "pair": "USDC/WETH",
+                                "notional_usd": "20",
+                                "realized_pnl_usd": "0.01",
+                            }
+                        )
+                        + "\n"
+                    )
+
+            with self._env(env):
+                payload = LiveReadinessChecklistService(data_dir=root / "data", report_dir=root / "reports").generate()
+
+        self.assertEqual(payload["live_cap_closed_trade_count"], 30)
+        checks = {row["name"]: row for row in payload["checks"]}
+        self.assertTrue(checks["paper_live_trade_cap_parity"]["passed"])
+
     def _write_ready_fixture(self, root: Path, *, paper_trade_cap: str, paper_daily_loss: str, order_notional: str) -> None:
         data = root / "data"
         reports = root / "reports"

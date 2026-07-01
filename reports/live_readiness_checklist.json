@@ -1,5 +1,5 @@
 {
-  "action_count": 5,
+  "action_count": 1,
   "blocked_check_count": 0,
   "check_count": 22,
   "checks": [
@@ -52,10 +52,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Execution realism has shadow-ready evidence and no live approvals.",
+      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
       "name": "execution_realism_shadow_ready",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Report Audit has no blocking operational findings.",
@@ -76,16 +76,16 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
+      "detail": "Wallet Preflight is ready.",
       "name": "wallet_preflight_ready",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
-      "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
+      "detail": "Transaction Simulation passed exact calldata and eth_call checks.",
       "name": "transaction_simulation_passed",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Live Safety remains blocked during readiness review.",
@@ -112,22 +112,22 @@
       "severity": "PASS"
     },
     {
-      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+      "detail": "Paper capital is within the configured live wallet ceiling.",
       "name": "paper_live_wallet_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
-      "detail": "Paper max notional and observed fills should be no larger than the configured live trade cap.",
+      "detail": "Paper has sufficient live-cap-sized evidence for the configured live trade cap.",
       "name": "paper_live_trade_cap_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+      "detail": "Paper daily loss cap matches the tiny-live policy.",
       "name": "paper_live_daily_loss_parity",
-      "passed": false,
-      "severity": "ACTION"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -136,13 +136,14 @@
       "severity": "PASS"
     }
   ],
-  "closed_trade_count": 997,
-  "generated_at": "2026-07-01T01:29:59Z",
+  "closed_trade_count": 1088,
+  "generated_at": "2026-07-01T03:57:09Z",
+  "live_cap_closed_trade_count": 828,
   "live_review_ready": false,
   "live_trading_approval": false,
-  "max_daily_loss_usd": "0",
-  "max_live_trade_usd": "0",
-  "max_live_wallet_usd": "0",
+  "max_daily_loss_usd": "20",
+  "max_live_trade_usd": "20",
+  "max_live_wallet_usd": "500",
   "mode": "paper",
   "notes": [
     "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -150,9 +151,9 @@
     "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
   ],
   "overall_status": "LIVE_REVIEW_NOT_READY",
-  "paper_cash_usd": "638.6686",
+  "paper_cash_usd": "800.8089",
   "paper_profile": "live_parity_500",
-  "paper_realized_pnl_usd": "138.6686",
-  "pass_count": 17,
+  "paper_realized_pnl_usd": "300.8089",
+  "pass_count": 21,
   "watch_count": 0
 }

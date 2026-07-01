@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-06-30T23:03:41Z`
+Generated: `2026-07-01T03:57:12Z`
 - Overall status: `BLOCKED_LIVE_READINESS`
 - Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
 - Next command: `python -m app.execution.live_readiness_checklist_service`
@@ -15,14 +15,14 @@ Generated: `2026-06-30T23:03:41Z`
   "address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
   "chain": "base",
   "usdc_balance": "449.998478",
-  "eth_balance": "0.024148469750380405",
-  "allowance_sufficient": false,
+  "eth_balance": "0.024147637570439412",
+  "allowance_sufficient": true,
   "approval_tx_available": true,
   "swap_tx_available": true,
   "smoke_usd": "20",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48035637
+  "latest_block": 48044442
 }
 ```
 
@@ -34,10 +34,10 @@ Generated: `2026-06-30T23:03:41Z`
   "wallet_preflight_allowed": true,
   "live_readiness": "LIVE_REVIEW_NOT_READY",
   "live_review_ready": false,
-  "transaction_simulation": "TX_SIMULATION_ACTION",
-  "transaction_simulation_passed": false,
-  "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
-  "tiny_live_blocked_checks": 2,
+  "transaction_simulation": "TX_SIMULATION_READY",
+  "transaction_simulation_passed": true,
+  "tiny_live_pilot": "LIVE_PILOT_READY",
+  "tiny_live_blocked_checks": 0,
   "provider_monitor": "OK",
   "report_audit_blocking_findings": 0,
   "live_safety": "LIVE_BLOCKED"
@@ -48,8 +48,7 @@ Generated: `2026-06-30T23:03:41Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
-| tiny_live_pilot | live_readiness_ready | BLOCK | Live readiness checklist must be LIVE_REVIEW_READY. |
-| tiny_live_pilot | transaction_simulation_passed | BLOCK | Transaction simulation must pass before live pilot. |
+| live_readiness | execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
 
 ## Notes
 

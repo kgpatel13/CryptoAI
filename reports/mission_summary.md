@@ -3,19 +3,19 @@
 - Service: paper_autopilot
 - Status: STOPPED
 - Mode: PAPER
-- Run ID: b4d46768-42d
-- Started At: 2026-07-01T01:28:58Z
-- Updated At: 2026-07-01T01:29:36Z
-- Uptime Seconds: 38.3
-- Cycles Completed: 2
+- Run ID: 615f7651-c49
+- Started At: 2026-07-01T01:32:11Z
+- Updated At: 2026-07-01T03:34:23Z
+- Uptime Seconds: 7331.96
+- Cycles Completed: 527
 - Cycles Failed: 0
 - Last Cycle Status: OK
 - Live Trading Enabled: False
-- Stop Reason: max_cycles_reached
+- Stop Reason: signal_2
 
 ## Operational Metrics
 
-- Heartbeats Emitted: 4
-- Last Cycle Latency ms: 26444.45
-- Average Cycle Latency ms: 19146.04
-- Scheduler Status Counts: {'OK': 2}
+- Heartbeats Emitted: 529
+- Last Cycle Latency ms: 9206.52
+- Average Cycle Latency ms: 13900.56
+- Scheduler Status Counts: {'OK': 527}

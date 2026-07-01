@@ -1,6 +1,6 @@
 # CryptoAI Paper Run Review
 
-Generated: `2026-07-01T01:29:36Z`
+Generated: `2026-07-01T03:34:22Z`
 
 ## Summary
 
@@ -9,18 +9,18 @@ Generated: `2026-07-01T01:29:36Z`
 - Shadow decision: `REVIEW_READY`
 - Live decision: `BLOCKED`
 - Initial cash USD: `$500.0000`
-- Cash USD: `$638.6686`
-- Realized PnL USD: `$138.6686`
-- Return %: `27.7337`
-- Closed trades: `997`
+- Cash USD: `$800.8089`
+- Realized PnL USD: `$300.8089`
+- Return %: `60.1618`
+- Closed trades: `1088`
 - Losing trades: `0`
 - Open positions: `0`
 - Provider status: `OK`
 - Pool depth status: `DEPTH_EVIDENCE_READY`
 - Execution realism: `SHADOW_REVIEW_READY` / `MEDIUM`
 - Live shadow gate: `SHADOW_ELIGIBLE_EVIDENCE`
-- Live-shadow eligible trades: `35`
-- Paper-only trades: `165`
+- Live-shadow eligible trades: `7`
+- Paper-only trades: `193`
 - Report audit blocking findings: `0`
 - Report audit research findings: `24`
 
@@ -34,14 +34,14 @@ Generated: `2026-07-01T01:29:36Z`
 | provider_ok | PASS | provider_status=OK |
 | pool_depth_ready | PASS | depth_ready_routes=2; status=DEPTH_EVIDENCE_READY |
 | execution_shadow_ready | PASS | shadow_ready=1; status=SHADOW_REVIEW_READY |
-| live_shadow_eligible | PASS | shadow_eligible=35; status=SHADOW_ELIGIBLE_EVIDENCE |
-| report_audit_clean | PASS | blocking_findings=0; total_findings=26 |
+| live_shadow_eligible | PASS | shadow_eligible=7; status=SHADOW_ELIGIBLE_EVIDENCE |
+| report_audit_clean | PASS | blocking_findings=0; total_findings=28 |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
-| INFO | Paper run is profitable so far: $138.6686 across 997 closed trade(s). |
+| INFO | Paper run is profitable so far: $300.8089 across 1088 closed trade(s). |
 | INFO | Report audit has 24 stale research finding(s); paper runtime gates are not blocked by research freshness. |
 
 ## Notes

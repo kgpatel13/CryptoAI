@@ -1,18 +1,19 @@
 # Live Readiness Checklist
 
-Generated: `2026-07-01T01:29:59Z`
+Generated: `2026-07-01T03:57:09Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
-- Closed paper trades: `997`
-- Paper cash USD: `$638.6686`
-- Paper realized PnL USD: `$138.6686`
-- Max live wallet USD: `$0`
-- Max live trade USD: `$0`
-- Max daily loss USD: `$0`
+- Closed paper trades: `1088`
+- Live-cap closed paper trades: `828`
+- Paper cash USD: `$800.8089`
+- Paper realized PnL USD: `$300.8089`
+- Max live wallet USD: `$500`
+- Max live trade USD: `$20`
+- Max daily loss USD: `$20`
 - Blocked checks: `0`
-- Action checks: `5`
+- Action checks: `1`
 - Watch checks: `0`
 
 ## Checks
@@ -27,19 +28,19 @@ Generated: `2026-07-01T01:29:59Z`
 | risk_engine_validated | PASS | Risk engine evidence is present and losing-trade count is clean. |
 | provider_health_ok | PASS | Provider Monitor is OK. |
 | execution_cost_confidence | PASS | Execution-cost evidence confidence is HIGH. |
-| execution_realism_shadow_ready | PASS | Execution realism has shadow-ready evidence and no live approvals. |
+| execution_realism_shadow_ready | ACTION | Execution realism must have shadow-ready evidence and zero live-ready approvals. |
 | report_audit_clean | PASS | Report Audit has no blocking operational findings. |
 | audit_trail_available | PASS | Paper orders and analytics trade journal are available. |
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
-| wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
-| transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
+| wallet_preflight_ready | PASS | Wallet Preflight is ready. |
+| transaction_simulation_passed | PASS | Transaction Simulation passed exact calldata and eth_call checks. |
 | live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
 | live_feature_off | PASS | Live feature flag is off. |
 | kill_switch_on | PASS | Live and paper kill switches are on. |
 | private_key_absent | PASS | Private key is absent. |
-| paper_live_wallet_parity | ACTION | Paper capital should be > $0 and no larger than the configured live wallet ceiling. |
-| paper_live_trade_cap_parity | ACTION | Paper max notional and observed fills should be no larger than the configured live trade cap. |
-| paper_live_daily_loss_parity | ACTION | Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap. |
+| paper_live_wallet_parity | PASS | Paper capital is within the configured live wallet ceiling. |
+| paper_live_trade_cap_parity | PASS | Paper has sufficient live-cap-sized evidence for the configured live trade cap. |
+| paper_live_daily_loss_parity | PASS | Paper daily loss cap matches the tiny-live policy. |
 | base_eth_scope_only | PASS | Readiness review is restricted to Base ETH approved routes. |
 
 ## Notes

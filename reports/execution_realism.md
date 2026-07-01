@@ -1,27 +1,28 @@
 # CryptoAI Execution Realism
 
-Generated: `2026-07-01T01:29:58Z`
+Generated: `2026-07-01T03:53:08Z`
 
 ## Summary
 
-- Overall status: `SHADOW_REVIEW_READY`
-- Confidence: `MEDIUM`
+- Overall status: `NOT_SHADOW_READY`
+- Confidence: `LOW`
 - Paper capital USD: `$500.0000`
 - Requested notional USD: `$500.0000`
-- Shadow-ready count: `1`
+- Shadow-ready count: `0`
 - Live-ready count: `0`
 
 ## Latest Opportunity Stress Check
 
 | Pair | Buy | Sell | Source | Gross % | Reported Net % | Stress Net % | Executable USD | Status | Confidence |
 |---|---|---|---|---:|---:|---:|---:|---|---|
-| WETH/USDC | Uniswap V2 | Uniswap V3 | BUY | 0.7207 | 0.4207 | 0.3429 | 500.0000 | SHADOW_READY | MEDIUM |
-| USDC/WETH | Uniswap V2 | Uniswap V3 | SKIP | 0.2487 | -0.0513 | -0.1227 | 500.0000 | NEGATIVE_AFTER_STRESS | MEDIUM |
+| WETH/USDC | Uniswap V2 | Uniswap V3 | WATCH | 0.5462 | 0.2462 | 0.1683 | 500.0000 | WATCH_ONLY | MEDIUM |
+| USDC/WETH | Uniswap V2 | Uniswap V3 | WATCH | 0.4226 | 0.1226 | 0.0513 | 500.0000 | WATCH_ONLY | MEDIUM |
 
 ## Findings
 
 | Severity | Message |
 |---|---|
+| INFO | Latest opportunities are not realistic execution candidates after stress checks. |
 | INFO | Pool-depth ladder evidence is available for at least one latest opportunity. |
 
 ## Notes

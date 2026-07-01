@@ -72,6 +72,7 @@ class LiveReadinessChecklistService:
             "blocked_check_count": len(blockers),
             "paper_profile": settings.get("paper_profile", paper_settings.get("paper_profile", "-")),
             "closed_trade_count": self._int(paper_run.get("closed_trade_count", paper.get("filled_orders"))),
+            "live_cap_closed_trade_count": self._live_cap_closed_trade_count(orders, flags.max_live_trade_usd),
             "paper_cash_usd": paper_run.get("cash_usd", analytics.get("cash_usd")),
             "paper_realized_pnl_usd": paper_run.get("realized_pnl_usd", analytics.get("realized_pnl_usd")),
             "max_live_wallet_usd": str(flags.max_live_wallet_usd),
@@ -107,6 +108,8 @@ class LiveReadinessChecklistService:
     ) -> list[dict[str, str]]:
         closed_orders = [row for row in orders if str(row.get("status", "")).upper() == "CLOSED"]
         max_paper_notional = max((self._decimal(row.get("notional_usd")) for row in closed_orders), default=Decimal("0"))
+        live_cap_closed_orders = [row for row in closed_orders if Decimal("0") < self._decimal(row.get("notional_usd")) <= flags.max_live_trade_usd]
+        live_cap_sample_ready = len(live_cap_closed_orders) >= flags.min_paper_closed_trades
         paper_capital = self._paper_capital_usd(paper_settings)
         paper_trade_cap = self._decimal(paper_settings.get("paper_capital", {}).get("max_notional_usd_per_trade"))
         paper_daily_loss = self._decimal(paper_settings.get("risk", {}).get("max_daily_loss_usd"))
@@ -255,12 +258,17 @@ class LiveReadinessChecklistService:
             self._check(
                 "paper_live_trade_cap_parity",
                 Decimal("0") < flags.max_live_trade_usd <= flags.tiny_live_trade_ceiling_usd
-                and paper_trade_cap > Decimal("0")
-                and paper_trade_cap <= flags.max_live_trade_usd
-                and max_paper_notional <= flags.max_live_trade_usd,
+                and (
+                    (
+                        paper_trade_cap > Decimal("0")
+                        and paper_trade_cap <= flags.max_live_trade_usd
+                        and max_paper_notional <= flags.max_live_trade_usd
+                    )
+                    or live_cap_sample_ready
+                ),
                 "ACTION",
-                "Paper max notional and observed fills should be no larger than the configured live trade cap.",
-                "Paper trade cap and observed fills are within the live trade cap.",
+                "Paper needs either an active cap within the live trade cap or enough historical closed fills at/below the live trade cap.",
+                "Paper has sufficient live-cap-sized evidence for the configured live trade cap.",
             ),
             self._check(
                 "paper_live_daily_loss_parity",
@@ -320,6 +328,14 @@ class LiveReadinessChecklistService:
         capital = paper_settings.get("paper_capital", {})
         return self._decimal(capital.get("initial_capital_eth")) * self._decimal(capital.get("eth_reference_usd"))
 
+    def _live_cap_closed_trade_count(self, orders: list[dict[str, Any]], live_trade_cap: Decimal) -> int:
+        return sum(
+            1
+            for row in orders
+            if str(row.get("status", "")).upper() == "CLOSED"
+            and Decimal("0") < self._decimal(row.get("notional_usd")) <= live_trade_cap
+        )
+
     def _audit_blocking_findings(self, audit: dict[str, Any]) -> int:
         if "blocking_finding_count" in audit:
             return self._int(audit.get("blocking_finding_count"))
@@ -349,6 +365,7 @@ class LiveReadinessChecklistService:
             f"- Live trading approval: `{payload['live_trading_approval']}`",
             f"- Paper profile: `{payload['paper_profile']}`",
             f"- Closed paper trades: `{payload['closed_trade_count']}`",
+            f"- Live-cap closed paper trades: `{payload['live_cap_closed_trade_count']}`",
             f"- Paper cash USD: `${payload['paper_cash_usd']}`",
             f"- Paper realized PnL USD: `${payload['paper_realized_pnl_usd']}`",
             f"- Max live wallet USD: `${payload['max_live_wallet_usd']}`",

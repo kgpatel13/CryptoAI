@@ -1,13 +1,13 @@
 {
-  "average_cycle_latency_ms": 19146.04,
-  "cycles_completed": 2,
+  "average_cycle_latency_ms": 13900.56,
+  "cycles_completed": 527,
   "cycles_failed": 0,
-  "heartbeats_emitted": 4,
-  "last_cycle_latency_ms": 26444.45,
-  "run_id": "b4d46768-42d",
+  "heartbeats_emitted": 529,
+  "last_cycle_latency_ms": 9206.52,
+  "run_id": "615f7651-c49",
   "scheduler_status_counts": {
-    "OK": 2
+    "OK": 527
   },
   "service_name": "paper_autopilot",
-  "uptime_seconds": 38.3
+  "uptime_seconds": 7331.96
 }

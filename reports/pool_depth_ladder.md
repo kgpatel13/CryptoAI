@@ -1,6 +1,6 @@
 # CryptoAI Pool Depth Ladder
 
-Generated: `2026-07-01T01:29:16Z`
+Generated: `2026-07-01T03:32:34Z`
 
 ## Summary
 
@@ -15,19 +15,19 @@ Generated: `2026-07-01T01:29:16Z`
 
 | Pair | Status | Confidence | DEXes | Max Usable USD | Best-Two Requested Impact % | Worst Requested Impact % | Worst Tested Impact % | Reason |
 |---|---|---|---:|---:|---:|---:|---:|---|
-| USDC/WETH | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0114 | 0.0735 | 0.3491 | USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0114%. |
-| WETH/USDC | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0178 | 0.1149 | 0.5436 | WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0178%. |
+| USDC/WETH | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0113 | 0.0731 | 0.3471 | USDC/WETH has at least two healthy DEX ladders at requested size with worst impact 0.0113%. |
+| WETH/USDC | DEPTH_READY | MEDIUM | 3 | 2000.0000 | 0.0179 | 0.1156 | 0.5466 | WETH/USDC has at least two healthy DEX ladders at requested size with worst impact 0.0179%. |
 
 ## DEX Detail
 
 | Pair | DEX | OK | Tested | Max Tested USD | Worst Impact % | Liquidity USD |
 |---|---|---:|---:|---:|---:|---:|
-| USDC/WETH | Aerodrome | 5 | 5 | 2000.0000 | 0.0539 | 0.0000 |
-| USDC/WETH | Uniswap V2 | 5 | 5 | 2000.0000 | 0.3491 | 0.0000 |
-| USDC/WETH | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0039 | 0.0000 |
-| WETH/USDC | Aerodrome | 5 | 5 | 2000.0000 | 0.0844 | 0.0000 |
-| WETH/USDC | Uniswap V2 | 5 | 5 | 2000.0000 | 0.5436 | 0.0000 |
-| WETH/USDC | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0061 | 0.0000 |
+| USDC/WETH | Aerodrome | 5 | 5 | 2000.0000 | 0.0536 | 0.0000 |
+| USDC/WETH | Uniswap V2 | 5 | 5 | 2000.0000 | 0.3471 | 0.0000 |
+| USDC/WETH | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0045 | 0.0000 |
+| WETH/USDC | Aerodrome | 5 | 5 | 2000.0000 | 0.0849 | 0.0000 |
+| WETH/USDC | Uniswap V2 | 5 | 5 | 2000.0000 | 0.5466 | 0.0000 |
+| WETH/USDC | Uniswap V3 | 5 | 5 | 2000.0000 | 0.0072 | 0.0000 |
 
 ## Findings
 

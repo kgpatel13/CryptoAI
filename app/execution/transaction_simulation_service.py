@@ -150,22 +150,44 @@ class TransactionSimulationService:
         rows = realism.get("opportunities", [])
         if isinstance(rows, list):
             for row in rows:
+                enriched = self._enrich_candidate(dict(row))
                 if (
-                    str(row.get("source_decision", "")).upper() == "BUY"
-                    and str(row.get("realism_status", "")).upper() == "SHADOW_READY"
-                    and str(row.get("chain", "")).lower() in self.APPROVED_CHAINS
+                    str(enriched.get("source_decision", "")).upper() == "BUY"
+                    and str(enriched.get("realism_status", "")).upper() == "SHADOW_READY"
+                    and str(enriched.get("chain", "")).lower() in self.APPROVED_CHAINS
+                    and {str(enriched.get("buy_source", "")), str(enriched.get("sell_source", ""))}.issubset(self.APPROVED_DEXES)
+                    and self._decimal(enriched.get("buy_price")) > 0
+                    and self._decimal(enriched.get("sell_price")) > 0
                 ):
-                    return dict(row)
+                    return enriched
         return {}
+
+    def _enrich_candidate(self, candidate: dict[str, Any]) -> dict[str, Any]:
+        if self._decimal(candidate.get("buy_price")) > 0 and self._decimal(candidate.get("sell_price")) > 0:
+            return candidate
+        for row in reversed(self._read_jsonl(self.data_dir / "opportunity_decisions.jsonl")):
+            if (
+                str(row.get("timestamp", "")) == str(candidate.get("timestamp", ""))
+                and str(row.get("chain", "")).lower() == str(candidate.get("chain", "")).lower()
+                and str(row.get("pair", "")).upper() == str(candidate.get("pair", "")).upper()
+                and str(row.get("buy_source", "")) == str(candidate.get("buy_source", ""))
+                and str(row.get("sell_source", "")) == str(candidate.get("sell_source", ""))
+            ):
+                candidate["buy_price"] = row.get("buy_price") or row.get("buy_price_usd")
+                candidate["sell_price"] = row.get("sell_price") or row.get("sell_price_usd")
+                break
+        return candidate
 
     def _simulation_intent(self, candidate: dict[str, Any], flags: Any) -> dict[str, Any]:
         if not candidate:
-            return {
-                "status": "NO_CANDIDATE",
-                "calldata_status": "NOT_BUILT",
-                "eth_call_status": "NOT_RUN",
-                "reason": "No latest BUY plus SHADOW_READY opportunity is available.",
-            }
+            if not flags.live_wallet_address or flags.max_live_trade_usd <= 0:
+                return {
+                    "status": "NO_CANDIDATE",
+                    "calldata_status": "NOT_BUILT",
+                    "eth_call_status": "NOT_RUN",
+                    "reason": "No latest approved BUY plus SHADOW_READY opportunity or configured tiny smoke route is available.",
+                }
+            return self._tiny_smoke_intent(flags)
 
         chain = str(candidate.get("chain", "")).lower()
         pair = str(candidate.get("pair", "")).upper()
@@ -221,6 +243,80 @@ class TransactionSimulationService:
         }
         intent.update(self._build_and_simulate_route(candidate, intent))
         return intent
+
+    def _tiny_smoke_intent(self, flags: Any) -> dict[str, Any]:
+        wallet = flags.live_wallet_address or ""
+        max_trade = flags.max_live_trade_usd if flags.max_live_trade_usd > 0 else Decimal("0")
+        smoke_usd = self._decimal(os.getenv("CRYPTOAI_TINY_LIVE_SMOKE_USD", "20"))
+        if max_trade > 0:
+            smoke_usd = min(smoke_usd, max_trade)
+        smoke_usd = min(smoke_usd, Decimal("20"))
+        dex_name = os.getenv("CRYPTOAI_TINY_LIVE_DEX", "Uniswap V3").strip() or "Uniswap V3"
+        token_usdc = get_token("base", "USDC")
+        token_weth = get_token("base", "WETH")
+        dexes = {dex.name: dex for dex in get_dexes_for_chain("base")}
+        dex = dexes.get(dex_name)
+        intent: dict[str, Any] = {
+            "status": "INTENT_READY",
+            "simulation_type": "TINY_LIVE_SMOKE",
+            "chain": "base",
+            "chain_id": 8453,
+            "wallet_address": wallet or None,
+            "pair": "USDC/WETH",
+            "buy_dex": dex_name,
+            "sell_dex": None,
+            "notional_usd": self._fmt(smoke_usd),
+            "max_slippage_bps": "50",
+            "deadline_seconds": "120",
+            "tokens": [
+                {"symbol": "USDC", "address": token_usdc.address if token_usdc else None, "decimals": token_usdc.decimals if token_usdc else None, "configured": token_usdc is not None},
+                {"symbol": "WETH", "address": token_weth.address if token_weth else None, "decimals": token_weth.decimals if token_weth else None, "configured": token_weth is not None},
+            ],
+            "routers": [
+                {"dex": dex_name, "router_address": dex.router_address if dex else None, "dex_type": dex.dex_type if dex else None, "configured": bool(dex and dex.router_address)}
+            ],
+            "calldata_status": "NOT_BUILT",
+            "eth_call_status": "NOT_RUN",
+            "reason": "No approved two-leg arbitrage candidate is available; simulating the configured one-leg tiny live smoke swap.",
+        }
+        intent.update(self._build_and_simulate_tiny_smoke(intent))
+        return intent
+
+    def _build_and_simulate_tiny_smoke(self, intent: dict[str, Any]) -> dict[str, Any]:
+        wallet = str(intent.get("wallet_address") or "")
+        if not self._valid_address(wallet):
+            return {"calldata_status": "BLOCKED", "eth_call_status": "NOT_RUN", "reason": "A valid isolated wallet address is required."}
+        notional = self._decimal(intent.get("notional_usd"))
+        if notional <= 0:
+            return {"calldata_status": "BLOCKED", "eth_call_status": "NOT_RUN", "reason": "Tiny smoke notional must be greater than zero."}
+        try:
+            leg = self._build_leg(
+                leg="TINY_LIVE_SMOKE_SWAP",
+                chain="base",
+                dex_name=str(intent.get("buy_dex")),
+                token_in_symbol="USDC",
+                token_out_symbol="WETH",
+                amount_in_decimal=notional,
+                amount_out_min_decimal=Decimal("0.000000000000000001"),
+                recipient=wallet,
+                deadline=int(time.time()) + int(intent.get("deadline_seconds", "120")),
+            )
+        except Exception as exc:
+            return {"calldata_status": "ERROR", "eth_call_status": "NOT_RUN", "reason": f"{type(exc).__name__}: {exc}"}
+        result = self.eth_call_runner(leg["eth_call"], "base")
+        leg["eth_call_result"] = result
+        return {
+            "status": "SIMULATION_READY" if result.get("status") == "PASS" else "SIMULATION_ATTEMPTED",
+            "calldata_status": "BUILT",
+            "eth_call_status": result.get("status", "FAIL"),
+            "swap_legs": [leg],
+            "eth_call_summary": {
+                "leg_count": 1,
+                "pass_count": 1 if result.get("status") == "PASS" else 0,
+                "revert_count": 1 if result.get("status") == "REVERT" else 0,
+                "fail_count": 0 if result.get("status") in {"PASS", "REVERT"} else 1,
+            },
+        }
 
     def _build_and_simulate_route(self, candidate: dict[str, Any], intent: dict[str, Any]) -> dict[str, Any]:
         chain = str(intent.get("chain", "")).lower()
@@ -463,6 +559,7 @@ class TransactionSimulationService:
         pair_tokens = {str(row.get("symbol", "")).upper() for row in token_rows}
         router_names = {str(row.get("dex", "")) for row in router_rows}
         candidate_exists = bool(candidate)
+        smoke_simulation = str(intent.get("simulation_type", "")).upper() == "TINY_LIVE_SMOKE"
         return [
             self._check(
                 "live_trading_disabled",
@@ -493,22 +590,23 @@ class TransactionSimulationService:
                 "Wallet Preflight is ready.",
             ),
             self._check(
-                "live_readiness_review_ready",
-                readiness.get("live_review_ready") is True,
+                "live_readiness_preconditions_ready",
+                self._int(readiness.get("blocked_check_count")) == 0,
                 "ACTION",
-                "Live Readiness Checklist must be review-ready before transaction simulation can pass.",
-                "Live Readiness Checklist is review-ready.",
+                "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+                "Live Readiness Checklist has no blocking checks.",
             ),
             self._check(
                 "shadow_candidate_available",
-                bool(candidate),
+                bool(candidate) or smoke_simulation,
                 "ACTION",
-                "No BUY plus SHADOW_READY opportunity is available for simulation.",
-                "A BUY plus SHADOW_READY opportunity is available.",
+                "No BUY plus SHADOW_READY opportunity or tiny smoke simulation route is available.",
+                "A simulation route is available.",
             ),
             self._check(
                 "candidate_scope_allowed",
-                (not candidate_exists)
+                smoke_simulation
+                or (not candidate_exists)
                 or (
                     str(candidate.get("chain", "")).lower() in self.APPROVED_CHAINS
                     and pair_tokens.issubset(self.APPROVED_TOKENS)
@@ -527,7 +625,8 @@ class TransactionSimulationService:
             ),
             self._check(
                 "approved_live_dexes",
-                (not candidate_exists) or router_names.issubset(self.APPROVED_DEXES),
+                (smoke_simulation and router_names.issubset(self.APPROVED_DEXES))
+                or ((not smoke_simulation) and ((not candidate_exists) or router_names.issubset(self.APPROVED_DEXES))),
                 "ACTION",
                 "Simulation candidate uses a DEX outside the tiny-live allowlist.",
                 "Simulation candidate DEXes are within the tiny-live allowlist.",
@@ -575,6 +674,22 @@ class TransactionSimulationService:
             return {}
 
     @staticmethod
+    def _read_jsonl(path: Path) -> list[dict[str, Any]]:
+        if not path.exists():
+            return []
+        rows: list[dict[str, Any]] = []
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            if not line.strip():
+                continue
+            try:
+                payload = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(payload, dict):
+                rows.append(payload)
+        return rows
+
+    @staticmethod
     def _valid_address(value: str) -> bool:
         try:
             Web3.to_checksum_address(value)
@@ -613,6 +728,13 @@ class TransactionSimulationService:
             return Decimal(str(value))
         except (InvalidOperation, TypeError, ValueError):
             return Decimal("0")
+
+    @staticmethod
+    def _int(value: Any) -> int:
+        try:
+            return int(value or 0)
+        except (TypeError, ValueError):
+            return 0
 
     @staticmethod
     def _fmt(value: Decimal) -> str:

@@ -1,6 +1,6 @@
 # CryptoAI Report Audit
 
-Generated: `2026-07-01T01:29:36Z`
+Generated: `2026-07-01T03:57:10Z`
 
 ## Summary
 
@@ -41,24 +41,24 @@ Generated: `2026-07-01T01:29:36Z`
 | WATCH | research | False | eth_route_architecture.md | Report is older than freshness window. |
 | WATCH | research | False | eth_market_coverage.json | Report is older than freshness window. |
 | WATCH | research | False | eth_market_coverage.md | Report is older than freshness window. |
-| WATCH | review | False | tiny_live_pilot.json | Report is older than freshness window. |
-| WATCH | review | False | tiny_live_pilot.md | Report is older than freshness window. |
+| WATCH | review | False | paper_trading_settings.json | Report is older than freshness window. |
+| WATCH | review | False | paper_trading_settings.md | Report is older than freshness window. |
 
 ## Reports
 
 | Report | Category | Exists | Generated | Stale | Size |
 |---|---|---|---|---|---:|
-| quote_diagnostics.md | review | True | 2026-07-01T01:29:35Z | False | 917 |
-| multi_dex_opportunities.md | operational | True | 2026-07-01T01:29:15Z | False | 930 |
-| opportunity_explorer.md | operational | True | 2026-07-01T01:29:15Z | False | 510 |
-| paper_report.json | operational | True | 2026-07-01T01:29:16Z | False | 164214 |
-| paper_report.md | operational | True | 2026-07-01T01:29:16Z | False | 44684 |
-| paper_run_review.json | review | True | 2026-07-01T01:29:36Z | False | 2865 |
-| paper_run_review.md | review | True | 2026-07-01T01:29:36Z | False | 1920 |
-| live_safety.json | operational | True | 2026-07-01T01:29:35Z | False | 5099 |
-| live_safety.md | operational | True | 2026-07-01T01:29:35Z | False | 2290 |
-| portfolio_analytics.json | operational | True | 2026-07-01T01:29:16Z | False | 69817 |
-| portfolio_analytics.md | operational | True | 2026-07-01T01:29:16Z | False | 6131 |
+| quote_diagnostics.md | review | True | 2026-07-01T03:54:27Z | False | 929 |
+| multi_dex_opportunities.md | operational | True | 2026-07-01T03:54:31Z | False | 930 |
+| opportunity_explorer.md | operational | True | 2026-07-01T03:54:31Z | False | 510 |
+| paper_report.json | operational | True | 2026-07-01T03:34:19Z | False | 174560 |
+| paper_report.md | operational | True | 2026-07-01T03:34:19Z | False | 62307 |
+| paper_run_review.json | review | True | 2026-07-01T03:34:22Z | False | 2865 |
+| paper_run_review.md | review | True | 2026-07-01T03:34:22Z | False | 1920 |
+| live_safety.json | operational | True | 2026-07-01T03:34:22Z | False | 5099 |
+| live_safety.md | operational | True | 2026-07-01T03:34:22Z | False | 2290 |
+| portfolio_analytics.json | operational | True | 2026-07-01T03:34:19Z | False | 69871 |
+| portfolio_analytics.md | operational | True | 2026-07-01T03:34:19Z | False | 6137 |
 | strategy_center.json | research | True | 2026-06-30T07:46:41Z | True | 6967 |
 | strategy_center.md | research | True | 2026-06-30T07:46:41Z | True | 1712 |
 | strategy_intelligence.json | research | True | 2026-06-30T07:46:46Z | True | 10599 |
@@ -71,24 +71,24 @@ Generated: `2026-07-01T01:29:36Z`
 | backtest_report.md | research | True | 2026-06-30T07:46:43Z | True | 9462 |
 | replay_diagnostics.json | research | True | 2026-06-30T07:46:44Z | True | 2269 |
 | replay_diagnostics.md | research | True | 2026-06-30T07:46:44Z | True | 1258 |
-| pool_depth_ladder.json | operational | True | 2026-07-01T01:29:16Z | False | 6968 |
-| pool_depth_ladder.md | operational | True | 2026-07-01T01:29:16Z | False | 1719 |
-| execution_realism.json | operational | True | 2026-07-01T01:29:35Z | False | 5373 |
-| execution_realism.md | operational | True | 2026-07-01T01:29:35Z | False | 1151 |
-| live_shadow_gate.json | operational | True | 2026-07-01T01:29:35Z | False | 89756 |
-| live_shadow_gate.md | operational | True | 2026-07-01T01:29:35Z | False | 3978 |
-| execution_cost_evidence.json | operational | True | 2026-07-01T01:29:34Z | False | 4060 |
-| execution_cost_evidence.md | operational | True | 2026-07-01T01:29:34Z | False | 1544 |
-| live_readiness_checklist.json | operational | True | 2026-07-01T01:29:36Z | False | 5083 |
-| live_readiness_checklist.md | operational | True | 2026-07-01T01:29:36Z | False | 3093 |
-| transaction_simulation.json | operational | True | 2026-07-01T01:29:36Z | False | 4891 |
-| transaction_simulation.md | operational | True | 2026-07-01T01:29:36Z | False | 2950 |
+| pool_depth_ladder.json | operational | True | 2026-07-01T03:32:34Z | False | 6971 |
+| pool_depth_ladder.md | operational | True | 2026-07-01T03:32:34Z | False | 1719 |
+| execution_realism.json | operational | True | 2026-07-01T03:53:08Z | False | 5722 |
+| execution_realism.md | operational | True | 2026-07-01T03:53:08Z | False | 1226 |
+| live_shadow_gate.json | operational | True | 2026-07-01T03:54:27Z | False | 97468 |
+| live_shadow_gate.md | operational | True | 2026-07-01T03:54:27Z | False | 3547 |
+| execution_cost_evidence.json | operational | True | 2026-07-01T03:34:20Z | False | 4063 |
+| execution_cost_evidence.md | operational | True | 2026-07-01T03:34:20Z | False | 1545 |
+| live_readiness_checklist.json | operational | True | 2026-07-01T03:57:09Z | False | 4973 |
+| live_readiness_checklist.md | operational | True | 2026-07-01T03:57:09Z | False | 2987 |
+| transaction_simulation.json | operational | True | 2026-07-01T03:57:09Z | False | 6089 |
+| transaction_simulation.md | operational | True | 2026-07-01T03:57:09Z | False | 4979 |
 | optimization_report.json | research | True | 2026-06-30T07:46:43Z | True | 541825 |
 | optimization_report.md | research | True | 2026-06-30T07:46:43Z | True | 2210 |
 | experiment_report.json | research | True | 2026-06-30T07:46:44Z | True | 9949 |
 | experiment_report.md | research | True | 2026-06-30T07:46:44Z | True | 3439 |
-| market_intelligence.json | operational | True | 2026-07-01T01:29:16Z | False | 4264 |
-| market_intelligence.md | operational | True | 2026-07-01T01:29:16Z | False | 1269 |
+| market_intelligence.json | operational | True | 2026-07-01T03:34:19Z | False | 4264 |
+| market_intelligence.md | operational | True | 2026-07-01T03:34:19Z | False | 1269 |
 | market_universe_evidence.json | research | True | 2026-06-30T07:46:45Z | True | 8885 |
 | market_universe_evidence.md | research | True | 2026-06-30T07:46:45Z | True | 2694 |
 | quote_coverage_evidence.json | research | True | 2026-06-30T07:46:45Z | True | 16283 |
@@ -97,11 +97,11 @@ Generated: `2026-07-01T01:29:36Z`
 | eth_route_architecture.md | research | True | 2026-06-30T07:46:45Z | True | 3986 |
 | eth_market_coverage.json | research | True | 2026-06-30T07:46:46Z | True | 8684 |
 | eth_market_coverage.md | research | True | 2026-06-30T07:46:46Z | True | 2124 |
-| paper_trading_settings.json | review | True | 2026-07-01T01:28:57Z | False | 3989 |
-| paper_trading_settings.md | review | True | 2026-07-01T01:28:57Z | False | 2286 |
-| wallet_preflight.json | review | True | 2026-07-01T01:29:35Z | False | 3606 |
-| wallet_preflight.md | review | True | 2026-07-01T01:29:35Z | False | 2038 |
-| tiny_live_pilot.json | review | True | 2026-06-30T23:03:41Z | True | 53673 |
-| tiny_live_pilot.md | review | True | 2026-06-30T23:03:41Z | True | 2587 |
-| provider_monitor.json | operational | True | 2026-07-01T01:29:16Z | False | 3845 |
-| provider_monitor.md | operational | True | 2026-07-01T01:29:16Z | False | 1180 |
+| paper_trading_settings.json | review | True | 2026-07-01T01:32:11Z | True | 3989 |
+| paper_trading_settings.md | review | True | 2026-07-01T01:32:11Z | True | 2286 |
+| wallet_preflight.json | review | True | 2026-07-01T03:57:08Z | False | 3469 |
+| wallet_preflight.md | review | True | 2026-07-01T03:57:08Z | False | 1907 |
+| tiny_live_pilot.json | review | True | 2026-07-01T03:56:05Z | False | 58314 |
+| tiny_live_pilot.md | review | True | 2026-07-01T03:56:05Z | False | 2638 |
+| provider_monitor.json | operational | True | 2026-07-01T03:57:08Z | False | 3847 |
+| provider_monitor.md | operational | True | 2026-07-01T03:57:08Z | False | 1184 |

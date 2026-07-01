@@ -121,6 +121,59 @@ class TransactionSimulationServiceTests(unittest.TestCase):
         action_names = {row["name"] for row in payload["checks"] if row["severity"] == "ACTION"}
         self.assertIn("eth_call_simulation_passed", action_names)
 
+    def test_tiny_smoke_route_can_pass_when_no_approved_arbitrage_candidate_exists(self) -> None:
+        env = {
+            "CRYPTOAI_LIVE_TRADING_ENABLED": "false",
+            "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "true",
+            "CRYPTOAI_LIVE_WALLET_ADDRESS": "0x1111111111111111111111111111111111111111",
+            "CRYPTOAI_MAX_LIVE_TRADE_USD": "20",
+            "CRYPTOAI_TINY_LIVE_SMOKE_USD": "20",
+            "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD": "100",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports = root / "reports"
+            reports.mkdir()
+            self._write_json(reports / "wallet_preflight.json", {"wallet_preflight_allowed": True})
+            self._write_json(reports / "live_readiness_checklist.json", {"blocked_check_count": 0, "live_review_ready": False})
+            self._write_json(
+                reports / "execution_realism.json",
+                {
+                    "opportunities": [
+                        {
+                            "chain": "base",
+                            "pair": "USDC/WETH",
+                            "buy_source": "Uniswap V2",
+                            "sell_source": "Uniswap V3",
+                            "source_decision": "BUY",
+                            "realism_status": "SHADOW_READY",
+                            "requested_notional_usd": "500",
+                            "buy_price": "0.0006",
+                            "sell_price": "0.0007",
+                        }
+                    ]
+                },
+            )
+
+            with self._env(env):
+                payload = TransactionSimulationService(
+                    data_dir=root / "data",
+                    report_dir=reports,
+                    eth_call_runner=lambda tx, chain: {
+                        "status": "PASS",
+                        "chain_id": 8453,
+                        "block_number": 123,
+                        "result": "0x",
+                    },
+                ).generate()
+
+        self.assertEqual(payload["overall_status"], "TX_SIMULATION_READY")
+        self.assertTrue(payload["transaction_simulation_passed"])
+        self.assertEqual(payload["simulation_intent"]["simulation_type"], "TINY_LIVE_SMOKE")
+        self.assertEqual(payload["simulation_intent"]["notional_usd"], "20.0000")
+        self.assertEqual(len(payload["simulation_intent"]["swap_legs"]), 1)
+        self.assertEqual(payload["simulation_intent"]["swap_legs"][0]["dex"], "Uniswap V3")
+
     def test_missing_shadow_candidate_is_actionable_not_passed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -148,6 +201,7 @@ class TransactionSimulationServiceTests(unittest.TestCase):
             "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED",
             "CRYPTOAI_LIVE_WALLET_ADDRESS",
             "CRYPTOAI_MAX_LIVE_TRADE_USD",
+            "CRYPTOAI_TINY_LIVE_SMOKE_USD",
             "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD",
         }
         previous = {key: os.environ.get(key) for key in keys}

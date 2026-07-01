@@ -1,40 +1,40 @@
 # CryptoAI Paper Trading Report
 
-Generated: `2026-07-01T01:29:57Z`
+Generated: `2026-07-01T03:34:19Z`
 
 ## Summary
 
 - Mode: `paper`
 - Live trading: `disabled`
-- Opportunity decisions: `25316`
-- Total orders: `5044`
-- Filled orders: `997`
-- Skipped orders: `4009`
+- Opportunity decisions: `30586`
+- Total orders: `6098`
+- Filled orders: `1088`
+- Skipped orders: `4666`
 - Rejected orders: `0`
-- Portfolio risk rejections: `38`
-- Live-shadow eligible filled orders: `55`
+- Portfolio risk rejections: `344`
+- Live-shadow eligible filled orders: `146`
 - Paper-only filled orders: `0`
-- Total filled notional USD: `$38225.0000`
-- Total realized PnL USD: `$138.6686`
-- Order-file realized PnL USD: `$138.6686`
+- Total filled notional USD: `$83725.0000`
+- Total realized PnL USD: `$300.8089`
+- Order-file realized PnL USD: `$300.8089`
 - PnL reconciliation: `RECONCILED`
-- Paper portfolio cash USD: `$638.6686`
+- Paper portfolio cash USD: `$800.8089`
 - Open paper positions: `0`
 - Closed paper positions: `0`
 - Avg execution slippage bps: `5.0000`
 - Avg execution latency ms: `250.0000`
-- Equity USD: `$638.6686`
-- Total PnL USD: `$138.6686`
-- Total return %: `27.7337`
+- Equity USD: `$800.8089`
+- Total PnL USD: `$300.8089`
+- Total return %: `60.1618`
 - Win rate %: `100.0000`
 - Max drawdown %: `0.0000`
 - Legacy accounting warnings: `0`
 
 ## Opportunity Decision Counts
 
-- `WATCH`: 12782
-- `BUY`: 6842
-- `SKIP`: 5692
+- `WATCH`: 14689
+- `BUY`: 8849
+- `SKIP`: 7048
 
 ## Skip Reasons
 
@@ -287,7 +287,7 @@ Generated: `2026-07-01T01:29:57Z`
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0775% is below paper threshold 0.25%.`: 12
 - `Live-shadow gate blocked paper fill: Realism status is NOT_EXECUTABLE.; Stress net edge is -0.4699%.; Execution-cost confidence is MEDIUM.`: 10
 - `Live-shadow gate blocked paper fill: Realism status is NOT_EXECUTABLE.; Stress net edge is -0.4701%.; Execution-cost confidence is MEDIUM.`: 2
-- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0768% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0768% is below paper threshold 0.25%.`: 19
 - `Live-shadow gate blocked paper fill: Realism status is NOT_EXECUTABLE.; Stress net edge is -0.4708%.; Execution-cost confidence is MEDIUM.`: 13
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0769% is below paper threshold 0.25%.`: 13
 - `Live-shadow gate blocked paper fill: Realism status is NOT_EXECUTABLE.; Stress net edge is -0.4707%.; Execution-cost confidence is MEDIUM.`: 6
@@ -315,36 +315,190 @@ Generated: `2026-07-01T01:29:57Z`
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0562% is below paper threshold 0.25%.`: 11
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0290% is below paper threshold 0.25%.`: 5
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%.`: 7
-- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0588% is below paper threshold 0.25%.`: 2
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0588% is below paper threshold 0.25%.`: 14
 - `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0513% is below paper threshold 0.25%.`: 2
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0983% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0019% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0542% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1496% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0858% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2007% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1685% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2410% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1279% is below paper threshold 0.25%.`: 13
+- `Live-shadow gate blocked paper fill: Realism status is WATCH_ONLY.`: 5
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0951% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0069% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0125% is below paper threshold 0.25%.`: 13
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2426% is below paper threshold 0.25%.`: 14
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1267% is below paper threshold 0.25%.`: 14
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0812% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0261% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0278% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0800% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0222% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0210% is below paper threshold 0.25%.`: 8
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0072% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2415% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1277% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2306% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1387% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2132% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1561% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1946% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1746% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1897% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1795% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0156% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0056% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0397% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0117% is below paper threshold 0.25%.`: 8
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0256% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0467% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0399% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0894% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1167% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1140% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0648% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0518% is below paper threshold 0.25%.`: 5
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0849% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1168% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0088% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0080% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.0076% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0257% is below paper threshold 0.25%.`: 5
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1163% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0924% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge -0.1302% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0196% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0429% is below paper threshold 0.25%.`: 7
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0477% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.0906% is below paper threshold 0.25%.`: 6
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1969% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1716% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2424% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1262% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1073% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1105% is below paper threshold 0.25%.`: 12
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1107% is below paper threshold 0.25%.`: 9
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2089% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1597% is below paper threshold 0.25%.`: 10
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%.`: 8
+- `Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%.`: 8
 
 ## Portfolio Risk Rejection Reasons
 
 - `Portfolio risk rejected: computed notional $5.0000 below minimum $25.`: 36
-- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 10s).`: 1
-- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 12s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 10s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 12s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 21s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 45s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 24s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 38s).`: 8
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 18s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 31s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 40s).`: 8
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 49s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 58s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 9s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 19s).`: 8
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 28s).`: 6
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 46s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 29s).`: 6
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 48s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 57s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 50s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 47s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 56s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 37s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 39s).`: 10
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 11s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 20s).`: 9
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 30s).`: 9
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 40s).`: 8
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 50s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 59s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 10s).`: 7
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 29s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 39s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 60s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 49s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 58s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 19s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 38s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 48s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 31s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 41s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 51s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 53s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 13s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 25s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 26s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 14s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 28s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 54s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 37s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 27s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 52s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 12s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 24s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 18s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 16s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 42s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 15s).`: 6
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 41s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 52s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 14s).`: 14
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 26s).`: 11
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 51s).`: 7
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 16s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 30s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 43s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 13s).`: 6
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 44s).`: 2
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 27s).`: 7
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 25s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 60s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 36s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 32s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 54s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 53s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 34s).`: 5
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 17s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 33s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 22s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 42s).`: 4
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 20s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 35s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 55s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 45s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 15s).`: 3
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 44s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 21s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 35s).`: 1
+- `Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 34s).`: 1
 
 ## Execution Quality
 
-- `GOOD`: 997
+- `GOOD`: 1088
 
 ## Live Shadow Decisions
 
 - `UNKNOWN`: 3940
-- `NOT_EVALUATED`: 721
-- `PAPER_ONLY`: 328
-- `SHADOW_ELIGIBLE`: 55
+- `NOT_EVALUATED`: 1679
+- `PAPER_ONLY`: 333
+- `SHADOW_ELIGIBLE`: 146
 
 ## Paper Portfolio
 
-- Cash USD: `$638.6686`
+- Cash USD: `$800.8089`
 - Initial cash USD: `$500.00`
-- Portfolio realized PnL USD: `$138.6686`
+- Portfolio realized PnL USD: `$300.8089`
 - Open positions: `0`
 - Closed positions: `0`
-- Daily realized PnL USD: `$99.5941`
+- Daily realized PnL USD: `$261.7344`
 - Unrealized PnL USD: `$0.0000`
-- Daily filled trades: `55`
+- Daily filled trades: `146`
 - Exposure by chain: `{}`
 - Exposure by token: `{}`
 
@@ -352,19 +506,19 @@ Generated: `2026-07-01T01:29:57Z`
 
 - Source of truth: `paper_portfolio_state.json`
 - Status: `RECONCILED`
-- Portfolio realized PnL USD: `$138.6686`
-- Order-file realized PnL USD: `$138.6686`
+- Portfolio realized PnL USD: `$300.8089`
+- Order-file realized PnL USD: `$300.8089`
 - Difference USD: `$0.0000`
 - Note: The active portfolio ledger and paper-order history agree.
 
 ## Portfolio Analytics
 
-- Equity USD: `$638.6686`
-- Total PnL USD: `$138.6686`
-- Total return %: `27.7337`
+- Equity USD: `$800.8089`
+- Total PnL USD: `$300.8089`
+- Total return %: `60.1618`
 - Win rate %: `100.0000`
 - Profit factor: `N/A`
-- Expectancy USD: `$0.1391`
+- Expectancy USD: `$0.2765`
 - Max drawdown USD: `$0.0000`
 - Max drawdown %: `0.0000`
 
@@ -373,64 +527,64 @@ Generated: `2026-07-01T01:29:57Z`
 | Date | Trades | Filled Notional | Realized PnL | Cumulative PnL | Daily Return % |
 |---|---:|---:|---:|---:|---:|
 | 2026-06-30 | 942 | 10725.0000 | 39.0745 | 39.0745 | 7.8149 |
-| 2026-07-01 | 55 | 27500.0000 | 99.5941 | 138.6686 | 19.9188 |
+| 2026-07-01 | 146 | 73000.0000 | 261.7344 | 300.8089 | 52.3469 |
 
 ### Performance by Pair
 
 | Pair | Trades | Filled Notional | Realized PnL | Win Rate % |
 |---|---:|---:|---:|---:|
-| USDC/WETH | 569 | 18085.0000 | 61.0928 | 100.0000 |
-| WETH/USDC | 428 | 20140.0000 | 77.5758 | 100.0000 |
+| USDC/WETH | 598 | 32585.0000 | 107.6313 | 100.0000 |
+| WETH/USDC | 490 | 51140.0000 | 193.1776 | 100.0000 |
 
 ## Latest Opportunities
 
 | Pair | Net % | Score | Decision | Reason |
 |---|---:|---:|---|---|
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
-| WETH/USDC | 0.4206542360030916075980842804 | 84 | BUY | REAL: Real multi-DEX comparison: net edge 0.4207% is above BUY threshold 0.25%. |
-| USDC/WETH | -0.0512635416416920354542170141 | 10 | SKIP | REAL: Real multi-DEX comparison: net edge -0.0513% is too low after costs. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
+| WETH/USDC | 0.1104831049752274687307378842 | 22 | WATCH | REAL: Real multi-DEX comparison: net edge 0.1105% is positive but below BUY threshold. |
+| USDC/WETH | 0.2580988506289739404075928804 | 51 | BUY | REAL: Real multi-DEX comparison: net edge 0.2581% is above BUY threshold 0.25%. |
 
 ## Latest Orders
 
 | Time | Pair | Buy | Sell | Status | Shadow | Notional | Gross % | Cost % | Net % | Realized PnL | Quality | Reason |
 |---|---|---|---|---|---|---:|---:|---:|---:|---:|---|---|
-| 2026-07-01T01:24:40Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:24:40Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:24:59Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:24:59Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:25:15Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:25:15Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:25:29Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:25:29Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:25:49Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:25:49Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:26:07Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6798235876458458988321583700 | 0.30 | 0.3798235876458458988321583700 | 1.8991 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:26:07Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0106% is below paper threshold 0.25%. |
-| 2026-07-01T01:26:46Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.6102536001845624711939994441 | 0.30 | 0.3102536001845624711939994441 | 1.5513 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:26:46Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0588% is below paper threshold 0.25%. |
-| 2026-07-01T01:26:56Z | WETH/USDC | None | None | RISK_REJECTED | NOT_EVALUATED | 0 | None | None | None | None | None | Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 10s). |
-| 2026-07-01T01:26:56Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.0588% is below paper threshold 0.25%. |
-| 2026-07-01T01:29:02Z | WETH/USDC | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.7206542360030916075980842804 | 0.30 | 0.4206542360030916075980842804 | 2.1033 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
-| 2026-07-01T01:29:02Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0513% is below paper threshold 0.25%. |
-| 2026-07-01T01:29:14Z | WETH/USDC | None | None | RISK_REJECTED | NOT_EVALUATED | 0 | None | None | None | None | None | Portfolio risk rejected: duplicate arbitrage signal fingerprint for WETH/USDC within 60s window (age 12s). |
-| 2026-07-01T01:29:14Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge -0.0513% is below paper threshold 0.25%. |
+| 2026-07-01T03:31:53Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:31:53Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:07Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:07Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:20Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:20Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:31Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:32:31Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:01Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:01Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:13Z | USDC/WETH | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.2017% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:13Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1669% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:29Z | USDC/WETH | Uniswap V2 | Uniswap V3 | SKIPPED | PAPER_ONLY | 0 | 0.5580988506289739404075928804 | 0.30 | 0.2580988506289739404075928804 | None | None | Live-shadow gate blocked paper fill: Realism status is WATCH_ONLY. |
+| 2026-07-01T03:33:29Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1105% is below paper threshold 0.25%. |
+| 2026-07-01T03:33:43Z | USDC/WETH | Uniswap V2 | Uniswap V3 | CLOSED | SHADOW_ELIGIBLE | 500.0000 | 0.5580988506289739404075928804 | 0.30 | 0.2580988506289739404075928804 | 1.2905 | GOOD | Atomic paper arbitrage round trip completed and closed immediately. |
+| 2026-07-01T03:33:43Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1105% is below paper threshold 0.25%. |
+| 2026-07-01T03:34:02Z | USDC/WETH | None | None | RISK_REJECTED | NOT_EVALUATED | 0 | None | None | None | None | None | Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 19s). |
+| 2026-07-01T03:34:02Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1105% is below paper threshold 0.25%. |
+| 2026-07-01T03:34:17Z | USDC/WETH | None | None | RISK_REJECTED | NOT_EVALUATED | 0 | None | None | None | None | None | Portfolio risk rejected: duplicate arbitrage signal fingerprint for USDC/WETH within 60s window (age 34s). |
+| 2026-07-01T03:34:17Z | WETH/USDC | None | None | SKIPPED | NOT_EVALUATED | 0 | None | None | None | None | None | Risk decision is WATCHLIST; paper order not created. Expected edge 0.1105% is below paper threshold 0.25%. |
 
 ## Notes
 

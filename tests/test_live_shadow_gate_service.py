@@ -62,10 +62,16 @@ class LiveShadowGateServiceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             data = root / "data"
+            reports = root / "reports"
             data.mkdir()
+            reports.mkdir()
             self._write_buy_opportunity(data)
             portfolio = PortfolioRiskService(state_path=data / "paper_portfolio_state.json")
-            service = PaperExecutionService(data_dir=data, portfolio_risk=portfolio)
+            service = PaperExecutionService(
+                data_dir=data,
+                portfolio_risk=portfolio,
+                live_shadow_gate=LiveShadowGateService(data_dir=data, report_dir=reports),
+            )
             service._load_risk_assessments = lambda: [self._assessment()]  # type: ignore[method-assign]
 
             batch = service.run_once()

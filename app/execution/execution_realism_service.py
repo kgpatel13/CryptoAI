@@ -151,6 +151,8 @@ class ExecutionRealismService:
             "pair": pair,
             "buy_source": buy_source,
             "sell_source": sell_source,
+            "buy_price": row.get("buy_price") or row.get("buy_price_usd"),
+            "sell_price": row.get("sell_price") or row.get("sell_price_usd"),
             "source_decision": row.get("decision"),
             "gross_edge_pct": self._fmt(gross),
             "configured_cost_buffer_pct": self._fmt(configured_cost),

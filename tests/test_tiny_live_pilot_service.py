@@ -14,7 +14,7 @@ from app.execution.tiny_live_pilot_service import PilotPreparation, PreparedTx, 
 
 
 class TinyLivePilotServiceTests(unittest.TestCase):
-    def test_plan_mode_never_sends_and_blocks_without_readiness(self) -> None:
+    def test_plan_mode_never_sends_and_does_not_require_swap_readiness(self) -> None:
         sent: list[dict] = []
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -31,7 +31,8 @@ class TinyLivePilotServiceTests(unittest.TestCase):
         self.assertFalse(payload["send_attempted"])
         self.assertEqual(sent, [])
         blockers = {row["name"] for row in payload["checks"] if row["severity"] == "BLOCK"}
-        self.assertIn("live_readiness_ready", blockers)
+        self.assertNotIn("live_readiness_ready", blockers)
+        self.assertNotIn("transaction_simulation_passed", blockers)
 
     def test_approve_mode_sends_only_after_gates_and_confirmation(self) -> None:
         sent: list[dict] = []
@@ -52,7 +53,7 @@ class TinyLivePilotServiceTests(unittest.TestCase):
                 report_dir=Path(tmp) / "reports",
                 tx_sender=lambda tx, configured: sent.append(tx) or {"tx_hash": "0xabc", "receipt_status": 1},
             )
-            with patch.object(service, "_context", return_value=self._context(live_ready=True)):
+            with patch.object(service, "_context", return_value=self._context(live_ready=False)):
                 with patch.object(service, "_prepare", return_value=self._prepared(wallet=wallet)):
                     with self._env(env):
                         payload = service.generate(mode="approve", confirm=TinyLivePilotService.CONFIRM_PHRASE)
@@ -83,6 +84,38 @@ class TinyLivePilotServiceTests(unittest.TestCase):
         self.assertFalse(payload["send_attempted"])
         blockers = {row["name"] for row in payload["checks"] if row["severity"] == "BLOCK"}
         self.assertIn("atomic_arbitrage_blocked", blockers)
+
+    def test_swap_mode_can_send_after_smoke_simulation_without_full_arbitrage_readiness(self) -> None:
+        sent: list[dict] = []
+        private_key = "0x" + "1" * 64
+        wallet = Web3().eth.account.from_key(private_key).address
+        env = {
+            **self._base_env(),
+            "CRYPTOAI_ALLOW_ONE_LEG_SMOKE_SWAP": "true",
+            "CRYPTOAI_ENABLE_TINY_LIVE_PILOT": "true",
+            "CRYPTOAI_LIVE_TRADING_ENABLED": "true",
+            "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "false",
+            "CRYPTOAI_PRIVATE_KEY": private_key,
+            "CRYPTOAI_LIVE_WALLET_ADDRESS": wallet,
+        }
+        context = self._context(live_ready=False)
+        context["live_readiness"] = {"live_review_ready": False, "blocked_check_count": 0}
+        context["transaction_simulation"] = {"transaction_simulation_passed": True}
+
+        with tempfile.TemporaryDirectory() as tmp:
+            service = TinyLivePilotService(
+                data_dir=Path(tmp) / "data",
+                report_dir=Path(tmp) / "reports",
+                tx_sender=lambda tx, configured: sent.append(tx) or {"tx_hash": "0xabc", "receipt_status": 1},
+            )
+            with patch.object(service, "_context", return_value=context):
+                with patch.object(service, "_prepare", return_value=self._prepared(wallet=wallet, allowance=True)):
+                    with self._env(env):
+                        payload = service.generate(mode="swap", confirm=TinyLivePilotService.CONFIRM_PHRASE)
+
+        self.assertTrue(payload["send_attempted"])
+        self.assertEqual(payload["overall_status"], "LIVE_PILOT_SENT")
+        self.assertEqual(len(sent), 1)
 
     @staticmethod
     def _base_env() -> dict[str, str]:

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T01:29:16Z",
+  "generated_at": "2026-07-01T03:57:08Z",
   "mode": "paper",
   "provider_count": 5,
   "overall_status": "OK",
@@ -19,8 +19,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 335.63,
-      "last_observed_age_seconds": 30.17,
+      "avg_latency_ms": 335.0,
+      "last_observed_age_seconds": 164.42,
       "last_error": null,
       "alerts": []
     },
@@ -35,8 +35,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 332.86,
-      "last_observed_age_seconds": 31.41,
+      "avg_latency_ms": 333.36,
+      "last_observed_age_seconds": 165.45,
       "last_error": null,
       "alerts": []
     },
@@ -51,8 +51,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 792.36,
-      "last_observed_age_seconds": 28.55,
+      "avg_latency_ms": 787.2,
+      "last_observed_age_seconds": 161.86,
       "last_error": null,
       "alerts": []
     },
@@ -68,7 +68,7 @@
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
       "avg_latency_ms": 209.14,
-      "last_observed_age_seconds": 25461.23,
+      "last_observed_age_seconds": 34333.32,
       "last_error": null,
       "alerts": [
         {
@@ -76,7 +76,7 @@
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "chain": "base",
-          "message": "Provider observation is stale at 25461.23 seconds old."
+          "message": "Provider observation is stale at 34333.32 seconds old."
         }
       ]
     },
@@ -91,8 +91,8 @@
       "required_for_overall": true,
       "success_rate_pct": 100.0,
       "consecutive_failures": 0,
-      "avg_latency_ms": 240.83,
-      "last_observed_age_seconds": 1.86,
+      "avg_latency_ms": 242.23,
+      "last_observed_age_seconds": 41.87,
       "last_error": null,
       "alerts": []
     }
@@ -131,7 +131,7 @@
       "provider": "Base:rpc2:https://mainnet.base.org",
       "provider_type": "rpc",
       "chain": "base",
-      "message": "Provider observation is stale at 25461.23 seconds old."
+      "message": "Provider observation is stale at 34333.32 seconds old."
     }
   ],
   "notes": [
