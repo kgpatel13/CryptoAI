@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T05:30:02Z",
+  "generated_at": "2026-07-01T06:04:42Z",
   "mode": "paper",
   "production_cost_buffer_pct": "0.30",
   "paper_buy_threshold_pct": "0.30",
@@ -14,8 +14,8 @@
     "source": "latest_opportunity_decision"
   },
   "paper_execution_evidence": {
-    "sample_count": 1104,
-    "total_filled_notional_usd": "91725.0000",
+    "sample_count": 1136,
+    "total_filled_notional_usd": "107725.0000",
     "avg_slippage_bps": "5.0000",
     "p95_slippage_bps": "5.0000",
     "max_slippage_bps": "5.0000",
@@ -26,7 +26,7 @@
     "p95_latency_ms": "250.0000",
     "max_latency_ms": "250.0000",
     "execution_quality_counts": {
-      "GOOD": 1104
+      "GOOD": 1136
     }
   },
   "quote_evidence": {
@@ -41,12 +41,12 @@
       "Uniswap V2",
       "Uniswap V3"
     ],
-    "avg_ok_latency_ms": "0.0000",
-    "p95_ok_latency_ms": "0.0000"
+    "avg_ok_latency_ms": "0.0018",
+    "p95_ok_latency_ms": "0.0100"
   },
   "provider_evidence": {
     "provider_count": 5,
-    "avg_provider_latency_ms": "378.9740",
+    "avg_provider_latency_ms": "376.3840",
     "avg_provider_score": "99.6000",
     "providers": [
       {
@@ -54,7 +54,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 331.6,
+        "avg_latency_ms": 329.09,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -63,7 +63,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 331.95,
+        "avg_latency_ms": 329.55,
         "score": 100,
         "consecutive_failures": 0
       },
@@ -72,7 +72,7 @@
         "provider_type": "dex",
         "chain": "base",
         "success_rate_pct": 100.0,
-        "avg_latency_ms": 781.67,
+        "avg_latency_ms": 775.59,
         "score": 99,
         "consecutive_failures": 0
       },
@@ -89,22 +89,22 @@
         "name": "Base:rpc1:https://base-rpc.publicnode.com",
         "provider_type": "rpc",
         "chain": "base",
-        "success_rate_pct": 99.78,
-        "avg_latency_ms": 240.51,
+        "success_rate_pct": 99.53,
+        "avg_latency_ms": 238.55,
         "score": 99,
         "consecutive_failures": 0
       }
     ]
   },
   "replay_cost_evidence": {
-    "real_signal_count": 26538,
-    "avg_gross_edge_pct": "0.4850",
-    "p95_gross_edge_pct": "0.7235",
+    "real_signal_count": 27894,
+    "avg_gross_edge_pct": "0.4851",
+    "p95_gross_edge_pct": "0.7198",
     "max_gross_edge_pct": "0.8447",
-    "production_trade_count": 6772,
+    "production_trade_count": 7450,
     "production_required_gross_edge_pct": "0.60",
-    "observed_lower_bound_trade_count": 26538,
-    "observed_lower_bound_total_pnl_usd": "94214.3337",
+    "observed_lower_bound_trade_count": 27894,
+    "observed_lower_bound_total_pnl_usd": "99045.9746",
     "replay_notional_usd": "1000"
   },
   "assessment": {
@@ -113,11 +113,11 @@
     "production_cost_buffer_pct": "0.30",
     "observed_total_cost_lower_bound_pct": "0.1300",
     "buffer_surplus_vs_lower_bound_pct": "0.1700",
-    "paper_sample_count": 1104,
+    "paper_sample_count": 1136,
     "quote_ok_rate_pct": "100.0000",
     "avg_provider_score": "99.6000",
-    "production_trade_count": 6772,
-    "observed_lower_bound_trade_count": 26538
+    "production_trade_count": 7450,
+    "observed_lower_bound_trade_count": 27894
   },
   "findings": [
     {

@@ -1,9 +1,9 @@
 # Live Control Center
 
-Generated: `2026-07-01T05:21:33Z`
-- Overall status: `BLOCKED_WALLET_PREFLIGHT`
-- Next action: `Run wallet preflight in safe mode until it is WALLET_PREP_READY.`
-- Next command: `python -m app.execution.wallet_preflight_service`
+Generated: `2026-07-01T05:58:08Z`
+- Overall status: `BLOCKED_LIVE_READINESS`
+- Next action: `Continue paper/live-parity evidence; live readiness is not ready.`
+- Next command: `python -m app.execution.live_readiness_checklist_service`
 - Continuous monitor: `python -m app.execution.live_control_center_service --loop --interval 30`
 - Continuous live command: `python -m app.execution.live_control_center_service --live-loop --interval 30`
 - Continuous live status: `NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR`
@@ -15,14 +15,14 @@ Generated: `2026-07-01T05:21:33Z`
   "address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
   "chain": "base",
   "usdc_balance": "429.998478",
-  "eth_balance": "0.024122272765898439",
+  "eth_balance": "0.024121785224852599",
   "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
-  "smoke_usd": "20",
+  "smoke_usd": "5",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48046973
+  "latest_block": 48048070
 }
 ```
 
@@ -38,10 +38,10 @@ Generated: `2026-07-01T05:21:33Z`
   "total_swap_usd": "20.0000",
   "total_gas_used": 190594,
   "current_balances": {
-    "ETH": "0.024122272765898439",
+    "ETH": "0.024121785224852599",
     "USDC": "429.998478",
     "WETH": "0.012568442636912582",
-    "block_number": "48046972",
+    "block_number": "48048070",
     "status": "OK"
   },
   "latest_swap": {
@@ -62,14 +62,14 @@ Generated: `2026-07-01T05:21:33Z`
 
 ```json
 {
-  "wallet_preflight": "WALLET_PREP_ACTION",
-  "wallet_preflight_allowed": false,
+  "wallet_preflight": "WALLET_PREP_READY",
+  "wallet_preflight_allowed": true,
   "live_readiness": "LIVE_REVIEW_NOT_READY",
   "live_review_ready": false,
   "transaction_simulation": "TX_SIMULATION_ACTION",
   "transaction_simulation_passed": false,
-  "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
-  "tiny_live_blocked_checks": 2,
+  "tiny_live_pilot": "LIVE_PILOT_READY",
+  "tiny_live_blocked_checks": 0,
   "provider_monitor": "OK",
   "report_audit_blocking_findings": 0,
   "live_safety": "LIVE_BLOCKED",
@@ -81,8 +81,7 @@ Generated: `2026-07-01T05:21:33Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
-| tiny_live_pilot | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
-| tiny_live_pilot | provider_ok | BLOCK | Provider monitor must be OK. |
+| live_readiness | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 
 ## Notes
 

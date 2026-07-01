@@ -52,7 +52,7 @@ def load_feature_flags() -> FeatureFlags:
         live_wallet_address=os.getenv("CRYPTOAI_LIVE_WALLET_ADDRESS", "").strip(),
         main_wallet_address=os.getenv("CRYPTOAI_MAIN_WALLET_ADDRESS", "").strip(),
         live_allowed_chains=_csv_env("CRYPTOAI_LIVE_ALLOWED_CHAINS", "base"),
-        live_allowed_dexes=_csv_env("CRYPTOAI_LIVE_ALLOWED_DEXES", "Uniswap V3,Aerodrome"),
+        live_allowed_dexes=_csv_env("CRYPTOAI_LIVE_ALLOWED_DEXES", "Uniswap V2,Uniswap V3,Aerodrome"),
         live_allowed_tokens=_csv_env("CRYPTOAI_LIVE_ALLOWED_TOKENS", "WETH,USDC"),
         require_transaction_simulation=_bool_env("CRYPTOAI_REQUIRE_TX_SIMULATION", True),
         transaction_simulation_passed=_bool_env("CRYPTOAI_TX_SIMULATION_PASSED", False),

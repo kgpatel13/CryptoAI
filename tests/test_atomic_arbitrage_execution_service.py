@@ -39,6 +39,8 @@ class AtomicArbitrageExecutionServiceTests(unittest.TestCase):
 
         self.assertEqual(payload["overall_status"], "ATOMIC_ROUTE_SIMULATION_PASSED")
         self.assertTrue(payload["atomic_route_simulation_passed"])
+        self.assertEqual(payload["route_diagnostics"]["blocker_type"], "ATOMIC_BUILDER_OR_ETH_CALL")
+        self.assertEqual(payload["route_diagnostics"]["shadow_ready_count"], 1)
         route = payload["atomic_route"]
         self.assertEqual(route["executor_address"], "0x2222222222222222222222222222222222222222")
         self.assertTrue(route["calldata"].startswith("0x"))
@@ -76,6 +78,76 @@ class AtomicArbitrageExecutionServiceTests(unittest.TestCase):
 
         self.assertEqual(payload["overall_status"], "ATOMIC_ROUTE_ACTION")
         self.assertFalse(payload["atomic_route_simulation_passed"])
+        self.assertEqual(payload["route_diagnostics"]["blocker_type"], "NO_TWO_LEG_CANDIDATE")
+
+    def test_diagnostics_explain_watch_only_market_blocker(self) -> None:
+        env = {
+            "CRYPTOAI_LIVE_WALLET_ADDRESS": "0x1111111111111111111111111111111111111111",
+            "CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS": "0x2222222222222222222222222222222222222222",
+            "CRYPTOAI_ATOMIC_EXECUTOR_REVIEWED": "true",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports = root / "reports"
+            reports.mkdir()
+            (reports / "transaction_simulation.json").write_text(
+                json.dumps(
+                    {
+                        "overall_status": "TX_SIMULATION_ACTION",
+                        "transaction_simulation_passed": False,
+                        "selected_candidate": {},
+                        "simulation_intent": {"simulation_type": "TINY_LIVE_SMOKE", "swap_legs": [{}]},
+                        "checks": [{"name": "eth_call_simulation_passed", "passed": False, "severity": "ACTION", "detail": "Base eth_call simulation has not passed yet."}],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (reports / "execution_realism.json").write_text(
+                json.dumps(
+                    {
+                        "opportunities": [
+                            {
+                                "timestamp": "now",
+                                "chain": "base",
+                                "pair": "WETH/USDC",
+                                "buy_source": "Uniswap V2",
+                                "sell_source": "Uniswap V3",
+                                "source_decision": "WATCH",
+                                "realism_status": "WATCH_ONLY",
+                                "gross_edge_pct": "0.40",
+                                "reported_net_edge_pct": "0.10",
+                                "stress_net_edge_pct": "0.02",
+                                "confidence": "MEDIUM",
+                                "reason": "Below BUY threshold.",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self._env(env):
+                service = AtomicArbitrageExecutionService(
+                    data_dir=root / "data",
+                    report_dir=reports,
+                    refresh_transaction_simulation=False,
+                )
+                with patch.object(service, "_executor_preflight", return_value={"status": "READY", "executor_code_bytes": 1, "allowance_sufficient": False}):
+                    payload = service.generate()
+
+        diagnostics = payload["route_diagnostics"]
+        self.assertEqual(diagnostics["blocker_type"], "NO_TWO_LEG_CANDIDATE")
+        self.assertEqual(diagnostics["latest_diagnostics_count"], 1)
+        self.assertIn("source_decision is WATCH", diagnostics["latest_opportunities"][0]["diagnostic_reasons"][0])
+
+    def test_decodes_profit_too_low_custom_error(self) -> None:
+        decoded = AtomicArbitrageExecutionService._decode_executor_error(
+            "ContractCustomError: ('0x88215f9c00000000000000000000000000000000000000000000000000000000012eabb40000000000000000000000000000000000000000000000000000000001315410')"
+        )
+
+        self.assertEqual(decoded["name"], "ProfitTooLow")
+        self.assertEqual(decoded["amount_out_usdc"], "19.835828")
+        self.assertEqual(decoded["required_out_usdc"], "20.01")
+        self.assertEqual(decoded["shortfall_usdc"], "0.174172")
 
     @staticmethod
     def _write_base_reports(reports: Path) -> None:

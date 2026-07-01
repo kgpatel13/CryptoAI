@@ -97,7 +97,7 @@ class TransactionSimulationService:
 
     APPROVED_CHAINS = {"base"}
     APPROVED_TOKENS = {"USDC", "WETH"}
-    APPROVED_DEXES = {"Uniswap V3", "Aerodrome"}
+    APPROVED_DEXES = {"Uniswap V2", "Uniswap V3", "Aerodrome"}
 
     def __init__(
         self,

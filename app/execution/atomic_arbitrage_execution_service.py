@@ -9,6 +9,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any, Callable
 
+from eth_abi import decode
 from web3 import Web3
 
 from app.blockchain.chains import SUPPORTED_CHAINS
@@ -80,6 +81,7 @@ class AtomicArbitrageExecutionService:
         else:
             tx_sim = self._read_json(self.report_dir / "transaction_simulation.json")
         intent = tx_sim.get("simulation_intent", {}) if isinstance(tx_sim.get("simulation_intent"), dict) else {}
+        diagnostics = self._route_diagnostics(tx_sim=tx_sim, intent=intent)
         route = self._build_atomic_route(intent)
         executor_preflight = self._executor_preflight(route)
         checks = self._checks(tx_sim=tx_sim, intent=intent, route=route, executor_preflight=executor_preflight)
@@ -93,6 +95,7 @@ class AtomicArbitrageExecutionService:
             "atomic_route_simulation_passed": passed,
             "live_trading_approval": False,
             "transaction_simulation_status": tx_sim.get("overall_status"),
+            "route_diagnostics": diagnostics,
             "executor_preflight": executor_preflight,
             "atomic_route": route,
             "check_count": len(checks),
@@ -159,6 +162,7 @@ class AtomicArbitrageExecutionService:
             calldata = contract.functions.executeTwoLegArbitrage(route_tuple)._encode_transaction_data()
             tx = {"from": wallet_address, "to": executor_address, "data": calldata, "value": "0x0"}
             eth_call = self.eth_call_runner(tx, "base")
+            decoded_error = self._decode_executor_error(eth_call.get("error"))
         except Exception as exc:
             return {"status": "ERROR", "reason": f"{type(exc).__name__}: {exc}"}
 
@@ -182,7 +186,103 @@ class AtomicArbitrageExecutionService:
             "eth_call": tx,
             "eth_call_result": eth_call,
             "eth_call_status": eth_call.get("status", "FAIL"),
+            "eth_call_decoded_error": decoded_error,
             "approval_spender": executor_address,
+        }
+
+    def _route_diagnostics(self, *, tx_sim: dict[str, Any], intent: dict[str, Any]) -> dict[str, Any]:
+        realism = self._read_json(self.report_dir / "execution_realism.json")
+        opportunities = realism.get("opportunities", []) if isinstance(realism.get("opportunities"), list) else []
+        selected_candidate = tx_sim.get("selected_candidate", {}) if isinstance(tx_sim.get("selected_candidate"), dict) else {}
+        simulation_type = str(intent.get("simulation_type") or "TWO_LEG_ARBITRAGE").upper()
+        latest_rows = opportunities[-10:]
+        route_rows = [self._diagnose_opportunity(row) for row in latest_rows if isinstance(row, dict)]
+        selected_diagnostics = self._diagnose_opportunity(selected_candidate) if selected_candidate else {}
+        shadow_ready = [row for row in route_rows if row.get("realism_status") == "SHADOW_READY"]
+        buy_rows = [row for row in route_rows if row.get("source_decision") == "BUY"]
+        tx_checks = tx_sim.get("checks", []) if isinstance(tx_sim.get("checks"), list) else []
+        failed_tx_checks = [
+            {
+                "name": str(row.get("name", "-")),
+                "severity": str(row.get("severity", "-")),
+                "detail": str(row.get("detail", "-")),
+            }
+            for row in tx_checks
+            if isinstance(row, dict) and row.get("passed") is not True
+        ]
+
+        if selected_candidate and simulation_type != "TINY_LIVE_SMOKE":
+            blocker_type = "ATOMIC_BUILDER_OR_ETH_CALL"
+            next_action = "Inspect atomic_calldata_built and atomic_eth_call_passed details."
+        elif shadow_ready:
+            blocker_type = "TRANSACTION_SIMULATION_SELECTION"
+            next_action = "A SHADOW_READY row exists but transaction simulation did not select it; inspect DEX allowlist, prices, and route metadata."
+        elif buy_rows:
+            blocker_type = "REALISM_FILTER"
+            next_action = "BUY rows exist but are not SHADOW_READY; inspect stress net edge, confidence, executable ratio, and pool-depth status."
+        else:
+            blocker_type = "MARKET_NO_BUY_SIGNAL"
+            next_action = "No latest BUY plus SHADOW_READY two-leg route exists; continue paper/shadow scanning or review thresholds."
+
+        if simulation_type == "TINY_LIVE_SMOKE":
+            blocker_type = "NO_TWO_LEG_CANDIDATE"
+            next_action = "The simulator fell back to one-leg smoke mode because no approved two-leg SHADOW_READY route was selected."
+
+        return {
+            "blocker_type": blocker_type,
+            "next_action": next_action,
+            "transaction_simulation_passed": tx_sim.get("transaction_simulation_passed") is True,
+            "transaction_simulation_status": tx_sim.get("overall_status"),
+            "simulation_type": simulation_type,
+            "selected_candidate_found": bool(selected_candidate),
+            "selected_candidate": selected_diagnostics,
+            "latest_opportunity_count": len(opportunities),
+            "latest_diagnostics_count": len(route_rows),
+            "buy_candidate_count": len(buy_rows),
+            "shadow_ready_count": len(shadow_ready),
+            "latest_opportunities": route_rows,
+            "failed_transaction_simulation_checks": failed_tx_checks,
+        }
+
+    def _diagnose_opportunity(self, row: dict[str, Any]) -> dict[str, Any]:
+        gross = self._decimal(row.get("gross_edge_pct"))
+        reported_net = self._decimal(row.get("reported_net_edge_pct"))
+        stress_net = self._decimal(row.get("stress_net_edge_pct"))
+        source_decision = str(row.get("source_decision") or row.get("decision") or "-")
+        realism_status = str(row.get("realism_status") or "-")
+        reasons: list[str] = []
+        if source_decision != "BUY":
+            reasons.append(f"source_decision is {source_decision}, not BUY")
+        if realism_status != "SHADOW_READY":
+            reasons.append(f"realism_status is {realism_status}, not SHADOW_READY")
+        if stress_net is not None and stress_net < 0:
+            reasons.append("stress_net_edge_pct is negative")
+        if str(row.get("confidence") or "").upper() in {"", "NONE", "LOW"}:
+            reasons.append(f"confidence is {row.get('confidence') or 'NONE'}")
+        if self._decimal(row.get("buy_price")) <= 0 or self._decimal(row.get("sell_price")) <= 0:
+            reasons.append("buy_price/sell_price missing or non-positive")
+        if not reasons and source_decision == "BUY" and realism_status == "SHADOW_READY":
+            reasons.append("candidate is eligible for atomic route building")
+
+        return {
+            "timestamp": row.get("timestamp"),
+            "chain": row.get("chain"),
+            "pair": row.get("pair"),
+            "buy_dex": row.get("buy_source") or row.get("buy_dex"),
+            "sell_dex": row.get("sell_source") or row.get("sell_dex"),
+            "source_decision": source_decision,
+            "realism_status": realism_status,
+            "gross_edge_pct": str(gross) if gross is not None else None,
+            "reported_net_edge_pct": str(reported_net) if reported_net is not None else None,
+            "stress_net_edge_pct": str(stress_net) if stress_net is not None else None,
+            "required_threshold_pct": os.getenv("CRYPTOAI_MIN_EDGE_FOR_PAPER_PCT", "0.30"),
+            "confidence": row.get("confidence"),
+            "requested_notional_usd": row.get("requested_notional_usd"),
+            "max_executable_notional_usd": row.get("max_executable_notional_usd"),
+            "executable_ratio_pct": row.get("executable_ratio_pct"),
+            "pool_depth_status": row.get("pool_depth_status"),
+            "reason": row.get("reason"),
+            "diagnostic_reasons": reasons,
         }
 
     def _executor_recipient_legs(self, *, intent: dict[str, Any], recipient: str, deadline: int) -> list[dict[str, Any]]:
@@ -248,7 +348,7 @@ class AtomicArbitrageExecutionService:
         executor_preflight: dict[str, Any],
     ) -> list[dict[str, Any]]:
         return [
-            self._check("two_leg_transaction_simulation_passed", tx_sim.get("transaction_simulation_passed") is True, "ACTION", "Two-leg router calldata simulation must pass first.", "Two-leg router calldata simulation passed."),
+            self._check("two_leg_candidate_selected", bool(tx_sim.get("selected_candidate")), "ACTION", "A BUY plus SHADOW_READY two-leg candidate must be selected.", "A BUY plus SHADOW_READY two-leg candidate is selected."),
             self._check("not_one_leg_smoke", str(intent.get("simulation_type", "")).upper() != "TINY_LIVE_SMOKE", "BLOCK", "Atomic live arbitrage cannot use the one-leg smoke route.", "Route is a two-leg arbitrage candidate."),
             self._check("executor_configured", self._valid_address(os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "")), "BLOCK", "Configure a valid deployed CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS.", "Atomic executor address is configured."),
             self._check("executor_deployed", self._int(executor_preflight.get("executor_code_bytes")) > 0, "BLOCK", "Atomic executor address has no deployed bytecode on Base.", "Atomic executor bytecode exists on Base."),
@@ -272,6 +372,34 @@ class AtomicArbitrageExecutionService:
         except Exception as exc:
             message = f"{type(exc).__name__}: {exc}"
             return {"status": "REVERT" if "revert" in message.lower() else "FAIL", "error": message[:500]}
+
+    @staticmethod
+    def _decode_executor_error(error: Any) -> dict[str, Any]:
+        raw = str(error or "")
+        hex_payload = ""
+        for part in raw.replace("'", " ").replace('"', " ").replace("(", " ").replace(")", " ").replace(",", " ").split():
+            if part.startswith("0x") and len(part) >= 10:
+                hex_payload = part
+                break
+        if not hex_payload:
+            return {}
+        selector = hex_payload[:10].lower()
+        data = bytes.fromhex(hex_payload[10:])
+        if selector == "0x88215f9c":
+            try:
+                amount_out, required_out = decode(["uint256", "uint256"], data)
+                return {
+                    "name": "ProfitTooLow",
+                    "amount_out_units": str(amount_out),
+                    "required_out_units": str(required_out),
+                    "amount_out_usdc": str(Decimal(amount_out) / Decimal(10**6)),
+                    "required_out_usdc": str(Decimal(required_out) / Decimal(10**6)),
+                    "shortfall_usdc": str((Decimal(required_out) - Decimal(amount_out)) / Decimal(10**6)),
+                    "explanation": "Atomic route executed in simulation but did not meet the executor's minimum profitable output.",
+                }
+            except Exception:
+                return {"selector": selector, "raw": hex_payload}
+        return {"selector": selector, "raw": hex_payload}
 
     @staticmethod
     def _read_json(path: Path) -> dict[str, Any]:
@@ -329,6 +457,7 @@ class AtomicArbitrageExecutionService:
             f"- Executor: `{route.get('executor_address', '-')}`",
             f"- Executor preflight: `{payload.get('executor_preflight', {}).get('status', '-')}`",
             f"- eth_call status: `{route.get('eth_call_status', '-')}`",
+            f"- Route blocker: `{payload.get('route_diagnostics', {}).get('blocker_type', '-')}`",
             f"- Blocked checks: `{payload['blocked_check_count']}`",
             f"- Action checks: `{payload['action_count']}`",
             "",
@@ -339,7 +468,25 @@ class AtomicArbitrageExecutionService:
         ]
         for row in payload["checks"]:
             lines.append(f"| {row['name']} | {row['severity']} | {row['detail']} |")
-        lines.extend(["", "## Atomic Route", "", "```json", json.dumps(route, indent=2), "```", "", "## Notes", ""])
+        lines.extend(
+            [
+                "",
+                "## Route Diagnostics",
+                "",
+                "```json",
+                json.dumps(payload.get("route_diagnostics", {}), indent=2),
+                "```",
+                "",
+                "## Atomic Route",
+                "",
+                "```json",
+                json.dumps(route, indent=2),
+                "```",
+                "",
+                "## Notes",
+                "",
+            ]
+        )
         lines.extend(f"- {note}" for note in payload["notes"])
         return "\n".join(lines) + "\n"
 

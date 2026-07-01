@@ -121,7 +121,7 @@ class TransactionSimulationServiceTests(unittest.TestCase):
         action_names = {row["name"] for row in payload["checks"] if row["severity"] == "ACTION"}
         self.assertIn("eth_call_simulation_passed", action_names)
 
-    def test_tiny_smoke_route_can_pass_when_no_approved_arbitrage_candidate_exists(self) -> None:
+    def test_uniswap_v2_to_v3_shadow_candidate_builds_two_leg_route(self) -> None:
         env = {
             "CRYPTOAI_LIVE_TRADING_ENABLED": "false",
             "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "true",
@@ -169,10 +169,13 @@ class TransactionSimulationServiceTests(unittest.TestCase):
 
         self.assertEqual(payload["overall_status"], "TX_SIMULATION_READY")
         self.assertTrue(payload["transaction_simulation_passed"])
-        self.assertEqual(payload["simulation_intent"]["simulation_type"], "TINY_LIVE_SMOKE")
+        self.assertNotEqual(payload["simulation_intent"].get("simulation_type"), "TINY_LIVE_SMOKE")
         self.assertEqual(payload["simulation_intent"]["notional_usd"], "20.0000")
-        self.assertEqual(len(payload["simulation_intent"]["swap_legs"]), 1)
-        self.assertEqual(payload["simulation_intent"]["swap_legs"][0]["dex"], "Uniswap V3")
+        legs = payload["simulation_intent"]["swap_legs"]
+        self.assertEqual(len(legs), 2)
+        self.assertEqual(legs[0]["dex"], "Uniswap V2")
+        self.assertEqual(legs[0]["router_type"], "v2")
+        self.assertEqual(legs[1]["dex"], "Uniswap V3")
 
     def test_missing_shadow_candidate_is_actionable_not_passed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

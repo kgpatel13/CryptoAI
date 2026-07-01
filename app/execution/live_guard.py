@@ -31,7 +31,7 @@ class LiveTradingGuard:
     """Hard safety gate for any future real transaction path."""
 
     APPROVED_CHAINS = {"base"}
-    APPROVED_DEXES = {"Aerodrome", "Uniswap V3"}
+    APPROVED_DEXES = {"Uniswap V2", "Aerodrome", "Uniswap V3"}
     APPROVED_TOKENS = {"USDC", "WETH"}
     MAX_TINY_PILOT_WALLET_USD = Decimal("500")
 

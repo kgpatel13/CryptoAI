@@ -123,7 +123,7 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-07-01T05:30:04Z",
+  "generated_at": "2026-07-01T06:04:33Z",
   "live_guard_allowed": false,
   "live_guard_reason": "Live trading feature flag is disabled.",
   "max_daily_loss_usd": "5",

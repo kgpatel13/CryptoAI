@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 2,
+  "blocked_check_count": 0,
   "check_count": 18,
   "checks": [
     {
@@ -45,10 +45,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Wallet preflight must be ready.",
+      "detail": "Wallet preflight is ready.",
       "name": "wallet_preflight_ready",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Live readiness checklist is ready or the simulated smoke swap has no hard readiness blockers.",
@@ -69,10 +69,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Provider monitor must be OK.",
+      "detail": "Provider monitor is OK.",
       "name": "provider_ok",
-      "passed": false,
-      "severity": "BLOCK"
+      "passed": true,
+      "severity": "PASS"
     },
     {
       "detail": "Tiny live pilot plan is prepared.",
@@ -114,8 +114,8 @@
   "context": {
     "active_autopilot_processes": [],
     "live_readiness": {
-      "action_count": 6,
-      "blocked_check_count": 4,
+      "action_count": 1,
+      "blocked_check_count": 0,
       "check_count": 22,
       "checks": [
         {
@@ -125,10 +125,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Paper Run Review must reach REVIEW_READY before live-pilot review.",
+          "detail": "Paper Run Review is ready for shadow review.",
           "name": "paper_shadow_review_ready",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Paper report and portfolio analytics PnL are reconciled.",
@@ -155,10 +155,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Provider Monitor must be OK.",
+          "detail": "Provider Monitor is OK.",
           "name": "provider_health_ok",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Execution-cost evidence confidence is HIGH.",
@@ -167,10 +167,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+          "detail": "Execution realism has shadow-ready evidence and no live approvals.",
           "name": "execution_realism_shadow_ready",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Report Audit has no blocking operational findings.",
@@ -191,10 +191,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
+          "detail": "Wallet Preflight is ready.",
           "name": "wallet_preflight_ready",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
@@ -209,28 +209,28 @@
           "severity": "PASS"
         },
         {
-          "detail": "Live feature flag must remain off until the final reviewed pilot.",
+          "detail": "Live feature flag is off.",
           "name": "live_feature_off",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Live and paper kill switches must remain on during readiness review.",
+          "detail": "Live and paper kill switches are on.",
           "name": "kill_switch_on",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Private key must not be configured during readiness review.",
+          "detail": "Private key is absent.",
           "name": "private_key_absent",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+          "detail": "Paper capital is within the configured live wallet ceiling.",
           "name": "paper_live_wallet_parity",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Paper has sufficient live-cap-sized evidence for the configured live trade cap.",
@@ -239,10 +239,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
+          "detail": "Paper daily loss cap matches the tiny-live policy.",
           "name": "paper_live_daily_loss_parity",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Readiness review is restricted to Base ETH approved routes.",
@@ -251,14 +251,14 @@
           "severity": "PASS"
         }
       ],
-      "closed_trade_count": 1096,
-      "generated_at": "2026-07-01T05:21:31Z",
-      "live_cap_closed_trade_count": 828,
+      "closed_trade_count": 1130,
+      "generated_at": "2026-07-01T05:58:05Z",
+      "live_cap_closed_trade_count": 769,
       "live_review_ready": false,
       "live_trading_approval": false,
-      "max_daily_loss_usd": "0",
-      "max_live_trade_usd": "20",
-      "max_live_wallet_usd": "0",
+      "max_daily_loss_usd": "5",
+      "max_live_trade_usd": "5",
+      "max_live_wallet_usd": "500",
       "mode": "paper",
       "notes": [
         "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -266,14 +266,14 @@
         "Use a live-parity paper profile before tiny real-money testing: wallet ceiling <= $500, per-trade cap <= tiny-live cap, daily loss cap > $0, Base only, USDC/WETH only."
       ],
       "overall_status": "LIVE_REVIEW_NOT_READY",
-      "paper_cash_usd": "813.1427",
+      "paper_cash_usd": "877.1825",
       "paper_profile": "live_parity_500",
-      "paper_realized_pnl_usd": "313.1427",
-      "pass_count": 12,
+      "paper_realized_pnl_usd": "377.1825",
+      "pass_count": 21,
       "watch_count": 0
     },
     "live_safety": {
-      "blocked_check_count": 7,
+      "blocked_check_count": 5,
       "check_count": 20,
       "checks": [
         {
@@ -355,10 +355,10 @@
           "severity": "BLOCK"
         },
         {
-          "detail": "Paper run is not yet ready for shadow review.",
+          "detail": "Paper run is ready for shadow review.",
           "name": "paper_shadow_review",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Fresh paper run has enough closed trades.",
@@ -391,13 +391,13 @@
           "severity": "PASS"
         },
         {
-          "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+          "detail": "Execution realism has shadow-ready evidence and no live approvals.",
           "name": "execution_realism",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         }
       ],
-      "generated_at": "2026-07-01T05:21:25Z",
+      "generated_at": "2026-07-01T05:58:07Z",
       "live_guard_allowed": false,
       "live_guard_reason": "Live trading feature flag is disabled.",
       "max_daily_loss_usd": "5",
@@ -445,27 +445,150 @@
       }
     },
     "provider_monitor": {
-      "alert_count": 0,
-      "alerts": [],
-      "chains": [],
+      "alert_count": 1,
+      "alerts": [
+        {
+          "chain": "base",
+          "message": "Provider observation is stale at 41589.01 seconds old.",
+          "provider": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "severity": "WATCH"
+        }
+      ],
+      "chains": [
+        {
+          "average_score": 100,
+          "chain": "base",
+          "critical_count": 0,
+          "degraded_count": 0,
+          "provider_count": 5,
+          "required_provider_count": 4,
+          "status": "OK",
+          "watch_count": 1
+        }
+      ],
       "critical_alert_count": 0,
       "degraded_alert_count": 0,
-      "generated_at": "2026-07-01T05:21:30Z",
+      "generated_at": "2026-07-01T05:58:04Z",
       "mode": "paper",
       "notes": [
         "Provider Monitor summarizes existing provider-health observations.",
         "It does not make network calls or execute trades.",
         "Missing provider observations should be treated as incomplete operational evidence."
       ],
-      "overall_status": "NEEDS_DATA",
-      "provider_count": 0,
-      "provider_types": [],
-      "providers": [],
+      "overall_status": "OK",
+      "provider_count": 5,
+      "provider_types": [
+        {
+          "average_score": 100,
+          "provider_count": 3,
+          "provider_type": "dex",
+          "required_provider_count": 3,
+          "status": "OK"
+        },
+        {
+          "average_score": 100,
+          "provider_count": 2,
+          "provider_type": "rpc",
+          "required_provider_count": 1,
+          "status": "OK"
+        }
+      ],
+      "providers": [
+        {
+          "alerts": [],
+          "avg_latency_ms": 329.4,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 101.68,
+          "name": "Aerodrome",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 329.68,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 102.62,
+          "name": "Uniswap V2",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 775.9,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 99.89,
+          "name": "Uniswap V3",
+          "provider_type": "dex",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 99,
+          "status": "OK",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [
+            {
+              "chain": "base",
+              "message": "Provider observation is stale at 41589.01 seconds old.",
+              "provider": "Base:rpc2:https://mainnet.base.org",
+              "provider_type": "rpc",
+              "severity": "WATCH"
+            }
+          ],
+          "avg_latency_ms": 209.14,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "WATCH",
+          "last_error": null,
+          "last_observed_age_seconds": 41589.01,
+          "name": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "required_for_overall": false,
+          "rolling_status": "OK",
+          "score": 100,
+          "status": "WATCH",
+          "success_rate_pct": 100.0
+        },
+        {
+          "alerts": [],
+          "avg_latency_ms": 238.94,
+          "chain": "base",
+          "consecutive_failures": 0,
+          "current_status": "OK",
+          "last_error": null,
+          "last_observed_age_seconds": 3.97,
+          "name": "Base:rpc1:https://base-rpc.publicnode.com",
+          "provider_type": "rpc",
+          "required_for_overall": true,
+          "rolling_status": "OK",
+          "score": 99,
+          "status": "OK",
+          "success_rate_pct": 99.58
+        }
+      ],
       "stale_after_seconds": 900
     },
     "report_audit": {
       "blocking_finding_count": 0,
-      "finding_count": 24,
+      "finding_count": 26,
       "findings": [
         {
           "blocks_shadow_review": false,
@@ -634,9 +757,23 @@
           "message": "Report is older than freshness window.",
           "report": "eth_market_coverage.md",
           "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "review",
+          "message": "Report is older than freshness window.",
+          "report": "paper_trading_settings.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "review",
+          "message": "Report is older than freshness window.",
+          "report": "paper_trading_settings.md",
+          "severity": "WATCH"
         }
       ],
-      "generated_at": "2026-07-01T05:21:31Z",
+      "generated_at": "2026-07-01T05:58:06Z",
       "invalid_json_count": 0,
       "missing_count": 0,
       "mode": "paper",
@@ -652,88 +789,88 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:24Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "name": "quote_diagnostics.md",
-          "size_bytes": 917,
+          "size_bytes": 915,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:00Z",
           "name": "multi_dex_opportunities.md",
-          "size_bytes": 951,
+          "size_bytes": 930,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:00Z",
           "name": "opportunity_explorer.md",
-          "size_bytes": 531,
+          "size_bytes": 510,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "json_valid": true,
           "name": "paper_report.json",
-          "size_bytes": 174980,
+          "size_bytes": 181543,
           "stale": false,
           "summary": {
-            "filled_orders": 1096,
+            "filled_orders": 1130,
             "legacy_accounting_warning_count": 0,
             "mode": "paper",
-            "total_orders": 6270
+            "total_orders": 6638
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "name": "paper_report.md",
-          "size_bytes": 64752,
+          "size_bytes": 66809,
           "stale": false
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:26Z",
+          "generated_at": "2026-07-01T05:57:56Z",
           "json_valid": true,
           "name": "paper_run_review.json",
-          "size_bytes": 3311,
+          "size_bytes": 2867,
           "stale": false,
           "summary": {
-            "closed_trade_count": 1096,
+            "closed_trade_count": 1130,
             "live_decision": "BLOCKED",
             "live_ready_count": 0,
             "losing_trade_count": 0,
             "mode": "paper",
-            "overall_status": "PAPER_PROFIT_NOT_SHADOW_READY",
-            "recommendation": "Continue paper trading and improve pool-depth/execution realism before shadow review.",
-            "shadow_decision": "BLOCKED",
-            "shadow_ready_count": 0
+            "overall_status": "SHADOW_REVIEW_CANDIDATE",
+            "recommendation": "Review sustained paper evidence before any live-trading design decision.",
+            "shadow_decision": "REVIEW_READY",
+            "shadow_ready_count": 2
           }
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:26Z",
+          "generated_at": "2026-07-01T05:57:56Z",
           "name": "paper_run_review.md",
-          "size_bytes": 2216,
+          "size_bytes": 1922,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:57:55Z",
           "json_valid": true,
           "name": "live_safety.json",
-          "size_bytes": 5043,
+          "size_bytes": 5017,
           "stale": false,
           "summary": {
-            "blocked_check_count": 7,
+            "blocked_check_count": 5,
             "check_count": 20,
             "live_guard_allowed": false,
             "mode": "paper",
@@ -743,28 +880,28 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:57:55Z",
           "name": "live_safety.md",
-          "size_bytes": 2235,
+          "size_bytes": 2211,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "json_valid": true,
           "name": "portfolio_analytics.json",
           "size_bytes": 69871,
           "stale": false,
           "summary": {
-            "closed_trade_count": 1096,
+            "closed_trade_count": 1130,
             "mode": "paper"
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "name": "portfolio_analytics.md",
           "size_bytes": 6137,
           "stale": false
@@ -901,10 +1038,10 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:20:57Z",
+          "generated_at": "2026-07-01T05:51:39Z",
           "json_valid": true,
           "name": "pool_depth_ladder.json",
-          "size_bytes": 6969,
+          "size_bytes": 6968,
           "stale": false,
           "summary": {
             "confidence": "MEDIUM",
@@ -918,7 +1055,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:20:57Z",
+          "generated_at": "2026-07-01T05:51:39Z",
           "name": "pool_depth_ladder.md",
           "size_bytes": 1719,
           "stale": false
@@ -926,56 +1063,56 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:57:54Z",
           "json_valid": true,
           "name": "execution_realism.json",
-          "size_bytes": 7908,
+          "size_bytes": 7687,
           "stale": false,
           "summary": {
-            "confidence": "LOW",
+            "confidence": "MEDIUM",
             "live_ready_count": 0,
             "mode": "paper",
-            "overall_status": "NOT_SHADOW_READY",
+            "overall_status": "SHADOW_REVIEW_READY",
             "paper_capital_usd": "500.0000",
-            "shadow_ready_count": 0
+            "shadow_ready_count": 2
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:57:54Z",
           "name": "execution_realism.md",
-          "size_bytes": 1444,
+          "size_bytes": 1381,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:58:02Z",
           "json_valid": true,
           "name": "live_shadow_gate.json",
-          "size_bytes": 97486,
+          "size_bytes": 96763,
           "stale": false,
           "summary": {
             "mode": "paper",
-            "overall_status": "NO_SHADOW_ELIGIBLE_TRADES"
+            "overall_status": "SHADOW_ELIGIBLE_EVIDENCE"
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:25Z",
+          "generated_at": "2026-07-01T05:58:02Z",
           "name": "live_shadow_gate.md",
-          "size_bytes": 3550,
+          "size_bytes": 3890,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:23Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "json_valid": true,
           "name": "execution_cost_evidence.json",
-          "size_bytes": 4064,
+          "size_bytes": 4063,
           "stale": false,
           "summary": {
             "buffer_status": "CONSERVATIVE",
@@ -986,7 +1123,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:23Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "name": "execution_cost_evidence.md",
           "size_bytes": 1545,
           "stale": false
@@ -994,50 +1131,50 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:31Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "json_valid": true,
           "name": "live_readiness_checklist.json",
-          "size_bytes": 5271,
+          "size_bytes": 4979,
           "stale": false,
           "summary": {
-            "blocked_check_count": 4,
+            "blocked_check_count": 0,
             "check_count": 22,
-            "closed_trade_count": 1096,
+            "closed_trade_count": 1130,
             "mode": "paper",
             "overall_status": "LIVE_REVIEW_NOT_READY",
-            "pass_count": 12
+            "pass_count": 21
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:31Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "name": "live_readiness_checklist.md",
-          "size_bytes": 3276,
+          "size_bytes": 2993,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:31Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "json_valid": true,
           "name": "transaction_simulation.json",
-          "size_bytes": 6495,
+          "size_bytes": 6235,
           "stale": false,
           "summary": {
-            "blocked_check_count": 3,
+            "blocked_check_count": 0,
             "check_count": 12,
             "mode": "paper",
             "overall_status": "TX_SIMULATION_ACTION",
-            "pass_count": 6
+            "pass_count": 11
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:31Z",
+          "generated_at": "2026-07-01T05:58:05Z",
           "name": "transaction_simulation.md",
-          "size_bytes": 5386,
+          "size_bytes": 5129,
           "stale": false
         },
         {
@@ -1092,7 +1229,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "json_valid": true,
           "name": "market_intelligence.json",
           "size_bytes": 4264,
@@ -1105,7 +1242,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:22Z",
+          "generated_at": "2026-07-01T05:58:03Z",
           "name": "market_intelligence.md",
           "size_bytes": 1269,
           "stale": false
@@ -1212,7 +1349,7 @@
           "json_valid": true,
           "name": "paper_trading_settings.json",
           "size_bytes": 3989,
-          "stale": false,
+          "stale": true,
           "summary": {
             "error_count": 0,
             "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings",
@@ -1228,116 +1365,116 @@
           "generated_at": "2026-07-01T05:05:24Z",
           "name": "paper_trading_settings.md",
           "size_bytes": 2286,
-          "stale": false
+          "stale": true
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:04Z",
           "json_valid": true,
           "name": "wallet_preflight.json",
-          "size_bytes": 3644,
+          "size_bytes": 3469,
           "stale": false,
           "summary": {
-            "blocked_check_count": 3,
+            "blocked_check_count": 0,
             "check_count": 15,
             "mode": "paper",
-            "overall_status": "WALLET_PREP_ACTION"
+            "overall_status": "WALLET_PREP_READY"
           }
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:04Z",
           "name": "wallet_preflight.md",
-          "size_bytes": 2078,
+          "size_bytes": 1907,
           "stale": false
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:20:40Z",
+          "generated_at": "2026-07-01T05:57:34Z",
           "json_valid": true,
           "name": "tiny_live_pilot.json",
-          "size_bytes": 58322,
+          "size_bytes": 58039,
           "stale": false,
           "summary": {
-            "blocked_check_count": 1,
+            "blocked_check_count": 0,
             "check_count": 18,
             "mode": "plan",
-            "overall_status": "LIVE_PILOT_BLOCKED"
+            "overall_status": "LIVE_PILOT_READY"
           }
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T05:20:40Z",
+          "generated_at": "2026-07-01T05:57:34Z",
           "name": "tiny_live_pilot.md",
-          "size_bytes": 2645,
+          "size_bytes": 2636,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:04Z",
           "json_valid": true,
           "name": "provider_monitor.json",
-          "size_bytes": 560,
+          "size_bytes": 3845,
           "stale": false,
           "summary": {
-            "alert_count": 0,
+            "alert_count": 1,
             "mode": "paper",
-            "overall_status": "NEEDS_DATA",
-            "provider_count": 0
+            "overall_status": "OK",
+            "provider_count": 5
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T05:21:30Z",
+          "generated_at": "2026-07-01T05:58:04Z",
           "name": "provider_monitor.md",
-          "size_bytes": 719,
+          "size_bytes": 1182,
           "stale": false
         }
       ],
       "research_finding_count": 24,
       "research_stale_count": 24,
-      "stale_count": 24
+      "stale_count": 26
     },
     "transaction_simulation": {
-      "action_count": 3,
-      "blocked_check_count": 3,
+      "action_count": 1,
+      "blocked_check_count": 0,
       "check_count": 12,
       "checks": [
         {
-          "detail": "Live trading must remain disabled during transaction simulation development.",
+          "detail": "Live trading is disabled.",
           "name": "live_trading_disabled",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Live kill switch must remain enabled during transaction simulation development.",
+          "detail": "Live kill switch is enabled.",
           "name": "kill_switch_enabled",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Private key must not be configured for simulation report generation.",
+          "detail": "Private key is absent.",
           "name": "private_key_absent",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Wallet Preflight must be ready before transaction simulation review.",
+          "detail": "Wallet Preflight is ready.",
           "name": "wallet_preflight_ready",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+          "detail": "Live Readiness Checklist has no blocking checks.",
           "name": "live_readiness_preconditions_ready",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "A simulation route is available.",
@@ -1382,7 +1519,7 @@
           "severity": "ACTION"
         }
       ],
-      "generated_at": "2026-07-01T05:21:31Z",
+      "generated_at": "2026-07-01T05:58:05Z",
       "live_trading_approval": false,
       "mode": "paper",
       "notes": [
@@ -1391,7 +1528,7 @@
         "Private keys must remain absent while developing this report."
       ],
       "overall_status": "TX_SIMULATION_ACTION",
-      "pass_count": 6,
+      "pass_count": 11,
       "selected_candidate": {},
       "simulation_intent": {
         "buy_dex": "Uniswap V3",
@@ -1407,7 +1544,7 @@
           "revert_count": 1
         },
         "max_slippage_bps": "50",
-        "notional_usd": "20.0000",
+        "notional_usd": "5.0000",
         "pair": "USDC/WETH",
         "reason": "No approved two-leg arbitrage candidate is available; simulating the configured one-leg tiny live smoke swap.",
         "routers": [
@@ -1423,21 +1560,21 @@
         "status": "SIMULATION_ATTEMPTED",
         "swap_legs": [
           {
-            "amount_in_units": "20000000",
+            "amount_in_units": "5000000",
             "amount_out_min_units": "1",
-            "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+            "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
             "calldata_bytes": 228,
-            "deadline": 1782883410,
+            "deadline": 1782885605,
             "dex": "Uniswap V3",
             "eth_call": {
-              "data": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a70000000000000000000000000000000000000000000000000000000001312d0000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+              "data": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
               "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
               "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
               "value": "0x0"
             },
             "eth_call_result": {
               "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
-              "latency_ms": 382.04,
+              "latency_ms": 416.28,
               "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
               "rpc_url": "https://base-rpc.publicnode.com",
               "status": "REVERT"
@@ -1474,27 +1611,27 @@
       "transaction_simulation_passed": false
     },
     "wallet_preflight": {
-      "action_count": 2,
-      "blocked_check_count": 3,
+      "action_count": 0,
+      "blocked_check_count": 0,
       "check_count": 15,
       "checks": [
         {
-          "detail": "Live trading feature flag must stay disabled during wallet preparation.",
+          "detail": "Live trading feature flag is disabled.",
           "name": "live_trading_disabled",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Live kill switch must stay enabled during wallet preparation.",
+          "detail": "Live kill switch is enabled.",
           "name": "kill_switch_enabled",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
-          "detail": "Private key is configured; remove it during preflight preparation.",
+          "detail": "No private key is configured.",
           "name": "private_key_absent",
-          "passed": false,
-          "severity": "BLOCK"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Isolated live wallet public address is configured.",
@@ -1539,10 +1676,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Set CRYPTOAI_MAX_LIVE_WALLET_USD to a value > 0 and <= 500 before any live pilot.",
+          "detail": "Configured wallet ceiling is within tiny-pilot policy.",
           "name": "configured_wallet_ceiling",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Configured trade cap is within tiny-pilot policy.",
@@ -1551,10 +1688,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Set CRYPTOAI_MAX_DAILY_LOSS_USD to a value > $0 and no larger than the live trade cap.",
+          "detail": "Configured daily loss cap is within tiny-pilot policy.",
           "name": "configured_daily_loss",
-          "passed": false,
-          "severity": "ACTION"
+          "passed": true,
+          "severity": "PASS"
         },
         {
           "detail": "Manual confirmation is required.",
@@ -1569,10 +1706,10 @@
           "severity": "PASS"
         }
       ],
-      "generated_at": "2026-07-01T05:21:30Z",
-      "live_kill_switch_enabled": false,
+      "generated_at": "2026-07-01T05:58:07Z",
+      "live_kill_switch_enabled": true,
       "live_trading_approval": false,
-      "live_trading_enabled": true,
+      "live_trading_enabled": false,
       "live_wallet_configured": true,
       "max_prep_wallet_usd": "500.0000",
       "max_tiny_trade_usd": "100.0000",
@@ -1582,16 +1719,16 @@
         "Do not configure private keys until the transaction path, simulation gate, and manual review are complete.",
         "The first real-money pilot should use an isolated wallet on Base with a total wallet ceiling of $500 or less."
       ],
-      "overall_status": "WALLET_PREP_ACTION",
+      "overall_status": "WALLET_PREP_READY",
       "planned_chain": "base",
       "planned_eth_gas_usd": "50.0000",
-      "planned_total_usd": "500.0000",
-      "planned_usdc_usd": "450.0000",
-      "private_key_configured": true,
-      "wallet_preflight_allowed": false
+      "planned_total_usd": "499.0000",
+      "planned_usdc_usd": "449.0000",
+      "private_key_configured": false,
+      "wallet_preflight_allowed": true
     }
   },
-  "generated_at": "2026-07-01T05:21:33Z",
+  "generated_at": "2026-07-01T05:58:08Z",
   "live_trading_approval": false,
   "mode": "plan",
   "notes": [
@@ -1599,7 +1736,7 @@
     "It supports a capped one-leg USDC->WETH live test only; cross-DEX arbitrage still requires an atomic executor contract before production live trading.",
     "Never paste a private key into chat. Configure it only in your local environment when intentionally running approve/swap mode."
   ],
-  "overall_status": "LIVE_PILOT_BLOCKED",
+  "overall_status": "LIVE_PILOT_READY",
   "pilot_plan": {
     "allowance_sufficient": false,
     "allowance_units": "0",
@@ -1607,11 +1744,11 @@
     "chain_id": 8453,
     "dex": "Uniswap V3",
     "error": null,
-    "eth_balance": "0.024122272765898439",
-    "latest_block": 48046973,
+    "eth_balance": "0.024121785224852599",
+    "latest_block": 48048070,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "rpc_url": "https://base-rpc.publicnode.com",
-    "smoke_usd": "20",
+    "smoke_usd": "5",
     "swap_tx_available": true,
     "usdc_balance": "429.998478",
     "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"

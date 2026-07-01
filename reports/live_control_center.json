@@ -1,18 +1,5 @@
 {
-  "blocking_checks": [
-    {
-      "detail": "Wallet preflight must be ready.",
-      "name": "wallet_preflight_ready",
-      "severity": "BLOCK",
-      "source": "tiny_live_pilot"
-    },
-    {
-      "detail": "Provider monitor must be OK.",
-      "name": "provider_ok",
-      "severity": "BLOCK",
-      "source": "tiny_live_pilot"
-    }
-  ],
+  "blocking_checks": [],
   "continuous_live_trading_command": "python -m app.execution.live_control_center_service --live-loop --interval 30",
   "continuous_live_trading_status": "NOT_AVAILABLE_UNTIL_LIVE_EXECUTOR",
   "continuous_monitor_command": "python -m app.execution.live_control_center_service --loop --interval 30",
@@ -23,21 +10,21 @@
     "live_safety": "LIVE_BLOCKED",
     "provider_monitor": "OK",
     "report_audit_blocking_findings": 0,
-    "tiny_live_blocked_checks": 2,
-    "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
+    "tiny_live_blocked_checks": 0,
+    "tiny_live_pilot": "LIVE_PILOT_READY",
     "transaction_simulation": "TX_SIMULATION_ACTION",
     "transaction_simulation_passed": false,
-    "wallet_preflight": "WALLET_PREP_ACTION",
-    "wallet_preflight_allowed": false
+    "wallet_preflight": "WALLET_PREP_READY",
+    "wallet_preflight_allowed": true
   },
-  "generated_at": "2026-07-01T05:21:33Z",
+  "generated_at": "2026-07-01T05:58:08Z",
   "live_pilot_reconciliation": {
     "approval_count": 1,
     "current_balances": {
-      "ETH": "0.024122272765898439",
+      "ETH": "0.024121785224852599",
       "USDC": "429.998478",
       "WETH": "0.012568442636912582",
-      "block_number": "48046972",
+      "block_number": "48048070",
       "status": "OK"
     },
     "failed_transaction_count": 0,
@@ -59,8 +46,8 @@
     "total_swap_usd": "20.0000"
   },
   "mode": "live_control_center",
-  "next_action": "Run wallet preflight in safe mode until it is WALLET_PREP_READY.",
-  "next_command": "python -m app.execution.wallet_preflight_service",
+  "next_action": "Continue paper/live-parity evidence; live readiness is not ready.",
+  "next_command": "python -m app.execution.live_readiness_checklist_service",
   "notes": [
     "This control center is read-only and never sends live transactions.",
     "Refreshing safe reports can update wallet, provider, readiness, and simulation evidence, but cannot approve or swap.",
@@ -68,65 +55,11 @@
     "Continuous live arbitrage is not available until exact transaction simulation, live readiness, and a real live arbitrage executor pass review.",
     "The current live-capable path is a manual tiny smoke pilot only."
   ],
-  "overall_status": "BLOCKED_WALLET_PREFLIGHT",
+  "overall_status": "BLOCKED_LIVE_READINESS",
   "readiness_actions": [
-    {
-      "detail": "Paper Run Review must reach REVIEW_READY before live-pilot review.",
-      "name": "paper_shadow_review_ready",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Provider Monitor must be OK.",
-      "name": "provider_health_ok",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
-      "name": "execution_realism_shadow_ready",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
-      "name": "wallet_preflight_ready",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
     {
       "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
       "name": "transaction_simulation_passed",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Live feature flag must remain off until the final reviewed pilot.",
-      "name": "live_feature_off",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Live and paper kill switches must remain on during readiness review.",
-      "name": "kill_switch_on",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Private key must not be configured during readiness review.",
-      "name": "private_key_absent",
-      "severity": "BLOCK",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
-      "name": "paper_live_wallet_parity",
-      "severity": "ACTION",
-      "source": "live_readiness"
-    },
-    {
-      "detail": "Paper daily loss cap should be > $0 and no larger than the configured live daily loss cap.",
-      "name": "paper_live_daily_loss_parity",
       "severity": "ACTION",
       "source": "live_readiness"
     }
@@ -162,36 +95,6 @@
   "refresh_errors": [],
   "transaction_simulation_actions": [
     {
-      "detail": "Live trading must remain disabled during transaction simulation development.",
-      "name": "live_trading_disabled",
-      "severity": "BLOCK",
-      "source": "transaction_simulation"
-    },
-    {
-      "detail": "Live kill switch must remain enabled during transaction simulation development.",
-      "name": "kill_switch_enabled",
-      "severity": "BLOCK",
-      "source": "transaction_simulation"
-    },
-    {
-      "detail": "Private key must not be configured for simulation report generation.",
-      "name": "private_key_absent",
-      "severity": "BLOCK",
-      "source": "transaction_simulation"
-    },
-    {
-      "detail": "Wallet Preflight must be ready before transaction simulation review.",
-      "name": "wallet_preflight_ready",
-      "severity": "ACTION",
-      "source": "transaction_simulation"
-    },
-    {
-      "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
-      "name": "live_readiness_preconditions_ready",
-      "severity": "ACTION",
-      "source": "transaction_simulation"
-    },
-    {
       "detail": "Base eth_call simulation has not passed yet.",
       "name": "eth_call_simulation_passed",
       "severity": "ACTION",
@@ -204,10 +107,10 @@
     "approval_tx_available": true,
     "chain": "base",
     "dex": "Uniswap V3",
-    "eth_balance": "0.024122272765898439",
-    "latest_block": 48046973,
+    "eth_balance": "0.024121785224852599",
+    "latest_block": 48048070,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-    "smoke_usd": "20",
+    "smoke_usd": "5",
     "swap_tx_available": true,
     "usdc_balance": "429.998478"
   }
