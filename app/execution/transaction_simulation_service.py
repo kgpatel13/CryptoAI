@@ -111,8 +111,10 @@ class TransactionSimulationService:
         self.output_json = self.report_dir / "transaction_simulation.json"
         self.output_md = self.report_dir / "transaction_simulation.md"
         self.eth_call_runner = eth_call_runner or self._default_eth_call_runner
+        self.selection_diagnostics: dict[str, Any] = {}
 
     def generate(self) -> dict[str, Any]:
+        refresh_errors = self._refresh_market_evidence()
         flags = load_feature_flags()
         wallet = self._read_json(self.report_dir / "wallet_preflight.json")
         readiness = self._read_json(self.report_dir / "live_readiness_checklist.json")
@@ -130,7 +132,9 @@ class TransactionSimulationService:
             "transaction_simulation_passed": simulation_passed,
             "live_trading_approval": False,
             "selected_candidate": candidate,
+            "selection_diagnostics": self.selection_diagnostics,
             "simulation_intent": intent,
+            "refresh_errors": refresh_errors,
             "check_count": len(checks),
             "pass_count": sum(1 for row in checks if row["severity"] == "PASS"),
             "action_count": len(actions),
@@ -148,19 +152,78 @@ class TransactionSimulationService:
 
     def _select_candidate(self, realism: dict[str, Any]) -> dict[str, Any]:
         rows = realism.get("opportunities", [])
+        now = datetime.now(UTC)
+        max_age = self._env_int("CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS", 45)
+        diagnostics: dict[str, Any] = {
+            "max_candidate_age_seconds": max_age,
+            "candidate_count": len(rows) if isinstance(rows, list) else 0,
+            "eligible_count": 0,
+            "rejected": [],
+            "selected_candidate_age_seconds": None,
+        }
+        best: dict[str, Any] = {}
+        best_edge = Decimal("-999999")
         if isinstance(rows, list):
             for row in rows:
                 enriched = self._enrich_candidate(dict(row))
-                if (
-                    str(enriched.get("source_decision", "")).upper() == "BUY"
-                    and str(enriched.get("realism_status", "")).upper() == "SHADOW_READY"
-                    and str(enriched.get("chain", "")).lower() in self.APPROVED_CHAINS
-                    and {str(enriched.get("buy_source", "")), str(enriched.get("sell_source", ""))}.issubset(self.APPROVED_DEXES)
-                    and self._decimal(enriched.get("buy_price")) > 0
-                    and self._decimal(enriched.get("sell_price")) > 0
-                ):
-                    return enriched
-        return {}
+                reason = self._candidate_rejection_reason(enriched, now=now, max_age=max_age)
+                if reason:
+                    diagnostics["rejected"].append(
+                        {
+                            "timestamp": enriched.get("timestamp"),
+                            "pair": enriched.get("pair"),
+                            "buy_dex": enriched.get("buy_source"),
+                            "sell_dex": enriched.get("sell_source"),
+                            "reason": reason,
+                            "age_seconds": self._candidate_age_seconds(enriched.get("timestamp"), now),
+                        }
+                    )
+                    continue
+                diagnostics["eligible_count"] += 1
+                edge = self._decimal(enriched.get("stress_net_edge_pct") or enriched.get("reported_net_edge_pct") or enriched.get("estimated_net_edge_pct"))
+                if not best or edge > best_edge:
+                    best = enriched
+                    best_edge = edge
+        if best:
+            diagnostics["selected_candidate_age_seconds"] = self._candidate_age_seconds(best.get("timestamp"), now)
+            diagnostics["selected_pair"] = best.get("pair")
+            diagnostics["selected_buy_dex"] = best.get("buy_source")
+            diagnostics["selected_sell_dex"] = best.get("sell_source")
+            diagnostics["selected_stress_net_edge_pct"] = str(best_edge)
+        self.selection_diagnostics = diagnostics
+        return best
+
+    def _candidate_rejection_reason(self, row: dict[str, Any], *, now: datetime, max_age: int) -> str | None:
+        if str(row.get("source_decision", "")).upper() != "BUY":
+            return "source_decision is not BUY"
+        if str(row.get("realism_status", "")).upper() != "SHADOW_READY":
+            return "realism_status is not SHADOW_READY"
+        if str(row.get("chain", "")).lower() not in self.APPROVED_CHAINS:
+            return "chain is not approved"
+        if {str(row.get("buy_source", "")), str(row.get("sell_source", ""))} - self.APPROVED_DEXES:
+            return "DEX route is not approved"
+        if self._decimal(row.get("buy_price")) <= 0 or self._decimal(row.get("sell_price")) <= 0:
+            return "candidate is missing executable buy/sell prices"
+        age = self._candidate_age_seconds(row.get("timestamp"), now)
+        if age is None:
+            return "candidate timestamp is missing or invalid"
+        if age > max_age:
+            return f"candidate is stale ({age:.2f}s > {max_age}s)"
+        return None
+
+    @staticmethod
+    def _candidate_age_seconds(timestamp: Any, now: datetime | None = None) -> float | None:
+        if not timestamp:
+            return None
+        raw = str(timestamp).replace("Z", "+00:00")
+        try:
+            dt = datetime.fromisoformat(raw)
+        except ValueError:
+            return None
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=UTC)
+        now = now or datetime.now(UTC)
+        return max(0.0, (now - dt).total_seconds())
 
     def _enrich_candidate(self, candidate: dict[str, Any]) -> dict[str, Any]:
         if self._decimal(candidate.get("buy_price")) > 0 and self._decimal(candidate.get("sell_price")) > 0:
@@ -663,6 +726,46 @@ class TransactionSimulationService:
             "detail": pass_detail if passed else fail_detail,
         }
 
+    def _refresh_market_evidence(self) -> list[str]:
+        """Refresh the live route evidence chain before choosing an atomic candidate.
+
+        A live send must never reuse a stale SHADOW_READY row or old calldata.
+        This method rebuilds the quote/opportunity/realism reports in-process.
+        Failures are captured as diagnostics; they do not raise because the
+        readiness reports should remain actionable and fail closed.
+        """
+        if os.getenv("CRYPTOAI_DISABLE_LIVE_ROUTE_REFRESH", "").strip().lower() in {"1", "true", "yes", "on"}:
+            return []
+        errors: list[str] = []
+        steps: list[tuple[str, Callable[[], Any]]] = []
+        try:
+            from app.diagnostics.quote_diagnostics import QuoteDiagnosticsService
+            steps.append(("quote_diagnostics", lambda: QuoteDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).run()))
+        except Exception as exc:
+            errors.append(f"quote_diagnostics_import: {type(exc).__name__}: {exc}")
+        try:
+            from app.opportunities.opportunity_explorer import OpportunityExplorerService
+            steps.append(("opportunity_explorer", lambda: OpportunityExplorerService().scan()))
+        except Exception as exc:
+            errors.append(f"opportunity_explorer_import: {type(exc).__name__}: {exc}")
+        try:
+            from app.research.pool_depth_ladder_service import PoolDepthLadderService
+            steps.append(("pool_depth_ladder", lambda: PoolDepthLadderService(data_dir=self.data_dir, report_dir=self.report_dir).generate()))
+        except Exception:
+            # Pool-depth evidence is helpful but not required for every route refresh.
+            pass
+        try:
+            from app.execution.execution_realism_service import ExecutionRealismService
+            steps.append(("execution_realism", lambda: ExecutionRealismService(data_dir=self.data_dir, report_dir=self.report_dir).generate()))
+        except Exception as exc:
+            errors.append(f"execution_realism_import: {type(exc).__name__}: {exc}")
+        for name, fn in steps:
+            try:
+                fn()
+            except Exception as exc:
+                errors.append(f"{name}: {type(exc).__name__}: {exc}")
+        return errors
+
     @staticmethod
     def _read_json(path: Path) -> dict[str, Any]:
         if not path.exists():
@@ -728,6 +831,13 @@ class TransactionSimulationService:
             return Decimal(str(value))
         except (InvalidOperation, TypeError, ValueError):
             return Decimal("0")
+
+    @staticmethod
+    def _env_int(key: str, default: int) -> int:
+        try:
+            return int(os.getenv(key, str(default)))
+        except (TypeError, ValueError):
+            return default
 
     @staticmethod
     def _int(value: Any) -> int:

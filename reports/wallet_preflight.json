@@ -1,6 +1,6 @@
 {
   "action_count": 0,
-  "blocked_check_count": 2,
+  "blocked_check_count": 3,
   "check_count": 15,
   "checks": [
     {
@@ -16,10 +16,10 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "No private key is configured.",
+      "detail": "Private key is configured; remove it during preflight preparation.",
       "name": "private_key_absent",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Isolated live wallet public address is configured.",
@@ -94,7 +94,7 @@
       "severity": "PASS"
     }
   ],
-  "generated_at": "2026-07-01T06:24:49Z",
+  "generated_at": "2026-07-01T15:38:44Z",
   "live_kill_switch_enabled": false,
   "live_trading_approval": false,
   "live_trading_enabled": true,
@@ -112,6 +112,6 @@
   "planned_eth_gas_usd": "50.0000",
   "planned_total_usd": "500.0000",
   "planned_usdc_usd": "450.0000",
-  "private_key_configured": false,
+  "private_key_configured": true,
   "wallet_preflight_allowed": false
 }

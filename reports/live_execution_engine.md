@@ -1,12 +1,12 @@
 # Live Execution Engine
 
-Generated: `2026-07-01T06:24:52Z`
+Generated: `2026-07-01T15:38:14Z`
 - Overall status: `BLOCKED_ATOMIC_ROUTE_SIMULATION`
 - Execution stage: `ATOMIC_ARBITRAGE_ETH_CALL`
 - Can send approval: `False`
 - Can send smoke swap: `False`
 - Can run continuous live: `False`
-- Next unblock step: `Atomic executor rejected the route as ProfitTooLow: simulated output 19.77522 USDC, required 20.01 USDC.`
+- Next unblock step: `Atomic route reconciliation status: LOSS_AFTER_ATOMIC_SIMULATION.`
 
 ## Commands
 
@@ -28,7 +28,7 @@ Generated: `2026-07-01T06:24:52Z`
   "live_review_ready": false,
   "transaction_simulation_passed": false,
   "provider_monitor_ok": true,
-  "report_audit_clean": true,
+  "report_audit_clean": false,
   "tiny_live_pilot_ready": false,
   "allowance_sufficient": false,
   "approval_tx_available": true,
@@ -57,22 +57,29 @@ Generated: `2026-07-01T06:24:52Z`
 
 | Source | Check | Severity | Detail |
 |---|---|---|---|
-| atomic_live_arbitrage | atomic_route_simulation_passed | BLOCK | Atomic executor rejected the route as ProfitTooLow: simulated output 19.77522 USDC, required 20.01 USDC. |
+| atomic_live_arbitrage | atomic_route_simulation_passed | BLOCK | Atomic route reconciliation status: LOSS_AFTER_ATOMIC_SIMULATION. |
 | live_execution_engine | wallet_preflight_allowed | BLOCK | Wallet preflight is not ready for the isolated Base wallet. |
 | live_execution_engine | live_review_ready | BLOCK | Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work. |
+| live_execution_engine | report_audit_clean | BLOCK | Report audit still has blocking findings. |
 | live_execution_engine | tiny_live_pilot_ready | BLOCK | Tiny live pilot plan is blocked. |
 | live_execution_engine | transaction_or_atomic_simulation_passed | BLOCK | Either standalone transaction simulation or atomic executor eth_call simulation must pass. |
 | live_control_center | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
+| live_control_center | report_audit_clean | BLOCK | Report audit has blocking findings. |
+| live_readiness | report_audit_clean | BLOCK | Report Audit has blocking operational findings. |
 | live_readiness | wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
 | live_readiness | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
 | live_readiness | live_feature_off | BLOCK | Live feature flag must remain off until the final reviewed pilot. |
 | live_readiness | kill_switch_on | BLOCK | Live and paper kill switches must remain on during readiness review. |
+| live_readiness | private_key_absent | BLOCK | Private key must not be configured during readiness review. |
+| live_readiness | paper_live_wallet_parity | ACTION | Paper capital should be > $0 and no larger than the configured live wallet ceiling. |
 | transaction_simulation | live_trading_disabled | BLOCK | Live trading must remain disabled during transaction simulation development. |
 | transaction_simulation | kill_switch_enabled | BLOCK | Live kill switch must remain enabled during transaction simulation development. |
+| transaction_simulation | private_key_absent | BLOCK | Private key must not be configured for simulation report generation. |
 | transaction_simulation | wallet_preflight_ready | ACTION | Wallet Preflight must be ready before transaction simulation review. |
 | transaction_simulation | live_readiness_preconditions_ready | ACTION | Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass. |
 | transaction_simulation | eth_call_simulation_passed | ACTION | Base eth_call simulation has not passed yet. |
 | tiny_live_pilot | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
+| tiny_live_pilot | report_audit_clean | BLOCK | Report audit has blocking findings. |
 | live_execution_engine | atomic_route_simulation_passed | ACTION | Run python -m app.execution.atomic_arbitrage_execution_service --generate until the atomic executor calldata eth_call passes. |
 
 ## Unblock Path

@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-07-01T06:24:52Z`
+Generated: `2026-07-01T15:37:57Z`
 - Overall status: `BLOCKED_WALLET_PREFLIGHT`
 - Next action: `Run wallet preflight in safe mode until it is WALLET_PREP_READY.`
 - Next command: `python -m app.execution.wallet_preflight_service`
@@ -22,7 +22,7 @@ Generated: `2026-07-01T06:24:52Z`
   "smoke_usd": "20",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48048872
+  "latest_block": 48065465
 }
 ```
 
@@ -41,7 +41,7 @@ Generated: `2026-07-01T06:24:52Z`
     "ETH": "0.024121785224852599",
     "USDC": "429.998478",
     "WETH": "0.012568442636912582",
-    "block_number": "48048872",
+    "block_number": "48065464",
     "status": "OK"
   },
   "latest_swap": {
@@ -69,9 +69,9 @@ Generated: `2026-07-01T06:24:52Z`
   "transaction_simulation": "TX_SIMULATION_ACTION",
   "transaction_simulation_passed": false,
   "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
-  "tiny_live_blocked_checks": 1,
+  "tiny_live_blocked_checks": 2,
   "provider_monitor": "OK",
-  "report_audit_blocking_findings": 0,
+  "report_audit_blocking_findings": 12,
   "live_safety": "LIVE_BLOCKED",
   "live_pilot_reconciliation": "LIVE_PILOT_RECONCILED"
 }
@@ -82,6 +82,7 @@ Generated: `2026-07-01T06:24:52Z`
 | Source | Check | Severity | Detail |
 |---|---|---|---|
 | tiny_live_pilot | wallet_preflight_ready | BLOCK | Wallet preflight must be ready. |
+| tiny_live_pilot | report_audit_clean | BLOCK | Report audit has blocking findings. |
 
 ## Notes
 

@@ -1,6 +1,6 @@
 # CryptoAI Provider Monitor
 
-Generated: `2026-07-01T06:24:49Z`
+Generated: `2026-07-01T15:38:44Z`
 
 ## Summary
 
@@ -14,17 +14,17 @@ Generated: `2026-07-01T06:24:49Z`
 
 | Chain | Type | Provider | Score | Current | Rolling | Required | Consecutive Failures | Age Seconds | Error |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| base | dex | Aerodrome | 100 | OK | OK | True | 0 | 123.86 |  |
-| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 124.81 |  |
-| base | dex | Uniswap V3 | 99 | OK | OK | True | 0 | 121.35 |  |
-| base | rpc | Base:rpc2:https://mainnet.base.org | 100 | WATCH | OK | False | 0 | 43193.36 |  |
-| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 99 | OK | OK | True | 0 | 66.94 |  |
+| base | dex | Aerodrome | 100 | OK | OK | True | 0 | 37.4 |  |
+| base | dex | Uniswap V2 | 100 | OK | OK | True | 0 | 35.67 |  |
+| base | dex | Uniswap V3 | 99 | OK | OK | True | 0 | 32.2 |  |
+| base | rpc | Base:rpc2:https://mainnet.base.org | 100 | WATCH | OK | False | 0 | 76429.2 |  |
+| base | rpc | Base:rpc1:https://base-rpc.publicnode.com | 99 | OK | OK | True | 0 | 30.53 |  |
 
 ## Alerts
 
 | Severity | Chain | Type | Provider | Message |
 |---|---|---|---|---|
-| WATCH | base | rpc | Base:rpc2:https://mainnet.base.org | Provider observation is stale at 43193.36 seconds old. |
+| WATCH | base | rpc | Base:rpc2:https://mainnet.base.org | Provider observation is stale at 76429.2 seconds old. |
 
 ## Notes
 

@@ -10,6 +10,7 @@ from typing import Any
 
 from app.execution.atomic_live_adapter import is_valid_evm_address, reviewed_atomic_adapter_selected
 from app.execution.live_control_center_service import LiveControlCenterService
+from app.execution.atomic_arbitrage_execution_service import AtomicArbitrageExecutionService
 
 
 class LiveExecutionEngineService:
@@ -43,6 +44,10 @@ class LiveExecutionEngineService:
                 LiveControlCenterService(data_dir=self.data_dir, report_dir=self.report_dir).generate(refresh_plan=True)
             except Exception as exc:
                 refresh_errors.append(f"live_control_center: {type(exc).__name__}: {exc}")
+            try:
+                AtomicArbitrageExecutionService(data_dir=self.data_dir, report_dir=self.report_dir).generate()
+            except Exception as exc:
+                refresh_errors.append(f"atomic_live_arbitrage: {type(exc).__name__}: {exc}")
 
         control = self._read_json("live_control_center.json")
         wallet = self._read_json("wallet_preflight.json")

@@ -31,10 +31,19 @@ class AtomicLiveExecutionAdapter:
     report_dir: Path | str = "reports"
 
     def execute(self, engine: dict[str, Any]) -> dict[str, Any]:
-        atomic_report = AtomicArbitrageExecutionService(report_dir=self.report_dir, refresh_transaction_simulation=False).generate()
+        executor_address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
+        if not self._bool_env("CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED"):
+            return {
+                "status": "REFUSED_ATOMIC_SEND_FLAG_DISABLED",
+                "transaction_sent": False,
+                "reason": "Set CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED=true only after reviewing the passing atomic eth_call report.",
+                "executor_address": executor_address or None,
+                "checks": [],
+                "atomic_report_status": None,
+            }
+        atomic_report = AtomicArbitrageExecutionService(report_dir=self.report_dir, refresh_transaction_simulation=True).generate()
         checks = self._checks(engine, atomic_report=atomic_report)
         blockers = [row for row in checks if not row["passed"]]
-        executor_address = os.getenv("CRYPTOAI_ATOMIC_EXECUTOR_ADDRESS", "").strip()
         if blockers:
             return {
                 "status": "REFUSED_ATOMIC_EXECUTOR_NOT_READY",
@@ -44,16 +53,6 @@ class AtomicLiveExecutionAdapter:
                 "checks": checks,
                 "atomic_report_status": atomic_report.get("overall_status"),
             }
-        if not self._bool_env("CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED"):
-            return {
-                "status": "REFUSED_ATOMIC_SEND_FLAG_DISABLED",
-                "transaction_sent": False,
-                "reason": "Set CRYPTOAI_ATOMIC_EXECUTOR_SEND_ENABLED=true only after reviewing the passing atomic eth_call report.",
-                "executor_address": executor_address,
-                "checks": checks,
-                "atomic_report_status": atomic_report.get("overall_status"),
-            }
-
         sent = self._send_atomic_transaction(atomic_report)
         return {
             "status": "ATOMIC_LIVE_SENT",
@@ -101,9 +100,9 @@ class AtomicLiveExecutionAdapter:
                 "CRYPTOAI_PRIVATE_KEY must be present only in the live shell that sends transactions.",
             ),
             self._check(
-                "transaction_simulation_passed",
-                gates.get("transaction_simulation_passed") is True,
-                "Exact calldata plus eth_call transaction simulation must pass.",
+                "transaction_or_atomic_simulation_passed",
+                gates.get("transaction_simulation_passed") is True or gates.get("atomic_route_simulation_passed") is True,
+                "Exact calldata plus either standalone or atomic executor eth_call simulation must pass.",
             ),
             self._check(
                 "live_pilot_reconciled",

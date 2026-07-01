@@ -9,7 +9,7 @@
   },
   "blockers": [
     {
-      "detail": "Atomic executor rejected the route as ProfitTooLow: simulated output 19.77522 USDC, required 20.01 USDC.",
+      "detail": "Atomic route reconciliation status: LOSS_AFTER_ATOMIC_SIMULATION.",
       "name": "atomic_route_simulation_passed",
       "severity": "BLOCK",
       "source": "atomic_live_arbitrage"
@@ -23,6 +23,12 @@
     {
       "detail": "Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work.",
       "name": "live_review_ready",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Report audit still has blocking findings.",
+      "name": "report_audit_clean",
       "severity": "BLOCK",
       "source": "live_execution_engine"
     },
@@ -43,6 +49,18 @@
       "name": "wallet_preflight_ready",
       "severity": "BLOCK",
       "source": "live_control_center"
+    },
+    {
+      "detail": "Report audit has blocking findings.",
+      "name": "report_audit_clean",
+      "severity": "BLOCK",
+      "source": "live_control_center"
+    },
+    {
+      "detail": "Report Audit has blocking operational findings.",
+      "name": "report_audit_clean",
+      "severity": "BLOCK",
+      "source": "live_readiness"
     },
     {
       "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
@@ -69,6 +87,18 @@
       "source": "live_readiness"
     },
     {
+      "detail": "Private key must not be configured during readiness review.",
+      "name": "private_key_absent",
+      "severity": "BLOCK",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+      "name": "paper_live_wallet_parity",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
       "detail": "Live trading must remain disabled during transaction simulation development.",
       "name": "live_trading_disabled",
       "severity": "BLOCK",
@@ -77,6 +107,12 @@
     {
       "detail": "Live kill switch must remain enabled during transaction simulation development.",
       "name": "kill_switch_enabled",
+      "severity": "BLOCK",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Private key must not be configured for simulation report generation.",
+      "name": "private_key_absent",
       "severity": "BLOCK",
       "source": "transaction_simulation"
     },
@@ -101,6 +137,12 @@
     {
       "detail": "Wallet preflight must be ready.",
       "name": "wallet_preflight_ready",
+      "severity": "BLOCK",
+      "source": "tiny_live_pilot"
+    },
+    {
+      "detail": "Report audit has blocking findings.",
+      "name": "report_audit_clean",
       "severity": "BLOCK",
       "source": "tiny_live_pilot"
     },
@@ -131,13 +173,13 @@
     "live_review_ready": false,
     "live_safety_report_present": true,
     "provider_monitor_ok": true,
-    "report_audit_clean": true,
+    "report_audit_clean": false,
     "swap_tx_available": true,
     "tiny_live_pilot_ready": false,
     "transaction_simulation_passed": false,
     "wallet_preflight_allowed": false
   },
-  "generated_at": "2026-07-01T06:24:52Z",
+  "generated_at": "2026-07-01T15:38:14Z",
   "missing_components": [
     {
       "component": "exact_calldata_eth_call_pass",
@@ -152,7 +194,7 @@
   ],
   "mode": "live_execution_engine",
   "next_allowed_command": null,
-  "next_unblock_step": "Atomic executor rejected the route as ProfitTooLow: simulated output 19.77522 USDC, required 20.01 USDC.",
+  "next_unblock_step": "Atomic route reconciliation status: LOSS_AFTER_ATOMIC_SIMULATION.",
   "notes": [
     "This engine is an execution-readiness state machine. It never signs, approves, swaps, or runs autonomous live arbitrage.",
     "Manual approval and manual smoke-swap commands appear only when all prerequisite reports permit them.",
@@ -195,7 +237,7 @@
     "chain": "base",
     "dex": "Uniswap V3",
     "eth_balance": "0.024121785224852599",
-    "latest_block": 48048872,
+    "latest_block": 48065465,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "smoke_usd": "20",
     "swap_tx_available": true,

@@ -192,6 +192,45 @@ class TransactionSimulationServiceTests(unittest.TestCase):
         self.assertEqual(payload["simulation_intent"]["status"], "NO_CANDIDATE")
         self.assertTrue(any(row["name"] == "shadow_candidate_available" and row["severity"] == "ACTION" for row in payload["checks"]))
 
+
+    def test_select_candidate_prefers_freshest_highest_stress_edge(self) -> None:
+        service = TransactionSimulationService()
+        realism = {
+            "opportunities": [
+                {
+                    "timestamp": "2026-01-01T00:00:00Z",
+                    "chain": "base",
+                    "pair": "USDC/WETH",
+                    "buy_source": "Uniswap V2",
+                    "sell_source": "Uniswap V3",
+                    "source_decision": "BUY",
+                    "realism_status": "SHADOW_READY",
+                    "stress_net_edge_pct": "9.0000",
+                    "reported_net_edge_pct": "9.0000",
+                    "buy_price": "0.0006",
+                    "sell_price": "0.0007",
+                },
+                {
+                    "timestamp": "2099-01-01T00:00:00Z",
+                    "chain": "base",
+                    "pair": "USDC/WETH",
+                    "buy_source": "Uniswap V2",
+                    "sell_source": "Uniswap V3",
+                    "source_decision": "BUY",
+                    "realism_status": "SHADOW_READY",
+                    "stress_net_edge_pct": "0.5000",
+                    "reported_net_edge_pct": "0.5000",
+                    "buy_price": "0.0006",
+                    "sell_price": "0.0007",
+                },
+            ]
+        }
+
+        with self._env({"CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS": "45"}):
+            selected = service._select_candidate(realism)
+
+        self.assertEqual(selected["stress_net_edge_pct"], "0.5000")
+
     @staticmethod
     def _write_json(path: Path, payload: dict) -> None:
         path.write_text(json.dumps(payload), encoding="utf-8")
@@ -206,6 +245,7 @@ class TransactionSimulationServiceTests(unittest.TestCase):
             "CRYPTOAI_MAX_LIVE_TRADE_USD",
             "CRYPTOAI_TINY_LIVE_SMOKE_USD",
             "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD",
+            "CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS",
         }
         previous = {key: os.environ.get(key) for key in keys}
         try:

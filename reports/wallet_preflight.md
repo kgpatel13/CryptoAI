@@ -1,6 +1,6 @@
 # Wallet Preflight Report
 
-Generated: `2026-07-01T06:24:49Z`
+Generated: `2026-07-01T15:38:44Z`
 - Overall status: `WALLET_PREP_ACTION`
 - Wallet preflight allowed: `False`
 - Live trading approval: `False`
@@ -8,7 +8,7 @@ Generated: `2026-07-01T06:24:49Z`
 - Planned USDC USD: `$450.0000`
 - Planned ETH gas USD: `$50.0000`
 - Planned total USD: `$500.0000`
-- Blocked checks: `2`
+- Blocked checks: `3`
 - Action checks: `0`
 
 ## Checks
@@ -17,7 +17,7 @@ Generated: `2026-07-01T06:24:49Z`
 |---|---|---|
 | live_trading_disabled | BLOCK | Live trading feature flag must stay disabled during wallet preparation. |
 | kill_switch_enabled | BLOCK | Live kill switch must stay enabled during wallet preparation. |
-| private_key_absent | PASS | No private key is configured. |
+| private_key_absent | BLOCK | Private key is configured; remove it during preflight preparation. |
 | isolated_wallet_address | PASS | Isolated live wallet public address is configured. |
 | wallet_isolation | PASS | Live wallet is separate from the main wallet. |
 | planned_chain_base | PASS | Planned chain is Base. |

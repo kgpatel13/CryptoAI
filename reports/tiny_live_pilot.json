@@ -1,5 +1,5 @@
 {
-  "blocked_check_count": 1,
+  "blocked_check_count": 2,
   "check_count": 18,
   "checks": [
     {
@@ -63,10 +63,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Report audit has no blocking findings.",
+      "detail": "Report audit has blocking findings.",
       "name": "report_audit_clean",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Provider monitor is OK.",
@@ -114,8 +114,8 @@
   "context": {
     "active_autopilot_processes": [],
     "live_readiness": {
-      "action_count": 2,
-      "blocked_check_count": 2,
+      "action_count": 3,
+      "blocked_check_count": 4,
       "check_count": 22,
       "checks": [
         {
@@ -173,10 +173,10 @@
           "severity": "PASS"
         },
         {
-          "detail": "Report Audit has no blocking operational findings.",
+          "detail": "Report Audit has blocking operational findings.",
           "name": "report_audit_clean",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
           "detail": "Paper orders and analytics trade journal are available.",
@@ -221,16 +221,16 @@
           "severity": "BLOCK"
         },
         {
-          "detail": "Private key is absent.",
+          "detail": "Private key must not be configured during readiness review.",
           "name": "private_key_absent",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
-          "detail": "Paper capital is within the configured live wallet ceiling.",
+          "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
           "name": "paper_live_wallet_parity",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "ACTION"
         },
         {
           "detail": "Paper has sufficient live-cap-sized evidence for the configured live trade cap.",
@@ -252,13 +252,13 @@
         }
       ],
       "closed_trade_count": 1139,
-      "generated_at": "2026-07-01T06:24:50Z",
-      "live_cap_closed_trade_count": 828,
+      "generated_at": "2026-07-01T15:37:55Z",
+      "live_cap_closed_trade_count": 942,
       "live_review_ready": false,
       "live_trading_approval": false,
-      "max_daily_loss_usd": "20",
-      "max_live_trade_usd": "20",
-      "max_live_wallet_usd": "500",
+      "max_daily_loss_usd": "50",
+      "max_live_trade_usd": "100",
+      "max_live_wallet_usd": "420",
       "mode": "paper",
       "notes": [
         "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -269,7 +269,7 @@
       "paper_cash_usd": "894.5618",
       "paper_profile": "live_parity_500",
       "paper_realized_pnl_usd": "394.5618",
-      "pass_count": 18,
+      "pass_count": 15,
       "watch_count": 0
     },
     "live_safety": {
@@ -449,7 +449,7 @@
       "alerts": [
         {
           "chain": "base",
-          "message": "Provider observation is stale at 43193.36 seconds old.",
+          "message": "Provider observation is stale at 76359.0 seconds old.",
           "provider": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "severity": "WATCH"
@@ -469,7 +469,7 @@
       ],
       "critical_alert_count": 0,
       "degraded_alert_count": 0,
-      "generated_at": "2026-07-01T06:24:49Z",
+      "generated_at": "2026-07-01T15:37:34Z",
       "mode": "paper",
       "notes": [
         "Provider Monitor summarizes existing provider-health observations.",
@@ -497,12 +497,12 @@
       "providers": [
         {
           "alerts": [],
-          "avg_latency_ms": 328.09,
+          "avg_latency_ms": 314.28,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 123.86,
+          "last_observed_age_seconds": 37.47,
           "name": "Aerodrome",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -513,12 +513,12 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 328.69,
+          "avg_latency_ms": 319.07,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 124.81,
+          "last_observed_age_seconds": 35.82,
           "name": "Uniswap V2",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -529,12 +529,12 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 774.43,
+          "avg_latency_ms": 760.81,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 121.35,
+          "last_observed_age_seconds": 32.28,
           "name": "Uniswap V3",
           "provider_type": "dex",
           "required_for_overall": true,
@@ -547,7 +547,7 @@
           "alerts": [
             {
               "chain": "base",
-              "message": "Provider observation is stale at 43193.36 seconds old.",
+              "message": "Provider observation is stale at 76359.0 seconds old.",
               "provider": "Base:rpc2:https://mainnet.base.org",
               "provider_type": "rpc",
               "severity": "WATCH"
@@ -558,7 +558,7 @@
           "consecutive_failures": 0,
           "current_status": "WATCH",
           "last_error": null,
-          "last_observed_age_seconds": 43193.36,
+          "last_observed_age_seconds": 76359.0,
           "name": "Base:rpc2:https://mainnet.base.org",
           "provider_type": "rpc",
           "required_for_overall": false,
@@ -569,27 +569,83 @@
         },
         {
           "alerts": [],
-          "avg_latency_ms": 238.33,
+          "avg_latency_ms": 252.1,
           "chain": "base",
           "consecutive_failures": 0,
           "current_status": "OK",
           "last_error": null,
-          "last_observed_age_seconds": 66.94,
+          "last_observed_age_seconds": 30.55,
           "name": "Base:rpc1:https://base-rpc.publicnode.com",
           "provider_type": "rpc",
           "required_for_overall": true,
           "rolling_status": "OK",
           "score": 99,
           "status": "OK",
-          "success_rate_pct": 99.43
+          "success_rate_pct": 99.28
         }
       ],
       "stale_after_seconds": 900
     },
     "report_audit": {
-      "blocking_finding_count": 0,
-      "finding_count": 26,
+      "blocking_finding_count": 12,
+      "finding_count": 40,
       "findings": [
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "paper_report.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "paper_report.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "review",
+          "message": "Report is older than freshness window.",
+          "report": "paper_run_review.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": false,
+          "category": "review",
+          "message": "Report is older than freshness window.",
+          "report": "paper_run_review.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "live_safety.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "live_safety.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "portfolio_analytics.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "portfolio_analytics.md",
+          "severity": "WATCH"
+        },
         {
           "blocks_shadow_review": false,
           "category": "research",
@@ -675,6 +731,34 @@
           "severity": "WATCH"
         },
         {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "live_shadow_gate.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "live_shadow_gate.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "execution_cost_evidence.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "execution_cost_evidence.md",
+          "severity": "WATCH"
+        },
+        {
           "blocks_shadow_review": false,
           "category": "research",
           "message": "Report is older than freshness window.",
@@ -700,6 +784,20 @@
           "category": "research",
           "message": "Report is older than freshness window.",
           "report": "experiment_report.md",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "market_intelligence.json",
+          "severity": "WATCH"
+        },
+        {
+          "blocks_shadow_review": true,
+          "category": "operational",
+          "message": "Report is older than freshness window.",
+          "report": "market_intelligence.md",
           "severity": "WATCH"
         },
         {
@@ -773,7 +871,7 @@
           "severity": "WATCH"
         }
       ],
-      "generated_at": "2026-07-01T06:24:50Z",
+      "generated_at": "2026-07-01T15:37:55Z",
       "invalid_json_count": 0,
       "missing_count": 0,
       "mode": "paper",
@@ -782,22 +880,22 @@
         "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
         "Stale research reports are tracked separately from runtime-critical operational evidence."
       ],
-      "operational_finding_count": 0,
-      "operational_stale_count": 0,
+      "operational_finding_count": 12,
+      "operational_stale_count": 12,
       "report_count": 57,
       "reports": [
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T06:22:47Z",
+          "generated_at": "2026-07-01T15:37:35Z",
           "name": "quote_diagnostics.md",
-          "size_bytes": 929,
+          "size_bytes": 917,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:22:55Z",
+          "generated_at": "2026-07-01T15:37:39Z",
           "name": "multi_dex_opportunities.md",
           "size_bytes": 930,
           "stale": false
@@ -805,7 +903,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:22:55Z",
+          "generated_at": "2026-07-01T15:37:39Z",
           "name": "opportunity_explorer.md",
           "size_bytes": 510,
           "stale": false
@@ -817,7 +915,7 @@
           "json_valid": true,
           "name": "paper_report.json",
           "size_bytes": 182023,
-          "stale": false,
+          "stale": true,
           "summary": {
             "filled_orders": 1139,
             "legacy_accounting_warning_count": 0,
@@ -831,7 +929,7 @@
           "generated_at": "2026-07-01T06:07:56Z",
           "name": "paper_report.md",
           "size_bytes": 67278,
-          "stale": false
+          "stale": true
         },
         {
           "category": "review",
@@ -840,7 +938,7 @@
           "json_valid": true,
           "name": "paper_run_review.json",
           "size_bytes": 2867,
-          "stale": false,
+          "stale": true,
           "summary": {
             "closed_trade_count": 1139,
             "live_decision": "BLOCKED",
@@ -859,7 +957,7 @@
           "generated_at": "2026-07-01T06:07:58Z",
           "name": "paper_run_review.md",
           "size_bytes": 1922,
-          "stale": false
+          "stale": true
         },
         {
           "category": "operational",
@@ -868,7 +966,7 @@
           "json_valid": true,
           "name": "live_safety.json",
           "size_bytes": 5017,
-          "stale": false,
+          "stale": true,
           "summary": {
             "blocked_check_count": 5,
             "check_count": 20,
@@ -883,7 +981,7 @@
           "generated_at": "2026-07-01T06:07:57Z",
           "name": "live_safety.md",
           "size_bytes": 2211,
-          "stale": false
+          "stale": true
         },
         {
           "category": "operational",
@@ -892,7 +990,7 @@
           "json_valid": true,
           "name": "portfolio_analytics.json",
           "size_bytes": 69871,
-          "stale": false,
+          "stale": true,
           "summary": {
             "closed_trade_count": 1139,
             "mode": "paper"
@@ -904,7 +1002,7 @@
           "generated_at": "2026-07-01T06:07:55Z",
           "name": "portfolio_analytics.md",
           "size_bytes": 6137,
-          "stale": false
+          "stale": true
         },
         {
           "category": "research",
@@ -1038,10 +1136,10 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:07:07Z",
+          "generated_at": "2026-07-01T15:37:39Z",
           "json_valid": true,
           "name": "pool_depth_ladder.json",
-          "size_bytes": 6948,
+          "size_bytes": 6947,
           "stale": false,
           "summary": {
             "confidence": "MEDIUM",
@@ -1055,7 +1153,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:07:07Z",
+          "generated_at": "2026-07-01T15:37:39Z",
           "name": "pool_depth_ladder.md",
           "size_bytes": 1719,
           "stale": false
@@ -1063,10 +1161,10 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:07:57Z",
+          "generated_at": "2026-07-01T15:37:53Z",
           "json_valid": true,
           "name": "execution_realism.json",
-          "size_bytes": 5534,
+          "size_bytes": 5539,
           "stale": false,
           "summary": {
             "confidence": "MEDIUM",
@@ -1080,7 +1178,7 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:07:57Z",
+          "generated_at": "2026-07-01T15:37:53Z",
           "name": "execution_realism.md",
           "size_bytes": 1151,
           "stale": false
@@ -1088,23 +1186,23 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T06:24:55Z",
           "json_valid": true,
           "name": "live_shadow_gate.json",
-          "size_bytes": 2570,
-          "stale": false,
+          "size_bytes": 96950,
+          "stale": true,
           "summary": {
             "mode": "paper",
-            "overall_status": "NO_SHADOW_ELIGIBLE_TRADES"
+            "overall_status": "SHADOW_ELIGIBLE_EVIDENCE"
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T06:24:55Z",
           "name": "live_shadow_gate.md",
-          "size_bytes": 777,
-          "stale": false
+          "size_bytes": 3890,
+          "stale": true
         },
         {
           "category": "operational",
@@ -1113,7 +1211,7 @@
           "json_valid": true,
           "name": "execution_cost_evidence.json",
           "size_bytes": 4065,
-          "stale": false,
+          "stale": true,
           "summary": {
             "buffer_status": "CONSERVATIVE",
             "confidence": "HIGH",
@@ -1126,55 +1224,55 @@
           "generated_at": "2026-07-01T06:07:56Z",
           "name": "execution_cost_evidence.md",
           "size_bytes": 1545,
-          "stale": false
+          "stale": true
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:50Z",
+          "generated_at": "2026-07-01T15:37:55Z",
           "json_valid": true,
           "name": "live_readiness_checklist.json",
-          "size_bytes": 5116,
+          "size_bytes": 5182,
           "stale": false,
           "summary": {
-            "blocked_check_count": 2,
+            "blocked_check_count": 4,
             "check_count": 22,
             "closed_trade_count": 1139,
             "mode": "paper",
             "overall_status": "LIVE_REVIEW_NOT_READY",
-            "pass_count": 18
+            "pass_count": 15
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:50Z",
+          "generated_at": "2026-07-01T15:37:55Z",
           "name": "live_readiness_checklist.md",
-          "size_bytes": 3127,
+          "size_bytes": 3190,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:50Z",
+          "generated_at": "2026-07-01T15:37:54Z",
           "json_valid": true,
           "name": "transaction_simulation.json",
-          "size_bytes": 10087,
+          "size_bytes": 10774,
           "stale": false,
           "summary": {
-            "blocked_check_count": 2,
+            "blocked_check_count": 3,
             "check_count": 12,
             "mode": "paper",
             "overall_status": "TX_SIMULATION_ACTION",
-            "pass_count": 7
+            "pass_count": 6
           }
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:50Z",
+          "generated_at": "2026-07-01T15:37:54Z",
           "name": "transaction_simulation.md",
-          "size_bytes": 7907,
+          "size_bytes": 7958,
           "stale": false
         },
         {
@@ -1233,7 +1331,7 @@
           "json_valid": true,
           "name": "market_intelligence.json",
           "size_bytes": 4264,
-          "stale": false,
+          "stale": true,
           "summary": {
             "mode": "paper",
             "overall_readiness_score": 80
@@ -1245,7 +1343,7 @@
           "generated_at": "2026-07-01T06:07:56Z",
           "name": "market_intelligence.md",
           "size_bytes": 1269,
-          "stale": false
+          "stale": true
         },
         {
           "category": "research",
@@ -1370,13 +1468,13 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T15:37:34Z",
           "json_valid": true,
           "name": "wallet_preflight.json",
-          "size_bytes": 3541,
+          "size_bytes": 3579,
           "stale": false,
           "summary": {
-            "blocked_check_count": 2,
+            "blocked_check_count": 3,
             "check_count": 15,
             "mode": "paper",
             "overall_status": "WALLET_PREP_ACTION"
@@ -1385,21 +1483,21 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T15:37:34Z",
           "name": "wallet_preflight.md",
-          "size_bytes": 1977,
+          "size_bytes": 2015,
           "stale": false
         },
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T06:23:43Z",
+          "generated_at": "2026-07-01T15:36:46Z",
           "json_valid": true,
           "name": "tiny_live_pilot.json",
-          "size_bytes": 62374,
+          "size_bytes": 66624,
           "stale": false,
           "summary": {
-            "blocked_check_count": 1,
+            "blocked_check_count": 2,
             "check_count": 18,
             "mode": "plan",
             "overall_status": "LIVE_PILOT_BLOCKED"
@@ -1408,18 +1506,18 @@
         {
           "category": "review",
           "exists": true,
-          "generated_at": "2026-07-01T06:23:43Z",
+          "generated_at": "2026-07-01T15:36:46Z",
           "name": "tiny_live_pilot.md",
-          "size_bytes": 2645,
+          "size_bytes": 2643,
           "stale": false
         },
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T15:37:34Z",
           "json_valid": true,
           "name": "provider_monitor.json",
-          "size_bytes": 3849,
+          "size_bytes": 3842,
           "stale": false,
           "summary": {
             "alert_count": 1,
@@ -1431,19 +1529,19 @@
         {
           "category": "operational",
           "exists": true,
-          "generated_at": "2026-07-01T06:24:49Z",
+          "generated_at": "2026-07-01T15:37:34Z",
           "name": "provider_monitor.md",
-          "size_bytes": 1184,
+          "size_bytes": 1179,
           "stale": false
         }
       ],
       "research_finding_count": 24,
       "research_stale_count": 24,
-      "stale_count": 26
+      "stale_count": 40
     },
     "transaction_simulation": {
       "action_count": 3,
-      "blocked_check_count": 2,
+      "blocked_check_count": 3,
       "check_count": 12,
       "checks": [
         {
@@ -1459,10 +1557,10 @@
           "severity": "BLOCK"
         },
         {
-          "detail": "Private key is absent.",
+          "detail": "Private key must not be configured for simulation report generation.",
           "name": "private_key_absent",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
           "detail": "Wallet Preflight must be ready before transaction simulation review.",
@@ -1519,7 +1617,7 @@
           "severity": "ACTION"
         }
       ],
-      "generated_at": "2026-07-01T06:24:50Z",
+      "generated_at": "2026-07-01T15:37:54Z",
       "live_trading_approval": false,
       "mode": "paper",
       "notes": [
@@ -1528,9 +1626,10 @@
         "Private keys must remain absent while developing this report."
       ],
       "overall_status": "TX_SIMULATION_ACTION",
-      "pass_count": 7,
+      "pass_count": 6,
+      "refresh_errors": [],
       "selected_candidate": {
-        "buy_price": "0.000625282678304533077",
+        "buy_price": "0.000612238402968442417",
         "buy_source": "Uniswap V2",
         "chain": "base",
         "confidence": "MEDIUM",
@@ -1538,9 +1637,9 @@
         "depth_model": "POOL_DEPTH_LADDER",
         "estimated_gas_pct": "0.0100",
         "estimated_gas_usd": "0.0500",
-        "estimated_price_impact_pct": "0.0113",
+        "estimated_price_impact_pct": "0.0111",
         "executable_ratio_pct": "100.0000",
-        "gross_edge_pct": "0.6981",
+        "gross_edge_pct": "0.7043",
         "max_executable_notional_usd": "500.0000",
         "mev_risk": "MEDIUM",
         "mev_risk_buffer_pct": "0.0500",
@@ -1548,14 +1647,34 @@
         "pool_depth_status": "DEPTH_READY",
         "realism_status": "SHADOW_READY",
         "reason": "Opportunity passed current realism screen.",
-        "reported_net_edge_pct": "0.3981",
+        "reported_net_edge_pct": "0.4043",
         "requested_notional_usd": "500.0000",
-        "sell_price": "0.00062964774820098819",
+        "sell_price": "0.000616550157070985541",
         "sell_source": "Uniswap V3",
         "source_decision": "BUY",
-        "stress_net_edge_pct": "0.3268",
-        "stress_total_cost_pct": "0.3713",
-        "timestamp": "2026-07-01T06:07:55Z"
+        "stress_net_edge_pct": "0.3332",
+        "stress_total_cost_pct": "0.3711",
+        "timestamp": "2026-07-01T15:37:39Z"
+      },
+      "selection_diagnostics": {
+        "candidate_count": 2,
+        "eligible_count": 1,
+        "max_candidate_age_seconds": 45,
+        "rejected": [
+          {
+            "age_seconds": 14.823206,
+            "buy_dex": "Uniswap V2",
+            "pair": "WETH/USDC",
+            "reason": "source_decision is not BUY",
+            "sell_dex": "Uniswap V3",
+            "timestamp": "2026-07-01T15:37:39Z"
+          }
+        ],
+        "selected_buy_dex": "Uniswap V2",
+        "selected_candidate_age_seconds": 14.823206,
+        "selected_pair": "USDC/WETH",
+        "selected_sell_dex": "Uniswap V3",
+        "selected_stress_net_edge_pct": "0.3332"
       },
       "simulation_intent": {
         "buy_dex": "Uniswap V2",
@@ -1571,7 +1690,7 @@
           "revert_count": 2
         },
         "max_slippage_bps": "50",
-        "notional_usd": "20.0000",
+        "notional_usd": "100.0000",
         "pair": "USDC/WETH",
         "routers": [
           {
@@ -1591,21 +1710,21 @@
         "status": "SIMULATION_ATTEMPTED",
         "swap_legs": [
           {
-            "amount_in_units": "20000000",
-            "amount_out_min_units": "12443125298260208",
-            "calldata": "0x38ed17390000000000000000000000000000000000000000000000000000000001312d00000000000000000000000000000000000000000000000000002c34f4df4c68f000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a44b3290000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+            "amount_in_units": "100000000",
+            "amount_out_min_units": "60917721095360020",
+            "calldata": "0x38ed17390000000000000000000000000000000000000000000000000000000005f5e10000000000000000000000000000000000000000000000000000d86c58366a4e1400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4534c90000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
             "calldata_bytes": 260,
-            "deadline": 1782887209,
+            "deadline": 1782920393,
             "dex": "Uniswap V2",
             "eth_call": {
-              "data": "0x38ed17390000000000000000000000000000000000000000000000000000000001312d00000000000000000000000000000000000000000000000000002c34f4df4c68f000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a44b3290000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+              "data": "0x38ed17390000000000000000000000000000000000000000000000000000000005f5e10000000000000000000000000000000000000000000000000000d86c58366a4e1400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4534c90000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
               "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
               "to": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
               "value": "0x0"
             },
             "eth_call_result": {
               "error": "ContractLogicError: ('execution reverted: TransferHelper: TRANSFER_FROM_FAILED', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000245472616e7366657248656c7065723a205452414e534645525f46524f4d5f4641494c454400000000000000000000000000000000000000000000000000000000')",
-              "latency_ms": 382.3,
+              "latency_ms": 383.92,
               "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
               "rpc_url": "https://base-rpc.publicnode.com",
               "status": "REVERT"
@@ -1625,21 +1744,21 @@
             "token_out_address": "0x4200000000000000000000000000000000000006"
           },
           {
-            "amount_in_units": "12505653566090661",
-            "amount_out_min_units": "19762042",
-            "calldata": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000002c6dd35e7dada500000000000000000000000000000000000000000000000000000000012d8b7a0000000000000000000000000000000000000000000000000000000000000000",
+            "amount_in_units": "61223840296844241",
+            "amount_out_min_units": "98804161",
+            "calldata": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000d982c224adbbd10000000000000000000000000000000000000000000000000000000005e3a1c10000000000000000000000000000000000000000000000000000000000000000",
             "calldata_bytes": 228,
-            "deadline": 1782887209,
+            "deadline": 1782920393,
             "dex": "Uniswap V3",
             "eth_call": {
-              "data": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000002c6dd35e7dada500000000000000000000000000000000000000000000000000000000012d8b7a0000000000000000000000000000000000000000000000000000000000000000",
+              "data": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000d982c224adbbd10000000000000000000000000000000000000000000000000000000005e3a1c10000000000000000000000000000000000000000000000000000000000000000",
               "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
               "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
               "value": "0x0"
             },
             "eth_call_result": {
               "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
-              "latency_ms": 375.69,
+              "latency_ms": 382.34,
               "rpc": "Base:rpc1:https://base-rpc.publicnode.com",
               "rpc_url": "https://base-rpc.publicnode.com",
               "status": "REVERT"
@@ -1677,7 +1796,7 @@
     },
     "wallet_preflight": {
       "action_count": 0,
-      "blocked_check_count": 2,
+      "blocked_check_count": 3,
       "check_count": 15,
       "checks": [
         {
@@ -1693,10 +1812,10 @@
           "severity": "BLOCK"
         },
         {
-          "detail": "No private key is configured.",
+          "detail": "Private key is configured; remove it during preflight preparation.",
           "name": "private_key_absent",
-          "passed": true,
-          "severity": "PASS"
+          "passed": false,
+          "severity": "BLOCK"
         },
         {
           "detail": "Isolated live wallet public address is configured.",
@@ -1771,7 +1890,7 @@
           "severity": "PASS"
         }
       ],
-      "generated_at": "2026-07-01T06:24:49Z",
+      "generated_at": "2026-07-01T15:37:34Z",
       "live_kill_switch_enabled": false,
       "live_trading_approval": false,
       "live_trading_enabled": true,
@@ -1789,11 +1908,11 @@
       "planned_eth_gas_usd": "50.0000",
       "planned_total_usd": "500.0000",
       "planned_usdc_usd": "450.0000",
-      "private_key_configured": false,
+      "private_key_configured": true,
       "wallet_preflight_allowed": false
     }
   },
-  "generated_at": "2026-07-01T06:24:52Z",
+  "generated_at": "2026-07-01T15:37:57Z",
   "live_trading_approval": false,
   "mode": "plan",
   "notes": [
@@ -1810,7 +1929,7 @@
     "dex": "Uniswap V3",
     "error": null,
     "eth_balance": "0.024121785224852599",
-    "latest_block": 48048872,
+    "latest_block": 48065465,
     "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
     "rpc_url": "https://base-rpc.publicnode.com",
     "smoke_usd": "20",

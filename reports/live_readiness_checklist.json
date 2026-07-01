@@ -1,6 +1,6 @@
 {
-  "action_count": 2,
-  "blocked_check_count": 2,
+  "action_count": 3,
+  "blocked_check_count": 4,
   "check_count": 22,
   "checks": [
     {
@@ -58,10 +58,10 @@
       "severity": "PASS"
     },
     {
-      "detail": "Report Audit has no blocking operational findings.",
+      "detail": "Report Audit has blocking operational findings.",
       "name": "report_audit_clean",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Paper orders and analytics trade journal are available.",
@@ -106,16 +106,16 @@
       "severity": "BLOCK"
     },
     {
-      "detail": "Private key is absent.",
+      "detail": "Private key must not be configured during readiness review.",
       "name": "private_key_absent",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
-      "detail": "Paper capital is within the configured live wallet ceiling.",
+      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
       "name": "paper_live_wallet_parity",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "ACTION"
     },
     {
       "detail": "Paper has sufficient live-cap-sized evidence for the configured live trade cap.",
@@ -137,13 +137,13 @@
     }
   ],
   "closed_trade_count": 1139,
-  "generated_at": "2026-07-01T06:24:50Z",
-  "live_cap_closed_trade_count": 828,
+  "generated_at": "2026-07-01T15:38:45Z",
+  "live_cap_closed_trade_count": 942,
   "live_review_ready": false,
   "live_trading_approval": false,
-  "max_daily_loss_usd": "20",
-  "max_live_trade_usd": "20",
-  "max_live_wallet_usd": "500",
+  "max_daily_loss_usd": "50",
+  "max_live_trade_usd": "100",
+  "max_live_wallet_usd": "420",
   "mode": "paper",
   "notes": [
     "Live Readiness Checklist is a human review gate and never enables live trading.",
@@ -154,6 +154,6 @@
   "paper_cash_usd": "894.5618",
   "paper_profile": "live_parity_500",
   "paper_realized_pnl_usd": "394.5618",
-  "pass_count": 18,
+  "pass_count": 15,
   "watch_count": 0
 }
