@@ -1,18 +1,18 @@
 # Live Readiness Checklist
 
-Generated: `2026-07-01T15:38:45Z`
+Generated: `2026-07-02T00:56:18Z`
 - Overall status: `LIVE_REVIEW_NOT_READY`
 - Live review ready: `False`
 - Live trading approval: `False`
 - Paper profile: `live_parity_500`
 - Closed paper trades: `1139`
-- Live-cap closed paper trades: `942`
+- Live-cap closed paper trades: `769`
 - Paper cash USD: `$894.5618`
 - Paper realized PnL USD: `$394.5618`
 - Max live wallet USD: `$420`
-- Max live trade USD: `$100`
-- Max daily loss USD: `$50`
-- Blocked checks: `4`
+- Max live trade USD: `$5`
+- Max daily loss USD: `$5`
+- Blocked checks: `5`
 - Action checks: `3`
 - Watch checks: `0`
 
@@ -34,7 +34,7 @@ Generated: `2026-07-01T15:38:45Z`
 | transaction_tax_export_available | PASS | Trade journal/export evidence is available for tax/accounting records. |
 | wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
 | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
-| live_safety_blocked | PASS | Live Safety remains blocked during readiness review. |
+| live_safety_blocked | BLOCK | Live Safety must remain blocked during readiness review. |
 | live_feature_off | BLOCK | Live feature flag must remain off until the final reviewed pilot. |
 | kill_switch_on | BLOCK | Live and paper kill switches must remain on during readiness review. |
 | private_key_absent | BLOCK | Private key must not be configured during readiness review. |

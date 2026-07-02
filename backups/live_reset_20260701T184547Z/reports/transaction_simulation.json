@@ -1,0 +1,281 @@
+{
+  "action_count": 3,
+  "blocked_check_count": 3,
+  "check_count": 12,
+  "checks": [
+    {
+      "detail": "Live trading must remain disabled during transaction simulation development.",
+      "name": "live_trading_disabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live kill switch must remain enabled during transaction simulation development.",
+      "name": "kill_switch_enabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Private key must not be configured for simulation report generation.",
+      "name": "private_key_absent",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Wallet Preflight must be ready before transaction simulation review.",
+      "name": "wallet_preflight_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+      "name": "live_readiness_preconditions_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "A simulation route is available.",
+      "name": "shadow_candidate_available",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate is Base USDC/WETH scope.",
+      "name": "candidate_scope_allowed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Both route routers are configured.",
+      "name": "routers_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate DEXes are within the tiny-live allowlist.",
+      "name": "approved_live_dexes",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Tiny live trade cap is configured.",
+      "name": "live_trade_cap_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Exact router calldata is built.",
+      "name": "exact_calldata_built",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Base eth_call simulation has not passed yet.",
+      "name": "eth_call_simulation_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "generated_at": "2026-07-01T18:34:04Z",
+  "live_trading_approval": false,
+  "market_evidence_refresh": {
+    "enabled": true,
+    "steps": [
+      {
+        "latency_ms": 637,
+        "name": "opportunity_explorer",
+        "status": "PASS",
+        "summary": {
+          "row_count": 2
+        }
+      },
+      {
+        "latency_ms": 717,
+        "name": "quote_diagnostics",
+        "status": "PASS",
+        "summary": {
+          "row_count": 6
+        }
+      },
+      {
+        "latency_ms": 34,
+        "name": "execution_realism",
+        "status": "PASS",
+        "summary": {
+          "generated_at": "2026-07-01T18:34:03Z",
+          "overall_status": "NOT_SHADOW_READY",
+          "shadow_ready_count": 0
+        }
+      }
+    ]
+  },
+  "mode": "paper",
+  "notes": [
+    "Transaction Simulation is evidence-only and never sends a transaction.",
+    "The gate remains non-passing until exact calldata is built, Base eth_call simulation succeeds for both arbitrage legs, and the surrounding readiness checks pass.",
+    "Private keys must remain absent while developing this report."
+  ],
+  "overall_status": "TX_SIMULATION_ACTION",
+  "pass_count": 6,
+  "selected_candidate": {
+    "buy_price": "0.000615156305358922996",
+    "buy_source": "Uniswap V2",
+    "chain": "base",
+    "confidence": "MEDIUM",
+    "configured_cost_buffer_pct": "0.3000",
+    "depth_model": "POOL_DEPTH_LADDER",
+    "estimated_gas_pct": "0.0100",
+    "estimated_gas_usd": "0.0500",
+    "estimated_price_impact_pct": "0.0112",
+    "executable_ratio_pct": "100.0000",
+    "gross_edge_pct": "0.5683",
+    "max_executable_notional_usd": "500.0000",
+    "mev_risk": "MEDIUM",
+    "mev_risk_buffer_pct": "0.0500",
+    "pair": "USDC/WETH",
+    "pool_depth_status": "DEPTH_READY",
+    "realism_status": "WATCH_ONLY",
+    "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+    "reported_net_edge_pct": "0.2683",
+    "requested_notional_usd": "500.0000",
+    "selection_mode": "TINY_LIVE_REALISM",
+    "selection_reason": "Selected WATCH candidate because Tiny Live Realism Mode is enabled and stress edge is above the configured tiny-live minimum.",
+    "sell_price": "0.000618652405402684773",
+    "sell_source": "Uniswap V3",
+    "source_decision": "WATCH",
+    "stress_net_edge_pct": "0.1971",
+    "stress_total_cost_pct": "0.3712",
+    "timestamp": "2026-07-01T18:34:02Z"
+  },
+  "simulation_intent": {
+    "buy_dex": "Uniswap V2",
+    "buy_price": "0.000615156305358922996",
+    "calldata_status": "BUILT",
+    "chain": "base",
+    "chain_id": 8453,
+    "deadline_seconds": "120",
+    "eth_call_status": "REVERT",
+    "eth_call_summary": {
+      "fail_count": 0,
+      "leg_count": 2,
+      "pass_count": 0,
+      "revert_count": 2
+    },
+    "gross_edge_pct": "0.5683",
+    "max_slippage_bps": "50",
+    "notional_usd": "5.0000",
+    "pair": "USDC/WETH",
+    "realism_status": "WATCH_ONLY",
+    "routers": [
+      {
+        "configured": true,
+        "dex": "Uniswap V2",
+        "dex_type": "v2",
+        "router_address": "0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24"
+      },
+      {
+        "configured": true,
+        "dex": "Uniswap V3",
+        "dex_type": "v3",
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481"
+      }
+    ],
+    "selection_mode": "TINY_LIVE_REALISM",
+    "selection_reason": "Selected WATCH candidate because Tiny Live Realism Mode is enabled and stress edge is above the configured tiny-live minimum.",
+    "sell_dex": "Uniswap V3",
+    "sell_price": "0.000618652405402684773",
+    "source_decision": "WATCH",
+    "status": "SIMULATION_ATTEMPTED",
+    "stress_net_edge_pct": "0.1971",
+    "swap_legs": [
+      {
+        "amount_in_units": "5000000",
+        "amount_out_min_units": "3060402619160641",
+        "calldata": "0x38ed173900000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000adf6b82fc184100000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a455e130000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+        "calldata_bytes": 260,
+        "deadline": 1782930963,
+        "dex": "Uniswap V2",
+        "eth_call": {
+          "data": "0x38ed173900000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000adf6b82fc184100000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a455e130000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+          "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
+          "to": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
+          "value": "0x0"
+        },
+        "eth_call_result": {
+          "error": "ContractLogicError: ('execution reverted: TransferHelper: TRANSFER_FROM_FAILED', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000245472616e7366657248656c7065723a205452414e534645525f46524f4d5f4641494c454400000000000000000000000000000000000000000000000000000000')",
+          "status": "REVERT"
+        },
+        "leg": "BUY_WETH",
+        "route_metadata": {
+          "path": [
+            "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "0x4200000000000000000000000000000000000006"
+          ]
+        },
+        "route_reconciliation": {
+          "buy_expected_weth": "0.0030757815267946149800000",
+          "buy_min_weth": "0.0030604026191606419051000000",
+          "sell_input_source": "buy_min_weth"
+        },
+        "router_address": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
+        "router_type": "v2",
+        "token_in": "USDC",
+        "token_in_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "token_out": "WETH",
+        "token_out_address": "0x4200000000000000000000000000000000000006"
+      },
+      {
+        "amount_in_units": "3060402619160641",
+        "amount_out_min_units": "4922151",
+        "calldata": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000adf6b82fc184100000000000000000000000000000000000000000000000000000000004b1b270000000000000000000000000000000000000000000000000000000000000000",
+        "calldata_bytes": 228,
+        "deadline": 1782930963,
+        "dex": "Uniswap V3",
+        "eth_call": {
+          "data": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000adf6b82fc184100000000000000000000000000000000000000000000000000000000004b1b270000000000000000000000000000000000000000000000000000000000000000",
+          "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
+          "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
+          "value": "0x0"
+        },
+        "eth_call_result": {
+          "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
+          "status": "REVERT"
+        },
+        "leg": "SELL_WETH",
+        "route_metadata": {
+          "fee_tier": 500,
+          "sqrt_price_limit_x96": 0
+        },
+        "route_reconciliation": {
+          "atomic_min_usdc": null,
+          "sell_expected_usdc": "4.946885508621931950629995190",
+          "sell_input_weth": "0.0030604026191606419051000000",
+          "sell_min_usdc": "4.922151081078822290876845214"
+        },
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+        "router_type": "v3",
+        "token_in": "WETH",
+        "token_in_address": "0x4200000000000000000000000000000000000006",
+        "token_out": "USDC",
+        "token_out_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+      }
+    ],
+    "tiny_live_realism_enabled": true,
+    "tokens": [
+      {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "configured": true,
+        "decimals": 6,
+        "symbol": "USDC"
+      },
+      {
+        "address": "0x4200000000000000000000000000000000000006",
+        "configured": true,
+        "decimals": 18,
+        "symbol": "WETH"
+      }
+    ],
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "transaction_simulation_passed": false
+}

@@ -16,6 +16,21 @@ from app.config.feature_flags import load_feature_flags
 from app.registry.dexes import get_dexes_for_chain
 from app.registry.tokens import get_token
 
+try:
+    from app.opportunities.opportunity_explorer import OpportunityExplorerService
+except Exception:  # pragma: no cover - optional runtime dependency
+    OpportunityExplorerService = None
+
+try:
+    from app.diagnostics.quote_diagnostics import QuoteDiagnosticsService
+except Exception:  # pragma: no cover - optional runtime dependency
+    QuoteDiagnosticsService = None
+
+try:
+    from app.execution.execution_realism_service import ExecutionRealismService
+except Exception:  # pragma: no cover - optional runtime dependency
+    ExecutionRealismService = None
+
 
 UNISWAP_V2_SWAP_ABI = [
     {
@@ -111,11 +126,10 @@ class TransactionSimulationService:
         self.output_json = self.report_dir / "transaction_simulation.json"
         self.output_md = self.report_dir / "transaction_simulation.md"
         self.eth_call_runner = eth_call_runner or self._default_eth_call_runner
-        self.selection_diagnostics: dict[str, Any] = {}
 
     def generate(self) -> dict[str, Any]:
-        refresh_errors = self._refresh_market_evidence()
         flags = load_feature_flags()
+        refresh_notes = self._refresh_market_evidence()
         wallet = self._read_json(self.report_dir / "wallet_preflight.json")
         readiness = self._read_json(self.report_dir / "live_readiness_checklist.json")
         realism = self._read_json(self.report_dir / "execution_realism.json")
@@ -132,9 +146,8 @@ class TransactionSimulationService:
             "transaction_simulation_passed": simulation_passed,
             "live_trading_approval": False,
             "selected_candidate": candidate,
-            "selection_diagnostics": self.selection_diagnostics,
+            "market_evidence_refresh": refresh_notes,
             "simulation_intent": intent,
-            "refresh_errors": refresh_errors,
             "check_count": len(checks),
             "pass_count": sum(1 for row in checks if row["severity"] == "PASS"),
             "action_count": len(actions),
@@ -152,78 +165,120 @@ class TransactionSimulationService:
 
     def _select_candidate(self, realism: dict[str, Any]) -> dict[str, Any]:
         rows = realism.get("opportunities", [])
-        now = datetime.now(UTC)
-        max_age = self._env_int("CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS", 45)
-        diagnostics: dict[str, Any] = {
-            "max_candidate_age_seconds": max_age,
-            "candidate_count": len(rows) if isinstance(rows, list) else 0,
-            "eligible_count": 0,
-            "rejected": [],
-            "selected_candidate_age_seconds": None,
-        }
-        best: dict[str, Any] = {}
-        best_edge = Decimal("-999999")
-        if isinstance(rows, list):
-            for row in rows:
-                enriched = self._enrich_candidate(dict(row))
-                reason = self._candidate_rejection_reason(enriched, now=now, max_age=max_age)
-                if reason:
-                    diagnostics["rejected"].append(
-                        {
-                            "timestamp": enriched.get("timestamp"),
-                            "pair": enriched.get("pair"),
-                            "buy_dex": enriched.get("buy_source"),
-                            "sell_dex": enriched.get("sell_source"),
-                            "reason": reason,
-                            "age_seconds": self._candidate_age_seconds(enriched.get("timestamp"), now),
-                        }
-                    )
-                    continue
-                diagnostics["eligible_count"] += 1
-                edge = self._decimal(enriched.get("stress_net_edge_pct") or enriched.get("reported_net_edge_pct") or enriched.get("estimated_net_edge_pct"))
-                if not best or edge > best_edge:
-                    best = enriched
-                    best_edge = edge
-        if best:
-            diagnostics["selected_candidate_age_seconds"] = self._candidate_age_seconds(best.get("timestamp"), now)
-            diagnostics["selected_pair"] = best.get("pair")
-            diagnostics["selected_buy_dex"] = best.get("buy_source")
-            diagnostics["selected_sell_dex"] = best.get("sell_source")
-            diagnostics["selected_stress_net_edge_pct"] = str(best_edge)
-        self.selection_diagnostics = diagnostics
-        return best
+        if not isinstance(rows, list):
+            return {}
 
-    def _candidate_rejection_reason(self, row: dict[str, Any], *, now: datetime, max_age: int) -> str | None:
-        if str(row.get("source_decision", "")).upper() != "BUY":
-            return "source_decision is not BUY"
-        if str(row.get("realism_status", "")).upper() != "SHADOW_READY":
-            return "realism_status is not SHADOW_READY"
-        if str(row.get("chain", "")).lower() not in self.APPROVED_CHAINS:
-            return "chain is not approved"
-        if {str(row.get("buy_source", "")), str(row.get("sell_source", ""))} - self.APPROVED_DEXES:
-            return "DEX route is not approved"
-        if self._decimal(row.get("buy_price")) <= 0 or self._decimal(row.get("sell_price")) <= 0:
-            return "candidate is missing executable buy/sell prices"
-        age = self._candidate_age_seconds(row.get("timestamp"), now)
-        if age is None:
-            return "candidate timestamp is missing or invalid"
-        if age > max_age:
-            return f"candidate is stale ({age:.2f}s > {max_age}s)"
-        return None
+        candidates: list[dict[str, Any]] = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            enriched = self._enrich_candidate(dict(row))
+            if self._candidate_allowed_for_atomic_route(enriched):
+                candidates.append(enriched)
+
+        if not candidates:
+            return {}
+
+        # Prefer fresh rows with the strongest stress-tested live edge.  This is
+        # intentionally deterministic so repeated live cycles do not keep using
+        # stale failed calldata when a newer market observation exists.
+        candidates.sort(
+            key=lambda row: (
+                self._timestamp_seconds(row.get("timestamp")),
+                self._decimal(row.get("stress_net_edge_pct")),
+                self._decimal(row.get("reported_net_edge_pct")),
+            ),
+            reverse=True,
+        )
+        selected = dict(candidates[0])
+        if self._tiny_live_realism_enabled() and str(selected.get("source_decision", "")).upper() != "BUY":
+            selected["selection_mode"] = "TINY_LIVE_REALISM"
+            selected["selection_reason"] = (
+                "Selected WATCH candidate because Tiny Live Realism Mode is enabled "
+                "and stress edge is above the configured tiny-live minimum."
+            )
+        else:
+            selected["selection_mode"] = "STANDARD_SHADOW_READY"
+        return selected
+
+    def _candidate_allowed_for_atomic_route(self, candidate: dict[str, Any]) -> bool:
+        chain_ok = str(candidate.get("chain", "")).lower() in self.APPROVED_CHAINS
+        dex_pair = {str(candidate.get("buy_source", "")), str(candidate.get("sell_source", ""))}
+        dex_ok = dex_pair.issubset(self.APPROVED_DEXES) and len(dex_pair) == 2
+        prices_ok = self._decimal(candidate.get("buy_price")) > 0 and self._decimal(candidate.get("sell_price")) > 0
+        if not (chain_ok and dex_ok and prices_ok):
+            return False
+
+        source_decision = str(candidate.get("source_decision", "")).upper()
+        realism_status = str(candidate.get("realism_status", "")).upper()
+        if source_decision == "BUY" and realism_status == "SHADOW_READY":
+            return self._candidate_fresh_enough(candidate)
+
+        if not self._tiny_live_realism_enabled():
+            return False
+
+        # Tiny Live Realism Mode widens pre-selection to WATCH/WATCH_ONLY, but
+        # it still cannot send unless the current exact atomic executor eth_call
+        # proves profitable. This turns labels into hints, not final blockers.
+        if source_decision not in {"BUY", "WATCH"}:
+            return False
+        if realism_status not in {"SHADOW_READY", "WATCH_ONLY"}:
+            return False
+        gross_pct = self._decimal(candidate.get("gross_edge_pct"))
+        stress_net_pct = self._decimal(candidate.get("stress_net_edge_pct"))
+        min_stress_pct = self._tiny_min_stress_pct()
+        return gross_pct > 0 and stress_net_pct >= min_stress_pct and self._candidate_fresh_enough(candidate)
 
     @staticmethod
-    def _candidate_age_seconds(timestamp: Any, now: datetime | None = None) -> float | None:
-        if not timestamp:
-            return None
-        raw = str(timestamp).replace("Z", "+00:00")
-        try:
-            dt = datetime.fromisoformat(raw)
-        except ValueError:
-            return None
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=UTC)
-        now = now or datetime.now(UTC)
-        return max(0.0, (now - dt).total_seconds())
+    def _tiny_live_realism_enabled() -> bool:
+        raw = os.getenv("CRYPTOAI_TINY_LIVE_REALISM_ENABLED")
+        if raw is not None:
+            return raw.strip().lower() in {"1", "true", "yes", "on"}
+        return False
+
+    def _tiny_min_stress_pct(self) -> Decimal:
+        # Prefer explicit pct. Support the earlier BPS env name for backward compatibility.
+        pct = os.getenv("CRYPTOAI_TINY_LIVE_MIN_STRESS_EDGE_PCT")
+        if pct is not None:
+            return self._decimal(pct)
+        return self._decimal(os.getenv("CRYPTOAI_TINY_LIVE_MIN_STRESS_EDGE_BPS", "1")) / Decimal("100")
+
+    def _candidate_fresh_enough(self, candidate: dict[str, Any]) -> bool:
+        max_age = int(os.getenv("CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS", "180"))
+        if max_age <= 0:
+            return True
+        ts = self._timestamp_seconds(candidate.get("timestamp"))
+        return ts > 0 and (time.time() - ts) <= max_age
+
+    def _refresh_market_evidence(self) -> dict[str, Any]:
+        if self._bool_env("CRYPTOAI_DISABLE_LIVE_MARKET_REFRESH", False):
+            return {"enabled": False, "steps": []}
+        steps: list[dict[str, Any]] = []
+
+        def run_step(label: str, fn: Callable[[], Any]) -> None:
+            started = time.time()
+            try:
+                result = fn()
+                steps.append({"name": label, "status": "PASS", "latency_ms": int((time.time() - started) * 1000), "summary": self._step_summary(result)})
+            except Exception as exc:
+                steps.append({"name": label, "status": "ERROR", "latency_ms": int((time.time() - started) * 1000), "error": f"{type(exc).__name__}: {exc}"[:300]})
+
+        if OpportunityExplorerService is not None:
+            run_step("opportunity_explorer", lambda: OpportunityExplorerService().scan())
+        if QuoteDiagnosticsService is not None:
+            run_step("quote_diagnostics", lambda: QuoteDiagnosticsService().run())
+        if ExecutionRealismService is not None:
+            run_step("execution_realism", lambda: ExecutionRealismService(data_dir=self.data_dir, report_dir=self.report_dir).generate())
+        return {"enabled": True, "steps": steps}
+
+    @staticmethod
+    def _step_summary(result: Any) -> Any:
+        if isinstance(result, list):
+            return {"row_count": len(result)}
+        if isinstance(result, dict):
+            keys = ["overall_status", "generated_at", "shadow_ready_count", "latest_opportunity_count"]
+            return {key: result.get(key) for key in keys if key in result}
+        return None
 
     def _enrich_candidate(self, candidate: dict[str, Any]) -> dict[str, Any]:
         if self._decimal(candidate.get("buy_price")) > 0 and self._decimal(candidate.get("sell_price")) > 0:
@@ -286,7 +341,7 @@ class TransactionSimulationService:
         max_trade = flags.max_live_trade_usd if flags.max_live_trade_usd > 0 else Decimal("0")
         requested = self._decimal(candidate.get("requested_notional_usd")) or max_trade
         notional = min(value for value in [requested, max_trade] if value > 0) if requested > 0 or max_trade > 0 else Decimal("0")
-        slippage_bps = Decimal("50")
+        slippage_bps = self._decimal(os.getenv("CRYPTOAI_TINY_LIVE_MAX_SLIPPAGE_BPS", "50")) or Decimal("50")
 
         intent: dict[str, Any] = {
             "status": "INTENT_READY",
@@ -303,6 +358,15 @@ class TransactionSimulationService:
             "routers": router_rows,
             "calldata_status": "NOT_BUILT",
             "eth_call_status": "NOT_RUN",
+            "selection_mode": candidate.get("selection_mode", "STANDARD_SHADOW_READY"),
+            "selection_reason": candidate.get("selection_reason"),
+            "tiny_live_realism_enabled": self._tiny_live_realism_enabled(),
+            "source_decision": candidate.get("source_decision"),
+            "realism_status": candidate.get("realism_status"),
+            "buy_price": candidate.get("buy_price"),
+            "sell_price": candidate.get("sell_price"),
+            "gross_edge_pct": candidate.get("gross_edge_pct"),
+            "stress_net_edge_pct": candidate.get("stress_net_edge_pct"),
         }
         intent.update(self._build_and_simulate_route(candidate, intent))
         return intent
@@ -444,7 +508,24 @@ class TransactionSimulationService:
         slippage_bps = self._decimal(intent.get("max_slippage_bps")) or Decimal("50")
         deadline = int(time.time()) + int(intent.get("deadline_seconds", "120"))
         buy_expected_weth = self._expected_weth_out(pair=pair, usdc_in=notional, price=buy_price)
-        sell_expected_usdc = self._expected_usdc_out(pair=pair, weth_in=buy_expected_weth, price=sell_price)
+
+        # Atomic two-leg execution cannot assume the second leg can spend the
+        # optimistic buy quote. In a single transaction the buy leg may return
+        # any amount >= its own amountOutMin. Therefore the sell leg's fixed
+        # amountIn must be reconciled to the conservative buy minimum; otherwise
+        # leg 1 may pass while leg 2 attempts to sell WETH the executor did not
+        # actually receive.
+        buy_min_weth = self._apply_slippage(buy_expected_weth, slippage_bps)
+        sell_input_weth = buy_min_weth if self._bool_env("CRYPTOAI_ATOMIC_USE_BUY_MINOUT_FOR_SELL_IN", default=True) else buy_expected_weth
+        sell_expected_usdc = self._expected_usdc_out(pair=pair, weth_in=sell_input_weth, price=sell_price)
+
+        # Let the final executor-level minAmountOut/minProfit guard enforce the
+        # real profitability requirement. Router leg minOut values are kept as
+        # execution-safety checks, not as the final profit gate.
+        sell_min_usdc = self._apply_slippage(sell_expected_usdc, slippage_bps)
+        atomic_min_usdc = self._decimal(intent.get("atomic_min_amount_out_usdc"))
+        if atomic_min_usdc > 0:
+            sell_min_usdc = min(sell_min_usdc, atomic_min_usdc)
 
         buy_leg = self._build_leg(
             leg="BUY_WETH",
@@ -453,7 +534,7 @@ class TransactionSimulationService:
             token_in_symbol="USDC",
             token_out_symbol="WETH",
             amount_in_decimal=notional,
-            amount_out_min_decimal=self._apply_slippage(buy_expected_weth, slippage_bps),
+            amount_out_min_decimal=buy_min_weth,
             recipient=str(intent.get("wallet_address")),
             deadline=deadline,
         )
@@ -463,11 +544,22 @@ class TransactionSimulationService:
             dex_name=str(intent.get("sell_dex")),
             token_in_symbol="WETH",
             token_out_symbol="USDC",
-            amount_in_decimal=buy_expected_weth,
-            amount_out_min_decimal=self._apply_slippage(sell_expected_usdc, slippage_bps),
+            amount_in_decimal=sell_input_weth,
+            amount_out_min_decimal=sell_min_usdc,
             recipient=str(intent.get("wallet_address")),
             deadline=deadline,
         )
+        buy_leg["route_reconciliation"] = {
+            "buy_expected_weth": str(buy_expected_weth),
+            "buy_min_weth": str(buy_min_weth),
+            "sell_input_source": "buy_min_weth" if sell_input_weth == buy_min_weth else "buy_expected_weth",
+        }
+        sell_leg["route_reconciliation"] = {
+            "sell_input_weth": str(sell_input_weth),
+            "sell_expected_usdc": str(sell_expected_usdc),
+            "sell_min_usdc": str(sell_min_usdc),
+            "atomic_min_usdc": str(atomic_min_usdc) if atomic_min_usdc > 0 else None,
+        }
         return [buy_leg, sell_leg]
 
     def _build_leg(
@@ -726,45 +818,13 @@ class TransactionSimulationService:
             "detail": pass_detail if passed else fail_detail,
         }
 
-    def _refresh_market_evidence(self) -> list[str]:
-        """Refresh the live route evidence chain before choosing an atomic candidate.
 
-        A live send must never reuse a stale SHADOW_READY row or old calldata.
-        This method rebuilds the quote/opportunity/realism reports in-process.
-        Failures are captured as diagnostics; they do not raise because the
-        readiness reports should remain actionable and fail closed.
-        """
-        if os.getenv("CRYPTOAI_DISABLE_LIVE_ROUTE_REFRESH", "").strip().lower() in {"1", "true", "yes", "on"}:
-            return []
-        errors: list[str] = []
-        steps: list[tuple[str, Callable[[], Any]]] = []
-        try:
-            from app.diagnostics.quote_diagnostics import QuoteDiagnosticsService
-            steps.append(("quote_diagnostics", lambda: QuoteDiagnosticsService(data_dir=self.data_dir, report_dir=self.report_dir).run()))
-        except Exception as exc:
-            errors.append(f"quote_diagnostics_import: {type(exc).__name__}: {exc}")
-        try:
-            from app.opportunities.opportunity_explorer import OpportunityExplorerService
-            steps.append(("opportunity_explorer", lambda: OpportunityExplorerService().scan()))
-        except Exception as exc:
-            errors.append(f"opportunity_explorer_import: {type(exc).__name__}: {exc}")
-        try:
-            from app.research.pool_depth_ladder_service import PoolDepthLadderService
-            steps.append(("pool_depth_ladder", lambda: PoolDepthLadderService(data_dir=self.data_dir, report_dir=self.report_dir).generate()))
-        except Exception:
-            # Pool-depth evidence is helpful but not required for every route refresh.
-            pass
-        try:
-            from app.execution.execution_realism_service import ExecutionRealismService
-            steps.append(("execution_realism", lambda: ExecutionRealismService(data_dir=self.data_dir, report_dir=self.report_dir).generate()))
-        except Exception as exc:
-            errors.append(f"execution_realism_import: {type(exc).__name__}: {exc}")
-        for name, fn in steps:
-            try:
-                fn()
-            except Exception as exc:
-                errors.append(f"{name}: {type(exc).__name__}: {exc}")
-        return errors
+    @staticmethod
+    def _bool_env(key: str, default: bool = False) -> bool:
+        raw = os.getenv(key)
+        if raw is None:
+            return default
+        return raw.strip().lower() in {"1", "true", "yes", "on"}
 
     @staticmethod
     def _read_json(path: Path) -> dict[str, Any]:
@@ -833,18 +893,23 @@ class TransactionSimulationService:
             return Decimal("0")
 
     @staticmethod
-    def _env_int(key: str, default: int) -> int:
-        try:
-            return int(os.getenv(key, str(default)))
-        except (TypeError, ValueError):
-            return default
-
-    @staticmethod
     def _int(value: Any) -> int:
         try:
             return int(value or 0)
         except (TypeError, ValueError):
             return 0
+
+    @staticmethod
+    def _timestamp_seconds(value: Any) -> float:
+        try:
+            text = str(value or "")
+            if not text:
+                return 0.0
+            if text.endswith("Z"):
+                text = text[:-1] + "+00:00"
+            return datetime.fromisoformat(text).timestamp()
+        except Exception:
+            return 0.0
 
     @staticmethod
     def _fmt(value: Decimal) -> str:

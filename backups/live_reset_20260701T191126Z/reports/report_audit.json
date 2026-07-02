@@ -1,0 +1,954 @@
+{
+  "generated_at": "2026-07-01T19:06:38Z",
+  "mode": "paper",
+  "report_count": 57,
+  "missing_count": 4,
+  "invalid_json_count": 0,
+  "stale_count": 38,
+  "operational_stale_count": 10,
+  "research_stale_count": 24,
+  "finding_count": 42,
+  "blocking_finding_count": 14,
+  "operational_finding_count": 14,
+  "research_finding_count": 24,
+  "reports": [
+    {
+      "name": "quote_diagnostics.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 917,
+      "generated_at": "2026-07-01T19:06:36Z",
+      "stale": false
+    },
+    {
+      "name": "multi_dex_opportunities.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 930,
+      "generated_at": "2026-07-01T19:06:35Z",
+      "stale": false
+    },
+    {
+      "name": "opportunity_explorer.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 511,
+      "generated_at": "2026-07-01T19:06:35Z",
+      "stale": false
+    },
+    {
+      "name": "paper_report.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 182023,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "total_orders": 6738,
+        "filled_orders": 1139,
+        "legacy_accounting_warning_count": 0
+      }
+    },
+    {
+      "name": "paper_report.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 67278,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true
+    },
+    {
+      "name": "paper_run_review.json",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 2867,
+      "generated_at": "2026-07-01T06:07:58Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "SHADOW_REVIEW_CANDIDATE",
+        "recommendation": "Review sustained paper evidence before any live-trading design decision.",
+        "shadow_decision": "REVIEW_READY",
+        "live_decision": "BLOCKED",
+        "closed_trade_count": 1139,
+        "losing_trade_count": 0,
+        "shadow_ready_count": 1,
+        "live_ready_count": 0
+      }
+    },
+    {
+      "name": "paper_run_review.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 1922,
+      "generated_at": "2026-07-01T06:07:58Z",
+      "stale": true
+    },
+    {
+      "name": "live_safety.json",
+      "category": "operational",
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
+    },
+    {
+      "name": "live_safety.md",
+      "category": "operational",
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
+    },
+    {
+      "name": "portfolio_analytics.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 69871,
+      "generated_at": "2026-07-01T06:07:55Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "closed_trade_count": 1139
+      }
+    },
+    {
+      "name": "portfolio_analytics.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 6137,
+      "generated_at": "2026-07-01T06:07:55Z",
+      "stale": true
+    },
+    {
+      "name": "strategy_center.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 6967,
+      "generated_at": "2026-06-30T07:46:41Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "strategy_count": 5
+      }
+    },
+    {
+      "name": "strategy_center.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 1712,
+      "generated_at": "2026-06-30T07:46:41Z",
+      "stale": true
+    },
+    {
+      "name": "strategy_intelligence.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 10599,
+      "generated_at": "2026-06-30T07:46:46Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "strategy_count": 5,
+        "top_recommendation": "HOLD_FIX_OPERATIONS"
+      }
+    },
+    {
+      "name": "strategy_intelligence.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 4993,
+      "generated_at": "2026-06-30T07:46:46Z",
+      "stale": true
+    },
+    {
+      "name": "feature_store.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 1584,
+      "generated_at": "2026-06-30T07:46:42Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "feature_count": 2072
+      }
+    },
+    {
+      "name": "feature_store.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 1040,
+      "generated_at": "2026-06-30T07:46:42Z",
+      "stale": true
+    },
+    {
+      "name": "research_dashboard.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 17995,
+      "generated_at": "2026-06-30T07:46:42Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper"
+      }
+    },
+    {
+      "name": "research_dashboard.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 5066,
+      "generated_at": "2026-06-30T07:46:42Z",
+      "stale": true
+    },
+    {
+      "name": "backtest_report.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 245879,
+      "generated_at": "2026-06-30T07:46:43Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "total_signals": 930,
+        "simulated_trades": 410
+      }
+    },
+    {
+      "name": "backtest_report.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 9462,
+      "generated_at": "2026-06-30T07:46:43Z",
+      "stale": true
+    },
+    {
+      "name": "replay_diagnostics.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 2269,
+      "generated_at": "2026-06-30T07:46:44Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "production_trade_count": 410,
+        "best_profitable_trade_count": 932,
+        "input_row_count": 1076,
+        "deduped_row_count": 932
+      }
+    },
+    {
+      "name": "replay_diagnostics.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 1258,
+      "generated_at": "2026-06-30T07:46:44Z",
+      "stale": true
+    },
+    {
+      "name": "pool_depth_ladder.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 6947,
+      "generated_at": "2026-07-01T16:15:06Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "DEPTH_EVIDENCE_READY",
+        "confidence": "MEDIUM",
+        "depth_ready_route_count": 2,
+        "watch_route_count": 0,
+        "route_count": 2
+      }
+    },
+    {
+      "name": "pool_depth_ladder.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 1719,
+      "generated_at": "2026-07-01T16:15:06Z",
+      "stale": true
+    },
+    {
+      "name": "execution_realism.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 5539,
+      "generated_at": "2026-07-01T19:06:36Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "SHADOW_REVIEW_READY",
+        "paper_capital_usd": "500.0000",
+        "confidence": "MEDIUM",
+        "shadow_ready_count": 1,
+        "live_ready_count": 0
+      }
+    },
+    {
+      "name": "execution_realism.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 1151,
+      "generated_at": "2026-07-01T19:06:36Z",
+      "stale": false
+    },
+    {
+      "name": "live_shadow_gate.json",
+      "category": "operational",
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
+    },
+    {
+      "name": "live_shadow_gate.md",
+      "category": "operational",
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
+    },
+    {
+      "name": "execution_cost_evidence.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 4065,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "buffer_status": "CONSERVATIVE",
+        "confidence": "HIGH"
+      }
+    },
+    {
+      "name": "execution_cost_evidence.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 1545,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true
+    },
+    {
+      "name": "live_readiness_checklist.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 5186,
+      "generated_at": "2026-07-01T19:06:37Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "LIVE_REVIEW_NOT_READY",
+        "blocked_check_count": 4,
+        "check_count": 22,
+        "closed_trade_count": 1139,
+        "pass_count": 15
+      }
+    },
+    {
+      "name": "live_readiness_checklist.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 3194,
+      "generated_at": "2026-07-01T19:06:37Z",
+      "stale": false
+    },
+    {
+      "name": "transaction_simulation.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 11699,
+      "generated_at": "2026-07-01T19:06:37Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "TX_SIMULATION_ACTION",
+        "blocked_check_count": 3,
+        "check_count": 12,
+        "pass_count": 6
+      }
+    },
+    {
+      "name": "transaction_simulation.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 8743,
+      "generated_at": "2026-07-01T19:06:37Z",
+      "stale": false
+    },
+    {
+      "name": "optimization_report.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 541825,
+      "generated_at": "2026-06-30T07:46:43Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "input_row_count": 1074,
+        "deduped_row_count": 930,
+        "scenario_count": 60
+      }
+    },
+    {
+      "name": "optimization_report.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 2210,
+      "generated_at": "2026-06-30T07:46:43Z",
+      "stale": true
+    },
+    {
+      "name": "experiment_report.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 9949,
+      "generated_at": "2026-06-30T07:46:44Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "status": "WATCHLIST",
+        "experiment_count": 1,
+        "gate_count": 5,
+        "pass_count": 4,
+        "warn_count": 1,
+        "fail_count": 0
+      }
+    },
+    {
+      "name": "experiment_report.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 3439,
+      "generated_at": "2026-06-30T07:46:44Z",
+      "stale": true
+    },
+    {
+      "name": "market_intelligence.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 4264,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_readiness_score": 80
+      }
+    },
+    {
+      "name": "market_intelligence.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 1269,
+      "generated_at": "2026-07-01T06:07:56Z",
+      "stale": true
+    },
+    {
+      "name": "market_universe_evidence.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 8885,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "active_focus_count": 1,
+        "research_target_count": 0,
+        "blocked_count": 7
+      }
+    },
+    {
+      "name": "market_universe_evidence.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 2694,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true
+    },
+    {
+      "name": "quote_coverage_evidence.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 16283,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "active_pair_count": 1,
+        "provider_gap_count": 6,
+        "quote_gap_count": 1,
+        "implemented_provider_count": 3
+      }
+    },
+    {
+      "name": "quote_coverage_evidence.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 2665,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true
+    },
+    {
+      "name": "eth_route_architecture.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 27781,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "route_architecture_decision": "KEEP_0_30_PRODUCTION_RESEARCH_0_20",
+        "production_buffer_pct": "0.30",
+        "candidate_buffer_pct": "0.20"
+      }
+    },
+    {
+      "name": "eth_route_architecture.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 3986,
+      "generated_at": "2026-06-30T07:46:45Z",
+      "stale": true
+    },
+    {
+      "name": "eth_market_coverage.json",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 8684,
+      "generated_at": "2026-06-30T07:46:46Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "ETH_COVERAGE_EARLY",
+        "overall_coverage_score": 53,
+        "target_chain_count": 5,
+        "configured_target_chain_count": 4,
+        "quote_ready_route_count": 2
+      }
+    },
+    {
+      "name": "eth_market_coverage.md",
+      "category": "research",
+      "exists": true,
+      "size_bytes": 2124,
+      "generated_at": "2026-06-30T07:46:46Z",
+      "stale": true
+    },
+    {
+      "name": "paper_trading_settings.json",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 3989,
+      "generated_at": "2026-07-01T05:05:24Z",
+      "stale": true,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "status": "VALID",
+        "paper_capital_usd": "500.00",
+        "error_count": 0,
+        "warning_count": 0,
+        "launch_command": "python -m app.automation.paper_autopilot --loop --use-settings"
+      }
+    },
+    {
+      "name": "paper_trading_settings.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 2286,
+      "generated_at": "2026-07-01T05:05:24Z",
+      "stale": true
+    },
+    {
+      "name": "wallet_preflight.json",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 3579,
+      "generated_at": "2026-07-01T19:06:34Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "WALLET_PREP_ACTION",
+        "blocked_check_count": 3,
+        "check_count": 15
+      }
+    },
+    {
+      "name": "wallet_preflight.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 2015,
+      "generated_at": "2026-07-01T19:06:34Z",
+      "stale": false
+    },
+    {
+      "name": "tiny_live_pilot.json",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 62234,
+      "generated_at": "2026-07-01T18:46:16Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "plan",
+        "overall_status": "LIVE_PILOT_BLOCKED",
+        "blocked_check_count": 2,
+        "check_count": 18
+      }
+    },
+    {
+      "name": "tiny_live_pilot.md",
+      "category": "review",
+      "exists": true,
+      "size_bytes": 2642,
+      "generated_at": "2026-07-01T18:46:16Z",
+      "stale": false
+    },
+    {
+      "name": "provider_monitor.json",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 3844,
+      "generated_at": "2026-07-01T19:06:34Z",
+      "stale": false,
+      "json_valid": true,
+      "summary": {
+        "mode": "paper",
+        "overall_status": "OK",
+        "provider_count": 5,
+        "alert_count": 1
+      }
+    },
+    {
+      "name": "provider_monitor.md",
+      "category": "operational",
+      "exists": true,
+      "size_bytes": 1181,
+      "generated_at": "2026-07-01T19:06:34Z",
+      "stale": false
+    }
+  ],
+  "findings": [
+    {
+      "severity": "WATCH",
+      "report": "paper_report.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_report.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_run_review.json",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_run_review.md",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_safety.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_safety.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WATCH",
+      "report": "portfolio_analytics.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "portfolio_analytics.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "strategy_center.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "strategy_center.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "strategy_intelligence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "strategy_intelligence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "feature_store.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "feature_store.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "research_dashboard.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "research_dashboard.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "backtest_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "backtest_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "replay_diagnostics.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "replay_diagnostics.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "pool_depth_ladder.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "pool_depth_ladder.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_shadow_gate.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_shadow_gate.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WATCH",
+      "report": "execution_cost_evidence.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "execution_cost_evidence.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "optimization_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "optimization_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "experiment_report.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "experiment_report.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "market_intelligence.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "market_intelligence.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "market_universe_evidence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "market_universe_evidence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "quote_coverage_evidence.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "quote_coverage_evidence.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "eth_route_architecture.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "eth_route_architecture.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "eth_market_coverage.json",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "eth_market_coverage.md",
+      "category": "research",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_trading_settings.json",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WATCH",
+      "report": "paper_trading_settings.md",
+      "category": "review",
+      "blocks_shadow_review": false,
+      "message": "Report is older than freshness window."
+    }
+  ],
+  "notes": [
+    "Report Audit is a review aid for paper-mode operations.",
+    "Critical provider status and paper-simulated opportunities require operational attention before strategy tuning.",
+    "Stale research reports are tracked separately from runtime-critical operational evidence."
+  ]
+}

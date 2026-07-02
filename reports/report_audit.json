@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-01T15:37:55Z",
+  "generated_at": "2026-07-02T00:56:19Z",
   "mode": "paper",
   "report_count": 57,
-  "missing_count": 0,
+  "missing_count": 4,
   "invalid_json_count": 0,
-  "stale_count": 40,
-  "operational_stale_count": 12,
+  "stale_count": 38,
+  "operational_stale_count": 10,
   "research_stale_count": 24,
-  "finding_count": 40,
-  "blocking_finding_count": 12,
-  "operational_finding_count": 12,
+  "finding_count": 42,
+  "blocking_finding_count": 14,
+  "operational_finding_count": 14,
   "research_finding_count": 24,
   "reports": [
     {
@@ -17,7 +17,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 917,
-      "generated_at": "2026-07-01T15:37:35Z",
+      "generated_at": "2026-07-02T00:56:16Z",
       "stale": false
     },
     {
@@ -25,7 +25,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 930,
-      "generated_at": "2026-07-01T15:37:39Z",
+      "generated_at": "2026-07-02T00:56:15Z",
       "stale": false
     },
     {
@@ -33,7 +33,7 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 510,
-      "generated_at": "2026-07-01T15:37:39Z",
+      "generated_at": "2026-07-02T00:56:15Z",
       "stale": false
     },
     {
@@ -90,26 +90,18 @@
     {
       "name": "live_safety.json",
       "category": "operational",
-      "exists": true,
-      "size_bytes": 5017,
-      "generated_at": "2026-07-01T06:07:57Z",
-      "stale": true,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "LIVE_BLOCKED",
-        "live_guard_allowed": false,
-        "blocked_check_count": 5,
-        "check_count": 20
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "live_safety.md",
       "category": "operational",
-      "exists": true,
-      "size_bytes": 2211,
-      "generated_at": "2026-07-01T06:07:57Z",
-      "stale": true
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "portfolio_analytics.json",
@@ -266,8 +258,8 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 6947,
-      "generated_at": "2026-07-01T15:37:39Z",
-      "stale": false,
+      "generated_at": "2026-07-01T16:15:06Z",
+      "stale": true,
       "json_valid": true,
       "summary": {
         "mode": "paper",
@@ -283,15 +275,15 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1719,
-      "generated_at": "2026-07-01T15:37:39Z",
-      "stale": false
+      "generated_at": "2026-07-01T16:15:06Z",
+      "stale": true
     },
     {
       "name": "execution_realism.json",
       "category": "operational",
       "exists": true,
       "size_bytes": 5539,
-      "generated_at": "2026-07-01T15:37:53Z",
+      "generated_at": "2026-07-02T00:56:16Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -308,29 +300,24 @@
       "category": "operational",
       "exists": true,
       "size_bytes": 1151,
-      "generated_at": "2026-07-01T15:37:53Z",
+      "generated_at": "2026-07-02T00:56:16Z",
       "stale": false
     },
     {
       "name": "live_shadow_gate.json",
       "category": "operational",
-      "exists": true,
-      "size_bytes": 96950,
-      "generated_at": "2026-07-01T06:24:55Z",
-      "stale": true,
-      "json_valid": true,
-      "summary": {
-        "mode": "paper",
-        "overall_status": "SHADOW_ELIGIBLE_EVIDENCE"
-      }
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "live_shadow_gate.md",
       "category": "operational",
-      "exists": true,
-      "size_bytes": 3890,
-      "generated_at": "2026-07-01T06:24:55Z",
-      "stale": true
+      "exists": false,
+      "size_bytes": 0,
+      "generated_at": null,
+      "stale": null
     },
     {
       "name": "execution_cost_evidence.json",
@@ -358,33 +345,33 @@
       "name": "live_readiness_checklist.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 5182,
-      "generated_at": "2026-07-01T15:37:55Z",
+      "size_bytes": 5185,
+      "generated_at": "2026-07-02T00:56:18Z",
       "stale": false,
       "json_valid": true,
       "summary": {
         "mode": "paper",
         "overall_status": "LIVE_REVIEW_NOT_READY",
-        "blocked_check_count": 4,
+        "blocked_check_count": 5,
         "check_count": 22,
         "closed_trade_count": 1139,
-        "pass_count": 15
+        "pass_count": 14
       }
     },
     {
       "name": "live_readiness_checklist.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3190,
-      "generated_at": "2026-07-01T15:37:55Z",
+      "size_bytes": 3192,
+      "generated_at": "2026-07-02T00:56:18Z",
       "stale": false
     },
     {
       "name": "transaction_simulation.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 10774,
-      "generated_at": "2026-07-01T15:37:54Z",
+      "size_bytes": 11700,
+      "generated_at": "2026-07-02T00:56:18Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -399,8 +386,8 @@
       "name": "transaction_simulation.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 7958,
-      "generated_at": "2026-07-01T15:37:54Z",
+      "size_bytes": 8743,
+      "generated_at": "2026-07-02T00:56:18Z",
       "stale": false
     },
     {
@@ -598,7 +585,7 @@
       "category": "review",
       "exists": true,
       "size_bytes": 3579,
-      "generated_at": "2026-07-01T15:37:34Z",
+      "generated_at": "2026-07-02T00:56:14Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -613,15 +600,15 @@
       "category": "review",
       "exists": true,
       "size_bytes": 2015,
-      "generated_at": "2026-07-01T15:37:34Z",
+      "generated_at": "2026-07-02T00:56:14Z",
       "stale": false
     },
     {
       "name": "tiny_live_pilot.json",
       "category": "review",
       "exists": true,
-      "size_bytes": 66624,
-      "generated_at": "2026-07-01T15:36:46Z",
+      "size_bytes": 61922,
+      "generated_at": "2026-07-02T00:55:26Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -635,16 +622,16 @@
       "name": "tiny_live_pilot.md",
       "category": "review",
       "exists": true,
-      "size_bytes": 2643,
-      "generated_at": "2026-07-01T15:36:46Z",
+      "size_bytes": 2642,
+      "generated_at": "2026-07-02T00:55:26Z",
       "stale": false
     },
     {
       "name": "provider_monitor.json",
       "category": "operational",
       "exists": true,
-      "size_bytes": 3842,
-      "generated_at": "2026-07-01T15:37:34Z",
+      "size_bytes": 3845,
+      "generated_at": "2026-07-02T00:56:14Z",
       "stale": false,
       "json_valid": true,
       "summary": {
@@ -658,8 +645,8 @@
       "name": "provider_monitor.md",
       "category": "operational",
       "exists": true,
-      "size_bytes": 1179,
-      "generated_at": "2026-07-01T15:37:34Z",
+      "size_bytes": 1182,
+      "generated_at": "2026-07-02T00:56:14Z",
       "stale": false
     }
   ],
@@ -693,18 +680,18 @@
       "message": "Report is older than freshness window."
     },
     {
-      "severity": "WATCH",
+      "severity": "WARN",
       "report": "live_safety.json",
       "category": "operational",
       "blocks_shadow_review": true,
-      "message": "Report is older than freshness window."
+      "message": "Expected report is missing."
     },
     {
-      "severity": "WATCH",
+      "severity": "WARN",
       "report": "live_safety.md",
       "category": "operational",
       "blocks_shadow_review": true,
-      "message": "Report is older than freshness window."
+      "message": "Expected report is missing."
     },
     {
       "severity": "WATCH",
@@ -806,17 +793,31 @@
     },
     {
       "severity": "WATCH",
-      "report": "live_shadow_gate.json",
+      "report": "pool_depth_ladder.json",
       "category": "operational",
       "blocks_shadow_review": true,
       "message": "Report is older than freshness window."
     },
     {
       "severity": "WATCH",
-      "report": "live_shadow_gate.md",
+      "report": "pool_depth_ladder.md",
       "category": "operational",
       "blocks_shadow_review": true,
       "message": "Report is older than freshness window."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_shadow_gate.json",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
+    },
+    {
+      "severity": "WARN",
+      "report": "live_shadow_gate.md",
+      "category": "operational",
+      "blocks_shadow_review": true,
+      "message": "Expected report is missing."
     },
     {
       "severity": "WATCH",

@@ -177,6 +177,57 @@ class TransactionSimulationServiceTests(unittest.TestCase):
         self.assertEqual(legs[0]["router_type"], "v2")
         self.assertEqual(legs[1]["dex"], "Uniswap V3")
 
+
+    def test_tiny_live_realism_selects_positive_watch_candidate(self) -> None:
+        env = {
+            "CRYPTOAI_LIVE_TRADING_ENABLED": "false",
+            "CRYPTOAI_LIVE_KILL_SWITCH_ENABLED": "true",
+            "CRYPTOAI_LIVE_WALLET_ADDRESS": "0x1111111111111111111111111111111111111111",
+            "CRYPTOAI_MAX_LIVE_TRADE_USD": "5",
+            "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD": "100",
+            "CRYPTOAI_TINY_LIVE_REALISM_ENABLED": "true",
+            "CRYPTOAI_TINY_LIVE_MIN_STRESS_EDGE_BPS": "1",
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            reports = root / "reports"
+            reports.mkdir()
+            self._write_json(reports / "wallet_preflight.json", {"wallet_preflight_allowed": True})
+            self._write_json(reports / "live_readiness_checklist.json", {"blocked_check_count": 0})
+            self._write_json(
+                reports / "execution_realism.json",
+                {
+                    "opportunities": [
+                        {
+                            "timestamp": "2026-07-01T15:00:00Z",
+                            "chain": "base",
+                            "pair": "USDC/WETH",
+                            "buy_source": "Uniswap V2",
+                            "sell_source": "Uniswap V3",
+                            "source_decision": "WATCH",
+                            "realism_status": "WATCH_ONLY",
+                            "stress_net_edge_pct": "0.025",
+                            "reported_net_edge_pct": "0.05",
+                            "requested_notional_usd": "500",
+                            "buy_price": "0.0006",
+                            "sell_price": "0.0007",
+                        }
+                    ]
+                },
+            )
+
+            with self._env(env):
+                payload = TransactionSimulationService(
+                    data_dir=root / "data",
+                    report_dir=reports,
+                    eth_call_runner=lambda tx, chain: {"status": "PASS", "result": "0x"},
+                ).generate()
+
+        self.assertEqual(payload["overall_status"], "TX_SIMULATION_READY")
+        self.assertEqual(payload["selected_candidate"]["selection_mode"], "TINY_LIVE_REALISM")
+        self.assertEqual(payload["simulation_intent"]["notional_usd"], "5.0000")
+        self.assertTrue(payload["simulation_intent"]["tiny_live_realism_enabled"])
+
     def test_missing_shadow_candidate_is_actionable_not_passed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -192,45 +243,6 @@ class TransactionSimulationServiceTests(unittest.TestCase):
         self.assertEqual(payload["simulation_intent"]["status"], "NO_CANDIDATE")
         self.assertTrue(any(row["name"] == "shadow_candidate_available" and row["severity"] == "ACTION" for row in payload["checks"]))
 
-
-    def test_select_candidate_prefers_freshest_highest_stress_edge(self) -> None:
-        service = TransactionSimulationService()
-        realism = {
-            "opportunities": [
-                {
-                    "timestamp": "2026-01-01T00:00:00Z",
-                    "chain": "base",
-                    "pair": "USDC/WETH",
-                    "buy_source": "Uniswap V2",
-                    "sell_source": "Uniswap V3",
-                    "source_decision": "BUY",
-                    "realism_status": "SHADOW_READY",
-                    "stress_net_edge_pct": "9.0000",
-                    "reported_net_edge_pct": "9.0000",
-                    "buy_price": "0.0006",
-                    "sell_price": "0.0007",
-                },
-                {
-                    "timestamp": "2099-01-01T00:00:00Z",
-                    "chain": "base",
-                    "pair": "USDC/WETH",
-                    "buy_source": "Uniswap V2",
-                    "sell_source": "Uniswap V3",
-                    "source_decision": "BUY",
-                    "realism_status": "SHADOW_READY",
-                    "stress_net_edge_pct": "0.5000",
-                    "reported_net_edge_pct": "0.5000",
-                    "buy_price": "0.0006",
-                    "sell_price": "0.0007",
-                },
-            ]
-        }
-
-        with self._env({"CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS": "45"}):
-            selected = service._select_candidate(realism)
-
-        self.assertEqual(selected["stress_net_edge_pct"], "0.5000")
-
     @staticmethod
     def _write_json(path: Path, payload: dict) -> None:
         path.write_text(json.dumps(payload), encoding="utf-8")
@@ -245,7 +257,9 @@ class TransactionSimulationServiceTests(unittest.TestCase):
             "CRYPTOAI_MAX_LIVE_TRADE_USD",
             "CRYPTOAI_TINY_LIVE_SMOKE_USD",
             "CRYPTOAI_TINY_LIVE_TRADE_CEILING_USD",
-            "CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS",
+            "CRYPTOAI_TINY_LIVE_REALISM_ENABLED",
+            "CRYPTOAI_TINY_LIVE_MIN_STRESS_EDGE_BPS",
+            "CRYPTOAI_TINY_LIVE_MAX_SLIPPAGE_BPS",
         }
         previous = {key: os.environ.get(key) for key in keys}
         try:

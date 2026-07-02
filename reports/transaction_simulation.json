@@ -76,8 +76,39 @@
       "severity": "ACTION"
     }
   ],
-  "generated_at": "2026-07-01T15:38:13Z",
+  "generated_at": "2026-07-02T00:56:25Z",
   "live_trading_approval": false,
+  "market_evidence_refresh": {
+    "enabled": true,
+    "steps": [
+      {
+        "latency_ms": 888,
+        "name": "opportunity_explorer",
+        "status": "PASS",
+        "summary": {
+          "row_count": 2
+        }
+      },
+      {
+        "latency_ms": 899,
+        "name": "quote_diagnostics",
+        "status": "PASS",
+        "summary": {
+          "row_count": 6
+        }
+      },
+      {
+        "latency_ms": 383,
+        "name": "execution_realism",
+        "status": "PASS",
+        "summary": {
+          "generated_at": "2026-07-02T00:56:24Z",
+          "overall_status": "SHADOW_REVIEW_READY",
+          "shadow_ready_count": 1
+        }
+      }
+    ]
+  },
   "mode": "paper",
   "notes": [
     "Transaction Simulation is evidence-only and never sends a transaction.",
@@ -86,9 +117,8 @@
   ],
   "overall_status": "TX_SIMULATION_ACTION",
   "pass_count": 6,
-  "refresh_errors": [],
   "selected_candidate": {
-    "buy_price": "0.000612238402968442417",
+    "buy_price": "1591.413014",
     "buy_source": "Uniswap V2",
     "chain": "base",
     "confidence": "MEDIUM",
@@ -96,47 +126,29 @@
     "depth_model": "POOL_DEPTH_LADDER",
     "estimated_gas_pct": "0.0100",
     "estimated_gas_usd": "0.0500",
-    "estimated_price_impact_pct": "0.0111",
+    "estimated_price_impact_pct": "0.0181",
     "executable_ratio_pct": "100.0000",
-    "gross_edge_pct": "0.7043",
+    "gross_edge_pct": "0.6802",
     "max_executable_notional_usd": "500.0000",
     "mev_risk": "MEDIUM",
     "mev_risk_buffer_pct": "0.0500",
-    "pair": "USDC/WETH",
+    "pair": "WETH/USDC",
     "pool_depth_status": "DEPTH_READY",
     "realism_status": "SHADOW_READY",
     "reason": "Opportunity passed current realism screen.",
-    "reported_net_edge_pct": "0.4043",
+    "reported_net_edge_pct": "0.3802",
     "requested_notional_usd": "500.0000",
-    "sell_price": "0.000616550157070985541",
+    "selection_mode": "STANDARD_SHADOW_READY",
+    "sell_price": "1602.237864",
     "sell_source": "Uniswap V3",
     "source_decision": "BUY",
-    "stress_net_edge_pct": "0.3332",
-    "stress_total_cost_pct": "0.3711",
-    "timestamp": "2026-07-01T15:37:58Z"
-  },
-  "selection_diagnostics": {
-    "candidate_count": 2,
-    "eligible_count": 1,
-    "max_candidate_age_seconds": 45,
-    "rejected": [
-      {
-        "age_seconds": 14.936508,
-        "buy_dex": "Uniswap V2",
-        "pair": "WETH/USDC",
-        "reason": "source_decision is not BUY",
-        "sell_dex": "Uniswap V3",
-        "timestamp": "2026-07-01T15:37:58Z"
-      }
-    ],
-    "selected_buy_dex": "Uniswap V2",
-    "selected_candidate_age_seconds": 14.936508,
-    "selected_pair": "USDC/WETH",
-    "selected_sell_dex": "Uniswap V3",
-    "selected_stress_net_edge_pct": "0.3332"
+    "stress_net_edge_pct": "0.3021",
+    "stress_total_cost_pct": "0.3781",
+    "timestamp": "2026-07-02T00:56:23Z"
   },
   "simulation_intent": {
     "buy_dex": "Uniswap V2",
+    "buy_price": "1591.413014",
     "calldata_status": "BUILT",
     "chain": "base",
     "chain_id": 8453,
@@ -148,9 +160,11 @@
       "pass_count": 0,
       "revert_count": 2
     },
+    "gross_edge_pct": "0.6802",
     "max_slippage_bps": "50",
-    "notional_usd": "100.0000",
-    "pair": "USDC/WETH",
+    "notional_usd": "5.0000",
+    "pair": "WETH/USDC",
+    "realism_status": "SHADOW_READY",
     "routers": [
       {
         "configured": true,
@@ -165,24 +179,30 @@
         "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481"
       }
     ],
+    "selection_mode": "STANDARD_SHADOW_READY",
+    "selection_reason": null,
     "sell_dex": "Uniswap V3",
+    "sell_price": "1602.237864",
+    "source_decision": "BUY",
     "status": "SIMULATION_ATTEMPTED",
+    "stress_net_edge_pct": "0.3021",
     "swap_legs": [
       {
-        "amount_in_units": "100000000",
-        "amount_out_min_units": "60917721095360020",
-        "calldata": "0x38ed17390000000000000000000000000000000000000000000000000000000005f5e10000000000000000000000000000000000000000000000000000d86c58366a4e1400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4534dc0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+        "amount_in_units": "5000000",
+        "amount_out_min_units": "3126152643112669",
+        "calldata": "0x38ed173900000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000b1b3821ce6edd00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a45b7b00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
         "calldata_bytes": 260,
-        "deadline": 1782920412,
+        "deadline": 1782953904,
         "dex": "Uniswap V2",
         "eth_call": {
-          "data": "0x38ed17390000000000000000000000000000000000000000000000000000000005f5e10000000000000000000000000000000000000000000000000000d86c58366a4e1400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4534dc0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
+          "data": "0x38ed173900000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000b1b3821ce6edd00000000000000000000000000000000000000000000000000000000000000a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a45b7b00000000000000000000000000000000000000000000000000000000000000002000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006",
           "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
           "to": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
           "value": "0x0"
         },
         "eth_call_result": {
-          "error": "ContractLogicError: ('execution reverted: TransferHelper: TRANSFER_FROM_FAILED', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000245472616e7366657248656c7065723a205452414e534645525f46524f4d5f4641494c454400000000000000000000000000000000000000000000000000000000')",
+          "elapsed_ms": 345,
+          "error": "ContractLogicError: ('execution reverted: UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT', '0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002b556e69737761705632526f757465723a20494e53554646494349454e545f4f55545055545f414d4f554e54000000000000000000000000000000000000000000')",
           "status": "REVERT"
         },
         "leg": "BUY_WETH",
@@ -192,6 +212,11 @@
             "0x4200000000000000000000000000000000000006"
           ]
         },
+        "route_reconciliation": {
+          "buy_expected_weth": "0.003141861952877054956646219810",
+          "buy_min_weth": "0.003126152643112669681862988711",
+          "sell_input_source": "buy_min_weth"
+        },
         "router_address": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
         "router_type": "v2",
         "token_in": "USDC",
@@ -200,19 +225,20 @@
         "token_out_address": "0x4200000000000000000000000000000000000006"
       },
       {
-        "amount_in_units": "61223840296844241",
-        "amount_out_min_units": "98804161",
-        "calldata": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000d982c224adbbd10000000000000000000000000000000000000000000000000000000005e3a1c10000000000000000000000000000000000000000000000000000000000000000",
+        "amount_in_units": "3126152643112669",
+        "amount_out_min_units": "4983795",
+        "calldata": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000b1b3821ce6edd00000000000000000000000000000000000000000000000000000000004c0bf30000000000000000000000000000000000000000000000000000000000000000",
         "calldata_bytes": 228,
-        "deadline": 1782920412,
+        "deadline": 1782953904,
         "dex": "Uniswap V3",
         "eth_call": {
-          "data": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000d982c224adbbd10000000000000000000000000000000000000000000000000000000005e3a1c10000000000000000000000000000000000000000000000000000000000000000",
+          "data": "0x04e45aaf0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000b1b3821ce6edd00000000000000000000000000000000000000000000000000000000004c0bf30000000000000000000000000000000000000000000000000000000000000000",
           "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
           "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
           "value": "0x0"
         },
         "eth_call_result": {
+          "elapsed_ms": 205,
           "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
           "status": "REVERT"
         },
@@ -220,6 +246,12 @@
         "route_metadata": {
           "fee_tier": 500,
           "sqrt_price_limit_x96": 0
+        },
+        "route_reconciliation": {
+          "atomic_min_usdc": null,
+          "sell_expected_usdc": "5.008840133438798182405714573",
+          "sell_input_weth": "0.003126152643112669681862988711",
+          "sell_min_usdc": "4.983795932771604191493686000"
         },
         "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
         "router_type": "v3",
@@ -229,18 +261,19 @@
         "token_out_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
       }
     ],
+    "tiny_live_realism_enabled": true,
     "tokens": [
-      {
-        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-        "configured": true,
-        "decimals": 6,
-        "symbol": "USDC"
-      },
       {
         "address": "0x4200000000000000000000000000000000000006",
         "configured": true,
         "decimals": 18,
         "symbol": "WETH"
+      },
+      {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "configured": true,
+        "decimals": 6,
+        "symbol": "USDC"
       }
     ],
     "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"

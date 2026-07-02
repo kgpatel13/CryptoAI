@@ -1,0 +1,191 @@
+{
+  "action_count": 3,
+  "atomic_route": {
+    "reason": "Atomic arbitrage requires a two-leg SHADOW_READY arbitrage candidate, not the one-leg smoke route.",
+    "status": "BLOCKED"
+  },
+  "atomic_route_simulation_passed": false,
+  "blocked_check_count": 1,
+  "check_count": 8,
+  "checks": [
+    {
+      "detail": "A BUY plus SHADOW_READY two-leg candidate must be selected.",
+      "name": "two_leg_candidate_selected",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Atomic live arbitrage cannot use the one-leg smoke route.",
+      "name": "not_one_leg_smoke",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Atomic executor address is configured.",
+      "name": "executor_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor bytecode exists on Base.",
+      "name": "executor_deployed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor review flag is present.",
+      "name": "executor_reviewed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC allowance to atomic executor is sufficient or no executable route is ready.",
+      "name": "executor_usdc_allowance",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor calldata was not built.",
+      "name": "atomic_calldata_built",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Atomic executor eth_call did not pass.",
+      "name": "atomic_eth_call_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "executor_preflight": {
+    "allowance_sufficient": false,
+    "executor_address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "executor_code_bytes": 6029,
+    "required_amount_units": "0",
+    "rpc_url": "https://base-rpc.publicnode.com",
+    "status": "READY",
+    "usdc_allowance": "20",
+    "usdc_allowance_units": "20000000",
+    "usdc_balance": "429.998478",
+    "usdc_balance_units": "429998478",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "generated_at": "2026-07-01T17:29:47Z",
+  "live_trading_approval": false,
+  "mode": "atomic_live_arbitrage_simulation",
+  "notes": [
+    "This report is the final evidence gate for atomic live arbitrage.",
+    "It builds one executor transaction and simulates it with eth_call only.",
+    "No transaction is signed or broadcast by this service.",
+    "The wallet must approve USDC to the atomic executor, not just to an individual router."
+  ],
+  "overall_status": "ATOMIC_ROUTE_ACTION",
+  "pass_count": 4,
+  "profit_reconciliation": {
+    "amount_in_usdc": null,
+    "estimated_gross_out_usdc": null,
+    "estimated_net_out_usdc": null,
+    "estimated_stress_net_pct": "0",
+    "estimated_stress_out_usdc": null,
+    "findings": [],
+    "required_out_usdc": null,
+    "simulated_atomic_net_pct": null,
+    "simulated_atomic_out_usdc": "0",
+    "status": "NO_ATOMIC_ROUTE",
+    "stress_vs_atomic_divergence_pct": null
+  },
+  "route_diagnostics": {
+    "blocker_type": "NO_TWO_LEG_CANDIDATE",
+    "buy_candidate_count": 0,
+    "failed_transaction_simulation_checks": [
+      {
+        "detail": "Live trading must remain disabled during transaction simulation development.",
+        "name": "live_trading_disabled",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Live kill switch must remain enabled during transaction simulation development.",
+        "name": "kill_switch_enabled",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Private key must not be configured for simulation report generation.",
+        "name": "private_key_absent",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Wallet Preflight must be ready before transaction simulation review.",
+        "name": "wallet_preflight_ready",
+        "severity": "ACTION"
+      },
+      {
+        "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+        "name": "live_readiness_preconditions_ready",
+        "severity": "ACTION"
+      },
+      {
+        "detail": "Base eth_call simulation has not passed yet.",
+        "name": "eth_call_simulation_passed",
+        "severity": "ACTION"
+      }
+    ],
+    "latest_diagnostics_count": 2,
+    "latest_opportunities": [
+      {
+        "buy_dex": "Uniswap V2",
+        "chain": "base",
+        "confidence": "MEDIUM",
+        "diagnostic_reasons": [
+          "source_decision is WATCH, not BUY",
+          "realism_status is WATCH_ONLY, not SHADOW_READY"
+        ],
+        "executable_ratio_pct": "100.0000",
+        "gross_edge_pct": "0.4215",
+        "max_executable_notional_usd": "500.0000",
+        "pair": "WETH/USDC",
+        "pool_depth_status": "DEPTH_READY",
+        "realism_status": "WATCH_ONLY",
+        "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+        "reported_net_edge_pct": "0.1215",
+        "requested_notional_usd": "500.0000",
+        "required_threshold_pct": "0.30",
+        "sell_dex": "Uniswap V3",
+        "source_decision": "WATCH",
+        "stress_net_edge_pct": "0.0434",
+        "timestamp": "2026-07-01T16:15:06Z"
+      },
+      {
+        "buy_dex": "Uniswap V2",
+        "chain": "base",
+        "confidence": "MEDIUM",
+        "diagnostic_reasons": [
+          "source_decision is WATCH, not BUY",
+          "realism_status is WATCH_ONLY, not SHADOW_READY"
+        ],
+        "executable_ratio_pct": "100.0000",
+        "gross_edge_pct": "0.5473",
+        "max_executable_notional_usd": "500.0000",
+        "pair": "USDC/WETH",
+        "pool_depth_status": "DEPTH_READY",
+        "realism_status": "WATCH_ONLY",
+        "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+        "reported_net_edge_pct": "0.2473",
+        "requested_notional_usd": "500.0000",
+        "required_threshold_pct": "0.30",
+        "sell_dex": "Uniswap V3",
+        "source_decision": "WATCH",
+        "stress_net_edge_pct": "0.1761",
+        "timestamp": "2026-07-01T16:15:06Z"
+      }
+    ],
+    "latest_opportunity_count": 2,
+    "next_action": "The simulator fell back to one-leg smoke mode because no approved two-leg SHADOW_READY route was selected.",
+    "selected_candidate": {},
+    "selected_candidate_found": false,
+    "shadow_ready_count": 0,
+    "simulation_type": "TINY_LIVE_SMOKE",
+    "transaction_simulation_passed": false,
+    "transaction_simulation_status": "TX_SIMULATION_ACTION"
+  },
+  "transaction_simulation_status": "TX_SIMULATION_ACTION"
+}

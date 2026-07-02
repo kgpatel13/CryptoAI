@@ -1,6 +1,6 @@
 # Live Execution Engine
 
-Generated: `2026-07-01T15:38:14Z`
+Generated: `2026-07-02T00:56:55Z`
 - Overall status: `BLOCKED_ATOMIC_ROUTE_SIMULATION`
 - Execution stage: `ATOMIC_ARBITRAGE_ETH_CALL`
 - Can send approval: `False`
@@ -33,7 +33,7 @@ Generated: `2026-07-01T15:38:14Z`
   "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
-  "live_safety_report_present": true,
+  "live_safety_report_present": false,
   "live_control_center_present": true,
   "atomic_executor_ready": true,
   "atomic_route_simulation_passed": false
@@ -45,7 +45,7 @@ Generated: `2026-07-01T15:38:14Z`
 ```json
 {
   "enabled": true,
-  "address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+  "address": "0xDB8F6e57861F1aB65812A6B1d64133E244066B0c",
   "address_valid": true,
   "reviewed": true,
   "adapter_selected": true,
@@ -68,6 +68,7 @@ Generated: `2026-07-01T15:38:14Z`
 | live_readiness | report_audit_clean | BLOCK | Report Audit has blocking operational findings. |
 | live_readiness | wallet_preflight_ready | ACTION | Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps. |
 | live_readiness | transaction_simulation_passed | ACTION | Transaction Simulation must pass exact calldata and eth_call checks before live review. |
+| live_readiness | live_safety_blocked | BLOCK | Live Safety must remain blocked during readiness review. |
 | live_readiness | live_feature_off | BLOCK | Live feature flag must remain off until the final reviewed pilot. |
 | live_readiness | kill_switch_on | BLOCK | Live and paper kill switches must remain on during readiness review. |
 | live_readiness | private_key_absent | BLOCK | Private key must not be configured during readiness review. |

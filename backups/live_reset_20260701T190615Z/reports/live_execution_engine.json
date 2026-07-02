@@ -1,0 +1,252 @@
+{
+  "atomic_executor": {
+    "adapter_selected": true,
+    "address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "address_valid": true,
+    "enabled": true,
+    "ready": true,
+    "reviewed": true
+  },
+  "blockers": [
+    {
+      "detail": "Atomic executor rejected the route as ProfitTooLow: simulated output 4.963158 USDC, required 5.0005 USDC.",
+      "name": "atomic_route_simulation_passed",
+      "severity": "BLOCK",
+      "source": "atomic_live_arbitrage"
+    },
+    {
+      "detail": "Wallet preflight is not ready for the isolated Base wallet.",
+      "name": "wallet_preflight_allowed",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Live readiness is not ready: paper/live caps, cost confidence, realism, or audit evidence still need work.",
+      "name": "live_review_ready",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Report audit still has blocking findings.",
+      "name": "report_audit_clean",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Tiny live pilot plan is blocked.",
+      "name": "tiny_live_pilot_ready",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Either standalone transaction simulation or atomic executor eth_call simulation must pass.",
+      "name": "transaction_or_atomic_simulation_passed",
+      "severity": "BLOCK",
+      "source": "live_execution_engine"
+    },
+    {
+      "detail": "Wallet preflight must be ready.",
+      "name": "wallet_preflight_ready",
+      "severity": "BLOCK",
+      "source": "live_control_center"
+    },
+    {
+      "detail": "Report audit has blocking findings.",
+      "name": "report_audit_clean",
+      "severity": "BLOCK",
+      "source": "live_control_center"
+    },
+    {
+      "detail": "Execution realism must have shadow-ready evidence and zero live-ready approvals.",
+      "name": "execution_realism_shadow_ready",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Wallet Preflight must be ready with an isolated public wallet and tiny-pilot caps.",
+      "name": "wallet_preflight_ready",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Transaction Simulation must pass exact calldata and eth_call checks before live review.",
+      "name": "transaction_simulation_passed",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Live Safety must remain blocked during readiness review.",
+      "name": "live_safety_blocked",
+      "severity": "BLOCK",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Live feature flag must remain off until the final reviewed pilot.",
+      "name": "live_feature_off",
+      "severity": "BLOCK",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Live and paper kill switches must remain on during readiness review.",
+      "name": "kill_switch_on",
+      "severity": "BLOCK",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Private key must not be configured during readiness review.",
+      "name": "private_key_absent",
+      "severity": "BLOCK",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Paper capital should be > $0 and no larger than the configured live wallet ceiling.",
+      "name": "paper_live_wallet_parity",
+      "severity": "ACTION",
+      "source": "live_readiness"
+    },
+    {
+      "detail": "Live trading must remain disabled during transaction simulation development.",
+      "name": "live_trading_disabled",
+      "severity": "BLOCK",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Live kill switch must remain enabled during transaction simulation development.",
+      "name": "kill_switch_enabled",
+      "severity": "BLOCK",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Private key must not be configured for simulation report generation.",
+      "name": "private_key_absent",
+      "severity": "BLOCK",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Wallet Preflight must be ready before transaction simulation review.",
+      "name": "wallet_preflight_ready",
+      "severity": "ACTION",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+      "name": "live_readiness_preconditions_ready",
+      "severity": "ACTION",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Base eth_call simulation has not passed yet.",
+      "name": "eth_call_simulation_passed",
+      "severity": "ACTION",
+      "source": "transaction_simulation"
+    },
+    {
+      "detail": "Wallet preflight must be ready.",
+      "name": "wallet_preflight_ready",
+      "severity": "BLOCK",
+      "source": "tiny_live_pilot"
+    },
+    {
+      "detail": "Report audit has blocking findings.",
+      "name": "report_audit_clean",
+      "severity": "BLOCK",
+      "source": "tiny_live_pilot"
+    },
+    {
+      "detail": "Run python -m app.execution.atomic_arbitrage_execution_service --generate until the atomic executor calldata eth_call passes.",
+      "name": "atomic_route_simulation_passed",
+      "severity": "ACTION",
+      "source": "live_execution_engine"
+    }
+  ],
+  "can_run_continuous_live": false,
+  "can_send_approval": false,
+  "can_send_smoke_swap": false,
+  "commands": {
+    "approval": null,
+    "continuous_live": null,
+    "live_execution_monitor": "python -m app.execution.live_execution_engine_service --loop --interval 30",
+    "safe_live_monitor": "python -m app.execution.live_control_center_service --loop --interval 30",
+    "smoke_swap": null
+  },
+  "execution_stage": "ATOMIC_ARBITRAGE_ETH_CALL",
+  "gates": {
+    "allowance_sufficient": false,
+    "approval_tx_available": true,
+    "atomic_executor_ready": true,
+    "atomic_route_simulation_passed": false,
+    "live_control_center_present": true,
+    "live_review_ready": false,
+    "live_safety_report_present": false,
+    "provider_monitor_ok": true,
+    "report_audit_clean": false,
+    "swap_tx_available": true,
+    "tiny_live_pilot_ready": false,
+    "transaction_simulation_passed": false,
+    "wallet_preflight_allowed": false
+  },
+  "generated_at": "2026-07-01T18:46:26Z",
+  "missing_components": [
+    {
+      "component": "exact_calldata_eth_call_pass",
+      "detail": "Need a SHADOW_READY Base USDC/WETH opportunity with exact calldata built and eth_call PASS.",
+      "status": "ACTION"
+    },
+    {
+      "component": "atomic_executor_eth_call_pass",
+      "detail": "Need one passing eth_call for the exact atomic executor transaction before continuous live can run.",
+      "status": "ACTION"
+    }
+  ],
+  "mode": "live_execution_engine",
+  "next_allowed_command": null,
+  "next_unblock_step": "Atomic executor rejected the route as ProfitTooLow: simulated output 4.963158 USDC, required 5.0005 USDC.",
+  "notes": [
+    "This engine is an execution-readiness state machine. It never signs, approves, swaps, or runs autonomous live arbitrage.",
+    "Manual approval and manual smoke-swap commands appear only when all prerequisite reports permit them.",
+    "Continuous live arbitrage requires a reviewed atomic executor path plus the live autopilot send flag; the current tiny pilot is one-leg smoke testing only.",
+    "Paper profits do not guarantee live profits because live execution can fail from gas, slippage, MEV, reverts, nonce issues, and pool movement."
+  ],
+  "overall_status": "BLOCKED_ATOMIC_ROUTE_SIMULATION",
+  "refresh_errors": [],
+  "unblock_path": [
+    {
+      "detail": "Paper max trade and observed fills must stay at or below the live cap, e.g. $20 for the tiny pilot.",
+      "name": "Live-parity paper profile",
+      "step": "1"
+    },
+    {
+      "detail": "Execution-cost confidence must reach HIGH and execution realism must produce SHADOW_READY opportunities.",
+      "name": "Execution evidence",
+      "step": "2"
+    },
+    {
+      "detail": "Build exact Base calldata and pass eth_call for the selected USDC/WETH route.",
+      "name": "Transaction simulation",
+      "step": "3"
+    },
+    {
+      "detail": "Run approval and one tiny smoke swap only when the engine shows READY_FOR_MANUAL_APPROVAL or READY_FOR_MANUAL_SMOKE_SWAP.",
+      "name": "Manual tiny live pilot",
+      "step": "4"
+    },
+    {
+      "detail": "Deploy/review the single-transaction arbitrage executor, approve USDC to that executor, and pass the atomic executor eth_call report before continuous live trading is allowed.",
+      "name": "Atomic live executor",
+      "step": "5"
+    }
+  ],
+  "wallet": {
+    "address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
+    "allowance_sufficient": false,
+    "approval_tx_available": true,
+    "chain": "base",
+    "dex": "Uniswap V3",
+    "eth_balance": "0.024121785224852599",
+    "latest_block": 48071114,
+    "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+    "smoke_usd": "5",
+    "swap_tx_available": true,
+    "usdc_balance": "429.998478"
+  }
+}

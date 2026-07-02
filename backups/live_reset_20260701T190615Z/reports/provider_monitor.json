@@ -1,0 +1,142 @@
+{
+  "generated_at": "2026-07-01T18:46:10Z",
+  "mode": "paper",
+  "provider_count": 5,
+  "overall_status": "OK",
+  "alert_count": 1,
+  "critical_alert_count": 0,
+  "degraded_alert_count": 0,
+  "stale_after_seconds": 900,
+  "providers": [
+    {
+      "name": "Aerodrome",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 309.18,
+      "last_observed_age_seconds": 18.37,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Uniswap V2",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 311.1,
+      "last_observed_age_seconds": 19.53,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Uniswap V3",
+      "provider_type": "dex",
+      "chain": "base",
+      "score": 100,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 746.34,
+      "last_observed_age_seconds": 16.47,
+      "last_error": null,
+      "alerts": []
+    },
+    {
+      "name": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 100,
+      "status": "WATCH",
+      "current_status": "WATCH",
+      "rolling_status": "OK",
+      "required_for_overall": false,
+      "success_rate_pct": 100.0,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 209.14,
+      "last_observed_age_seconds": 87675.24,
+      "last_error": null,
+      "alerts": [
+        {
+          "severity": "WATCH",
+          "provider": "Base:rpc2:https://mainnet.base.org",
+          "provider_type": "rpc",
+          "chain": "base",
+          "message": "Provider observation is stale at 87675.24 seconds old."
+        }
+      ]
+    },
+    {
+      "name": "Base:rpc1:https://base-rpc.publicnode.com",
+      "provider_type": "rpc",
+      "chain": "base",
+      "score": 97,
+      "status": "OK",
+      "current_status": "OK",
+      "rolling_status": "OK",
+      "required_for_overall": true,
+      "success_rate_pct": 97.81,
+      "consecutive_failures": 0,
+      "avg_latency_ms": 252.28,
+      "last_observed_age_seconds": 8.26,
+      "last_error": null,
+      "alerts": []
+    }
+  ],
+  "chains": [
+    {
+      "chain": "base",
+      "provider_count": 5,
+      "average_score": 99,
+      "status": "OK",
+      "critical_count": 0,
+      "degraded_count": 0,
+      "watch_count": 1,
+      "required_provider_count": 4
+    }
+  ],
+  "provider_types": [
+    {
+      "provider_type": "dex",
+      "provider_count": 3,
+      "average_score": 100,
+      "status": "OK",
+      "required_provider_count": 3
+    },
+    {
+      "provider_type": "rpc",
+      "provider_count": 2,
+      "average_score": 98,
+      "status": "OK",
+      "required_provider_count": 1
+    }
+  ],
+  "alerts": [
+    {
+      "severity": "WATCH",
+      "provider": "Base:rpc2:https://mainnet.base.org",
+      "provider_type": "rpc",
+      "chain": "base",
+      "message": "Provider observation is stale at 87675.24 seconds old."
+    }
+  ],
+  "notes": [
+    "Provider Monitor summarizes existing provider-health observations.",
+    "It does not make network calls or execute trades.",
+    "Missing provider observations should be treated as incomplete operational evidence."
+  ]
+}

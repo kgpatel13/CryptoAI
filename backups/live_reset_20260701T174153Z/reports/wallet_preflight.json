@@ -1,0 +1,117 @@
+{
+  "action_count": 0,
+  "blocked_check_count": 3,
+  "check_count": 15,
+  "checks": [
+    {
+      "detail": "Live trading feature flag must stay disabled during wallet preparation.",
+      "name": "live_trading_disabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live kill switch must stay enabled during wallet preparation.",
+      "name": "kill_switch_enabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Private key is configured; remove it during preflight preparation.",
+      "name": "private_key_absent",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Isolated live wallet public address is configured.",
+      "name": "isolated_wallet_address",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live wallet is separate from the main wallet.",
+      "name": "wallet_isolation",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Planned chain is Base.",
+      "name": "planned_chain_base",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live chain allowlist is restricted to Base.",
+      "name": "chain_allowlist_base",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Live token allowlist includes USDC and WETH.",
+      "name": "token_allowlist_usdc_weth",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Planned funding is within the $500 tiny-pilot ceiling.",
+      "name": "planned_wallet_ceiling",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Planned ETH gas budget is within preparation range.",
+      "name": "planned_gas_budget",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Configured wallet ceiling is within tiny-pilot policy.",
+      "name": "configured_wallet_ceiling",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Configured trade cap is within tiny-pilot policy.",
+      "name": "configured_trade_cap",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Configured daily loss cap is within tiny-pilot policy.",
+      "name": "configured_daily_loss",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Manual confirmation is required.",
+      "name": "manual_confirmation_required",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Transaction simulation is required.",
+      "name": "transaction_simulation_required",
+      "passed": true,
+      "severity": "PASS"
+    }
+  ],
+  "generated_at": "2026-07-01T17:26:33Z",
+  "live_kill_switch_enabled": false,
+  "live_trading_approval": false,
+  "live_trading_enabled": true,
+  "live_wallet_configured": true,
+  "max_prep_wallet_usd": "500.0000",
+  "max_tiny_trade_usd": "100.0000",
+  "mode": "paper",
+  "notes": [
+    "Wallet Preflight is preparation-only and never approves live trading.",
+    "Do not configure private keys until the transaction path, simulation gate, and manual review are complete.",
+    "The first real-money pilot should use an isolated wallet on Base with a total wallet ceiling of $500 or less."
+  ],
+  "overall_status": "WALLET_PREP_ACTION",
+  "planned_chain": "base",
+  "planned_eth_gas_usd": "50.0000",
+  "planned_total_usd": "500.0000",
+  "planned_usdc_usd": "450.0000",
+  "private_key_configured": true,
+  "wallet_preflight_allowed": false
+}

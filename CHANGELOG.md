@@ -1,15 +1,18 @@
-# v6.2 - Live Route Refresh Fix
+# CryptoAI v6.10 Safety / Speed / Observability Patch
 
-## Fixed
+Builds on v6.9.1 executor V2 Python support.
 
-- Live readiness no longer relies on old `atomic_live_arbitrage.json`.
-- Atomic candidate selection now rejects stale candidates using `CRYPTOAI_ATOMIC_MAX_CANDIDATE_AGE_SECONDS`.
-- Transaction simulation now refreshes quote/opportunity/realism evidence before selecting a live atomic route.
-- Atomic live adapter regenerates the atomic route report before send.
-- Atomic send flag is checked before any send attempt.
+## Added
+
+- Near-pass detection for routes whose exact atomic shortfall is within `CRYPTOAI_NEAR_PASS_THRESHOLD_USDC` (default `0.001`).
+- `performance_metrics` in `reports/atomic_live_arbitrage.json` and markdown output.
+- `elapsed_ms` on Base `eth_call` results for latency visibility.
+- Short TTL cache for executor bytecode lookup via `CRYPTOAI_EXECUTOR_CODE_CACHE_TTL_SECONDS` (default `60`).
+- Better markdown summary fields for near-pass and elapsed time.
 
 ## Safety
 
-- No live safety gates were weakened.
-- No profit thresholds were reduced.
-- No transaction is sent unless current-cycle atomic eth_call passes.
+- Does not relax the executor profit guard.
+- Does not change min profit logic.
+- Does not sign or broadcast from the atomic report service.
+- `atomic_eth_call_passed` is still the final gate.

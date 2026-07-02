@@ -1,6 +1,6 @@
 {
   "action_count": 3,
-  "blocked_check_count": 4,
+  "blocked_check_count": 5,
   "check_count": 22,
   "checks": [
     {
@@ -88,10 +88,10 @@
       "severity": "ACTION"
     },
     {
-      "detail": "Live Safety remains blocked during readiness review.",
+      "detail": "Live Safety must remain blocked during readiness review.",
       "name": "live_safety_blocked",
-      "passed": true,
-      "severity": "PASS"
+      "passed": false,
+      "severity": "BLOCK"
     },
     {
       "detail": "Live feature flag must remain off until the final reviewed pilot.",
@@ -137,12 +137,12 @@
     }
   ],
   "closed_trade_count": 1139,
-  "generated_at": "2026-07-01T15:38:45Z",
-  "live_cap_closed_trade_count": 942,
+  "generated_at": "2026-07-02T00:56:18Z",
+  "live_cap_closed_trade_count": 769,
   "live_review_ready": false,
   "live_trading_approval": false,
-  "max_daily_loss_usd": "50",
-  "max_live_trade_usd": "100",
+  "max_daily_loss_usd": "5",
+  "max_live_trade_usd": "5",
   "max_live_wallet_usd": "420",
   "mode": "paper",
   "notes": [
@@ -154,6 +154,6 @@
   "paper_cash_usd": "894.5618",
   "paper_profile": "live_parity_500",
   "paper_realized_pnl_usd": "394.5618",
-  "pass_count": 15,
+  "pass_count": 14,
   "watch_count": 0
 }

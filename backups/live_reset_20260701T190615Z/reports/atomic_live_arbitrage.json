@@ -1,0 +1,664 @@
+{
+  "action_count": 1,
+  "atomic_route": {
+    "amount_in_units": "5000000",
+    "approval_spender": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "calldata": "0x59b467930000000000000000000000000000000000000000000000000000000000000020000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000004c4d3400000000000000000000000000000000000000000000000000000000000001f40000000000000000000000002626664c2603336e57b271c5c0b26f421741e4810000000000000000000000004752ba5dbc23f44d87826276bf6fd6b1c372ad24000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000e404e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea450800000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000aeea2c568d717000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010438ed1739000000000000000000000000000000000000000000000000000aeea2c568d71700000000000000000000000000000000000000000000000000000000004b225300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea4508000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000020000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000",
+    "calldata_bytes": 1028,
+    "chain": "base",
+    "chain_id": 8453,
+    "deadline": 1782931671,
+    "eth_call": {
+      "data": "0x59b467930000000000000000000000000000000000000000000000000000000000000020000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000004c4d3400000000000000000000000000000000000000000000000000000000000001f40000000000000000000000002626664c2603336e57b271c5c0b26f421741e4810000000000000000000000004752ba5dbc23f44d87826276bf6fd6b1c372ad24000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a7000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000e404e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea450800000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000aeea2c568d717000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010438ed1739000000000000000000000000000000000000000000000000000aeea2c568d71700000000000000000000000000000000000000000000000000000000004b225300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea4508000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000020000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000",
+      "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
+      "to": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+      "value": "0x0"
+    },
+    "eth_call_decoded_error": {
+      "amount_out_units": "4963158",
+      "amount_out_usdc": "4.963158",
+      "explanation": "Atomic route executed in simulation but did not meet the executor's minimum profitable output.",
+      "name": "ProfitTooLow",
+      "required_out_units": "5000500",
+      "required_out_usdc": "5.0005",
+      "shortfall_usdc": "0.037342"
+    },
+    "eth_call_result": {
+      "error": "ContractCustomError: ('0x88215f9c00000000000000000000000000000000000000000000000000000000004bbb5600000000000000000000000000000000000000000000000000000000004c4d34', '0x88215f9c00000000000000000000000000000000000000000000000000000000004bbb5600000000000000000000000000000000000000000000000000000000004c4d34')",
+      "status": "FAIL"
+    },
+    "eth_call_status": "FAIL",
+    "eth_call_success": {},
+    "executor_address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "min_amount_out_units": "5000500",
+    "min_profit_bps": "1",
+    "min_profit_units": "500",
+    "route_sweep": {
+      "attempt_count": 4,
+      "attempts": [
+        {
+          "amount_in_usdc": "5",
+          "attempt": 1,
+          "candidate": {
+            "buy_dex": "Uniswap V2",
+            "gross_edge_pct": "0.5308",
+            "pair": "WETH/USDC",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V3",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.1527",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "original"
+          },
+          "decoded_error": "RouterInsufficientOutputAmount",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V2",
+            "notional_usd": "5.0000",
+            "pair": "WETH/USDC",
+            "selection_mode": "TINY_LIVE_REALISM",
+            "sell_dex": "Uniswap V3"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": null,
+          "simulated_atomic_out_usdc": null,
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 2,
+          "candidate": {
+            "buy_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5308",
+            "pair": "WETH/USDC",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V2",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.1527",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "reverse_dex"
+          },
+          "decoded_error": "ProfitTooLow",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V3",
+            "notional_usd": "5.0000",
+            "pair": "WETH/USDC",
+            "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+            "sell_dex": "Uniswap V2"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": "0.037342",
+          "simulated_atomic_out_usdc": "4.963158",
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 3,
+          "candidate": {
+            "buy_dex": "Uniswap V2",
+            "gross_edge_pct": "0.4394",
+            "pair": "USDC/WETH",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V3",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.0682",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "original"
+          },
+          "decoded_error": "ProfitTooLow",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V2",
+            "notional_usd": "5.0000",
+            "pair": "USDC/WETH",
+            "selection_mode": "STANDARD_SHADOW_READY",
+            "sell_dex": "Uniswap V3"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": "0.052318",
+          "simulated_atomic_out_usdc": "4.948182",
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 4,
+          "candidate": {
+            "buy_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4394",
+            "pair": "USDC/WETH",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V2",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.0682",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "reverse_dex"
+          },
+          "decoded_error": "RouterInsufficientOutputAmount",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V3",
+            "notional_usd": "5.0000",
+            "pair": "USDC/WETH",
+            "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+            "sell_dex": "Uniswap V2"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": null,
+          "simulated_atomic_out_usdc": null,
+          "status": "SIMULATION_ATTEMPTED"
+        }
+      ],
+      "candidate_count": 4,
+      "enabled": true,
+      "passing_count": 0,
+      "selected_attempt": {
+        "amount_in_usdc": "5",
+        "attempt": 0,
+        "candidate": {
+          "buy_dex": "Uniswap V3",
+          "gross_edge_pct": "0.5308",
+          "pair": "WETH/USDC",
+          "realism_status": "WATCH_ONLY",
+          "sell_dex": "Uniswap V2",
+          "source_decision": "WATCH",
+          "stress_net_edge_pct": "0.1527",
+          "timestamp": "2026-07-01T18:46:17Z",
+          "variant": "reverse_dex"
+        },
+        "decoded_error": "ProfitTooLow",
+        "eth_call_status": "FAIL",
+        "intent": {
+          "buy_dex": "Uniswap V3",
+          "notional_usd": "5.0000",
+          "pair": "WETH/USDC",
+          "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+          "sell_dex": "Uniswap V2"
+        },
+        "required_out_usdc": "5.0005",
+        "shortfall_usdc": "0.037342",
+        "simulated_atomic_out_usdc": "4.963158",
+        "status": "SIMULATION_ATTEMPTED"
+      },
+      "selection_rule": "Prefer PASS; otherwise pick the route with the highest simulated atomic USDC output / smallest shortfall.",
+      "strategy": "best_exact_atomic_eth_call"
+    },
+    "selected_candidate": {
+      "buy_dex": "Uniswap V3",
+      "buy_price": "1616.76489",
+      "buy_source": "Uniswap V3",
+      "chain": "base",
+      "confidence": "MEDIUM",
+      "configured_cost_buffer_pct": "0.3000",
+      "depth_model": "POOL_DEPTH_LADDER",
+      "estimated_gas_pct": "0.0100",
+      "estimated_gas_usd": "0.0500",
+      "estimated_price_impact_pct": "0.0181",
+      "executable_ratio_pct": "100.0000",
+      "gross_edge_pct": "0.5308",
+      "max_executable_notional_usd": "500.0000",
+      "mev_risk": "MEDIUM",
+      "mev_risk_buffer_pct": "0.0500",
+      "pair": "WETH/USDC",
+      "pool_depth_status": "DEPTH_READY",
+      "realism_status": "WATCH_ONLY",
+      "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+      "reported_net_edge_pct": "0.2308",
+      "requested_notional_usd": "500.0000",
+      "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+      "selection_reason": "Synthetic reverse DEX candidate for exact atomic eth_call sweep.",
+      "sell_dex": "Uniswap V2",
+      "sell_price": "1608.228048",
+      "sell_source": "Uniswap V2",
+      "source_decision": "WATCH",
+      "stress_net_edge_pct": "0.1527",
+      "stress_total_cost_pct": "0.3781",
+      "timestamp": "2026-07-01T18:46:17Z",
+      "variant": "reverse_dex"
+    },
+    "selected_intent": {
+      "buy_dex": "Uniswap V3",
+      "notional_usd": "5.0000",
+      "pair": "WETH/USDC",
+      "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+      "selection_reason": "Synthetic reverse DEX candidate for exact atomic eth_call sweep.",
+      "sell_dex": "Uniswap V2"
+    },
+    "status": "SIMULATION_ATTEMPTED",
+    "swap_legs": [
+      {
+        "amount_in_units": "5000000",
+        "amount_out_min_units": "3077132631201559",
+        "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea450800000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000aeea2c568d7170000000000000000000000000000000000000000000000000000000000000000",
+        "calldata_bytes": 228,
+        "deadline": 1782931671,
+        "dex": "Uniswap V3",
+        "eth_call": {
+          "data": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f4000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea450800000000000000000000000000000000000000000000000000000000004c4b40000000000000000000000000000000000000000000000000000aeea2c568d7170000000000000000000000000000000000000000000000000000000000000000",
+          "from": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+          "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
+          "value": "0x0"
+        },
+        "leg": "BUY_WETH",
+        "route_metadata": {
+          "fee_tier": 500,
+          "sqrt_price_limit_x96": 0
+        },
+        "route_reconciliation": {
+          "buy_expected_weth": "0.003092595609247798546639641587",
+          "buy_min_weth": "0.003077132631201559553906443379",
+          "sell_input_source": "buy_min_weth"
+        },
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+        "router_type": "v3",
+        "token_in": "USDC",
+        "token_in_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "token_out": "WETH",
+        "token_out_address": "0x4200000000000000000000000000000000000006"
+      },
+      {
+        "amount_in_units": "3077132631201559",
+        "amount_out_min_units": "4923987",
+        "calldata": "0x38ed1739000000000000000000000000000000000000000000000000000aeea2c568d71700000000000000000000000000000000000000000000000000000000004b225300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea4508000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000020000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+        "calldata_bytes": 260,
+        "deadline": 1782931671,
+        "dex": "Uniswap V2",
+        "eth_call": {
+          "data": "0x38ed1739000000000000000000000000000000000000000000000000000aeea2c568d71700000000000000000000000000000000000000000000000000000000004b225300000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000f714213aec4d8dd3c95b209f5f5193c8c9ea4508000000000000000000000000000000000000000000000000000000006a4560d700000000000000000000000000000000000000000000000000000000000000020000000000000000000000004200000000000000000000000000000000000006000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+          "from": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+          "to": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
+          "value": "0x0"
+        },
+        "leg": "SELL_WETH",
+        "route_metadata": {
+          "path": [
+            "0x4200000000000000000000000000000000000006",
+            "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          ]
+        },
+        "route_reconciliation": {
+          "atomic_min_usdc": "5.0005",
+          "sell_expected_usdc": "4.948731004914388015934710210",
+          "sell_input_weth": "0.003077132631201559553906443379",
+          "sell_min_usdc": "4.923987349889816075855036659"
+        },
+        "router_address": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
+        "router_type": "v2",
+        "token_in": "WETH",
+        "token_in_address": "0x4200000000000000000000000000000000000006",
+        "token_out": "USDC",
+        "token_out_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+      }
+    ],
+    "tiny_live_realism_enabled": true,
+    "token_in": "USDC",
+    "token_mid": "WETH",
+    "token_out": "USDC",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "atomic_route_simulation_passed": false,
+  "blocked_check_count": 0,
+  "check_count": 8,
+  "checks": [
+    {
+      "detail": "A two-leg candidate is selected.",
+      "name": "two_leg_candidate_selected",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Route is a two-leg arbitrage candidate.",
+      "name": "not_one_leg_smoke",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor address is configured.",
+      "name": "executor_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor bytecode exists on Base.",
+      "name": "executor_deployed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor review flag is present.",
+      "name": "executor_reviewed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "USDC allowance to atomic executor is sufficient or no executable route is ready.",
+      "name": "executor_usdc_allowance",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor calldata is built.",
+      "name": "atomic_calldata_built",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Atomic executor eth_call did not pass.",
+      "name": "atomic_eth_call_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "executor_preflight": {
+    "allowance_sufficient": true,
+    "executor_address": "0xf714213aec4d8DD3c95B209f5F5193c8C9ea4508",
+    "executor_code_bytes": 6029,
+    "required_amount_units": "5000000",
+    "rpc_url": "https://base-rpc.publicnode.com",
+    "status": "READY",
+    "usdc_allowance": "20",
+    "usdc_allowance_units": "20000000",
+    "usdc_balance": "429.998478",
+    "usdc_balance_units": "429998478",
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "generated_at": "2026-07-01T18:46:25Z",
+  "live_trading_approval": false,
+  "mode": "atomic_live_arbitrage_simulation",
+  "notes": [
+    "This report is the final evidence gate for atomic live arbitrage.",
+    "It builds one executor transaction and simulates it with eth_call only.",
+    "No transaction is signed or broadcast by this service.",
+    "The wallet must approve USDC to the atomic executor, not just to an individual router."
+  ],
+  "overall_status": "ATOMIC_ROUTE_ACTION",
+  "pass_count": 7,
+  "profit_reconciliation": {
+    "amount_in_usdc": "5",
+    "estimated_gross_out_usdc": "5.026540",
+    "estimated_net_out_usdc": "5.011540",
+    "estimated_stress_net_pct": "0.1527",
+    "estimated_stress_out_usdc": "5.007635",
+    "findings": [
+      "Atomic eth_call shows the selected route loses money after real router execution.",
+      "Opportunity stress estimate and atomic eth_call differ by more than 0.10 percentage points.",
+      "Atomic simulation used live trade cap while opportunity evidence was assessed at a larger paper notional.",
+      "Executor profit guard is working; do not send live until atomic eth_call passes."
+    ],
+    "required_out_usdc": "5.0005",
+    "simulated_atomic_net_pct": "-0.7368",
+    "simulated_atomic_out_usdc": "4.963158",
+    "status": "LOSS_AFTER_ATOMIC_SIMULATION",
+    "stress_vs_atomic_divergence_pct": "0.8895"
+  },
+  "route_diagnostics": {
+    "blocker_type": "ATOMIC_BUILDER_OR_ETH_CALL",
+    "buy_candidate_count": 0,
+    "failed_transaction_simulation_checks": [
+      {
+        "detail": "Live trading must remain disabled during transaction simulation development.",
+        "name": "live_trading_disabled",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Live kill switch must remain enabled during transaction simulation development.",
+        "name": "kill_switch_enabled",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Private key must not be configured for simulation report generation.",
+        "name": "private_key_absent",
+        "severity": "BLOCK"
+      },
+      {
+        "detail": "Wallet Preflight must be ready before transaction simulation review.",
+        "name": "wallet_preflight_ready",
+        "severity": "ACTION"
+      },
+      {
+        "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+        "name": "live_readiness_preconditions_ready",
+        "severity": "ACTION"
+      },
+      {
+        "detail": "Base eth_call simulation has not passed yet.",
+        "name": "eth_call_simulation_passed",
+        "severity": "ACTION"
+      }
+    ],
+    "latest_diagnostics_count": 2,
+    "latest_opportunities": [
+      {
+        "buy_dex": "Uniswap V2",
+        "chain": "base",
+        "confidence": "MEDIUM",
+        "diagnostic_reasons": [
+          "source_decision is WATCH, not BUY",
+          "realism_status is WATCH_ONLY, not SHADOW_READY",
+          "tiny-live eligible; exact atomic eth_call remains the final gate"
+        ],
+        "executable_ratio_pct": "100.0000",
+        "gross_edge_pct": "0.5308",
+        "max_executable_notional_usd": "500.0000",
+        "pair": "WETH/USDC",
+        "pool_depth_status": "DEPTH_READY",
+        "realism_status": "WATCH_ONLY",
+        "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+        "reported_net_edge_pct": "0.2308",
+        "requested_notional_usd": "500.0000",
+        "required_threshold_pct": "0.30",
+        "sell_dex": "Uniswap V3",
+        "source_decision": "WATCH",
+        "stress_net_edge_pct": "0.1527",
+        "timestamp": "2026-07-01T18:46:17Z"
+      },
+      {
+        "buy_dex": "Uniswap V2",
+        "chain": "base",
+        "confidence": "MEDIUM",
+        "diagnostic_reasons": [
+          "source_decision is WATCH, not BUY",
+          "realism_status is WATCH_ONLY, not SHADOW_READY",
+          "tiny-live eligible; exact atomic eth_call remains the final gate"
+        ],
+        "executable_ratio_pct": "100.0000",
+        "gross_edge_pct": "0.4394",
+        "max_executable_notional_usd": "500.0000",
+        "pair": "USDC/WETH",
+        "pool_depth_status": "DEPTH_READY",
+        "realism_status": "WATCH_ONLY",
+        "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+        "reported_net_edge_pct": "0.1394",
+        "requested_notional_usd": "500.0000",
+        "required_threshold_pct": "0.30",
+        "sell_dex": "Uniswap V3",
+        "source_decision": "WATCH",
+        "stress_net_edge_pct": "0.0682",
+        "timestamp": "2026-07-01T18:46:17Z"
+      }
+    ],
+    "latest_opportunity_count": 2,
+    "next_action": "Inspect atomic_calldata_built and atomic_eth_call_passed details.",
+    "route_sweep": {
+      "attempt_count": 4,
+      "attempts": [
+        {
+          "amount_in_usdc": "5",
+          "attempt": 1,
+          "candidate": {
+            "buy_dex": "Uniswap V2",
+            "gross_edge_pct": "0.5308",
+            "pair": "WETH/USDC",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V3",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.1527",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "original"
+          },
+          "decoded_error": "RouterInsufficientOutputAmount",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V2",
+            "notional_usd": "5.0000",
+            "pair": "WETH/USDC",
+            "selection_mode": "TINY_LIVE_REALISM",
+            "sell_dex": "Uniswap V3"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": null,
+          "simulated_atomic_out_usdc": null,
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 2,
+          "candidate": {
+            "buy_dex": "Uniswap V3",
+            "gross_edge_pct": "0.5308",
+            "pair": "WETH/USDC",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V2",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.1527",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "reverse_dex"
+          },
+          "decoded_error": "ProfitTooLow",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V3",
+            "notional_usd": "5.0000",
+            "pair": "WETH/USDC",
+            "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+            "sell_dex": "Uniswap V2"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": "0.037342",
+          "simulated_atomic_out_usdc": "4.963158",
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 3,
+          "candidate": {
+            "buy_dex": "Uniswap V2",
+            "gross_edge_pct": "0.4394",
+            "pair": "USDC/WETH",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V3",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.0682",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "original"
+          },
+          "decoded_error": "ProfitTooLow",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V2",
+            "notional_usd": "5.0000",
+            "pair": "USDC/WETH",
+            "selection_mode": "STANDARD_SHADOW_READY",
+            "sell_dex": "Uniswap V3"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": "0.052318",
+          "simulated_atomic_out_usdc": "4.948182",
+          "status": "SIMULATION_ATTEMPTED"
+        },
+        {
+          "amount_in_usdc": "5",
+          "attempt": 4,
+          "candidate": {
+            "buy_dex": "Uniswap V3",
+            "gross_edge_pct": "0.4394",
+            "pair": "USDC/WETH",
+            "realism_status": "WATCH_ONLY",
+            "sell_dex": "Uniswap V2",
+            "source_decision": "WATCH",
+            "stress_net_edge_pct": "0.0682",
+            "timestamp": "2026-07-01T18:46:17Z",
+            "variant": "reverse_dex"
+          },
+          "decoded_error": "RouterInsufficientOutputAmount",
+          "eth_call_status": "FAIL",
+          "intent": {
+            "buy_dex": "Uniswap V3",
+            "notional_usd": "5.0000",
+            "pair": "USDC/WETH",
+            "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+            "sell_dex": "Uniswap V2"
+          },
+          "required_out_usdc": "5.0005",
+          "shortfall_usdc": null,
+          "simulated_atomic_out_usdc": null,
+          "status": "SIMULATION_ATTEMPTED"
+        }
+      ],
+      "candidate_count": 4,
+      "enabled": true,
+      "passing_count": 0,
+      "selected_attempt": {
+        "amount_in_usdc": "5",
+        "attempt": 0,
+        "candidate": {
+          "buy_dex": "Uniswap V3",
+          "gross_edge_pct": "0.5308",
+          "pair": "WETH/USDC",
+          "realism_status": "WATCH_ONLY",
+          "sell_dex": "Uniswap V2",
+          "source_decision": "WATCH",
+          "stress_net_edge_pct": "0.1527",
+          "timestamp": "2026-07-01T18:46:17Z",
+          "variant": "reverse_dex"
+        },
+        "decoded_error": "ProfitTooLow",
+        "eth_call_status": "FAIL",
+        "intent": {
+          "buy_dex": "Uniswap V3",
+          "notional_usd": "5.0000",
+          "pair": "WETH/USDC",
+          "selection_mode": "ATOMIC_ROUTE_SWEEP_REVERSE_DEX",
+          "sell_dex": "Uniswap V2"
+        },
+        "required_out_usdc": "5.0005",
+        "shortfall_usdc": "0.037342",
+        "simulated_atomic_out_usdc": "4.963158",
+        "status": "SIMULATION_ATTEMPTED"
+      },
+      "selection_rule": "Prefer PASS; otherwise pick the route with the highest simulated atomic USDC output / smallest shortfall.",
+      "strategy": "best_exact_atomic_eth_call"
+    },
+    "selected_candidate": {
+      "buy_dex": "Uniswap V2",
+      "chain": "base",
+      "confidence": "MEDIUM",
+      "diagnostic_reasons": [
+        "source_decision is WATCH, not BUY",
+        "realism_status is WATCH_ONLY, not SHADOW_READY",
+        "tiny-live eligible; exact atomic eth_call remains the final gate"
+      ],
+      "executable_ratio_pct": "100.0000",
+      "gross_edge_pct": "0.5308",
+      "max_executable_notional_usd": "500.0000",
+      "pair": "WETH/USDC",
+      "pool_depth_status": "DEPTH_READY",
+      "realism_status": "WATCH_ONLY",
+      "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM.",
+      "reported_net_edge_pct": "0.2308",
+      "requested_notional_usd": "500.0000",
+      "required_threshold_pct": "0.30",
+      "sell_dex": "Uniswap V3",
+      "source_decision": "WATCH",
+      "stress_net_edge_pct": "0.1527",
+      "timestamp": "2026-07-01T18:46:17Z"
+    },
+    "selected_candidate_found": true,
+    "shadow_ready_count": 0,
+    "simulation_type": "TWO_LEG_ARBITRAGE",
+    "tiny_live_eligible_count": 2,
+    "transaction_simulation_passed": false,
+    "transaction_simulation_status": "TX_SIMULATION_ACTION"
+  },
+  "transaction_simulation_status": "TX_SIMULATION_ACTION"
+}

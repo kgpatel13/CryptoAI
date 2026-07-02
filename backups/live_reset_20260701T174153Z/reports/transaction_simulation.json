@@ -1,0 +1,166 @@
+{
+  "action_count": 3,
+  "blocked_check_count": 3,
+  "check_count": 12,
+  "checks": [
+    {
+      "detail": "Live trading must remain disabled during transaction simulation development.",
+      "name": "live_trading_disabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Live kill switch must remain enabled during transaction simulation development.",
+      "name": "kill_switch_enabled",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Private key must not be configured for simulation report generation.",
+      "name": "private_key_absent",
+      "passed": false,
+      "severity": "BLOCK"
+    },
+    {
+      "detail": "Wallet Preflight must be ready before transaction simulation review.",
+      "name": "wallet_preflight_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "Live Readiness Checklist has blocking checks that must be cleared before transaction simulation can pass.",
+      "name": "live_readiness_preconditions_ready",
+      "passed": false,
+      "severity": "ACTION"
+    },
+    {
+      "detail": "A simulation route is available.",
+      "name": "shadow_candidate_available",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate is Base USDC/WETH scope.",
+      "name": "candidate_scope_allowed",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Both route routers are configured.",
+      "name": "routers_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Simulation candidate DEXes are within the tiny-live allowlist.",
+      "name": "approved_live_dexes",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Tiny live trade cap is configured.",
+      "name": "live_trade_cap_configured",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Exact router calldata is built.",
+      "name": "exact_calldata_built",
+      "passed": true,
+      "severity": "PASS"
+    },
+    {
+      "detail": "Base eth_call simulation has not passed yet.",
+      "name": "eth_call_simulation_passed",
+      "passed": false,
+      "severity": "ACTION"
+    }
+  ],
+  "generated_at": "2026-07-01T17:29:46Z",
+  "live_trading_approval": false,
+  "mode": "paper",
+  "notes": [
+    "Transaction Simulation is evidence-only and never sends a transaction.",
+    "The gate remains non-passing until exact calldata is built, Base eth_call simulation succeeds for both arbitrage legs, and the surrounding readiness checks pass.",
+    "Private keys must remain absent while developing this report."
+  ],
+  "overall_status": "TX_SIMULATION_ACTION",
+  "pass_count": 6,
+  "selected_candidate": {},
+  "simulation_intent": {
+    "buy_dex": "Uniswap V3",
+    "calldata_status": "BUILT",
+    "chain": "base",
+    "chain_id": 8453,
+    "deadline_seconds": "120",
+    "eth_call_status": "REVERT",
+    "eth_call_summary": {
+      "fail_count": 0,
+      "leg_count": 1,
+      "pass_count": 0,
+      "revert_count": 1
+    },
+    "max_slippage_bps": "50",
+    "notional_usd": "5.0000",
+    "pair": "USDC/WETH",
+    "reason": "No approved two-leg arbitrage candidate is available; simulating the configured one-leg tiny live smoke swap.",
+    "routers": [
+      {
+        "configured": true,
+        "dex": "Uniswap V3",
+        "dex_type": "v3",
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481"
+      }
+    ],
+    "sell_dex": null,
+    "simulation_type": "TINY_LIVE_SMOKE",
+    "status": "SIMULATION_ATTEMPTED",
+    "swap_legs": [
+      {
+        "amount_in_units": "5000000",
+        "amount_out_min_units": "1",
+        "calldata": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+        "calldata_bytes": 228,
+        "deadline": 1782927105,
+        "dex": "Uniswap V3",
+        "eth_call": {
+          "data": "0x04e45aaf000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000001f40000000000000000000000003e4e81ec69a073f157c6945c41e5c36fda7579a700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000",
+          "from": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
+          "to": "0x2626664c2603336E57B271c5C0b26F421741e481",
+          "value": "0x0"
+        },
+        "eth_call_result": {
+          "error": "ContractLogicError: ('execution reverted: STF', '0x08c379a0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000035354460000000000000000000000000000000000000000000000000000000000')",
+          "status": "REVERT"
+        },
+        "leg": "TINY_LIVE_SMOKE_SWAP",
+        "route_metadata": {
+          "fee_tier": 500,
+          "sqrt_price_limit_x96": 0
+        },
+        "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
+        "router_type": "v3",
+        "token_in": "USDC",
+        "token_in_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "token_out": "WETH",
+        "token_out_address": "0x4200000000000000000000000000000000000006"
+      }
+    ],
+    "tokens": [
+      {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "configured": true,
+        "decimals": 6,
+        "symbol": "USDC"
+      },
+      {
+        "address": "0x4200000000000000000000000000000000000006",
+        "configured": true,
+        "decimals": 18,
+        "symbol": "WETH"
+      }
+    ],
+    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
+  },
+  "transaction_simulation_passed": false
+}

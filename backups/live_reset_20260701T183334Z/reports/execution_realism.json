@@ -1,0 +1,179 @@
+{
+  "generated_at": "2026-07-01T18:23:13Z",
+  "mode": "paper",
+  "paper_capital_usd": "500.0000",
+  "requested_notional_usd": "500.0000",
+  "overall_status": "NOT_SHADOW_READY",
+  "confidence": "LOW",
+  "shadow_ready_count": 0,
+  "live_ready_count": 0,
+  "quote_evidence": {
+    "latest_timestamp": "2026-07-01T18:23:13Z",
+    "row_count": 6,
+    "ok_count": 6,
+    "healthy_dex_count": 3,
+    "healthy_pairs": [
+      "USDC/WETH",
+      "WETH/USDC"
+    ],
+    "quotes": [
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Uniswap V2",
+        "pair": "WETH/USDC",
+        "token_in": "WETH",
+        "token_out": "USDC",
+        "amount_in": "1",
+        "amount_out": "1609.23061",
+        "price": "1609.23061",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      },
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Uniswap V2",
+        "pair": "USDC/WETH",
+        "token_in": "USDC",
+        "token_out": "WETH",
+        "amount_in": "1000",
+        "amount_out": "0.614779468963323461",
+        "price": "0.000614779468963323461",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      },
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Aerodrome",
+        "pair": "WETH/USDC",
+        "token_in": "WETH",
+        "token_out": "USDC",
+        "amount_in": "1",
+        "amount_out": "1613.304116",
+        "price": "1613.304116",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      },
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Aerodrome",
+        "pair": "USDC/WETH",
+        "token_in": "USDC",
+        "token_out": "WETH",
+        "amount_in": "1000",
+        "amount_out": "0.61568220091406655",
+        "price": "0.00061568220091406655",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      },
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Uniswap V3",
+        "pair": "WETH/USDC",
+        "token_in": "WETH",
+        "token_out": "USDC",
+        "amount_in": "1",
+        "amount_out": "1618.16206",
+        "price": "1618.16206",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      },
+      {
+        "timestamp": "2026-07-01T18:23:13Z",
+        "chain": "base",
+        "dex": "Uniswap V3",
+        "pair": "USDC/WETH",
+        "token_in": "USDC",
+        "token_out": "WETH",
+        "amount_in": "1000",
+        "amount_out": "0.617331715717752577",
+        "price": "0.000617331715717752577",
+        "latency_ms": 0.0,
+        "status": "OK",
+        "error": ""
+      }
+    ]
+  },
+  "opportunities": [
+    {
+      "timestamp": "2026-07-01T18:23:13Z",
+      "chain": "base",
+      "pair": "WETH/USDC",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "buy_price": "1609.23061",
+      "sell_price": "1618.16206",
+      "source_decision": "WATCH",
+      "gross_edge_pct": "0.5550",
+      "configured_cost_buffer_pct": "0.3000",
+      "reported_net_edge_pct": "0.2550",
+      "estimated_price_impact_pct": "0.0181",
+      "estimated_gas_usd": "0.0500",
+      "estimated_gas_pct": "0.0100",
+      "mev_risk": "MEDIUM",
+      "mev_risk_buffer_pct": "0.0500",
+      "stress_total_cost_pct": "0.3781",
+      "stress_net_edge_pct": "0.1769",
+      "requested_notional_usd": "500.0000",
+      "max_executable_notional_usd": "500.0000",
+      "executable_ratio_pct": "100.0000",
+      "depth_model": "POOL_DEPTH_LADDER",
+      "pool_depth_status": "DEPTH_READY",
+      "confidence": "MEDIUM",
+      "realism_status": "WATCH_ONLY",
+      "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM."
+    },
+    {
+      "timestamp": "2026-07-01T18:23:13Z",
+      "chain": "base",
+      "pair": "USDC/WETH",
+      "buy_source": "Uniswap V2",
+      "sell_source": "Uniswap V3",
+      "buy_price": "0.000614779468963323461",
+      "sell_price": "0.000617331715717752577",
+      "source_decision": "WATCH",
+      "gross_edge_pct": "0.4151",
+      "configured_cost_buffer_pct": "0.3000",
+      "reported_net_edge_pct": "0.1151",
+      "estimated_price_impact_pct": "0.0112",
+      "estimated_gas_usd": "0.0500",
+      "estimated_gas_pct": "0.0100",
+      "mev_risk": "MEDIUM",
+      "mev_risk_buffer_pct": "0.0500",
+      "stress_total_cost_pct": "0.3712",
+      "stress_net_edge_pct": "0.0439",
+      "requested_notional_usd": "500.0000",
+      "max_executable_notional_usd": "500.0000",
+      "executable_ratio_pct": "100.0000",
+      "depth_model": "POOL_DEPTH_LADDER",
+      "pool_depth_status": "DEPTH_READY",
+      "confidence": "MEDIUM",
+      "realism_status": "WATCH_ONLY",
+      "reason": "Stress model is informational because source decision is not BUY; confidence=MEDIUM."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "INFO",
+      "message": "Latest opportunities are not realistic execution candidates after stress checks."
+    },
+    {
+      "severity": "INFO",
+      "message": "Pool-depth ladder evidence is available for at least one latest opportunity."
+    }
+  ],
+  "notes": [
+    "Execution Realism is evidence-only and does not change paper BUY thresholds or risk limits.",
+    "Without pool-depth evidence, executable size and price impact remain conservative heuristics.",
+    "Live trading remains disabled; SHADOW_READY means suitable for deeper paper/shadow analysis only."
+  ]
+}

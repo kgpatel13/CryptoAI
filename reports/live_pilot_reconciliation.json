@@ -1,43 +1,27 @@
 {
-  "approval_count": 1,
+  "approval_count": 0,
   "current_balances": {
-    "ETH": "0.024121785224852599",
+    "ETH": "0.024099990058428189",
     "USDC": "429.998478",
     "WETH": "0.012568442636912582",
-    "block_number": "48065464",
+    "block_number": "48082216",
     "status": "OK"
   },
   "failed_transaction_count": 0,
   "findings": [
     {
-      "message": "Tiny live smoke succeeded; keep continuous live arbitrage disabled until the live executor exists.",
-      "severity": "INFO"
+      "message": "No live pilot journal rows were found.",
+      "severity": "ACTION"
+    },
+    {
+      "message": "No live smoke swap has been recorded yet.",
+      "severity": "ACTION"
     }
   ],
-  "generated_at": "2026-07-01T15:37:56Z",
-  "journal_count": 2,
-  "latest_approval": {
-    "block_number": 48044409,
-    "dex": "Uniswap V3",
-    "gas_used": 55437,
-    "mode": "approve",
-    "receipt_status": 1,
-    "smoke_usd": "20",
-    "timestamp": "2026-07-01T03:56:05Z",
-    "tx_hash": "c5dbd597af9b3da640690d9c6892f9e6c5fb2b2ff909f0b42f0859a935152758",
-    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
-  },
-  "latest_swap": {
-    "block_number": 48044575,
-    "dex": "Uniswap V3",
-    "gas_used": 135157,
-    "mode": "swap",
-    "receipt_status": 1,
-    "smoke_usd": "20",
-    "timestamp": "2026-07-01T04:01:37Z",
-    "tx_hash": "376d68575e8e0b9adcea06a10f5ce484daa64f67f78ef241b93512b9ee2bb4ad",
-    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
-  },
+  "generated_at": "2026-07-02T00:56:20Z",
+  "journal_count": 0,
+  "latest_approval": null,
+  "latest_swap": null,
   "live_trading_approval": false,
   "mode": "live_pilot_reconciliation",
   "notes": [
@@ -45,33 +29,10 @@
     "A reconciled tiny smoke test is not approval for continuous live arbitrage.",
     "Continuous live trading still requires a reviewed live executor, nonce handling, failure handling, and atomic route execution."
   ],
-  "overall_status": "LIVE_PILOT_RECONCILED",
-  "swap_count": 1,
-  "total_gas_used": 190594,
-  "total_swap_usd": "20.0000",
-  "transactions": [
-    {
-      "block_number": 48044409,
-      "dex": "Uniswap V3",
-      "gas_used": 55437,
-      "mode": "approve",
-      "receipt_status": 1,
-      "smoke_usd": "20",
-      "timestamp": "2026-07-01T03:56:05Z",
-      "tx_hash": "c5dbd597af9b3da640690d9c6892f9e6c5fb2b2ff909f0b42f0859a935152758",
-      "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
-    },
-    {
-      "block_number": 48044575,
-      "dex": "Uniswap V3",
-      "gas_used": 135157,
-      "mode": "swap",
-      "receipt_status": 1,
-      "smoke_usd": "20",
-      "timestamp": "2026-07-01T04:01:37Z",
-      "tx_hash": "376d68575e8e0b9adcea06a10f5ce484daa64f67f78ef241b93512b9ee2bb4ad",
-      "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
-    }
-  ],
+  "overall_status": "NO_LIVE_PILOT_JOURNAL",
+  "swap_count": 0,
+  "total_gas_used": 0,
+  "total_swap_usd": "0.0000",
+  "transactions": [],
   "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
 }

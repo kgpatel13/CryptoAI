@@ -1,6 +1,6 @@
 # Live Control Center
 
-Generated: `2026-07-01T15:37:57Z`
+Generated: `2026-07-02T00:56:22Z`
 - Overall status: `BLOCKED_WALLET_PREFLIGHT`
 - Next action: `Run wallet preflight in safe mode until it is WALLET_PREP_READY.`
 - Next command: `python -m app.execution.wallet_preflight_service`
@@ -15,14 +15,14 @@ Generated: `2026-07-01T15:37:57Z`
   "address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7",
   "chain": "base",
   "usdc_balance": "429.998478",
-  "eth_balance": "0.024121785224852599",
+  "eth_balance": "0.024099990058428189",
   "allowance_sufficient": false,
   "approval_tx_available": true,
   "swap_tx_available": true,
-  "smoke_usd": "20",
+  "smoke_usd": "5",
   "dex": "Uniswap V3",
   "router_address": "0x2626664c2603336E57B271c5C0b26F421741e481",
-  "latest_block": 48065465
+  "latest_block": 48082217
 }
 ```
 
@@ -30,31 +30,21 @@ Generated: `2026-07-01T15:37:57Z`
 
 ```json
 {
-  "overall_status": "LIVE_PILOT_RECONCILED",
-  "journal_count": 2,
-  "approval_count": 1,
-  "swap_count": 1,
+  "overall_status": "NO_LIVE_PILOT_JOURNAL",
+  "journal_count": 0,
+  "approval_count": 0,
+  "swap_count": 0,
   "failed_transaction_count": 0,
-  "total_swap_usd": "20.0000",
-  "total_gas_used": 190594,
+  "total_swap_usd": "0.0000",
+  "total_gas_used": 0,
   "current_balances": {
-    "ETH": "0.024121785224852599",
+    "ETH": "0.024099990058428189",
     "USDC": "429.998478",
     "WETH": "0.012568442636912582",
-    "block_number": "48065464",
+    "block_number": "48082216",
     "status": "OK"
   },
-  "latest_swap": {
-    "block_number": 48044575,
-    "dex": "Uniswap V3",
-    "gas_used": 135157,
-    "mode": "swap",
-    "receipt_status": 1,
-    "smoke_usd": "20",
-    "timestamp": "2026-07-01T04:01:37Z",
-    "tx_hash": "376d68575e8e0b9adcea06a10f5ce484daa64f67f78ef241b93512b9ee2bb4ad",
-    "wallet_address": "0x3e4E81ec69A073f157c6945C41e5C36FdA7579a7"
-  }
+  "latest_swap": null
 }
 ```
 
@@ -71,9 +61,9 @@ Generated: `2026-07-01T15:37:57Z`
   "tiny_live_pilot": "LIVE_PILOT_BLOCKED",
   "tiny_live_blocked_checks": 2,
   "provider_monitor": "OK",
-  "report_audit_blocking_findings": 12,
-  "live_safety": "LIVE_BLOCKED",
-  "live_pilot_reconciliation": "LIVE_PILOT_RECONCILED"
+  "report_audit_blocking_findings": 14,
+  "live_safety": "-",
+  "live_pilot_reconciliation": "NO_LIVE_PILOT_JOURNAL"
 }
 ```
 
